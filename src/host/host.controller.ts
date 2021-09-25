@@ -1,4 +1,5 @@
 import { Controller, Get, HttpCode } from '@nestjs/common';
+import objAdd from 'src/core/function/ObjectDefine';
 
 @Controller('host')
 export class HostController {
@@ -8,22 +9,17 @@ export class HostController {
     async find(){
         // connect to database (TODO)
         let data = {}
-        Object.defineProperty(data, "name", {
-            value: "Wibus",
-            writable: false,
-        })
-        Object.defineProperty(data, "description", {
-            value: "Just Uaeua",
-            writable: false,
-        })
-        Object.defineProperty(data, "image", {
-            value: "http://q1.qlogo.cn/g?b=qq&nk=1596355173&s=640",
-            writable: false,
-        })
-        Object.defineProperty(data, "github", {
-            value: "wibus-wee",
-            writable: false,
-        })
+        let name : string, description : string, image : string, github : string
+        name = "Wibus"
+        description = "Just Uaeua"
+        image = "http://q1.qlogo.cn/g?b=qq&nk=1596355173&s=640"
+        github = "wibus-wee"
+
+        objAdd(data, "name", name)
+        objAdd(data, "description", description)
+        objAdd(data, "image", image)
+        objAdd(data, "github", github)
+
         return data;
     }
 }

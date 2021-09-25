@@ -17,10 +17,11 @@ pnpm start # Production
 
 ## Stack
 
-- `Nestjs`
-- `TypeScript`
-- `Nodejs`
-- `MongoDB`
+- Nestjs -- 可扩展的 Node.js 服务器端应用程序的框架
+- TypeScript -- 始于JavaScript，归于JavaScript
+- Nodejs -- 基于 Chrome V8 引擎的 JavaScript 运行环境
+- MongoDB -- 专为可扩展性，高性能和高可用性而设计的数据库
+- XSS -- 实用的xss过滤器
 
 ## 接口一览表 `v1`
 
