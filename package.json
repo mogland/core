@@ -2,7 +2,7 @@
   "name": "nest-server",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Wibus",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -18,7 +18,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "commit": "git add . && cz && git push"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -38,6 +39,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
@@ -49,6 +51,11 @@
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "jest": {
     "moduleFileExtensions": [

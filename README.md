@@ -2,4 +2,26 @@
 
 TypeScript. Nextjs. Base.
 
+这是第一次使用TypeScript来写的程序，也是第一个用了nodejs的仓库，反正都是**第一次**。所以在很多地方也许会出现非常不正确的写法，期待以后的学习改进！
+
+## How to use?
+
+如果你知道这个程序到底是怎么运作的话，你可以使用。但是如果你不知道，建议离开，很有可能你使用的是我写了bug的代码
+
+```bash
+pnpm install # install
+pnpm start:dev # Dev
+pnpm build # build
+pnpm start # Production
+```
+
+## Stack
+
+- `Nestjs`
+- `TypeScript`
+- `Nodejs`
+- `MongoDB`
+
+## 接口一览表 `v1`
+
 ![api](https://gitee.com/wibus/blog-assets-goo/raw/master/asset-pic/20210925081804.jpg)
