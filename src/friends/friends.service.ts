@@ -28,6 +28,6 @@ export class FriendsService {
         const $api = axios.create()
         $api
             .get('https://baidu.com')
-            .then((response) => {console.warn(response.data); return response.data})
+            .then((response) => {return response.data})
     }
 }
