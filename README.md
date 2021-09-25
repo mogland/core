@@ -2,6 +2,10 @@
 
 TypeScript. Nextjs. Base.
 
+Created on 2021-09-25
+
+Dev. by Wibus
+
 这是第一次使用TypeScript来写的程序，也是第一个用了nodejs的仓库，反正都是**第一次**。所以在很多地方也许会出现非常不正确的写法，期待以后的学习改进！
 
 ## How to use?
