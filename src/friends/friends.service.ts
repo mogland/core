@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import delXss from 'src/core/function/xss';
 import { CreateLinks } from 'src/core/interface/friends.interface';
+import axios from 'axios'
+import objAdd from 'src/core/function/ObjectDefine';
 
 @Injectable()
 export class FriendsService {
@@ -19,5 +21,13 @@ export class FriendsService {
         }
         return data
         // return 1
+    }
+    async check(){
+        let links: any
+
+        const $api = axios.create()
+        $api
+            .get('https://baidu.com')
+            .then((response) => {console.warn(response.data); return response.data})
     }
 }
