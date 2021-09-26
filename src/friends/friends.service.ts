@@ -24,10 +24,19 @@ export class FriendsService {
     }
     async check(){
         let links: any
-
+        let status
         const $api = axios.create()
-        $api
+        // $api
+        axios
             .get('https://baidu.com')
-            .then((response) => {return response.data})
+            .then((response) => {
+                status = response.status;
+                // console.log(response.status)
+                // console.log(status)
+                // console.log("get")
+                return status
+            })
+        // console.log(status)
+        return await status
     }
 }

@@ -16,12 +16,8 @@ export class FriendsController {
 
     @Get('check')
     async getStatus(){
-        // console.log(this.friendsService.check())
-        // return this.friendsService.check()
-        const $api = axios.create()
-        $api
-            .get('https://baidu.com')
-            .then((response) => {console.warn(response.data); return response.data})
+        console.log(await this.friendsService.check())
+        return await this.friendsService.check()
     }
 
 }
