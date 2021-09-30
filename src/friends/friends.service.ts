@@ -22,21 +22,18 @@ export class FriendsService {
         return data
         // return 1
     }
-    async check(){
+    check(){
         let links: any
         let status
         const $api = axios.create()
         // $api
-        axios
-            .get('https://baidu.com')
-            .then((response) => {
-                status = response.status;
-                // console.log(response.status)
-                // console.log(status)
-                // console.log("get")
-                return status
-            })
+        let v = axios.get('https://baidu.com')
+        v.then(
+            function (res) {
+                status = res
+            }
+            )
         // console.log(status)
-        return await status
+        return v.then((res) => {return res.status})
     }
 }

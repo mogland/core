@@ -16,7 +16,7 @@ export class FriendsController {
 
     @Get('check')
     async getStatus(){
-        console.log(await this.friendsService.check())
+        // console.log(await this.friendsService.check())
         return await this.friendsService.check()
     }
 
