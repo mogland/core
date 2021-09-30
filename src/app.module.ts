@@ -5,11 +5,15 @@ import { PagesController } from './pages/pages.controller';
 import { PostsController } from './posts/posts.controller';
 import { CommentController } from './comment/comment.controller';
 import { FriendsController } from './friends/friends.controller';
-import { FriendsService } from './friends/friends.service';
+import { FriendsService } from './core/services/friends.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { HostModule } from './core/modules/host.module';
+import { HostService } from './core/services/host.service';
+import { hostProviders } from './core/providers/host.providers';
 
 @Module({
-  imports: [],
+  imports: [MongooseModule.forRoot('mongodb://localhost/nest'), HostModule],
   controllers: [HostController, PagesController, PostsController, CommentController, FriendsController],
-  providers: [AppService, FriendsService],
+  providers: [AppService, FriendsService, HostService, ...hostProviders],
 })
 export class AppModule {}

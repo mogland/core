@@ -1,9 +1,11 @@
 import { Controller, Get, HttpCode } from '@nestjs/common';
 import objAdd from 'src/core/function/ObjectDefine';
+import { Host } from 'src/core/schemas/host.schema';
+import { HostService } from 'src/core/services/host.service';
 
 @Controller('host')
 export class HostController {
-
+    constructor(private hostService: HostService){}
     @Get('admin')
     @HttpCode(200)
     async find(){
@@ -21,5 +23,9 @@ export class HostController {
         objAdd(data, "github", github)
 
         return data;
+    }
+    @Get('test')
+    async test(): Promise<Host[]>{
+        return this.hostService.findAll()
     }
 }
