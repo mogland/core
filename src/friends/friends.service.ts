@@ -27,13 +27,13 @@ export class FriendsService {
         let status
         const $api = axios.create()
         // $api
-        let v = axios.get('https://baidu.com')
+        let v = axios.get('https://sty.iucky.cn')
         v.then(
             function (res) {
                 status = res
             }
             )
         // console.log(status)
-        return v.then((res) => {return res.status})
+        return v.then((res) => {return res.status}).catch((error) => {if (error.response) {return error.response.status}else{return error.message}})
     }
 }

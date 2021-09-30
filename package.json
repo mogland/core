@@ -20,7 +20,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "commit": "git add . && cz && git push",
-    "changelog": "rm CHANGELOG.md && conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "init:Cli": "npm install -g commitizen && npm install -g conventional-changelog-cli"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
