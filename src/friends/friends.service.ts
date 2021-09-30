@@ -22,7 +22,7 @@ export class FriendsService {
         return data
         // return 1
     }
-    check(){
+    async check(){
         let links: any
         let status
         const $api = axios.create()
@@ -34,6 +34,11 @@ export class FriendsService {
             }
             )
         // console.log(status)
-        return v.then((res) => {return res.status}).catch((error) => {if (error.response) {return error.response.status}else{return error.message}})
+        try {
+            const res_1 = await v;
+            return res_1.status;
+        } catch (error) {
+            if (error.response) { return error.response.status; } else { return error.message; }
+        }
     }
 }
