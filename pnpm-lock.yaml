@@ -84,7 +84,7 @@ devDependencies:
 
 packages:
 
-  /@angular-devkit/core/12.0.5:
+  /@angular-devkit/12.0.5:
     resolution: {integrity: sha512-zVSQV+8/vjUjsUKGlj8Kf5LioA6AXJTGI0yhHW9q1dFX4dPpbW63k0R1UoIB2wJ0F/AbYVgpnPGPe9BBm2fvZA==}
     engines: {node: ^12.14.1 || >=14.0.0, npm: ^6.11.0 || ^7.5.6, yarn: '>= 1.13.0'}
     dependencies:
@@ -96,7 +96,7 @@ packages:
       source-map: 0.7.3
     dev: true
 
-  /@angular-devkit/core/12.1.4:
+  /@angular-devkit/12.1.4:
     resolution: {integrity: sha512-KOzGD8JbP/7EeUwPiU5x+fo3ZEQ5R4IVW5WoH92PaO3mdpqXC7UL2MWLct8PUe9il9nqJMvrBMldSSvP9PCT2w==}
     engines: {node: ^12.14.1 || >=14.0.0, npm: ^6.11.0 || ^7.5.6, yarn: '>= 1.13.0'}
     dependencies:
@@ -157,7 +157,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dev: true
 
-  /@babel/core/7.15.5:
+  /@babel/7.15.5:
     resolution: {integrity: sha512-pYgXxiwAgQpgM1bNkZsDEq85f0ggXMA5L7c+o3tskGMh2BunCI9QUwB9Z4jpvXUOuMdyGKiGKQiRe11VS6Jzvg==}
     engines: {node: '>=6.9.0'}
     dependencies:
@@ -598,7 +598,7 @@ packages:
       slash: 3.0.0
     dev: true
 
-  /@jest/core/27.2.1_ts-node@10.2.1:
+  /@jest/27.2.1_ts-node@10.2.1:
     resolution: {integrity: sha512-XcGt9UgPyzylThvezwUIMCNVp8xxN78Ic3WwhJZehZt4n2hPHR6Bd85A1nKFZBeqW58Vd+Cx/LaN6YL4n58KlA==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     peerDependencies:
@@ -837,7 +837,7 @@ packages:
       - debug
     dev: false
 
-  /@nestjs/core/8.0.7_89a1b2f707b1c5de9d83624ae0c6b3b1:
+  /@nestjs/8.0.7_89a1b2f707b1c5de9d83624ae0c6b3b1:
     resolution: {integrity: sha512-A8n+rw8C3yp5hpvmHeQ+x7NjPOe+m/8ITI2tiv8cJeOjPaXn2nhViSB7uwKaNUP1MBgh/7y0HVafFBHzPBZj3g==}
     requiresBuild: true
     peerDependencies:
@@ -1068,7 +1068,7 @@ packages:
     resolution: {integrity: sha512-eZxlbI8GZscaGS7kkc/trHTT5xgrjH3/1n2JDwusC9iahPKWMRvRjJSAN5mCXviuTGQ/lHnhvv8Q1YTpnfz9gA==}
     dev: true
 
-  /@types/babel__core/7.1.16:
+  /@types/babel__7.1.16:
     resolution: {integrity: sha512-EAEHtisTMM+KaKwfWdC3oyllIqswlznXCIVCt7/oRNrh+DhgT4UEBNC/jlADNjvw7UnfbcdkGQcPVZ1xYiLcrQ==}
     dependencies:
       '@babel/parser': 7.15.7
@@ -1132,7 +1132,7 @@ packages:
     resolution: {integrity: sha512-C6N5s2ZFtuZRj54k2/zyRhNDjJwwcViAM3Nbm8zjBpbqAdZ00mr0CFxvSKeO8Y/e03WVFLpQMdHYVfUd6SB+Hw==}
     dev: true
 
-  /@types/express-serve-static-core/4.17.24:
+  /@types/express-serve-static-4.17.24:
     resolution: {integrity: sha512-3UJuW+Qxhzwjq3xhwXm2onQcFHn76frIYVbTu+kn24LFxI+dEhdfISDFovPB8VpEgW8oQCTpRuCe+0zJxB7NEA==}
     dependencies:
       '@types/node': 16.9.6

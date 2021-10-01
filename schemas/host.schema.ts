@@ -1,5 +1,5 @@
 /*
- * @FilePath: /nest-server/core/schemas/host.schema.ts
+ * @FilePath: /nest-server/schemas/host.schema.ts
  * @author: Wibus
  * @Date: 2021-10-01 05:21:41
  * @LastEditors: Wibus

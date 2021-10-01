@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import delXss from 'core/function/xss';
-import { CreateLinks } from 'core/interface/friends.interface';
+import delXss from 'function/xss';
+import { CreateLinks } from 'interface/friends.interface';
 import axios from 'axios'
-import objAdd from 'core/function/ObjectDefine';
+import objAdd from 'function/ObjectDefine';
 
 @Injectable()
 export class FriendsService {
+    
     create(data: CreateLinks){
         // create data to database (todo)
         data.name = delXss(data.name)

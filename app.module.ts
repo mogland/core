@@ -6,23 +6,15 @@ import { PagesController } from './pages/pages.controller';
 import { PostsController } from './posts/posts.controller';
 import { CommentController } from './comment/comment.controller';
 import { FriendsController } from './friends/friends.controller';
-import { FriendsService } from './core/services/friends.service';
-import { HostService } from './core/services/host.service';
-
+import { FriendsService } from './services/friends.service';
+import { HostService } from './services/host.service';
+import { HostModule } from './modules/host.module';
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'test',
-      entities: [],
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(),
+    HostModule,
   ],
   controllers: [HostController, PagesController, PostsController, CommentController, FriendsController],
-  providers: [AppService, FriendsService, HostService],
+  providers: [AppService, HostService, FriendsService],
 })
 export class AppModule {}

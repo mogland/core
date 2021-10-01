@@ -1,6 +1,6 @@
 import { Controller, Get, HttpCode } from '@nestjs/common';
-import objAdd from 'core/function/ObjectDefine';
-import { HostService } from 'core/services/host.service';
+import objAdd from 'function/ObjectDefine';
+import { HostService } from 'services/host.service';
 
 @Controller('host')
 export class HostController {
@@ -22,5 +22,9 @@ export class HostController {
         objAdd(data, "github", github)
 
         return data;
+    }
+    @Get()
+    async list(){
+        // return await this.hostService.findAll();
     }
 }

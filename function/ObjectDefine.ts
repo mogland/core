@@ -1,5 +1,5 @@
 /*
- * @FilePath: /nest-server/core/function/ObjectDefine.ts
+ * @FilePath: /nest-server/function/ObjectDefine.ts
  * @author: Wibus
  * @Date: 2021-09-25 16:45:46
  * @LastEditors: Wibus
