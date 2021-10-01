@@ -1,6 +1,6 @@
 import { Controller, Get, HttpCode } from '@nestjs/common';
-import objAdd from 'src/core/function/ObjectDefine';
-import { HostService } from 'src/core/services/host.service';
+import objAdd from 'core/function/ObjectDefine';
+import { HostService } from 'core/services/host.service';
 
 @Controller('host')
 export class HostController {

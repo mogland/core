@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
-import { CreateLinks } from 'src/core/interface/friends.interface';
+import { CreateLinks } from 'core/interface/friends.interface';
 import { FriendsService } from '../core/services/friends.service';
 
 @Controller('friends')

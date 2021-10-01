@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import delXss from 'src/core/function/xss';
-import { CreateLinks } from 'src/core/interface/friends.interface';
+import delXss from 'core/function/xss';
+import { CreateLinks } from 'core/interface/friends.interface';
 import axios from 'axios'
-import objAdd from 'src/core/function/ObjectDefine';
+import objAdd from 'core/function/ObjectDefine';
 
 @Injectable()
 export class FriendsService {

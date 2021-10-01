@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -24,13 +24,16 @@
     "@nestjs/mongoose": "^9.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^5.0.9",
+    "@nestjs/typeorm": "^8.0.2",
     "axios": "^0.21.4",
     "mongoose": "^6.0.8",
+    "mysql2": "^2.3.0",
     "node-fetch": "^3.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.1.6",
+    "typeorm": "^0.2.37",
     "xss": "^1.0.9"
   },
   "devDependencies": {

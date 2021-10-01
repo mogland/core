@@ -1,5 +1,5 @@
 /*
- * @FilePath: /Nest-server/src/core/services/host.service.ts
+ * @FilePath: /Nest-server/core/services/host.service.ts
  * @author: Wibus
  * @Date: 2021-10-01 05:26:31
  * @LastEditors: Wibus

@@ -1,5 +1,5 @@
 /*
- * @FilePath: /Nest-server/src/core/function/checkStatus.ts
+ * @FilePath: /Nest-server/core/function/checkStatus.ts
  * @author: Wibus
  * @Date: 2021-09-26 22:32:28
  * @LastEditors: Wibus
