@@ -6,14 +6,11 @@ import { PostsController } from './posts/posts.controller';
 import { CommentController } from './comment/comment.controller';
 import { FriendsController } from './friends/friends.controller';
 import { FriendsService } from './core/services/friends.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { HostModule } from './core/modules/host.module';
 import { HostService } from './core/services/host.service';
-import { hostProviders } from './core/providers/host.providers';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost/nest'), HostModule],
+  imports: [],
   controllers: [HostController, PagesController, PostsController, CommentController, FriendsController],
-  providers: [AppService, FriendsService, HostService, ...hostProviders],
+  providers: [AppService, FriendsService, HostService],
 })
 export class AppModule {}
