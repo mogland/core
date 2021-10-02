@@ -1,14 +1,14 @@
 /*
- * @FilePath: /Nest-server/services/host.service.ts
+ * @FilePath: /Nest-server/host/host.service.ts
  * @author: Wibus
  * @Date: 2021-10-01 05:26:31
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-01 17:40:07
+ * @LastEditTime: 2021-10-02 14:56:37
  * Coding With IU
  */
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Host } from 'entities/host.entity';
+import { Host } from './host.entity';
 import { Repository } from 'typeorm'
 
 

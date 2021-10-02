@@ -6,9 +6,9 @@ import { PagesController } from './pages/pages.controller';
 import { PostsController } from './posts/posts.controller';
 import { CommentController } from './comment/comment.controller';
 import { FriendsController } from './friends/friends.controller';
-import { FriendsService } from './services/friends.service';
-import { HostService } from './services/host.service';
-import { HostModule } from './modules/host.module';
+import { FriendsService } from './friends/friends.service';
+import { HostService } from './host/host.service';
+import { HostModule } from './host/host.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(),

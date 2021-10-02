@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import delXss from 'function/xss';
-import { CreateLinks } from 'interface/friends.interface';
+import { CreateLinks } from './friends.interface';
 import axios from 'axios'
 import objAdd from 'function/ObjectDefine';
 
@@ -28,7 +28,7 @@ export class FriendsService {
         let status
         const $api = axios.create()
         // $api
-        let v = axios.get('https://sty.iucky.cn')
+        let v = axios.get('https://blog.iucky.cn')
         v.then(
             function (res) {
                 status = res

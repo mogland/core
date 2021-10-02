@@ -1,13 +1,18 @@
 import { Controller, Get, HttpCode } from '@nestjs/common';
+import { ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
 import objAdd from 'function/ObjectDefine';
-import { HostService } from 'services/host.service';
+import { HostService } from 'host/host.service';
 
 @Controller('host')
+@ApiTags('host')
 export class HostController {
     constructor(private hostService: HostService){}
     @Get('admin')
+    @ApiOperation({
+        summary: '获取主人信息'
+    })
     @HttpCode(200)
-    async find(){
+    find(){
         // connect to database (TODO)
         let data = {}
         let name : string, description : string, image : string, github : string
