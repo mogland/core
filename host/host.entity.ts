@@ -1,9 +1,9 @@
 /*
- * @FilePath: /Nest-server/entities/host.entity.ts
+ * @FilePath: /Nest-server/host/host.entity.ts
  * @author: Wibus
  * @Date: 2021-10-01 17:16:38
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-01 17:44:45
+ * @LastEditTime: 2021-10-03 13:48:51
  * Coding With IU
  */
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
