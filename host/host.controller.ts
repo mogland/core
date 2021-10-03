@@ -1,8 +1,6 @@
 import { Body, Controller, Get, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiCreatedResponse, ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
-import objAdd from 'function/ObjectDefine';
-// import { AuthGuard } from 'guards/auth.guard';
 import { HostService } from 'host/host.service';
 import { CreateHostDto } from './create-host-dto';
 

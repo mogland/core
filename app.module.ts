@@ -27,7 +27,7 @@ import { PostsModule } from './posts/posts.module';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '120s' },
+      signOptions: { expiresIn: '300s' },
     }),
 
     TypeOrmModule.forRoot(),

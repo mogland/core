@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nest-server/posts/posts.service.ts
+ * @FilePath: /Nest-server/posts/posts.service.ts
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-04 00:44:04
+ * @LastEditTime: 2021-10-04 06:59:51
  * Coding With IU
  */
 import { Injectable } from '@nestjs/common';
@@ -20,13 +20,13 @@ export class PostsService {
         private postsRepository: Repository<Posts>
     ){}
 
-    async findOne(id): Promise<Posts[]> {
-        return await this.postsRepository.findByIds(id.id)
+    async findOne(id: number[]): Promise<Posts[]> {
+        return await this.postsRepository.findByIds(id)
     }
     async list(): Promise<Posts[]>{
         return await this.postsRepository.find()
     }
-    async send(data: Posts): Promise<Posts>{
+    async send(data: CreatePostDto): Promise<Posts>{
         return await this.postsRepository.save(data)
     }
 }

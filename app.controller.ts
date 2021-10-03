@@ -12,6 +12,7 @@ export class AppController {
   @Post('auth/login')
   @ApiOperation({summary: '登陆管理员'})
   async login(@Request() req) {
+    // console.log(req)
     return this.authService.login(req.user);
   }
 
@@ -19,6 +20,7 @@ export class AppController {
   @ApiOperation({summary: '获取管理员信息(Bugs)'})
   @Get('profile')
   getProfile(@Request() req) {
-    return req.user;
+    console.log(req)
+    return this.authService.checkUser(req.username);
   }
 }
