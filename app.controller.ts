@@ -1,5 +1,6 @@
 import { Controller, Get, Request, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiOperation } from '@nestjs/swagger';
 import { LocalAuthGuard } from 'auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 
@@ -9,11 +10,13 @@ export class AppController {
 
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
+  @ApiOperation({summary: '登陆管理员'})
   async login(@Request() req) {
     return this.authService.login(req.user);
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({summary: '获取管理员信息(Bugs)'})
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;

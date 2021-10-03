@@ -7,7 +7,7 @@ import { HostService } from 'host/host.service';
 import { CreateHostDto } from './create-host-dto';
 
 @Controller('host')
-@ApiTags('host')
+@ApiTags('Host')
 // @UseGuards(AuthGuard)
 export class HostController {
     constructor(private hostService: HostService){}
