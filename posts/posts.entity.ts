@@ -12,7 +12,5 @@ export class Posts {
   tags: string
   @Column()
   slug: string
-  @Column()
-  password?: string
 
 }

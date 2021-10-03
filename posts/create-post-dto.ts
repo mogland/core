@@ -11,7 +11,5 @@ export class CreatePostDto {
     tags: string[]
     @ApiProperty()
     slug: string
-    @ApiProperty()
-    password?: string
 
 }

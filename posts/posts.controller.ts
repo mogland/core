@@ -1,6 +1,7 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
+import { CreatePostDto } from './create-post-dto';
 import { PostsService } from './posts.service';
 
 @Controller('posts')
@@ -12,8 +13,12 @@ export class PostsController {
         return this.postsService.list()
     }
     @Get(':id')
-    @UseGuards(AuthGuard('jwt'))
-    async show(){
-        return 
+    // @UseGuards(AuthGuard('jwt'))
+    async findOne(@Param() params){
+        return this.postsService.findOne(params)
+    }
+    @Post('send')
+    async send(@Body() res: CreatePostDto){
+        
     }
 }
