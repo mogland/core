@@ -1,11 +1,14 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ApiCreatedResponse, ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
 import objAdd from 'function/ObjectDefine';
+// import { AuthGuard } from 'guards/auth.guard';
 import { HostService } from 'host/host.service';
 import { CreateHostDto } from './create-host-dto';
 
 @Controller('host')
 @ApiTags('host')
+// @UseGuards(AuthGuard)
 export class HostController {
     constructor(private hostService: HostService){}
     @Get()
@@ -16,6 +19,7 @@ export class HostController {
         return await this.hostService.find();
     }
     @Post()
+    @UseGuards(AuthGuard('jwt'))
     @ApiOperation({
         summary: '修改主人信息'
     })
@@ -33,7 +37,8 @@ export class HostController {
             }
         } catch (error) {
             return {
-                "ok": 0
+                "ok": 0,
+                "message": error
             }
         }
     }
