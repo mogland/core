@@ -19,6 +19,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth/constants';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { LocalStrategy } from 'auth/local.strategy';
+import { PostsService } from './posts/posts.service';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -32,9 +34,10 @@ import { LocalStrategy } from 'auth/local.strategy';
     HostModule,
     UsersModule,
     AuthModule,
+    PostsModule,
     
   ],
   controllers: [AppController, HostController, PagesController, PostsController, CommentController, FriendsController],
-  providers: [AppService, HostService, FriendsService, UsersService, AuthService, LocalStrategy, JwtStrategy],
+  providers: [AppService, HostService, FriendsService, UsersService, AuthService, LocalStrategy, JwtStrategy, PostsService],
 })
 export class AppModule {}
