@@ -16,4 +16,7 @@ export class CreatePostDto {
     @ApiProperty()
     slug: string
 
+    @ApiProperty()
+    content: string
+
 }

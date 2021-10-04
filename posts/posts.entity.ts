@@ -12,9 +12,13 @@ export class Posts {
   path: string
 
   @Column()
+  content: string
+
+  @Column()
   tags: string
   
   @Column()
   slug: string
+
 
 }

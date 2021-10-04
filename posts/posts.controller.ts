@@ -12,10 +12,12 @@ export class PostsController {
     async list(){
         return this.postsService.list()
     }
-    @Get(':id')
+
+    @Get(':path')
     async findOne(@Param() params){
-        return this.postsService.findOne(params.id)
+        return this.postsService.findOne(params.path)
     }
+    
     @Post('send')
     // @UseGuards(AuthGuard('jwt'))
     async send(@Body() data: CreatePostDto){

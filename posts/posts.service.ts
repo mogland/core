@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-04 15:00:15
+ * @LastEditTime: 2021-10-04 15:20:00
  * Coding With IU
  */
 import { Injectable } from '@nestjs/common';
@@ -20,12 +20,16 @@ export class PostsService {
         private postsRepository: Repository<Posts>
     ){}
 
-    async findOne(id: number[]): Promise<Posts[]> {
-        return await this.postsRepository.findByIds(id)
+    async findOne(path: any): Promise<Posts> {
+        return await this.postsRepository.findOne({
+            path: path
+        })
     }
+
     async list(): Promise<Posts[]>{
         return await this.postsRepository.find()
     }
+
     async send(data: CreatePostDto): Promise<Posts | string>{
         let result = await this.postsRepository.find({
             path: data.path
