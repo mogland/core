@@ -1,9 +1,9 @@
 /*
- * @FilePath: /Nest-server/posts/posts.service.ts
+ * @FilePath: /nest-server/posts/posts.service.ts
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-04 06:59:51
+ * @LastEditTime: 2021-10-04 15:00:15
  * Coding With IU
  */
 import { Injectable } from '@nestjs/common';
@@ -26,7 +26,21 @@ export class PostsService {
     async list(): Promise<Posts[]>{
         return await this.postsRepository.find()
     }
-    async send(data: CreatePostDto): Promise<Posts>{
-        return await this.postsRepository.save(data)
+    async send(data: CreatePostDto): Promise<Posts | string>{
+        let result = await this.postsRepository.find({
+            path: data.path
+        })
+        // console.log(result[0])
+        // return await this.postsRepository.save(data)
+        if (result[0]) {
+            return `{
+                "statusCode": "403",
+                 "message": "slug is already used",
+                  "error": "Can't Save"
+                }`
+        }else{
+            return await this.postsRepository.save(data)
+        }
+        
     }
 }

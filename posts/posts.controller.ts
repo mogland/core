@@ -17,10 +17,10 @@ export class PostsController {
         return this.postsService.findOne(params.id)
     }
     @Post('send')
-    @UseGuards(AuthGuard('jwt'))
-    async send(@Body() content: CreatePostDto){
+    // @UseGuards(AuthGuard('jwt'))
+    async send(@Body() data: CreatePostDto){
         // here is no need to filter XSS here
         // because this is user controller only
-        return await this.postsService.send(content)
+        return await this.postsService.send(data)
     }
 }
