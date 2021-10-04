@@ -10,7 +10,8 @@ Dev. by Wibus
 
 ## How to use?
 
-如果你知道这个程序到底是怎么运作的话，你可以使用。但是如果你不知道，建议离开，很有可能你使用的是我写了bug的代码
+- open `ormconfig.json`
+- edit json
 
 ```bash
 pnpm install # install
@@ -31,3 +32,7 @@ pnpm start # Production
 ## 接口一览表 `v1`
 
 ![api](https://gitee.com/wibus/blog-assets-goo/raw/master/asset-pic/20210925081804.jpg)
+
+## 缺点 `v1`
+
+使用的是mysql作为数据载体，原本想用的是mongodb，对比mysql与mongodb，个人认为mongodb会让整体数据结构和速度更快更好

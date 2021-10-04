@@ -1,4 +1,4 @@
-import { Controller, Get, Request, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Request, Post, UseGuards, Body } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation } from '@nestjs/swagger';
 import { LocalAuthGuard } from 'auth/local-auth.guard';
@@ -17,10 +17,9 @@ export class AppController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @ApiOperation({summary: '获取管理员信息(Bugs)'})
+  @ApiOperation({summary: '获取管理员信息'})
   @Get('profile')
-  getProfile(@Request() req) {
-    console.log(req)
+  getProfile(@Body() req) {
     return this.authService.checkUser(req.username);
   }
 }
