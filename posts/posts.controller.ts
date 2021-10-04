@@ -25,4 +25,11 @@ export class PostsController {
         // because this is user controller only
         return await this.postsService.send(data)
     }
+
+    @Get('delete/:path')
+    // @UseGuards(AuthGuard('jwt'))
+    async del(@Param() params){
+        return await this.postsService.del(params.path)
+    }
+    // if delete successfully, it will return affected = 1
 }

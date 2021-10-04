@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-04 15:31:33
+ * @LastEditTime: 2021-10-04 15:41:55
  * Coding With IU
  */
 import { Injectable } from '@nestjs/common';
@@ -46,5 +46,11 @@ export class PagesService {
             return await this.pagesRepository.save(data)
         }
         
+    }
+
+    async del(path) {
+        return await this.pagesRepository.delete({
+            path: path
+        })
     }
 }

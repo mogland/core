@@ -47,4 +47,10 @@ export class PostsService {
         }
         
     }
+
+    async del(path) {
+        return await this.postsRepository.delete({
+            path: path
+        })
+    }
 }
