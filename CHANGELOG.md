@@ -1,3 +1,39 @@
+## [0.0.2](https://github.com/wibus-wee/Nest-server/compare/v0.0.1...v0.0.2) (2021-10-04)
+
+
+### Bug Fixes
+
+* fix admin information bug ([3bf6eb9](https://github.com/wibus-wee/Nest-server/commit/3bf6eb9d59301c47e8c8fddd93a37c27eb5a6306))
+* fix send same post bug ([577be4f](https://github.com/wibus-wee/Nest-server/commit/577be4f473353d8d1398b0213b660f3f1235ac85))
+* **host:** delete mongoose & codes ([e2aba01](https://github.com/wibus-wee/Nest-server/commit/e2aba0110db44816ad813fc321b4f4473994b3c9)), closes [#3](https://github.com/wibus-wee/Nest-server/issues/3)
+* **host:** fix createHostDto bugs ([a465aa4](https://github.com/wibus-wee/Nest-server/commit/a465aa4a115440741617a4246c6bedb93fae4a86))
+
+
+### Features
+
+* add mysql & typeorm to repo ([bd4c035](https://github.com/wibus-wee/Nest-server/commit/bd4c035f49b2f45d68edf986f20d52f0f9cbe3f9))
+* **comment:** add Comment controller ([cf55b0a](https://github.com/wibus-wee/Nest-server/commit/cf55b0a0c0f4abaacb10ba6e03d881be8f210bd0))
+* **host:** add data support to the host controller ([2053727](https://github.com/wibus-wee/Nest-server/commit/20537279132b86445089ab7724a98d7bc705cd6b))
+* introducing authorization Guards ([81d5fd6](https://github.com/wibus-wee/Nest-server/commit/81d5fd6216a54ddb3b4a7480f6e4e40a6f7595d2))
+* **pages:** database support is provided for Pages ([adb3b4c](https://github.com/wibus-wee/Nest-server/commit/adb3b4ceadd43cc78d09bc02cfddf8bd347fb70a))
+* **posts:** add db supports for posts ([4e5d8bf](https://github.com/wibus-wee/Nest-server/commit/4e5d8bfac473fe3b2551b84aaf6860e83ac84c37))
+
+
+### Performance Improvements
+
+* add comment.entry ([43231f6](https://github.com/wibus-wee/Nest-server/commit/43231f6b4d04fb495fee511ab6ff8765f97d9b34))
+* delete Support for posts & pages ([2b2e644](https://github.com/wibus-wee/Nest-server/commit/2b2e644fe40f88b8f9b9f10f1c194512341f6096))
+* **posts:** improve posts db ([7c83763](https://github.com/wibus-wee/Nest-server/commit/7c83763e1445290040f3caab34cc24c3eaef7d87))
+* **posts:** improve postsService findOne ([c7c9cab](https://github.com/wibus-wee/Nest-server/commit/c7c9cab7049fe031727e8c4e66082d9b1e9cf2f4))
+* **swagger:** optimize the swagger of comment ([ca93a38](https://github.com/wibus-wee/Nest-server/commit/ca93a387be2f4ae315cb2ca3628c9b3b6ccfbae2))
+
+
+### BREAKING CHANGES
+
+* An authorization guard is introduced to protect routes
+
+
+
 ## 0.0.1 (2021-09-30)
 
 
