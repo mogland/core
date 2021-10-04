@@ -1,17 +1,17 @@
 # Nest-server
 
+[![total line](https://tokei.rs/b1/github/wibus-wee/Nest-server)](https://github.com/wibus-wee/Nest-server) ![version](https://img.shields.io/github/package-json/v/wibus-wee/Nest-server) ![language](https://img.shields.io/github/languages/top/wibus-wee/Nest-server) ![core](https://img.shields.io/github/package-json/dependency-version/wibus-wee/Nest-server/@nestjs/core) ![code size](https://img.shields.io/github/languages/code-size/wibus-wee/Nest-server) ![download](https://img.shields.io/github/downloads/wibus-wee/Nest-server/total) ![issues](https://img.shields.io/github/issues/wibus-wee/Nest-server) ![commit](https://img.shields.io/github/commit-activity/m/wibus-wee/Nest-server) ![commit_last](https://img.shields.io/github/last-commit/wibus-wee/Nest-server) ![stars](https://img.shields.io/github/stars/wibus-wee/Nest-server?style=social)
+
 TypeScript. Nextjs. Base.
 
 Created on 2021-09-25
 
 Dev. by Wibus
 
-这是第一次使用TypeScript来写的程序，也是第一个用了nodejs的仓库，反正都是**第一次**。所以在很多地方也许会出现非常不正确的写法，期待以后的学习改进！
-
 ## How to use?
 
 - open `ormconfig.json`
-- edit json
+- edit json config
 
 ```bash
 pnpm install # install
