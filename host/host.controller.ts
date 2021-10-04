@@ -9,6 +9,7 @@ import { CreateHostDto } from './create-host-dto';
 // @UseGuards(AuthGuard)
 export class HostController {
     constructor(private hostService: HostService){}
+
     @Get()
     @ApiOperation({
         summary: '获取主人信息'
@@ -16,6 +17,7 @@ export class HostController {
     async list(){
         return await this.hostService.find();
     }
+    
     @Post()
     @UseGuards(AuthGuard('jwt'))
     @ApiOperation({

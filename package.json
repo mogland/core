@@ -16,7 +16,8 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "commit": "git add . && cz && git push",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "init:Cli": "npm install -g commitizen && npm install -g conventional-changelog-cli"
+    "init:Cli": "npm install -g commitizen && npm install -g conventional-changelog-cli && brew install cloc",
+    "cloc": "cloc ./ --exclude-dir=node_modules --exclude-file=pnpm-lock.yaml"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
