@@ -23,7 +23,9 @@ import { PostsService } from './posts/posts.service';
 import { PostsModule } from './posts/posts.module';
 import { PagesService } from './pages/pages.service';
 import { PagesModule } from './pages/pages.module';
+import { CommentModule } from './comment/comment.module';
 import configs from 'configs';
+import { CommentService } from 'comment/comment.service';
 
 @Module({
   imports: [
@@ -38,9 +40,10 @@ import configs from 'configs';
     AuthModule,
     PostsModule,
     PagesModule,
+    CommentModule,
     
   ],
-  controllers: [AppController, HostController, PagesController, PostsController, CommentController, FriendsController],
-  providers: [AppService, HostService, FriendsService, UsersService, AuthService, LocalStrategy, JwtStrategy, PostsService, PagesService],
+  controllers: [AppController, HostController, PagesController, PostsController, CommentController, FriendsController, CommentController],
+  providers: [AppService, HostService, FriendsService, UsersService, AuthService, LocalStrategy, JwtStrategy, PostsService, PagesService, CommentService],
 })
 export class AppModule {}
