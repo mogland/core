@@ -1,7 +1,7 @@
 {
   "name": "nest-server",
   "version": "0.0.2",
-  "description": "",
+  "description": "TypeScript. Nextjs. Base.",
   "author": "Wibus",
   "private": true,
   "license": "UNLICENSED",
