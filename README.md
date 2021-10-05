@@ -78,7 +78,7 @@ Electron 打包 React 项目： https://segmentfault.com/a/1190000020020324
 Electron-CN-juejin: https://juejin.cn/post/6844903794111692814
 
 
-### Nest.js'
+### Nest.js
 Nestjs-CN: https://docs.nestjs.cn/
 
 Nestjs-CN-database: https://docs.nestjs.cn/8/techniques?id=%e6%95%b0%e6%8d%ae%e5%ba%93
