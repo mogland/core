@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Comments } from './comment.entity';
 import { CreateCommentDto } from './create-comment-dto';
+import BlockedKeywords from './block-keywords.json'
 
 @Injectable()
 export class CommentService {
@@ -19,10 +20,21 @@ export class CommentService {
         })
     }
 
-    async createComment(data: CreateCommentDto[]): Promise<Comments[]>{
+    async createComment(data: CreateCommentDto){
         // `data` must meet the following conditions:
         // type, path, content, author, owner, isOwner(if isn't admin, you can ignore this), email
-        return await this.commentRepository.save(data)
+        const isBlock = [...BlockedKeywords].some((keyword) =>
+        new RegExp(keyword, 'ig').test(data.content),
+        )
+        if (isBlock) {
+            return `{
+                "statusCode": "403",
+                 "message": "监测到垃圾评论",
+                  "error": "Can't Save"
+                }`
+        }else{
+            return await this.commentRepository.save(data)
+        }
     }
 
     async deleteComment(cid){

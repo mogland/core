@@ -25,7 +25,7 @@ export class CommentController {
         summary: "发布评论"
     })
     @UseGuards(AuthGuard('jwt'))
-    async create(@Body() data: CreateCommentDto[]){
+    async create(@Body() data: CreateCommentDto){
         return await this.commentService.createComment(data)
     }
 
