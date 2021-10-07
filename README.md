@@ -1,6 +1,6 @@
 # GS-server
 
-![total line](https://tokei.rs/b1/github/wibus-wee/GS-server) ![version](https://img.shields.io/github/package-json/v/wibus-wee/GS-server) ![language](https://img.shields.io/github/languages/top/wibus-wee/GS-server) ![core](https://img.shields.io/github/package-json/dependency-version/wibus-wee/GS-server/@nestjs/core) ![code size](https://img.shields.io/github/languages/code-size/wibus-wee/GS-server) ![download](https://img.shields.io/github/downloads/wibus-wee/GS-server/total) ![issues](https://img.shields.io/github/issues/wibus-wee/GS-server) ![commit](https://img.shields.io/github/commit-activity/m/wibus-wee/GS-server) ![commit_last](https://img.shields.io/github/last-commit/wibus-wee/GS-server) ![stars](https://img.shields.io/github/stars/wibus-wee/GS-server?style=social)
+![total line](https://tokei.rs/b1/github/wibus-wee/GS-server) ![version](https://img.shields.io/github/package-json/v/wibus-wee/GS-server) ![language](https://img.shields.io/github/languages/top/wibus-wee/GS-server) ![core](https://img.shields.io/github/package-json/dependency-version/wibus-wee/GS-server/@nestjs/core) ![code size](https://img.shields.io/github/languages/code-size/wibus-wee/GS-server) ![download](https://img.shields.io/github/downloads/wibus-wee/GS-server/total) ![issues](https://img.shields.io/github/issues/wibus-wee/GS-server) ![commit](https://img.shields.io/github/commit-activity/m/wibus-wee/GS-server) ![commit_last](https://img.shields.io/github/last-commit/wibus-wee/GS-server) [![Node.js Build CI](https://github.com/wibus-wee/GS-server/actions/workflows/build.yml/badge.svg)](https://github.com/wibus-wee/GS-server/actions/workflows/build.yml) ![stars](https://img.shields.io/github/stars/wibus-wee/GS-server?style=social)
 
 TypeScript. Nextjs. Base.
 
@@ -24,15 +24,7 @@ Project supports Swagger, go to `/api-docs` after startup to view all public int
 
 ## How to use?
 
-- open `ormconfig.json`
-- edit json config
-
-```bash
-pnpm install # install
-pnpm start:dev # Dev
-pnpm build # build
-pnpm start # Production
-```
+Please you go to [Wiki](https://github.com/wibus-wee/GS-server/wiki), there are some information about installing
 
 ## Stack
 
@@ -57,76 +49,3 @@ JSON                             4              1              0             42
 SUM:                           182           1073            183           9137
 -------------------------------------------------------------------------------
 ```
-
-## 缺点 `v1`
-
-使用的是mysql作为数据载体，原本想用的是mongodb，对比mysql与mongodb，个人认为mongodb会让整体数据结构和速度更快更好
-
-## Articles used for my development
-
-### Electron
-
-Electron-CN-Tencent: https://cloud.tencent.com/developer/doc/1070
-
-Electron-CN: https://www.electronjs.org/docs
-
-Electron 打包 React 项目： https://segmentfault.com/a/1190000020020324
-
-使用React去打包构建Electron应用： https://juejin.cn/post/6845166890550050829#heading-11
-
-Electron-CN-juejin: https://juejin.cn/post/6844903794111692814
-
-
-### Nest.js
-Nestjs-CN: https://docs.nestjs.cn/
-
-Nestjs-CN-database: https://docs.nestjs.cn/8/techniques?id=%e6%95%b0%e6%8d%ae%e5%ba%93
-
-Nest-Swagger: https://blog.csdn.net/gwdgwd123/article/details/105412274
-
-Nest-CN-Tencent: https://cloud.tencent.com/developer/doc/1281
-
-
-### React
-
-React 官方中文文档： https://zh-hans.reactjs.org
-
-Mozilla-MDN: https://developer.mozilla.org/zh-CN/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_getting_started
-
-React-CN-Tencent: https://cloud.tencent.com/developer/doc/1201
-
-### Vue.js
-
-Vuejs.org: https://v3.cn.vuejs.org/guide/introduction.html
-
-MDN-Vue: https://developer.mozilla.org/zh-CN/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/Vue_getting_started
-
-Vue.js-Tencent-v2: https://cloud.tencent.com/developer/doc/1247
-
-### axios
-
-Axios-EN: https://axios-http.com/docs/intro
-
-使用 axios 访问 API-Vue: https://cn.vuejs.org/v2/cookbook/using-axios-to-consume-apis.html
-
-Axios-Tencent-CN: https://cloud.tencent.com/developer/article/1098141
-
-Axios-jianshu-CN: https://www.jianshu.com/p/cdec60909094
-
-Axios-juejin-CN: https://juejin.cn/post/6884561821127491597
-
-Axios-CN: http://axios-js.com/zh-cn/docs/index.html
-
-### Others
-
-MongoDB-CN-Manual: https://docs.mongoing.com/
-
-Tailwind CSS (CN): https://www.tailwindcss.cn/docs
-
-Mongoose v6.0.9: Schemas-EN： https://mongoosejs.com/docs/guide.html
-
-Mongoose Express mozilla: https://developer.mozilla.org/zh-CN/docs/learn/Server-side/Express_Nodejs/mongoose
-
-Mongoose-CN-Ads: http://mongoosejs.net/docs/
-
-PostCSS-Tencent: https://cloud.tencent.com/developer/doc/1278-
