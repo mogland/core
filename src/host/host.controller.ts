@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiCreatedResponse, ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
-import { HostService } from 'host/host.service';
+import { HostService } from './host.service';
 import { CreateHostDto } from './create-host-dto';
 
 @Controller('host')
