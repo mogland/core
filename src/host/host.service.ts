@@ -1,9 +1,9 @@
 /*
- * @FilePath: /Nest-server/host/host.service.ts
+ * @FilePath: /GS-server/src/host/host.service.ts
  * @author: Wibus
  * @Date: 2021-10-01 05:26:31
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-03 13:55:07
+ * @LastEditTime: 2021-10-10 16:02:42
  * Coding With IU
  */
 import { Injectable, Inject } from '@nestjs/common';
@@ -24,6 +24,7 @@ export class HostService {
         return await this.hostRepository.findOne(1);
     }
     async edit(user: CreateHostDto): Promise<Host>{
+        user.id = 1
         return await this.hostRepository.save(user)
     }
 }

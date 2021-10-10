@@ -1,4 +1,4 @@
-import configs from 'src/configs';
+import configs from './configs';
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';

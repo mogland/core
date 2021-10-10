@@ -1,5 +1,5 @@
 /*
- * @FilePath: /GS-server/src/host/host.module.ts
+ * @FilePath: /GS-server/./host/host.module.ts
  * @author: Wibus
  * @Date: 2021-10-01 17:17:41
  * @LastEditors: Wibus
