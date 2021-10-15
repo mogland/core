@@ -29,6 +29,9 @@ import { CommentService } from './comment/comment.service';
 import { CategoryService } from './category/category.service';
 import { CategoryController } from './category/category.controller';
 import { CategoryModule } from './category/category.module';
+import { MailModule } from './mail/mail.module';
+import { MailController } from 'mail/mail.controller';
+import { MailService } from 'mail/mail.service';
 
 @Module({
   imports: [
@@ -45,8 +48,9 @@ import { CategoryModule } from './category/category.module';
     PagesModule,
     CommentModule,
     CategoryModule,
+    MailModule,
   ],
-  controllers: [AppController, HostController, PagesController, PostsController, CommentController, FriendsController, CommentController, CategoryController],
-  providers: [AppService, HostService, FriendsService, UsersService, AuthService, LocalStrategy, JwtStrategy, PostsService, PagesService, CommentService, CategoryService],
+  controllers: [AppController, HostController, PagesController, PostsController, CommentController, FriendsController, CommentController, CategoryController, MailController],
+  providers: [AppService, HostService, FriendsService, UsersService, AuthService, LocalStrategy, JwtStrategy, PostsService, PagesService, CommentService, CategoryService, MailService],
 })
 export class AppModule {}

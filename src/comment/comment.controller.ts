@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import delXss from 'common/utils/xss';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './create-comment-dto';
 
@@ -26,6 +27,10 @@ export class CommentController {
     })
     @UseGuards(AuthGuard('jwt'))
     async create(@Body() data: CreateCommentDto){
+        data.author = delXss(data.author)
+        data.url = delXss(data.url)
+        data.content = delXss(data.content)
+        data.email = delXss(data.email)
         return await this.commentService.createComment(data)
     }
 

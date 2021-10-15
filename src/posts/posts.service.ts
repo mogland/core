@@ -1,13 +1,14 @@
 /*
- * @FilePath: /nest-server/posts/posts.service.ts
+ * @FilePath: /GS-server/src/posts/posts.service.ts
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-04 15:20:00
+ * @LastEditTime: 2021-10-16 07:21:24
  * Coding With IU
  */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CategoryService } from 'category/category.service';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './create-post-dto';
 import { Posts } from './posts.entity';
@@ -17,7 +18,8 @@ export class PostsService {
 
     constructor(
         @InjectRepository(Posts)
-        private postsRepository: Repository<Posts>
+        private postsRepository: Repository<Posts>,
+        private categodyService: CategoryService
     ){}
 
     async findOne(path: any): Promise<Posts> {
@@ -31,15 +33,21 @@ export class PostsService {
     }
 
     async send(data: CreatePostDto): Promise<Posts | string>{
-        let result = await this.postsRepository.find({
+        let result = await this.postsRepository.findOne({
             path: data.path
         })
         // console.log(result[0])
         // return await this.postsRepository.save(data)
-        if (result[0]) {
+        if (result) {
             return `{
                 "statusCode": "403",
                  "message": "slug is already used",
+                  "error": "Can't Save"
+                }`
+        }else if(!await this.categodyService.check(data.slug)){ //if it hasn't value
+            return `{
+                "statusCode": "403",
+                 "message": "category can't find",
                   "error": "Can't Save"
                 }`
         }else{

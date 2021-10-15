@@ -21,8 +21,23 @@ export class CategoryService {
         })
     }
 
-    async create(name: string, slug: string){
+    async create(data){
+        if (!await this.categoryRepository.findOne({name: data.name, slug: data.slug})) {
+            return await this.categoryRepository.save(data)    
+        }else{
+            return `{
+                "statusCode": "403",
+                 "message": "category is already created",
+                }`
+        }
+        
+    }
 
+    async check(slug: string){
+        let data = this.categoryRepository.findOne({
+            slug: slug
+        })
+        return data
     }
 
 
