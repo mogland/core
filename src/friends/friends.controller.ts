@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post} from '@nestjs/common';
 import { CreateLinks } from './friends.interface';
 import { FriendsService } from './friends.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
