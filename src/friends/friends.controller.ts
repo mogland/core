@@ -17,11 +17,11 @@ export class FriendsController {
         // return data.name
     }
 
-    @Get('check')
-    @ApiOperation({summary: '检查友链状态码'})
-    async getStatus(){
+    // @Get('check')
+    // @ApiOperation({summary: '检查友链状态码'})
+    // async getStatus(){
         // console.log(await this.friendsService.check())
-        return await this.friendsService.check()
-    }
+        // return await this.friendsService.check()
+    // }
 
 }

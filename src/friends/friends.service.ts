@@ -22,23 +22,4 @@ export class FriendsService {
         return data
         // return 1
     }
-    async check(){
-        let links: any
-        let status
-        const $api = axios.create()
-        // $api
-        let v = axios.get('https://blog.iucky.cn')
-        v.then(
-            function (res) {
-                status = res
-            }
-            )
-        // console.log(status)
-        try {
-            const res_1 = await v;
-            return res_1.status;
-        } catch (error) {
-            if (error.response) { return error.response.status; } else { return error.message; }
-        }
-    }
 }

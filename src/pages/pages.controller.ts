@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import path from 'path/posix';
 import { CreatePagesDto } from './create-pages-dto';
 import { PagesService } from './pages.service';
 
