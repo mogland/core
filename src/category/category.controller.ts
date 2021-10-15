@@ -22,7 +22,7 @@ export class CategoryController {
     }
 
     @Post('create')
-    // @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard('jwt'))
     @ApiOperation({
         summary: '新建分类'
     })

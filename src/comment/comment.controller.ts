@@ -25,7 +25,6 @@ export class CommentController {
     @ApiOperation({
         summary: "发布评论"
     })
-    @UseGuards(AuthGuard('jwt'))
     async create(@Body() data: CreateCommentDto){
         data.author = delXss(data.author)
         data.url = delXss(data.url)

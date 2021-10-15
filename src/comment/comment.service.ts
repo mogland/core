@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Comments } from './comment.entity';
 import { CreateCommentDto } from './create-comment-dto';
-import BlockedKeywords from './block-keywords.json'
-
+import BlockedKeywords = require('./block-keywords.json')
+let word = BlockedKeywords
 @Injectable()
 export class CommentService {
 
@@ -23,7 +23,7 @@ export class CommentService {
     async createComment(data: CreateCommentDto){
         // `data` must meet the following conditions:
         // type, path, content, author, owner, isOwner(if isn't admin, you can ignore this), email
-        const isBlock = [...BlockedKeywords].some((keyword) =>
+        const isBlock = [...word].some((keyword) =>
         new RegExp(keyword, 'ig').test(data.content),
         )
         if (isBlock) {
