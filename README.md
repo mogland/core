@@ -14,13 +14,7 @@ This is the backend of the TypeScript blogging system G·Space, built using the 
 
 The project is still in internal testing, and detailed interface documentation is not considered for the time being.
 
-Project supports Swagger, go to `/api-docs` after startup to view all public interfaces, but cannot debug (bugs).
-
-这是使用TypeScript编写的博客系统G·Space的后端，采用Nestjs框架构建，使用MySQL作为数据载体
-
-此项目仍处在内部测试阶段，暂时不考虑编写详细接口文档。
-
-项目支持Swagger，在启动后前往 `/api-docs` 即可查看所有公开接口，但无法调试(bug)
+Project supports Swagger, go to `/api-docs` after startup to view all public interfaces, but cannot debug (bugs). But you can go to [`Postman gs-server`](https://www.postman.com/wibus-wee/workspace/gs-server)
 
 ## How to use?
 
