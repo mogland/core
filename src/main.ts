@@ -5,7 +5,12 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  if (configs.cors) {
+    app.enableCors({
+      "origin": configs.cors_server,
+      "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    });
+  }
   const options = new DocumentBuilder()
     .setTitle('Nest-server')
     .setDescription('Nest-server API Docs')

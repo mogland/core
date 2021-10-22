@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nest-server/pages/pages.service.ts
+ * @FilePath: /GS-server/src/pages/pages.service.ts
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-04 15:41:55
+ * @LastEditTime: 2021-10-22 21:31:51
  * Coding With IU
  */
 import { Injectable } from '@nestjs/common';
@@ -26,8 +26,12 @@ export class PagesService {
         })
     }
 
-    async list(): Promise<Pages[]>{
-        return await this.pagesRepository.find()
+    async list(){
+        let data = await this.pagesRepository.find()
+        for (let index = 0; index < data.length; index++) {
+            delete data[index].content
+        }
+        return data
     }
 
     async send(data: CreatePagesDto): Promise<Pages | string>{

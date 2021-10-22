@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-16 07:21:24
+ * @LastEditTime: 2021-10-17 21:51:37
  * Coding With IU
  */
 import { Injectable } from '@nestjs/common';
@@ -28,8 +28,12 @@ export class PostsService {
         })
     }
 
-    async list(): Promise<Posts[]>{
-        return await this.postsRepository.find()
+    async list(){
+        let data = await this.postsRepository.find()
+        for (let index = 0; index < data.length; index++) {
+            delete data[index].content
+        }
+        return data
     }
 
     async send(data: CreatePostDto): Promise<Posts | string>{
@@ -44,7 +48,7 @@ export class PostsService {
                  "message": "slug is already used",
                   "error": "Can't Save"
                 }`
-        }else if(!await this.categodyService.check(data.slug)){ //if it hasn't value
+        }else if(!this.categodyService.check(data.slug)){ //if it hasn't value
             return `{
                 "statusCode": "403",
                  "message": "category can't find",
