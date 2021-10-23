@@ -19,6 +19,16 @@ export class CommentService {
             path: path
         })
     }
+    
+    async list(type){
+        let data
+        if (type == 'num') {
+            data = await this.commentRepository.count()
+        }else{
+            data = await this.commentRepository.find()
+        }
+        return data
+    }
 
     async createComment(data: CreateCommentDto){
         // `data` must meet the following conditions:

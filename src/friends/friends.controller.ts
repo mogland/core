@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Query} from '@nestjs/common';
 import { CreateLinks } from './friends.interface';
 import { FriendsService } from './friends.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -14,6 +14,12 @@ export class FriendsController {
     pushLinks(@Body() data: CreateLinks){
         return this.friendsService.create(data)
         // return data.name
+    }
+
+    @Get('list')
+    @ApiOperation({summary: '获取全部评论'})
+    async list(@Query() query){
+        return await this.friendsService.list(query.type)
     }
 
     // @Get('check')

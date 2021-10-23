@@ -1,37 +1,38 @@
-import configs from './configs';
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { HostController } from './host/host.controller';
-import { PagesController } from './pages/pages.controller';
-import { PostsController } from './posts/posts.controller';
-import { CommentController } from './comment/comment.controller';
-import { FriendsController } from './friends/friends.controller';
-import { FriendsService } from './friends/friends.service';
-import { HostService } from './host/host.service';
-import { HostModule } from './host/host.module';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-import { UsersService } from './users/users.service';
-import { AuthService } from './auth/auth.service';
-import { AppController } from './app.controller';
-import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { FriendsModule } from 'friends/friends.module';
+import { MailController } from 'mail/mail.controller';
+import { MailService } from 'mail/mail.service';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/auth.service';
 import { jwtConstants } from './auth/constants';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { LocalStrategy } from './auth/local.strategy';
-import { PostsService } from './posts/posts.service';
-import { PostsModule } from './posts/posts.module';
-import { PagesService } from './pages/pages.service';
-import { PagesModule } from './pages/pages.module';
-import { CommentModule } from './comment/comment.module';
-import { CommentService } from './comment/comment.service';
-import { CategoryService } from './category/category.service';
 import { CategoryController } from './category/category.controller';
 import { CategoryModule } from './category/category.module';
+import { CategoryService } from './category/category.service';
+import { CommentController } from './comment/comment.controller';
+import { CommentModule } from './comment/comment.module';
+import { CommentService } from './comment/comment.service';
+import configs from './configs';
+import { FriendsController } from './friends/friends.controller';
+import { FriendsService } from './friends/friends.service';
+import { HostController } from './host/host.controller';
+import { HostModule } from './host/host.module';
+import { HostService } from './host/host.service';
 import { MailModule } from './mail/mail.module';
-import { MailController } from 'mail/mail.controller';
-import { MailService } from 'mail/mail.service';
+import { PagesController } from './pages/pages.controller';
+import { PagesModule } from './pages/pages.module';
+import { PagesService } from './pages/pages.service';
+import { PostsController } from './posts/posts.controller';
+import { PostsModule } from './posts/posts.module';
+import { PostsService } from './posts/posts.service';
+import { UsersModule } from './users/users.module';
+import { UsersService } from './users/users.service';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { MailService } from 'mail/mail.service';
     TypeOrmModule.forRoot(),
     HostModule,
     UsersModule,
+    FriendsModule,
     AuthModule,
     PostsModule,
     PagesModule,

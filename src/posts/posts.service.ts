@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-17 21:51:37
+ * @LastEditTime: 2021-10-23 08:47:02
  * Coding With IU
  */
 import { Injectable } from '@nestjs/common';
@@ -28,10 +28,17 @@ export class PostsService {
         })
     }
 
-    async list(){
-        let data = await this.postsRepository.find()
-        for (let index = 0; index < data.length; index++) {
-            delete data[index].content
+    async list(type){
+        let data: any
+        if (type == 'num') {
+            data = this.postsRepository.count()
+        }else{
+            data = await this.postsRepository.find()
+            
+            for (let index = 0; index < data.length; index++) {
+                delete data[index].content
+            }
+            
         }
         return data
     }

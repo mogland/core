@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-22 21:31:51
+ * @LastEditTime: 2021-10-23 08:46:42
  * Coding With IU
  */
 import { Injectable } from '@nestjs/common';
@@ -26,10 +26,15 @@ export class PagesService {
         })
     }
 
-    async list(){
-        let data = await this.pagesRepository.find()
-        for (let index = 0; index < data.length; index++) {
-            delete data[index].content
+    async list(type){
+        let data
+        if (type == 'num') {
+            data = await this.pagesRepository.count()
+        }else{
+            data = await this.pagesRepository.find()
+            for (let index = 0; index < data.length; index++) {
+                delete data[index].content
+            }
         }
         return data
     }
@@ -41,6 +46,7 @@ export class PagesService {
         // console.log(result[0])
         // return await this.pagesRepository.save(data)
         if (result[0]) {
+            // TODO: 改变这里的不合理输出
             return `{
                 "statusCode": "403",
                  "message": "slug is already used",

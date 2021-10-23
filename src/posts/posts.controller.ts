@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreatePostDto } from './create-post-dto';
@@ -8,12 +8,13 @@ import { PostsService } from './posts.service';
 @ApiTags("Posts")
 export class PostsController {
     constructor(private postsService: PostsService){}
+
     @Get('list')
     @ApiOperation({
         summary: "全部文章"
     })
-    async list(){
-        return this.postsService.list()
+    async list(@Query() query){
+        return await this.postsService.list(query.type)
     }
 
     @Get(':path')

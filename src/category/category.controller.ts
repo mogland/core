@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CategoryService } from './category.service';
@@ -12,13 +12,21 @@ export class CategoryController {
         private categoryService: CategoryService
     ){}
 
-    @Get('list/:slug')
+    @Get('find/:slug')
     @ApiOperation({
-        summary: '获取全部分类'
+        summary: '获取分类内全部文章'
     })
     async find(@Param() param){
         return await this.categoryService.find(param.slug)
         // return param.slug
+    }
+
+    @Get('list')
+    @ApiOperation({
+        summary: '获取全部分类'
+    })
+    async list(@Query() query){
+        return await this.categoryService.list(query.type)
     }
 
     @Post('create')

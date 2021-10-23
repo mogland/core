@@ -33,11 +33,25 @@ export class CategoryService {
         
     }
 
+    async list(type){
+        let data
+        if (type == 'num') {
+            data = await this.categoryRepository.count()
+        }else{
+            data = await this.categoryRepository.find()
+        }
+        return data
+    }
+
     async check(slug: string){
-        let data = this.categoryRepository.findOne({
+        let data = await this.categoryRepository.findOne({
             slug: slug
         })
-        return data
+        if (data) {
+            return 1
+        }else{
+            return 0
+        }
     }
 
 

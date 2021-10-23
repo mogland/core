@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import delXss from 'common/utils/xss';
@@ -19,6 +19,14 @@ export class CommentController {
     })
     async get(@Param() param){
         return await this.commentService.getComment(param.type, param.path)
+    }
+
+    @Get('list')
+    @ApiOperation({
+        summary: '获取全部评论'
+    })
+    async list(@Query() query){
+        return await this.commentService.list(query.type)
     }
 
     @Post("create")

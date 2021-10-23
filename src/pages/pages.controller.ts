@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreatePagesDto } from './create-pages-dto';
@@ -8,12 +8,13 @@ import { PagesService } from './pages.service';
 @ApiTags("Pages")
 export class PagesController {
     constructor(private pagesService: PagesService){}
+    
     @Get('list')
     @ApiOperation({
         summary: "获取全部页面"
     })
-    async list(){
-        return this.pagesService.list()
+    async list(@Query() query){
+        return this.pagesService.list(query.type)
     }
 
     @Get(':path')

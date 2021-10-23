@@ -1,16 +1,19 @@
-import { ApiProperty } from "@nestjs/swagger"
-
+/*
+ * @FilePath: /GS-server/src/friends/friends.interface.ts
+ * @author: Wibus
+ * @Date: 2021-10-23 08:57:19
+ * @LastEditors: Wibus
+ * @LastEditTime: 2021-10-23 09:01:52
+ * Coding With IU
+ */
 export class CreateLinks {
-    @ApiProperty({example: 'Wibus'})
-    name: string
-    @ApiProperty({example: 'https://iucky.cn/'})
-    website: string
-    @ApiProperty({
-        example: "0"
-    })
-    check?: number
-    @ApiProperty()
-    image?: string
-    @ApiProperty()
-    desc?: string
+  id: number;
+  name: string;
+  description?: string;
+  website: string;
+  image: string;
+  qq: string;
+  owner: string;
+  check: boolean;
+
 }
