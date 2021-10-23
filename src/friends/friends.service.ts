@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import delXss from '../common/utils/xss';
 import { Friends } from './friend.entry';
-import { CreateLinks } from './friends.interface';
+import { CreateFriendsDto } from './create-friends-dto';
 
 @Injectable()
 export class FriendsService {
@@ -13,7 +13,7 @@ export class FriendsService {
     ){}
 
     
-    async create(data: CreateLinks){
+    async create(data: CreateFriendsDto){
         // create data to database (todo)
         data.name = delXss(data.name)
         data.website = delXss(data.website)
@@ -27,7 +27,6 @@ export class FriendsService {
             data.check = false
         }
         return await this.friendsRepository.save(data)
-        // return 1
     }
 
     async list(type){

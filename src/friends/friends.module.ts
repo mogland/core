@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-23 08:57:09
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-23 09:06:59
+ * @LastEditTime: 2021-10-23 11:50:47
  * Coding With IU
  */
 import { Module } from '@nestjs/common';

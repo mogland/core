@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpCode, Post, Query} from '@nestjs/common';
-import { CreateLinks } from './friends.interface';
+import { CreateFriendsDto } from './create-friends-dto';
 import { FriendsService } from './friends.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -11,7 +11,7 @@ export class FriendsController {
     @Post('send')
     @HttpCode(200)
     @ApiOperation({summary: '修改/添加友链'})
-    pushLinks(@Body() data: CreateLinks){
+    pushLinks(@Body() data: CreateFriendsDto){
         return this.friendsService.create(data)
         // return data.name
     }

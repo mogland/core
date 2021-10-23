@@ -44,15 +44,15 @@ import { UsersService } from './users/users.service';
     TypeOrmModule.forRoot(),
     HostModule,
     UsersModule,
-    FriendsModule,
     AuthModule,
     PostsModule,
     PagesModule,
     CommentModule,
     CategoryModule,
     MailModule,
+    FriendsModule,
   ],
-  controllers: [AppController, HostController, PagesController, PostsController, CommentController, FriendsController, CommentController, CategoryController, MailController],
-  providers: [AppService, HostService, FriendsService, UsersService, AuthService, LocalStrategy, JwtStrategy, PostsService, PagesService, CommentService, CategoryService, MailService],
+  controllers: [AppController, HostController, PagesController, PostsController, CommentController, CommentController, CategoryController, MailController, FriendsController,],
+  providers: [AppService, HostService, UsersService, AuthService, LocalStrategy, JwtStrategy, PostsService, PagesService, CommentService, CategoryService, MailService, FriendsService,],
 })
 export class AppModule {}
