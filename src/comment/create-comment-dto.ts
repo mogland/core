@@ -9,48 +9,48 @@ import { ApiProperty } from "@nestjs/swagger";
  * Coding With IU
  */
 export class CreateCommentDto {
-    cid: number; //comment id
+  cid: number; //comment id
 
-    @ApiProperty()
-    type: string //choose `post` or `page`
+  @ApiProperty()
+  type: string; //choose `post` or `page`
 
-    @ApiProperty()
-    path: string
+  @ApiProperty()
+  path: string;
 
-    post: string //only ID
+  post: string; //only ID
 
-    @ApiProperty()
-    content: string //comment content
+  @ApiProperty()
+  content: string; //comment content
 
-    createTime: number
+  createTime: number;
 
-    @ApiProperty()
-    author: string
+  @ApiProperty()
+  author: string;
 
-    @ApiProperty()
-    owner: String
+  @ApiProperty()
+  owner: string;
 
-    @ApiProperty()
-    isOwner?: Boolean = true
+  @ApiProperty()
+  isOwner?: boolean = true;
 
-    @ApiProperty()
-    email: string
+  @ApiProperty()
+  email: string;
 
-    @ApiProperty()
-    url?: string = null
+  @ApiProperty()
+  url?: string = null;
 
-    @ApiProperty()
-    key?: String = null
+  @ApiProperty()
+  key?: string = null;
 
-    @ApiProperty()
-    hasChild: Boolean = false
+  @ApiProperty()
+  hasChild = false;
 
-    @ApiProperty()
-    ipAddress?: string = null
+  @ApiProperty()
+  ipAddress?: string = null;
 
-    @ApiProperty()
-    userAgent?: string = null
-    
-    @ApiProperty()
-    state: number = 0 // 0 need checked, 1 push, 2 shit message
+  @ApiProperty()
+  userAgent?: string = null;
+
+  @ApiProperty()
+  state = 0; // 0 need checked, 1 push, 2 shit message
 }

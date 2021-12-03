@@ -6,10 +6,10 @@
  * @LastEditTime: 2021-09-25 21:50:29
  * Coding With IU
  */
-function objAdd(data: any, name: PropertyKey, value: any, writable = false){
-    Object.defineProperty(data, name, {
-        value: value,
-        writable: writable,
-    })
+function objAdd(data: any, name: PropertyKey, value: any, writable = false) {
+  Object.defineProperty(data, name, {
+    value: value,
+    writable: writable,
+  });
 }
-export default objAdd
+export default objAdd;

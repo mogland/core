@@ -6,17 +6,16 @@
  * @LastEditTime: 2021-10-03 15:35:24
  * Coding With IU
  */
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 500})
+  @Column({ length: 500 })
   name: string;
 
-  @Column('text')
+  @Column("text")
   password: string;
-
 }

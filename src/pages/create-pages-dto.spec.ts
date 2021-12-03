@@ -1,7 +1,7 @@
-import { CreatePagesDto } from './create-pages-dto';
+import { CreatePagesDto } from "./create-pages-dto";
 
-describe('CreatePagesDto', () => {
-  it('should be defined', () => {
+describe("CreatePagesDto", () => {
+  it("should be defined", () => {
     expect(new CreatePagesDto()).toBeDefined();
   });
 });

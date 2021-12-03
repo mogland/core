@@ -9,7 +9,6 @@ import { ApiProperty } from "@nestjs/swagger";
  * Coding With IU
  */
 export class CreateFriendsDto {
-
   id: number;
   @ApiProperty()
   name: string;
@@ -25,5 +24,4 @@ export class CreateFriendsDto {
   owner: string;
   @ApiProperty()
   check: boolean;
-
 }

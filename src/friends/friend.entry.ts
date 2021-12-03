@@ -6,17 +6,17 @@
  * @LastEditTime: 2021-10-23 09:02:02
  * Coding With IU
  */
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Friends {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 500})
+  @Column({ length: 500 })
   name: string;
 
-  @Column('text')
+  @Column("text")
   description?: string;
 
   @Column()
@@ -33,5 +33,4 @@ export class Friends {
 
   @Column()
   check: boolean;
-
 }

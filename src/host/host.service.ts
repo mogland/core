@@ -6,25 +6,24 @@
  * @LastEditTime: 2021-10-16 07:39:54
  * Coding With IU
  */
-import { Injectable} from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Host } from './host.entity';
-import { Repository } from 'typeorm'
-import { CreateHostDto } from './create-host-dto';
-
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Host } from "./host.entity";
+import { Repository } from "typeorm";
+import { CreateHostDto } from "./create-host-dto";
 
 @Injectable()
 export class HostService {
-    constructor(
-        @InjectRepository(Host)
-        private hostRepository: Repository<Host>,
-    ){}
+  constructor(
+    @InjectRepository(Host)
+    private hostRepository: Repository<Host>
+  ) {}
 
-    async find(): Promise<Host> {
-        return await this.hostRepository.findOne(1);
-    }
-    async edit(user: CreateHostDto): Promise<Host>{
-        user.id = 1
-        return await this.hostRepository.save(user)
-    }
+  async find(): Promise<Host> {
+    return await this.hostRepository.findOne(1);
+  }
+  async edit(user: CreateHostDto): Promise<Host> {
+    user.id = 1;
+    return await this.hostRepository.save(user);
+  }
 }

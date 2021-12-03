@@ -1,7 +1,7 @@
-import { CreateHostDto } from './create-host-dto';
+import { CreateHostDto } from "./create-host-dto";
 
-describe('CreateHostDto', () => {
-  it('should be defined', () => {
+describe("CreateHostDto", () => {
+  it("should be defined", () => {
     expect(new CreateHostDto()).toBeDefined();
   });
 });

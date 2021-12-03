@@ -6,20 +6,19 @@
  * @LastEditTime: 2021-10-03 13:48:51
  * Coding With IU
  */
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Host {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 500})
+  @Column({ length: 500 })
   name: string;
 
-  @Column('text')
+  @Column("text")
   description?: string;
 
   @Column()
   image: string;
-
 }

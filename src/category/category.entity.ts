@@ -6,7 +6,7 @@
  * @LastEditTime: 2021-10-07 17:01:47
  * Coding With IU
  */
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Category {
@@ -14,10 +14,8 @@ export class Category {
   id: number;
 
   @Column()
-  name: string
-  
+  name: string;
+
   @Column()
-  slug: string
-
-
+  slug: string;
 }

@@ -6,8 +6,8 @@
  * @LastEditTime: 2021-10-16 07:05:59
  * Coding With IU
  */
-export class CreateCategoryDto{
-    id?: number
-    name: string
-    slug: string
+export class CreateCategoryDto {
+  id?: number;
+  name: string;
+  slug: string;
 }
