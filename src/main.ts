@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   if (configs.cors) {
     app.enableCors({
-      "origin": configs.cors_server, //array
+      origin: configs.cors_server, //array
     });
   }
   const options = new DocumentBuilder()
