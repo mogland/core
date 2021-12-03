@@ -58,7 +58,6 @@ import { UsersService } from "./users/users.service";
     PagesController,
     PostsController,
     CommentController,
-    CommentController,
     CategoryController,
     MailController,
     FriendsController,

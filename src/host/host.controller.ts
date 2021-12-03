@@ -36,9 +36,10 @@ export class HostController {
         ok: 1,
       };
     } catch (error) {
+      // restful api
       return {
         ok: 0,
-        message: error,
+        error: error.message,
       };
     }
   }

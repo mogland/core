@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-23 08:46:42
+ * @LastEditTime: 2021-12-04 06:57:35
  * Coding With IU
  */
 import { Injectable } from "@nestjs/common";
@@ -38,19 +38,13 @@ export class PagesService {
     return data;
   }
 
-  async send(data: CreatePagesDto): Promise<Pages | string> {
-    const result = await this.pagesRepository.find({
-      path: data.path,
-    });
-    // console.log(result[0])
-    // return await this.pagesRepository.save(data)
-    if (result[0]) {
-      // TODO: 改变这里的不合理输出
-      return `{
-                "statusCode": "403",
-                 "message": "slug is already used",
-                  "error": "Can't Save"
-                }`;
+  async send(data: CreatePagesDto){
+    if (await this.pagesRepository.findOne({ path: data.path })) {
+      // return restful api
+      return {
+        statusCode: 400,
+        message: "path already exists",
+      }
     } else {
       return await this.pagesRepository.save(data);
     }

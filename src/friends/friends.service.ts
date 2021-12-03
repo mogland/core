@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import delXss from "../common/utils/xss";
-import { Friends } from "./friend.entry";
+import { Friends } from "./friends.entity";
 import { CreateFriendsDto } from "./create-friends-dto";
 
 @Injectable()
@@ -13,7 +13,43 @@ export class FriendsService {
   ) {}
 
   async create(data: CreateFriendsDto) {
-    // create data to database (todo)
+    data.name = delXss(data.name);
+    
+    data.website = delXss(data.website);
+    if (data.description != null) {
+      data.description = delXss(data.description);
+    }
+    if (data.image != null) {
+      data.image = delXss(data.image);
+    }else{
+      data.image = "";
+    }
+    if (data.check != null) {
+      data.check = false;
+    }
+    if (data.owner == null) {
+      data.owner = false;
+    }
+    if (data.check == null) {
+      data.check = false;
+    }
+    if (await this.friendsRepository.findOne({ name: data.name })) {
+      return {
+        statusCode: 400,
+        message: "友链已存在"
+      };
+    }
+    // return await this.friendsRepository.save(data);
+    // 返回 restful 格式
+    return {
+      statusCode: 200,
+      message: "success",
+      data: await this.friendsRepository.save(data)
+    };
+  }
+
+  // 修改友链
+  async update(id, data) {
     data.name = delXss(data.name);
     data.website = delXss(data.website);
     if (data.description != null) {
@@ -22,10 +58,7 @@ export class FriendsService {
     if (data.image != null) {
       data.image = delXss(data.image);
     }
-    if (data.check != null) {
-      data.check = false;
-    }
-    return await this.friendsRepository.save(data);
+    return await this.friendsRepository.update(id, data);
   }
 
   async list(type) {
@@ -35,6 +68,12 @@ export class FriendsService {
     } else {
       data = await this.friendsRepository.find();
     }
-    return data;
+    // return data;
+    //restful 格式
+    return {
+      statusCode: 200,
+      message: "success",
+      data: data
+    };
   }
 }

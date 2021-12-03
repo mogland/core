@@ -1,11 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 /*
- * @FilePath: /nest-server/comment/create-comment-dto.ts
+ * @FilePath: /GS-server/src/comment/create-comment-dto.ts
  * @author: Wibus
  * @Date: 2021-10-04 22:04:15
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-04 23:38:15
+ * @LastEditTime: 2021-12-04 06:28:45
  * Coding With IU
  */
 export class CreateCommentDto {
@@ -31,7 +31,7 @@ export class CreateCommentDto {
   owner: string;
 
   @ApiProperty()
-  isOwner?: boolean = true;
+  isOwner?: number = 0;
 
   @ApiProperty()
   email: string;
@@ -43,7 +43,7 @@ export class CreateCommentDto {
   key?: string = null;
 
   @ApiProperty()
-  hasChild = false;
+  hasChild?: number = 0;
 
   @ApiProperty()
   ipAddress?: string = null;
@@ -52,5 +52,5 @@ export class CreateCommentDto {
   userAgent?: string = null;
 
   @ApiProperty()
-  state = 0; // 0 need checked, 1 push, 2 shit message
+  state: number; // 0 need checked, 1 push, 2 shit message
 }

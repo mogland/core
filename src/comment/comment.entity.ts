@@ -32,7 +32,7 @@ export class Comments {
   owner: string;
 
   @Column()
-  isOwner = true;
+  isOwner: number;
 
   @Column()
   email: string;
@@ -46,7 +46,7 @@ export class Comments {
   key?: string = null;
 
   @Column()
-  hasChild = false;
+  hasChild: number;
 
   @Column()
   ipAddress?: string = null;
@@ -55,5 +55,5 @@ export class Comments {
   userAgent?: string = null;
 
   @Column()
-  state = 0; // 0 need checked, 1 push, 2 shit message
+  state: number; 
 }
