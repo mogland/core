@@ -4,6 +4,8 @@ import configs from "./configs";
 import globals from "./globals";
 import { AppModule } from "./app.module";
 import { Logger } from "@nestjs/common";
+// import { Logger } from "nestjs-pino";
+// import { HttpExceptionFilter } from "common/filters/http-exception.filter";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,11 +24,16 @@ async function bootstrap() {
     next();
   });
   app.setGlobalPrefix("api/" + globals.API_VERSION);
+  // 设置全局异常过滤器
+  // const logger = app.get(Logger);
+  // app.useLogger(logger);
+
+  // app.useGlobalFilters(new HttpExceptionFilter(logger));
+
   const options = new DocumentBuilder()
     .setTitle("Nest-server")
     .setDescription("Nest-server API Docs")
     .setVersion("1.0")
-    // .addTag('main')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup("api-docs", app, document);
