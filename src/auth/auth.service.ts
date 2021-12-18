@@ -12,6 +12,7 @@ export class AuthService {
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.usersService.findOne(username);
     if (user && user[0].password === password) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user[0];
       return result;
     }
@@ -21,6 +22,7 @@ export class AuthService {
   async checkUser(username: string): Promise<any> {
     const user = await this.usersService.findOne(username);
     if (user) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user[0];
       return result;
     }
