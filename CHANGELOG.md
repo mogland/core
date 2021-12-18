@@ -1,3 +1,37 @@
+## [0.0.3](https://github.com/wibus-wee/GS-server/compare/v0.0.2...v0.0.3) (2021-12-18)
+
+
+### Bug Fixes
+
+* fix all autofixed problems ([ce67e89](https://github.com/wibus-wee/GS-server/commit/ce67e898828780e8978174c9d6d6ae8f7e00a5da))
+* fix comment Exp & jwt ([ab8b184](https://github.com/wibus-wee/GS-server/commit/ab8b18461ccae1c78fa27fbf8225461bbec1c5f9))
+* fix friends repo error ([29dedb6](https://github.com/wibus-wee/GS-server/commit/29dedb69ca8e04ee7f8be57f76aa1662c02bbe6d))
+* fixed bug where multiple data was saved in host ([93ee8e5](https://github.com/wibus-wee/GS-server/commit/93ee8e5bf1bca89a5195289010b38ec3fe9ef879))
+* **friends:** fix 'friends' repo not found ([5ad1ad3](https://github.com/wibus-wee/GS-server/commit/5ad1ad37b381e8cdd3242318477813c5e965811b))
+
+
+### Features
+
+* add a devcontainer ([333535c](https://github.com/wibus-wee/GS-server/commit/333535c696f0448c57ffaa0ce8b8329e8fb9bf78))
+* **category:** add category module & service & controller ([f3558fb](https://github.com/wibus-wee/GS-server/commit/f3558fb3684916e24e1c9d12c114877d77eea225))
+* **filter:** add a global exception filter ([f6eec19](https://github.com/wibus-wee/GS-server/commit/f6eec19127f68446c48924a64d339708eb1d67cd))
+
+
+### Performance Improvements
+
+* add counting options for all controllers ([66c3313](https://github.com/wibus-wee/GS-server/commit/66c3313d6c06d5a1f210efac0b269c2b6d6177aa))
+* **app:** optimization of CORS ([b8e571c](https://github.com/wibus-wee/GS-server/commit/b8e571cae9078e6201faa61105db45a94c7b5121))
+* **configs:** set `jwtToken` for auth constants ([a390028](https://github.com/wibus-wee/GS-server/commit/a390028d4ba09e77adad9ba54b99603c3f6c09c8))
+* **cors:** start CORS and add its configuration options ([7fa841f](https://github.com/wibus-wee/GS-server/commit/7fa841fa4d1ee8ff5c999c2d0d832238c3c83407))
+* post is provided with a category controller ([49029f0](https://github.com/wibus-wee/GS-server/commit/49029f0188686df01755654133c97e85c878a51f))
+
+
+### BREAKING CHANGES
+
+* **category:** A new category controller and other things
+
+
+
 ## [0.0.2](https://github.com/wibus-wee/Nest-server/compare/v0.0.1...v0.0.2) (2021-10-04)
 
 
