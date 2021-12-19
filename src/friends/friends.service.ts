@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import delXss from "../common/utils/xss";
@@ -34,18 +34,10 @@ export class FriendsService {
       data.check = false;
     }
     if (await this.friendsRepository.findOne({ name: data.name })) {
-      return {
-        statusCode: 400,
-        message: "友链已存在"
-      };
+      throw new HttpException("Already Exist", HttpStatus.BAD_REQUEST);
+
     }
-    // return await this.friendsRepository.save(data);
-    // 返回 restful 格式
-    return {
-      statusCode: 200,
-      message: "success",
-      data: await this.friendsRepository.save(data)
-    };
+    return await this.friendsRepository.save(data);
   }
 
   // 修改友链
@@ -68,12 +60,6 @@ export class FriendsService {
     } else {
       data = await this.friendsRepository.find();
     }
-    // return data;
-    //restful 格式
-    return {
-      statusCode: 200,
-      message: "success",
-      data: data
-    };
+    return data;
   }
 }

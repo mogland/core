@@ -3,10 +3,10 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-23 08:47:02
+ * @LastEditTime: 2021-12-19 08:00:35
  * Coding With IU
  */
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CategoryService } from "category/category.service";
 import { Repository } from "typeorm";
@@ -48,18 +48,9 @@ export class PostsService {
     // console.log(result[0])
     // return await this.postsRepository.save(data)
     if (result) {
-      return `{
-                "statusCode": "403",
-                 "message": "slug is already used",
-                  "error": "Can't Save"
-                }`;
+      throw new HttpException("Already Exist", HttpStatus.BAD_REQUEST);
     } else if (!this.categodyService.check(data.slug)) {
-      //if it hasn't value
-      return `{
-                "statusCode": "403",
-                 "message": "category can't find",
-                  "error": "Can't Save"
-                }`;
+      throw new HttpException("Category Not Found", HttpStatus.BAD_REQUEST);
     } else {
       return await this.postsRepository.save(data);
     }

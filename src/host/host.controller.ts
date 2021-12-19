@@ -30,17 +30,6 @@ export class HostController {
     type: CreateHostDto,
   })
   async add(@Body() user: CreateHostDto) {
-    try {
-      await this.hostService.edit(user);
-      return {
-        ok: 1,
-      };
-    } catch (error) {
-      // restful api
-      return {
-        ok: 0,
-        error: error.message,
-      };
-    }
+    await this.hostService.edit(user);
   }
 }

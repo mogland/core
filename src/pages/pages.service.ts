@@ -3,10 +3,10 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-12-04 06:57:35
+ * @LastEditTime: 2021-12-19 08:01:37
  * Coding With IU
  */
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreatePagesDto } from "./create-pages-dto";
@@ -41,10 +41,7 @@ export class PagesService {
   async send(data: CreatePagesDto){
     if (await this.pagesRepository.findOne({ path: data.path })) {
       // return restful api
-      return {
-        statusCode: 400,
-        message: "path already exists",
-      }
+      throw new HttpException("Already Exist", HttpStatus.BAD_REQUEST);
     } else {
       return await this.pagesRepository.save(data);
     }
