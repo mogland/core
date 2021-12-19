@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Posts } from "../posts/posts.entity";
 import { Repository } from "typeorm";
@@ -29,10 +29,7 @@ export class CategoryService {
     ) {
       return await this.categoryRepository.save(data);
     } else {
-      return `{
-                "statusCode": "403",
-                 "message": "category is already created",
-                }`;
+      throw new HttpException("Already Exist", HttpStatus.BAD_REQUEST);
     }
   }
 

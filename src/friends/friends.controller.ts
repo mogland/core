@@ -17,7 +17,7 @@ export class FriendsController {
   }
 
   @Get("list")
-  @ApiOperation({ summary: "获取全部评论" })
+  @ApiOperation({ summary: "获取全部友链" })
   async list(@Query() query) {
     return await this.friendsService.list(query.type);
   }

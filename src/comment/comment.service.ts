@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Comments } from "./comment.entity";
@@ -36,11 +36,10 @@ export class CommentService {
       new RegExp(keyword, "ig").test(data.content)
     );
     if (isBlock) {
-      return `{
-                "statusCode": "403",
-                 "message": "监测到垃圾评论",
-                  "error": "Can't Save"
-                }`;
+      throw new HttpException(
+        "Your comment contains blocked words",
+        HttpStatus.BAD_REQUEST
+      );
     } else {
       return await this.commentRepository.save(data);
     }
