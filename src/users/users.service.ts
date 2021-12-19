@@ -16,7 +16,13 @@ export class UsersService {
   async findOne(user: string): Promise<User[] | undefined> {
     return await this.userRepository.find({ name: user });
   }
-  async Edit(user: CreateUserDto): Promise<User | undefined> {
+  async edit(user: CreateUserDto): Promise<User | undefined> {
+    return await this.userRepository.save(user);
+  }
+  async findAll(): Promise<User[]> {
+    return await this.userRepository.find();
+  }
+  async create(user: CreateUserDto): Promise<User> {
     return await this.userRepository.save(user);
   }
 }

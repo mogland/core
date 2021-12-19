@@ -4,6 +4,7 @@ import configs from "./configs";
 import globals from "./globals";
 import { AppModule } from "./app.module";
 import { Logger } from "@nestjs/common";
+import { UsersService } from "users/users.service";
 // import { Logger } from "nestjs-pino";
 // import { HttpExceptionFilter } from "common/filters/http-exception.filter";
 
@@ -24,24 +25,25 @@ async function bootstrap() {
     next();
   });
   app.setGlobalPrefix("api/" + globals.API_VERSION);
-  // 设置全局异常过滤器
-  // const logger = app.get(Logger);
-  // app.useLogger(logger);
-
-  // app.useGlobalFilters(new HttpExceptionFilter(logger));
 
   const options = new DocumentBuilder()
-    .setTitle("Nest-server")
-    .setDescription("Nest-server API Docs")
+    .setTitle("G-server")
+    .setDescription("G-server API Docs")
     .setVersion("1.0")
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup("api-docs", app, document);
 
   await app.listen(configs.port, '127.0.0.1', async() => {
-    Logger.log(`Nest-server running as ${process.env.NODE_ENV}`);
+    Logger.log(`G-server running as ${process.env.NODE_ENV}`);
     Logger.log(`Server running on http://localhost:${configs.port}`);
     Logger.log(`Swagger running on http://localhost:${configs.port}/api-docs`);
   });
+
+  // 获取数据库内user表内容
+  const usersService = app.get(UsersService);
+  const users = await usersService.findAll.length;
+  console.log(users);
+
 }
 bootstrap();
