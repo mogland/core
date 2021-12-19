@@ -55,5 +55,5 @@ export class Comments {
   userAgent?: string = null;
 
   @Column()
-  state: number; 
+  state: number;  // 0 need checked, 1 push, 2 shit message
 }

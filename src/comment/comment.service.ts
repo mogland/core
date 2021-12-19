@@ -23,10 +23,26 @@ export class CommentService {
     let data;
     if (type == "num") {
       data = await this.commentRepository.count();
+    } else if (type == "read") {
+      data = await this.commentRepository.find({
+        state: 0,
+      });
     } else {
       data = await this.commentRepository.find();
     }
     return data;
+  }
+
+  async changeComment(cid: number, state: number, content: string) {
+    return await this.commentRepository.update(
+      {
+        cid: cid,
+      },
+      {
+        content: content,
+        state: state,
+      }
+    );
   }
 
   async createComment(data: CreateCommentDto) {
