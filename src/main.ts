@@ -38,8 +38,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup("api-docs", app, document);
 
-  await app.listen(configs.port, '0.0.0.0', async() => {
+  await app.listen(configs.port, '127.0.0.1', async() => {
+    Logger.log(`Nest-server running as ${process.env.NODE_ENV}`);
     Logger.log(`Server running on http://localhost:${configs.port}`);
+    Logger.log(`Swagger running on http://localhost:${configs.port}/api-docs`);
   });
 }
 bootstrap();

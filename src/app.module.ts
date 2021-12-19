@@ -1,3 +1,6 @@
+import configs from "./configs";
+import configuration from "./env_config";
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
@@ -18,7 +21,6 @@ import { CategoryService } from "./category/category.service";
 import { CommentController } from "./comment/comment.controller";
 import { CommentModule } from "./comment/comment.module";
 import { CommentService } from "./comment/comment.service";
-import configs from "./configs";
 import { FriendsController } from "./friends/friends.controller";
 import { FriendsService } from "./friends/friends.service";
 import { HostController } from "./host/host.controller";
@@ -41,7 +43,25 @@ import { UsersService } from "./users/users.service";
       secret: jwtConstants.secret,
       signOptions: { expiresIn: configs.expiration + "s" },
     }),
-    TypeOrmModule.forRoot(),
+    ConfigModule.forRoot({
+      load: [configuration],
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => {
+        return {
+          type: "mysql",
+          host: configService.get("DB_HOST"),
+          port: configService.get("DB_PORT"),
+          username: configService.get("DB_USERNAME"),
+          password: configService.get("DB_PASSWORD"),
+          database: configService.get("DB_DATABASE"),
+          entities: [__dirname + "/**/*.entity{.ts,.js}"],
+          synchronize: true,
+        };
+      },
+      inject: [ConfigService],
+    }),
     HostModule,
     UsersModule,
     AuthModule,
