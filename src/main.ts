@@ -40,10 +40,17 @@ async function bootstrap() {
     Logger.log(`Swagger running on http://localhost:${configs.port}/api-docs`);
   });
 
-  // 获取数据库内user表内容
+  
   const usersService = app.get(UsersService);
-  const users = await usersService.findAll.length;
-  console.log(users);
+  const users = await usersService.findAll();
+  if (!users.length){
+    await usersService.create({
+      name: 'master',
+      password: 'master',
+
+    })
+    Logger.log('master user created');
+  }
 
 }
 bootstrap();
