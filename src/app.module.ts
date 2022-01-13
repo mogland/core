@@ -1,5 +1,5 @@
 import configs from "./configs";
-import configuration from "./utils/getEnvConfig.util";
+import configuration from "./utils/getDataConfig.util";
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
@@ -44,6 +44,7 @@ import { UsersService } from "./modules/users/users.service";
       signOptions: { expiresIn: configs.expiration + "s" },
     }),
     ConfigModule.forRoot({
+      isGlobal: true,
       load: [configuration],
     }),
     TypeOrmModule.forRootAsync({

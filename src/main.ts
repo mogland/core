@@ -1,18 +1,17 @@
 import { NestFactory } from "@nestjs/core";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
-import configs from "./configs";
 import globals from "./globals";
 import { AppModule } from "./app.module";
 import { Logger } from "@nestjs/common";
 import { UsersService } from "modules/users/users.service";
 import { HttpExceptionFilter } from "filters/http-exception.filter";
-
+import configs from "./configs";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalFilters(new HttpExceptionFilter());
   if (configs.cors) {
     app.enableCors({
-      origin: configs.cors_server, //array of origins
+      origin: [process.env.CORS_SERVER || "127.0.0.1:9000","localhost:9000"],
     });
   }
   // 设置 返回 header
@@ -35,9 +34,9 @@ async function bootstrap() {
   SwaggerModule.setup("api-docs", app, document);
 
   await app.listen(configs.port, '127.0.0.1', async() => {
-    Logger.log(`G-server running as ${process.env.NODE_ENV}`);
-    Logger.log(`Server running on http://localhost:${configs.port}`);
-    Logger.log(`Swagger running on http://localhost:${configs.port}/api-docs`);
+    Logger.log(`[GSpaceHelper] G-server running as ${process.env.NODE_ENV}`);
+    Logger.log(`[GSpaceHelper] Server running on http://localhost:${configs.port}`);
+    Logger.log(`[GSpaceHelper] Swagger running on http://localhost:${configs.port}/api-docs`);
   });
 
   
@@ -49,8 +48,7 @@ async function bootstrap() {
       password: 'master',
 
     })
-    Logger.log('master user created');
+    Logger.log('[GSpaceHelper] master user created');
   }
-
 }
 bootstrap();
