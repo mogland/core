@@ -1,3 +1,34 @@
+## [0.0.4](https://github.com/wibus-wee/GS-server/compare/v0.0.3...v0.0.4) (2022-01-13)
+
+
+### Bug Fixes
+
+* generic Password exposed ([bc7b220](https://github.com/wibus-wee/GS-server/commit/bc7b2208664018dbed333824295d6e576fc12c3e))
+
+
+### Features
+
+* **env:** use `.env` to control privacy variables ([d038685](https://github.com/wibus-wee/GS-server/commit/d03868542a6312dfce09f79865f3323cb63ba314))
+* **filters:** add a http-exception filter ([e70e64d](https://github.com/wibus-wee/GS-server/commit/e70e64d15cfcbe2cc6e2c333d809d345d000bd28))
+
+
+### Performance Improvements
+
+* **app:** change Logger log ([5e4618e](https://github.com/wibus-wee/GS-server/commit/5e4618e58e7f879bdf82a33ac864254e6cfa605b))
+* **app:** initialize the user ([199fac1](https://github.com/wibus-wee/GS-server/commit/199fac1284e020187579cc8500b731886251e5cf))
+* **app:** move some variables into env ([774857f](https://github.com/wibus-wee/GS-server/commit/774857faec01a7f651c51812a4bfa49ad4ec1e41))
+* **comment:** add a changeComment function for master ([d2fa3e7](https://github.com/wibus-wee/GS-server/commit/d2fa3e7bd71208268af5bf58749d38ded1fc9918))
+* **filters:** change the http-exception filter return words ([caa372e](https://github.com/wibus-wee/GS-server/commit/caa372e5bb9cd871c577c4fa9460ef87c3ccdaec)), closes [#7](https://github.com/wibus-wee/GS-server/issues/7)
+* **service:** convert manual error messages to built-in HttpExceptions ([d0cb19f](https://github.com/wibus-wee/GS-server/commit/d0cb19f10f961f2219b3584dc33048d2a79f13fa))
+* **service:** throw HttpException when catch error ([13562a2](https://github.com/wibus-wee/GS-server/commit/13562a2b35f099d91b602d7a3a1a2cbc46baccf8))
+
+
+### BREAKING CHANGES
+
+* **app:** Automatically initialize users to prevent usage problems
+
+
+
 ## [0.0.3](https://github.com/wibus-wee/GS-server/compare/v0.0.2...v0.0.3) (2021-12-18)
 
 
