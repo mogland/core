@@ -5,11 +5,11 @@ import globals from "./globals";
 import { AppModule } from "./app.module";
 import { Logger } from "@nestjs/common";
 import { UsersService } from "users/users.service";
-// import { Logger } from "nestjs-pino";
-// import { HttpExceptionFilter } from "common/filters/http-exception.filter";
+import { HttpExceptionFilter } from "filters/http-exception.filter";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalFilters(new HttpExceptionFilter());
   if (configs.cors) {
     app.enableCors({
       origin: configs.cors_server, //array of origins
