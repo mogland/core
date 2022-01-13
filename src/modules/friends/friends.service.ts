@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import delXss from "../../utils/xss";
+import delXss from "../../utils/xss.util";
 import { Friends } from "./friends.entity";
 import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
 

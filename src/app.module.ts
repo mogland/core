@@ -1,5 +1,5 @@
 import configs from "./configs";
-import configuration from "./env_config";
+import configuration from "./utils/getEnvConfig.util";
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
