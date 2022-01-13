@@ -8,25 +8,9 @@ Created on 2021-09-25
 
 Dev. by Wibus
 
-## What is it?
+## Reference
 
-This is the backend of the TypeScript blogging system G·Space, built using the Nestjs framework and using MySQL as the data carrier.
-
-The project is still in internal testing, and detailed interface documentation is not considered for the time being.
-
-Project supports Swagger, go to `/api-docs` after startup to view all public interfaces, but cannot debug (bugs). But you can go to [`Postman gs-server`](https://www.postman.com/wibus-wee/workspace/gs-server)
-
-## How to use?
-
-Please you go to [Wiki](https://github.com/wibus-wee/GS-server/wiki), there are some information about installing
-
-## Stack
-
-- Nestjs -- 可扩展的 Node.js 服务器端应用程序的框架
-- TypeScript -- 始于JavaScript，归于JavaScript
-- Nodejs -- 基于 Chrome V8 引擎的 JavaScript 运行环境
-- ~~MongoDB -- 专为可扩展性，高性能和高可用性而设计的数据库~~
-- MySQL -- MySQL是一个完全托管的数据库服务
+本项目参考了[mx-space/server-next](https://github.com/mx-space/server-next)
 
 ## Language Cloc
 
