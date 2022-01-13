@@ -15,7 +15,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest();
 
     const message = exception.message;
-    Logger.log('Oops! w(ﾟДﾟ)w 出错了！Error Message：' + message);
+    Logger.log('Oops! w(ﾟДﾟ)w 出错了! 错误信息: ' + message);
     const errorResponse = {
       statusCode: exception.getStatus(),
       message: message,
