@@ -34,9 +34,9 @@ async function bootstrap() {
   SwaggerModule.setup("api-docs", app, document);
 
   await app.listen(configs.port, '127.0.0.1', async() => {
-    Logger.log(`[GSpaceHelper] G-server running as ${process.env.NODE_ENV}`);
-    Logger.log(`[GSpaceHelper] Server running on http://localhost:${configs.port}`);
-    Logger.log(`[GSpaceHelper] Swagger running on http://localhost:${configs.port}/api-docs`);
+    Logger.log(`[gSpaceHelper] G-server running as ${process.env.NODE_ENV}`);
+    Logger.log(`[gSpaceHelper] Server running on http://localhost:${configs.port}`);
+    Logger.log(`[gSpaceHelper] Swagger running on http://localhost:${configs.port}/api-docs`);
   });
 
   
@@ -48,7 +48,7 @@ async function bootstrap() {
       password: 'master',
 
     })
-    Logger.log('[GSpaceHelper] master user created');
+    Logger.log('[gSpaceHelper] master user created');
   }
 }
 bootstrap();
