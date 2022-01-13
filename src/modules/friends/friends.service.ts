@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import delXss from "../../utils/xss";
 import { Friends } from "./friends.entity";
-import { CreateFriendsDto } from "./create-friends-dto";
+import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
 
 @Injectable()
 export class FriendsService {

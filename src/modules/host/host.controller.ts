@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { HostService } from "./host.service";
-import { CreateHostDto } from "./create-host-dto";
+import { CreateHostDto } from "../../shared/dto/create-host-dto";
 
 @Controller("host")
 @ApiTags("Host")

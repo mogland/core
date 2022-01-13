@@ -9,7 +9,7 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { CreatePostDto } from "./create-post-dto";
+import { CreatePostDto } from "../../shared/dto/create-post-dto";
 import { PostsService } from "./posts.service";
 
 @Controller("posts")

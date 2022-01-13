@@ -10,7 +10,7 @@ import {
 import { AuthGuard } from "@nestjs/passport";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { CategoryService } from "./category.service";
-import { CreateCategoryDto } from "./create-category-dto";
+import { CreateCategoryDto } from "../../shared/dto/create-category-dto";
 
 @Controller("category")
 @ApiTags("Category")

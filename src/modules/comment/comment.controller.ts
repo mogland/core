@@ -11,7 +11,7 @@ import { AuthGuard } from "@nestjs/passport";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import delXss from "utils/xss";
 import { CommentService } from "./comment.service";
-import { CreateCommentDto } from "./create-comment-dto";
+import { CreateCommentDto } from "../../shared/dto/create-comment-dto";
 
 @Controller("comment")
 @ApiTags("Comment")

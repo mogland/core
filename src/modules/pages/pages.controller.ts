@@ -9,7 +9,7 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { CreatePagesDto } from "./create-pages-dto";
+import { CreatePagesDto } from "../../shared/dto/create-pages-dto";
 import { PagesService } from "./pages.service";
 
 @Controller("pages")

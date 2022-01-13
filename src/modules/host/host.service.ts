@@ -1,16 +1,16 @@
 /*
- * @FilePath: /GS-server/src/host/host.service.ts
+ * @FilePath: /GS-server/src/modules/host/host.service.ts
  * @author: Wibus
  * @Date: 2021-10-01 05:26:31
  * @LastEditors: Wibus
- * @LastEditTime: 2021-10-16 07:39:54
+ * @LastEditTime: 2022-01-13 22:49:51
  * Coding With IU
  */
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Host } from "./host.entity";
 import { Repository } from "typeorm";
-import { CreateHostDto } from "./create-host-dto";
+import { CreateHostDto } from "../../shared/dto/create-host-dto";
 
 @Injectable()
 export class HostService {

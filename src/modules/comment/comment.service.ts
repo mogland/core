@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Comments } from "./comment.entity";
-import { CreateCommentDto } from "./create-comment-dto";
+import { CreateCommentDto } from "../../shared/dto/create-comment-dto";
 import BlockedKeywords = require("./block-keywords.json");
 const word = BlockedKeywords;
 @Injectable()

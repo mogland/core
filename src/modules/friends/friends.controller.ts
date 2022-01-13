@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpCode, Post, Query } from "@nestjs/common";
-import { CreateFriendsDto } from "./create-friends-dto";
+import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
 import { FriendsService } from "./friends.service";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 
