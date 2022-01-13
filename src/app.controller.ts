@@ -8,8 +8,8 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { ApiOperation } from "@nestjs/swagger";
-import { LocalAuthGuard } from "./auth/local-auth.guard";
-import { AuthService } from "./auth/auth.service";
+import { LocalAuthGuard } from "./modules/auth/local-auth.guard";
+import { AuthService } from "./modules/auth/auth.service";
 
 @Controller()
 export class AppController {

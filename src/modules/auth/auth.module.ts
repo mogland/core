@@ -6,7 +6,7 @@ import { UsersModule } from "../users/users.module";
 import { PassportModule } from "@nestjs/passport";
 import { JwtModule } from "@nestjs/jwt";
 import { jwtConstants } from "./constants";
-import configs from "../configs";
+import configs from "../../configs";
 
 @Module({
   imports: [

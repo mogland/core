@@ -1,14 +1,14 @@
 /*
- * @FilePath: /GS-server/src/posts/posts.service.ts
+ * @FilePath: /GS-server/src/modules/posts/posts.service.ts
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2021-12-19 08:00:35
+ * @LastEditTime: 2022-01-13 22:23:33
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CategoryService } from "category/category.service";
+import { CategoryService } from "modules/category/category.service";
 import { Repository } from "typeorm";
 import { CreatePostDto } from "./create-post-dto";
 import { Posts } from "./posts.entity";
