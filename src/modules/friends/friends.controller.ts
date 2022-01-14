@@ -1,7 +1,8 @@
-import { Body, Controller, Get, HttpCode, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, Post, Query, UseGuards } from "@nestjs/common";
 import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
 import { FriendsService } from "./friends.service";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller("friends")
 @ApiTags("Friends")
@@ -14,6 +15,13 @@ export class FriendsController {
   pushLinks(@Body() data: CreateFriendsDto) {
     return this.friendsService.create(data);
     // return data.name
+  }
+
+  @Post("update")
+  @UseGuards(AuthGuard("jwt"))
+  @HttpCode(200)
+  updateLinks(@Body() data: CreateFriendsDto) {
+    return this.friendsService.update(data.id, data);
   }
 
   @Get("list")

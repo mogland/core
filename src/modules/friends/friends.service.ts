@@ -34,8 +34,7 @@ export class FriendsService {
       data.check = false;
     }
     if (await this.friendsRepository.findOne({ name: data.name })) {
-      throw new HttpException("Already Exist", HttpStatus.BAD_REQUEST);
-
+      throw new HttpException("已存在这位朋友啦", HttpStatus.BAD_REQUEST);
     }
     return await this.friendsRepository.save(data);
   }
@@ -50,6 +49,7 @@ export class FriendsService {
     if (data.image != null) {
       data.image = delXss(data.image);
     }
+    // console.log(data.check)
     return await this.friendsRepository.update(id, data);
   }
 
