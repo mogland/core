@@ -20,7 +20,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       Logger.warn('[gSpaceHelper] X﹏X 有人企图登陆！返回信息: ' + message);
       break;
     default:
-      Logger.log('[gSpaceHelper] Oops! w(ﾟДﾟ)w 出错了! 错误信息: ' + message);
+      Logger.log('[gSpaceHelper] Oops! w(ﾟДﾟ)w 出错了! Path:' + request.originalUrl + '错误信息: ' + message);
       break;
     }
     const errorResponse = {

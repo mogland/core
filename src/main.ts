@@ -4,11 +4,11 @@ import globals from "./globals";
 import { AppModule } from "./app.module";
 import { Logger } from "@nestjs/common";
 import { UsersService } from "modules/users/users.service";
-import { HttpExceptionFilter } from "common/filters/http-exception.filter";
+// import { HttpExceptionFilter } from "common/filters/http-exception.filter";
 import configs from "./configs";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalFilters(new HttpExceptionFilter());
+  // app.useGlobalFilters(new HttpExceptionFilter());
   if (configs.cors) {
     app.enableCors({
       origin: [process.env.CORS_SERVER || "127.0.0.1:9000","localhost:9000"],

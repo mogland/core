@@ -35,8 +35,9 @@ import { PostsModule } from "./modules/posts/posts.module";
 import { PostsService } from "./modules/posts/posts.service";
 import { UsersModule } from "./modules/users/users.module";
 import { UsersService } from "./modules/users/users.service";
-import { APP_GUARD } from "@nestjs/core";
+import { APP_FILTER, APP_GUARD } from "@nestjs/core";
 import { RolesGuard } from "common/guards/roles.guard";
+import { AllExceptionFilter } from "common/filters/all-exception.filter";
 
 @Module({
   imports: [
@@ -102,7 +103,11 @@ import { RolesGuard } from "common/guards/roles.guard";
       provide: APP_GUARD,
       useClass: RolesGuard,
     },
-    
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionFilter,
+    },
+
   ],
 })
 export class AppModule {}
