@@ -35,6 +35,8 @@ import { PostsModule } from "./modules/posts/posts.module";
 import { PostsService } from "./modules/posts/posts.service";
 import { UsersModule } from "./modules/users/users.module";
 import { UsersService } from "./modules/users/users.service";
+import { APP_GUARD } from "@nestjs/core";
+import { RolesGuard } from "common/guards/roles.guard";
 
 @Module({
   imports: [
@@ -96,6 +98,11 @@ import { UsersService } from "./modules/users/users.service";
     CategoryService,
     MailService,
     FriendsService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+    
   ],
 })
 export class AppModule {}

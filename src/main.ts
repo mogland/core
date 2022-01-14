@@ -4,7 +4,7 @@ import globals from "./globals";
 import { AppModule } from "./app.module";
 import { Logger } from "@nestjs/common";
 import { UsersService } from "modules/users/users.service";
-import { HttpExceptionFilter } from "filters/http-exception.filter";
+import { HttpExceptionFilter } from "common/filters/http-exception.filter";
 import configs from "./configs";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
