@@ -87,6 +87,14 @@ import { AllExceptionFilter } from "common/filters/all-exception.filter";
     FriendsController,
   ],
   providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionFilter,
+    },
     AppService,
     HostService,
     UsersService,
@@ -99,14 +107,6 @@ import { AllExceptionFilter } from "common/filters/all-exception.filter";
     CategoryService,
     MailService,
     FriendsService,
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
-    {
-      provide: APP_FILTER,
-      useClass: AllExceptionFilter,
-    },
 
   ],
 })

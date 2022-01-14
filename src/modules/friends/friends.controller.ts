@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post, Query, UseGuards } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, HttpCode, Post, Query, UseGuards } from "@nestjs/common";
 import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
 import { FriendsService } from "./friends.service";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
@@ -30,10 +30,11 @@ export class FriendsController {
     return await this.friendsService.list(query.type);
   }
 
-  // @Get('check')
-  // @ApiOperation({summary: '检查友链状态码'})
-  // async getStatus(){
-  // console.log(await this.friendsService.check())
-  // return await this.friendsService.check()
-  // }
+  @Get('check')
+  @ApiOperation({summary: '获取友链/某个链接的状态码'})
+  async getStatus(@Query() query){
+    // console.log(await this.friendsService.getStatus(query.url))
+    // return await this.friendsService.getStatus(query.url)
+    throw new BadRequestException('暂时不支持此功能')
+  }
 }
