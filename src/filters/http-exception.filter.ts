@@ -15,7 +15,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest();
 
     const message = exception.message;
-    Logger.log('Oops! w(ﾟДﾟ)w 出错了! 错误信息: ' + message);
+    switch (exception.getStatus()) {
+    case HttpStatus.UNAUTHORIZED:
+      Logger.warn('[gSpaceHelper] X﹏X 有人企图登陆！返回信息: ' + message);
+      break;
+    default:
+      Logger.log('[gSpaceHelper] Oops! w(ﾟДﾟ)w 出错了! 错误信息: ' + message);
+      break;
+    }
     const errorResponse = {
       statusCode: exception.getStatus(),
       message: message,
