@@ -3,16 +3,11 @@
  * @author: Wibus
  * @Date: 2022-01-14 20:32:50
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-14 20:35:02
+ * @LastEditTime: 2022-01-14 20:59:41
  * Coding With IU
  */
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
-
-/**
- * 区分游客和主人的守卫
- */
-
 @Injectable()
 export class RolesGuard extends AuthGuard('jwt') implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {

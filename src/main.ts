@@ -6,24 +6,24 @@ import { Logger } from "@nestjs/common";
 import { UsersService } from "modules/users/users.service";
 // import { HttpExceptionFilter } from "common/filters/http-exception.filter";
 import configs from "./configs";
+import { SpiderGuard } from "common/guards/spiders.guard";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // app.useGlobalFilters(new HttpExceptionFilter());
+
   if (configs.cors) {
+    const Origin = process.env.CORS_SERVER
     app.enableCors({
-      origin: [process.env.CORS_SERVER || "127.0.0.1:9000","localhost:9000"],
+      origin: (origin, callback) => {
+        const allow = Origin.includes(origin)
+        callback(null, allow)
+      },
+      credentials: true,
     });
   }
-  // 设置 返回 header
-  app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-  });
-  app.setGlobalPrefix("api/" + globals.API_VERSION);
+
+  app.useGlobalGuards(new SpiderGuard())
+
+  app.setGlobalPrefix("api/v" + globals.API_VERSION);
 
   const options = new DocumentBuilder()
     .setTitle("G-server")
