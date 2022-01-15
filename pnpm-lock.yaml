@@ -28,7 +28,7 @@ specifiers:
   cz-conventional-changelog: 3.3.0
   eslint: 8.6.0
   eslint-config-prettier: 8.3.0
-  eslint-plugin-prettier: 3.4.1
+  eslint-plugin-prettier: 4.0.0
   express: 4.17.2
   jest: 27.4.7
   mysql2: 2.3.3
@@ -96,7 +96,7 @@ devDependencies:
   cz-conventional-changelog: 3.3.0_typescript@4.5.4
   eslint: 8.6.0
   eslint-config-prettier: 8.3.0_eslint@8.6.0
-  eslint-plugin-prettier: 3.4.1_1c588f61426b1faf18812943f1678311
+  eslint-plugin-prettier: 4.0.0_1c588f61426b1faf18812943f1678311
   jest: 27.4.7_ts-node@10.4.0
   prettier: 2.5.1
   supertest: 6.2.1
@@ -2723,13 +2723,13 @@ packages:
       eslint: 8.6.0
     dev: true
 
-  /eslint-plugin-prettier/3.4.1_1c588f61426b1faf18812943f1678311:
-    resolution: {integrity: sha512-htg25EUYUeIhKHXjOinK4BgCcDwtLHjqaxCDsMy5nbnUMkKFvIhMVCp+5GFUXQ4Nr8lBsPqtGAqBenbpFqAA2g==}
+  /eslint-plugin-prettier/4.0.0_1c588f61426b1faf18812943f1678311:
+    resolution: {integrity: sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==}
     engines: {node: '>=6.0.0'}
     peerDependencies:
-      eslint: '>=5.0.0'
+      eslint: '>=7.28.0'
       eslint-config-prettier: '*'
-      prettier: '>=1.13.0'
+      prettier: '>=2.0.0'
     peerDependenciesMeta:
       eslint-config-prettier:
         optional: true
