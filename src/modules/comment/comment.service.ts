@@ -19,17 +19,17 @@ export class CommentService {
     });
   }
 
-  async list(type) {
+  async list(page: number) {
     let data;
-    if (type == "num") {
-      data = await this.commentRepository.count();
-    } else if (type == "read") {
-      data = await this.commentRepository.find({
-        state: 0,
-      });
-    } else {
-      data = await this.commentRepository.find();
+    if (page < 1){
+      page = 1;
     }
+    let limit = 10;
+    data = await this.commentRepository.find({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+    
     return data;
   }
 
