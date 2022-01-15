@@ -12,6 +12,10 @@ Dev. by Wibus
 
 本项目参考了[mx-space/server-next](https://github.com/mx-space/server-next)
 
+## 许可
+
+此项目 GPLv3 授权开源，使用此项目进行的二次创作或者衍生项目也必须开源。
+
 ## Language Cloc
 
 ```
