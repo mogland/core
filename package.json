@@ -34,7 +34,7 @@
     "@nestjs/swagger": "5.1.5",
     "@nestjs/typeorm": "8.0.2",
     "axios": "0.21.4",
-    "class-transformer": "0.4.0",
+    "class-transformer": "0.5.1",
     "class-validator": "0.13.2",
     "express": "4.17.2",
     "mysql2": "2.3.3",
