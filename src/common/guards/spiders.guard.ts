@@ -19,7 +19,7 @@ export class SpiderGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     if (isDev) {
-      return true
+      return true // 开发环境允许所有人访问
     }
 
     const request = this.getRequest(context)

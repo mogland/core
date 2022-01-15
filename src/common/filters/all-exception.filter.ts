@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-01-14 20:39:52
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-15 11:41:17
+ * @LastEditTime: 2022-01-15 15:16:51
  * Coding With IU
  */
 
@@ -22,19 +22,18 @@ export class AllExceptionFilter implements ExceptionFilter{
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
-
+    const status =
+    exception instanceof HttpException
+      ? exception.getStatus()
+      : HttpStatus.INTERNAL_SERVER_ERROR;
     const message = exception.message;
     Logger.log('[gSpaceHelper] Oops! w(ﾟДﾟ)w 出错了! Path:' + request.originalUrl + ' 错误信息: ' + message);
     const errorResponse: ErrorMessage = {
-      status: exception.getStatus(),
+      status: status,
       message: message,
       error: message,
       url: request.originalUrl, // 错误的url地址
     };
-    const status =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
     // 设置返回的状态码、请求头、发送错误信息
     response.status(status);
     response.header('Content-Type', 'application/json; charset=utf-8');

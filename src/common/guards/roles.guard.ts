@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-01-14 20:32:50
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-14 20:59:41
+ * @LastEditTime: 2022-01-15 15:17:55
  * Coding With IU
  */
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
@@ -29,3 +29,7 @@ export class RolesGuard extends AuthGuard('jwt') implements CanActivate {
     return ctx.getRequest()
   }
 }
+/**
+ * 如果要让此守卫返回true，则必须在请求中提供一个有效的JWT令牌。
+ * 否则将永远返回false。
+ */
