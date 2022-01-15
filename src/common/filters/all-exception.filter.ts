@@ -3,16 +3,18 @@
  * @author: Wibus
  * @Date: 2022-01-14 20:39:52
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-14 20:52:53
+ * @LastEditTime: 2022-01-15 11:41:17
  * Coding With IU
  */
 
-import { ArgumentsHost, Catch, ExceptionFilter, Logger } from "@nestjs/common";
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger } from "@nestjs/common";
 
 type ErrorMessage = {
   message?: string
   status: number
   statusCode?: number
+  error?: string
+  url: string
 }
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter{
@@ -20,25 +22,22 @@ export class AllExceptionFilter implements ExceptionFilter{
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
-    
-    const message: ErrorMessage = {
-      message: "服务器异常",
-      status: 500,
-      statusCode: 500,
-    }
-    if (exception.message) {
-      message.message = exception.message
-    }
-    if (exception.status) {
-      message.status = exception.status
-    }
-    if (exception.statusCode) {
-      message.statusCode = exception.statusCode
-    }
-    Logger.log('[gSpaceHelper] Oops! w(ﾟДﾟ)w 出错了! Path:' + request.originalUrl + 'Status:' + exception.status + 'Message: ' + message);
-    response
-      .status(message.status).json(message)
-      .type('application/json')
-      .send(message)
+
+    const message = exception.message;
+    Logger.log('[gSpaceHelper] Oops! w(ﾟДﾟ)w 出错了! Path:' + request.originalUrl + ' 错误信息: ' + message);
+    const errorResponse: ErrorMessage = {
+      status: exception.getStatus(),
+      message: message,
+      error: message,
+      url: request.originalUrl, // 错误的url地址
+    };
+    const status =
+      exception instanceof HttpException
+        ? exception.getStatus()
+        : HttpStatus.INTERNAL_SERVER_ERROR;
+    // 设置返回的状态码、请求头、发送错误信息
+    response.status(status);
+    response.header('Content-Type', 'application/json; charset=utf-8');
+    response.send(errorResponse);
   }
 }

@@ -4,7 +4,6 @@ import globals from "./globals";
 import { AppModule } from "./app.module";
 import { Logger } from "@nestjs/common";
 import { UsersService } from "modules/users/users.service";
-// import { HttpExceptionFilter } from "common/filters/http-exception.filter";
 import configs from "./configs";
 import { SpiderGuard } from "common/guards/spiders.guard";
 async function bootstrap() {
