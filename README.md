@@ -4,8 +4,6 @@
 
 the RESTful API service for G Space, powered by @nestjs.
 
-Created on 2021-09-25
-
 ## Install & Use
 
 Read [Wiki Page](https://github.com/wibus-wee/GS-server/wiki/Deploy-Server) that you can know how to install
@@ -29,6 +27,6 @@ This project referred to:
 
 ## Author
 
-GS-server © Wibus, Released under the GPL-3.0 License.
+GS-server © Wibus, Released under the GPL-3.0 License. Created on 2021-09-25
 
 > [Personal Website](http://iucky.cn/) · [Blog](https://blog.iucky.cn/) · GitHub [@wibus-wee](https://github.com/wibus-wee/) · Telegram [@wibus✪](https://t.me/wibus_wee)

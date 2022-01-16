@@ -1,10 +1,10 @@
 {
   "name": "nest-server",
   "version": "0.0.5",
-  "description": "TypeScript. Nextjs. Base.",
+  "description": "the RESTful API service for G Space, powered by @nestjs.",
   "author": "Wibus",
-  "private": true,
-  "license": "UNLICENSED",
+  "private": false,
+  "license": "GPL-3.0",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
