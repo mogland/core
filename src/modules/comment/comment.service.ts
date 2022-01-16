@@ -60,8 +60,8 @@ export class CommentService {
       new RegExp(keyword, "ig").test(data.content)
     );
     const contentByte = Buffer.byteLength(data.content, "utf8");
-    // 如果contentByte超过了1MB，则抛出异常
-    if (contentByte > 1048576) {
+    // 如果contentByte超过了200kb，则抛出异常
+    if (contentByte > 200000) {
       throw new HttpException(
         "评论过长，请删减后再试",
         HttpStatus.BAD_REQUEST
