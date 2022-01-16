@@ -10,10 +10,15 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   if (configs.cors) {
-    const Origin = process.env.CORS_SERVER || "*";
+    const Origin = process.env.CORS_SERVER?.split?.(',') || ["*"]; // baidu.com, google.com
+    const hosts = Origin && Origin.map((host) => new RegExp(host, 'i'))
     app.enableCors(
       {
-        origin: Origin,
+        origin: (origin, callback) => {
+          const allow = hosts.some((host) => host.test(origin))
+
+          callback(null, allow)
+        },
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         preflightContinue: false,
         optionsSuccessStatus: 204,
