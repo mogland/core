@@ -29,4 +29,9 @@ export class AppController {
   getProfile(@Body() req) {
     return this.authService.checkUser(req.username);
   }
+  
+  @Get("/ping")
+  ping() {
+    return "pong";
+  }
 }
