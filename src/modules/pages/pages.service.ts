@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-16 19:19:19
+ * @LastEditTime: 2022-01-16 21:17:33
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -46,11 +46,6 @@ export class PagesService {
       return await this.pagesRepository.find({
         select: ['id', 'title', 'path'],
       });
-    case 'query':
-      if (!query.query) {
-        throw new HttpException("query is required", HttpStatus.BAD_REQUEST);
-      }
-      return await this.pagesRepository.query(query.query);
     default:
       return await this.pagesRepository.find();
     }

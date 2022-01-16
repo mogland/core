@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-16 19:18:45
+ * @LastEditTime: 2022-01-16 21:17:29
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -49,11 +49,6 @@ export class PostsService {
       return await this.postsRepository.find({
         select: ['id', 'title', 'path', 'tags', 'slug'],
       });
-    case 'query':
-      if (!query.query) {
-        throw new HttpException("query is required", HttpStatus.BAD_REQUEST);
-      }
-      return await this.postsRepository.query(query.query);
     default:
       return await this.postsRepository.find();
     }
