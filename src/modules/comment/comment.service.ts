@@ -1,15 +1,17 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { BadRequestException, HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Comments } from "./comment.entity";
 import { CreateCommentDto } from "../../shared/dto/create-comment-dto";
 import BlockedKeywords = require("./block-keywords.json");
+import { UsersService } from "modules/users/users.service";
 const word = BlockedKeywords;
 @Injectable()
 export class CommentService {
   constructor(
     @InjectRepository(Comments)
-    private commentRepository: Repository<Comments>
+    private commentRepository: Repository<Comments>,
+    private usersService: UsersService
   ) {}
 
   async getComment(type: string, path: string): Promise<Comments[]> {
@@ -60,12 +62,14 @@ export class CommentService {
       new RegExp(keyword, "ig").test(data.content)
     );
     const contentByte = Buffer.byteLength(data.content, "utf8");
-    // 如果contentByte超过了200kb，则抛出异常
-    if (contentByte > 200000) {
-      throw new HttpException(
-        "评论过长，请删减后再试",
-        HttpStatus.BAD_REQUEST
-      );
+    if (contentByte > 200000) { // 200KB
+      throw new BadRequestException("评论过长，请删减后再试")
+    }
+    const isMaster = this.usersService.findOne(data.author);
+    if (isMaster && data.isOwner != 1) {
+      throw new BadRequestException(
+        '用户名与主人重名啦, 但是你好像并不是我的主人唉',
+      )
     }
     if (isBlock) {
       throw new HttpException(

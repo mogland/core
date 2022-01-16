@@ -10,14 +10,16 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   if (configs.cors) {
-    const Origin = process.env.CORS_SERVER
-    app.enableCors({
-      origin: (origin, callback) => {
-        const allow = Origin.includes(origin)
-        callback(null, allow)
+    const Origin = process.env.CORS_SERVER || "*";
+    app.enableCors(
+      {
+        origin: Origin,
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
+        credentials: true,
       },
-      credentials: true,
-    });
+    );
   }
 
   app.useGlobalGuards(new SpiderGuard())
