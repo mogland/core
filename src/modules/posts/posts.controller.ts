@@ -22,7 +22,7 @@ export class PostsController {
     summary: "全部文章",
   })
   async list(@Query() query) {
-    return await this.postsService.list(query.type);
+    return await this.postsService.list(query);
   }
 
   @Get(":path")

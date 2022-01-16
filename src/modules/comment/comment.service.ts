@@ -19,18 +19,26 @@ export class CommentService {
     });
   }
 
-  async list(page: number) {
-    let data;
-    if (page < 1){
-      page = 1;
+  async list(query: any) {
+    switch (query.type){
+    case 'all':
+      return await this.commentRepository.find()
+    case 'limit':
+      let page = query.page
+      if (page < 1 || isNaN(page)) {
+        page = 1;
+      }
+      const limit = query.limit || 10;
+      const skip = (page - 1) * limit;
+      return await this.commentRepository.find({
+        skip: skip,
+        take: limit,
+      });
+    case 'num':
+      return await this.commentRepository.count()
+    default:
+      return await this.commentRepository.find()
     }
-    let limit = 10;
-    data = await this.commentRepository.find({
-      skip: (page - 1) * limit,
-      take: limit,
-    });
-    
-    return data;
   }
 
   async changeComment(cid: number, state: number, content: string) {
@@ -51,9 +59,17 @@ export class CommentService {
     const isBlock = [...word].some((keyword) =>
       new RegExp(keyword, "ig").test(data.content)
     );
+    const contentByte = Buffer.byteLength(data.content, "utf8");
+    // 如果contentByte超过了1MB，则抛出异常
+    if (contentByte > 1048576) {
+      throw new HttpException(
+        "评论过长，请删减后再试",
+        HttpStatus.BAD_REQUEST
+      );
+    }
     if (isBlock) {
       throw new HttpException(
-        "Your comment contains blocked words",
+        "评论有敏感词，请检查后重新提交",
         HttpStatus.BAD_REQUEST
       );
     } else {

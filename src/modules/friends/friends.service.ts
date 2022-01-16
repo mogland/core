@@ -55,13 +55,11 @@ export class FriendsService {
   }
 
   async list(page: number) {
-    let data;
-    // 数据分页
-    if (page < 1) {
+    if (page < 1 || isNaN(page)) {
       page = 1;
     }
-    let limit = 10;
-    data = await this.friendsRepository.find({
+    const limit = 10;
+    const data = await this.friendsRepository.find({
       skip: (page - 1) * limit,
       take: limit,
       order: {

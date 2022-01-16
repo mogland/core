@@ -31,7 +31,7 @@ export class CategoryController {
     summary: "获取全部分类",
   })
   async list(@Query() query) {
-    return await this.categoryService.list(query.type);
+    return await this.categoryService.list(query.page);
   }
 
   @Post("create")

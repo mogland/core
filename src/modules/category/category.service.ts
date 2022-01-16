@@ -33,13 +33,16 @@ export class CategoryService {
     }
   }
 
-  async list(type) {
-    let data;
-    if (type == "num") {
-      data = await this.categoryRepository.count();
-    } else {
-      data = await this.categoryRepository.find();
+  async list(page: number) {
+    if (page < 1 || isNaN(page)) {
+      page = 1;
     }
+    const limit = 10;
+    const skip = (page - 1) * limit;
+    const data = await this.categoryRepository.find({
+      skip: skip,
+      take: limit,
+    });
     return data;
   }
 

@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-13 22:49:34
+ * @LastEditTime: 2022-01-16 19:19:19
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -25,17 +25,37 @@ export class PagesService {
     });
   }
 
-  async list(type) {
-    let data;
-    if (type == "num") {
-      data = await this.pagesRepository.count();
-    } else {
-      data = await this.pagesRepository.find();
-      for (let index = 0; index < data.length; index++) {
-        delete data[index].content;
+  async list(query: any) {
+    switch (query.type) {
+    case 'all':
+      return await this.pagesRepository.find();
+    case 'limit':
+      let page = query.page
+      if (page < 1 || isNaN(page)) {
+        page = 1;
       }
+      const limit = query.limit || 10;
+      const skip = (page - 1) * limit;
+      return await this.pagesRepository.find({
+        skip: skip,
+        take: limit,
+      });
+    case 'num':
+      return await this.pagesRepository.count();
+    case 'list':
+      return await this.pagesRepository.find({
+        select: ['id', 'title', 'path'],
+      });
+    case 'query':
+      if (!query.query) {
+        throw new HttpException("query is required", HttpStatus.BAD_REQUEST);
+      }
+      return await this.pagesRepository.query(query.query);
+    default:
+      return await this.pagesRepository.find();
     }
-    return data;
+
+
   }
 
   async send(data: CreatePagesDto){
