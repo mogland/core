@@ -11,7 +11,7 @@ async function bootstrap() {
 
   if (configs.cors) {
     const Origin = process.env.CORS_SERVER?.split?.(',') || ["*"]; // baidu.com, google.com
-    const hosts = Origin && Origin.map((host) => new RegExp(host, 'i'))
+    const hosts = Origin.map((host) => new RegExp(host, 'i'))
     app.enableCors(
       {
         origin: (origin, callback) => {
