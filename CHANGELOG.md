@@ -1,3 +1,39 @@
+## [0.0.5](https://github.com/wibus-wee/GS-server/compare/v0.0.4...v0.0.5) (2022-01-16)
+
+
+### Bug Fixes
+
+* **cors:** fixed header error caused by CORS setting ([6ed1f25](https://github.com/wibus-wee/GS-server/commit/6ed1f252b398ace76da902df8f395f39184357c8))
+* **deps:** update dependency axios to v0.24.0 ([54b63ad](https://github.com/wibus-wee/GS-server/commit/54b63adaf60222a0874d65bdb0397d2bad8723be))
+* **deps:** update dependency class-transformer to v0.5.1 ([c41aa8d](https://github.com/wibus-wee/GS-server/commit/c41aa8d4e9e4d198b0dfdcf9aacf10e742e8cac6))
+* **deps:** update dependency passport to v0.5.2 ([e1dbb05](https://github.com/wibus-wee/GS-server/commit/e1dbb05c12d06c819d5b10d411952dedc7b68be4))
+* **deps:** update nest monorepo to v8.2.5 ([adeb7f7](https://github.com/wibus-wee/GS-server/commit/adeb7f758b88d5bf7067bb588162202c571a4cfc))
+* **filters:** fix all-exception filter return too many request ([ff0564f](https://github.com/wibus-wee/GS-server/commit/ff0564f10bb46c6822d13c772943c2ea42d55d4e))
+* fix 'Origin' is always true ([18b40d9](https://github.com/wibus-wee/GS-server/commit/18b40d90df32447e65b8730aa99921fe0f83103d))
+* **services:** fix vulnerability vulnerable to injection ([4ba0239](https://github.com/wibus-wee/GS-server/commit/4ba0239856b502241943c9b1a1d70af005b887c7))
+
+
+### Features
+
+* **comment:** edit other comments ([42fb9e6](https://github.com/wibus-wee/GS-server/commit/42fb9e664cda578c50194b2e8452a5f339ef224c))
+* **filters:** add a APP_FILTER & remove http-exception filter ([48f91b2](https://github.com/wibus-wee/GS-server/commit/48f91b24b665ec76c8f149039d6aead1d77c3b39))
+* **guards:** add a spiders guards ([c5d9527](https://github.com/wibus-wee/GS-server/commit/c5d952770fa6e657a4d9d7197f3df42c109e99e0))
+* **guards:** add RolesGuard for APP_GUARD ([df5ff56](https://github.com/wibus-wee/GS-server/commit/df5ff567a59764a80dde96b6b8db16ee0b7f6501))
+
+
+### Performance Improvements
+
+* **app:** give app a `/ping` request ([96b2775](https://github.com/wibus-wee/GS-server/commit/96b277544532f5b32474e1aac613c5feee44a2ca))
+* **comment:** check for comment username violations ([702391b](https://github.com/wibus-wee/GS-server/commit/702391bb330dd7b04d68464651b743f3d2c10809))
+* **comment:** limit contents' Byte ([9058517](https://github.com/wibus-wee/GS-server/commit/905851719808a5b56a621d69b649264b57e11fe3))
+* **filter:** add a swich-case for exception filter ([fc2d02e](https://github.com/wibus-wee/GS-server/commit/fc2d02e42a9a3d0a256c80a65b380d15d4500832))
+* **friends:** add a check service for links(bugs) ([bde5067](https://github.com/wibus-wee/GS-server/commit/bde5067202ef24ef51164bf1f307c513e9f9ab39))
+* **friends:** improve the friendly Exception ([566550d](https://github.com/wibus-wee/GS-server/commit/566550d9663384e48c65d3a0497bb9b5a0328b5f))
+* **service:** list provides more options ([89eacf5](https://github.com/wibus-wee/GS-server/commit/89eacf57ca70c3f33f1627003c30168d87f6f331))
+* **tsconfig:** add `include` for tsconfig ([23a91f3](https://github.com/wibus-wee/GS-server/commit/23a91f3f52d78b5706d00cd45d3085d67bf39979))
+
+
+
 ## [0.0.4](https://github.com/wibus-wee/GS-server/compare/v0.0.3...v0.0.4) (2022-01-13)
 
 
