@@ -33,17 +33,26 @@ export class CategoryService {
     }
   }
 
-  async list(page: number) {
-    if (page < 1 || isNaN(page)) {
-      page = 1;
+  async list(query: any) {
+    switch (query.type) {
+    case 'all':
+      return await this.categoryRepository.find();
+    case 'limit':
+      let page = query.page
+      if (page < 1 || isNaN(page)) {
+        page = 1;
+      }
+      const limit = query.limit || 10;
+      const skip = (page - 1) * limit;
+      return await this.categoryRepository.find({
+        skip: skip,
+        take: limit,
+      });
+    case 'num':
+      return await this.categoryRepository.count();
+    default:
+      return await this.categoryRepository.find();
     }
-    const limit = 10;
-    const skip = (page - 1) * limit;
-    const data = await this.categoryRepository.find({
-      skip: skip,
-      take: limit,
-    });
-    return data;
   }
 
   async check(slug: string) {

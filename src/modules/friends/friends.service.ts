@@ -54,19 +54,30 @@ export class FriendsService {
     return await this.friendsRepository.update(id, data);
   }
 
-  async list(page: number) {
-    if (page < 1 || isNaN(page)) {
-      page = 1;
+  async list(query: any) {
+    switch (query.type) {
+    case "all":
+      return await this.friendsRepository.find();
+    case "limit":
+      let page = query.page
+      if (page < 1 || isNaN(page)) {
+        page = 1;
+      }
+      const limit = query.limit || 10;
+      const skip = (page - 1) * limit;
+      return await this.friendsRepository.find({
+        skip: skip,
+        take: limit,
+      });
+    case "num":
+      return await this.friendsRepository.count();
+    case "uncheck":
+      return await this.friendsRepository.find({
+        check: false,
+      });
+    default:
+      return await this.friendsRepository.find();
     }
-    const limit = 10;
-    const data = await this.friendsRepository.find({
-      skip: (page - 1) * limit,
-      take: limit,
-      order: {
-        id: "DESC",
-      },
-    });
-    return data;
   }
 
   // 获取baidu.com状态码

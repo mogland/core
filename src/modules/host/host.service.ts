@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-01 05:26:31
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-13 22:49:51
+ * @LastEditTime: 2022-01-17 16:36:38
  * Coding With IU
  */
 import { Injectable } from "@nestjs/common";
@@ -16,7 +16,7 @@ import { CreateHostDto } from "../../shared/dto/create-host-dto";
 export class HostService {
   constructor(
     @InjectRepository(Host)
-    private hostRepository: Repository<Host>
+    private hostRepository: Repository<Host>,
   ) {}
 
   async find(): Promise<Host> {

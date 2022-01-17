@@ -10,10 +10,14 @@ import { AuthGuard } from "@nestjs/passport";
 import { ApiOperation } from "@nestjs/swagger";
 import { LocalAuthGuard } from "./modules/auth/local-auth.guard";
 import { AuthService } from "./modules/auth/auth.service";
+import { AppService } from "app.service";
 
 @Controller()
 export class AppController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly appService: AppService
+  ) {}
 
   @UseGuards(LocalAuthGuard)
   @Post("auth/login")
@@ -33,5 +37,10 @@ export class AppController {
   @Get("/ping")
   ping() {
     return "pong";
+  }
+
+  @Get("/stats")
+  async stats() {
+    return this.appService.getStat();
   }
 }
