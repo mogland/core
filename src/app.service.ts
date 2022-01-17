@@ -20,7 +20,8 @@ export class AppService {
       posts: await this.postsService.list({ type: 'num' }),
       pages: await this.pageService.list({ type: 'num' }),
       comments: await this.commentService.list({ type: 'num' }),
-      friends: await this.friendsService.list({ type: 'num' }),
+      Allfriends: await this.friendsService.list({ type: 'num' }),
+      Unfriends: await this.friendsService.list({ type: 'uncheck' }),
       categories: await this.categoryService.list({ type: 'num' }),
     }
   }
