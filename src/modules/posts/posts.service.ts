@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-13 22:49:12
+ * @LastEditTime: 2022-01-16 21:17:29
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -27,18 +27,31 @@ export class PostsService {
     });
   }
 
-  async list(type) {
-    let data: any;
-    if (type == "num") {
-      data = this.postsRepository.count();
-    } else {
-      data = await this.postsRepository.find();
-
-      for (let index = 0; index < data.length; index++) {
-        delete data[index].content;
+  async list(query: any) {
+    switch (query.type) {
+    case 'all':
+      return await this.postsRepository.find();
+    case 'limit':
+      let page = query.page
+      if (page < 1 || isNaN(page)) {
+        page = 1;
       }
+      const limit = 10;
+      const skip = (page - 1) * limit;
+      return await this.postsRepository.find({
+        skip: skip,
+        take: limit,
+        select: ["id", "title", "path", "tags", "slug"],
+      });
+    case 'num':
+      return await this.postsRepository.count();
+    case 'list':
+      return await this.postsRepository.find({
+        select: ['id', 'title', 'path', 'tags', 'slug'],
+      });
+    default:
+      return await this.postsRepository.find();
     }
-    return data;
   }
 
   async send(data: CreatePostDto): Promise<Posts | string> {
@@ -55,10 +68,11 @@ export class PostsService {
       return await this.postsRepository.save(data);
     }
   }
-
-  async del(path) {
+  
+  // 删除文章（需要id）
+  async del(id: number) {
     return await this.postsRepository.delete({
-      path: path,
+      id: id,
     });
   }
 }

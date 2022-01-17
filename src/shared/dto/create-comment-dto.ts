@@ -1,56 +1,56 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 /*
- * @FilePath: /GS-server/src/comment/create-comment-dto.ts
+ * @FilePath: /GS-server/src/shared/dto/create-comment-dto.ts
  * @author: Wibus
  * @Date: 2021-10-04 22:04:15
  * @LastEditors: Wibus
- * @LastEditTime: 2021-12-04 06:28:45
+ * @LastEditTime: 2022-01-16 21:42:50
  * Coding With IU
  */
 export class CreateCommentDto {
   cid: number; //comment id
 
   @ApiProperty()
-  type: string; //choose `post` or `page`
+    type: string; //choose `post` or `page`
 
   @ApiProperty()
-  path: string;
+    path: string;
 
   post: string; //only ID
 
   @ApiProperty()
-  content: string; //comment content
+    content: string; //comment content
 
   createTime: number;
 
   @ApiProperty()
-  author: string;
+    author: string;
 
   @ApiProperty()
-  owner: string;
+    owner: string;
 
   @ApiProperty()
-  isOwner?: number = 0;
+    isOwner?: number = 0;
 
   @ApiProperty()
-  email: string;
+    email: string;
 
   @ApiProperty()
-  url?: string = null;
+    url?: string = null;
 
   @ApiProperty()
-  key?: string = null;
+    key?: string = null;
 
   @ApiProperty()
-  hasChild?: number = 0;
+    hasChild?: number = 0;
 
   @ApiProperty()
-  ipAddress?: string = null;
+    ipAddress?: string = null;
 
   @ApiProperty()
-  userAgent?: string = null;
+    userAgent?: string = null;
 
   @ApiProperty()
-  state: number; // 0 need checked, 1 push, 2 shit message
+    state: number; // 0 need checked, 1 push, 2 shit message
 }

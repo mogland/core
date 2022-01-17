@@ -3,20 +3,20 @@ import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Posts {
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number;
 
   @Column({ length: 500 })
-  title: string;
+    title: string;
 
   @Column("text")
-  path: string;
+    path: string;
 
   @Column()
-  content: string;
+    content: string;
 
   @Column()
-  tags: string;
+    tags: string;
 
   @Column()
-  slug: string;
+    slug: string;
 }

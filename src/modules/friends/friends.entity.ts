@@ -1,9 +1,9 @@
 /*
- * @FilePath: /GS-server/src/friends/friends.entity.ts
+ * @FilePath: /GS-server/src/modules/friends/friends.entity.ts
  * @author: Wibus
  * @Date: 2021-10-23 08:57:19
  * @LastEditors: Wibus
- * @LastEditTime: 2021-12-04 06:48:39
+ * @LastEditTime: 2022-01-16 16:39:03
  * Coding With IU
  */
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
@@ -11,26 +11,26 @@ import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Friends {
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number;
 
   @Column({ length: 500 })
-  name: string;
+    name: string;
 
   @Column("text")
-  description?: string;
+    description?: string;
 
   @Column()
-  website: string;
+    website: string;
 
   @Column()
-  image: string;
+    image: string;
 
   @Column()
-  qq: string;
+    qq: string;
 
   @Column()
-  owner: boolean;
+    owner: boolean;
 
   @Column()
-  check: boolean;
+    check: boolean;
 }

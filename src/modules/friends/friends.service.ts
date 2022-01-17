@@ -54,13 +54,18 @@ export class FriendsService {
     return await this.friendsRepository.update(id, data);
   }
 
-  async list(type) {
-    let data;
-    if (type == "num") {
-      data = await this.friendsRepository.count();
-    } else {
-      data = await this.friendsRepository.find();
+  async list(page: number) {
+    if (page < 1 || isNaN(page)) {
+      page = 1;
     }
+    const limit = 10;
+    const data = await this.friendsRepository.find({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: {
+        id: "DESC",
+      },
+    });
     return data;
   }
 

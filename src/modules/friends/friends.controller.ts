@@ -27,7 +27,7 @@ export class FriendsController {
   @Get("list")
   @ApiOperation({ summary: "获取全部友链" })
   async list(@Query() query) {
-    return await this.friendsService.list(query.type);
+    return await this.friendsService.list(query.page);
   }
 
   @Get('check')

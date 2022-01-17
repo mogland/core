@@ -31,7 +31,15 @@ export class CommentController {
     summary: "获取全部评论",
   })
   async list(@Query() query) {
-    return await this.commentService.list(query.type);
+    return await this.commentService.list(query);
+  }
+  @Post("change")
+  @ApiOperation({
+    summary: "修改评论",
+  })
+  @UseGuards(AuthGuard("jwt"))
+  async change(@Body() data: any){
+    return await this.commentService.changeComment(data.cid, data.state, data.content);
   }
 
   @Post("create")

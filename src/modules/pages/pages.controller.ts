@@ -22,7 +22,8 @@ export class PagesController {
     summary: "获取全部页面",
   })
   async list(@Query() query) {
-    return this.pagesService.list(query.type);
+    return this.pagesService.list(query); 
+    // query.type: 'all'(全部显示)/'num'（仅返回长度）/'list'（返回列表 不返回内容）/'limit'（限制列表长度，需要配合query.page）/'query'（使用数据库语法查询,需要返回query.query）
   }
 
   @Get(":path")
