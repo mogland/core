@@ -23,9 +23,6 @@ import { CommentModule } from "./modules/comment/comment.module";
 import { CommentService } from "./modules/comment/comment.service";
 import { FriendsController } from "./modules/friends/friends.controller";
 import { FriendsService } from "./modules/friends/friends.service";
-import { HostController } from "./modules/host/host.controller";
-import { HostModule } from "./modules/host/host.module";
-import { HostService } from "./modules/host/host.service";
 import { MailModule } from "./modules/mail/mail.module";
 import { PagesController } from "./modules/pages/pages.controller";
 import { PagesModule } from "./modules/pages/pages.module";
@@ -66,7 +63,6 @@ import { AllExceptionFilter } from "common/filters/all-exception.filter";
       },
       inject: [ConfigService],
     }),
-    HostModule,
     UsersModule,
     AuthModule,
     PostsModule,
@@ -78,7 +74,6 @@ import { AllExceptionFilter } from "common/filters/all-exception.filter";
   ],
   controllers: [
     AppController,
-    HostController,
     PagesController,
     PostsController,
     CommentController,
@@ -96,7 +91,7 @@ import { AllExceptionFilter } from "common/filters/all-exception.filter";
       useClass: AllExceptionFilter,
     },
     AppService,
-    HostService,
+  
     UsersService,
     AuthService,
     LocalStrategy,

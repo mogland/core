@@ -52,7 +52,13 @@ async function bootstrap() {
     await usersService.create({
       name: 'master',
       password: 'master',
-
+      email: '@example.com',
+      level: 'master',
+      status: 'active',
+      lovename: 'master',
+      description: 'master',
+      avatar: 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?s=80&d=identicon&r=PG',
+      QQ: '123456789',
     })
     Logger.log('[gSpaceHelper] master user created');
   }

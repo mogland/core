@@ -4,7 +4,7 @@ import {
   Request,
   Post,
   UseGuards,
-  Body,
+  Query,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { ApiOperation } from "@nestjs/swagger";
@@ -30,8 +30,8 @@ export class AppController {
   @UseGuards(AuthGuard("jwt"))
   @ApiOperation({ summary: "获取管理员信息" })
   @Get("profile")
-  getProfile(@Body() req) {
-    return this.authService.checkUser(req.username);
+  getProfile(@Query() req) {
+    return this.authService.checkUser(req.user);
   }
   
   @Get("/ping")
@@ -43,4 +43,5 @@ export class AppController {
   async stats() {
     return this.appService.getStat();
   }
+
 }
