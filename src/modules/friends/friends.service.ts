@@ -75,6 +75,10 @@ export class FriendsService {
       return await this.friendsRepository.find({
         check: false,
       });
+    case "uncheck_num":
+      return await this.friendsRepository.count({
+        check: false,
+      });
     default:
       return await this.friendsRepository.find();
     }

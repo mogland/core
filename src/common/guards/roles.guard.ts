@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-01-14 20:32:50
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-15 15:17:55
+ * @LastEditTime: 2022-01-17 17:16:35
  * Coding With IU
  */
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
@@ -15,6 +15,7 @@ export class RolesGuard extends AuthGuard('jwt') implements CanActivate {
     const request = this.getRequest(context)
 
     if (request.headers['authorization']) {
+      console.log(request.headers['authorization'])
       try {
         isMaster = (await super.canActivate(context)) as boolean
       } catch {}
