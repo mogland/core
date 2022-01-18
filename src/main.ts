@@ -47,8 +47,7 @@ async function bootstrap() {
 
   
   const usersService = app.get(UsersService);
-  const users = await usersService.findAll();
-  if (!users.length){
+  if (await usersService.find({type: "num"}) == 0) {
     await usersService.create({
       name: 'master',
       password: 'master',

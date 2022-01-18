@@ -35,6 +35,7 @@ import { UsersService } from "./modules/users/users.service";
 import { APP_FILTER, APP_GUARD } from "@nestjs/core";
 import { RolesGuard } from "common/guards/roles.guard";
 import { AllExceptionFilter } from "common/filters/all-exception.filter";
+import { UsersController } from "modules/users/users.controller";
 
 @Module({
   imports: [
@@ -74,6 +75,7 @@ import { AllExceptionFilter } from "common/filters/all-exception.filter";
   ],
   controllers: [
     AppController,
+    UsersController,
     PagesController,
     PostsController,
     CommentController,

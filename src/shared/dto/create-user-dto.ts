@@ -7,16 +7,16 @@ export class CreateUserDto {
   readonly password: string = "wibus";
 
   @ApiProperty()
-  readonly lovename: string;
+  readonly lovename?: string;
 
   @ApiProperty()
-  readonly description: string;
+  readonly description?: string;
 
   @ApiProperty()
-  readonly email: string;
+  readonly email?: string;
 
   @ApiProperty()
-  readonly avatar: string;
+  readonly avatar?: string;
   
   @ApiProperty()
   readonly level: string; // master, admin, user
@@ -25,5 +25,5 @@ export class CreateUserDto {
   readonly status: string; // active, inactive, banned
 
   @ApiProperty()
-  readonly QQ: string;
+  readonly QQ?: string;
 }
