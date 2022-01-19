@@ -4,6 +4,7 @@ import {
   Request,
   Post,
   UseGuards,
+  Body,
   // Query,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
@@ -11,12 +12,14 @@ import { ApiOperation } from "@nestjs/swagger";
 import { LocalAuthGuard } from "./modules/auth/local-auth.guard";
 import { AuthService } from "./modules/auth/auth.service";
 import { AppService } from "app.service";
+import { UsersService } from "modules/users/users.service";
 
 @Controller()
 export class AppController {
   constructor(
     private readonly authService: AuthService,
-    private readonly appService: AppService
+    private readonly appService: AppService,
+    private readonly userService: UsersService
   ) {}
 
   @UseGuards(LocalAuthGuard)
@@ -35,6 +38,13 @@ export class AppController {
   // }
   getProfile(){
     return this.authService.checkUser();
+  }
+
+  // 修改信息
+  @UseGuards(AuthGuard("jwt"))
+  @Post("profile")
+  async changeProfile(@Body() data){
+    return this.userService.edit(data);
   }
   
   @UseGuards(AuthGuard("jwt"))
