@@ -19,7 +19,7 @@ export class UsersService {
     }else{
       return await this.userRepository.find(
         {
-          select: ["id", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
+          select: ["uuid", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
           where: { name: user },
         }
       );
@@ -43,7 +43,7 @@ export class UsersService {
     case "all":
       // 过滤password字段
       return await this.userRepository.find({
-        select: ["id", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
+        select: ["uuid", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
       });
     case "limit":
       let page = query.page
@@ -55,13 +55,13 @@ export class UsersService {
       return await this.userRepository.find({
         skip: skip,
         take: limit,
-        select: ["id", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
+        select: ["uuid", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
       });
     case "num":
       return await this.userRepository.count();
     default:
       return await this.userRepository.find({
-        select: ["id", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
+        select: ["uuid", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
       });
     }
   }

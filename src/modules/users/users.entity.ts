@@ -1,17 +1,17 @@
 /*
- * @FilePath: /GS-server/src/modules/users/user.entity.ts
+ * @FilePath: /GS-server/src/modules/users/users.entity.ts
  * @author: Wibus
  * @Date: 2021-10-03 15:35:23
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-18 22:23:40
+ * @LastEditTime: 2022-01-19 21:53:00
  * Coding With IU
  */
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn("uuid")
+    uuid: string;
 
   @Column({ length: 500 })
     name: string;
