@@ -22,8 +22,9 @@ export class AuthService {
     return null;
   }
 
-  async checkUser(username: string): Promise<any> {
-    const user = await this.usersService.findOne(username, true);
+  // async checkUser(username: string): Promise<any> {
+  async checkUser() {
+    const user = await this.usersService.find("auth");
     if (user) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user[0];

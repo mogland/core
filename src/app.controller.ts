@@ -4,7 +4,7 @@ import {
   Request,
   Post,
   UseGuards,
-  Query,
+  // Query,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { ApiOperation } from "@nestjs/swagger";
@@ -27,16 +27,26 @@ export class AppController {
     return this.authService.login(req.user);
   }
 
-  @UseGuards(AuthGuard("jwt"))
+  // @UseGuards(AuthGuard("jwt"))
   @ApiOperation({ summary: "获取管理员信息" })
   @Get("profile")
-  getProfile(@Query() req) {
-    return this.authService.checkUser(req.user);
+  // getProfile(@Query() req) {
+  //   return this.authService.checkUser(req.user);
+  // }
+  getProfile(){
+    return this.authService.checkUser();
   }
   
-  @Get("/ping")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({ summary: "检测密钥是否可用" })
+  @Get("/super/ping")
   ping() {
-    return "pong";
+    // successful notice
+    return {
+      "status": 200,
+      "message": "The key effective",
+      "url": "/api/v1/super/ping"
+    };
   }
 
   @Get("/stats")

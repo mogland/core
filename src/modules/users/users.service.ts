@@ -38,6 +38,8 @@ export class UsersService {
   }
   async find(query: any) {
     switch (query.type) {
+    case "auth":
+      return await this.userRepository.find();
     case "all":
       // 过滤password字段
       return await this.userRepository.find({
