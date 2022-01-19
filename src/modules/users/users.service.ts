@@ -13,8 +13,17 @@ export class UsersService {
     private userRepository: Repository<User>
   ) {}
 
-  async findOne(user: string) {
-    return await this.userRepository.find({ name: user });
+  async findOne(user: string, auth = false) {
+    if (auth == true) {
+      return await this.userRepository.find();
+    }else{
+      return await this.userRepository.find(
+        {
+          select: ["id", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
+          where: { name: user },
+        }
+      );
+    }
   }
   async edit(data: CreateUserDto) {
     if (this.userRepository.find({name:data.name})) {
@@ -30,7 +39,10 @@ export class UsersService {
   async find(query: any) {
     switch (query.type) {
     case "all":
-      return await this.userRepository.find();
+      // 过滤password字段
+      return await this.userRepository.find({
+        select: ["id", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
+      });
     case "limit":
       let page = query.page
       if (page < 1 || isNaN(page)) {
@@ -41,11 +53,14 @@ export class UsersService {
       return await this.userRepository.find({
         skip: skip,
         take: limit,
+        select: ["id", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
       });
     case "num":
       return await this.userRepository.count();
     default:
-      return await this.userRepository.find();
+      return await this.userRepository.find({
+        select: ["id", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
+      });
     }
   }
   async create(data: CreateUserDto){
