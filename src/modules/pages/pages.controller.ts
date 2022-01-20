@@ -42,7 +42,7 @@ export class PagesController {
   @ApiOperation({
     summary: "发布页面",
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth("access-token")
   @ApiBody({ type: CreatePagesDto })
   @UseGuards(AuthGuard("jwt"))
   async send(@Body() data: CreatePagesDto) {
@@ -53,7 +53,7 @@ export class PagesController {
 
   @Delete("delete/:path")
   @UseGuards(AuthGuard('jwt'))
-  @ApiBearerAuth()
+  @ApiBearerAuth("access-token")
   @ApiOperation({
     summary: "删除页面",
   })

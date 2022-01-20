@@ -44,7 +44,7 @@ export class CommentController {
   })
   @UseGuards(AuthGuard("jwt"))
   @ApiBody({type: CreateCommentDto})
-  @ApiBearerAuth()
+  @ApiBearerAuth("access-token")
   async change(@Body() data: CreateCommentDto) {
     return await this.commentService.changeComment(data);
   }
@@ -67,7 +67,7 @@ export class CommentController {
   })
   // 只有一个cid属性
   @ApiBody({type: Number, description: "评论cid"})
-  @ApiBearerAuth()
+  @ApiBearerAuth("access-token")
   @UseGuards(AuthGuard("jwt"))
   async delete(@Body() data) {
     return await this.commentService.deleteComment(data.cid);

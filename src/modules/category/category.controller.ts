@@ -43,7 +43,7 @@ export class CategoryController {
   @ApiOperation({
     summary: "新建分类",
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth("access-token")
   @ApiBody({type: CreateCategoryDto})
   async create(@Body() data: CreateCategoryDto) {
     return await this.categoryService.create(data);
@@ -64,7 +64,7 @@ export class CategoryController {
   @ApiOperation({
     summary: "删除分类",
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth("access-token")
   @ApiParam({ name: "id", required: true, description: "分类id", type: Number })
   async delete(@Param() param) {
     return await this.categoryService.delete(param.id);

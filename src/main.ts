@@ -32,6 +32,10 @@ async function bootstrap() {
   app.setGlobalPrefix("api/v" + globals.API_VERSION);
 
   const options = new DocumentBuilder()
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      'access-token',
+    )
     .setTitle("G-server")
     .setDescription("G-server API Docs")
     .setVersion("1.0")

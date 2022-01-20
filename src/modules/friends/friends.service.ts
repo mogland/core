@@ -13,7 +13,7 @@ export class FriendsService {
     private friendsRepository: Repository<Friends>
   ) {}
 
-  async create(data: CreateFriendsDto) {
+  async create(data: CreateFriendsDto, ismaster: boolean) {
     data.name = delXss(data.name);
     
     data.website = delXss(data.website);
@@ -31,8 +31,8 @@ export class FriendsService {
     if (data.owner == null) {
       data.owner = false;
     }
-    if (data.check == null) {
-      data.check = false;
+    if (ismaster) {
+      data.check = true;
     }
     if (await this.friendsRepository.findOne({ name: data.name })) {
       throw new HttpException("已存在这位朋友啦", HttpStatus.BAD_REQUEST);

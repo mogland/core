@@ -21,7 +21,6 @@ class LoginUser {
   @ApiProperty()
     password: string;
 }
-
 @Controller()
 export class AppController {
   constructor(
@@ -32,7 +31,6 @@ export class AppController {
 
   @UseGuards(LocalAuthGuard)
   @Post("auth/login")
-  @ApiBearerAuth()
   @ApiBody({ type: LoginUser })
   @ApiOperation({ summary: "登陆管理员" })
   async login(@Request() req) {
@@ -58,14 +56,14 @@ export class AppController {
   @UseGuards(AuthGuard("jwt"))
   @ApiBody({ type: CreateUserDto })
   @ApiOperation({ summary: "修改管理员信息" })
-  @ApiBearerAuth()
+  @ApiBearerAuth("access-token")
   @Post("profile")
   async changeProfile(@Body() data){
     return this.userService.edit(data);
   }
   
   @UseGuards(AuthGuard("jwt"))
-  @ApiBearerAuth()
+  @ApiBearerAuth("access-token")
   @ApiOperation({ summary: "检测密钥是否可用" })
   @Get("/super/ping")
   ping() {

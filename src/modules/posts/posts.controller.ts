@@ -40,7 +40,7 @@ export class PostsController {
 
   @Post("send")
   @UseGuards(AuthGuard("jwt"))
-  @ApiBearerAuth()
+  @ApiBearerAuth("access-token")
   @ApiOperation({
     summary: "发布文章",
   })
@@ -55,7 +55,7 @@ export class PostsController {
   @ApiOperation({
     summary: "删除文章",
   })
-  @ApiBearerAuth()
+  @ApiBearerAuth("access-token")
   @ApiParam({type: String, name: "path"})
   @UseGuards(AuthGuard("jwt"))
   async del(@Param() params) {
