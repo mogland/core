@@ -1,3 +1,38 @@
+## [0.0.6](https://github.com/wibus-wee/GS-server/compare/v0.0.5...v0.0.6) (2022-01-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @nestjs/typeorm to v8.0.3 ([7ec91d9](https://github.com/wibus-wee/GS-server/commit/7ec91d93a08f786473aa7b0c3cc65532089ee3f8))
+* **package:** fix the NODE_ENV error ([3716ebd](https://github.com/wibus-wee/GS-server/commit/3716ebdc06ad0a00fd7edfdc86082189309ea9a0))
+* **swagger:** swagger support BearerAuth ([48ff972](https://github.com/wibus-wee/GS-server/commit/48ff97267baedf1eb91cecec7d52e4b1bca70877))
+* **users:** fix login failure ([a92442a](https://github.com/wibus-wee/GS-server/commit/a92442a0ebbd0cf3425bfb216c3b1e7a93b53735))
+
+
+### Features
+
+* **app:** add a getStat function ([358d1e8](https://github.com/wibus-wee/GS-server/commit/358d1e8ceb2559b7ca47aaa77a15e1d8f9a38d42))
+* **app:** new key detection feature, remove profile JWT limit ([9257f2c](https://github.com/wibus-wee/GS-server/commit/9257f2c59fdf5839a2f2d324bec7d8d03db2c584))
+* **swagger:** add delete interface & add Swagger document ([77e8221](https://github.com/wibus-wee/GS-server/commit/77e8221edc5b15dc4361e0b12250817312bf9213))
+* **user:** add a POST request to edit userData ([e5a0a0e](https://github.com/wibus-wee/GS-server/commit/e5a0a0e1032e32af4d432dc2703944d2e0dd4004))
+* **user:** add a user decorator ([7c57967](https://github.com/wibus-wee/GS-server/commit/7c579672d6307f89067adad9e7742aa8909dd66f))
+
+
+### Performance Improvements
+
+* **app:** getStat add Unfriends ([791b2e9](https://github.com/wibus-wee/GS-server/commit/791b2e97a38d50e0d0f819e54f4887c2e9c8a8be))
+* **users:** optimized user initialization and creation modification policies ([07af457](https://github.com/wibus-wee/GS-server/commit/07af45773f72976c0201d1e90e67a26402bd2a19))
+* **users:** users start to use 'uuid' ([dada8c2](https://github.com/wibus-wee/GS-server/commit/dada8c261ae8ae45fcb7113d0cbe4aa0c82cc4b6))
+* **user:** user can provide more data, remove the host module ([e9206b2](https://github.com/wibus-wee/GS-server/commit/e9206b2f72bb82f604c35932e2188ab681a62f46))
+
+
+### BREAKING CHANGES
+
+* **swagger:** Now you can debug with Swagger！
+* **app:** Use the new interface to detect the key, easier to process
+
+
+
 ## [0.0.5](https://github.com/wibus-wee/GS-server/compare/v0.0.4...v0.0.5) (2022-01-16)
 
 
