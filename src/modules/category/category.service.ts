@@ -65,4 +65,10 @@ export class CategoryService {
       return 0;
     }
   }
+
+  // 删除分类
+  async delete(id: number) {
+    return await this.categoryRepository.delete(id);
+  }
+  
 }

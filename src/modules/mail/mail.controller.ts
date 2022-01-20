@@ -4,7 +4,7 @@ import { MailService } from "./mail.service";
 import { Get } from "@nestjs/common";
 
 @Controller("mail")
-@ApiTags("Mail")
+@ApiTags("Mail (TODO)")
 export class MailController {
   constructor(private mailService: MailService){}
 

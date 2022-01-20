@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -8,7 +9,7 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
 import delXss from "utils/xss.util";
 import { CommentService } from "./comment.service";
 import { CreateCommentDto } from "../../shared/dto/create-comment-dto";
@@ -22,14 +23,18 @@ export class CommentController {
   @ApiOperation({
     summary: "获取文章/页面中的评论",
   })
+  @ApiParam({ name: "type", required: true, description: "类型", type: String, enum: ["post", "page"] })
+  @ApiParam({ name: "cid", required: true, description: "cid", type: String })
   async get(@Param() param) {
-    return await this.commentService.getComment(param.type, param.path);
+    return await this.commentService.getComment(param.type, param.cid);
   }
 
   @Get("list")
   @ApiOperation({
     summary: "获取全部评论",
   })
+  @ApiQuery({name: "type", required: false, description: "查询参数", type: String, enum: ["all",'limit','num','list']})
+  @ApiQuery({name: "page", required: false, description: "当type等于limit时的页码数", type: Number})
   async list(@Query() query) {
     return await this.commentService.list(query);
   }
@@ -38,8 +43,10 @@ export class CommentController {
     summary: "修改评论",
   })
   @UseGuards(AuthGuard("jwt"))
-  async change(@Body() data: any){
-    return await this.commentService.changeComment(data.cid, data.state, data.content);
+  @ApiBody({type: CreateCommentDto})
+  @ApiBearerAuth()
+  async change(@Body() data: CreateCommentDto) {
+    return await this.commentService.changeComment(data);
   }
 
   @Post("create")
@@ -54,10 +61,13 @@ export class CommentController {
     return await this.commentService.createComment(data);
   }
 
-  @Post("delete")
+  @Delete("delete")
   @ApiOperation({
     summary: "删除评论",
   })
+  // 只有一个cid属性
+  @ApiBody({type: Number, description: "评论cid"})
+  @ApiBearerAuth()
   @UseGuards(AuthGuard("jwt"))
   async delete(@Body() data) {
     return await this.commentService.deleteComment(data.cid);

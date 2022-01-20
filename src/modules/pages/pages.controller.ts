@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -8,7 +9,7 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
 import { CreatePagesDto } from "../../shared/dto/create-pages-dto";
 import { PagesService } from "./pages.service";
 
@@ -21,6 +22,8 @@ export class PagesController {
   @ApiOperation({
     summary: "获取全部页面",
   })
+  @ApiQuery({name: "type", required: false, description: "查询参数", type: String, enum: ["all",'limit','num','list']})
+  @ApiQuery({name: "page", required: false, description: "当type等于limit时的页码数", type: Number})
   async list(@Query() query) {
     return this.pagesService.list(query); 
     // query.type: 'all'(全部显示)/'num'（仅返回长度）/'list'（返回列表 不返回内容）/'limit'（限制列表长度，需要配合query.page）/'query'（使用数据库语法查询,需要返回query.query）
@@ -30,14 +33,17 @@ export class PagesController {
   @ApiOperation({
     summary: "获取某个页面",
   })
-  async findOne(@Param() params) {
-    return this.pagesService.findOne(params.path);
+  @ApiQuery({type: String, name: "path"})
+  async findOne(@Query() query) {
+    return this.pagesService.findOne(query.path);
   }
 
   @Post("send")
   @ApiOperation({
     summary: "发布页面",
   })
+  @ApiBearerAuth()
+  @ApiBody({ type: CreatePagesDto })
   @UseGuards(AuthGuard("jwt"))
   async send(@Body() data: CreatePagesDto) {
     // here is no need to filter XSS here
@@ -45,13 +51,15 @@ export class PagesController {
     return await this.pagesService.send(data);
   }
 
-  @Get("delete/:path")
+  @Delete("delete/:path")
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
   @ApiOperation({
     summary: "删除页面",
   })
-  // @UseGuards(AuthGuard('jwt'))
-  async del(@Param() params) {
-    return await this.pagesService.del(params.path);
+  @ApiParam({name: "path", required: true, description: "文章路径", type: String})
+  async del(@Param() param) {
+    return await this.pagesService.del(param.path);
   }
   // if delete successfully, it will return affected = 1
 }

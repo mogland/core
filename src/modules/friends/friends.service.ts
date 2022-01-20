@@ -89,4 +89,9 @@ export class FriendsService {
     const status = await axios.get(url);
     return status.status;
   }
+
+  // 删除友链
+  async delete(id: number) {
+    return await this.friendsRepository.delete(id);
+  }
 }

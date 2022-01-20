@@ -14,10 +14,11 @@ export class CommentService {
     private usersService: UsersService
   ) {}
 
-  async getComment(type: string, path: string): Promise<Comments[]> {
+  async getComment(type: string, cid: number): Promise<Comments[]> {
     return await this.commentRepository.find({
       type: type,
-      path: path,
+      cid: cid,
+      state: 1,
     });
   }
 
@@ -38,21 +39,22 @@ export class CommentService {
       });
     case 'num':
       return await this.commentRepository.count()
+    case 'uncheck':
+      return await this.commentRepository.find({
+        state: 0,
+      });
+    case 'uncheck_num':
+      return await this.commentRepository.count({
+        state: 0,
+      });
     default:
       return await this.commentRepository.find()
     }
   }
 
-  async changeComment(cid: number, state: number, content: string) {
-    return await this.commentRepository.update(
-      {
-        cid: cid,
-      },
-      {
-        content: content,
-        state: state,
-      }
-    );
+  async changeComment(data: CreateCommentDto) {
+    // 更新评论
+    return await this.commentRepository.update(data.cid, data);
   }
 
   async createComment(data: CreateCommentDto) {
