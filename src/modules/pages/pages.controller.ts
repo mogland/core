@@ -34,8 +34,8 @@ export class PagesController {
     summary: "获取某个页面",
   })
   @ApiQuery({type: String, name: "path"})
-  async findOne(@Query() query) {
-    return this.pagesService.findOne(query.path);
+  async findOne(@Param() param) {
+    return this.pagesService.findOne(param.path);
   }
 
   @Post("send")
