@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-16 21:17:33
+ * @LastEditTime: 2022-01-21 14:54:04
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -60,6 +60,10 @@ export class PagesService {
     } else {
       return await this.pagesRepository.save(data);
     }
+  }
+
+  async update(data: CreatePagesDto) {
+    return await this.pagesRepository.update(data.id, data);
   }
 
   async del(path) {

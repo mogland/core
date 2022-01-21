@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-16 21:17:29
+ * @LastEditTime: 2022-01-21 14:53:19
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -69,6 +69,11 @@ export class PostsService {
     }
   }
   
+  // 更新文章
+  async update(data: CreatePostDto) {
+    return await this.postsRepository.update(data.id,data);
+  }
+
   // 删除文章（需要id）
   async del(id: number) {
     return await this.postsRepository.delete({

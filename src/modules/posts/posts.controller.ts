@@ -51,6 +51,18 @@ export class PostsController {
     return await this.postsService.send(data);
   }
 
+  // 更新文章
+  @Post("update")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiBearerAuth("access-token")
+  @ApiOperation({
+    summary: "更新文章",
+  })
+  @ApiBody({ type: CreatePostDto })
+  async update(@Body() data: CreatePostDto) {
+    return await this.postsService.update(data);
+  }
+
   @Delete("delete/:path")
   @ApiOperation({
     summary: "删除文章",

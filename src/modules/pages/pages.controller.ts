@@ -51,6 +51,18 @@ export class PagesController {
     return await this.pagesService.send(data);
   }
 
+  // 更新文章
+  @Post("update")
+  @ApiOperation({
+    summary: "更新页面",
+  })
+  @ApiBearerAuth("access-token")
+  @ApiBody({ type: CreatePagesDto })
+  @UseGuards(AuthGuard("jwt"))
+  async update(@Body() data: CreatePagesDto) {
+    return await this.pagesService.update(data);
+  }
+
   @Delete("delete/:path")
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth("access-token")

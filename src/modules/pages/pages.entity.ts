@@ -11,6 +11,6 @@ export class Pages {
   @Column("text")
   path: string;
 
-  @Column()
+  @Column("text")
   content: string;
 }

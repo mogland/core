@@ -11,12 +11,12 @@ export class Posts {
   @Column("text")
     path: string;
 
-  @Column()
+  @Column("text")
     content: string;
 
-  @Column()
+  @Column("text")
     tags: string;
 
-  @Column()
+  @Column("text")
     slug: string;
 }
