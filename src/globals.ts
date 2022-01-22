@@ -3,11 +3,10 @@
  * @author: Wibus
  * @Date: 2021-12-11 07:12:14
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-14 20:59:11
+ * @LastEditTime: 2022-01-22 20:41:07
  * Coding With IU
  */
 const globals = {
-  // API VERSION
-  API_VERSION: "1",
+  API_VERSION: "1", // API版本
 }
 export default globals

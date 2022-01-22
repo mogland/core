@@ -15,27 +15,27 @@ import { AppService } from "app.service";
 import { UsersService } from "modules/users/users.service";
 import { CreateUserDto } from "shared/dto/create-user-dto";
 
-class LoginUser {
+class LoginUser { // 登录用户 
+  @ApiProperty() // swagger 
+    username: string;  // 用户名
   @ApiProperty()
-    username: string; 
-  @ApiProperty()
-    password: string;
+    password: string; // 密码
 }
-@Controller()
+@Controller() // 控制器
 export class AppController {
   constructor(
-    private readonly authService: AuthService,
-    private readonly appService: AppService,
-    private readonly userService: UsersService
+    private readonly authService: AuthService, // 登录
+    private readonly appService: AppService, // 统计
+    private readonly userService: UsersService, // 用户
   ) {}
 
-  @UseGuards(LocalAuthGuard)
-  @Post("auth/login")
-  @ApiBody({ type: LoginUser })
-  @ApiOperation({ summary: "登陆管理员" })
+  @UseGuards(LocalAuthGuard) // 认证
+  @Post("auth/login") // 登录
+  @ApiBody({ type: LoginUser }) // swagger
+  @ApiOperation({ summary: "登陆管理员" }) // swagger
   async login(@Request() req) {
     // console.log(req)
-    return this.authService.login(req.user);
+    return this.authService.login(req.user); // 登录
   }
 
   // @UseGuards(AuthGuard("jwt"))
@@ -49,20 +49,20 @@ export class AppController {
   //   return this.authService.checkUser(req.user);
   // }
   getProfile(){
-    return this.authService.checkUser();
+    return this.authService.checkUser(); // 获取管理员信息
   }
 
   // 修改信息
-  @UseGuards(AuthGuard("jwt"))
-  @ApiBody({ type: CreateUserDto })
-  @ApiOperation({ summary: "修改管理员信息" })
-  @ApiBearerAuth("access-token")
+  @UseGuards(AuthGuard("jwt")) // 认证
+  @ApiBody({ type: CreateUserDto }) // swagger
+  @ApiOperation({ summary: "修改管理员信息" }) // swagger
+  @ApiBearerAuth("access-token") // swagger
   @Post("profile")
   async changeProfile(@Body() data){
-    return this.userService.edit(data);
+    return this.userService.edit(data); // 修改信息
   }
   
-  @UseGuards(AuthGuard("jwt"))
+  @UseGuards(AuthGuard("jwt")) // 认证
   @ApiBearerAuth("access-token")
   @ApiOperation({ summary: "检测密钥是否可用" })
   @Get("/super/ping")
@@ -78,7 +78,7 @@ export class AppController {
   @Get("/stats")
   @ApiOperation({ summary: "获取博客信息" })
   async stats() {
-    return this.appService.getStat();
+    return this.appService.getStat(); // 获取博客信息
   }
 
 }
