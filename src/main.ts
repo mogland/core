@@ -4,7 +4,7 @@ import globals from "./globals"; // 全局变量
 import { AppModule } from "./app.module"; // 导入模块
 import { Logger } from "@nestjs/common"; // 引入日志
 import { UsersService } from "modules/users/users.service"; // 用户服务
-import configs from "./configs"; // 引入配置文件
+import configs from "./app.config"; // 引入配置文件
 import { SpiderGuard } from "common/guards/spiders.guard"; // 爬虫检查
 async function bootstrap() {
   const app = await NestFactory.create(AppModule); // create app

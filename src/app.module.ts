@@ -12,7 +12,7 @@ import { MailService } from "modules/mail/mail.service"; // 引入邮件模块
 import { UsersController } from "modules/users/users.controller"; // 引入用户模块
 import { AppController } from "./app.controller"; // 引入控制器
 import { AppService } from "./app.service"; // 引入服务
-import configs from "./configs"; // 引入配置文件
+import configs from "./app.config"; // 引入配置文件
 import { AuthModule } from "./modules/auth/auth.module"; // 引入认证模块
 import { AuthService } from "./modules/auth/auth.service"; // 引入认证模块
 import { jwtConstants } from "./modules/auth/constants"; // 引入认证模块
