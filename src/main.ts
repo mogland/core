@@ -53,7 +53,7 @@ async function bootstrap() {
   if (await usersService.find({type: "num"}) == 0) { // 如果没有用户
     await usersService.create({ // 创建管理员
       name: 'master', // 管理员名
-      password: 'master', // 管理员密码
+      password: 'master', // 管理员密码 (程序会自动加密)
       email: '@example.com', // 管理员邮箱
       level: 'master', // 管理员等级
       status: 'active', // 管理员状态
