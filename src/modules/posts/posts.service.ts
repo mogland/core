@@ -11,7 +11,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { CategoryService } from "modules/category/category.service";
 import { Repository } from "typeorm";
 import { CreatePostDto } from "../../shared/dto/create-post-dto";
-import { Posts } from "./posts.entity";
+import { Posts } from "../../shared/entities/posts.entity";
 
 @Injectable()
 export class PostsService {

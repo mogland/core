@@ -1,7 +1,7 @@
 import { BadRequestException, HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Comments } from "./comment.entity";
+import { Comments } from "../../shared/entities/comment.entity";
 import { CreateCommentDto } from "../../shared/dto/create-comment-dto";
 import BlockedKeywords = require("./block-keywords.json");
 import { UsersService } from "modules/users/users.service";

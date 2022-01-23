@@ -10,7 +10,7 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreatePagesDto } from "../../shared/dto/create-pages-dto";
-import { Pages } from "./pages.entity";
+import { Pages } from "../../shared/entities/pages.entity";
 
 @Injectable()
 export class PagesService {

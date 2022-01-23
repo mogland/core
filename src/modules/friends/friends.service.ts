@@ -2,9 +2,9 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import delXss from "../../utils/xss.util";
-import { Friends } from "./friends.entity";
+import { Friends } from "../../shared/entities/friends.entity";
 import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
-import axios from "axios";
+import { checkStatus } from "utils/checkStatus.util";
 
 @Injectable()
 export class FriendsService {
@@ -84,10 +84,8 @@ export class FriendsService {
     }
   }
 
-  // 获取baidu.com状态码
   async getStatus(url: string) {
-    const status = await axios.get(url);
-    return status.status;
+    return checkStatus(url);
   }
 
   // 删除友链

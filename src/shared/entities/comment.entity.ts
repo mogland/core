@@ -8,52 +8,52 @@ import {
 @Entity()
 export class Comments {
   @PrimaryGeneratedColumn()
-  cid: number; //comment id
+    cid: number; //comment id
 
   @Column()
-  type: string; //choose `post` or `page`
+    type: string; //choose `post` or `page`
 
   @Column()
-  path: string;
+    path: string;
 
   @PrimaryGeneratedColumn("uuid")
-  post: string; //only ID
+    post: string; //only ID
 
   @Column()
-  content: string; //comment content
+    content: string; //comment content
 
   @CreateDateColumn()
-  createTime: number;
+    createTime: number;
 
   @Column()
-  author: string;
+    author: string;
 
   @Column()
-  owner: string;
+    owner: string;
 
   @Column()
-  isOwner: number;
+    isOwner: number;
 
   @Column()
-  email: string;
+    email: string;
 
   @Column()
-  url?: string = null;
+    url?: string = null;
 
   // 在建立记录的时候就把后期需要用到的slug直接生成，方便了前端的调用。这是一个原因。
   // 当然这不是重点，通过层次命名的 key，对删除父评论相当方便。
   @Column()
-  key?: string = null;
+    key?: string = null;
 
   @Column()
-  hasChild: number;
+    hasChild: number;
 
   @Column()
-  ipAddress?: string = null;
+    ipAddress?: string = null;
 
   @Column()
-  userAgent?: string = null;
+    userAgent?: string = null;
 
   @Column()
-  state: number;  // 0 need checked, 1 push, 2 shit message
+    state: number;  // 0 need checked, 1 push, 2 shit message
 }

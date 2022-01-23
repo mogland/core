@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Friends } from "./friends.entity";
+import { Friends } from "../../shared/entities/friends.entity";
 import { FriendsService } from "./friends.service";
 
 describe("FriendsService", () => {
