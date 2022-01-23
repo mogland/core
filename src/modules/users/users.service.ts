@@ -76,8 +76,10 @@ export class UsersService {
     }else if(data.status == null){
       throw new BadRequestException("请输入用户状态")
     }else{
-      data.password = encryptPassword(data.password, data.uuid)
-      return await this.userRepository.save(data)
+      // here is some reason why we need to use save first, then update
+      const userData = await this.userRepository.save(data) // we need to save the user before we can get the uuid
+      userData.password = encryptPassword(userData.password, userData.uuid) // encrypt the password with the uuid
+      return await this.userRepository.update(userData.uuid,userData) // and update the user with the encrypted password
     }
   }
 }
