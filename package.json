@@ -34,16 +34,16 @@
     "@nestjs/swagger": "5.1.5",
     "@nestjs/typeorm": "8.0.3",
     "axios": "0.25.0",
-    "class-transformer": "^0.4.0",
+    "class-transformer": "0.4.0",
     "class-validator": "0.13.2",
-    "crypto": "^1.0.1",
+    "crypto": "1.0.1",
     "express": "4.17.2",
     "mysql2": "2.3.3",
     "nodemailer": "6.7.2",
     "passport": "0.5.2",
     "passport-jwt": "4.0.0",
     "passport-local": "1.0.0",
-    "redis": "^4.0.2",
+    "redis": "4.0.2",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "rxjs": "7.4.0",
@@ -52,7 +52,7 @@
     "typeorm": "0.2.41",
     "webpack": "5.66.0",
     "xss": "1.0.10",
-    "zx": "^4.3.0"
+    "zx": "4.3.0"
   },
   "devDependencies": {
     "@nestjs/cli": "8.2.0",
