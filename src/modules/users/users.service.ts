@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { encryptPassword } from "utils/crypt.utils";
 import { CreateUserDto } from "../../shared/dto/create-user-dto";
 import { User } from "../../shared/entities/users.entity";
 
@@ -15,9 +16,9 @@ export class UsersService {
 
   async findOne(user: string, auth = false) {
     if (auth == true) {
-      return await this.userRepository.find();
+      return await this.userRepository.findOne();
     }else{
-      return await this.userRepository.find(
+      return await this.userRepository.findOne(
         {
           select: ["uuid", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
           where: { name: user },
@@ -33,7 +34,8 @@ export class UsersService {
     }else if(data.status == null){
       throw new BadRequestException("请输入用户状态")
     }else{
-      return await this.userRepository.save(data)
+      data.password = encryptPassword(data.password, data.uuid)
+      return await this.userRepository.update(data.uuid, data)
     }
   }
   async find(query: any) {
@@ -74,6 +76,7 @@ export class UsersService {
     }else if(data.status == null){
       throw new BadRequestException("请输入用户状态")
     }else{
+      data.password = encryptPassword(data.password, data.uuid)
       return await this.userRepository.save(data)
     }
   }
