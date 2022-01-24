@@ -3,14 +3,14 @@
   "name": "blog-server",
   "builds": [
     {
-        "src": "dist/(.*).js",
+        "src": "dist/main.js",
         "use": "@vercel/node"
     }
   ],
   "routes": [
     {
         "src": "/(.*)",
-        "dest": "dist/(.*).js"
+        "dest": "dist/main.js"
     }
   ]
 }
