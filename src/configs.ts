@@ -9,7 +9,7 @@
 const configs = {
   expiration: 86400, // token expiration time
   jwtToken: "bU2-sD4_fT2-qK3-dO2hN5+iY2mV7+", // jwt token
-  port: 3000, // server port
+  port: process.env.PORT, // server port
   cors: true, // cors
 };
 export default configs;
