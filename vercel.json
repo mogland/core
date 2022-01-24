@@ -1,23 +1,16 @@
 {
-    "headers": [{
-      "source": "/(.*)",
-      "headers" : [
-        {
-          "key" : "Access-Control-Allow-Origin",
-          "value" : "*"
-        },
-        {
-          "key" : "Access-Control-Allow-Headers",
-          "value" : "content-type"
-        },
-        {
-          "key" : "Access-Control-Allow-Methods",
-          "value" : "DELETE,PUT,POST,GET,OPTIONS"
-        }
-      ]
-    }],
-    
-    "builds": [
-        { "src": "dist/(.*).js", "use": "@vercel/node" }
-    ]
-  }
+  "version": 2,
+  "name": "blog-server",
+  "builds": [
+    {
+        "src": "dist/(.*).js",
+        "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+        "src": "/(.*)",
+        "dest": "dist/(.*).js"
+    }
+  ]
+}
