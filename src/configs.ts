@@ -3,13 +3,12 @@
  * @author: Wibus
  * @Date: 2021-10-04 15:21:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-22 20:46:41
+ * @LastEditTime: 2022-01-24 16:32:44
  * Coding With IU
  */
 const configs = {
   expiration: 86400, // token expiration time
   jwtToken: "bU2-sD4_fT2-qK3-dO2hN5+iY2mV7+", // jwt token
-  port: process.env.PORT, // server port
   cors: true, // cors
 };
 export default configs;
