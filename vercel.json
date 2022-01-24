@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "blog-server",
+  "name": "gs-server",
   "builds": [
       {
           "src": "dist/main.js",
