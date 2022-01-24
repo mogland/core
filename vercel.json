@@ -1,12 +1,6 @@
 {
   "version": 2,
   "name": "blog-server",
-  "builds": [
-    {
-        "src": "dist",
-        "use": "@vercel/node"
-    }
-  ],
   "routes": [
     {
         "src": "/(.*)",
