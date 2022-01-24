@@ -41,8 +41,8 @@ jobs:
     - name: Build Server
       run: |
         pnpm build
-      env:
-          ${{ secrets.ENV }}
+      # env:
+      #     ${{ secrets.ENV }}
     - name: Deploy to Vercel
       run: npx vercel --token ${VERCEL_TOKEN} --prod
       env:
