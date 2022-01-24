@@ -1,9 +1,9 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
 import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
 import { FriendsService } from "./friends.service";
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
 import { AuthGuard } from "@nestjs/passport";
-import { IsMaster } from "common/decorator/user.decorator";
+import { IsMaster } from "../../common/decorator/user.decorator";
 
 @Controller("friends")
 @ApiTags("Friends")

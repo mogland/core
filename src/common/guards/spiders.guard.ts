@@ -10,8 +10,8 @@ import {
   Injectable,
 } from '@nestjs/common'
 import { Observable } from 'rxjs'
-import { getNestExecutionContextRequest } from 'utils/nest.util'
-import { isDev } from 'utils/tools.util'
+import { getNestExecutionContextRequest } from '../../utils/nest.util'
+import { isDev } from '../../utils/tools.util'
 
 @Injectable()
 export class SpiderGuard implements CanActivate {

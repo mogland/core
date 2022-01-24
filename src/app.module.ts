@@ -4,12 +4,12 @@ import { APP_FILTER, APP_GUARD } from "@nestjs/core"; // 引入守卫
 import { JwtModule } from "@nestjs/jwt"; // 引入jwt模块
 import { PassportModule } from "@nestjs/passport"; // 引入passport模块
 import { TypeOrmModule } from "@nestjs/typeorm"; // 引入typeorm模块
-import { AllExceptionFilter } from "common/filters/all-exception.filter"; // 引入过滤器
-import { RolesGuard } from "common/guards/roles.guard"; // 引入守卫
-import { FriendsModule } from "modules/friends/friends.module"; // 引入好友模块
-import { MailController } from "modules/mail/mail.controller"; // 引入邮件模块
-import { MailService } from "modules/mail/mail.service"; // 引入邮件模块
-import { UsersController } from "modules/users/users.controller"; // 引入用户模块
+import { AllExceptionFilter } from "./common/filters/all-exception.filter"; // 引入过滤器
+import { RolesGuard } from "./common/guards/roles.guard"; // 引入守卫
+import { FriendsModule } from "./modules/friends/friends.module"; // 引入好友模块
+import { MailController } from "./modules/mail/mail.controller"; // 引入邮件模块
+import { MailService } from "./modules/mail/mail.service"; // 引入邮件模块
+import { UsersController } from "./modules/users/users.controller"; // 引入用户模块
 import { AppController } from "./app.controller"; // 引入控制器
 import { AppService } from "./app.service"; // 引入服务
 import configs from "./configs"; // 引入配置文件

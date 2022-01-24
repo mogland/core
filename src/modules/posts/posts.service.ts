@@ -3,12 +3,12 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-21 14:53:19
+ * @LastEditTime: 2022-01-25 01:06:31
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CategoryService } from "modules/category/category.service";
+import { CategoryService } from "../category/category.service";
 import { Repository } from "typeorm";
 import { CreatePostDto } from "../../shared/dto/create-post-dto";
 import { Posts } from "../../shared/entities/posts.entity";

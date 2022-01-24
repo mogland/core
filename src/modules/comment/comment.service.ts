@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 import { Comments } from "../../shared/entities/comment.entity";
 import { CreateCommentDto } from "../../shared/dto/create-comment-dto";
 import BlockedKeywords = require("./block-keywords.json");
-import { UsersService } from "modules/users/users.service";
+import { UsersService } from "../../modules/users/users.service";
 const word = BlockedKeywords;
 @Injectable()
 export class CommentService {

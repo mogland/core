@@ -11,9 +11,9 @@ import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiProperty } from "@nestjs/swagger";
 import { LocalAuthGuard } from "./modules/auth/local-auth.guard";
 import { AuthService } from "./modules/auth/auth.service";
-import { AppService } from "app.service";
-import { UsersService } from "modules/users/users.service";
-import { CreateUserDto } from "shared/dto/create-user-dto";
+import { UsersService } from "./modules/users/users.service";
+import { CreateUserDto } from "./shared/dto/create-user-dto";
+import { AppService } from "./app.service";
 
 class LoginUser { // 登录用户 
   @ApiProperty() // swagger 

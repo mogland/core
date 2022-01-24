@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 import delXss from "../../utils/xss.util";
 import { Friends } from "../../shared/entities/friends.entity";
 import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
-import { checkStatus } from "utils/checkStatus.util";
+import { checkStatus } from "../../utils/checkStatus.util";
 
 @Injectable()
 export class FriendsService {

@@ -22,7 +22,9 @@
     "prod:start": "cross-env NODE_ENV=production node dist/main",
     "prod:pm2": "pm2 start ecosystem.config.js",
     "prod:stop": "pm2 stop ecosystem.config.js",
-    "prod:del": "pm2 delete ecosystem.config.js"
+    "prod:del": "pm2 delete ecosystem.config.js",
+    "webpack": "webpack --config webpack.config.js",
+    "webpack-start": "node dist/server"
   },
   "dependencies": {
     "@nestjs/common": "8.2.6",
@@ -50,7 +52,6 @@
     "source-map-support": "0.5.21",
     "swagger-ui-express": "4.3.0",
     "typeorm": "0.2.41",
-    "webpack": "5.66.0",
     "xss": "1.0.10",
     "zx": "4.3.0"
   },
@@ -79,7 +80,10 @@
     "ts-loader": "9.2.6",
     "ts-node": "10.4.0",
     "tsconfig-paths": "3.12.0",
-    "typescript": "4.5.5"
+    "typescript": "4.5.5",
+    "webpack": "5.66.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-node-externals": "^3.0.0"
   },
   "config": {
     "commitizen": {

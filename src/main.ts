@@ -3,9 +3,12 @@ import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger"; // swagger
 import globals from "./globals"; // 全局变量
 import { AppModule } from "./app.module"; // 导入模块
 import { Logger } from "@nestjs/common"; // 引入日志
-import { UsersService } from "modules/users/users.service"; // 用户服务
+import { UsersService } from "./modules/users/users.service"; // 用户服务
 import configs from "./configs"; // 引入配置文件
-import { SpiderGuard } from "common/guards/spiders.guard"; // 爬虫检查
+import { SpiderGuard } from "./common/guards/spiders.guard"; // 爬虫检查
+
+declare const module: any;
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule); // create app
 
@@ -47,6 +50,12 @@ async function bootstrap() {
     Logger.log(`[gSpaceHelper] Server running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}`);
     Logger.log(`[gSpaceHelper] Swagger running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}/api-docs`);
   });
+
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 
   
   const usersService = app.get(UsersService); // 获取用户服务

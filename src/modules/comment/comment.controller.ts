@@ -10,7 +10,7 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
-import delXss from "utils/xss.util";
+import delXss from "../../utils/xss.util";
 import { CommentService } from "./comment.service";
 import { CreateCommentDto } from "../../shared/dto/create-comment-dto";
 

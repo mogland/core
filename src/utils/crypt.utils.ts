@@ -1,5 +1,5 @@
 /*
- * @FilePath: /GS-server/src/utils/crypt.utils.ts
+ * @FilePath: /GS-server/src/../../utils/crypt.utils.ts
  * @author: Wibus
  * @Date: 2022-01-21 23:42:36
  * @LastEditors: Wibus
