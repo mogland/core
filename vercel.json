@@ -1,16 +1,19 @@
 {
-  "version": 2,
-  "name": "gs-server",
-  "builds": [
-      {
-          "src": "dist/main.js",
-          "use": "@vercel/node"
-      }
-  ],
-  "routes": [
-      {
-          "src": "/(.*)",
-          "dest": "dist/main.js"
-      }
-  ]
+    "headers": [{
+        "source": "/(.*)",
+        "headers" : [
+            {
+              "key" : "Access-Control-Allow-Origin",
+              "value" : "*"
+            },
+            {
+              "key" : "Access-Control-Allow-Headers",
+              "value" : "content-type"
+            },
+            {
+              "key" : "Access-Control-Allow-Methods",
+              "value" : "DELETE,PUT,POST,GET,OPTIONS"
+            }
+          ]
+    }]
 }
