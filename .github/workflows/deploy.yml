@@ -53,3 +53,4 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
           NODE_ENV: production
+          CORS_SERVER: gs-admin.vercel.app,g.iucky.cn
