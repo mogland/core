@@ -1,6 +1,12 @@
 {
   "version": 2,
   "name": "blog-server",
+  "functions": {
+    "dist/**/*.js": {
+      "memory": 1024,
+      "maxDuration": 5
+    }
+  }
   "routes": [
     {
         "src": "/(.*)",
