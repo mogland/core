@@ -42,10 +42,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options); // 创建swagger文档
   SwaggerModule.setup("api-docs", app, document); // 导出swagger文档
 
-  await app.listen(process.env.PORT, '127.0.0.1', async() => { // 监听端口
+  await app.listen(process.env.PORT ? process.env.PORT : 3000, '127.0.0.1', async() => { // 监听端口
     Logger.log(`[gSpaceHelper] G-server running as ${process.env.NODE_ENV}`);
-    Logger.log(`[gSpaceHelper] Server running on http://localhost:${process.env.PORT}`);
-    Logger.log(`[gSpaceHelper] Swagger running on http://localhost:${process.env.PORT}/api-docs`);
+    Logger.log(`[gSpaceHelper] Server running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}`);
+    Logger.log(`[gSpaceHelper] Swagger running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}/api-docs`);
   });
 
   
