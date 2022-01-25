@@ -15,12 +15,11 @@ async function bootstrap() {
   if (configs.cors) { // 允许跨域
     const Origin = process.env.CORS_SERVER?.split?.(','); // 允许跨域的域名
     // 如果 Origin 为空，则设置为 *
-    const hosts = Origin.map((host) => new RegExp(host, 'i'))
     app.enableCors( 
       Origin
         ? {
           origin: (origin, callback) => {
-            const allow = hosts.some((host) => host.test(origin)) // 判断是否允许跨域
+            const allow = process.env.CORS_SERVER?.split?.(',') ? Origin.map((host) => new RegExp(host, 'i')).some((host) => host.test(origin)) : "*" // 判断是否允许跨域
             callback(null, allow) // 回调
           },
           credentials: true, // 允许携带cookie
@@ -48,7 +47,6 @@ async function bootstrap() {
     Logger.log(`[gSpaceHelper] 已启动端口监听`);
     Logger.log(`[gSpaceHelper] G-server is running as ${process.env.NODE_ENV}`);
     Logger.log(`[gSpaceHelper] Server is running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}`);
-    Logger.log(`[gSpaceHelper] 正在构建Swagger文档`);
     Logger.log(`[gSpaceHelper] Swagger is running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}/api-docs`);
     Logger.log(`[gSpaceHelper] GoldenSpace 已准备好，正在工作...`);
   });
