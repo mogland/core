@@ -1,14 +1,6 @@
 {
   "version": 2,
   "name": "blog-server",
-  "env": {
-    "NODE_ENV": "production",
-    "DB_HOST": "103.210.21.144",
-    "DB_PORT": "3306",
-    "DB_USERNAME": "GoldenSpace",
-    "DB_PASSWORD": "Jfx4iCPAzy7BnasG",
-    "DB_DATABASE": "goldenspace"
-  },
   "builds": [
     { "src": "dist/main.js", "use": "@vercel/node" }
   ],
