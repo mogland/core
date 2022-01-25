@@ -13,8 +13,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule); // create app
 
   if (configs.cors) { // 允许跨域
-    const Origin = process.env.CORS_SERVER?.split?.(',') || ["*"]; // 允许跨域的域名
-    // console.log(Origin);
+    const Origin = process.env.CORS_SERVER?.split?.(','); // 允许跨域的域名
+    // 如果 Origin 为空，则设置为 *
     const hosts = Origin.map((host) => new RegExp(host, 'i'))
     app.enableCors( 
       Origin
