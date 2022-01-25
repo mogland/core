@@ -20,6 +20,7 @@
     "noFallthroughCasesInSwitch": false
   },
   "include": [
-    "src/**/*.ts"
-, "src/**/*.js"  ],
+    "src/**/*.ts",
+    "src/**/*.js",
+    "./ecosystem.config.js"  ],
 }
