@@ -8,8 +8,13 @@ import { Get } from "@nestjs/common";
 export class MailController {
   constructor(private mailService: MailService){}
 
-  @Get("information")
-  async getInformation(){
-    return await this.mailService.getInformation()
+  @Get()
+  async sendMail() {
+    await this.mailService.sendMail({
+      to: "1596355173@qq.com",
+      subject: "comments",
+      text: "test",
+      html: "<h1>test</h1>"
+    });
   }
 }
