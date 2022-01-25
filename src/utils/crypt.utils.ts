@@ -1,9 +1,9 @@
 /*
- * @FilePath: /GS-server/src/../../utils/crypt.utils.ts
+ * @FilePath: /GS-server/src/utils/crypt.utils.ts
  * @author: Wibus
  * @Date: 2022-01-21 23:42:36
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-23 23:45:28
+ * @LastEditTime: 2022-01-25 21:06:32
  * Coding With IU
  */
 import * as crypto from 'crypto';
@@ -20,6 +20,6 @@ export function encryptPassword(password: string, salt: string): string {
   const tempSalt = Buffer.from(salt, 'base64');
   return (
     // 10000 代表迭代次数 16代表长度
-    crypto.pbkdf2Sync(password, tempSalt, 10000, 16, 'sha1').toString('base64')
+    crypto.pbkdf2Sync(password, tempSalt, 10000, 16, 'sha256').toString('base64')
   );
 }
