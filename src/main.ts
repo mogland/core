@@ -6,9 +6,6 @@ import { Logger } from "@nestjs/common"; // 引入日志
 import { UsersService } from "./modules/users/users.service"; // 用户服务
 import configs from "./configs"; // 引入配置文件
 import { SpiderGuard } from "./common/guards/spiders.guard"; // 爬虫检查
-
-declare const module: any;
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule); // create app
 
@@ -44,20 +41,13 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options); // 创建swagger文档
   SwaggerModule.setup("api-docs", app, document); // 导出swagger文档
   await app.listen(process.env.PORT ? process.env.PORT : 3000, '127.0.0.1', async() => { // 监听端口
-    Logger.log(`[gSpaceHelper] 已启动端口监听`);
-    Logger.log(`[gSpaceHelper] G-server is running as ${process.env.NODE_ENV}`);
-    Logger.log(`[gSpaceHelper] Server is running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}`);
-    Logger.log(`[gSpaceHelper] Swagger is running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}/api-docs`);
-    Logger.log(`[gSpaceHelper] GoldenSpace 已准备好，正在工作...`);
+    Logger.log(`Get the ${process.env.PORT ? process.env.PORT : 3000} port and starting`, "gSpaceHelper");
+    Logger.log(`Server is running as ${process.env.NODE_ENV}`, "gSpaceHelper");
+    Logger.log(`API-Service is running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}`, "gSpaceHelper");
+    Logger.log(`Swagger-Service is running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}/api-docs`, "gSpaceHelper");
+    Logger.log(`GoldenSpace is ready and working...`, "gSpaceHelper");
   });
 
-
-  if (module.hot) {
-    module.hot.accept();
-    module.hot.dispose(() => app.close());
-  }
-
-  
   const usersService = app.get(UsersService); // 获取用户服务
   if (await usersService.find({type: "num"}) == 0) { // 如果没有用户
     await usersService.create({ // 创建管理员
@@ -71,7 +61,7 @@ async function bootstrap() {
       avatar: 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?s=80&d=identicon&r=PG', // 管理员头像
       QQ: '123456789', // 管理员QQ
     })
-    Logger.log('[gSpaceHelper] master user created'); // 打印日志
+    Logger.log('master user created', "gSpaceHelper"); // 打印日志
   }
 }
 bootstrap();  // 启动
