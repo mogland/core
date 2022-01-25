@@ -41,14 +41,16 @@ async function bootstrap() {
     .setTitle("G-server") // 标题
     .setDescription("G-server API Docs")  // 描述
     .setVersion("1.0") // 版本
-    .build(); // 构建
-  const document = SwaggerModule.createDocument(app, options); // 创建swagger文档
-  SwaggerModule.setup("api-docs", app, document); // 导出swagger文档
-
+    .build()
   await app.listen(process.env.PORT ? process.env.PORT : 3000, '127.0.0.1', async() => { // 监听端口
-    Logger.log(`[gSpaceHelper] G-server running as ${process.env.NODE_ENV}`);
-    Logger.log(`[gSpaceHelper] Server running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}`);
-    Logger.log(`[gSpaceHelper] Swagger running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}/api-docs`);
+    Logger.log(`[gSpaceHelper] 已启动端口监听`);
+    Logger.log(`[gSpaceHelper] G-server is running as ${process.env.NODE_ENV}`);
+    Logger.log(`[gSpaceHelper] Server is running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}`);
+    Logger.log(`[gSpaceHelper] 正在构建Swagger文档`);
+    const document = SwaggerModule.createDocument(app, options); // 创建swagger文档
+    SwaggerModule.setup("api-docs", app, document); // 导出swagger文档
+    Logger.log(`[gSpaceHelper] Swagger is running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}/api-docs`);
+    Logger.log(`[gSpaceHelper] GoldenSpace 已准备好，正在工作...`);
   });
 
 
