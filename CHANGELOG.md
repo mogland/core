@@ -1,3 +1,46 @@
+# [0.1.0](https://github.com/wibus-wee/GS-server/compare/v0.0.6...v0.1.0) (2022-01-26)
+
+
+### Bug Fixes
+
+* **ci:** fix vercel.json error ([cdce40f](https://github.com/wibus-wee/GS-server/commit/cdce40ff238f05574404e0268f7ea83b6db11258))
+* **ci:** remove bugs in depoly ([086bf7a](https://github.com/wibus-wee/GS-server/commit/086bf7ae69798da482681a2764bb180db759f831))
+* **crypt:** fix the example user create password empty ([96c0f7b](https://github.com/wibus-wee/GS-server/commit/96c0f7bc5d40b7a997c5c3178561242c41d602bb))
+* **deps:** pin dependencies ([c45cf49](https://github.com/wibus-wee/GS-server/commit/c45cf49756b6de09c7ea3c70565467f8a55a803d))
+* **deps:** update dependency @nestjs/swagger to v5.2.0 ([52bcda3](https://github.com/wibus-wee/GS-server/commit/52bcda340e39529b37fe4c681c4916e07a59b70c))
+* **deps:** update dependency axios to v0.25.0 ([feb5130](https://github.com/wibus-wee/GS-server/commit/feb51305acebcb3b209808300132f3f2ab26a37e))
+* **deps:** update nest monorepo to v8.2.6 ([8cb40d3](https://github.com/wibus-wee/GS-server/commit/8cb40d35c494814507a31b3de252886185608e1a))
+* **main:** fix an error if Origin is empty ([f1d27a9](https://github.com/wibus-wee/GS-server/commit/f1d27a986512e1d828de806e665ccb697cce56b3))
+* **pages:** fix Params error when fetching page ([a11b8ff](https://github.com/wibus-wee/GS-server/commit/a11b8ffdd1fb88c47fb700f891c8552fe8ece4b1))
+* **swagger:** fix swagger setup error ([4a437b4](https://github.com/wibus-wee/GS-server/commit/4a437b42e572a048e1bb6ce456ff759f7047f5eb)), closes [#41](https://github.com/wibus-wee/GS-server/issues/41)
+
+
+### Features
+
+* **crypt:** new password encryption, automatic encryption comparison ([f2aed68](https://github.com/wibus-wee/GS-server/commit/f2aed68d4c3cadf4267c8d7aff5378c84f47ae86))
+* **mailer:** a new feature of mailer (not finished) ([63d3f53](https://github.com/wibus-wee/GS-server/commit/63d3f533e0380fc1073512a6717135c8488423e1))
+* **utils:** add a bcrypt.utils ([60a67c5](https://github.com/wibus-wee/GS-server/commit/60a67c59a9394fbda1bba4bb7ce615ee5184487e))
+
+
+### Performance Improvements
+
+* **auth:** add expires for login api ([0ba8b5b](https://github.com/wibus-wee/GS-server/commit/0ba8b5ba66aa3a3d2e1c5eb91d2750006481e69f))
+* **bootstrap:** change text to English & del the hotLoad checking ([301f1f3](https://github.com/wibus-wee/GS-server/commit/301f1f3f88de18763c082fad99ed281979e7fc99))
+* **cors:** improve corsOrigin setting ([82708ea](https://github.com/wibus-wee/GS-server/commit/82708ea107bee38f8daeb227af36fdd6e0b1c911))
+* **crypt:** change crypto method to sha256 ([0ecd556](https://github.com/wibus-wee/GS-server/commit/0ecd55650e5b482d6d785f6c3c0f4e1dd373912b)), closes [#36](https://github.com/wibus-wee/GS-server/issues/36)
+* **env:** add default value for env ([ee3adec](https://github.com/wibus-wee/GS-server/commit/ee3adec02562dff39b44de1fdca933d3bf9b84d9))
+* **env:** move PORT to .env ([182ac85](https://github.com/wibus-wee/GS-server/commit/182ac854ac3eba84c63f33cab472123eff7d1a30))
+* **main:** move setup into app.listen() method ([166131c](https://github.com/wibus-wee/GS-server/commit/166131c4f8c4f51b05ddd1686f3bec680f754982))
+* **main:** remove corsOrigin * ([058937f](https://github.com/wibus-wee/GS-server/commit/058937f78743e6fbcd07a93ab6f3cbcc299e47b0))
+* **post/page:** make article content support long Text ([1924544](https://github.com/wibus-wee/GS-server/commit/1924544448eff9ed63467db604ac6bb515b8d249))
+
+
+### BREAKING CHANGES
+
+* **crypt:** New password encryption, automatic encryption comparison
+
+
+
 ## [0.0.6](https://github.com/wibus-wee/GS-server/compare/v0.0.5...v0.0.6) (2022-01-20)
 
 
