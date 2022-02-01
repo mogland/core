@@ -22,9 +22,7 @@
     "prod:start": "cross-env NODE_ENV=production node dist/main",
     "prod:pm2": "pm2 start ecosystem.config.js",
     "prod:stop": "pm2 stop ecosystem.config.js",
-    "prod:del": "pm2 delete ecosystem.config.js",
-    "webpack": "webpack --config webpack.config.js",
-    "webpack-start": "node dist/server"
+    "prod:del": "pm2 delete ecosystem.config.js"
   },
   "dependencies": {
     "@nestjs/common": "8.2.6",

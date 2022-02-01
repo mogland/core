@@ -1,5 +1,13 @@
 # GoldenSpace Server V0.x <small>Beta</small>
 
+```
+  ____ ____                                     
+ / ___/ ___|       ___  ___ _ ____   _____ _ __ 
+| |  _\___ \ _____/ __|/ _ \ '__\ \ / / _ \ '__|
+| |_| |___) |_____\__ \  __/ |   \ V /  __/ |   
+ \____|____/      |___/\___|_|    \_/ \___|_|   
+ ```
+
 ![total line](https://tokei.rs/b1/github/wibus-wee/GS-server) 
 ![version](https://img.shields.io/github/package-json/v/wibus-wee/GS-server) 
 ![language](https://img.shields.io/github/languages/top/wibus-wee/GS-server) 
@@ -31,7 +39,7 @@ Read [Wiki Page](https://github.com/wibus-wee/GS-server/wiki/Deploy-Server) that
 
 This project referred to: 
 
-- [wibus-wee/GS-server](https://github.com/wibus-wee/GS-server)
+- [mx-space/server-next](https://github.com/mx-space/server-next)
 
 ## License
 
