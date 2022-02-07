@@ -10,9 +10,10 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
-import delXss from "../../utils/xss.util";
+
 import { CommentService } from "./comment.service";
 import { CreateCommentDto } from "../../shared/dto/create-comment-dto";
+import { delObjXss } from "utils/xss.util";
 
 @Controller("comment")
 @ApiTags("Comment")
@@ -54,10 +55,7 @@ export class CommentController {
     summary: "发布评论",
   })
   async create(@Body() data: CreateCommentDto) {
-    data.author = delXss(data.author);
-    data.url = delXss(data.url);
-    data.content = delXss(data.content);
-    data.email = delXss(data.email);
+    data = delObjXss(data);
     return await this.commentService.createComment(data);
   }
 

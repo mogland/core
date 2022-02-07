@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import delXss from "../../utils/xss.util";
+
 import { Friends } from "../../shared/entities/friends.entity";
 import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
 import { checkStatus } from "../../utils/checkStatus.util";
+import { delObjXss } from "utils/xss.util";
 
 @Injectable()
 export class FriendsService {
@@ -14,15 +15,8 @@ export class FriendsService {
   ) {}
 
   async create(data: CreateFriendsDto, ismaster: boolean) {
-    data.name = delXss(data.name);
-    
-    data.website = delXss(data.website);
-    if (data.description != null) {
-      data.description = delXss(data.description);
-    }
-    if (data.image != null) {
-      data.image = delXss(data.image);
-    }else{
+    data = delObjXss(data);
+    if (data.image == null) {
       data.image = "";
     }
     if (data.check != null) {
@@ -42,14 +36,7 @@ export class FriendsService {
 
   // 修改友链
   async update(id, data) {
-    data.name = delXss(data.name);
-    data.website = delXss(data.website);
-    if (data.description != null) {
-      data.description = delXss(data.description);
-    }
-    if (data.image != null) {
-      data.image = delXss(data.image);
-    }
+    data = delObjXss(data);
     // console.log(data.check)
     return await this.friendsRepository.update(id, data);
   }

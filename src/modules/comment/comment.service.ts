@@ -5,6 +5,7 @@ import { Comments } from "../../shared/entities/comment.entity";
 import { CreateCommentDto } from "../../shared/dto/create-comment-dto";
 import BlockedKeywords = require("./block-keywords.json");
 import { UsersService } from "../../modules/users/users.service";
+import { delObjXss } from "utils/xss.util";
 const word = BlockedKeywords;
 @Injectable()
 export class CommentService {
@@ -67,6 +68,7 @@ export class CommentService {
     if (contentByte > 200000) { // 200KB
       throw new BadRequestException("评论过长，请删减后再试")
     }
+    data.content = delObjXss(data);
     const isMaster = this.usersService.findOne(data.author);
     if (isMaster && data.isOwner != 1) {
       throw new BadRequestException(
