@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { BadRequestException, HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Comments } from "../../shared/entities/comment.entity";
@@ -6,7 +6,6 @@ import { CreateCommentDto } from "../../shared/dto/create-comment-dto";
 import BlockedKeywords = require("./block-keywords.json");
 import { UsersService } from "../../modules/users/users.service";
 import { delObjXss } from "utils/xss.util";
-const word = BlockedKeywords;
 @Injectable()
 export class CommentService {
   constructor(
@@ -59,30 +58,34 @@ export class CommentService {
   }
 
   async createComment(data: CreateCommentDto) {
-    // `data` must meet the following conditions:
-    // type, path, content, author, owner, isOwner(if isn't admin, you can ignore this), email
-    const isBlock = [...word].some((keyword) =>
+    const isBlock = [...BlockedKeywords].some((keyword) =>
       new RegExp(keyword, "ig").test(data.content)
     );
     const contentByte = Buffer.byteLength(data.content, "utf8");
     if (contentByte > 200000) { // 200KB
+      Logger.warn(`检测到一条过长评论提交 ${contentByte} 字节`, "CommentService");
       throw new BadRequestException("评论过长，请删减后再试")
     }
-    data.content = delObjXss(data);
-    const isMaster = this.usersService.findOne(data.author);
-    if (isMaster && data.isOwner != 1) {
-      throw new BadRequestException(
-        '用户名与主人重名啦, 但是你好像并不是我的主人唉',
-      )
+    if (data.content.length > 500) {
+      Logger.warn(`检测到一条过长评论提交 ${data.content.length} 字`, "CommentService");
+      throw new BadRequestException("评论过长，请删减后再试")
     }
+    data = delObjXss(data);
     if (isBlock) {
+      Logger.warn(`检测到一条垃圾评论提交`, "CommentService");
       throw new HttpException(
         "评论有敏感词，请检查后重新提交",
         HttpStatus.BAD_REQUEST
       );
-    } else {
-      return await this.commentRepository.save(data);
     }
+    const isMaster = await this.usersService.findOne(data.author);
+    if (isMaster && data.isOwner != 1) {
+      Logger.warn(`检测到一条伪造评论提交`, "CommentService");
+      throw new BadRequestException(
+        '用户名与主人重名啦, 但是你好像并不是我的主人唉',
+      )
+    }
+    return await this.commentRepository.save(data);
   }
 
   async deleteComment(cid) {

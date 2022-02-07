@@ -5,7 +5,7 @@ import { ApiProperty } from "@nestjs/swagger";
  * @author: Wibus
  * @Date: 2021-10-04 22:04:15
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-16 21:42:50
+ * @LastEditTime: 2022-02-07 23:05:42
  * Coding With IU
  */
 export class CreateCommentDto {
@@ -31,7 +31,7 @@ export class CreateCommentDto {
     owner: string;
 
   @ApiProperty()
-    isOwner?: number = 0;
+    isOwner?: number;
 
   @ApiProperty()
     email: string;
@@ -43,7 +43,7 @@ export class CreateCommentDto {
     key?: string = null;
 
   @ApiProperty()
-    hasChild?: number = 0;
+    hasChild?: number;
 
   @ApiProperty()
     ipAddress?: string = null;
