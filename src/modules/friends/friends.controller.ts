@@ -45,12 +45,4 @@ export class FriendsController {
   async list(@Query() query) {
     return await this.friendsService.list(query);
   }
-
-  @Get('check')
-  @ApiOperation({summary: '获取友链/某个链接的状态码(TODO)'})
-  async getStatus(@Query() query) {
-    // console.log(await this.friendsService.getStatus(query.url))
-    return await this.friendsService.getStatus(query.url)
-    // throw new BadRequestException('暂时不支持此功能')
-  }
 }
