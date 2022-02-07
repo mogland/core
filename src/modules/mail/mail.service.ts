@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { createTransport } from 'nodemailer'
+// import { createTransport } from 'nodemailer'
 
 @Injectable()
 export class MailService {
@@ -33,6 +33,7 @@ export class MailService {
       break;
     case "reply":
       subject = "Hello 你的评论收到一条回复～"
+      break;
     default:
       break;
     }
