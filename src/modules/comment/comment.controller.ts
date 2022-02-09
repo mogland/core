@@ -13,7 +13,7 @@ import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiTags } fro
 
 import { CommentService } from "./comment.service";
 import { CreateCommentDto } from "../../shared/dto/create-comment-dto";
-import { delObjXss } from "utils/xss.util";
+
 
 @Controller("comment")
 @ApiTags("Comment")
@@ -58,7 +58,7 @@ export class CommentController {
     return await this.commentService.createComment(data);
   }
 
-  @Delete("delete")
+  @Delete("delete/:cid")
   @ApiOperation({
     summary: "删除评论",
   })
@@ -66,7 +66,7 @@ export class CommentController {
   @ApiBody({type: Number, description: "评论cid"})
   @ApiBearerAuth("access-token")
   @UseGuards(AuthGuard("jwt"))
-  async delete(@Body() data) {
-    return await this.commentService.deleteComment(data.cid);
+  async delete(@Param() param) {
+    return await this.commentService.deleteComment(param.cid);
   }
 }
