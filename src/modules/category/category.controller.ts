@@ -49,6 +49,26 @@ export class CategoryController {
     return await this.categoryService.create(data);
   }
 
+  @Post("update")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({
+    summary: "修改分类",
+  })
+  @ApiBearerAuth("access-token")
+  @ApiBody({type: CreateCategoryDto})
+  async edit(@Body() data: CreateCategoryDto) {
+    return await this.categoryService.update(data);
+  }
+
+  @Get(":slug")
+  @UseGuards(AuthGuard("jwt"))
+  @ApiOperation({
+    summary: "查询分类信息",
+  })
+  async findOne(@Param() param) {
+    return await this.categoryService.findOne(param.slug);
+  }
+
   @Get("check/:slug")
   @ApiOperation({
     summary: "检查是否存在此分类",

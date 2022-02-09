@@ -55,6 +55,14 @@ export class CategoryService {
     }
   }
 
+  async update(data: Category) {
+    return await this.categoryRepository.update(data.id, data);
+  }
+
+  async findOne(slug: string) {
+    return await this.categoryRepository.findOne(slug);
+  }
+
   async check(slug: string) {
     const data = await this.categoryRepository.findOne({
       slug: slug,
