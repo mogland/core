@@ -3,7 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@nestjs/cli': 8.2.0
   '@nestjs/common': 8.2.6
-  '@nestjs/config': 1.1.6
+  '@nestjs/config': 1.1.7
   '@nestjs/core': 8.2.6
   '@nestjs/jwt': 8.0.0
   '@nestjs/passport': 8.1.0
@@ -59,7 +59,7 @@ specifiers:
 
 dependencies:
   '@nestjs/common': 8.2.6_9f336696e46810abee7fb18d16bfe44e
-  '@nestjs/config': 1.1.6_9f18fe987f9535ffb255a2514f040ca5
+  '@nestjs/config': 1.1.7_9f18fe987f9535ffb255a2514f040ca5
   '@nestjs/core': 8.2.6_5a4a8a6aa346cca50cda533c5559c2e9
   '@nestjs/jwt': 8.0.0_@nestjs+common@8.2.6
   '@nestjs/passport': 8.1.0_469354efd308cbdee43194b5fd6a2c15
@@ -956,8 +956,8 @@ packages:
       - debug
     dev: false
 
-  /@nestjs/config/1.1.6_9f18fe987f9535ffb255a2514f040ca5:
-    resolution: {integrity: sha512-HYizKt6Dr6gcZl8FmZbTfQxP0MG8oXMh+gVFT0XCwYDAq26BOKyhPsIxrKsryicVeKViRgetCUhlJY9EqaekZA==}
+  /@nestjs/config/1.1.7_9f18fe987f9535ffb255a2514f040ca5:
+    resolution: {integrity: sha512-geSsAfANUpTl0bYesPbdvzjw+7sPdTynz66uyLvq2B+mG8W5CTHsEREsFkH/5+djkJF4BYu1vvB6tnlio/AQQg==}
     peerDependencies:
       '@nestjs/common': ^7.0.0 || ^8.0.0
       reflect-metadata: ^0.1.13
