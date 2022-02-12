@@ -20,13 +20,13 @@ export class FriendsService {
       data.image = "";
     }
     if (data.check != null) {
-      data.check = false;
+      data.check = 0;
     }
     if (data.owner == null) {
-      data.owner = false;
+      data.owner = 0;
     }
     if (ismaster) {
-      data.check = true;
+      data.check = 1;
     }
     if (await this.friendsRepository.findOne({ name: data.name })) {
       throw new HttpException("已存在这位朋友啦", HttpStatus.BAD_REQUEST);

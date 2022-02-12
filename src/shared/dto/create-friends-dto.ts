@@ -5,7 +5,7 @@ import { ApiProperty } from "@nestjs/swagger";
  * @author: Wibus
  * @Date: 2021-10-23 08:57:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-20 12:06:13
+ * @LastEditTime: 2022-02-12 18:47:09
  * Coding With IU
  */
 export class CreateFriendsDto {
@@ -21,7 +21,7 @@ export class CreateFriendsDto {
   @ApiProperty()
     qq?: string;
   @ApiProperty()
-    owner: boolean;
+    owner: number;
   @ApiProperty()
-    check: boolean;
+    check: number;
 }
