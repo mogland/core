@@ -1,9 +1,9 @@
 /*
- * @FilePath: /GS-server/src/modules/friends/friends.entity.ts
+ * @FilePath: /GS-server/src/shared/entities/friends.entity.ts
  * @author: Wibus
  * @Date: 2021-10-23 08:57:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-16 16:39:03
+ * @LastEditTime: 2022-02-12 18:44:36
  * Coding With IU
  */
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
@@ -29,8 +29,8 @@ export class Friends {
     qq: string;
 
   @Column()
-    owner: boolean;
+    owner: number;
 
   @Column()
-    check: boolean;
+    check: number;
 }
