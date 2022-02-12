@@ -14,7 +14,7 @@ export class CategoryService {
     private categoryRepository: Repository<Category>
   ) {}
 
-  async find(slug: string): Promise<Posts[]> {
+  async findPost(slug: string): Promise<Posts[]> {
     return await this.postsRepository.find({
       slug: slug,
     });
@@ -60,7 +60,9 @@ export class CategoryService {
   }
 
   async findOne(slug: string) {
-    return await this.categoryRepository.findOne(slug);
+    return await this.categoryRepository.findOne({
+      slug: slug,
+    });
   }
 
   async check(slug: string) {

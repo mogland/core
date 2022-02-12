@@ -23,8 +23,8 @@ export class CategoryController {
     summary: "获取分类内全部文章",
   })
   @ApiParam({ name: "slug", required: true, description: "分类slug", type: String })
-  async find(@Param() param) {
-    return await this.categoryService.find(param.slug);
+  async findPost(@Param() param) {
+    return await this.categoryService.findPost(param.slug);
     // return param.slug
   }
 
@@ -61,10 +61,10 @@ export class CategoryController {
   }
 
   @Get(":slug")
-  @UseGuards(AuthGuard("jwt"))
   @ApiOperation({
     summary: "查询分类信息",
   })
+  @ApiParam({ name: "slug", required: true, description: "分类slug", type: String })
   async findOne(@Param() param) {
     return await this.categoryService.findOne(param.slug);
   }
