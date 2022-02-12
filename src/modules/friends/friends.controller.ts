@@ -11,10 +11,10 @@ export class FriendsController {
   constructor(private friendsService: FriendsService) {}
 
   @Post("send")
-  @ApiBearerAuth("access-token")
+  // @ApiBearerAuth("access-token")
   @ApiOperation({ summary: "添加友链" })
   @ApiBody({ type: CreateFriendsDto })
-  @UseGuards(AuthGuard("jwt"))
+  // @UseGuards(AuthGuard("jwt"))
   pushLinks(@Body() data: CreateFriendsDto, @IsMaster() ismaster: boolean) {
     return this.friendsService.create(data, ismaster);
     // return data.name
