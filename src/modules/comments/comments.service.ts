@@ -27,7 +27,7 @@ export class CommentsService {
     case 'all':
       return await this.CommentsRepository.find({
         order: {
-          cid: query.order === 'ASC' ? 'ASC' : 'DESC',
+          createTime: query.order === 'ASC' ? 'ASC' : 'DESC',
         },
       })
     case 'limit':
@@ -41,7 +41,7 @@ export class CommentsService {
         skip: skip,
         take: limit,
         order: {
-          cid: query.order === 'ASC' ? 'ASC' : 'DESC',
+          createTime: query.order === 'ASC' ? 'ASC' : 'DESC',
         },
       });
     case 'num':
@@ -52,7 +52,7 @@ export class CommentsService {
           state: 0,
         },
         order: {
-          cid: query.order === 'ASC' ? 'ASC' : 'DESC',
+          createTime: query.order === 'ASC' ? 'ASC' : 'DESC',
         },
       });
     case 'uncheck_num':

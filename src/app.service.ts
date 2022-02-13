@@ -19,7 +19,7 @@ export class AppService {
     return {
       posts: await this.postsService.list({ type: 'num' }), // 文章数
       pages: await this.pageService.list({ type: 'num' }), // 页面数
-      Comments: await this.CommentsService.list({ type: 'num' }), // 评论数
+      comments: await this.CommentsService.list({ type: 'num' }), // 评论数
       unReadComments: await this.CommentsService.list({ type: 'uncheck_num' }), // 未审核评论数
       Allfriends: await this.friendsService.list({ type: 'num' }), // 好友数
       Unfriends: await this.friendsService.list({ type: 'uncheck_num' }), // 未审核好友数
