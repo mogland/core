@@ -12,7 +12,7 @@ import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
 
 import { CommentsService } from "./comments.service";
-import { CreateCommentsDto } from "../../shared/dto/create-Comments-dto";
+import { CreateCommentsDto } from "../../shared/dto/create-comments-dto";
 
 
 @Controller("Comments")
