@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Posts } from "../../shared/entities/posts.entity";
 import { Repository } from "typeorm";
-import { Categories } from "../../shared/entities/Categories.entity";
+import { Categories } from "../../shared/entities/categories.entity";
 
 @Injectable()
 export class CategoriesService {

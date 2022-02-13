@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 /*
- * @FilePath: /GS-server/src/shared/dto/create-Categories-dto.ts
+ * @FilePath: /GS-server/src/shared/dto/create-categories-dto.ts
  * @author: Wibus
  * @Date: 2021-10-16 07:05:59
  * @LastEditors: Wibus

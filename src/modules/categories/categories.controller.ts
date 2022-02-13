@@ -11,7 +11,7 @@ import {
 import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
 import { CategoriesService } from "./categories.service";
-import { CreateCategoriesDto } from "../../shared/dto/create-Categories-dto";
+import { CreateCategoriesDto } from "../../shared/dto/create-categories-dto";
 
 @Controller("categories")
 @ApiTags("Categories")

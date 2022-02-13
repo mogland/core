@@ -1,5 +1,5 @@
 /*
- * @FilePath: /GS-server/src/shared/entities/Categories.entity.ts
+ * @FilePath: /GS-server/src/shared/entities/categories.entity.ts
  * @author: Wibus
  * @Date: 2021-10-07 17:01:46
  * @LastEditors: Wibus
