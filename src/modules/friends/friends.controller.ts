@@ -10,7 +10,7 @@ import { IsMaster } from "../../common/decorator/user.decorator";
 export class FriendsController {
   constructor(private friendsService: FriendsService) {}
 
-  @Post("send")
+  @Post("create")
   // @ApiBearerAuth("access-token")
   @ApiOperation({ summary: "添加友链" })
   @ApiBody({ type: CreateFriendsDto })
