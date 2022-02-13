@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-25 01:06:31
+ * @LastEditTime: 2022-02-13 16:46:40
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -36,7 +36,7 @@ export class PostsService {
       if (page < 1 || isNaN(page)) {
         page = 1;
       }
-      const limit = 10;
+      const limit = query.limit || 10;
       const skip = (page - 1) * limit;
       return await this.postsRepository.find({
         skip: skip,

@@ -52,7 +52,7 @@ export class UsersService {
       if (page < 1 || isNaN(page)) {
         page = 1;
       }
-      const limit = 10;
+      const limit = query.limit || 10;
       const skip = (page - 1) * limit;
       return await this.userRepository.find({
         skip: skip,
