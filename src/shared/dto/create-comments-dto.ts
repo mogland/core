@@ -1,11 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 /*
- * @FilePath: /GS-server/src/shared/dto/create-Comments-dto.ts
+ * @FilePath: /GS-server/src/shared/dto/create-comments-dto.ts
  * @author: Wibus
  * @Date: 2021-10-04 22:04:15
  * @LastEditors: Wibus
- * @LastEditTime: 2022-02-07 23:05:42
+ * @LastEditTime: 2022-02-13 17:14:19
  * Coding With IU
  */
 export class CreateCommentsDto {

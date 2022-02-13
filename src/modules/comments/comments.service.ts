@@ -2,7 +2,7 @@ import { BadRequestException, HttpException, HttpStatus, Injectable, Logger } fr
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Comments } from "../../shared/entities/comments.entity";
-import { CreateCommentsDto } from "../../shared/dto/create-Comments-dto";
+import { CreateCommentsDto } from "../../shared/dto/create-comments-dto";
 import BlockedKeywords = require("./block-keywords.json");
 import { UsersService } from "../users/users.service";
 import { delObjXss } from "utils/xss.util";
