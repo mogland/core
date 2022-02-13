@@ -25,7 +25,11 @@ export class CommentService {
   async list(query: any) {
     switch (query.type){
     case 'all':
-      return await this.commentRepository.find()
+      return await this.commentRepository.find({
+        order: {
+          cid: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
+      })
     case 'limit':
       let page = query.page
       if (page < 1 || isNaN(page)) {
@@ -36,19 +40,31 @@ export class CommentService {
       return await this.commentRepository.find({
         skip: skip,
         take: limit,
+        order: {
+          cid: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
       });
     case 'num':
       return await this.commentRepository.count()
     case 'uncheck':
       return await this.commentRepository.find({
-        state: 0,
+        where: {
+          state: 0,
+        },
+        order: {
+          cid: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
       });
     case 'uncheck_num':
       return await this.commentRepository.count({
         state: 0,
       });
     default:
-      return await this.commentRepository.find()
+      return await this.commentRepository.find({
+        order: {
+          cid: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
+      })
     }
   }
 

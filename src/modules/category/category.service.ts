@@ -47,6 +47,9 @@ export class CategoryService {
       return await this.categoryRepository.find({
         skip: skip,
         take: limit,
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
       });
     case 'num':
       return await this.categoryRepository.count();

@@ -44,7 +44,11 @@ export class FriendsService {
   async list(query: any) {
     switch (query.type) {
     case "all":
-      return await this.friendsRepository.find();
+      return await this.friendsRepository.find({
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
+      });
     case "limit":
       let page = query.page
       if (page < 1 || isNaN(page)) {
@@ -55,19 +59,28 @@ export class FriendsService {
       return await this.friendsRepository.find({
         skip: skip,
         take: limit,
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
       });
     case "num":
       return await this.friendsRepository.count();
     case "uncheck":
       return await this.friendsRepository.find({
-        check: 1,
+        where: {
+          check: 0,
+        }
       });
     case "uncheck_num":
       return await this.friendsRepository.count({
-        check: 1,
+        check: 0,
       });
     default:
-      return await this.friendsRepository.find();
+      return await this.friendsRepository.find({
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
+      });
     }
   }
 

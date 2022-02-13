@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-21 14:54:04
+ * @LastEditTime: 2022-02-13 16:51:06
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -28,7 +28,11 @@ export class PagesService {
   async list(query: any) {
     switch (query.type) {
     case 'all':
-      return await this.pagesRepository.find();
+      return await this.pagesRepository.find({
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
+      });
     case 'limit':
       let page = query.page
       if (page < 1 || isNaN(page)) {
@@ -39,15 +43,26 @@ export class PagesService {
       return await this.pagesRepository.find({
         skip: skip,
         take: limit,
+        // 排序方式
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
       });
     case 'num':
       return await this.pagesRepository.count();
     case 'list':
       return await this.pagesRepository.find({
         select: ['id', 'title', 'path'],
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
       });
     default:
-      return await this.pagesRepository.find();
+      return await this.pagesRepository.find({
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
+      });
     }
 
 

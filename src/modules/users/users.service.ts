@@ -46,6 +46,9 @@ export class UsersService {
       // 过滤password字段
       return await this.userRepository.find({
         select: ["uuid", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
+        order: {
+          name: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
       });
     case "limit":
       let page = query.page
@@ -58,12 +61,18 @@ export class UsersService {
         skip: skip,
         take: limit,
         select: ["uuid", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
+        order: {
+          name: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
       });
     case "num":
       return await this.userRepository.count();
     default:
       return await this.userRepository.find({
         select: ["uuid", "name", "lovename", "description", "email", "avatar", "level", "status", "QQ"],
+        order: {
+          name: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
       });
     }
   }

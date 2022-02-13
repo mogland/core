@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-02-13 16:46:40
+ * @LastEditTime: 2022-02-13 16:50:15
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -30,7 +30,11 @@ export class PostsService {
   async list(query: any) {
     switch (query.type) {
     case 'all':
-      return await this.postsRepository.find();
+      return await this.postsRepository.find({
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
+      });
     case 'limit':
       let page = query.page
       if (page < 1 || isNaN(page)) {
@@ -42,12 +46,18 @@ export class PostsService {
         skip: skip,
         take: limit,
         select: ["id", "title", "path", "tags", "slug"],
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
       });
     case 'num':
       return await this.postsRepository.count();
     case 'list':
       return await this.postsRepository.find({
         select: ['id', 'title', 'path', 'tags', 'slug'],
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
       });
     default:
       return await this.postsRepository.find();
