@@ -1,5 +1,5 @@
 /*
- * @FilePath: /GS-server/src/shared/entities/category.entity.ts
+ * @FilePath: /GS-server/src/shared/entities/Categories.entity.ts
  * @author: Wibus
  * @Date: 2021-10-07 17:01:46
  * @LastEditors: Wibus
@@ -9,7 +9,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Category {
+export class Categories {
   @PrimaryGeneratedColumn()
     id?: number;
 

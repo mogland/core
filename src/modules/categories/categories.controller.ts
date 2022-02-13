@@ -10,13 +10,13 @@ import {
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
-import { CategoryService } from "./category.service";
-import { CreateCategoryDto } from "../../shared/dto/create-category-dto";
+import { CategoriesService } from "./categories.service";
+import { CreateCategoriesDto } from "../../shared/dto/create-Categories-dto";
 
-@Controller("category")
-@ApiTags("Category")
-export class CategoryController {
-  constructor(private categoryService: CategoryService) {}
+@Controller("categories")
+@ApiTags("Categories")
+export class CategoriesController {
+  constructor(private CategoriesService: CategoriesService) {}
 
   @Get("find/:slug")
   @ApiOperation({
@@ -24,7 +24,7 @@ export class CategoryController {
   })
   @ApiParam({ name: "slug", required: true, description: "分类slug", type: String })
   async findPost(@Param() param) {
-    return await this.categoryService.findPost(param.slug);
+    return await this.CategoriesService.findPost(param.slug);
     // return param.slug
   }
 
@@ -35,7 +35,7 @@ export class CategoryController {
   @ApiQuery({name: "type", required: false, description: "查询参数", type: String, enum: ["all",'limit','num','list']})
   @ApiQuery({name: "page", required: false, description: "当type等于limit时的页码数", type: Number})
   async list(@Query() query) {
-    return await this.categoryService.list(query);
+    return await this.CategoriesService.list(query);
   }
 
   @Post("create")
@@ -44,9 +44,9 @@ export class CategoryController {
     summary: "新建分类",
   })
   @ApiBearerAuth("access-token")
-  @ApiBody({type: CreateCategoryDto})
-  async create(@Body() data: CreateCategoryDto) {
-    return await this.categoryService.create(data);
+  @ApiBody({type: CreateCategoriesDto})
+  async create(@Body() data: CreateCategoriesDto) {
+    return await this.CategoriesService.create(data);
   }
 
   @Post("update")
@@ -55,9 +55,9 @@ export class CategoryController {
     summary: "修改分类",
   })
   @ApiBearerAuth("access-token")
-  @ApiBody({type: CreateCategoryDto})
-  async edit(@Body() data: CreateCategoryDto) {
-    return await this.categoryService.update(data);
+  @ApiBody({type: CreateCategoriesDto})
+  async edit(@Body() data: CreateCategoriesDto) {
+    return await this.CategoriesService.update(data);
   }
 
   @Get(":slug")
@@ -66,7 +66,7 @@ export class CategoryController {
   })
   @ApiParam({ name: "slug", required: true, description: "分类slug", type: String })
   async findOne(@Param() param) {
-    return await this.categoryService.findOne(param.slug);
+    return await this.CategoriesService.findOne(param.slug);
   }
 
   @Get("check/:slug")
@@ -75,7 +75,7 @@ export class CategoryController {
   })
   @ApiParam({ name: "slug", required: true, description: "分类slug", type: String })
   async check(@Param() param) {
-    return await this.categoryService.check(param.slug);
+    return await this.CategoriesService.check(param.slug);
   }
 
   // 删除分类
@@ -87,6 +87,6 @@ export class CategoryController {
   @ApiBearerAuth("access-token")
   @ApiParam({ name: "id", required: true, description: "分类id", type: Number })
   async delete(@Param() param) {
-    return await this.categoryService.delete(param.id);
+    return await this.CategoriesService.delete(param.id);
   }
 }

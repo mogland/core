@@ -18,12 +18,12 @@ import { AuthService } from "./modules/auth/auth.service"; // 引入认证模块
 import { jwtConstants } from "./modules/auth/constants"; // 引入认证模块
 import { JwtStrategy } from "./modules/auth/jwt.strategy"; // 引入认证模块
 import { LocalStrategy } from "./modules/auth/local.strategy"; // 引入认证模块
-import { CategoryController } from "./modules/category/category.controller"; // 引入分类模块
-import { CategoryModule } from "./modules/category/category.module"; // 引入分类模块
-import { CategoryService } from "./modules/category/category.service"; // 引入分类模块
-import { CommentController } from "./modules/comment/comment.controller"; // 引入评论模块
-import { CommentModule } from "./modules/comment/comment.module"; // 引入评论模块
-import { CommentService } from "./modules/comment/comment.service"; // 引入评论模块
+import { CategoriesController } from "./modules/categories/categories.controller"; // 引入分类模块
+import { CategoriesModule } from "./modules/categories/categories.module"; // 引入分类模块
+import { CategoriesService } from "./modules/categories/categories.service"; // 引入分类模块
+import { CommentsController } from "./modules/comments/comments.controller"; // 引入评论模块
+import { CommentsModule } from "./modules/comments/comments.module"; // 引入评论模块
+import { CommentsService } from "./modules/comments/comments.service"; // 引入评论模块
 import { FriendsController } from "./modules/friends/friends.controller"; // 引入好友模块
 import { FriendsService } from "./modules/friends/friends.service"; // 引入好友模块
 import { MailModule } from "./modules/mail/mail.module"; // 引入邮件模块
@@ -68,8 +68,8 @@ import configuration from "./utils/getDataConfig.util"; // 引入配置文件
     AuthModule,
     PostsModule,
     PagesModule,
-    CommentModule,
-    CategoryModule,
+    CommentsModule,
+    CategoriesModule,
     MailModule,
     FriendsModule,
   ],
@@ -78,8 +78,8 @@ import configuration from "./utils/getDataConfig.util"; // 引入配置文件
     UsersController,
     PagesController,
     PostsController,
-    CommentController,
-    CategoryController,
+    CommentsController,
+    CategoriesController,
     MailController,
     FriendsController,
   ],
@@ -100,8 +100,8 @@ import configuration from "./utils/getDataConfig.util"; // 引入配置文件
     JwtStrategy,
     PostsService,
     PagesService,
-    CommentService,
-    CategoryService,
+    CommentsService,
+    CategoriesService,
     MailService,
     FriendsService,
 

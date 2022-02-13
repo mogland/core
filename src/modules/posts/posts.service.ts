@@ -8,7 +8,7 @@
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CategoryService } from "../category/category.service";
+import { CategoriesService } from "../categories/categories.service";
 import { Repository } from "typeorm";
 import { CreatePostDto } from "../../shared/dto/create-post-dto";
 import { Posts } from "../../shared/entities/posts.entity";
@@ -18,7 +18,7 @@ export class PostsService {
   constructor(
     @InjectRepository(Posts)
     private postsRepository: Repository<Posts>,
-    private categodyService: CategoryService
+    private categodyService: CategoriesService
   ) {}
 
   async findOne(path: any): Promise<Posts> {
@@ -73,7 +73,7 @@ export class PostsService {
     if (result) {
       throw new HttpException("Already Exist", HttpStatus.BAD_REQUEST);
     } else if (!this.categodyService.check(data.slug)) {
-      throw new HttpException("Category Not Found", HttpStatus.BAD_REQUEST);
+      throw new HttpException("Categories Not Found", HttpStatus.BAD_REQUEST);
     } else {
       return await this.postsRepository.save(data);
     }

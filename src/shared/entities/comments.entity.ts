@@ -8,7 +8,7 @@ import {
 @Entity()
 export class Comments {
   @PrimaryGeneratedColumn()
-    cid: number; //comment id
+    cid: number; //Comments id
 
   @Column()
     type: string; //choose `post` or `page`
@@ -20,7 +20,7 @@ export class Comments {
     post: string; //only ID
 
   @Column()
-    content: string; //comment content
+    content: string; //Comments content
 
   @CreateDateColumn()
     createTime: number;

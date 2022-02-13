@@ -12,7 +12,7 @@ export class MailController {
   async sendMail() {
     await this.mailService.sendMail({
       to: "1596355173@qq.com",
-      subject: "comments",
+      subject: "Comments",
       text: "test",
       html: "<h1>test</h1>"
     });

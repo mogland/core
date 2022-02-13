@@ -2,16 +2,16 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Posts } from "../../shared/entities/posts.entity";
 import { Repository } from "typeorm";
-import { Category } from "../../shared/entities/category.entity";
+import { Categories } from "../../shared/entities/Categories.entity";
 
 @Injectable()
-export class CategoryService {
+export class CategoriesService {
   constructor(
     @InjectRepository(Posts)
     private postsRepository: Repository<Posts>,
 
-    @InjectRepository(Category)
-    private categoryRepository: Repository<Category>
+    @InjectRepository(Categories)
+    private CategoriesRepository: Repository<Categories>
   ) {}
 
   async findPost(slug: string): Promise<Posts[]> {
@@ -22,12 +22,12 @@ export class CategoryService {
 
   async create(data) {
     if (
-      !(await this.categoryRepository.findOne({
+      !(await this.CategoriesRepository.findOne({
         name: data.name,
         slug: data.slug,
       }))
     ) {
-      return await this.categoryRepository.save(data);
+      return await this.CategoriesRepository.save(data);
     } else {
       throw new HttpException("Already Exist", HttpStatus.BAD_REQUEST);
     }
@@ -36,7 +36,7 @@ export class CategoryService {
   async list(query: any) {
     switch (query.type) {
     case 'all':
-      return await this.categoryRepository.find();
+      return await this.CategoriesRepository.find();
     case 'limit':
       let page = query.page
       if (page < 1 || isNaN(page)) {
@@ -44,7 +44,7 @@ export class CategoryService {
       }
       const limit = query.limit || 10;
       const skip = (page - 1) * limit;
-      return await this.categoryRepository.find({
+      return await this.CategoriesRepository.find({
         skip: skip,
         take: limit,
         order: {
@@ -52,24 +52,24 @@ export class CategoryService {
         },
       });
     case 'num':
-      return await this.categoryRepository.count();
+      return await this.CategoriesRepository.count();
     default:
-      return await this.categoryRepository.find();
+      return await this.CategoriesRepository.find();
     }
   }
 
-  async update(data: Category) {
-    return await this.categoryRepository.update(data.id, data);
+  async update(data: Categories) {
+    return await this.CategoriesRepository.update(data.id, data);
   }
 
   async findOne(slug: string) {
-    return await this.categoryRepository.findOne({
+    return await this.CategoriesRepository.findOne({
       slug: slug,
     });
   }
 
   async check(slug: string) {
-    const data = await this.categoryRepository.findOne({
+    const data = await this.CategoriesRepository.findOne({
       slug: slug,
     });
     if (data) {
@@ -81,7 +81,7 @@ export class CategoryService {
 
   // 删除分类
   async delete(id: number) {
-    return await this.categoryRepository.delete(id);
+    return await this.CategoriesRepository.delete(id);
   }
   
 }

@@ -1,15 +1,15 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 /*
- * @FilePath: /GS-server/src/shared/dto/create-comment-dto.ts
+ * @FilePath: /GS-server/src/shared/dto/create-Comments-dto.ts
  * @author: Wibus
  * @Date: 2021-10-04 22:04:15
  * @LastEditors: Wibus
  * @LastEditTime: 2022-02-07 23:05:42
  * Coding With IU
  */
-export class CreateCommentDto {
-  cid: number; //comment id
+export class CreateCommentsDto {
+  cid: number; //Comments id
 
   @ApiProperty()
     type: string; //choose `post` or `page`
@@ -20,7 +20,7 @@ export class CreateCommentDto {
   post: string; //only ID
 
   @ApiProperty()
-    content: string; //comment content
+    content: string; //Comments content
 
   createTime: number;
 

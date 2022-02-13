@@ -93,7 +93,7 @@
 
 ### Features
 
-* **comment:** edit other comments ([42fb9e6](https://github.com/wibus-wee/GS-server/commit/42fb9e664cda578c50194b2e8452a5f339ef224c))
+* **Comments:** edit other Comments ([42fb9e6](https://github.com/wibus-wee/GS-server/commit/42fb9e664cda578c50194b2e8452a5f339ef224c))
 * **filters:** add a APP_FILTER & remove http-exception filter ([48f91b2](https://github.com/wibus-wee/GS-server/commit/48f91b24b665ec76c8f149039d6aead1d77c3b39))
 * **guards:** add a spiders guards ([c5d9527](https://github.com/wibus-wee/GS-server/commit/c5d952770fa6e657a4d9d7197f3df42c109e99e0))
 * **guards:** add RolesGuard for APP_GUARD ([df5ff56](https://github.com/wibus-wee/GS-server/commit/df5ff567a59764a80dde96b6b8db16ee0b7f6501))
@@ -102,8 +102,8 @@
 ### Performance Improvements
 
 * **app:** give app a `/ping` request ([96b2775](https://github.com/wibus-wee/GS-server/commit/96b277544532f5b32474e1aac613c5feee44a2ca))
-* **comment:** check for comment username violations ([702391b](https://github.com/wibus-wee/GS-server/commit/702391bb330dd7b04d68464651b743f3d2c10809))
-* **comment:** limit contents' Byte ([9058517](https://github.com/wibus-wee/GS-server/commit/905851719808a5b56a621d69b649264b57e11fe3))
+* **Comments:** check for Comments username violations ([702391b](https://github.com/wibus-wee/GS-server/commit/702391bb330dd7b04d68464651b743f3d2c10809))
+* **Comments:** limit contents' Byte ([9058517](https://github.com/wibus-wee/GS-server/commit/905851719808a5b56a621d69b649264b57e11fe3))
 * **filter:** add a swich-case for exception filter ([fc2d02e](https://github.com/wibus-wee/GS-server/commit/fc2d02e42a9a3d0a256c80a65b380d15d4500832))
 * **friends:** add a check service for links(bugs) ([bde5067](https://github.com/wibus-wee/GS-server/commit/bde5067202ef24ef51164bf1f307c513e9f9ab39))
 * **friends:** improve the friendly Exception ([566550d](https://github.com/wibus-wee/GS-server/commit/566550d9663384e48c65d3a0497bb9b5a0328b5f))
@@ -131,7 +131,7 @@
 * **app:** change Logger log ([5e4618e](https://github.com/wibus-wee/GS-server/commit/5e4618e58e7f879bdf82a33ac864254e6cfa605b))
 * **app:** initialize the user ([199fac1](https://github.com/wibus-wee/GS-server/commit/199fac1284e020187579cc8500b731886251e5cf))
 * **app:** move some variables into env ([774857f](https://github.com/wibus-wee/GS-server/commit/774857faec01a7f651c51812a4bfa49ad4ec1e41))
-* **comment:** add a changeComment function for master ([d2fa3e7](https://github.com/wibus-wee/GS-server/commit/d2fa3e7bd71208268af5bf58749d38ded1fc9918))
+* **Comments:** add a changeComments function for master ([d2fa3e7](https://github.com/wibus-wee/GS-server/commit/d2fa3e7bd71208268af5bf58749d38ded1fc9918))
 * **filters:** change the http-exception filter return words ([caa372e](https://github.com/wibus-wee/GS-server/commit/caa372e5bb9cd871c577c4fa9460ef87c3ccdaec)), closes [#7](https://github.com/wibus-wee/GS-server/issues/7)
 * **service:** convert manual error messages to built-in HttpExceptions ([d0cb19f](https://github.com/wibus-wee/GS-server/commit/d0cb19f10f961f2219b3584dc33048d2a79f13fa))
 * **service:** throw HttpException when catch error ([13562a2](https://github.com/wibus-wee/GS-server/commit/13562a2b35f099d91b602d7a3a1a2cbc46baccf8))
@@ -149,7 +149,7 @@
 ### Bug Fixes
 
 * fix all autofixed problems ([ce67e89](https://github.com/wibus-wee/GS-server/commit/ce67e898828780e8978174c9d6d6ae8f7e00a5da))
-* fix comment Exp & jwt ([ab8b184](https://github.com/wibus-wee/GS-server/commit/ab8b18461ccae1c78fa27fbf8225461bbec1c5f9))
+* fix Comments Exp & jwt ([ab8b184](https://github.com/wibus-wee/GS-server/commit/ab8b18461ccae1c78fa27fbf8225461bbec1c5f9))
 * fix friends repo error ([29dedb6](https://github.com/wibus-wee/GS-server/commit/29dedb69ca8e04ee7f8be57f76aa1662c02bbe6d))
 * fixed bug where multiple data was saved in host ([93ee8e5](https://github.com/wibus-wee/GS-server/commit/93ee8e5bf1bca89a5195289010b38ec3fe9ef879))
 * **friends:** fix 'friends' repo not found ([5ad1ad3](https://github.com/wibus-wee/GS-server/commit/5ad1ad37b381e8cdd3242318477813c5e965811b))
@@ -158,7 +158,7 @@
 ### Features
 
 * add a devcontainer ([333535c](https://github.com/wibus-wee/GS-server/commit/333535c696f0448c57ffaa0ce8b8329e8fb9bf78))
-* **category:** add category module & service & controller ([f3558fb](https://github.com/wibus-wee/GS-server/commit/f3558fb3684916e24e1c9d12c114877d77eea225))
+* **Categories:** add Categories module & service & controller ([f3558fb](https://github.com/wibus-wee/GS-server/commit/f3558fb3684916e24e1c9d12c114877d77eea225))
 * **filter:** add a global exception filter ([f6eec19](https://github.com/wibus-wee/GS-server/commit/f6eec19127f68446c48924a64d339708eb1d67cd))
 
 
@@ -168,12 +168,12 @@
 * **app:** optimization of CORS ([b8e571c](https://github.com/wibus-wee/GS-server/commit/b8e571cae9078e6201faa61105db45a94c7b5121))
 * **configs:** set `jwtToken` for auth constants ([a390028](https://github.com/wibus-wee/GS-server/commit/a390028d4ba09e77adad9ba54b99603c3f6c09c8))
 * **cors:** start CORS and add its configuration options ([7fa841f](https://github.com/wibus-wee/GS-server/commit/7fa841fa4d1ee8ff5c999c2d0d832238c3c83407))
-* post is provided with a category controller ([49029f0](https://github.com/wibus-wee/GS-server/commit/49029f0188686df01755654133c97e85c878a51f))
+* post is provided with a Categories controller ([49029f0](https://github.com/wibus-wee/GS-server/commit/49029f0188686df01755654133c97e85c878a51f))
 
 
 ### BREAKING CHANGES
 
-* **category:** A new category controller and other things
+* **Categories:** A new Categories controller and other things
 
 
 
@@ -191,7 +191,7 @@
 ### Features
 
 * add mysql & typeorm to repo ([bd4c035](https://github.com/wibus-wee/Nest-server/commit/bd4c035f49b2f45d68edf986f20d52f0f9cbe3f9))
-* **comment:** add Comment controller ([cf55b0a](https://github.com/wibus-wee/Nest-server/commit/cf55b0a0c0f4abaacb10ba6e03d881be8f210bd0))
+* **Comments:** add Comments controller ([cf55b0a](https://github.com/wibus-wee/Nest-server/commit/cf55b0a0c0f4abaacb10ba6e03d881be8f210bd0))
 * **host:** add data support to the host controller ([2053727](https://github.com/wibus-wee/Nest-server/commit/20537279132b86445089ab7724a98d7bc705cd6b))
 * introducing authorization Guards ([81d5fd6](https://github.com/wibus-wee/Nest-server/commit/81d5fd6216a54ddb3b4a7480f6e4e40a6f7595d2))
 * **pages:** database support is provided for Pages ([adb3b4c](https://github.com/wibus-wee/Nest-server/commit/adb3b4ceadd43cc78d09bc02cfddf8bd347fb70a))
@@ -200,11 +200,11 @@
 
 ### Performance Improvements
 
-* add comment.entry ([43231f6](https://github.com/wibus-wee/Nest-server/commit/43231f6b4d04fb495fee511ab6ff8765f97d9b34))
+* add comments.entry ([43231f6](https://github.com/wibus-wee/Nest-server/commit/43231f6b4d04fb495fee511ab6ff8765f97d9b34))
 * delete Support for posts & pages ([2b2e644](https://github.com/wibus-wee/Nest-server/commit/2b2e644fe40f88b8f9b9f10f1c194512341f6096))
 * **posts:** improve posts db ([7c83763](https://github.com/wibus-wee/Nest-server/commit/7c83763e1445290040f3caab34cc24c3eaef7d87))
 * **posts:** improve postsService findOne ([c7c9cab](https://github.com/wibus-wee/Nest-server/commit/c7c9cab7049fe031727e8c4e66082d9b1e9cf2f4))
-* **swagger:** optimize the swagger of comment ([ca93a38](https://github.com/wibus-wee/Nest-server/commit/ca93a387be2f4ae315cb2ca3628c9b3b6ccfbae2))
+* **swagger:** optimize the swagger of Comments ([ca93a38](https://github.com/wibus-wee/Nest-server/commit/ca93a387be2f4ae315cb2ca3628c9b3b6ccfbae2))
 
 
 ### BREAKING CHANGES

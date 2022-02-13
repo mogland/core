@@ -11,14 +11,14 @@ import {
 import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery, ApiTags } from "@nestjs/swagger";
 
-import { CommentService } from "./comment.service";
-import { CreateCommentDto } from "../../shared/dto/create-comment-dto";
+import { CommentsService } from "./comments.service";
+import { CreateCommentsDto } from "../../shared/dto/create-Comments-dto";
 
 
-@Controller("comment")
-@ApiTags("Comment")
-export class CommentController {
-  constructor(private commentService: CommentService) {}
+@Controller("Comments")
+@ApiTags("Comments")
+export class CommentsController {
+  constructor(private CommentsService: CommentsService) {}
 
   @Get(":type/:path")
   @ApiOperation({
@@ -27,7 +27,7 @@ export class CommentController {
   @ApiParam({ name: "type", required: true, description: "类型", type: String, enum: ["post", "page"] })
   @ApiParam({ name: "cid", required: true, description: "cid", type: String })
   async get(@Param() param) {
-    return await this.commentService.getComment(param.type, param.cid);
+    return await this.CommentsService.getComments(param.type, param.cid);
   }
 
   @Get("list")
@@ -37,25 +37,25 @@ export class CommentController {
   @ApiQuery({name: "type", required: false, description: "查询参数", type: String, enum: ["all",'limit','num','list']})
   @ApiQuery({name: "page", required: false, description: "当type等于limit时的页码数", type: Number})
   async list(@Query() query) {
-    return await this.commentService.list(query);
+    return await this.CommentsService.list(query);
   }
   @Post("change")
   @ApiOperation({
     summary: "修改评论",
   })
   @UseGuards(AuthGuard("jwt"))
-  @ApiBody({type: CreateCommentDto})
+  @ApiBody({type: CreateCommentsDto})
   @ApiBearerAuth("access-token")
-  async change(@Body() data: CreateCommentDto) {
-    return await this.commentService.changeComment(data);
+  async change(@Body() data: CreateCommentsDto) {
+    return await this.CommentsService.changeComments(data);
   }
 
   @Post("create")
   @ApiOperation({
     summary: "发布评论",
   })
-  async create(@Body() data: CreateCommentDto) {
-    return await this.commentService.createComment(data);
+  async create(@Body() data: CreateCommentsDto) {
+    return await this.CommentsService.createComments(data);
   }
 
   @Delete("delete/:cid")
@@ -67,6 +67,6 @@ export class CommentController {
   @ApiBearerAuth("access-token")
   @UseGuards(AuthGuard("jwt"))
   async delete(@Param() param) {
-    return await this.commentService.deleteComment(param.cid);
+    return await this.CommentsService.deleteComments(param.cid);
   }
 }
