@@ -16,7 +16,7 @@ import { CreateCategoriesDto } from "../../shared/dto/create-categories-dto";
 @Controller("categories")
 @ApiTags("Categories")
 export class CategoriesController {
-  constructor(private CategoriesService: CategoriesService) {}
+  constructor(private categoriesService: CategoriesService) {}
 
   @Get("find/:slug")
   @ApiOperation({
@@ -24,7 +24,7 @@ export class CategoriesController {
   })
   @ApiParam({ name: "slug", required: true, description: "分类slug", type: String })
   async findPost(@Param() param) {
-    return await this.CategoriesService.findPost(param.slug);
+    return await this.categoriesService.findPost(param.slug);
     // return param.slug
   }
 
@@ -35,7 +35,7 @@ export class CategoriesController {
   @ApiQuery({name: "type", required: false, description: "查询参数", type: String, enum: ["all",'limit','num','list']})
   @ApiQuery({name: "page", required: false, description: "当type等于limit时的页码数", type: Number})
   async list(@Query() query) {
-    return await this.CategoriesService.list(query);
+    return await this.categoriesService.list(query);
   }
 
   @Post("create")
@@ -46,7 +46,7 @@ export class CategoriesController {
   @ApiBearerAuth("access-token")
   @ApiBody({type: CreateCategoriesDto})
   async create(@Body() data: CreateCategoriesDto) {
-    return await this.CategoriesService.create(data);
+    return await this.categoriesService.create(data);
   }
 
   @Post("update")
@@ -57,7 +57,7 @@ export class CategoriesController {
   @ApiBearerAuth("access-token")
   @ApiBody({type: CreateCategoriesDto})
   async edit(@Body() data: CreateCategoriesDto) {
-    return await this.CategoriesService.update(data);
+    return await this.categoriesService.update(data);
   }
 
   @Get(":slug")
@@ -66,7 +66,7 @@ export class CategoriesController {
   })
   @ApiParam({ name: "slug", required: true, description: "分类slug", type: String })
   async findOne(@Param() param) {
-    return await this.CategoriesService.findOne(param.slug);
+    return await this.categoriesService.findOne(param.slug);
   }
 
   @Get("check/:slug")
@@ -75,7 +75,7 @@ export class CategoriesController {
   })
   @ApiParam({ name: "slug", required: true, description: "分类slug", type: String })
   async check(@Param() param) {
-    return await this.CategoriesService.check(param.slug);
+    return await this.categoriesService.check(param.slug);
   }
 
   // 删除分类
@@ -87,6 +87,6 @@ export class CategoriesController {
   @ApiBearerAuth("access-token")
   @ApiParam({ name: "id", required: true, description: "分类id", type: Number })
   async delete(@Param() param) {
-    return await this.CategoriesService.delete(param.id);
+    return await this.categoriesService.delete(param.id);
   }
 }

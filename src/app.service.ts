@@ -10,20 +10,20 @@ export class AppService {
   constructor(
     private postsService: PostsService, // 文章
     private pageService: PagesService, // 页面
-    private CommentsService: CommentsService, // 评论
+    private commentsService: CommentsService, // 评论
     private friendsService: FriendsService, // 好友
-    private CategoriesService: CategoriesService, // 分类
+    private categoriesService: CategoriesService, // 分类
   ) {}
 
   async getStat(): Promise<any> {
     return {
       posts: await this.postsService.list({ type: 'num' }), // 文章数
       pages: await this.pageService.list({ type: 'num' }), // 页面数
-      comments: await this.CommentsService.list({ type: 'num' }), // 评论数
-      unReadComments: await this.CommentsService.list({ type: 'uncheck_num' }), // 未审核评论数
+      comments: await this.commentsService.list({ type: 'num' }), // 评论数
+      unReadComments: await this.commentsService.list({ type: 'uncheck_num' }), // 未审核评论数
       Allfriends: await this.friendsService.list({ type: 'num' }), // 好友数
       Unfriends: await this.friendsService.list({ type: 'uncheck_num' }), // 未审核好友数
-      categories: await this.CategoriesService.list({ type: 'num' }), // 分类数
+      categories: await this.categoriesService.list({ type: 'num' }), // 分类数
     }
   }
 

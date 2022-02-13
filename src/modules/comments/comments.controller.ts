@@ -18,7 +18,7 @@ import { CreateCommentsDto } from "../../shared/dto/create-comments-dto";
 @Controller("Comments")
 @ApiTags("Comments")
 export class CommentsController {
-  constructor(private CommentsService: CommentsService) {}
+  constructor(private commentsService: CommentsService) {}
 
   @Get(":type/:path")
   @ApiOperation({
@@ -27,7 +27,7 @@ export class CommentsController {
   @ApiParam({ name: "type", required: true, description: "类型", type: String, enum: ["post", "page"] })
   @ApiParam({ name: "cid", required: true, description: "cid", type: String })
   async get(@Param() param) {
-    return await this.CommentsService.getComments(param.type, param.cid);
+    return await this.commentsService.getComments(param.type, param.cid);
   }
 
   @Get("list")
@@ -37,7 +37,7 @@ export class CommentsController {
   @ApiQuery({name: "type", required: false, description: "查询参数", type: String, enum: ["all",'limit','num','list']})
   @ApiQuery({name: "page", required: false, description: "当type等于limit时的页码数", type: Number})
   async list(@Query() query) {
-    return await this.CommentsService.list(query);
+    return await this.commentsService.list(query);
   }
   @Post("change")
   @ApiOperation({
@@ -47,7 +47,7 @@ export class CommentsController {
   @ApiBody({type: CreateCommentsDto})
   @ApiBearerAuth("access-token")
   async change(@Body() data: CreateCommentsDto) {
-    return await this.CommentsService.changeComments(data);
+    return await this.commentsService.changeComments(data);
   }
 
   @Post("create")
@@ -55,7 +55,7 @@ export class CommentsController {
     summary: "发布评论",
   })
   async create(@Body() data: CreateCommentsDto) {
-    return await this.CommentsService.createComments(data);
+    return await this.commentsService.createComments(data);
   }
 
   @Delete("delete/:cid")
@@ -67,6 +67,6 @@ export class CommentsController {
   @ApiBearerAuth("access-token")
   @UseGuards(AuthGuard("jwt"))
   async delete(@Param() param) {
-    return await this.CommentsService.deleteComments(param.cid);
+    return await this.commentsService.deleteComments(param.cid);
   }
 }
