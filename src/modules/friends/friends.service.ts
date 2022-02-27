@@ -52,7 +52,7 @@ export class FriendsService {
           check: 1,
         }
       });
-    case 'trueAll':
+    case 'true-all':
       return await this.friendsRepository.find({
         order: {
           id: query.order === 'ASC' ? 'ASC' : 'DESC',
