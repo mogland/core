@@ -49,7 +49,7 @@ export class FriendsService {
           id: query.order === 'ASC' ? 'ASC' : 'DESC',
         },
         where: {
-          check: 0,
+          check: 1,
         }
       });
     case 'trueAll':
@@ -89,6 +89,9 @@ export class FriendsService {
         order: {
           id: query.order === 'ASC' ? 'ASC' : 'DESC',
         },
+        where: {
+          check: 1,
+        }
       });
     }
   }
