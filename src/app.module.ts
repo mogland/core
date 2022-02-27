@@ -36,6 +36,9 @@ import { PostsService } from "./modules/posts/posts.service"; // 引入文章模
 import { UsersModule } from "./modules/users/users.module"; // 引入用户模块
 import { UsersService } from "./modules/users/users.service"; // 引入用户模块
 import configuration from "./utils/getDataConfig.util"; // 引入配置文件
+import { ProjectsModule } from "modules/projects/projects.module"; // 引入项目模块
+import { ProjectsController } from "modules/projects/projects.controller"; // 引入项目模块
+import { ProjectsService } from "modules/projects/projects.service"; // 引入项目模块
 
 @Module({
   imports: [
@@ -72,6 +75,7 @@ import configuration from "./utils/getDataConfig.util"; // 引入配置文件
     CategoriesModule,
     MailModule,
     FriendsModule,
+    ProjectsModule
   ],
   controllers: [
     AppController,
@@ -82,6 +86,7 @@ import configuration from "./utils/getDataConfig.util"; // 引入配置文件
     CategoriesController,
     MailController,
     FriendsController,
+    ProjectsController
   ],
   providers: [
     {
@@ -93,7 +98,6 @@ import configuration from "./utils/getDataConfig.util"; // 引入配置文件
       useClass: AllExceptionFilter,
     },
     AppService,
-  
     UsersService,
     AuthService,
     LocalStrategy,
@@ -104,7 +108,7 @@ import configuration from "./utils/getDataConfig.util"; // 引入配置文件
     CategoriesService,
     MailService,
     FriendsService,
-
+    ProjectsService
   ],
 })
 export class AppModule {}

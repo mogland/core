@@ -29,6 +29,11 @@ export class AppController {
     private readonly userService: UsersService, // 用户
   ) {}
 
+  @Get("/")
+  async helloworld(){
+    return {mes: 'It works!'}
+  }
+
   @UseGuards(LocalAuthGuard) // 认证
   @Post("auth/login") // 登录
   @ApiBody({ type: LoginUser }) // swagger
