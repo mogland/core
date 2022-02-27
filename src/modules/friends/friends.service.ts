@@ -48,6 +48,15 @@ export class FriendsService {
         order: {
           id: query.order === 'ASC' ? 'ASC' : 'DESC',
         },
+        where: {
+          check: 0,
+        }
+      });
+    case 'trueAll':
+      return await this.friendsRepository.find({
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        },
       });
     case "limit":
       let page = query.page
