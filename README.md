@@ -6,14 +6,13 @@
 | |  _\___ \ _____/ __|/ _ \ '__\ \ / / _ \ '__|
 | |_| |___) |_____\__ \  __/ |   \ V /  __/ |   
  \____|____/      |___/\___|_|    \_/ \___|_|   
- ```
+```
 
 ![total line](https://tokei.rs/b1/github/wibus-wee/GS-server) 
 ![version](https://img.shields.io/github/package-json/v/wibus-wee/GS-server) 
 ![language](https://img.shields.io/github/languages/top/wibus-wee/GS-server) 
 ![core](https://img.shields.io/github/package-json/dependency-version/wibus-wee/GS-server/@nestjs/core) 
 ![code size](https://img.shields.io/github/languages/code-size/wibus-wee/GS-server) 
-![download](https://img.shields.io/github/downloads/wibus-wee/GS-server/total) 
 ![issues](https://img.shields.io/github/issues/wibus-wee/GS-server) 
 ![commit](https://img.shields.io/github/commit-activity/m/wibus-wee/GS-server) 
 [![DeepScan grade](https://deepscan.io/api/teams/14175/projects/18839/branches/473312/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=14175&pid=18839&bid=473312) 
