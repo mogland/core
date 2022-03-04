@@ -28,7 +28,7 @@ specifiers:
   crypto: 1.0.1
   cz-conventional-changelog: 3.3.0
   eslint: 8.8.0
-  eslint-config-prettier: 8.4.0
+  eslint-config-prettier: 8.5.0
   eslint-plugin-prettier: 4.0.0
   express: 4.17.3
   jest: 27.5.1
@@ -102,8 +102,8 @@ devDependencies:
   cross-env: 7.0.3
   cz-conventional-changelog: 3.3.0
   eslint: 8.8.0
-  eslint-config-prettier: 8.4.0_eslint@8.8.0
-  eslint-plugin-prettier: 4.0.0_a5351b466bd3b2a209fc03a65c34b641
+  eslint-config-prettier: 8.5.0_eslint@8.8.0
+  eslint-plugin-prettier: 4.0.0_4196f5f98cabcfebb8300c5e307c2746
   jest: 27.5.1_ts-node@10.5.0
   prettier: 2.5.1
   supertest: 6.2.2
@@ -2888,8 +2888,8 @@ packages:
       source-map: 0.6.1
     dev: true
 
-  /eslint-config-prettier/8.4.0_eslint@8.8.0:
-    resolution: {integrity: sha512-CFotdUcMY18nGRo5KGsnNxpznzhkopOcOo0InID+sgQssPrzjvsyKZPvOgymTFeHrFuC3Tzdf2YndhXtULK9Iw==}
+  /eslint-config-prettier/8.5.0_eslint@8.8.0:
+    resolution: {integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
@@ -2897,7 +2897,7 @@ packages:
       eslint: 8.8.0
     dev: true
 
-  /eslint-plugin-prettier/4.0.0_a5351b466bd3b2a209fc03a65c34b641:
+  /eslint-plugin-prettier/4.0.0_4196f5f98cabcfebb8300c5e307c2746:
     resolution: {integrity: sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==}
     engines: {node: '>=6.0.0'}
     peerDependencies:
@@ -2909,7 +2909,7 @@ packages:
         optional: true
     dependencies:
       eslint: 8.8.0
-      eslint-config-prettier: 8.4.0_eslint@8.8.0
+      eslint-config-prettier: 8.5.0_eslint@8.8.0
       prettier: 2.5.1
       prettier-linter-helpers: 1.0.0
     dev: true
