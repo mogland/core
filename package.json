@@ -49,7 +49,7 @@
     "rxjs": "7.5.4",
     "source-map-support": "0.5.21",
     "swagger-ui-express": "4.3.0",
-    "typeorm": "0.2.44",
+    "typeorm": "0.2.45",
     "xss": "1.0.10",
     "zx": "4.3.0"
   },
