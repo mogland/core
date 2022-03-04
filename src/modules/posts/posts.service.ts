@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-02-13 16:50:15
+ * @LastEditTime: 2022-03-05 07:02:37
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -60,7 +60,11 @@ export class PostsService {
         },
       });
     default:
-      return await this.postsRepository.find();
+      return await this.postsRepository.find({
+        order: {
+          id: query.order === 'ASC' ? 'ASC' : 'DESC',
+        }
+      });
     }
   }
 
