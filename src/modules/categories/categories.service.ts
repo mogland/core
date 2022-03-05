@@ -58,6 +58,15 @@ export class CategoriesService {
     }
   }
 
+  async findPosts(slug: string, path: string) {
+    return await this.postsRepository.find({
+      where: {
+        slug: slug,
+        path: path,
+      },
+    });
+  }
+
   async update(data: Categories) {
     return await this.CategoriesRepository.update(data.id, data);
   }

@@ -69,6 +69,17 @@ export class CategoriesController {
     return await this.categoriesService.findOne(param.slug);
   }
 
+  @Get(":slug/:path")
+  @ApiOperation({
+    summary: "查询分类下的文章",
+  })
+  @ApiParam({ name: "slug", required: true, description: "分类slug", type: String })
+  @ApiParam({ name: "path", required: true, description: "文章slug", type: String })
+  async findPosts(@Param() param) {
+    return await this.categoriesService.findPosts(param.slug, param.path);
+  }
+
+
   @Get("check/:slug")
   @ApiOperation({
     summary: "检查是否存在此分类",
