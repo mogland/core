@@ -4,7 +4,7 @@
 name: Deploy Server
 
 on:
-  push:
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -39,16 +39,3 @@ jobs:
     - name: Build Server
       run: |
         pnpm build
-    - name: Deploy to Vercel
-      run: npx vercel --token ${VERCEL_TOKEN} --prod
-      env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          NODE_ENV: production
-          CORS_SERVER: gs-admin.vercel.app,g.iucky.cn
