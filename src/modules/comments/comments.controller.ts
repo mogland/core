@@ -25,9 +25,9 @@ export class CommentsController {
     summary: "获取文章/页面中的评论",
   })
   @ApiParam({ name: "type", required: true, description: "类型", type: String, enum: ["post", "page"] })
-  @ApiParam({ name: "cid", required: true, description: "cid", type: String })
+  @ApiParam({ name: "path", required: true, description: "path", type: String })
   async get(@Param() param) {
-    return await this.commentsService.getComments(param.type, param.cid);
+    return await this.commentsService.getComments(param.type, param.path);
   }
 
   @Get("list")

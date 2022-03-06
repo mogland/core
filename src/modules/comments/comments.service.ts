@@ -14,12 +14,13 @@ export class CommentsService {
     private usersService: UsersService
   ) {}
 
-  async getComments(type: string, cid: number): Promise<Comments[]> {
+
+  async getComments(type: string, path: string){
     return await this.CommentsRepository.find({
       type: type,
-      cid: cid,
+      path: path,
       state: 1,
-    });
+    })
   }
 
   async list(query: any) {

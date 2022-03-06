@@ -59,7 +59,7 @@ export class CategoriesService {
   }
 
   async findPosts(slug: string, path: string) {
-    return await this.postsRepository.find({
+    return await this.postsRepository.findOne({
       where: {
         slug: slug,
         path: path,
