@@ -17,6 +17,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "init:Cli": "npm install -g commitizen && npm install -g conventional-changelog-cli && brew install cloc",
     "cloc": "cloc ./src",
+    "upstream": "sh ./scripts/upstream.sh",
     "test": "jest",
     "test:e2e": "jest --config ./test/jest-e2e.js",
     "prod:start": "cross-env NODE_ENV=production node dist/main",
