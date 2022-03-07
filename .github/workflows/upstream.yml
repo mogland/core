@@ -1,4 +1,4 @@
-name: "upstream"
+name: "Organization Upstream"
 
 on:
   schedule:
