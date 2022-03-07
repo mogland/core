@@ -19,8 +19,8 @@ jobs:
         sh ./scripts/upstream.sh
     - name: action-push
       uses: ludeeus/action-push@0.0.1
-      with: 
+      env: 
         ACTION_MAIL: 62133302+wibus-wee@users.noreply.github.com
         ACTION_NAME: GitHubBot
         ACTION_BRANCH: main
-        ACTION_MESSAGE: 
+        # ACTION_MESSAGE: 
