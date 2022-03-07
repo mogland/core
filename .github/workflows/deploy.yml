@@ -40,7 +40,12 @@ jobs:
       run: |
         pnpm build
     - name: Deploy to Vercel
-      run: npx vercel --token ${VERCEL_TOKEN} --prod
+      run: | 
+        if [ ! -n "$(git remote -v | grep wibus-wee)" ]; then
+        echo "组织仓库不能继续操作"
+        else
+        npx vercel --token ${VERCEL_TOKEN} --prod
+        fi
       env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
