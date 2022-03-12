@@ -14,15 +14,13 @@ async function bootstrap() {
     // 如果 Origin 为空，则设置为 *
     if (Origin) {
       app.enableCors( 
-        Origin
-          ? {
-            origin: (origin, callback) => {
-              const allow = process.env.CORS_SERVER?.split?.(',') ? Origin.map((host) => new RegExp(host, 'i')).some((host) => host.test(origin)) : "*" // 判断是否允许跨域
-              callback(null, allow) // 回调
-            },
-            credentials: true, // 允许携带cookie
-          }
-          : undefined, // 如果没有设置允许跨域，则不允许跨域
+        {
+          origin: (origin, callback) => {
+            const allow = process.env.CORS_SERVER?.split?.(',') ? Origin.map((host) => new RegExp(host, 'i')).some((host) => host.test(origin)) : "*" // 判断是否允许跨域
+            callback(null, allow) // 回调
+          },
+          credentials: true, // 允许携带cookie
+        }
       ) // 允许跨域
     }
   }
