@@ -20,14 +20,14 @@ import { CreateCommentsDto } from "../../shared/dto/create-comments-dto";
 export class CommentsController {
   constructor(private commentsService: CommentsService) {}
 
-  @Get(":type/:path")
+  @Get(":type/:cid")
   @ApiOperation({
     summary: "获取文章/页面中的评论",
   })
   @ApiParam({ name: "type", required: true, description: "类型", type: String, enum: ["post", "page"] })
-  @ApiParam({ name: "path", required: true, description: "path", type: String })
+  @ApiParam({ name: "cid", required: true, description: "cid", type: Number })
   async get(@Param() param) {
-    return await this.commentsService.getComments(param.type, param.path);
+    return await this.commentsService.getComments(param.type, param.cid);
   }
 
   @Get("list")
