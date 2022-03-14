@@ -52,7 +52,7 @@
     "swagger-ui-express": "4.3.0",
     "typeorm": "0.2.45",
     "xss": "1.0.10",
-    "zx": "4.3.0"
+    "zx": "5.3.0"
   },
   "devDependencies": {
     "@nestjs/cli": "8.2.2",
