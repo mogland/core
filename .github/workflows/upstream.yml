@@ -2,7 +2,7 @@ name: "Organization Upstream"
 
 on:
   schedule:
-    - cron: '* * 1/3 * *'
+    - cron: '0 0 1/3 * *'
   push:
     branches: [ main ]
 

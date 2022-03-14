@@ -8,6 +8,7 @@ export class MailService {
     return {
       host: process.env.MAIL_SERVER,
       port: process.env.MAIL_PORT,
+      secure: true,
       auth: {
         user: process.env.MAIL_USER, // generated ethereal user
         pass: process.env.MAIL_PASSWORD, // generated ethereal password

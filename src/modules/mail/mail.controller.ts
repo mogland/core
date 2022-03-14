@@ -12,8 +12,8 @@ export class MailController {
   async sendMail() {
     await this.mailService.sendMail({
       to: "1596355173@qq.com",
-      subject: "Comments",
-      text: "test",
+      subject: "comments",
+      text: "评论收到了一条回复",
       html: "<h1>test</h1>"
     });
   }
