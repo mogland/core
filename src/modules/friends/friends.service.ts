@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 
 import { Friends } from "../../shared/entities/friends.entity";
 import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
-import { checkStatus, GRequest } from "../../utils/GRequest";
+import { GRequest } from "../../utils/GRequest";
 import { delObjXss } from "utils/xss.util";
 
 @Injectable()
