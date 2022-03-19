@@ -4,25 +4,22 @@ import globals from "./globals"; // 全局变量
 import { AppModule } from "./app.module"; // 导入模块
 import { Logger } from "@nestjs/common"; // 引入日志
 import { UsersService } from "./modules/users/users.service"; // 用户服务
-import configs from "./configs"; // 引入配置文件
 import { SpiderGuard } from "./common/guards/spiders.guard"; // 爬虫检查
 async function bootstrap() {
   const app = await NestFactory.create(AppModule); // create app
 
-  if (configs.cors) { // 允许跨域
-    const Origin = process.env.CORS_SERVER?.split?.(','); // 允许跨域的域名
-    // 如果 Origin 为空，则设置为 *
-    if (Origin) {
-      app.enableCors( 
-        {
-          origin: (origin, callback) => {
-            const allow = process.env.CORS_SERVER?.split?.(',') ? Origin.map((host) => new RegExp(host, 'i')).some((host) => host.test(origin)) : "*" // 判断是否允许跨域
-            callback(null, allow) // 回调
-          },
-          credentials: true, // 允许携带cookie
-        }
-      ) // 允许跨域
-    }
+  const Origin = process.env.CORS_SERVER?.split?.(','); // 允许跨域的域名
+  // 如果 Origin 为空，则设置为 *
+  if (Origin) {
+    app.enableCors( 
+      {
+        origin: (origin, callback) => {
+          const allow = process.env.CORS_SERVER?.split?.(',') ? Origin.map((host) => new RegExp(host, 'i')).some((host) => host.test(origin)) : "*" // 判断是否允许跨域
+          callback(null, allow) // 回调
+        },
+        credentials: true, // 允许携带cookie
+      }
+    ) // 允许跨域
   }
 
   app.useGlobalGuards(new SpiderGuard()) // 检查是否是爬虫

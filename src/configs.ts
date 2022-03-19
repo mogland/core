@@ -3,12 +3,11 @@
  * @author: Wibus
  * @Date: 2021-10-04 15:21:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-24 16:32:44
+ * @LastEditTime: 2022-03-19 05:43:22
  * Coding With IU
  */
 const configs = {
   expiration: 86400, // token expiration time
-  jwtToken: "bU2-sD4_fT2-qK3-dO2hN5+iY2mV7+", // jwt token
-  cors: true, // cors
+  jwtToken: process.env.JWT_KEY ? process.env.JWT_KEY : 'asodijoweidjeoaiwod', // jwt token
 };
 export default configs;
