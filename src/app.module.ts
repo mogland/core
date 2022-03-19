@@ -40,6 +40,7 @@ import { ProjectsModule } from "modules/projects/projects.module"; // 引入项�
 import { ProjectsController } from "modules/projects/projects.controller"; // 引入项目模块
 import { ProjectsService } from "modules/projects/projects.service"; // 引入项目模块
 import { GHttp } from "../helper/helper.http.service";
+import { ScheduleModule } from '@nestjs/schedule'
 
 @Module({
   imports: [
@@ -68,6 +69,7 @@ import { GHttp } from "../helper/helper.http.service";
       },
       inject: [ConfigService], // inject config service
     }),
+    ScheduleModule.forRoot(),
     UsersModule,
     AuthModule,
     PostsModule,

@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
@@ -7,6 +7,7 @@ import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
 import { GHttp } from "../../../helper/helper.http.service";
 import { delObjXss } from "utils/xss.util";
 import rssParser from "utils/rss.utils";
+import { Cron, CronExpression } from "@nestjs/schedule";
 
 @Injectable()
 export class FriendsService {
@@ -99,7 +100,6 @@ export class FriendsService {
   }
 
   async spider(url: string) {
-    // const FriendData = await this.friendsRepository.findOne(id);
     const rssContent = await this.http.axiosRef
       .get(url, {
         timeout: 5000,
@@ -111,10 +111,37 @@ export class FriendsService {
       .then((res) => {
         return res.data
       })
+      .catch((err) => {
+        return {
+          ok: false,
+          mes: err.message,
+        }
+      })
     return rssParser(rssContent);
   }
 
-  async check(id: number) {}
+  @Cron(CronExpression.EVERY_DAY_AT_1AM, {name: 'updateFriendsRSS'})
+  async updateRSS() {
+    const FriendData = await this.friendsRepository.find()
+    Logger.log("开始更新友链RSS", FriendsService.name)
+    for (let index = 0; index < FriendData.length; index++) {
+      const element = FriendData[index];
+      if (element.rss) {
+        const rss = await this.spider(element.rss) // 获取到RSS内容
+        const data = rss.items // 仅摘取文章信息
+        if (data.length > 0) {
+          // 将data放入rssContent字段，更新数据库
+          const rssContent = JSON.stringify(data)
+          await this.friendsRepository.update(element.id, { rssContent })
+          Logger.log(`${element.name} RSS更新成功`, FriendsService.name)
+        }else {
+          Logger.log(`${element.name} RSS更新失败`, FriendsService.name)
+        }
+      }else{
+        Logger.log(`${element.name} 无RSS链接`, FriendsService.name)
+      }
+    }
+  }
 
   // 删除友链
   async delete(id: number) {
