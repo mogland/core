@@ -96,10 +96,6 @@ export class FriendsService {
     }
   }
 
-  async getStatus(url: string) {
-    return checkStatus(url);
-  }
-
   async spider(id: number) {
     const data = await this.friendsRepository.findOne(id);
     GRequest(data.rss).then((res) => {
