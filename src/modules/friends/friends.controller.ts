@@ -45,4 +45,11 @@ export class FriendsController {
   async list(@Query() query) {
     return await this.friendsService.list(query);
   }
+
+  @Get("rss")
+  @ApiOperation({ summary: "抓取友链RSS" })
+  @ApiQuery({name: "url", required: false, description: "url", type: String})
+  async rss(@Query() query) {
+    return await this.friendsService.spider(query.url);
+  }
 }

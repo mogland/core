@@ -22,5 +22,5 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.js",
-    "./ecosystem.config.js"  ],
+    "./ecosystem.config.js", "helper/http.util.ts"  ],
 }

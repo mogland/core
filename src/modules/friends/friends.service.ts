@@ -4,14 +4,16 @@ import { Repository } from "typeorm";
 
 import { Friends } from "../../shared/entities/friends.entity";
 import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
-import { GRequest } from "../../utils/GRequest";
+import { GHttp } from "../../../helper/helper.http.service";
 import { delObjXss } from "utils/xss.util";
+import rssParser from "utils/rss.utils";
 
 @Injectable()
 export class FriendsService {
   constructor(
     @InjectRepository(Friends)
-    private friendsRepository: Repository<Friends>
+    private friendsRepository: Repository<Friends>,
+    private readonly http: GHttp
   ) {}
 
   async create(data: CreateFriendsDto, ismaster: boolean) {
@@ -96,13 +98,23 @@ export class FriendsService {
     }
   }
 
-  async spider(id: number) {
-    const data = await this.friendsRepository.findOne(id);
-    GRequest(data.rss).then((res) => {
-      // new window.DOMParser().parseFromString(res, "text/xml"))
-      // this.friendsRepository.update(id, {})
-    })
+  async spider(url: string) {
+    // const FriendData = await this.friendsRepository.findOne(id);
+    const rssContent = await this.http.axiosRef
+      .get(url, {
+        timeout: 5000,
+        'axios-retry': {
+          retries: 1,
+          shouldResetTimeout: true,
+        },
+      })
+      .then((res) => {
+        return res.data
+      })
+    return rssParser(rssContent);
   }
+
+  async check(id: number) {}
 
   // 删除友链
   async delete(id: number) {

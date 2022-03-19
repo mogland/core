@@ -39,6 +39,7 @@ import configuration from "./utils/getDataConfig.util"; // 引入配置文件
 import { ProjectsModule } from "modules/projects/projects.module"; // 引入项目模块
 import { ProjectsController } from "modules/projects/projects.controller"; // 引入项目模块
 import { ProjectsService } from "modules/projects/projects.service"; // 引入项目模块
+import { GHttp } from "../helper/helper.http.service";
 
 @Module({
   imports: [
@@ -108,7 +109,8 @@ import { ProjectsService } from "modules/projects/projects.service"; // 引入�
     CategoriesService,
     MailService,
     FriendsService,
-    ProjectsService
+    ProjectsService,
+    GHttp
   ],
 })
 export class AppModule {}
