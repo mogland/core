@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-23 08:57:19
  * @LastEditors: Wibus
- * @LastEditTime: 2022-02-12 18:44:36
+ * @LastEditTime: 2022-03-19 09:35:04
  * Coding With IU
  */
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
@@ -33,4 +33,10 @@ export class Friends {
 
   @Column()
     check: number;
+  
+  @Column()
+    rss: string
+  
+  @Column("text")
+    rssContent: string
 }

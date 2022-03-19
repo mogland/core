@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 
 import { Friends } from "../../shared/entities/friends.entity";
 import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
-import { checkStatus } from "../../utils/checkStatus.util";
+import { checkStatus, GRequest } from "../../utils/GRequest";
 import { delObjXss } from "utils/xss.util";
 
 @Injectable()
@@ -98,6 +98,14 @@ export class FriendsService {
 
   async getStatus(url: string) {
     return checkStatus(url);
+  }
+
+  async spider(id: number) {
+    const data = await this.friendsRepository.findOne(id);
+    GRequest(data.rss).then((res) => {
+      // new window.DOMParser().parseFromString(res, "text/xml"))
+      // this.friendsRepository.update(id, {})
+    })
   }
 
   // 删除友链

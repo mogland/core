@@ -3,13 +3,13 @@
  * @author: Wibus
  * @Date: 2021-09-26 22:32:28
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-23 20:21:41
+ * @LastEditTime: 2022-03-19 09:40:16
  * Coding With IU
  */
 
 import axios from 'axios';
 
-export const checkStatus = async (url: string) => {
+export const GRequest = async (url: string) => {
   // 防止connect ECONNREFUSED
   const options = {
     url: url,
