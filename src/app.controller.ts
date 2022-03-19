@@ -31,7 +31,14 @@ export class AppController {
 
   @Get("/")
   async helloworld(){
-    return {mes: 'It works!'}
+    return {
+      "name":"@wibus-wee/GS-server",
+      "author":"Wibus <https://github.com/wibus-wee>",
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      "version":require('../package.json').version,
+      "homepage":"https://https://github.com/wibus-wee/GS-server#readme",
+      "issues":"https://https://github.com/wibus-wee/GS-server/issues"
+    }
   }
 
   @UseGuards(LocalAuthGuard) // 认证
