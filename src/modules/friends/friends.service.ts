@@ -120,7 +120,7 @@ export class FriendsService {
     return rssParser(rssContent);
   }
 
-  @Cron(CronExpression.EVERY_10_SECONDS, {name: 'updateFriendsRSS'})
+  @Cron(CronExpression.EVERY_DAY_AT_1AM, {name: 'updateFriendsRSS'})
   async updateRSS() {
     const FriendData = await this.friendsRepository.find()
     Logger.log("开始更新友链RSS", FriendsService.name)
