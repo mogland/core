@@ -120,12 +120,15 @@ export class FriendsService {
     return rssParser(rssContent);
   }
 
-  @Cron(CronExpression.EVERY_DAY_AT_1AM, {name: 'updateFriendsRSS'})
+  @Cron(CronExpression.EVERY_10_SECONDS, {name: 'updateFriendsRSS'})
   async updateRSS() {
     const FriendData = await this.friendsRepository.find()
     Logger.log("开始更新友链RSS", FriendsService.name)
-    for (let index = 0; index < FriendData.length; index++) {
-      const element = FriendData[index];
+    await this.updateRSSContent(FriendData)
+  }
+
+  async updateRSSContent(element: Array<Friends>) {
+    const request = element.map(async (element) => {
       if (element.rss) {
         const rss = await this.spider(element.rss) // 获取到RSS内容
         const data = rss.items // 仅摘取文章信息
@@ -140,7 +143,8 @@ export class FriendsService {
       }else{
         Logger.log(`${element.name} 无RSS链接`, FriendsService.name)
       }
-    }
+    })
+    return Promise.all(request)
   }
 
   // 删除友链
