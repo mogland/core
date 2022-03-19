@@ -8,12 +8,8 @@ specifiers:
   '@nestjs/jwt': 8.0.0
   '@nestjs/passport': 8.1.0
   '@nestjs/platform-express': 8.2.6
-<<<<<<< HEAD
-  '@nestjs/schematics': 8.0.8
-=======
   '@nestjs/schedule': ^1.0.2
-  '@nestjs/schematics': 8.0.7
->>>>>>> perf(configs): remove privacy field
+  '@nestjs/schematics': 8.0.8
   '@nestjs/swagger': 5.2.0
   '@nestjs/testing': 8.2.6
   '@nestjs/typeorm': 8.0.3
@@ -1057,10 +1053,6 @@ packages:
       tslib: 2.3.1
     dev: false
 
-<<<<<<< HEAD
-  /@nestjs/schematics/8.0.8_chokidar@3.5.3+typescript@4.6.2:
-    resolution: {integrity: sha512-xIIb5YnMQN/OJQ68+MCapy2bXvTxSWgINoqQbyZWkLL/yTIuROvZCdtV850NPGyr7f7l93VBP0ZPitbFIexy3Q==}
-=======
   /@nestjs/schedule/1.0.2_d86dd164971a98d71cc003a4f36ff106:
     resolution: {integrity: sha512-GGRehpSm0nCthYNxAGdTzondPrRvurtKnkQCzIb3Tccqq6PhfS2QiHMwDaCel5/4jhYbR/lZR9UsVr6KSJc2Xg==}
     peerDependencies:
@@ -1068,16 +1060,15 @@ packages:
       '@nestjs/core': ^7.0.0 || ^8.0.0
       reflect-metadata: ^0.1.12
     dependencies:
-      '@nestjs/common': 8.2.6_19129eca09288422e6708efe6e20795a
-      '@nestjs/core': 8.2.6_b80522ad8469ba1446b22b5e8413cc87
+      '@nestjs/common': 8.2.6_a33b8c25f6562e8508e37318284cdc0d
+      '@nestjs/core': 8.2.6_e0942410e35426b1aa1d4f7a54a7c1ba
       cron: 1.7.2
       reflect-metadata: 0.1.13
       uuid: 8.3.2
     dev: false
 
-  /@nestjs/schematics/8.0.7_chokidar@3.5.3+typescript@4.6.2:
-    resolution: {integrity: sha512-7k+eMMBUwvXFp6vwZ5byiLBEQKzjMyIJwO46ginoFugt2AXrOt0iUhR3BKFuWDBZaYQ1l4az86UGw5ohgH3wow==}
->>>>>>> perf(configs): remove privacy field
+  /@nestjs/schematics/8.0.8_chokidar@3.5.3+typescript@4.6.2:
+    resolution: {integrity: sha512-xIIb5YnMQN/OJQ68+MCapy2bXvTxSWgINoqQbyZWkLL/yTIuROvZCdtV850NPGyr7f7l93VBP0ZPitbFIexy3Q==}
     peerDependencies:
       typescript: ^3.4.5 || ^4.3.5
     dependencies:
@@ -1336,13 +1327,13 @@ packages:
     resolution: {integrity: sha512-PB3ldyrcnAicT35TWPs5IcwKD8S333HMaa2VVv4+wdvebJkjWuW/xESoB8IwRcog8HYVYamb1g/R31Qv5Bx03g==}
     dependencies:
       '@types/eslint': 8.4.1
-      '@types/estree': 0.0.51
+      '@types/estree': 0.0.50
     dev: true
 
   /@types/eslint/8.4.1:
     resolution: {integrity: sha512-GE44+DNEyxxh2Kc6ro/VkIj+9ma0pO0bwv9+uHSyBrikYOHr8zYcdPvnBOp1aw8s+CjRvuSx7CyWqRrNFQ59mA==}
     dependencies:
-      '@types/estree': 0.0.51
+      '@types/estree': 0.0.50
       '@types/json-schema': 7.0.9
     dev: true
 
@@ -6176,7 +6167,7 @@ packages:
       webpack: ^5.0.0
     dependencies:
       chalk: 4.1.2
-      enhanced-resolve: 5.9.2
+      enhanced-resolve: 5.9.1
       micromatch: 4.0.4
       semver: 7.3.5
       typescript: 4.5.5
@@ -6218,7 +6209,7 @@ packages:
     resolution: {integrity: sha512-EhnfjHbzm5IYI9YPNVIxx1moxMI4bpHD2e0zTXeDNQcwjjRaGepP7IhTHJkyDBG0CAOoxRfe7jCG630Ou+C6Pw==}
     dependencies:
       chalk: 4.1.2
-      enhanced-resolve: 5.9.2
+      enhanced-resolve: 5.9.1
       tsconfig-paths: 3.14.0
     dev: true
 
