@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { chooseEnv } from "utils/chooseEnv.utils";
 // import { createTransport } from 'nodemailer'
 
 @Injectable()
@@ -6,12 +7,12 @@ export class MailService {
 
   private getInformation() {
     return {
-      host: process.env.MAIL_SERVER,
-      port: process.env.MAIL_PORT,
+      host: chooseEnv("MAIL_SERVER"),
+      port: chooseEnv("MAIL_PORT"),
       secure: true,
       auth: {
-        user: process.env.MAIL_USER, // generated ethereal user
-        pass: process.env.MAIL_PASSWORD, // generated ethereal password
+        user: chooseEnv("MAIL_USER"), // generated ethereal user
+        pass: chooseEnv("MAIL_PASSWORD"), // generated ethereal password
       },
     }
   }

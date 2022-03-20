@@ -3,15 +3,15 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { encryptPassword } from "../../utils/crypt.utils";
 import { CreateUserDto } from "../../shared/dto/create-user-dto";
-import { User } from "../../shared/entities/users.entity";
+import { Users } from "../../shared/entities/users.entity";
 
 @Injectable()
 export class UsersService {
   //   private readonly users: User;
 
   constructor(
-    @InjectRepository(User)
-    private userRepository: Repository<User>
+    @InjectRepository(Users)
+    private userRepository: Repository<Users>
   ) {}
 
   async findOne(user: string, auth = false) {

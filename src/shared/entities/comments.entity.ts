@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
 } from "typeorm";
 
-@Entity()
+@Entity("comments")
 export class Comments {
   @PrimaryGeneratedColumn()
     coid: number; //Comments id

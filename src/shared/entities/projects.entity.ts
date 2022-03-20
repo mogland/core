@@ -5,10 +5,10 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
  * @author: Wibus
  * @Date: 2022-02-26 23:44:42
  * @LastEditors: Wibus
- * @LastEditTime: 2022-02-27 11:28:21
+ * @LastEditTime: 2022-03-20 17:26:03
  * Coding With IU
  */
-@Entity()
+@Entity('projects')
 export class Projects {
   @PrimaryGeneratedColumn()
     pid: number; //Project id

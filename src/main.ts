@@ -5,16 +5,19 @@ import { AppModule } from "./app.module"; // 导入模块
 import { Logger } from "@nestjs/common"; // 引入日志
 import { UsersService } from "./modules/users/users.service"; // 用户服务
 import { SpiderGuard } from "./common/guards/spiders.guard"; // 爬虫检查
+import { chooseEnv } from "utils/chooseEnv.utils";
+import { argv } from "zx";
 async function bootstrap() {
+  console.log(argv)
   const app = await NestFactory.create(AppModule); // create app
 
-  const Origin = process.env.CORS_SERVER?.split?.(','); // 允许跨域的域名
+  const Origin = chooseEnv("CORS_SERVER")?.split?.(','); // 允许跨域的域名
   // 如果 Origin 为空，则设置为 *
   if (Origin) {
     app.enableCors( 
       {
         origin: (origin, callback) => {
-          const allow = process.env.CORS_SERVER?.split?.(',') ? Origin.map((host) => new RegExp(host, 'i')).some((host) => host.test(origin)) : "*" // 判断是否允许跨域
+          const allow = chooseEnv("CORS_SERVER")?.split?.(',') ? Origin.map((host) => new RegExp(host, 'i')).some((host) => host.test(origin)) : "*" // 判断是否允许跨域
           callback(null, allow) // 回调
         },
         credentials: true, // 允许携带cookie
@@ -37,11 +40,11 @@ async function bootstrap() {
     .build()
   const document = SwaggerModule.createDocument(app, options); // 创建swagger文档
   SwaggerModule.setup("api-docs", app, document); // 导出swagger文档
-  await app.listen(process.env.PORT ? process.env.PORT : 3000, '127.0.0.1', async() => { // 监听端口
-    Logger.log(`Get the ${process.env.PORT ? process.env.PORT : 3000} port and starting`, "gSpaceHelper");
-    Logger.log(`Server is running as ${process.env.NODE_ENV}`, "gSpaceHelper");
-    Logger.log(`API-Service is running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}`, "gSpaceHelper");
-    Logger.log(`Swagger-Service is running on http://localhost:${process.env.PORT ? process.env.PORT : 3000}/api-docs`, "gSpaceHelper");
+  await app.listen(chooseEnv("PORT") ? chooseEnv("PORT") : 3000, '127.0.0.1', async() => { // 监听端口
+    Logger.log(`Get the ${chooseEnv("PORT") ? chooseEnv("PORT") : 3000} port and starting`, "gSpaceHelper");
+    Logger.log(`Server is running as ${chooseEnv("NODE_ENV") ? chooseEnv("NODE_ENV") : 'unknown'}`, "gSpaceHelper");
+    Logger.log(`API-Service is running on http://localhost:${chooseEnv("PORT") ? chooseEnv("PORT") : 3000}`, "gSpaceHelper");
+    Logger.debug(`Swagger-Service is running on http://localhost:${chooseEnv("PORT") ? chooseEnv("PORT") : 3000}/api-docs`, "gSpaceHelper");
     Logger.log(`GoldenSpace is ready and working...`, "gSpaceHelper");
   });
 

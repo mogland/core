@@ -39,8 +39,10 @@ import configuration from "./utils/getDataConfig.util"; // 引入配置文件
 import { ProjectsModule } from "modules/projects/projects.module"; // 引入项目模块
 import { ProjectsController } from "modules/projects/projects.controller"; // 引入项目模块
 import { ProjectsService } from "modules/projects/projects.service"; // 引入项目模块
-import { GHttp } from "../helper/helper.http.service";
+import { GHttp } from "helper/helper.http.service";
 import { ScheduleModule } from '@nestjs/schedule'
+import { chooseEnv } from "utils/chooseEnv.utils";
+
 
 @Module({
   imports: [
@@ -49,25 +51,23 @@ import { ScheduleModule } from '@nestjs/schedule'
       secret: jwtConstants.secret, // secret key
       signOptions: { expiresIn: configs.expiration + "s" }, // expiration time
     }),
-    ConfigModule.forRoot({ // config module
+    ConfigModule.forRoot({
+      envFilePath: ['.env'],
       isGlobal: true,
-      load: [configuration], // load config file
     }),
     TypeOrmModule.forRootAsync({ // typeorm module
-      imports: [ConfigModule], // import config module
-      useFactory: (configService: ConfigService) => { // use config service
+      useFactory: () => { // use config service
         return { // return config
           type: "mysql", // database type
-          host: configService.get("DB_HOST"),
-          port: configService.get("DB_PORT"),
-          username: configService.get("DB_USERNAME"),
-          password: configService.get("DB_PASSWORD"),
-          database: configService.get("DB_DATABASE"),
+          host: chooseEnv("DB_HOST") ? chooseEnv("DB_HOST") : '127.0.0.1',
+          port: chooseEnv("DB_PORT") ? Number(chooseEnv("DB_PORT")) : 3306,
+          username: chooseEnv("DB_USERNAME") ? chooseEnv("DB_USERNAME") : 'root',
+          password: chooseEnv("DB_PASSWORD") ? chooseEnv("DB_PASSWORD") : 'root',
+          database: chooseEnv("DB_DATABASE") ? chooseEnv("DB_DATABASE") : 'server',
           entities: [__dirname + "/**/*.entity{.ts,.js}"],
           synchronize: true,  // synchronize database
         };
       },
-      inject: [ConfigService], // inject config service
     }),
     ScheduleModule.forRoot(),
     UsersModule,

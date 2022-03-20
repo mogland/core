@@ -1,16 +1,16 @@
 /*
- * @FilePath: /GS-server/helper/helper.http.service.ts
+ * @FilePath: /GS-server/src/helper/helper.http.service.ts
  * @author: Wibus
  * @Date: 2021-09-26 22:32:28
  * @LastEditors: Wibus
- * @LastEditTime: 2022-03-19 21:14:57
+ * @LastEditTime: 2022-03-20 13:50:29
  * Coding With IU
  */
 
 import type { AxiosInstance } from 'axios'
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
-import { version } from '../package.json'
+import { version } from '../../package.json'
 export class GHttp {
   private http: AxiosInstance
   constructor() {

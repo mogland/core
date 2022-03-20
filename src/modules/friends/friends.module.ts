@@ -8,7 +8,7 @@
  */
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { GHttp } from "../../../helper/helper.http.service";
+import { GHttp } from "../../helper/helper.http.service";
 import { Friends } from "../../shared/entities/friends.entity";
 import { FriendsController } from "./friends.controller";
 import { FriendsService } from "./friends.service";

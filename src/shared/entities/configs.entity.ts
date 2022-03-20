@@ -9,7 +9,7 @@
 
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity("configs")
 export class Configs {
   @PrimaryGeneratedColumn()
     id: number;

@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 
 import { Friends } from "../../shared/entities/friends.entity";
 import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
-import { GHttp } from "../../../helper/helper.http.service";
+import { GHttp } from "../../helper/helper.http.service";
 import { delObjXss } from "utils/xss.util";
 import rssParser from "utils/rss.utils";
 import { Cron, CronExpression } from "@nestjs/schedule";
