@@ -1,3 +1,13 @@
+## [0.2.1](https://github.com/wibus-wee/GS-server/compare/v0.2.0...v0.2.1) (2022-03-20)
+
+
+### Bug Fixes
+
+* **friends:** cron time error ([70884bb](https://github.com/wibus-wee/GS-server/commit/70884bbe4f650351f7fd00c9ecfc88f655d68170))
+* **friends:** the scheduled task runs repeatedly ([6045247](https://github.com/wibus-wee/GS-server/commit/60452479d25c3c70551237e56d480c0189fef4da))
+
+
+
 # [0.2.0](https://github.com/wibus-wee/GS-server/compare/v0.1.0...v0.2.0) (2022-03-19)
 
 
