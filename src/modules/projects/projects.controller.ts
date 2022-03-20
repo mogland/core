@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-02-27 11:35:10
  * @LastEditors: Wibus
- * @LastEditTime: 2022-02-27 11:42:49
+ * @LastEditTime: 2022-03-20 12:31:45
  * Coding With IU
  */
 
@@ -31,6 +31,10 @@ export class ProjectsController {
   @Post("/create")
   async createProject(@Body() project: CreateProjectsDto) {
     return await this.projectsService.createProject(project);
+  }
+  @Post("/update")
+  async updateProject(@Body() project: CreateProjectsDto) {
+    return await this.projectsService.updateProject(project);
   }
     
 

@@ -20,5 +20,8 @@ export class ProjectsService {
   async createProject(project: CreateProjectsDto){
     return await this.projectsRepository.save(project);
   }
+  async updateProject(project: CreateProjectsDto){
+    return await this.projectsRepository.update(project.pid, project);
+  }
 
 }
