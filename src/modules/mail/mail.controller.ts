@@ -13,7 +13,7 @@ export class MailController {
       to: body.to,
       subject: body.subject, // (reply / comments)
       text: body.text,
-      html: body.html
+      // html: body.html
     });
   }
 }
