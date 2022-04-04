@@ -1,5 +1,6 @@
 /*
  * @FilePath: /GS-server/src/modules/friends/friends.module.ts
+ * cSpell:disable-next-line
  * @author: Wibus
  * @Date: 2021-10-23 08:57:09
  * @LastEditors: Wibus

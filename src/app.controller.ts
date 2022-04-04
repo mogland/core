@@ -93,4 +93,10 @@ export class AppController {
     return this.appService.getStat(); // 获取博客信息
   }
 
+  @Get("/check_update")
+  @ApiOperation({ summary: "检查更新" })
+  async checkUpdate() {
+    return this.appService.checkUpdate(); // 检查更新
+  }
+
 }
