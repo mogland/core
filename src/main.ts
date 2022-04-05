@@ -8,7 +8,7 @@ import { SpiderGuard } from "./common/guards/spiders.guard"; // 爬虫检查
 import { chooseEnv } from "utils/chooseEnv.utils";
 import { argv } from "zx";
 async function bootstrap() {
-  console.log(argv)
+  console.log(argv ? argv.CORS_SERVER : process.env.CORS_SERVER);
   const app = await NestFactory.create(AppModule); // create app
 
   const Origin = chooseEnv("CORS_SERVER")?.split?.(','); // 允许跨域的域名
