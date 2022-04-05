@@ -44,11 +44,11 @@ jobs:
         # MYSQL_ROOT_PASSWORD - root superuser password
         mysql root password: gasdoldedseasder
         # MYSQL_DATABASE - name for the default database that is created
-        mysql database: goldenspace_server
+        mysql database: gserver
         # MYSQL_USER - create the specified user with superuser power for created database
-        mysql user: goldenspace_server
+        mysql user: gserver
         # MYSQL_PASSWORD - specified superuser password which user is power for created database
-        mysql password: goldenspace_server
+        mysql password: gserver
     - name: Deploy to Vercel
       run: | 
         if [ ! -n "$(git remote -v | grep wibus-wee)" ]; then

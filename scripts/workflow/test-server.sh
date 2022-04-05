@@ -4,7 +4,7 @@
  # @author: Wibus
  # @Date: 2022-03-20 13:31:55
  # @LastEditors: Wibus
- # @LastEditTime: 2022-04-05 17:56:16
+ # @LastEditTime: 2022-04-05 18:02:06
  # Coding With IU
 ### 
 
@@ -17,7 +17,7 @@ if [[ $? -ne 0 ]]; then
   exit 1
 fi
 
-nohup node dist/src/main.js --DB_HOST=127.0.0.1 --DB_USERNAME=goldenspace_server --DB_PASSWORD=goldenspace_server --DB_DATABASE=goldenspace_server --DB_PORT=3306 --PORT=3000 1>/dev/null & # 后台运行
+nohup node dist/src/main.js --DB_HOST=127.0.0.1 --DB_USERNAME=root --DB_PASSWORD=gasdoldedseasder --DB_DATABASE=gserver --DB_PORT=3306 --PORT=3000 1>/dev/null & # 后台运行
 p=$! # 获取进程号
 echo "started server with pid $p" # 打印进程号
 
