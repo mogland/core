@@ -35,10 +35,20 @@ jobs:
       with:
         version: 6.0.2
         run_install: true
-
     - name: Build Server
       run: |
         pnpm build
+    - name: Setup MySQL
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        # MYSQL_ROOT_PASSWORD - root superuser password
+        mysql root password: gasdoldedseasder
+        # MYSQL_DATABASE - name for the default database that is created
+        mysql database: goldenspace_server
+        # MYSQL_USER - create the specified user with superuser power for created database
+        mysql user: goldenspace_server
+        # MYSQL_PASSWORD - specified superuser password which user is power for created database
+        mysql password: goldenspace_server
     - name: Deploy to Vercel
       run: | 
         if [ ! -n "$(git remote -v | grep wibus-wee)" ]; then
