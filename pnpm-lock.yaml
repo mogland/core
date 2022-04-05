@@ -10,7 +10,7 @@ specifiers:
   '@nestjs/platform-express': 8.2.6
   '@nestjs/schedule': ^1.0.2
   '@nestjs/schematics': 8.0.9
-  '@nestjs/swagger': 5.2.0
+  '@nestjs/swagger': 5.2.1
   '@nestjs/testing': 8.2.6
   '@nestjs/typeorm': 8.0.3
   '@types/express': 4.17.13
@@ -68,7 +68,7 @@ dependencies:
   '@nestjs/passport': 8.1.0_469354efd308cbdee43194b5fd6a2c15
   '@nestjs/platform-express': 8.2.6_732a54a2558f64827b8cc4f9baac4f1f
   '@nestjs/schedule': 1.0.2_d86dd164971a98d71cc003a4f36ff106
-  '@nestjs/swagger': 5.2.0_121855ecaf66115b6bc291afe33bdd2a
+  '@nestjs/swagger': 5.2.1_121855ecaf66115b6bc291afe33bdd2a
   '@nestjs/typeorm': 8.0.3_277ae424c0bf10d416bf957b553f6a72
   axios: 0.26.1
   axios-retry: 3.2.4
@@ -1103,8 +1103,8 @@ packages:
       - chokidar
     dev: true
 
-  /@nestjs/swagger/5.2.0_121855ecaf66115b6bc291afe33bdd2a:
-    resolution: {integrity: sha512-wcW2KCe7irwBw0WKsb03uFk4gnjqNcAcJxXGZxi6ljFiDgyLrQtx5MpE95o703tnn4V/hZR8MqMNFOXuup7Pqw==}
+  /@nestjs/swagger/5.2.1_121855ecaf66115b6bc291afe33bdd2a:
+    resolution: {integrity: sha512-7dNa08WCnTsW/oAk3Ujde+z64JMfNm19DhpXasFR8oJp/9pggYAbYU927HpA+GJsSFJX6adjIRZsCKUqaGWznw==}
     peerDependencies:
       '@nestjs/common': ^8.0.0
       '@nestjs/core': ^8.0.0
