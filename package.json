@@ -70,7 +70,7 @@
     "@types/nodemailer": "6.4.4",
     "@types/passport-jwt": "3.0.6",
     "@types/passport-local": "1.0.34",
-    "@types/supertest": "2.0.11",
+    "@types/supertest": "2.0.12",
     "@typescript-eslint/eslint-plugin": "5.12.1",
     "@typescript-eslint/parser": "5.12.1",
     "@vercel/ncc": "^0.33.3",
