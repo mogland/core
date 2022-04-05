@@ -9,5 +9,8 @@
         "src": "/(.*)",
         "dest": "dist/src/main.js"
     }
-  ]
+  ],
+  "github": {
+    "silent": true
+  }
 }
