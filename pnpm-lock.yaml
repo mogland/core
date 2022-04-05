@@ -23,7 +23,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': 5.12.1
   '@typescript-eslint/parser': 5.12.1
   '@vercel/ncc': ^0.33.3
-  axios: 0.25.0
+  axios: 0.26.1
   axios-retry: ^3.2.4
   class-transformer: 0.4.0
   class-validator: 0.13.2
@@ -73,7 +73,7 @@ dependencies:
   '@nestjs/schedule': 1.0.2_d86dd164971a98d71cc003a4f36ff106
   '@nestjs/swagger': 5.2.0_121855ecaf66115b6bc291afe33bdd2a
   '@nestjs/typeorm': 8.0.3_277ae424c0bf10d416bf957b553f6a72
-  axios: 0.25.0
+  axios: 0.26.1
   axios-retry: 3.2.4
   class-transformer: 0.4.0
   class-validator: 0.13.2
@@ -2046,8 +2046,8 @@ packages:
       - debug
     dev: false
 
-  /axios/0.25.0:
-    resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
+  /axios/0.26.1:
+    resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
     dependencies:
       follow-redirects: 1.14.9
     transitivePeerDependencies:
