@@ -15,7 +15,7 @@ import { CommentsService } from "./comments.service";
 import { CreateCommentsDto } from "../../shared/dto/create-comments-dto";
 
 
-@Controller("Comments")
+@Controller("comments")
 @ApiTags("Comments")
 export class CommentsController {
   constructor(private commentsService: CommentsService) {}

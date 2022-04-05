@@ -96,7 +96,7 @@ export class CommentsService {
       );
     }
     const isMaster = await this.usersService.findOne(data.author);
-    if (!isMaster) {
+    if (isMaster) {
       Logger.warn(`检测到一条伪造评论提交`, "CommentsService");
       throw new BadRequestException(
         '用户名与主人重名啦, 但是你好像并不是我的主人唉',
