@@ -53,7 +53,7 @@ specifiers:
   swagger-ui-express: 4.3.0
   ts-jest: 27.1.4
   ts-node: 10.5.0
-  tsconfig-paths: 3.12.0
+  tsconfig-paths: 3.14.1
   typeorm: 0.2.45
   typescript: 4.5.5
   xml2js: ^0.4.23
@@ -119,7 +119,7 @@ devDependencies:
   supertest: 6.2.2
   ts-jest: 27.1.4_8fa130d172bf7d71653f05507c50c5a3
   ts-node: 10.5.0_f94da96e4d78a751cdd66b59796b8fdd
-  tsconfig-paths: 3.12.0
+  tsconfig-paths: 3.14.1
   typescript: 4.5.5
 
 packages:
@@ -4538,7 +4538,7 @@ packages:
     resolution: {integrity: sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==}
     hasBin: true
     dependencies:
-      minimist: 1.2.5
+      minimist: 1.2.6
     dev: true
 
   /json5/2.2.0:
@@ -4546,7 +4546,7 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
     dependencies:
-      minimist: 1.2.5
+      minimist: 1.2.6
     dev: true
 
   /jsonc-parser/3.0.0:
@@ -6297,15 +6297,6 @@ packages:
       chalk: 4.1.2
       enhanced-resolve: 5.9.2
       tsconfig-paths: 3.14.1
-    dev: true
-
-  /tsconfig-paths/3.12.0:
-    resolution: {integrity: sha512-e5adrnOYT6zqVnWqZu7i/BQ3BnhzvGbjEjejFXO20lKIKpwTaupkCPgEfv4GZK1IBciJUEhYs3J3p75FdaTFVg==}
-    dependencies:
-      '@types/json5': 0.0.29
-      json5: 1.0.1
-      minimist: 1.2.5
-      strip-bom: 3.0.0
     dev: true
 
   /tsconfig-paths/3.14.1:
