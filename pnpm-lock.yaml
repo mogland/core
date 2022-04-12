@@ -54,7 +54,7 @@ specifiers:
   ts-jest: 27.1.4
   ts-node: 10.5.0
   tsconfig-paths: 3.12.0
-  typeorm: 0.2.45
+  typeorm: 0.3.5
   typescript: 4.5.5
   xml2js: ^0.4.23
   xss: 1.0.11
@@ -69,7 +69,7 @@ dependencies:
   '@nestjs/platform-express': 8.2.6_732a54a2558f64827b8cc4f9baac4f1f
   '@nestjs/schedule': 1.0.2_d86dd164971a98d71cc003a4f36ff106
   '@nestjs/swagger': 5.2.1_121855ecaf66115b6bc291afe33bdd2a
-  '@nestjs/typeorm': 8.0.3_277ae424c0bf10d416bf957b553f6a72
+  '@nestjs/typeorm': 8.0.3_f188e4823e8dd3128e158ebc95437fc4
   axios: 0.26.1
   axios-retry: 3.2.4
   class-transformer: 0.4.0
@@ -87,7 +87,7 @@ dependencies:
   rxjs: 7.5.5
   source-map-support: 0.5.21
   swagger-ui-express: 4.3.0_express@4.17.3
-  typeorm: 0.2.45_mysql2@2.3.3+redis@4.0.6
+  typeorm: 0.3.5_dee19d9df68de0d25f1938fc87c5a81f
   xml2js: 0.4.23
   xss: 1.0.11
   zx: 4.3.0
@@ -1118,7 +1118,7 @@ packages:
       tslib: 2.3.1
     dev: true
 
-  /@nestjs/typeorm/8.0.3_277ae424c0bf10d416bf957b553f6a72:
+  /@nestjs/typeorm/8.0.3_f188e4823e8dd3128e158ebc95437fc4:
     resolution: {integrity: sha512-tf9rTXP6LeFInkwd+tktQhtLRsKp4RRYImprqT8gcHcJDx+xMP1IygnXELOKwF5vo2/mnhrGtBlRQ/iiS6170g==}
     peerDependencies:
       '@nestjs/common': ^8.0.0
@@ -1131,7 +1131,7 @@ packages:
       '@nestjs/core': 8.2.6_e0942410e35426b1aa1d4f7a54a7c1ba
       reflect-metadata: 0.1.13
       rxjs: 7.5.5
-      typeorm: 0.2.45_mysql2@2.3.3+redis@4.0.6
+      typeorm: 0.3.5_dee19d9df68de0d25f1938fc87c5a81f
       uuid: 8.3.2
     dev: false
 
@@ -1490,10 +1490,6 @@ packages:
     dependencies:
       '@types/yargs-parser': 20.2.1
     dev: true
-
-  /@types/zen-observable/0.8.3:
-    resolution: {integrity: sha512-fbF6oTd4sGGy0xjHPKAt+eS2CrxJ3+6gQ3FGcBoIJR2TLAyCkCyI8JqZNy+FeON0AhVgNJoUumVoZQjBFUqHkw==}
-    dev: false
 
   /@typescript-eslint/eslint-plugin/5.19.0_f94b828184481a29abb14c3076326c5b:
     resolution: {integrity: sha512-w59GpFqDYGnWFim9p6TGJz7a3qWeENJuAKCqjGSx+Hq/bwq3RZwXYqy98KIfN85yDqz9mq6QXiY5h0FjGQLyEg==}
@@ -2663,6 +2659,11 @@ packages:
       whatwg-url: 8.7.0
     dev: true
 
+  /date-fns/2.28.0:
+    resolution: {integrity: sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==}
+    engines: {node: '>=0.11'}
+    dev: false
+
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
     dependencies:
@@ -2801,11 +2802,6 @@ packages:
   /dotenv/16.0.0:
     resolution: {integrity: sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==}
     engines: {node: '>=12'}
-    dev: false
-
-  /dotenv/8.6.0:
-    resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
-    engines: {node: '>=10'}
     dev: false
 
   /duplexer/0.1.2:
@@ -6381,8 +6377,9 @@ packages:
     resolution: {integrity: sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=}
     dev: false
 
-  /typeorm/0.2.45_mysql2@2.3.3+redis@4.0.6:
-    resolution: {integrity: sha512-c0rCO8VMJ3ER7JQ73xfk0zDnVv0WDjpsP6Q1m6CVKul7DB9iVdWLRjPzc8v2eaeBuomsbZ2+gTaYr8k1gm3bYA==}
+  /typeorm/0.3.5_dee19d9df68de0d25f1938fc87c5a81f:
+    resolution: {integrity: sha512-KL4c8nQqouHaXs4m1J3xh7oXWqX4+A9poExbceLxBRtlavpJQYqiSnqt3JYGpy7Tl9vD5DG5DrmZrSslTkkW5Q==}
+    engines: {node: '>= 12.9.0'}
     hasBin: true
     peerDependencies:
       '@sap/hana-client': ^2.11.14
@@ -6399,6 +6396,7 @@ packages:
       redis: ^3.1.1
       sql.js: ^1.4.0
       sqlite3: ^5.0.2
+      ts-node: ^10.7.0
       typeorm-aurora-data-api-driver: ^2.0.0
     peerDependenciesMeta:
       '@sap/hana-client':
@@ -6429,6 +6427,8 @@ packages:
         optional: true
       sqlite3:
         optional: true
+      ts-node:
+        optional: true
       typeorm-aurora-data-api-driver:
         optional: true
     dependencies:
@@ -6437,8 +6437,9 @@ packages:
       buffer: 6.0.3
       chalk: 4.1.2
       cli-highlight: 2.1.11
+      date-fns: 2.28.0
       debug: 4.3.3
-      dotenv: 8.6.0
+      dotenv: 16.0.0
       glob: 7.2.0
       js-yaml: 4.1.0
       mkdirp: 1.0.4
@@ -6446,11 +6447,11 @@ packages:
       redis: 4.0.6
       reflect-metadata: 0.1.13
       sha.js: 2.4.11
+      ts-node: 10.5.0_f94da96e4d78a751cdd66b59796b8fdd
       tslib: 2.3.1
       uuid: 8.3.2
       xml2js: 0.4.23
       yargs: 17.3.1
-      zen-observable-ts: 1.1.0
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -6807,17 +6808,6 @@ packages:
     resolution: {integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==}
     engines: {node: '>=6'}
     dev: true
-
-  /zen-observable-ts/1.1.0:
-    resolution: {integrity: sha512-1h4zlLSqI2cRLPJUHJFL8bCWHhkpuXkF+dbGkRaWjgDIG26DmzyshUMrdV/rL3UnR+mhaX4fRq8LPouq0MYYIA==}
-    dependencies:
-      '@types/zen-observable': 0.8.3
-      zen-observable: 0.8.15
-    dev: false
-
-  /zen-observable/0.8.15:
-    resolution: {integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==}
-    dev: false
 
   /zx/4.3.0:
     resolution: {integrity: sha512-KuEjpu5QFIMx0wWfzknDRhY98s7a3tWNRmYt19XNmB7AfOmz5zISA4+3Q8vlJc2qguxMn89uSxhPDCldPa3YLA==}
