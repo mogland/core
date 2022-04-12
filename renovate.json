@@ -7,11 +7,5 @@
     ":automergeLinters",
     ":rebaseStalePrs"
   ],
-  "packageRules": [
-    {
-      "updateTypes": ["major"],
-      "labels": ["UPDATE-MAJOR"]
-    }
-  ],
   "enabled": true
 }
