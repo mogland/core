@@ -34,6 +34,10 @@ Read [Wiki Page](https://github.com/wibus-wee/GS-server/wiki/Deploy-Server) that
 3. **PR** your changes to my Repo
 4. become a contributor
 
+## Activity
+
+![Alt](https://repobeats.axiom.co/api/embed/c901877ec290fab2cf7184b8ce2510da577401a1.svg "Repobeats analytics image")
+
 ## Reference
 
 This project referred to: 
