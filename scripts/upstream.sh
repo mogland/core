@@ -3,7 +3,7 @@
  # @author: Wibus
  # @Date: 2022-03-06 20:22:17
  # @LastEditors: Wibus
- # @LastEditTime: 2022-04-23 06:47:41
+ # @LastEditTime: 2022-04-23 07:02:50
  # Coding With IU
 ### 
 # git remote -v
@@ -15,7 +15,7 @@ git remote -v
 git fetch upstream
 git checkout main
 git merge upstream/main
-git config --global --add safe.directory "*"
+git config --global --add safe.directory /github/workspace
 git push origin main
 else
 echo "非组织远程仓库，无需操作"
