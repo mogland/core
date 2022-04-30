@@ -25,11 +25,11 @@ jobs:
       uses: actions-go/push@v1
       with:
         commit-message: 'upstream'
-    - name: action-push
-      uses: ludeeus/action-push@0.0.1
-      env: 
-        # ACTION_MAIL: 62133302+wibus-wee@users.noreply.github.com
-        ACTION_MAIL: wibus@qq.com
-        ACTION_NAME: wibus-wee
-        ACTION_BRANCH: main
-        # ACTION_MESSAGE: 
+    # - name: action-push
+    #   uses: ludeeus/action-push@0.0.1
+    #   env: 
+    #     # ACTION_MAIL: 62133302+wibus-wee@users.noreply.github.com
+    #     ACTION_MAIL: wibus@qq.com
+    #     ACTION_NAME: wibus-wee
+    #     ACTION_BRANCH: main
+    #     # ACTION_MESSAGE: 
