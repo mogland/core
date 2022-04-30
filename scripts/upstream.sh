@@ -3,11 +3,12 @@
  # @author: Wibus
  # @Date: 2022-03-06 20:22:17
  # @LastEditors: Wibus
- # @LastEditTime: 2022-04-23 07:02:50
+ # @LastEditTime: 2022-05-01 00:30:18
  # Coding With IU
 ### 
 # git remote -v
 # 如果 git remote -v 命令 不包含wibus-wee
+git config --global --add safe.directory /github/workspace
 if [ ! -n "$(git remote -v | grep wibus-wee)" ]; then
 git init
 git remote add upstream https://github.com/wibus-wee/GS-server.git
