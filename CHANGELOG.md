@@ -1,3 +1,33 @@
+## [0.2.2](https://github.com/wibus-wee/GS-server/compare/v0.2.1...v0.2.2) (2022-04-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @nestjs/config to v1.2.1 ([#64](https://github.com/wibus-wee/GS-server/issues/64)) ([c65aa5e](https://github.com/wibus-wee/GS-server/commit/c65aa5ecac7488d2e945c6b00f15941f9c150ffb))
+* **deps:** update dependency @nestjs/swagger to v5.2.1 ([62d32c8](https://github.com/wibus-wee/GS-server/commit/62d32c83ac275c44eed3b3c2c872fcbb2c767c48))
+* **deps:** update dependency axios to v0.26.1 ([#60](https://github.com/wibus-wee/GS-server/issues/60)) ([71576d4](https://github.com/wibus-wee/GS-server/commit/71576d458c955aa84bd04558e5a317eccc1b81c8))
+* **deps:** update dependency nodemailer to v6.7.3 ([b280d32](https://github.com/wibus-wee/GS-server/commit/b280d3209f082429b92209423f1230c10a792721))
+* **deps:** update dependency nodemailer to v6.7.4 ([29fc60d](https://github.com/wibus-wee/GS-server/commit/29fc60d0a64625d39a9b97f8a7b6ff4f48138d03))
+* **deps:** update dependency redis to v4.0.6 ([2ca56b6](https://github.com/wibus-wee/GS-server/commit/2ca56b6426b5803d8e1557fce283f3548d77afb4))
+* **deps:** update nest monorepo ([#120](https://github.com/wibus-wee/GS-server/issues/120)) ([c5370f2](https://github.com/wibus-wee/GS-server/commit/c5370f2ac8f8366fc17ab6386814b18b234cf8ab))
+* isMaster comments ([711d2f8](https://github.com/wibus-wee/GS-server/commit/711d2f88b20d092c4d49d0f0dd7aa0e6ea37f06f))
+* **mail:** cWE-79 CWE-176 bug ([1efd6c7](https://github.com/wibus-wee/GS-server/commit/1efd6c7fce3583e4ec7367a2467abf0b5f62b1d9))
+* **vercel:** try fix deployment ([033bfd2](https://github.com/wibus-wee/GS-server/commit/033bfd2f1508dfcbbdb13a7a6b6e5ce1458d7e85))
+
+
+### Features
+
+* **app:** check app version ([a11d46b](https://github.com/wibus-wee/GS-server/commit/a11d46b405359874e9948b45274e057c76e0a2f0))
+* **ncc:** package as a single executable (Failure) ([6000b8b](https://github.com/wibus-wee/GS-server/commit/6000b8b81e0c7123f17a7ea695e968d6a7e9ebe6))
+
+
+### Performance Improvements
+
+* **main:** console key value when starting ([c3b7028](https://github.com/wibus-wee/GS-server/commit/c3b7028fd44db7d2c815309764673dfcbb40cf4d))
+* **projects:** update projects data route ([e35a86f](https://github.com/wibus-wee/GS-server/commit/e35a86f4c0c43680ae5866ef2bf2608028d572a5))
+
+
+
 ## [0.2.1](https://github.com/wibus-wee/GS-server/compare/v0.2.0...v0.2.1) (2022-03-20)
 
 
