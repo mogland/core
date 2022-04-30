@@ -21,6 +21,10 @@ jobs:
     - name: Upstream
       run: |
         sh ./scripts/upstream.sh
+    - name: Push changes
+      uses: actions-go/push@v1
+      with:
+        commit-message: 'upstream'
     - name: action-push
       uses: ludeeus/action-push@0.0.1
       env: 
