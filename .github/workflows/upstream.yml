@@ -14,6 +14,8 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v2
+    - name: work around permission issue
+      run: git config --global --add safe.directory /__w/GS-server/GS-server
     - name: Upstream
       run: |
         sh ./scripts/upstream.sh
