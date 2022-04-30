@@ -18,14 +18,14 @@ jobs:
       run: |
         git config --global --add safe.directory /__w/GS-server/GS-server
         git config --global --add safe.directory /github/workspace
-        git config --global --add safe.directory /github/workspace
     - name: Upstream
       run: |
         sh ./scripts/upstream.sh
     - name: action-push
       uses: ludeeus/action-push@0.0.1
       env: 
-        ACTION_MAIL: 62133302+wibus-wee@users.noreply.github.com
-        ACTION_NAME: GitHubBot
+        # ACTION_MAIL: 62133302+wibus-wee@users.noreply.github.com
+        ACTION_MAIL: wibus@qq.com
+        ACTION_NAME: wibus-wee
         ACTION_BRANCH: main
         # ACTION_MESSAGE: 
