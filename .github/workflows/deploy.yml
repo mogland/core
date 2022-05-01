@@ -31,13 +31,6 @@ jobs:
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
           ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
-    - uses: pnpm/action-setup@v2.2.1
-      with:
-        version: latest
-        run_install: true
-    - name: Build Server
-      run: |
-        pnpm build
     - name: Setup MySQL
       uses: mirromutth/mysql-action@v1.1
       with:
@@ -49,6 +42,16 @@ jobs:
         mysql user: gserver
         # MYSQL_PASSWORD - specified superuser password which user is power for created database
         mysql password: gserver
+    - uses: pnpm/action-setup@v2.2.1
+      with:
+        version: latest
+        run_install: true
+    - name: Build Server
+      run: |
+        pnpm build
+    - name: Test Server
+      run: |
+        sh ./scripts/workflow/test-server.sh
     - name: Deploy to Vercel
       run: | 
         if [ ! -n "$(git remote -v | grep wibus-wee)" ]; then
