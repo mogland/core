@@ -31,10 +31,10 @@ jobs:
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
           ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
-    - uses: pnpm/action-setup@v2.0.1
+    - uses: pnpm/action-setup@v2.2.1
       with:
-        version: 6.0.2
-        run_install: true
+        version: latest
+        run_install: false
     - name: Build Server
       run: |
         pnpm build
