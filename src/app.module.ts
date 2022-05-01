@@ -31,7 +31,7 @@ import { FriendsModule } from "./modules/friends/friends.module"; // 引入好�
 import { FriendsService } from "./modules/friends/friends.service"; // 引入好友模块
 import { MailController } from "./modules/mail/mail.controller"; // 引入邮件模块
 import { MailModule } from "./modules/mail/mail.module"; // 引入邮件模块
-import { MailService } from "./modules/mail/mail.service"; // 引入邮件模块
+import { EmailService } from "./modules/mail/mail.service"; // 引入邮件模块
 import { PagesController } from "./modules/pages/pages.controller"; // 引入页面模块
 import { PagesModule } from "./modules/pages/pages.module"; // 引入页面模块
 import { PagesService } from "./modules/pages/pages.service"; // 引入页面模块
@@ -41,6 +41,9 @@ import { PostsService } from "./modules/posts/posts.service"; // 引入文章模
 import { UsersController } from "./modules/users/users.controller"; // 引入用户模块
 import { UsersModule } from "./modules/users/users.module"; // 引入用户模块
 import { UsersService } from "./modules/users/users.service"; // 引入用户模块
+import { ConfigsController } from './configs/configs.controller';
+import { ConfigsService } from './configs/configs.service';
+import { ConfigsModule } from './configs/configs.module';
 
 
 @Module({
@@ -75,9 +78,10 @@ import { UsersService } from "./modules/users/users.service"; // 引入用户模
     PagesModule,
     CommentsModule,
     CategoriesModule,
-    MailModule,
+    // MailModule,
     FriendsModule,
-    ProjectsModule
+    ProjectsModule,
+    // ConfigsModule,
   ],
   controllers: [
     AppController,
@@ -86,9 +90,10 @@ import { UsersService } from "./modules/users/users.service"; // 引入用户模
     PostsController,
     CommentsController,
     CategoriesController,
-    MailController,
+    // MailController,
     FriendsController,
-    ProjectsController
+    ProjectsController,
+    // ConfigsController
   ],
   providers: [
     {
@@ -108,10 +113,11 @@ import { UsersService } from "./modules/users/users.service"; // 引入用户模
     PagesService,
     CommentsService,
     CategoriesService,
-    MailService,
+    // EmailService,
     FriendsService,
     ProjectsService,
-    GHttp
+    GHttp,
+    // ConfigsService
   ],
 })
 export class AppModule {}
