@@ -7,6 +7,7 @@ import { UsersService } from "./modules/users/users.service"; // 用户服务
 import { SpiderGuard } from "./common/guards/spiders.guard"; // 爬虫检查
 import { chooseEnv } from "utils/chooseEnv.utils";
 import { argv } from "zx";
+import { ConfigsService } from "configs/configs.service";
 async function bootstrap() {
   console.log(argv);
   const app = await NestFactory.create(AppModule); // create app
@@ -63,5 +64,7 @@ async function bootstrap() {
     })
     Logger.log('master user created', "gSpaceHelper"); // 打印日志
   }
+  const configsService = app.get(ConfigsService)
+  await configsService.init()
 }
 bootstrap();  // 启动

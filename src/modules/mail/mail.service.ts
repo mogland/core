@@ -1,7 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
 import { ConfigsService } from 'configs/configs.service'
 import { render } from 'ejs'
 import { createTransport } from 'nodemailer'
+import { Configs } from 'shared/entities/configs.entity'
 import { isDev } from 'utils/tools.util'
 
 export enum ReplyMailType {
@@ -21,10 +23,10 @@ export class EmailService {
   constructor(
     private readonly configsService: ConfigsService,
   ) {
-    // this.init()
-    // this.logger = new Logger(EmailService.name)
+    this.init()
+    this.logger = new Logger(EmailService.name)
   }
-/*
+
   async readTemplate(type: ReplyMailType) {
     switch (type) {
     case ReplyMailType.Guest:
@@ -35,23 +37,6 @@ export class EmailService {
     case ReplyMailType.Owner:
       // return this.assetService.getAsset(
       //   '/email-template/owner.template.ejs',
-      //   { encoding: 'utf-8' },
-      // )
-    }
-  }
-
-  writeTemplate(type: ReplyMailType, source: string) {
-    switch (type) {
-    case ReplyMailType.Guest:
-      // return this.assetService.writeUserCustomAsset(
-      //   '/email-template/guest.template.ejs',
-      //   source,
-      //   { encoding: 'utf-8' },
-      // )
-    case ReplyMailType.Owner:
-      // return this.assetService.writeUserCustomAsset(
-      //   '/email-template/owner.template.ejs',
-      //   source,
       //   { encoding: 'utf-8' },
       // )
     }
@@ -83,19 +68,22 @@ export class EmailService {
       port: number
       auth: { user: string; pass: string }
     }>((r, j) => {
-      this.configsService.waitForConfigReady().then(({ mailOptions }) => {
-        const { options, user, pass } = mailOptions
-        if (!user && !pass) {
-          const message = '邮件件客户端未认证'
-          this.logger.error(message)
-          return j(message)
-        }
-        r({
-          host: options?.host,
-          port: +options?.port || 465,
-          auth: { user, pass },
-        } as const)
-      })
+      
+      // (({ mailOptions }) => {
+      // const { MAIL_PORT, MAIL_USER, MAIL_PASSWORD, MAIL_SERVER } = process.env
+      const user = process.env.MAIL_USER
+      const pass = process.env.MAIL_PASSWORD
+      if (!process.env.MAIL_USER && !process.env.MAIL_PASSWORD) {
+        const message = '邮件件客户端未认证'
+        this.logger.error(message)
+        return j(message)
+      }
+      r({
+        host: process.env.MAIL_SERVER,
+        port: Number(process.env.MAIL_PORT) || 465,
+        auth: { user, pass },
+      } as const)
+      // })
     })
   }
 
@@ -127,15 +115,16 @@ export class EmailService {
     model: any
     template: LinkApplyEmailType
   }) {
-    const { seo, mailOptions } = await this.configsService.waitForConfigReady()
-    const { user } = mailOptions
-    const from = `"${seo.title || 'Mx Space'}" <${user}>`
+    // const { seo, mailOptions } = await this.configsService.li()
+    const seo = await this.configsService.get('seo.title')
+    const user = process.env.MAIL_USER
+    const from = `"${seo || 'Mx Space'}" <${user}>`
     await this.instance.sendMail({
       from,
       to,
       subject:
         template === LinkApplyEmailType.ToMaster
-          ? `[${seo.title || 'Mx Space'}] 新的朋友 ${authorName}`
+          ? `[${seo || 'Mx Space'}] 新的朋友 ${authorName}`
           : `嘿!~, 主人已通过你的友链申请!~`,
       text:
         template === LinkApplyEmailType.ToMaster
@@ -150,46 +139,46 @@ export class EmailService {
 
   async sendCommentNotificationMail({
     to,
-    source,
+    // source,
     type,
   }: {
     to: string
-    source: EmailTemplateRenderProps
+    // source: EmailTemplateRenderProps
     type: ReplyMailType
   }) {
-    const { seo, mailOptions } = await this.configsService.waitForConfigReady()
-    const { user } = mailOptions
-    const from = `"${seo.title || 'Mx Space'}" <${user}>`
+    const seo = await this.configsService.get('seo.title')
+    const user = process.env.MAIL_USER
+    const from = `"${seo || 'G Space'}" <${user}>`
     if (type === ReplyMailType.Guest) {
       const options = {
         from,
         ...{
-          subject: `[${seo.title || 'Mx Space'}] 主人给你了新的回复呐`,
+          subject: `[${seo || 'G Space'}] 主人给你了新的回复呐`,
           to,
-          html: this.render((await this.readTemplate(type)) as string, source),
+          // html: this.render((await this.readTemplate(type)) as string, source),
         },
       }
       if (isDev) {
-        delete options.html
-        Object.assign(options, { source })
+        // delete options.html
+        // Object.assign(options, { source })
         this.logger.log(options)
-        return
+        // return this.instance.sendMail(options)
       }
       await this.instance.sendMail(options)
     } else {
       const options = {
         from,
         ...{
-          subject: `[${seo.title || 'Mx Space'}] 有新回复了耶~`,
+          subject: `[${seo || 'G Space'}] 有新回复了耶~`,
           to,
-          html: this.render((await this.readTemplate(type)) as string, source),
+          // html: this.render((await this.readTemplate(type)) as string, source),
         },
       }
       if (isDev) {
-        delete options.html
-        Object.assign(options, { source })
+        // delete options.html
+        // Object.assign(options, { source })
         this.logger.log(options)
-        return
+        // return 1
       }
       await this.instance.sendMail(options)
     }
@@ -210,7 +199,7 @@ export class EmailService {
 
   getInstance() {
     return this.instance
-  } */
+  }
 }
 
 export interface EmailTemplateRenderProps {

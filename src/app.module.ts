@@ -78,10 +78,10 @@ import { ConfigsModule } from './configs/configs.module';
     PagesModule,
     CommentsModule,
     CategoriesModule,
-    // MailModule,
+    MailModule,
     FriendsModule,
     ProjectsModule,
-    // ConfigsModule,
+    ConfigsModule,
   ],
   controllers: [
     AppController,
@@ -90,10 +90,10 @@ import { ConfigsModule } from './configs/configs.module';
     PostsController,
     CommentsController,
     CategoriesController,
-    // MailController,
+    MailController,
     FriendsController,
     ProjectsController,
-    // ConfigsController
+    ConfigsController
   ],
   providers: [
     {
@@ -113,11 +113,11 @@ import { ConfigsModule } from './configs/configs.module';
     PagesService,
     CommentsService,
     CategoriesService,
-    // EmailService,
+    EmailService,
     FriendsService,
     ProjectsService,
     GHttp,
-    // ConfigsService
+    ConfigsService
   ],
 })
 export class AppModule {}
