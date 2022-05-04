@@ -10,7 +10,7 @@ export class MailController {
   @Post("send")
   async sendMail(@Body() body) {
     await this.mailService.sendCommentNotificationMail({
-      to: '1596355173@qq.com',
+      to: body.to,
       type: ReplyMailType.Guest,
       // source: {
       //   title: refDoc.title,
