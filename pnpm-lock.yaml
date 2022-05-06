@@ -39,7 +39,7 @@ specifiers:
   jest: 28.1.0
   lint-staged: ^12.3.7
   mysql2: 2.3.3
-  nodemailer: 6.7.4
+  nodemailer: 6.7.5
   os: ^0.1.2
   passport: 0.5.2
   passport-jwt: 4.0.0
@@ -79,7 +79,7 @@ dependencies:
   ejs: 3.1.7
   express: 4.17.3
   mysql2: 2.3.3
-  nodemailer: 6.7.4
+  nodemailer: 6.7.5
   passport: 0.5.2
   passport-jwt: 4.0.0
   passport-local: 1.0.0
@@ -4935,8 +4935,8 @@ packages:
     resolution: {integrity: sha512-XxYDdcQ6eKqp/YjI+tb2C5WM2LgjnZrfYg4vgQt49EK268b6gYCHsBLrK2qvJo4FmCtqmKezb0WZFK4fkrZNsg==}
     dev: true
 
-  /nodemailer/6.7.4:
-    resolution: {integrity: sha512-TBSS3qS8WG45ycUwEvEA/3UM1o3sLz9jUl4TPUKPz4ImWWM6UgRCb5pLO+HOouDKEj57yNLOrzQlO8+9IjWZoA==}
+  /nodemailer/6.7.5:
+    resolution: {integrity: sha512-6VtMpwhsrixq1HDYSBBHvW0GwiWawE75dS3oal48VqRhUvKJNnKnJo2RI/bCVQubj1vgrgscMNW4DHaD6xtMCg==}
     engines: {node: '>=6.0.0'}
     dev: false
 
