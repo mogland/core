@@ -67,7 +67,7 @@
     "@nestjs/testing": "8.4.4",
     "@types/express": "4.17.13",
     "@types/jest": "27.5.0",
-    "@types/node": "16.11.32",
+    "@types/node": "16.11.33",
     "@types/nodemailer": "6.4.4",
     "@types/passport-jwt": "3.0.6",
     "@types/passport-local": "1.0.34",
