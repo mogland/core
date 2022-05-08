@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { ConfigsService } from 'configs/configs.service'
+// import { InjectRepository } from '@nestjs/typeorm'
+import { ConfigsService } from 'modules/configs/configs.service'
 import { render } from 'ejs'
 import { createTransport } from 'nodemailer'
-import { Configs } from 'shared/entities/configs.entity'
+// import { Configs } from 'shared/entities/configs.entity'
 import { isDev } from 'utils/tools.util'
 
 export enum ReplyMailType {
@@ -93,7 +93,8 @@ export class EmailService {
 
   // 验证有效性
   private verifyClient() {
-    return new Promise<boolean>((r, j) => {
+    return new Promise<boolean>((r) => {
+      
       this.instance.verify((error) => {
         if (error) {
           this.logger.error('邮件客户端初始化连接失败！')

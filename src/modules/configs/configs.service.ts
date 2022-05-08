@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import globals from "../globals";
-import { CommentOptionsDto, MailOptionsDto, SeoDto, UrlDto } from 'shared/dto/configs.dto';
+import globals from "../../globals";
+import { CommentOptionsDto, SeoDto, UrlDto } from 'shared/dto/configs.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Configs } from 'shared/entities/configs.entity';
 import { Repository } from 'typeorm';

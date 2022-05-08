@@ -41,9 +41,9 @@ import { PostsService } from "./modules/posts/posts.service"; // 引入文章模
 import { UsersController } from "./modules/users/users.controller"; // 引入用户模块
 import { UsersModule } from "./modules/users/users.module"; // 引入用户模块
 import { UsersService } from "./modules/users/users.service"; // 引入用户模块
-import { ConfigsController } from './configs/configs.controller';
-import { ConfigsService } from './configs/configs.service';
-import { ConfigsModule } from './configs/configs.module';
+import { ConfigsController } from './modules/configs/configs.controller';
+import { ConfigsService } from './modules/configs/configs.service';
+import { ConfigsModule } from './modules/configs/configs.module';
 
 
 @Module({
