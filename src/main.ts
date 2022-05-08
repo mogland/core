@@ -2,12 +2,13 @@ import { NestFactory } from "@nestjs/core"; // 引入NestFactory
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger"; // swagger
 import globals from "./globals"; // 全局变量
 import { AppModule } from "./app.module"; // 导入模块
-import { Logger } from "@nestjs/common"; // 引入日志
+import { Logger, ValidationPipe } from "@nestjs/common"; // 引入日志
 import { UsersService } from "./modules/users/users.service"; // 用户服务
 import { SpiderGuard } from "./common/guards/spiders.guard"; // 爬虫检查
 import { chooseEnv } from "utils/chooseEnv.utils";
 import { argv } from "zx";
 import { ConfigsService } from "modules/configs/configs.service";
+import { isDev } from "utils/tools.util";
 async function bootstrap() {
   console.log(argv);
   const app = await NestFactory.create(AppModule); // create app
@@ -33,17 +34,30 @@ async function bootstrap() {
 
   app.setGlobalPrefix("api/v" + globals.API_VERSION); // 设置全局前缀
 
-  const options = new DocumentBuilder() // 创建swagger配置
-    .addBearerAuth( // 添加bearer验证
-      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }, // 验证方式
-      'access-token', // 参数名
-    )
-    .setTitle("G-server") // 标题
-    .setDescription("G-server API Docs")  // 描述
-    .setVersion("1.0") // 版本
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      errorHttpStatusCode: 422,
+      forbidUnknownValues: true,
+      enableDebugMessages: isDev,
+      stopAtFirstError: true,
+    }),
+  ) // 注册全局验证管道
+
+  const { DocumentBuilder, SwaggerModule } = await import('@nestjs/swagger')
+  const options = new DocumentBuilder()
+    .setTitle('API')
+    .setDescription('The blog API description')
+    .setVersion(`${globals.API_VERSION}`)
+    .addSecurity('bearer', {
+      type: 'http',
+      scheme: 'bearer',
+    })
+    .addBearerAuth()
     .build()
-  const document = SwaggerModule.createDocument(app, options); // 创建swagger文档
-  SwaggerModule.setup("api-docs", app, document); // 导出swagger文档
+  const document = SwaggerModule.createDocument(app, options)
+  SwaggerModule.setup('api-docs', app, document)
   await app.listen(chooseEnv("PORT") ? chooseEnv("PORT") : 3000, '127.0.0.1', async() => { // 监听端口
     Logger.log(`Get the ${chooseEnv("PORT") ? chooseEnv("PORT") : 3000} port and starting`, "gSpaceHelper");
     Logger.log(`Server is running as ${chooseEnv("NODE_ENV") ? chooseEnv("NODE_ENV") : 'unknown'}`, "gSpaceHelper");
