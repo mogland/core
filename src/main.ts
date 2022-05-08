@@ -14,17 +14,30 @@ async function bootstrap() {
 
   const Origin = chooseEnv("CORS_SERVER")?.split?.(','); // 允许跨域的域名
   // 如果 Origin 为空，则设置为 *
-  if (Origin) {
     app.enableCors( 
       {
         origin: (origin, callback) => {
-          const allow = chooseEnv("CORS_SERVER")?.split?.(',') ? Origin.map((host) => new RegExp(host, 'i')).some((host) => host.test(origin)) : "*" // 判断是否允许跨域
+          const allow = chooseEnv("CORS_SERVER")?.split?.(',') ? Origin.map((host) => new RegExp(host, 'i')).some((host) => host.test(origin)) :
+           [
+              "localhost:2222",
+              "localhost:3000",
+              "localhost:2223",
+              "127.0.0.1:3000",
+              "127.0.0.1:2222",
+              "127.0.0.1:2223",
+              "localhost",
+              "127.0.0.1",
+              "iucky.cn",
+              "gs-admin.vercel.app",
+              "gs-server.vercel.app",
+              "gs-web-demo.vercel.app",
+              "effective-octo-meme.vercel.app",
+           ].map((host) => new RegExp(host, 'i')).some((host) => host.test(origin));
           callback(null, allow) // 回调
         },
         credentials: true, // 允许携带cookie
       }
     ) // 允许跨域
-  }
 
   app.useGlobalGuards(new SpiderGuard()) // 检查是否是爬虫
 

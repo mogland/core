@@ -76,7 +76,9 @@ export class ConfigsService {
       await this.configsRepository.save(initData.url_serverUrl)
       await this.configsRepository.save(initData.url_webUrl)
       await this.configsRepository.save(initData.mailOptions_enable)
-      return true
+      Logger.warn('初始化配置成功',ConfigsService.name)
+    } else {
+      Logger.warn('配置已存在',ConfigsService.name)
     }
   }
   async change(data: Configs) {
