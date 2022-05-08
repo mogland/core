@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Posts } from "../../shared/entities/posts.entity";
 import { Repository } from "typeorm";
 import { Categories } from "../../shared/entities/categories.entity";
+import { listProps } from "shared/interfaces/listProps";
 
 @Injectable()
 export class CategoriesService {
@@ -33,29 +34,20 @@ export class CategoriesService {
     }
   }
 
-  async list(query: any) {
-    switch (query.type) {
-    case 'all':
-      return await this.CategoriesRepository.find();
-    case 'limit':
-      let page = query.page
-      if (page < 1 || isNaN(page)) {
-        page = 1;
-      }
-      const limit = query.limit || 10;
-      const skip = (page - 1) * limit;
-      return await this.CategoriesRepository.find({
-        skip: skip,
-        take: limit,
-        order: {
-          id: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-      });
-    case 'num':
-      return await this.CategoriesRepository.count();
-    default:
-      return await this.CategoriesRepository.find();
-    }
+  async list(query: listProps) {
+    const select: (keyof Categories)[] = query.select.split(",") as (keyof Categories)[];
+    return await this.CategoriesRepository.findAndCount({
+      skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
+      take: query.limit ? query.limit : undefined,
+      select: select,
+      order: {
+        id: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
+      },
+    });
+  }
+
+  async getNum() {
+    return await this.CategoriesRepository.count();
   }
 
   async findPosts(slug: string, path: string) {

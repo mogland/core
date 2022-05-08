@@ -22,9 +22,11 @@ export class PostsController {
   @ApiOperation({
     summary: "全部文章",
   })
-  // Query对象需要有limit属性, page属性
-  @ApiQuery({name: "type", required: false, description: "查询参数", type: String, enum: ["all",'limit','num','list']})
-  @ApiQuery({name: "page", required: false, description: "当type等于limit时的页码数", type: Number})
+  // Query对象需要有orderBy, select, page, limit
+  @ApiQuery({ name: "orderBy", required: false, description: "排序方式" })
+  @ApiQuery({ name: "select", required: false, description: "选择字段" })
+  @ApiQuery({ name: "page", required: false, description: "页码" })
+  @ApiQuery({ name: "limit", required: false, description: "每页数量" })
   async list(@Query() query) {
     return await this.postsService.list(query);
   }

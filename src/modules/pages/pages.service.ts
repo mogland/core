@@ -3,11 +3,12 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-02-13 16:51:06
+ * @LastEditTime: 2022-05-08 21:27:16
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { listProps } from "shared/interfaces/listProps";
 import { Repository } from "typeorm";
 import { CreatePagesDto } from "../../shared/dto/create-pages-dto";
 import { Pages } from "../../shared/entities/pages.entity";
@@ -25,47 +26,20 @@ export class PagesService {
     });
   }
 
-  async list(query: any) {
-    switch (query.type) {
-    case 'all':
-      return await this.pagesRepository.find({
-        order: {
-          id: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-      });
-    case 'limit':
-      let page = query.page
-      if (page < 1 || isNaN(page)) {
-        page = 1;
-      }
-      const limit = query.limit || 10;
-      const skip = (page - 1) * limit;
-      return await this.pagesRepository.find({
-        skip: skip,
-        take: limit,
-        // 排序方式
-        order: {
-          id: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-      });
-    case 'num':
-      return await this.pagesRepository.count();
-    case 'list':
-      return await this.pagesRepository.find({
-        select: ['id', 'title', 'path'],
-        order: {
-          id: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-      });
-    default:
-      return await this.pagesRepository.find({
-        order: {
-          id: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-      });
-    }
+  async list(query: listProps) {
+    const select: (keyof Pages)[] = query.select.split(",") as (keyof Pages)[];
+    return await this.pagesRepository.findAndCount({
+      skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
+      take: query.limit ? query.limit : undefined,
+      select: select,
+      order: {
+        id: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
+      },
+    });
+  }
 
-
+  async getNum() {
+    return await this.pagesRepository.count();
   }
 
   async send(data: CreatePagesDto){

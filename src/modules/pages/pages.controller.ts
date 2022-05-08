@@ -22,8 +22,10 @@ export class PagesController {
   @ApiOperation({
     summary: "获取全部页面",
   })
-  @ApiQuery({name: "type", required: false, description: "查询参数", type: String, enum: ["all",'limit','num','list']})
-  @ApiQuery({name: "page", required: false, description: "当type等于limit时的页码数", type: Number})
+  @ApiQuery({ name: "orderBy", required: false, description: "排序方式" })
+  @ApiQuery({ name: "select", required: false, description: "选择字段" })
+  @ApiQuery({ name: "page", required: false, description: "页码" })
+  @ApiQuery({ name: "limit", required: false, description: "每页数量" })
   async list(@Query() query) {
     return this.pagesService.list(query); 
     // query.type: 'all'(全部显示)/'num'（仅返回长度）/'list'（返回列表 不返回内容）/'limit'（限制列表长度，需要配合query.page）/'query'（使用数据库语法查询,需要返回query.query）

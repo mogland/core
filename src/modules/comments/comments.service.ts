@@ -6,6 +6,7 @@ import { CreateCommentsDto } from "../../shared/dto/create-comments-dto";
 import BlockedKeywords = require("./block-keywords.json");
 import { UsersService } from "../users/users.service";
 import { delObjXss } from "utils/xss.util";
+import { listProps } from "shared/interfaces/listProps";
 @Injectable()
 export class CommentsService {
   constructor(
@@ -23,50 +24,22 @@ export class CommentsService {
     })
   }
 
-  async list(query: any) {
-    switch (query.type){
-    case 'all':
-      return await this.CommentsRepository.find({
-        order: {
-          created: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-      })
-    case 'limit':
-      let page = query.page
-      if (page < 1 || isNaN(page)) {
-        page = 1;
-      }
-      const limit = query.limit || 10;
-      const skip = (page - 1) * limit;
-      return await this.CommentsRepository.find({
-        skip: skip,
-        take: limit,
-        order: {
-          created: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-      });
-    case 'num':
-      return await this.CommentsRepository.count()
-    case 'uncheck':
-      return await this.CommentsRepository.find({
-        where: {
-          state: 0,
-        },
-        order: {
-          created: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-      });
-    case 'uncheck_num':
-      return await this.CommentsRepository.count({
-        status: 0,
-      });
-    default:
-      return await this.CommentsRepository.find({
-        order: {
-          cid: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-      })
-    }
+  async list(query: listProps) {
+    const select: (keyof Comments)[] = query.select.split(",") as (keyof Comments)[];
+    return await this.CommentsRepository.findAndCount({
+      skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
+      take: query.limit ? query.limit : undefined,
+      select: select,
+      order: {
+        coid: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
+      },
+    });
+  }
+
+  async getNum(status?: number) {
+    return await this.CommentsRepository.count({
+      where: status ? { status: status } : {},
+    });
   }
 
   async changeComments(data: CreateCommentsDto) {

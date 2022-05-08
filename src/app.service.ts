@@ -19,13 +19,13 @@ export class AppService {
 
   async getStat(): Promise<any> {
     return {
-      posts: await this.postsService.list({ type: 'num' }), // 文章数
-      pages: await this.pageService.list({ type: 'num' }), // 页面数
-      comments: await this.commentsService.list({ type: 'num' }), // 评论数
-      unReadComments: await this.commentsService.list({ type: 'uncheck_num' }), // 未审核评论数
-      Allfriends: await this.friendsService.list({ type: 'num' }), // 好友数
-      Unfriends: await this.friendsService.list({ type: 'uncheck_num' }), // 未审核好友数
-      categories: await this.categoriesService.list({ type: 'num' }), // 分类数
+      posts: await this.postsService.getNum(), // 文章数
+      pages: await this.pageService.getNum(), // 页面数
+      comments: await this.commentsService.getNum(), // 评论数
+      unReadComments: await this.commentsService.getNum(0), // 未审核评论数
+      Allfriends: await this.friendsService.getNum(), // 好友数
+      Unfriends: await this.friendsService.getNum(0), // 未审核好友数
+      categories: await this.categoriesService.getNum(), // 分类数
     }
   }
 

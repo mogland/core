@@ -8,6 +8,7 @@ import { GHttp } from "../../helper/helper.http.service";
 import { delObjXss } from "utils/xss.util";
 import rssParser from "utils/rss.utils";
 import { Cron, CronExpression } from "@nestjs/schedule";
+import { listProps } from "shared/interfaces/listProps";
 
 @Injectable()
 export class FriendsService {
@@ -44,59 +45,22 @@ export class FriendsService {
     return await this.friendsRepository.update(id, data);
   }
 
-  async list(query: any) {
-    switch (query.type) {
-    case "all":
-      return await this.friendsRepository.find({
-        order: {
-          id: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-        where: {
-          check: 1,
-        }
-      });
-    case 'true-all':
-      return await this.friendsRepository.find({
-        order: {
-          id: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-      });
-    case "limit":
-      let page = query.page
-      if (page < 1 || isNaN(page)) {
-        page = 1;
-      }
-      const limit = query.limit || 10;
-      const skip = (page - 1) * limit;
-      return await this.friendsRepository.find({
-        skip: skip,
-        take: limit,
-        order: {
-          id: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-      });
-    case "num":
-      return await this.friendsRepository.count();
-    case "uncheck":
-      return await this.friendsRepository.find({
-        where: {
-          check: 0,
-        }
-      });
-    case "uncheck_num":
-      return await this.friendsRepository.count({
-        check: 0,
-      });
-    default:
-      return await this.friendsRepository.find({
-        order: {
-          id: query.order === 'ASC' ? 'ASC' : 'DESC',
-        },
-        where: {
-          check: 1,
-        }
-      });
-    }
+  async list(query: listProps) {
+    const select: (keyof Friends)[] = query.select.split(",") as (keyof Friends)[];
+    return await this.friendsRepository.findAndCount({
+      skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
+      take: query.limit ? query.limit : undefined,
+      select: select,
+      order: {
+        id: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
+      },
+    });
+  }
+
+  async getNum(state?: number) {
+    return await this.friendsRepository.count({
+      where: state ? { check: state } : {},
+    });
   }
 
   async spider(url: string) {
