@@ -1,5 +1,4 @@
 import { NestFactory } from "@nestjs/core"; // 引入NestFactory
-import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger"; // swagger
 import globals from "./globals"; // 全局变量
 import { AppModule } from "./app.module"; // 导入模块
 import { Logger, ValidationPipe } from "@nestjs/common"; // 引入日志
