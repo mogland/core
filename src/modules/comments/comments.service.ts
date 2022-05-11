@@ -26,17 +26,23 @@ export class CommentsService {
 
   async list(query: listProps) {
     const select: (keyof Comments)[] = query.select ? query.select.split(",") as (keyof Comments)[] : ["coid", "text", "created", "author", "authorID", "owner", "ownerID", "email", "url", "status", "parent"];
-    return await this.CommentsRepository.find({
-      skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
-      take: query.limit ? query.limit : undefined,
-      select: select,
-      order: {
-        coid: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
-      },
-      where: query.where ? {
-        [query.where.split(":")[0]]: query.where.split(":")[1]      
-      } : {}
-    });
+    query.limit = query.limit ? query.limit : 10;
+    query.page = query.page ? query.page : 1;
+    return {
+      total: Math.ceil(await this.getNum() / query.limit),
+      now: query.page,
+      data: await this.CommentsRepository.find({
+        skip: query.limit > 1 ? (query.page - 1) * query.limit : query.limit,
+        take: query.limit,
+        select: select,
+        order: {
+          coid: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
+        },
+        where: query.where ? {
+          [query.where.split(":")[0]]: query.where.split(":")[1]      
+        } : {}
+      })
+    }
   }
 
   async getNum(status?: number) {

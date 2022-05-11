@@ -32,12 +32,12 @@ export class CategoriesController {
   @ApiOperation({
     summary: "获取全部分类",
   })
-  @ApiQuery({ name: "orderBy", required: false, description: "排序方式" })
-  @ApiQuery({ name: "select", required: false, description: "选择字段" })
-  @ApiQuery({ name: "page", required: false, description: "页码" })
-  @ApiQuery({ name: "limit", required: false, description: "每页数量" })
-  async list(@Query() query) {
-    return await this.categoriesService.list(query);
+  // @ApiQuery({ name: "orderBy", required: false, description: "排序方式" })
+  // @ApiQuery({ name: "select", required: false, description: "选择字段" })
+  // @ApiQuery({ name: "page", required: false, description: "页码" })
+  // @ApiQuery({ name: "limit", required: false, description: "每页数量" })
+  async list() {
+    return await this.categoriesService.list();
   }
 
   @Post("create")

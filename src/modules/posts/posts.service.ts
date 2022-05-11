@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-11 16:51:11
+ * @LastEditTime: 2022-05-12 07:59:10
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -30,17 +30,23 @@ export class PostsService {
 
   async list(query: listProps) {
     const select: (keyof Posts)[] = query.select ? query.select.split(",")  as (keyof Posts)[] : ["id", "title", "path", "slug", "createdAt", "updatedAt", "content"];
-    return await this.postsRepository.find({
-      skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
-      take: query.limit ? query.limit : undefined,
-      select: select,
-      order: {
-        id: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
-      },
-      where: query.where ? {
-        [query.where.split(":")[0]]: query.where.split(":")[1]      
-      } : {}
-    });
+    query.limit = query.limit ? query.limit : 10;
+    query.page = query.page ? query.page : 1;
+    return {
+      total: Math.ceil(await this.getNum() / query.limit),
+      now: query.page,
+      data: await this.postsRepository.find({
+        skip: query.limit > 1 ? (query.page - 1) * query.limit : query.limit,
+        take: query.limit,
+        select: select,
+        order: {
+          id: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
+        },
+        where: query.where ? {
+          [query.where.split(":")[0]]: query.where.split(":")[1]      
+        } : {}
+      })
+    }
   }
 
   async getNum() {
