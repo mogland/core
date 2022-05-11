@@ -46,7 +46,7 @@ export class FriendsService {
   }
 
   async list(query: listProps) {
-    const select: (keyof Friends)[] = query.select.split(",") as (keyof Friends)[];
+    const select: (keyof Friends)[] = query.select.split(",") ? query.select.split(",") as (keyof Friends)[] : ["id", "name", "description", "website", "image", "check"];
     return await this.friendsRepository.findAndCount({
       skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
       take: query.limit ? query.limit : undefined,

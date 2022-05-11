@@ -19,4 +19,10 @@ export class Posts {
 
   @Column("text")
     slug: string;
+
+  @Column("datetime")
+    createdAt: Date;
+
+  @Column("datetime")
+    updatedAt: Date;
 }

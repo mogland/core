@@ -13,4 +13,10 @@ export class Pages {
 
   @Column("text")
     content: string;
+
+  @Column("datetime")
+    createdAt: Date;
+
+  @Column("datetime")
+    updatedAt: Date;
 }

@@ -25,7 +25,7 @@ export class CommentsService {
   }
 
   async list(query: listProps) {
-    const select: (keyof Comments)[] = query.select.split(",") as (keyof Comments)[];
+    const select: (keyof Comments)[] = query.select.split(",") ? query.select.split(",") as (keyof Comments)[] : ["coid", "text", "created", "author", "authorID", "owner", "ownerID", "email", "url", "status", "parent"];
     return await this.CommentsRepository.findAndCount({
       skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
       take: query.limit ? query.limit : undefined,

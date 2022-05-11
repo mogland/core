@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-08 21:27:16
+ * @LastEditTime: 2022-05-11 10:43:48
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -27,7 +27,7 @@ export class PagesService {
   }
 
   async list(query: listProps) {
-    const select: (keyof Pages)[] = query.select.split(",") as (keyof Pages)[];
+    const select: (keyof Pages)[] = query.select.split(",") ? query.select.split(",") as (keyof Pages)[] : ["id", "title", "path", "content", "createdAt", "updatedAt"];
     return await this.pagesRepository.findAndCount({
       skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
       take: query.limit ? query.limit : undefined,
