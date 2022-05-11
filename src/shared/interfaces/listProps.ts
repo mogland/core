@@ -3,4 +3,5 @@ export interface listProps {
   select: string;
   page: number;
   limit: number;
+  where: any;
 }

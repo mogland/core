@@ -54,6 +54,9 @@ export class FriendsService {
       order: {
         id: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
       },
+      where: query.where ? {
+        [query.where.split(":")[0]]: query.where.split(":")[1]      
+      } : {}
     });
   }
 

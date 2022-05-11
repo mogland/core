@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-11 12:31:01
+ * @LastEditTime: 2022-05-11 15:04:23
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -37,6 +37,9 @@ export class PostsService {
       order: {
         id: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
       },
+      where: query.where ? {
+        [query.where.split(":")[0]]: query.where.split(":")[1]      
+      } : {}
     });
   }
 

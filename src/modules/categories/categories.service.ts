@@ -35,14 +35,17 @@ export class CategoriesService {
   }
 
   async list(query: listProps) {
-    // const select: (keyof Categories)[] = query.select.split(",") as (keyof Categories)[];
+    const select: (keyof Categories)[] = query.select.split(",") as (keyof Categories)[];
     return await this.CategoriesRepository.findAndCount({
       skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
       take: query.limit ? query.limit : undefined,
-      // select: select,
+      select: select,
       order: {
         id: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
       },
+      where: query.where ? {
+        [query.where.split(":")[0]]: query.where.split(":")[1]      
+      } : {}
     });
   }
 
