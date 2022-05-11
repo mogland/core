@@ -47,7 +47,7 @@ export class PostsController {
     summary: "发布文章",
   })
   @ApiBody({ type: CreatePostDto })
-  async send(@Body() data: CreatePostDto) {
+  async send(@Body() data) {
     // here is no need to filter XSS here
     // because this is user controller only
     return await this.postsService.send(data);
@@ -61,7 +61,8 @@ export class PostsController {
     summary: "更新文章",
   })
   @ApiBody({ type: CreatePostDto })
-  async update(@Body() data: CreatePostDto) {
+  async update(@Body() data) {
+    console.log(data);
     return await this.postsService.update(data);
   }
 

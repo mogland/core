@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 @Entity("posts")
 export class Posts {
   @PrimaryGeneratedColumn()
-    id: number;
+    id?: number;
 
   @Column({ length: 500 })
     title: string;
@@ -21,8 +21,8 @@ export class Posts {
     slug: string;
 
   @CreateDateColumn()
-    createdAt: Date;
+    createdAt?: Date;
 
   @UpdateDateColumn()
-    updatedAt: Date;
+    updatedAt?: Date;
 }

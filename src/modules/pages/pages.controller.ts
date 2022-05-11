@@ -47,7 +47,7 @@ export class PagesController {
   @ApiBearerAuth("access-token")
   @ApiBody({ type: CreatePagesDto })
   @UseGuards(AuthGuard("jwt"))
-  async send(@Body() data: CreatePagesDto) {
+  async send(@Body() data) {
     // here is no need to filter XSS here
     // because this is user controller only
     return await this.pagesService.send(data);
@@ -61,7 +61,7 @@ export class PagesController {
   @ApiBearerAuth("access-token")
   @ApiBody({ type: CreatePagesDto })
   @UseGuards(AuthGuard("jwt"))
-  async update(@Body() data: CreatePagesDto) {
+  async update(@Body() data) {
     return await this.pagesService.update(data);
   }
 

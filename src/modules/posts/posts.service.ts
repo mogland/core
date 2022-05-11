@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-11 15:51:31
+ * @LastEditTime: 2022-05-11 16:51:11
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -88,7 +88,7 @@ export class PostsService {
   //   }
   // }
 
-  async send(data: CreatePostDto): Promise<Posts | string> {
+  async send(data: CreatePostDto){
     const result = await this.postsRepository.findOne({
       path: data.path,
     });

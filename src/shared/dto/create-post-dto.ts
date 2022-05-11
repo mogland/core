@@ -1,21 +1,25 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { IsOptional } from "class-validator";
 
 export class CreatePostDto {
   // @ApiProperty()
-  id: number;
+  id?: number;
 
   @ApiProperty()
-  title: string;
+    title: string;
 
   @ApiProperty()
-  path: string;
+    path: string;
 
   @ApiProperty()
-  tags: string;
+    tags: string;
 
   @ApiProperty()
-  slug: string;
+    slug: string;
 
   @ApiProperty()
-  content: string;
+    content: string;
+  
+  createdAt?: Date;
+  updatedAt?: Date;
 }
