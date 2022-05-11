@@ -57,6 +57,7 @@ jobs:
         if [ ! -n "$(git remote -v | grep wibus-wee)" ]; then
         echo "组织仓库不能继续操作"
         else
+        VERCEL_ENV=action_production
         npx vercel --token ${VERCEL_TOKEN} --prod
         fi
       env:
