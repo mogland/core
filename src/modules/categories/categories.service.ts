@@ -35,7 +35,7 @@ export class CategoriesService {
   }
 
   async list(query: listProps) {
-    const select: (keyof Categories)[] = query.select.split(",") as (keyof Categories)[];
+    const select: (keyof Categories)[] = query.select ? query.select.split(",") as (keyof Categories)[] : ["id", "name", "slug"];
     return await this.CategoriesRepository.find({
       skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
       take: query.limit ? query.limit : undefined,
