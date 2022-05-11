@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
 @Entity("pages")
 export class Pages {
@@ -14,9 +14,10 @@ export class Pages {
   @Column("text")
     content: string;
 
-  @Column("datetime")
+  @CreateDateColumn()
     createdAt: Date;
 
-  @Column("datetime")
+  @UpdateDateColumn()
     updatedAt: Date;
+
 }

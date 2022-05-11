@@ -71,4 +71,13 @@ export class CommentsController {
   async delete(@Param() param) {
     return await this.commentsService.deleteComments(param.cid);
   }
+
+  @Post("test")
+  @ApiOperation({
+    summary: "测试提交检测"
+  })
+  @ApiBody({type: CreateCommentsDto})
+  async test(@Body() data: any) {
+    return await this.commentsService.test(data);
+  }
 }

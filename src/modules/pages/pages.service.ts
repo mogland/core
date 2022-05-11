@@ -27,7 +27,7 @@ export class PagesService {
   }
 
   async list(query: listProps) {
-    const select: (keyof Pages)[] = query.select.split(",") ? query.select.split(",") as (keyof Pages)[] : ["id", "title", "path", "content", "createdAt", "updatedAt"];
+    const select: (keyof Pages)[] = query.select ? query.select.split(",") as (keyof Pages)[] : ["id", "title", "path", "content", "createdAt", "updatedAt"];
     return await this.pagesRepository.findAndCount({
       skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
       take: query.limit ? query.limit : undefined,

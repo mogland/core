@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
 @Entity("posts")
 export class Posts {
@@ -20,9 +20,9 @@ export class Posts {
   @Column("text")
     slug: string;
 
-  @Column("datetime")
+  @CreateDateColumn()
     createdAt: Date;
 
-  @Column("datetime")
+  @UpdateDateColumn()
     updatedAt: Date;
 }
