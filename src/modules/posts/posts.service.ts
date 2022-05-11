@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-11 15:04:23
+ * @LastEditTime: 2022-05-11 15:51:31
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -29,8 +29,8 @@ export class PostsService {
   }
 
   async list(query: listProps) {
-    const select: (keyof Posts)[] = query.select ? query.select.split(",")  as (keyof Posts)[] : ["id", "title", "path", "slug", "createdAt", "updatedAt"];
-    return await this.postsRepository.findAndCount({
+    const select: (keyof Posts)[] = query.select ? query.select.split(",")  as (keyof Posts)[] : ["id", "title", "path", "slug", "createdAt", "updatedAt", "content"];
+    return await this.postsRepository.find({
       skip: query.limit ? query.limit > 1 ? (query.page - 1) * query.limit : query.limit : undefined,
       take: query.limit ? query.limit : undefined,
       select: select,
