@@ -1,4 +1,4 @@
-# GoldenSpace Server v1.x
+# NextSpace Server v1.x
 
 <pre align="center">
 🧪 Working in Progress
@@ -22,7 +22,7 @@
 <!-- [![Node.js Build CI](https://github.com/wibus-wee/GS-server/actions/workflows/build.yml/badge.svg)](https://github.com/wibus-wee/GS-server/actions/workflows/build.yml)  -->
 <!-- [![GitHub stars](https://img.shields.io/github/stars/wibus-wee/GS-server.svg?style=flat)](https://github.com/wibus-wee/GS-server/stargazers) -->
 
-the RESTful API service for G Space, powered by @nestjs.
+the RESTful API service for N Space, powered by @nestjs.
 ## Activity
 
 ![version](https://img.shields.io/github/package-json/v/wibus-wee/GS-server) 

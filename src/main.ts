@@ -62,7 +62,7 @@ async function bootstrap() {
     Logger.log(`Server is running as ${chooseEnv("NODE_ENV") ? chooseEnv("NODE_ENV") : 'unknown'}`, "gSpaceHelper");
     Logger.log(`API-Service is running on http://localhost:${chooseEnv("PORT") ? chooseEnv("PORT") : 3000}`, "gSpaceHelper");
     Logger.debug(`Swagger-Service is running on http://localhost:${chooseEnv("PORT") ? chooseEnv("PORT") : 3000}/api-docs`, "gSpaceHelper");
-    Logger.log(`GoldenSpace is ready and working...`, "gSpaceHelper");
+    Logger.log(`NextSpace Server is ready and working...`, "gSpaceHelper");
   });
 
   const usersService = app.get(UsersService); // 获取用户服务
