@@ -45,7 +45,6 @@ specifiers:
   passport-jwt: 4.0.0
   passport-local: 1.0.0
   prettier: 2.6.2
-  redis: 4.0.6
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
   rxjs: 7.5.5
@@ -83,13 +82,12 @@ dependencies:
   passport: 0.5.2
   passport-jwt: 4.0.0
   passport-local: 1.0.0
-  redis: 4.0.6
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
   rxjs: 7.5.5
   source-map-support: 0.5.21
   swagger-ui-express: 4.3.0_express@4.17.3
-  typeorm: 0.2.45_mysql2@2.3.3+redis@4.0.6
+  typeorm: 0.2.45_mysql2@2.3.3
   xml2js: 0.4.23
   xss: 1.0.11
   zx: 4.3.0
@@ -403,6 +401,8 @@ packages:
     resolution: {integrity: sha512-7yJPvPV+ESz2IUTPbOL+YkIGyCqOyNIzdguKQuJGnH7bg1WTIifuM21YqokFt/THWh1AkCRn9IgoykTRCBVpzA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
+    dependencies:
+      '@babel/types': 7.17.0
     dev: true
 
   /@babel/plugin-syntax-async-generators/7.8.4_@babel+core@7.17.5:
@@ -1186,58 +1186,8 @@ packages:
       '@nestjs/core': 8.4.4_wy6cne2gpevj2v6pvodnemcq2i
       reflect-metadata: 0.1.13
       rxjs: 7.5.5
-      typeorm: 0.2.45_mysql2@2.3.3+redis@4.0.6
+      typeorm: 0.2.45_mysql2@2.3.3
       uuid: 8.3.2
-    dev: false
-
-  /@node-redis/bloom/1.0.1_@node-redis+client@1.0.5:
-    resolution: {integrity: sha512-mXEBvEIgF4tUzdIN89LiYsbi6//EdpFA7L8M+DHCvePXg+bfHWi+ct5VI6nHUFQE5+ohm/9wmgihCH3HSkeKsw==}
-    peerDependencies:
-      '@node-redis/client': ^1.0.0
-    dependencies:
-      '@node-redis/client': 1.0.5
-    dev: false
-
-  /@node-redis/client/1.0.5:
-    resolution: {integrity: sha512-ESZ3bd1f+od62h4MaBLKum+klVJfA4wAeLHcVQBkoXa1l0viFesOWnakLQqKg+UyrlJhZmXJWtu0Y9v7iTMrig==}
-    engines: {node: '>=12'}
-    dependencies:
-      cluster-key-slot: 1.1.0
-      generic-pool: 3.8.2
-      redis-parser: 3.0.0
-      yallist: 4.0.0
-    dev: false
-
-  /@node-redis/graph/1.0.0_@node-redis+client@1.0.5:
-    resolution: {integrity: sha512-mRSo8jEGC0cf+Rm7q8mWMKKKqkn6EAnA9IA2S3JvUv/gaWW/73vil7GLNwion2ihTptAm05I9LkepzfIXUKX5g==}
-    peerDependencies:
-      '@node-redis/client': ^1.0.0
-    dependencies:
-      '@node-redis/client': 1.0.5
-    dev: false
-
-  /@node-redis/json/1.0.2_@node-redis+client@1.0.5:
-    resolution: {integrity: sha512-qVRgn8WfG46QQ08CghSbY4VhHFgaTY71WjpwRBGEuqGPfWwfRcIf3OqSpR7Q/45X+v3xd8mvYjywqh0wqJ8T+g==}
-    peerDependencies:
-      '@node-redis/client': ^1.0.0
-    dependencies:
-      '@node-redis/client': 1.0.5
-    dev: false
-
-  /@node-redis/search/1.0.5_@node-redis+client@1.0.5:
-    resolution: {integrity: sha512-MCOL8iCKq4v+3HgEQv8zGlSkZyXSXtERgrAJ4TSryIG/eLFy84b57KmNNa/V7M1Q2Wd2hgn2nPCGNcQtk1R1OQ==}
-    peerDependencies:
-      '@node-redis/client': ^1.0.0
-    dependencies:
-      '@node-redis/client': 1.0.5
-    dev: false
-
-  /@node-redis/time-series/1.0.2_@node-redis+client@1.0.5:
-    resolution: {integrity: sha512-HGQ8YooJ8Mx7l28tD7XjtB3ImLEjlUxG1wC1PAjxu6hPJqjPshUZxAICzDqDjtIbhDTf48WXXUcx8TQJB1XTKA==}
-    peerDependencies:
-      '@node-redis/client': ^1.0.0
-    dependencies:
-      '@node-redis/client': 1.0.5
     dev: false
 
   /@nodelib/fs.scandir/2.1.5:
@@ -2412,11 +2362,6 @@ packages:
     engines: {node: '>=0.8'}
     dev: true
 
-  /cluster-key-slot/1.1.0:
-    resolution: {integrity: sha512-2Nii8p3RwAPiFwsnZvukotvow2rIHM+yQ6ZcBXGHdniadkYGZYiGmkHJIbZPIV9nfv7m/U1IPMVVcAhoWFeklw==}
-    engines: {node: '>=0.10.0'}
-    dev: false
-
   /co/4.6.0:
     resolution: {integrity: sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=}
     engines: {iojs: '>= 1.0.0', node: '>= 0.12.0'}
@@ -3447,11 +3392,6 @@ packages:
     resolution: {integrity: sha512-eeB5GfMNeevm/GRYq20ShmsaGcmI81kIX2K9XQx5miC8KdHaC6Jm0qQ8ZNeGOi7wYB8OsdxKs+Y2oVuTFuVwKQ==}
     dependencies:
       is-property: 1.0.2
-    dev: false
-
-  /generic-pool/3.8.2:
-    resolution: {integrity: sha512-nGToKy6p3PAbYQ7p1UlWl6vSPwfwU6TMSWK7TTu+WUY4ZjyZQGniGGt2oNVvyNSpyZYSB43zMXVLcBm08MTMkg==}
-    engines: {node: '>= 4'}
     dev: false
 
   /gensync/1.0.0-beta.2:
@@ -5372,29 +5312,6 @@ packages:
       resolve: 1.22.0
     dev: true
 
-  /redis-errors/1.2.0:
-    resolution: {integrity: sha1-62LSrbFeTq9GEMBK/hUpOEJQq60=}
-    engines: {node: '>=4'}
-    dev: false
-
-  /redis-parser/3.0.0:
-    resolution: {integrity: sha1-tm2CjNyv5rS4pCin3vTGvKwxyLQ=}
-    engines: {node: '>=4'}
-    dependencies:
-      redis-errors: 1.2.0
-    dev: false
-
-  /redis/4.0.6:
-    resolution: {integrity: sha512-IaPAxgF5dV0jx+A9l6yd6R9/PAChZIoAskDVRzUODeLDNhsMlq7OLLTmu0AwAr0xjrJ1bibW5xdpRwqIQ8Q0Xg==}
-    dependencies:
-      '@node-redis/bloom': 1.0.1_@node-redis+client@1.0.5
-      '@node-redis/client': 1.0.5
-      '@node-redis/graph': 1.0.0_@node-redis+client@1.0.5
-      '@node-redis/json': 1.0.2_@node-redis+client@1.0.5
-      '@node-redis/search': 1.0.5_@node-redis+client@1.0.5
-      '@node-redis/time-series': 1.0.2_@node-redis+client@1.0.5
-    dev: false
-
   /reflect-metadata/0.1.13:
     resolution: {integrity: sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==}
     dev: false
@@ -6237,7 +6154,7 @@ packages:
     resolution: {integrity: sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=}
     dev: false
 
-  /typeorm/0.2.45_mysql2@2.3.3+redis@4.0.6:
+  /typeorm/0.2.45_mysql2@2.3.3:
     resolution: {integrity: sha512-c0rCO8VMJ3ER7JQ73xfk0zDnVv0WDjpsP6Q1m6CVKul7DB9iVdWLRjPzc8v2eaeBuomsbZ2+gTaYr8k1gm3bYA==}
     hasBin: true
     peerDependencies:
@@ -6299,7 +6216,6 @@ packages:
       js-yaml: 4.1.0
       mkdirp: 1.0.4
       mysql2: 2.3.3
-      redis: 4.0.6
       reflect-metadata: 0.1.13
       sha.js: 2.4.11
       tslib: 2.3.1
