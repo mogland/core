@@ -1,9 +1,9 @@
 /*
- * @FilePath: /GS-server/src/modules/posts/posts.service.ts
+ * @FilePath: /ns-server/src/modules/posts/posts.service.ts
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-12 07:59:10
+ * @LastEditTime: 2022-05-15 20:09:41
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -51,6 +51,14 @@ export class PostsService {
 
   async getNum() {
     return await this.postsRepository.count();
+  }
+
+  async random(index: number) {
+    // index 随机数量
+    return await this.postsRepository.find({
+      skip: Math.floor(Math.random() * (await this.getNum())),
+      take: index ? index : 1,
+    });
   }
 
   // async list(query: any) {

@@ -31,17 +31,17 @@ the RESTful API service for N Space, powered by @nestjs.
 
 ![Alt](https://repobeats.axiom.co/api/embed/c901877ec290fab2cf7184b8ce2510da577401a1.svg "Repobeats analytics image")
 
-## Sponsors
+## Project Sponsors
 
-**Salted Fish** for hosting the static resource
+感谢 **Salted Fish**  的静态资源托管
 
-**小沐** for spirits support
+感谢 **小沐** 的对项目大力支持
 
 ## Reference
 
 This project referred to: 
 
-- [mx-space/server-next](https://github.com/mx-space/server-next)
+- [mx-space/mx-server](https://github.com/mx-space/mx-server)
 
 ## License
 

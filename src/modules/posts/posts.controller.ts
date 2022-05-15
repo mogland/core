@@ -31,6 +31,15 @@ export class PostsController {
     return await this.postsService.list(query);
   }
 
+  @Get("random")
+  @ApiOperation({
+    summary: "随机文章",
+  })
+  @ApiQuery({ name: "index", required: false, description: "随机数量" })
+  async random(@Query() query) {
+    return await this.postsService.random(query.index);
+  }
+
   @Get(":path")
   @ApiOperation({
     summary: "获取某篇文章",
