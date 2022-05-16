@@ -41,7 +41,7 @@ specifiers:
   mysql2: 2.3.3
   nodemailer: 6.7.5
   os: ^0.1.2
-  passport: 0.5.2
+  passport: 0.5.3
   passport-jwt: 4.0.0
   passport-local: 1.0.0
   prettier: 2.6.2
@@ -65,7 +65,7 @@ dependencies:
   '@nestjs/config': 1.2.1_oss7laidvsuq5nzygg3pjgpud4
   '@nestjs/core': 8.4.5_suymtzhiym5sovixgkii2bos7m
   '@nestjs/jwt': 8.0.0_@nestjs+common@8.4.5
-  '@nestjs/passport': 8.2.1_szo4yn5ruleb3tys26tpj3lyjy
+  '@nestjs/passport': 8.2.1_wcpfk3sfbfzafjomcconjln45y
   '@nestjs/platform-express': 8.4.5_ydewkhgqdrhc2o62hf5fyq4ami
   '@nestjs/schedule': 1.0.2_vwzjbrckvynfemwboijsh2d5xa
   '@nestjs/swagger': 5.2.1_hjfinnj3hgejaof3cbjzltrobe
@@ -79,7 +79,7 @@ dependencies:
   express: 4.17.3
   mysql2: 2.3.3
   nodemailer: 6.7.5
-  passport: 0.5.2
+  passport: 0.5.3
   passport-jwt: 4.0.0
   passport-local: 1.0.0
   reflect-metadata: 0.1.13
@@ -1058,14 +1058,14 @@ packages:
       reflect-metadata: 0.1.13
     dev: false
 
-  /@nestjs/passport/8.2.1_szo4yn5ruleb3tys26tpj3lyjy:
+  /@nestjs/passport/8.2.1_wcpfk3sfbfzafjomcconjln45y:
     resolution: {integrity: sha512-HXEKMLX1x865+lsJB4srwKHBciDNAhWY1Ha+xbxYRbk7J5leGDoHJAmeqe+Wb3NDn5nkboggLV87t0q2mbYc8w==}
     peerDependencies:
       '@nestjs/common': ^6.0.0 || ^7.0.0 || ^8.0.0
       passport: ^0.4.0 || ^0.5.0
     dependencies:
       '@nestjs/common': 8.4.5_um5yyjpwkyxikchdommcqtg4bu
-      passport: 0.5.2
+      passport: 0.5.3
     dev: false
 
   /@nestjs/platform-express/8.4.5_ydewkhgqdrhc2o62hf5fyq4ami:
@@ -5116,8 +5116,8 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: false
 
-  /passport/0.5.2:
-    resolution: {integrity: sha512-w9n/Ot5I7orGD4y+7V3EFJCQEznE5RxHamUxcqLT2QoJY0f2JdN8GyHonYFvN0Vz+L6lUJfVhrk2aZz2LbuREw==}
+  /passport/0.5.3:
+    resolution: {integrity: sha512-gGc+70h4gGdBWNsR3FuV3byLDY6KBTJAIExGFXTpQaYfbbcHCBlRRKx7RBQSpqEqc5Hh2qVzRs7ssvSfOpkUEA==}
     engines: {node: '>= 0.4.0'}
     dependencies:
       passport-strategy: 1.0.0
