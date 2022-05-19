@@ -5,7 +5,7 @@ specifiers:
   '@nestjs/common': 8.4.5
   '@nestjs/config': 1.2.1
   '@nestjs/core': 8.4.5
-  '@nestjs/jwt': 8.0.0
+  '@nestjs/jwt': 8.0.1
   '@nestjs/passport': 8.2.1
   '@nestjs/platform-express': 8.4.5
   '@nestjs/schedule': ^1.0.2
@@ -64,7 +64,7 @@ dependencies:
   '@nestjs/common': 8.4.5_um5yyjpwkyxikchdommcqtg4bu
   '@nestjs/config': 1.2.1_oss7laidvsuq5nzygg3pjgpud4
   '@nestjs/core': 8.4.5_suymtzhiym5sovixgkii2bos7m
-  '@nestjs/jwt': 8.0.0_@nestjs+common@8.4.5
+  '@nestjs/jwt': 8.0.1_@nestjs+common@8.4.5
   '@nestjs/passport': 8.2.1_wcpfk3sfbfzafjomcconjln45y
   '@nestjs/platform-express': 8.4.5_ydewkhgqdrhc2o62hf5fyq4ami
   '@nestjs/schedule': 1.0.2_vwzjbrckvynfemwboijsh2d5xa
@@ -1005,13 +1005,13 @@ packages:
       - encoding
     dev: false
 
-  /@nestjs/jwt/8.0.0_@nestjs+common@8.4.5:
-    resolution: {integrity: sha512-fz2LQgYY2zmuD8S+8UE215anwKyXlnB/1FwJQLVR47clNfMeFMK8WCxmn6xdPhF5JKuV1crO6FVabb1qWzDxqQ==}
+  /@nestjs/jwt/8.0.1_@nestjs+common@8.4.5:
+    resolution: {integrity: sha512-9WGfgngX8aclC/MC+CH35Ooo4iPVKc+7xLXaBV6o4ty8g2uZdPomry7cSdK/e6Lv623O/84WapThnPoAtW/jvA==}
     peerDependencies:
       '@nestjs/common': ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
       '@nestjs/common': 8.4.5_um5yyjpwkyxikchdommcqtg4bu
-      '@types/jsonwebtoken': 8.5.4
+      '@types/jsonwebtoken': 8.5.8
       jsonwebtoken: 8.5.1
     dev: false
 
@@ -1358,17 +1358,10 @@ packages:
     resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=}
     dev: true
 
-  /@types/jsonwebtoken/8.5.4:
-    resolution: {integrity: sha512-4L8msWK31oXwdtC81RmRBAULd0ShnAHjBuKT9MRQpjP0piNrZdXyTRcKY9/UIfhGeKIT4PvF5amOOUbbT/9Wpg==}
-    dependencies:
-      '@types/node': 16.11.36
-    dev: false
-
   /@types/jsonwebtoken/8.5.8:
     resolution: {integrity: sha512-zm6xBQpFDIDM6o9r6HSgDeIcLy82TKWctCXEPbJJcXb5AKmi5BNNdLXneixK4lplX3PqIVcwLBCGE/kAGnlD4A==}
     dependencies:
       '@types/node': 16.11.36
-    dev: true
 
   /@types/mime/1.3.2:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
@@ -2118,7 +2111,7 @@ packages:
     dev: true
 
   /buffer-equal-constant-time/1.0.1:
-    resolution: {integrity: sha1-+OcRMvf/5uAaXJaXpMbz5I1cyBk=}
+    resolution: {integrity: sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==}
     dev: false
 
   /buffer-from/1.1.2:
