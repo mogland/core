@@ -44,6 +44,14 @@ import { UsersService } from "./modules/users/users.service"; // 引入用户模
 import { ConfigsController } from './modules/configs/configs.controller';
 import { ConfigsService } from './modules/configs/configs.service';
 import { ConfigsModule } from './modules/configs/configs.module';
+import { Users } from "shared/entities/users.entity";
+import { Categories } from "shared/entities/categories.entity";
+import { Configs } from "shared/entities/configs.entity";
+import { Friends } from "shared/entities/friends.entity";
+import { Pages } from "shared/entities/pages.entity";
+import { Posts } from "shared/entities/posts.entity";
+import { Projects } from "shared/entities/projects.entity";
+import { Comments } from "shared/entities/comments.entity";
 
 
 @Module({
@@ -66,7 +74,17 @@ import { ConfigsModule } from './modules/configs/configs.module';
           username: chooseEnv("DB_USERNAME") ? chooseEnv("DB_USERNAME") : 'root',
           password: chooseEnv("DB_PASSWORD") ? chooseEnv("DB_PASSWORD") : 'root',
           database: chooseEnv("DB_DATABASE") ? chooseEnv("DB_DATABASE") : 'server',
-          entities: [__dirname + "/**/*.entity{.ts,.js}"],
+          // entities: [__dirname + "/**/*.entity{.ts,.js}"],
+          entities: [
+            Users,
+            Categories,
+            Configs,
+            Friends,
+            Pages,
+            Posts,
+            Projects,
+            Comments
+          ],
           synchronize: true,  // synchronize database
         };
       },
