@@ -12,7 +12,7 @@ specifiers:
   '@nestjs/schematics': 8.0.11
   '@nestjs/swagger': 5.2.1
   '@nestjs/testing': 8.4.5
-  '@nestjs/typeorm': 8.0.3
+  '@nestjs/typeorm': 8.0.4
   '@types/express': 4.17.13
   '@types/jest': 27.5.1
   '@types/node': 16.11.36
@@ -69,7 +69,7 @@ dependencies:
   '@nestjs/platform-express': 8.4.5_ydewkhgqdrhc2o62hf5fyq4ami
   '@nestjs/schedule': 1.0.2_vwzjbrckvynfemwboijsh2d5xa
   '@nestjs/swagger': 5.2.1_hjfinnj3hgejaof3cbjzltrobe
-  '@nestjs/typeorm': 8.0.3_romqothtzaoqqrwlx2i25asuca
+  '@nestjs/typeorm': 8.0.4_romqothtzaoqqrwlx2i25asuca
   axios: 0.27.2
   axios-retry: 3.2.4
   class-transformer: 0.4.0
@@ -1151,8 +1151,8 @@ packages:
       tslib: 2.4.0
     dev: true
 
-  /@nestjs/typeorm/8.0.3_romqothtzaoqqrwlx2i25asuca:
-    resolution: {integrity: sha512-tf9rTXP6LeFInkwd+tktQhtLRsKp4RRYImprqT8gcHcJDx+xMP1IygnXELOKwF5vo2/mnhrGtBlRQ/iiS6170g==}
+  /@nestjs/typeorm/8.0.4_romqothtzaoqqrwlx2i25asuca:
+    resolution: {integrity: sha512-l1Fv+XicVFs7j4EKTq32lJ6QomYLlXZwvug9zcts6IBDVd8rYYBPy28pyBMDzLtnm0zD4tcW298rpylL7eTZtQ==}
     peerDependencies:
       '@nestjs/common': ^8.0.0
       '@nestjs/core': ^8.0.0
