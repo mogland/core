@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-15 20:09:41
+ * @LastEditTime: 2022-05-21 19:50:59
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -28,7 +28,7 @@ export class PostsService {
     });
   }
 
-  async list(query: listProps) {
+  async list(query?: listProps) {
     const select: (keyof Posts)[] = query.select ? query.select.split(",")  as (keyof Posts)[] : ["id", "title", "path", "slug", "createdAt", "updatedAt", "content"];
     query.limit = query.limit ? query.limit : 10;
     query.page = query.page ? query.page : 1;
@@ -47,6 +47,10 @@ export class PostsService {
         } : {}
       })
     }
+  }
+
+  async all(){
+    return await this.postsRepository.find();
   }
 
   async getNum() {

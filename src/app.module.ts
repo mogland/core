@@ -44,14 +44,16 @@ import { UsersService } from "./modules/users/users.service"; // 引入用户模
 import { ConfigsController } from './modules/configs/configs.controller';
 import { ConfigsService } from './modules/configs/configs.service';
 import { ConfigsModule } from './modules/configs/configs.module';
-import { Users } from "shared/entities/users.entity";
+import { EngineModule } from './modules/engine/engine.module';
+import { EngineController } from "modules/engine/engine.controller";
 import { Categories } from "shared/entities/categories.entity";
+import { Comments } from "shared/entities/comments.entity";
 import { Configs } from "shared/entities/configs.entity";
 import { Friends } from "shared/entities/friends.entity";
 import { Pages } from "shared/entities/pages.entity";
 import { Posts } from "shared/entities/posts.entity";
 import { Projects } from "shared/entities/projects.entity";
-import { Comments } from "shared/entities/comments.entity";
+import { Users } from "shared/entities/users.entity";
 
 
 @Module({
@@ -100,6 +102,7 @@ import { Comments } from "shared/entities/comments.entity";
     FriendsModule,
     ProjectsModule,
     ConfigsModule,
+    EngineModule,
   ],
   controllers: [
     AppController,
@@ -111,7 +114,8 @@ import { Comments } from "shared/entities/comments.entity";
     MailController,
     FriendsController,
     ProjectsController,
-    ConfigsController
+    ConfigsController,
+    EngineController
   ],
   providers: [
     {

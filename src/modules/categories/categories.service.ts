@@ -15,10 +15,14 @@ export class CategoriesService {
     private CategoriesRepository: Repository<Categories>
   ) {}
 
-  async findPost(slug: string): Promise<Posts[]> {
+  async findPostInHazy(slug: string): Promise<Posts[]> {
     return await this.postsRepository.find({
       slug: slug,
     });
+  }
+
+  async all(){
+    return await this.CategoriesRepository.find();
   }
 
   async create(data) {
@@ -42,11 +46,19 @@ export class CategoriesService {
     return await this.CategoriesRepository.count();
   }
 
-  async findPosts(slug: string, path: string) {
+  async findPost(slug: string, path: string) {
     return await this.postsRepository.findOne({
       where: {
         slug: slug,
         path: path,
+      },
+    });
+  }
+
+  async findPosts(slug: string) {
+    return await this.postsRepository.find({
+      where: {
+        slug: slug,
       },
     });
   }

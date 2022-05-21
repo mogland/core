@@ -31,6 +31,7 @@ specifiers:
   crypto: 1.0.1
   cz-conventional-changelog: 3.3.0
   ejs: ^3.1.7
+  ejs-locals: ^1.0.2
   eslint: 8.16.0
   eslint-config-prettier: 8.5.0
   eslint-plugin-prettier: 4.0.0
@@ -76,6 +77,7 @@ dependencies:
   class-validator: 0.13.2
   crypto: 1.0.1
   ejs: 3.1.7
+  ejs-locals: 1.0.2
   express: 4.17.3
   mysql2: 2.3.3
   nodemailer: 6.7.5
@@ -2758,6 +2760,18 @@ packages:
 
   /ee-first/1.1.1:
     resolution: {integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=}
+    dev: false
+
+  /ejs-locals/1.0.2:
+    resolution: {integrity: sha1-ubMg/2kzFUEF+g7taD6mTWeAiM4=}
+    engines: {node: '>=0.6.0'}
+    dependencies:
+      ejs: 0.8.8
+    dev: false
+
+  /ejs/0.8.8:
+    resolution: {integrity: sha1-/9xW3MNdApJt1QrRNDm7xUBh1Zg=}
+    deprecated: Critical security bugs fixed in 2.5.5
     dev: false
 
   /ejs/3.1.7:

@@ -1,9 +1,9 @@
 /*
- * @FilePath: /GS-server/src/modules/projects/projects.controller.ts
+ * @FilePath: /ns-server/src/modules/projects/projects.controller.ts
  * @author: Wibus
  * @Date: 2022-02-27 11:35:10
  * @LastEditors: Wibus
- * @LastEditTime: 2022-03-20 12:31:45
+ * @LastEditTime: 2022-05-21 19:23:03
  * Coding With IU
  */
 
@@ -22,7 +22,7 @@ export class ProjectsController {
 
   @Get()
   async listProjects() {
-    return await this.projectsService.listProjects();
+    return await this.projectsService.list();
   }
   @Get("/:id")
   async getProject(id: number) {

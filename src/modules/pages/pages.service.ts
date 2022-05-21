@@ -1,9 +1,9 @@
 /*
- * @FilePath: /GS-server/src/modules/pages/pages.service.ts
+ * @FilePath: /ns-server/src/modules/pages/pages.service.ts
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-11 15:03:58
+ * @LastEditTime: 2022-05-21 20:00:18
  * Coding With IU
  */
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -26,7 +26,11 @@ export class PagesService {
     });
   }
 
-  async list(query: listProps) {
+  async all() {
+    return await this.pagesRepository.find();
+  }
+
+  async list(query?: listProps) {
     const select: (keyof Pages)[] = query.select ? query.select.split(",") as (keyof Pages)[] : ["id", "title", "path", "content", "createdAt", "updatedAt"];
     query.limit = query.limit ? query.limit : 10;
     query.page = query.page ? query.page : 1;

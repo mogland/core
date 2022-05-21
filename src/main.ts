@@ -8,9 +8,10 @@ import { chooseEnv } from "utils/chooseEnv.utils";
 import { argv } from "zx";
 import { ConfigsService } from "modules/configs/configs.service";
 import { isDev } from "utils/tools.util";
+import { NestExpressApplication } from "@nestjs/platform-express";
 async function bootstrap() {
   console.log(argv);
-  const app = await NestFactory.create(AppModule); // create app
+  const app = await NestFactory.create<NestExpressApplication>(AppModule); // create app
 
   const Origin = chooseEnv("CORS_SERVER")?.split?.(','); // 允许跨域的域名
   const hosts = Origin && Origin.map((host) => new RegExp(host, 'i'))
@@ -43,6 +44,14 @@ async function bootstrap() {
       stopAtFirstError: true,
     }),
   ) // 注册全局验证管道
+
+  // 设置模板引擎
+  app.setBaseViewsDir(__dirname + "/views");
+  app.setViewEngine('ejs');
+  // ejs-locals
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  app.engine('ejs', require('ejs-locals'));
+
 
   const { DocumentBuilder, SwaggerModule } = await import('@nestjs/swagger')
   const options = new DocumentBuilder()

@@ -45,7 +45,11 @@ export class FriendsService {
     return await this.friendsRepository.update(id, data);
   }
 
-  async list(query: listProps) {
+  async all(){
+    return await this.friendsRepository.find()
+  }
+
+  async list(query?: listProps) {
     const select: (keyof Friends)[] = query.select ? query.select.split(",") as (keyof Friends)[] : ["id", "name", "description", "website", "image", "check"];
     query.limit = query.limit ? query.limit : 10;
     query.page = query.page ? query.page : 1;

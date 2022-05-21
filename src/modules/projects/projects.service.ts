@@ -11,7 +11,10 @@ export class ProjectsService {
     private projectsRepository: Repository<Projects>,
   ) {}
 
-  async listProjects(){
+  async list(){
+    return await this.projectsRepository.find();
+  }
+  async all(){
     return await this.projectsRepository.find();
   }
   async getProject(id: number){

@@ -24,7 +24,17 @@ export class CategoriesController {
   })
   @ApiParam({ name: "slug", required: true, description: "分类slug", type: String })
   async findPost(@Param() param) {
-    return await this.categoriesService.findPost(param.slug);
+    return await this.categoriesService.findPosts(param.slug);
+    // return param.slug
+  }
+
+  @Get(":path")
+  @ApiOperation({
+    summary: "模糊查找文章(根据path)",
+  })
+  @ApiParam({ name: "path", required: true, description: "文章path", type: String })
+  async findPostInHazy(@Param() param) {
+    return await this.categoriesService.findPostInHazy(param.path);
     // return param.slug
   }
 
@@ -62,7 +72,7 @@ export class CategoriesController {
     return await this.categoriesService.update(data);
   }
 
-  @Get(":slug")
+  @Get(":slug/information")
   @ApiOperation({
     summary: "查询分类信息",
   })
@@ -73,12 +83,12 @@ export class CategoriesController {
 
   @Get(":slug/:path")
   @ApiOperation({
-    summary: "查询分类下的文章",
+    summary: "查询确定分类下的文章",
   })
   @ApiParam({ name: "slug", required: true, description: "分类slug", type: String })
   @ApiParam({ name: "path", required: true, description: "文章slug", type: String })
   async findPosts(@Param() param) {
-    return await this.categoriesService.findPosts(param.slug, param.path);
+    return await this.categoriesService.findPost(param.slug, param.path);
   }
 
 

@@ -1,0 +1,25 @@
+<div>
+
+  <h1><%- page.type %> page</h1>
+
+    hi, here's rendered by ejs.
+
+    <h2>theme: <%- theme %> </h2>
+
+  <h2>path: <%- path %></h2>
+
+  <h2>query: </h2>
+  <ul>
+      <% for (var key in argv.query) { %>
+          <li><%- key %>: <%- argv.query[key] %></li>
+      <% } %>
+  </ul>
+
+  <h2>Data:</h2>
+    <ul>
+        <% for (var key in page.data) { %>
+            <li><%- key %>: <%- page.data[key] %></li>
+        <% } %>
+    </ul>
+
+</div>

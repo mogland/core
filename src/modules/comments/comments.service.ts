@@ -23,8 +23,10 @@ export class CommentsService {
       status: 1,
     })
   }
-
-  async list(query: listProps) {
+  async all() {
+    return await this.CommentsRepository.find();
+  }
+  async list(query?: listProps) {
     const select: (keyof Comments)[] = query.select ? query.select.split(",") as (keyof Comments)[] : ["coid", "text", "created", "author", "authorID", "owner", "ownerID", "email", "url", "status", "parent"];
     query.limit = query.limit ? query.limit : 10;
     query.page = query.page ? query.page : 1;

@@ -95,6 +95,9 @@ export class ConfigsService {
     }
     return null
   }
+  async all() {
+    return await this.configsRepository.find()
+  }
   async add(data: Configs) {
     return await this.configsRepository.save(data)
   }
