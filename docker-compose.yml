@@ -9,10 +9,10 @@ services:
       - TZ=Asia/Shanghai
       - NODE_ENV=production
       - DB_DATABASE=${DB_DATABASE}
-      - DB_HOST=${DB_HOST}
+      - DB_HOST=mysql
       - DB_USERNAME=${DB_USERNAME}  
       - DB_PASSWORD=${DB_PASSWORD} 
-      - DB_PORT=3036 
+      - DB_PORT=3306 
       - JWT_KEY=${JWT_KEY}
     restart: 'on-failure'
     volumes:
@@ -44,7 +44,14 @@ services:
     networks:
       - app-network
 
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8081:8080
+
 
 networks:
   app-network:
     driver: bridge
+
