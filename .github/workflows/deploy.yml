@@ -6,6 +6,7 @@ name: Deploy Server
 on:
   push:
     branches: [ main ]
+    tags: [ 'v*' ]
 
 jobs:
   build:
@@ -71,14 +72,37 @@ jobs:
         VERCEL_ENV=action_production
         npx vercel --token ${VERCEL_TOKEN} --prod
         fi
+
+    - name: zip the bundle
+      run: |
+        zip -r bundle.zip out/index.js
+    - name: zip the programs
+      run: |
+        zip -r NS-server.zip out
+
+    - name: "Build Changelog"
+      id: build_changelog
+      uses: mikepenz/release-changelog-builder-action@{latest-release}
       env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          NODE_ENV: production
-          CORS_SERVER: gs-admin.vercel.app,g.iucky.cn
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create Release and Upload Release Asset
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        tag_name: ${{ github.ref }}
+        name: ${{ github.ref }}
+        body: ${{steps.github_release.outputs.changelog}}
+        draft: true
+        prerelease: false
+        files: |
+          - bundle.zip
+          - NS-server.zip
+    # - name: Create Release
+    #   uses: actions/create-release@v3
+    #   with:
+    #     tag_name: ${{ github.ref }}
+    #     release_name: ${{ github.ref }}
+    #     body: ${{steps.github_release.outputs.changelog}}
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
