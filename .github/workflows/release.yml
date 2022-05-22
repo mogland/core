@@ -18,6 +18,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: FranzDiebold/github-env-vars-action@v2
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
@@ -76,18 +78,14 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Create Release and Upload Release Asset
-      uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
+
+    - uses: ncipollo/release-action@v1
       with:
-        tag_name: ${{ github.ref }}
-        name: ${{ github.ref }}
+        artifacts: "bundle.zip,NS-server.zip"
         body: ${{steps.github_release.outputs.changelog}}
+        token: ${{ secrets.GITHUB_TOKEN }}
         draft: true
-        prerelease: false
-        files: |
-          - bundle.zip
-          - NS-server.zip
+        tag: ${{ env.CI_REF_NAME }}
     # - name: Create Release
     #   uses: actions/create-release@v3
     #   with:
