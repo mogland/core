@@ -1,3 +1,7 @@
+## [0.3.6](https://github.com/wibus-wee/nx-server/compare/v0.3.5...v0.3.6) (2022-05-22)
+
+
+
 ## [0.3.6](https://github.com/wibus-wee/nx-server/compare/v0.3.4...v0.3.6) (2022-05-22)
 
 

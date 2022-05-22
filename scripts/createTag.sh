@@ -14,7 +14,7 @@ if [[ "$BRANCH" != "main" ]]; then
   exit 1
 fi
 
-tag=v"$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')"
+
 
 # 现在的GIT tag
 CURRENT_TAG="$(git describe --tags --abbrev=0)"
@@ -23,7 +23,7 @@ echo "current tag: $CURRENT_TAG"
 # 使用 read 命令 获取co
 read -p "commit message: " COMMIT_MES
 read -p "NEW TAGS? (y/n): " NEW_TAG
-
+tag=v"$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')"
 yarn changelog
 git add .
 if [[ -z "$COMMIT_MES" ]]; then
