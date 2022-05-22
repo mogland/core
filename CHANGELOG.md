@@ -1,3 +1,12 @@
+## [0.3.6](https://github.com/wibus-wee/nx-server/compare/v0.3.4...v0.3.6) (2022-05-22)
+
+
+### Performance Improvements
+
+* **ci:** use another version package ([d697daa](https://github.com/wibus-wee/nx-server/commit/d697daa9cc9c3e9fa1624c6f8eaab33b81785c00))
+
+
+
 ## [0.3.5](https://github.com/wibus-wee/nx-server/compare/v0.3.4...v0.3.5) (2022-05-22)
 
 

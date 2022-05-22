@@ -3,7 +3,7 @@
  # @author: Wibus
  # @Date: 2022-05-22 15:02:29
  # @LastEditors: Wibus
- # @LastEditTime: 2022-05-22 15:51:31
+ # @LastEditTime: 2022-05-22 15:53:22
  # Coding With IU
 ### 
 set -e
@@ -27,7 +27,7 @@ read -p "NEW TAGS? (y/n): " NEW_TAG
 yarn changelog
 git add .
 if [[ -z "$COMMIT_MES" ]]; then
-  COMMIT_MES="chore(release): $tag"
+  COMMIT_MES="release: $tag"
 fi
 git commit -m "$COMMIT_MES"
 git push
