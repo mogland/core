@@ -4,7 +4,7 @@
  # @author: Wibus
  # @Date: 2022-05-22 14:52:00
  # @LastEditors: Wibus
- # @LastEditTime: 2022-05-22 14:52:00
+ # @LastEditTime: 2022-05-22 15:19:33
  # Coding With IU
 ### 
 
@@ -26,7 +26,7 @@ if [[ $? -ne 0 ]]; then
   exit 1
 fi
 
-curl https://cdn.jsdelivr.net/gh/nx-space/nx-server@master/docker-compose.yml >docker-compose.yml
+curl https://fastly.jsdelivr.net/gh/wibus-wee/nx-server@master/docker-compose.yml >docker-compose.yml
 
 docker-compose up -d
 

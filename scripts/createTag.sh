@@ -3,7 +3,7 @@
  # @author: Wibus
  # @Date: 2022-05-22 15:02:29
  # @LastEditors: Wibus
- # @LastEditTime: 2022-05-22 15:18:28
+ # @LastEditTime: 2022-05-22 15:21:20
  # Coding With IU
 ### 
 set -e
@@ -15,8 +15,14 @@ if [[ "$BRANCH" != "main" ]]; then
 fi
 
 tag=v"$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')"
+
+# 现在的GIT tag
+CURRENT_TAG="$(git describe --tags --abbrev=0)"
+echo "current tag: $CURRENT_TAG"
+
 # 使用 read 命令 获取co
 read -p "commit message: " COMMIT_MES
+read -p "NEW TAGS? (y/n): " NEW_TAG
 
 yarn changelog
 git add .
@@ -25,5 +31,13 @@ if [[ -z "$COMMIT_MES" ]]; then
 fi
 git commit -m "$COMMIT_MES"
 git push
-git tag -a "$tag" -m "$tag" # 添加tag
+# 如果 NEW_TAG 为 y 则执行
+if [[ "$NEW_TAG" == "y" ]]; then
+  git tag -a "$tag" -m "$tag"
+  git push --tags
+fi
+# 如果 NEW_TAG 为 n 则执行
+if [[ "$NEW_TAG" == "n" ]]; then
+  echo "no new tag"
+fi
 git push --tags
