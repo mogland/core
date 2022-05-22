@@ -28,13 +28,15 @@ the RESTful API service for N Space, powered by @nestjs.
 
 ## Get Started
 
-目前 NS-server 只支援 Node.js 環境，請使用 Node.js 環境執行。
+**_目前 NS-server 依赖于 nodejs 和 MySQL 环境_**
 
 NS-server 有两种启动方式：运行 bundle (recommended) / 编译运行 (for development)。
 
-~~但是 bundle 目前为 Beta 状态，仅在 GitHub Action 中输出，暂时不上传至 Release Assets~~ 若您不是开发者，则我推荐你使用 Bundle 启动此项目
+~~但是 bundle 目前为 Beta 状态，仅在 GitHub Action 中输出，暂时不上传至 Release Assets~~ 
 
-在 Release 页面下载稳定版 NS-server.zip，或在 Action 产物中下载开发版 NS-server.zip 解压缩，进入文件夹运行如以下命令：
+若您不是开发者，则我推荐你使用 Bundle 启动此项目，bundle目前已在 Artifacts 和 Release 中发布。
+
+在 Release 页面下载稳定版 **NS-server.zip**，或在 Action 产物中下载开发版 **NS-server.zip** 解压缩，进入文件夹运行如以下命令：
 
 ```bash
 node index.js --PORT=3001 --DB_DATABASE=nest-server --DB_HOST=127.0.0.1 --DB_PORT=3306 --DB_USERNAME=root --DB_PASSWORD=moonwibus
@@ -54,7 +56,11 @@ node index.js --PORT=3001 --DB_DATABASE=nest-server --DB_HOST=127.0.0.1 --DB_POR
 - MAIL_PORT：邮箱端口号（有可能后期会移入后台进行设置）
 - MAIL_ADD：邮箱地址（有可能后期会移入后台进行设置）
 - MAIL_PASS：邮箱密码（有可能后期会移入后台进行设置）
-- theme：视图引擎模板设置，详情请见**「EJS Templates Engine」**章节
+- theme：视图引擎模板设置，详情请见 **「EJS Templates Engine」** 章节
+
+> bundle.zip 是只有一个 index.js，不包含默认主题与视图文件夹，一般来说我不推荐你使用此压缩包 ❌
+>
+> NS-server.zip 是一个完整的项目，包含默认主题与视图文件夹，一般来说我推荐你使用此压缩包 ✅
 
 ## EJS Templates Engine (Beta)
 
@@ -64,7 +70,7 @@ node index.js --PORT=3001 --DB_DATABASE=nest-server --DB_HOST=127.0.0.1 --DB_POR
 
 模板的选择有两种方式：`process.env` 和 数据库的 `Configs` 表，以 `env` 为最高优先级，若都无配置，则默认使用 `default`
 
-推荐你使用 bundle 运行服务端，详情请见**「Get Started」**章节
+推荐你使用 bundle 运行服务端，详情请见 **「Get Started」** 章节
 
 ### Engine TODO
 
