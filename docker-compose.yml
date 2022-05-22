@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: nx-server
+    image: wibuswee/nx-server:latest
+    command: node index.js --DB_DATABASE={DB_DATABASE} --DB_HOST={DB_HOST} --DB_PORT={DB_PORT} --DB_USERNAME={DB_USERNAME} --DB_PASSWORD={DB_PASSWORD} --CORS_SERVER=${CORS_SERVER} --JWT_KEY=${JWT_KEY}
+    environment:
+      - TZ=Asia/Shanghai
+      - NODE_ENV=production
+      - --PORT=2333
+    restart: 'on-failure'
+    volumes:
+      - ./data/nx-space:/root/.nx-space
+      - ./data/nx-space/node_modules:/root/.node_modules
+    ports:
+      - '2333:2333'
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    networks:
+      - app-network
+
+  mysql:
+    container_name: mysql
+    image: mysql
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - '3344:27017'
+    networks:
+      - app-network
+
+  # redis:
+  #   image: redis
+  #   container_name: redis
+
+  #   ports:
+  #     - '3333:6379'
+  #   networks:
+  #     - app-network
+networks:
+  app-network:
+    driver: bridge

@@ -1,9 +1,9 @@
 /*
- * @FilePath: /GS-server/src/common/filters/all-exception.filter.ts
+ * @FilePath: /ns-server/src/common/filters/all-exception.filter.ts
  * @author: Wibus
  * @Date: 2022-01-14 20:39:52
  * @LastEditors: Wibus
- * @LastEditTime: 2022-01-25 21:35:48
+ * @LastEditTime: 2022-05-22 14:20:03
  * Coding With IU
  */
 
@@ -27,7 +27,7 @@ export class AllExceptionFilter implements ExceptionFilter{
       ? exception.getStatus()
       : HttpStatus.INTERNAL_SERVER_ERROR;
     const message = exception.message;
-    Logger.log('Oops! w(ﾟДﾟ)w 出错了! Path:' + request.originalUrl + ' 错误信息: ' + message, "gSpaceHelper");
+    Logger.error('Oops! w(ﾟДﾟ)w 出错了! Path:' + request.originalUrl + ' 错误信息: ' + message, "gSpaceHelper");
     const errorResponse: ErrorMessage = {
       status: status,
       message: message,

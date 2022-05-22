@@ -1,3 +1,17 @@
+## [0.3.1](https://github.com/wibus-wee/nx-server/compare/v0.3.0...v0.3.1) (2022-05-22)
+
+
+### Bug Fixes
+
+* **engine:** dynamic routing default page ([0adaae0](https://github.com/wibus-wee/nx-server/commit/0adaae016284f2f922f47382887ee674aa8b98a2))
+
+
+### Performance Improvements
+
+* copy views to dist ([053a404](https://github.com/wibus-wee/nx-server/commit/053a40404ebfc6334b1a43bed9e8898e8ea0ab99))
+
+
+
 # [0.3.0](https://github.com/wibus-wee/ns-server/compare/v0.2.2...v0.3.0) (2022-05-22)
 
 
