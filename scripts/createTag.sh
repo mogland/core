@@ -3,7 +3,7 @@
  # @author: Wibus
  # @Date: 2022-05-22 15:02:29
  # @LastEditors: Wibus
- # @LastEditTime: 2022-05-22 15:21:20
+ # @LastEditTime: 2022-05-22 15:51:31
  # Coding With IU
 ### 
 set -e
@@ -40,4 +40,3 @@ fi
 if [[ "$NEW_TAG" == "n" ]]; then
   echo "no new tag"
 fi
-git push --tags
