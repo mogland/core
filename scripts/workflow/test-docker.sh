@@ -4,7 +4,7 @@
  # @author: Wibus
  # @Date: 2022-05-22 14:52:00
  # @LastEditors: Wibus
- # @LastEditTime: 2022-05-22 15:19:33
+ # @LastEditTime: 2022-05-22 15:25:54
  # Coding With IU
 ### 
 
@@ -38,7 +38,7 @@ fi
 RETRY=0
 
 do_request() {
-  curl -f -m 10 localhost:2333/api/v2 -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36'
+  curl -f -m 10 localhost:2333/api/v1 -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36'
 
 }
 
