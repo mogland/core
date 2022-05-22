@@ -73,3 +73,7 @@ jobs:
         VERCEL_ENV=action_production
         npx vercel --token ${VERCEL_TOKEN} --prod
         fi
+      env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}

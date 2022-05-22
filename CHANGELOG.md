@@ -1,3 +1,12 @@
+## [0.3.4](https://github.com/wibus-wee/nx-server/compare/v0.3.3...v0.3.4) (2022-05-22)
+
+
+### Bug Fixes
+
+* **release:** don't deploy in release ci ([a5831b0](https://github.com/wibus-wee/nx-server/commit/a5831b07377300e604ee58fedb9f363f507ebe16))
+
+
+
 ## [0.3.3](https://github.com/wibus-wee/nx-server/compare/v0.3.2...v0.3.3) (2022-05-22)
 
 
