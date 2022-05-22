@@ -1,10 +1,10 @@
 {
   "name": "nest-server",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "the RESTful API service for G Space, powered by @nestjs.",
   "author": "Wibus",
   "private": false,
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "scripts": {
     "prepare": "husky install",
     "prebuild": "rimraf dist",
