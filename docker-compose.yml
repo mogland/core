@@ -24,9 +24,12 @@ services:
 
   mysql:
     container_name: mysql
+    restart: always
     image: mysql
     volumes:
       - ./data/db:/data/db
+    environment:
+      MYSQL_ROOT_PASSWORD: gasdoldedseasder
     ports:
       - '3344:27017'
     networks:

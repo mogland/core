@@ -1,11 +1,11 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Deploy Server
+name: Release
 
 on:
   push:
-    branches: [ main ]
+    tags: [ 'v*' ]
 
 jobs:
   build:
@@ -53,18 +53,16 @@ jobs:
     - name: Test Server
       run: |
         sh ./scripts/workflow/test-server.sh
-
-    - name: Upload Bundle Package
+    - name: Bundle Package
       uses: actions/upload-artifact@v3
       with:
         name: bundle
         path: out/index.js
-    - name: Upload Programs Package
+    - name: Programs Package
       uses: actions/upload-artifact@v3
       with:
         name: NS-server
         path: out
-
     - name: Deploy to Vercel
       run: | 
         if [ ! -n "$(git remote -v | grep wibus-wee)" ]; then
@@ -73,3 +71,37 @@ jobs:
         VERCEL_ENV=action_production
         npx vercel --token ${VERCEL_TOKEN} --prod
         fi
+
+    - name: zip the bundle
+      run: |
+        zip -r bundle.zip out/index.js
+    - name: zip the programs
+      run: |
+        zip -r NS-server.zip out
+
+    - name: "Build Changelog"
+      id: build_changelog
+      uses: mikepenz/release-changelog-builder-action@v3
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create Release and Upload Release Asset
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        tag_name: ${{ github.ref }}
+        name: ${{ github.ref }}
+        body: ${{steps.github_release.outputs.changelog}}
+        draft: true
+        prerelease: false
+        files: |
+          - bundle.zip
+          - NS-server.zip
+    # - name: Create Release
+    #   uses: actions/create-release@v3
+    #   with:
+    #     tag_name: ${{ github.ref }}
+    #     release_name: ${{ github.ref }}
+    #     body: ${{steps.github_release.outputs.changelog}}
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

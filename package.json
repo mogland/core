@@ -1,6 +1,6 @@
 {
   "name": "nest-server",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "the RESTful API service for G Space, powered by @nestjs.",
   "author": "Wibus",
   "private": false,
