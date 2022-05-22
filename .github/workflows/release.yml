@@ -63,15 +63,6 @@ jobs:
       with:
         name: NS-server
         path: out
-    - name: Deploy to Vercel
-      run: | 
-        if [ ! -n "$(git remote -v | grep wibus-wee)" ]; then
-        echo "组织仓库不能继续操作"
-        else
-        VERCEL_ENV=action_production
-        npx vercel --token ${VERCEL_TOKEN} --prod
-        fi
-
     - name: zip the bundle
       run: |
         zip -r bundle.zip out/index.js
