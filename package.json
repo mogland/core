@@ -14,7 +14,7 @@
     "start": "cross-env NODE_ENV=development nest start",
     "start:dev": "cross-env NODE_ENV=development nest start --watch",
     "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
-    "start:ncc": "cd out && node index.js --DB_DATABASE=nest-server --DB_HOST=127.0.0.1 --DB_PORT=3306 --DB_USERNAME=root --DB_PASSWORD=moonwibus",
+    "start:ncc": "cd out && node index.js --PORT=3001 --DB_DATABASE=nest-server --DB_HOST=127.0.0.1 --DB_PORT=3306 --DB_USERNAME=root --DB_PASSWORD=moonwibus",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "commit": "git add . && cz && git push",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",

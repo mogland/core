@@ -36,12 +36,12 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      transform: true,
-      whitelist: true,
-      errorHttpStatusCode: 422,
-      forbidUnknownValues: true,
-      enableDebugMessages: isDev,
-      stopAtFirstError: true,
+      transform: true, // 开启验证
+      whitelist: true, // 开启白名单
+      errorHttpStatusCode: 422, // 错误状态码
+      forbidUnknownValues: true, // 禁止未知值
+      enableDebugMessages: isDev, // 开启调试模式
+      stopAtFirstError: true, // 停止验证
     }),
   ) // 注册全局验证管道
 
@@ -53,24 +53,27 @@ async function bootstrap() {
   app.engine('ejs', require('ejs-locals'));
 
 
-  const { DocumentBuilder, SwaggerModule } = await import('@nestjs/swagger')
-  const options = new DocumentBuilder()
-    .setTitle('API')
-    .setDescription('The blog API description')
-    .setVersion(`${globals.API_VERSION}`)
-    .addSecurity('bearer', {
-      type: 'http',
-      scheme: 'bearer',
-    })
-    .addBearerAuth()
-    .build()
-  const document = SwaggerModule.createDocument(app, options)
-  SwaggerModule.setup('api-docs', app, document)
+  if (isDev) {
+    const { DocumentBuilder, SwaggerModule } = await import('@nestjs/swagger')
+    const options = new DocumentBuilder()
+      .setTitle('API')
+      .setDescription('The blog API description')
+      .setVersion(`${globals.API_VERSION}`)
+      .addSecurity('bearer', {
+        type: 'http',
+        scheme: 'bearer',
+      })
+      .addBearerAuth()
+      .build()
+    const document = SwaggerModule.createDocument(app, options)
+    SwaggerModule.setup('api-docs', app, document)
+  }
+
   await app.listen(chooseEnv("PORT") ? chooseEnv("PORT") : 3000, '127.0.0.1', async() => { // 监听端口
     Logger.log(`Get the ${chooseEnv("PORT") ? chooseEnv("PORT") : 3000} port and starting`, "gSpaceHelper");
     Logger.log(`Server is running as ${chooseEnv("NODE_ENV") ? chooseEnv("NODE_ENV") : 'unknown'}`, "gSpaceHelper");
     Logger.log(`API-Service is running on http://localhost:${chooseEnv("PORT") ? chooseEnv("PORT") : 3000}`, "gSpaceHelper");
-    Logger.debug(`Swagger-Service is running on http://localhost:${chooseEnv("PORT") ? chooseEnv("PORT") : 3000}/api-docs`, "gSpaceHelper");
+    { isDev ? Logger.debug(`Swagger-Service is running on http://localhost:${chooseEnv("PORT") ? chooseEnv("PORT") : 3000}/api-docs`, "gSpaceHelper") : Logger.log(`Swagger-Service is not running`, "gSpaceHelper")}
     Logger.log(`NextSpace Server is ready and working...`, "gSpaceHelper");
   });
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Render } from '@nestjs/common';
+import { Controller, Get, Param, Query, Render, Res } from '@nestjs/common';
 import { CategoriesService } from 'modules/categories/categories.service';
 import { CommentsService } from 'modules/comments/comments.service';
 import { ConfigsService } from 'modules/configs/configs.service';
@@ -6,6 +6,8 @@ import { FriendsService } from 'modules/friends/friends.service';
 import { PagesService } from 'modules/pages/pages.service';
 import { PostsService } from 'modules/posts/posts.service';
 import { ProjectsService } from 'modules/projects/projects.service';
+import { isDev } from 'utils/tools.util';
+import { argv, fs, path } from 'zx';
 
 const theme = process.env.theme ? process.env.theme : 'default'
 
@@ -225,21 +227,39 @@ export class EngineController {
     };
   }
   
-  // 404 页面  
+  // 动态路由 
   @Get(":path/:props") // 若超出原已约定的全部path，则意味着页面不存在，可以返回 404 页面
-  @Render(`${theme}/404`)
-  async notFound(@Param() param, @Query() query) {
-    return {
-      ...await this.baseProps(),
-      path: `${param.path}/${param.props}`,
-      argv: {
-        param,
-        query,
-      },
-      page: {
-        type: '404',
-        layout: '404',
-      }
+  async dynamic (
+    @Param() param,
+    @Query() query,
+    @Res() res,
+  ) {
+    if (fs.existsSync(path.join(argv.length ? __dirname : __dirname.replace("modules/engine", ""), `views/${theme}`, param.path, param.props + '.ejs'))) {
+      return res.render(`${theme}/${param.path}/${param.props}`, {
+        ...await this.baseProps(),
+        path: `${param.path}/${param.props}`,
+        argv: {
+          param,
+          query,
+        },
+        page: {
+          type: param.path,
+          layout: param.path,
+        }
+      })
+    } else {
+      return res.render(`${theme}/404`, {
+        ...await this.baseProps(),
+        path: `${param.path}/${param.props}`,
+        argv: {
+          param,
+          query,
+        },
+        page: {
+          type: '404',
+          layout: '404',
+        }
+      })
     }
   }
 

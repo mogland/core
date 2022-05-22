@@ -1,0 +1,113 @@
+<!--
+ * @FilePath: /ns-server/out/views/default/test/index.ejs
+ * @author: Wibus
+ * @Date: 2022-05-22 12:21:43
+ * @LastEditors: Wibus
+ * @LastEditTime: 2022-05-22 12:21:43
+ * Coding With IU
+-->
+<div>
+
+    <h1><%- page.type %> page</h1>
+
+    hi, here's rendered by ejs.
+
+    <h2>theme: <%- theme %> </h2>
+
+    <h2>path: <%- path %></h2>
+
+    <h2>query: </h2>
+    <ul>
+        <% for (var key in argv.query) { %>
+            <li><%- key %>: <%- argv.query[key] %></li>
+        <% } %>
+    </ul>
+
+    <h2>page: </h2>
+    <ul>
+        <% for (var key in page) { %>
+            <li><%- key %>: <%- page[key] %></li>
+        <% } %>
+    </ul>
+
+    <h2>posts:</h2>
+    <ul>
+        <% for (let post of sites.posts) { %>
+            <li>
+                <a href=<%=post.slug%>/<%=post.path%>>
+                    <%= post.title %>: <span style="color: #000"><%= post.slug %>/<%= post.path %></span>
+                </a>
+            </li>
+        <% } %>
+    </ul>
+    <!-- pages,categories,friends,projects,comments -->
+
+    <h2>pages:</h2>
+    <ul>
+        <% for (let page of sites.pages) { %>
+            <li>
+                <a href=<%=page.path%>>
+                    <%= page.title %>: <span style="color: #000"><%= page.path %></span>
+                </a>
+            </li>
+        <% } %>
+    </ul>
+
+    <h2>categories:</h2>
+    <ul>
+        <% for (let category of sites.categories) { %>
+            <li>
+                <a href="">
+                    <%= category.name %>: <span style="color: #000"><%= category.slug %></span>
+                </a>
+            </li>
+        <% } %>
+    </ul>
+
+    <h2>friends:</h2>
+    <ul>
+        <% for (let friend of sites.friends) { %>
+            <li>
+                <a href=<%= friend.website %>>
+                    <%= friend.name %> <small><%= friend.description %></small> : <span style="color: #000"><%= friend.website %></span>
+                </a>
+            </li>
+        <% } %>
+    </ul>
+
+    <h2>projects:</h2>
+    <ul>
+        <% for (let project of sites.projects) { %>
+            <li>
+                <a href=<%= project.url %>>
+                    <%= project.name %> <small><%= project.description %></small> : <span style="color: #000"><%= project.openSource %></span>
+                </a>
+            </li>
+        <% } %>
+    </ul>
+
+    <h2>comments:</h2>
+    <ul>
+        <% for (let comment of sites.comments) { %>
+            <li>
+                <a href=<%= comment.url %>>
+                    <%= comment.authorID %>/<%= comment.author %> <small><%= comment.type %></small> : <span style="color: #000"><%= comment.text %></span>
+                </a>
+            </li>
+        <% } %>
+    </ul>
+
+    <h2>configs: </h2>
+    <ul>
+        <% for (let key in configs) { %>
+            <li>
+                : <span style="color: #000">
+                <% for (let key2 in configs[key]) { %>
+                    <code><%= key2 %></code>: <span style="color: #000"><%= configs[key][key2] %></span>
+                <% } %>
+                </span>
+            </li>
+        <% } %>
+    </ul>
+
+</div>

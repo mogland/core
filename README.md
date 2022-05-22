@@ -31,6 +31,32 @@ the RESTful API service for N Space, powered by @nestjs.
 
 ![Alt](https://repobeats.axiom.co/api/embed/c901877ec290fab2cf7184b8ce2510da577401a1.svg "Repobeats analytics image")
 
+## Get Started
+
+目前 NS-server 只支援 Node.js 環境，請使用 Node.js 環境執行。
+
+NS-server 有两种启动方式：运行 bundle (recommended) / 编译运行 (for development)。
+
+但是 bundle 目前为 Beta 状态，仅在 GitHub Action 中输出，暂时不上传至 Release Assets。
+
+## EJS Templates Engine (Beta)
+
+> 🧪 实验性功能，可能会有 bug，请谨慎使用。
+
+由于 Express 支持配置视图引擎 EJS，因此 NextSpace 可以使用 EJS 作为模板引擎。视图文件夹为 `views`，模板文件夹为 `views/{templatesName}` 默认配置为 `views/default`
+
+模板的选择有两种方式：`process.env` 和 数据库的Configs表，以 `env` 为优先级，若都无配置，则默认使用 `default`
+
+推荐你使用 bundle 运行服务端，接着在运行目录下新建 `views` 文件夹，将 default 主题复制过去
+
+### Engine TODO
+
+- [X] 动态路由
+- [X] 404 错误页面
+- [ ] 其他模板引擎
+- [ ] 支持模板的缓存
+- [ ] ...
+
 ## Project Sponsors
 
 感谢 **Salted Fish**  的静态资源托管

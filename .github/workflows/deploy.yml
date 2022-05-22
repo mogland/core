@@ -49,9 +49,20 @@ jobs:
     - name: Build Server
       run: |
         pnpm build
+        pnpm bundle
     - name: Test Server
       run: |
         sh ./scripts/workflow/test-server.sh
+    - name: Bundle Package
+      uses: actions/upload-artifact@v3
+      with:
+        name: bundle
+        path: out/index.js
+    - name: Programs Package
+      uses: actions/upload-artifact@v3
+      with:
+        name: NS-server
+        path: out
     - name: Deploy to Vercel
       run: | 
         if [ ! -n "$(git remote -v | grep wibus-wee)" ]; then
