@@ -4,17 +4,22 @@ services:
   app:
     container_name: nx-server
     image: wibuswee/nx-server:latest
-    command: node index.js --DB_DATABASE={DB_DATABASE} --DB_HOST={DB_HOST} --DB_PORT={DB_PORT} --DB_USERNAME={DB_USERNAME} --DB_PASSWORD={DB_PASSWORD} --CORS_SERVER=${CORS_SERVER} --JWT_KEY=${JWT_KEY}
+    command: node index.js
     environment:
       - TZ=Asia/Shanghai
       - NODE_ENV=production
-      - --PORT=2333
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_HOST=${DB_HOST}
+      - DB_USERNAME=${DB_USERNAME}  
+      - DB_PASSWORD=${DB_PASSWORD} 
+      - DB_PORT=3036 
+      - JWT_KEY=${JWT_KEY}
     restart: 'on-failure'
     volumes:
       - ./data/nx-space:/root/.nx-space
       - ./data/nx-space/node_modules:/root/.node_modules
     ports:
-      - '2333:2333'
+      - '3000:3000'
     depends_on:
       - mysql
     links:
@@ -29,20 +34,17 @@ services:
     volumes:
       - ./data/db:/data/db
     environment:
-      MYSQL_ROOT_PASSWORD: gasdoldedseasder
+      # 从 env 中获取
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
     ports:
-      - '3344:27017'
+      - "3036:3306"
     networks:
       - app-network
 
-  # redis:
-  #   image: redis
-  #   container_name: redis
 
-  #   ports:
-  #     - '3333:6379'
-  #   networks:
-  #     - app-network
 networks:
   app-network:
     driver: bridge

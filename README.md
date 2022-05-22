@@ -77,7 +77,7 @@ node index.js --PORT=3001 --DB_DATABASE=nest-server --DB_HOST=127.0.0.1 --DB_POR
 - [X] 动态路由
 - [X] 404 错误页面
 - [x] 其他模板引擎（EJS, HBS）
-- [ ] ...
+- [ ] npm 插件
 
 ## Project Sponsors
 
