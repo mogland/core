@@ -8,7 +8,7 @@
   "scripts": {
     "prepare": "husky install",
     "prebuild": "rimraf dist",
-    "build": "nest build",
+    "build": "rimraf dist && nest build && cp -rf src/views dist/src/",
     "bundle": "rimraf out && yarn run build && cd dist/src && npx ncc build main.js -o ../../out -m && cd ../.. && chmod +x out/index.js && cp -rf src/views out/",
     "format": "prettier --write \"**/*.ts\" \"test/**/*.ts\"",
     "start": "cross-env NODE_ENV=development nest start",
