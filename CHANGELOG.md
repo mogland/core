@@ -1,3 +1,49 @@
+# [0.3.0](https://github.com/wibus-wee/ns-server/compare/v0.2.2...v0.3.0) (2022-05-22)
+
+
+### Bug Fixes
+
+* app allow cors ([106d124](https://github.com/wibus-wee/ns-server/commit/106d1245da0e8d4735021015948e9dd9f5ce79da))
+* **categories:**  judgment return error ([a26a4cd](https://github.com/wibus-wee/ns-server/commit/a26a4cdc090a60526c7e359578c9ace9e1379214))
+* **ci:** pnpm run install ([c4435c9](https://github.com/wibus-wee/ns-server/commit/c4435c9a616d37c2aaf93368a435e83e4b750532))
+* cors ([69f20fa](https://github.com/wibus-wee/ns-server/commit/69f20fae2fa817a0241b429ed9ec507efacfc8bb))
+* **deps:** update dependency @nestjs/jwt to v8.0.1 ([646a54b](https://github.com/wibus-wee/ns-server/commit/646a54bbf0f65dab357bf82b9d2079676658c032))
+* **deps:** update dependency @nestjs/typeorm to v8.0.4 ([a46b4b6](https://github.com/wibus-wee/ns-server/commit/a46b4b660b7dceba37f17c0859e2040dc61fd593))
+* **deps:** update dependency axios to v0.27.2 ([#129](https://github.com/wibus-wee/ns-server/issues/129)) ([87ca0a3](https://github.com/wibus-wee/ns-server/commit/87ca0a3f0b414651f8d25341547a9c56a18194ad))
+* **deps:** update dependency express to v4.18.1 ([#131](https://github.com/wibus-wee/ns-server/issues/131)) ([ad90d7b](https://github.com/wibus-wee/ns-server/commit/ad90d7b786cd5fee916e4170eeb7d34f5900a22d))
+* **deps:** update dependency nodemailer to v6.7.5 ([2455769](https://github.com/wibus-wee/ns-server/commit/24557693486b8062ca4d89713a4a7693591cb6ef))
+* **deps:** update dependency passport to v0.5.3 ([b64d32f](https://github.com/wibus-wee/ns-server/commit/b64d32fb338b74db56cc71e255f91b5d6c816bfb))
+* **deps:** update nest monorepo to v8.4.5 ([c233f93](https://github.com/wibus-wee/ns-server/commit/c233f9326bd3a48f36d1d141b80bf13282f9f28d))
+* encounter undefined ([a982d34](https://github.com/wibus-wee/ns-server/commit/a982d34c6e31be8b05716b6e32152425040e1255))
+* missing judgment field logic ([b18823d](https://github.com/wibus-wee/ns-server/commit/b18823d49850d006681d04a10af19628bc9a1498))
+* **pnpm:** update pnpm_lock.yml ([e15d644](https://github.com/wibus-wee/ns-server/commit/e15d64487108678ddf47f74bb8ea8532c6353f05))
+
+
+### Features
+
+* add a WHERE field to the list ([d8228f9](https://github.com/wibus-wee/ns-server/commit/d8228f935cef75b2625b90f7fb22073c5c1a8f9f))
+* **engine:** dynamic routing ([8b7763b](https://github.com/wibus-wee/ns-server/commit/8b7763bcd8caf876f276141fb52571cd6a7d043f))
+* **engine:** template engine ([b3d620e](https://github.com/wibus-wee/ns-server/commit/b3d620ea2a74c0b9a285d1a913be424b4e7fdf9c)), closes [#162](https://github.com/wibus-wee/ns-server/issues/162)
+* **module:** configs ([4bce15b](https://github.com/wibus-wee/ns-server/commit/4bce15b2d77fe68bbda7b907fb937172a2ccb57e))
+* **module:** email Service & ConfigsModule ([dc136bc](https://github.com/wibus-wee/ns-server/commit/dc136bc081b4f0bf57cb37cc20401008808fa244))
+* **posts:** a random api ([7a70c88](https://github.com/wibus-wee/ns-server/commit/7a70c889c28c3104294ae45b72d052467a6bf41b))
+* SERVERLESS! ([5951b5b](https://github.com/wibus-wee/ns-server/commit/5951b5bf1ef891f70809304cf2541126f2f4cbb1))
+
+
+### Performance Improvements
+
+* **mail:** configurable parameter ([36e0517](https://github.com/wibus-wee/ns-server/commit/36e051758863671377c016f546dbf96490a8b408)), closes [#85](https://github.com/wibus-wee/ns-server/issues/85)
+* **modules:** add a paginator ([0588d5d](https://github.com/wibus-wee/ns-server/commit/0588d5d4976462b3bd431bed5db565e5acfb9169))
+* remove useless count ([db956ed](https://github.com/wibus-wee/ns-server/commit/db956ed0e7e39db924e7fa215466defc8ae70009))
+* useGlobalPipes ([93ae149](https://github.com/wibus-wee/ns-server/commit/93ae149e4162d05cd6a1fbe13b89d1c7183902f3))
+
+
+### BREAKING CHANGES
+
+* **engine:** Implement a template engine rendered by EJS
+
+
+
 ## [0.2.2](https://github.com/wibus-wee/GS-server/compare/v0.2.1...v0.2.2) (2022-04-30)
 
 
