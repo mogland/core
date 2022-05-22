@@ -4,25 +4,20 @@
 🧪 Working in Progress
 </pre>
 
-<!-- ```
-  ____ ____                                     
+<!-- 
+```
+____ ____
  / ___/ ___|       ___  ___ _ ____   _____ _ __ 
 | |  _\___ \ _____/ __|/ _ \ '__\ \ / / _ \ '__|
 | |_| |___) |_____\__ \  __/ |   \ V /  __/ |   
  \____|____/      |___/\___|_|    \_/ \___|_|   
-``` -->
 
-<!-- ![total line](https://tokei.rs/b1/github/wibus-wee/GS-server)  -->
-<!-- ![language](https://img.shields.io/github/languages/top/wibus-wee/GS-server)  -->
-<!-- ![core](https://img.shields.io/github/package-json/dependency-version/wibus-wee/GS-server/@nestjs/core)  -->
-<!-- ![code size](https://img.shields.io/github/languages/code-size/wibus-wee/GS-server)  -->
-<!-- ![issues](https://img.shields.io/github/issues/wibus-wee/GS-server)  -->
-<!-- ![commit](https://img.shields.io/github/commit-activity/m/wibus-wee/GS-server)  -->
-<!-- ![commit_last](https://img.shields.io/github/last-commit/wibus-wee/GS-server)  -->
-<!-- [![Node.js Build CI](https://github.com/wibus-wee/GS-server/actions/workflows/build.yml/badge.svg)](https://github.com/wibus-wee/GS-server/actions/workflows/build.yml)  -->
-<!-- [![GitHub stars](https://img.shields.io/github/stars/wibus-wee/GS-server.svg?style=flat)](https://github.com/wibus-wee/GS-server/stargazers) -->
+```
+-->
 
 the RESTful API service for N Space, powered by @nestjs.
+
+
 ## Activity
 
 ![version](https://img.shields.io/github/package-json/v/wibus-wee/GS-server) 
@@ -37,7 +32,29 @@ the RESTful API service for N Space, powered by @nestjs.
 
 NS-server 有两种启动方式：运行 bundle (recommended) / 编译运行 (for development)。
 
-但是 bundle 目前为 Beta 状态，仅在 GitHub Action 中输出，暂时不上传至 Release Assets。
+~~但是 bundle 目前为 Beta 状态，仅在 GitHub Action 中输出，暂时不上传至 Release Assets~~ 若您不是开发者，则我推荐你使用 Bundle 启动此项目
+
+在 Release 页面下载稳定版 NS-server.zip，或在 Action 产物中下载开发版 NS-server.zip 解压缩，进入文件夹运行如以下命令：
+
+```bash
+node index.js --PORT=3001 --DB_DATABASE=nest-server --DB_HOST=127.0.0.1 --DB_PORT=3306 --DB_USERNAME=root --DB_PASSWORD=moonwibus
+```
+
+请注意，使用bundle启动时 你需要后置参数：
+
+- PORT：监听端口，默认 `3000`
+- DB_DATABASE：数据库名，默认 `nest-server`
+- DB_HOST：数据库主机，默认 `127.0.0.1`
+- DB_PORT：数据库端口，默认 `3306`
+- DB_USERNAME：数据库用户名，默认 `root`
+- DB_PASSWORD：数据库密码，默认值 `moonwibus`
+- CORS_SERVER：允许跨域来源，默认值请看代码
+- JWT_KEY：jwt密钥，不建议使用默认值
+- MAIL_SERVER：邮箱服务器（有可能后期会移入后台进行设置）
+- MAIL_PORT：邮箱端口号（有可能后期会移入后台进行设置）
+- MAIL_ADD：邮箱地址（有可能后期会移入后台进行设置）
+- MAIL_PASS：邮箱密码（有可能后期会移入后台进行设置）
+- theme：视图引擎模板设置，详情请见**「EJS Templates Engine」**章节
 
 ## EJS Templates Engine (Beta)
 
@@ -45,16 +62,15 @@ NS-server 有两种启动方式：运行 bundle (recommended) / 编译运行 (fo
 
 由于 Express 支持配置视图引擎 EJS，因此 NextSpace 可以使用 EJS 作为模板引擎。视图文件夹为 `views`，模板文件夹为 `views/{templatesName}` 默认配置为 `views/default`
 
-模板的选择有两种方式：`process.env` 和 数据库的Configs表，以 `env` 为优先级，若都无配置，则默认使用 `default`
+模板的选择有两种方式：`process.env` 和 数据库的 `Configs` 表，以 `env` 为最高优先级，若都无配置，则默认使用 `default`
 
-推荐你使用 bundle 运行服务端，接着在运行目录下新建 `views` 文件夹，将 default 主题复制过去
+推荐你使用 bundle 运行服务端，详情请见**「Get Started」**章节
 
 ### Engine TODO
 
 - [X] 动态路由
 - [X] 404 错误页面
-- [ ] 其他模板引擎
-- [ ] 支持模板的缓存
+- [x] 其他模板引擎（EJS, HBS）
 - [ ] ...
 
 ## Project Sponsors
