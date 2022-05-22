@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Render, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Query, Render, Res } from '@nestjs/common';
 import { CategoriesService } from 'modules/categories/categories.service';
 import { CommentsService } from 'modules/comments/comments.service';
 import { ConfigsService } from 'modules/configs/configs.service';
@@ -234,7 +234,7 @@ export class EngineController {
     @Query() query,
     @Res() res,
   ) {
-    if (fs.existsSync(path.join(argv.length ? __dirname : __dirname.replace("modules/engine", ""), `views/${theme}`, param.path, param.props + '.ejs'))) {
+    if (fs.existsSync(path.join(argv.length ? __dirname : __dirname.replace("modules/engine", ""), `views/${theme}`, param.path, param.props ? param.props : 'index' + '.ejs'))) {
       return res.render(`${theme}/${param.path}/${param.props}`, {
         ...await this.baseProps(),
         path: `${param.path}/${param.props}`,
@@ -245,6 +245,10 @@ export class EngineController {
         page: {
           type: param.path,
           layout: param.path,
+        }
+      }, function(err: any) {
+        if (err) {
+          Logger.error(err, EngineController.name);
         }
       })
     } else {
@@ -258,6 +262,10 @@ export class EngineController {
         page: {
           type: '404',
           layout: '404',
+        }
+      }, function(err: any) {
+        if (err) {
+          Logger.error(err, EngineController.name);
         }
       })
     }
