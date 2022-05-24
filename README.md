@@ -30,7 +30,17 @@ the RESTful API service for N Space, powered by @nestjs.
 
 **_目前 NS-server 依赖于 nodejs 和 MySQL 环境_**
 
-NS-server 有两种启动方式：运行 bundle (recommended) / 编译运行 (for development)。
+NS-server 有两种启动方式：运行 bundle **(recommended)** / 编译运行 (for development) / docker镜像 **(recommended)**
+
+### Docker 启动 (Beta & WIP)
+
+Docker Hub：https://hub.docker.com/r/wibuswee/nx-server
+
+目前是每一次发 Release 就会上传一次 Docker，或者我手动上传（有的时候还没到发release的时期）
+
+由于暂时处于 Beta & WIP 状态，因此暂时不书写如何启动，若有了解docker的佬们可以自行pull启动，我已将 docker componse 存于根目录
+
+### Bundle 启动
 
 ~~但是 bundle 目前为 Beta 状态，仅在 GitHub Action 中输出，暂时不上传至 Release Assets~~ 
 
