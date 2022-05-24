@@ -1,7 +1,7 @@
 {
-  "name": "nest-server",
+  "name": "nextspace-server",
   "version": "0.3.6",
-  "description": "the RESTful API service for G Space, powered by @nestjs.",
+  "description": "the RESTful API service for N Space, powered by @nestjs.",
   "author": "Wibus",
   "private": false,
   "license": "AGPL-3.0",
