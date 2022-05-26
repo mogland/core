@@ -22,7 +22,7 @@ specifiers:
   '@types/supertest': 2.0.12
   '@typescript-eslint/eslint-plugin': 5.26.0
   '@typescript-eslint/parser': 5.26.0
-  '@vercel/ncc': ^0.33.3
+  '@vercel/ncc': 0.34.0
   axios: 0.27.2
   axios-retry: ^3.2.4
   class-transformer: 0.4.0
@@ -107,7 +107,7 @@ devDependencies:
   '@types/supertest': 2.0.12
   '@typescript-eslint/eslint-plugin': 5.26.0_6nblhubhxxthtpizmuaft64gji
   '@typescript-eslint/parser': 5.26.0_els4elilzrtenp42wxa4dytc34
-  '@vercel/ncc': 0.33.3
+  '@vercel/ncc': 0.34.0
   cross-env: 7.0.3
   cz-conventional-changelog: 3.3.0
   eslint: 8.16.0
@@ -1594,8 +1594,8 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vercel/ncc/0.33.3:
-    resolution: {integrity: sha512-JGZ11QV+/ZcfudW2Cz2JVp54/pJNXbsuWRgSh2ZmmZdQBKXqBtIGrwI1Wyx8nlbzAiEFe7FHi4K1zX4//jxTnQ==}
+  /@vercel/ncc/0.34.0:
+    resolution: {integrity: sha512-G9h5ZLBJ/V57Ou9vz5hI8pda/YQX5HQszCs3AmIus3XzsmRn/0Ptic5otD3xVST8QLKk7AMk7AqpsyQGN7MZ9A==}
     hasBin: true
     dev: true
 
