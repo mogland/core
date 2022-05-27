@@ -19,7 +19,8 @@ services:
       - ./data/nx-space:/root/.nx-space
       - ./data/nx-space/node_modules:/root/.node_modules
     ports:
-      - '3000:3000'
+      # - '3000:3000'
+      - ${PORT}:${PORT}
     depends_on:
       - mysql
     links:

@@ -20,6 +20,7 @@ the RESTful API service for N Space, powered by @nestjs.
 
 ## Activity
 
+[![wakatime](https://wakatime.com/badge/github/wibus-wee/nx-server.svg)](https://wakatime.com/badge/github/wibus-wee/nx-server)
 ![version](https://img.shields.io/github/package-json/v/wibus-wee/GS-server) 
 [![DeepScan grade](https://deepscan.io/api/teams/14175/projects/18839/branches/473312/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=14175&pid=18839&bid=473312) 
 [![Deploy Server](https://github.com/wibus-wee/GS-server/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/wibus-wee/GS-server/actions/workflows/deploy.yml) 
@@ -32,17 +33,26 @@ the RESTful API service for N Space, powered by @nestjs.
 
 NS-server 有两种启动方式：运行 bundle **(recommended)** / 编译运行 (for development) / docker镜像 **(recommended)**
 
-### Docker 启动 (Beta & WIP)
+### Docker 启动 (Beta)
+
+> Beta 功能，稳定性不确定，但大体是可以正常使用了
 
 Docker Hub：https://hub.docker.com/r/wibuswee/nx-server
 
 目前是每一次发 Release 就会上传一次 Docker，或者我手动上传（有的时候还没到发release的时期）
 
-由于暂时处于 Beta & WIP 状态，因此暂时不书写如何启动，若有了解docker的佬们可以自行pull启动，我已将 docker componse 存于根目录
+首先你需要 复制 `.env.example` 为 `.env` 修改里面的配置，配置如「Bundle 启动」大体一致，有些是不应用的（DB_HOST,DB_PORT暂时不应用）
 
-### Bundle 启动
+```bash
+docker compose pull # 拉取最新镜像
+docker compose up -d # 启动/restart容器
+```
 
-~~但是 bundle 目前为 Beta 状态，仅在 GitHub Action 中输出，暂时不上传至 Release Assets~~ 
+关于反向代理：默认的 docker-compose 已设置为映射到 .env 中的 PORT 所设置的端口上，根据 PORT 进行反待即可
+
+### Bundle 启动 (Beta)
+
+> Beta 功能，稳定性不确定，但大体是可以正常使用了
 
 若您不是开发者，则我推荐你使用 Bundle 启动此项目，bundle目前已在 Artifacts 和 Release 中发布。
 
@@ -62,11 +72,11 @@ node index.js --PORT=3001 --DB_DATABASE=nest-server --DB_HOST=127.0.0.1 --DB_POR
 - DB_PASSWORD：数据库密码，默认值 `moonwibus`
 - CORS_SERVER：允许跨域来源，默认值请看代码
 - JWT_KEY：jwt密钥，不建议使用默认值
-- MAIL_SERVER：邮箱服务器（有可能后期会移入后台进行设置）
+- theme：视图引擎模板设置，详情请见 **「EJS Templates Engine」** 章节
+<!-- - MAIL_SERVER：邮箱服务器（有可能后期会移入后台进行设置）
 - MAIL_PORT：邮箱端口号（有可能后期会移入后台进行设置）
 - MAIL_ADD：邮箱地址（有可能后期会移入后台进行设置）
-- MAIL_PASS：邮箱密码（有可能后期会移入后台进行设置）
-- theme：视图引擎模板设置，详情请见 **「EJS Templates Engine」** 章节
+- MAIL_PASS：邮箱密码（有可能后期会移入后台进行设置） -->
 
 > bundle.zip 是只有一个 index.js，不包含默认主题与视图文件夹，一般来说我不推荐你使用此压缩包 ❌
 >
