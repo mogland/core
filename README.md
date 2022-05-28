@@ -29,9 +29,9 @@ the RESTful API service for N Space, powered by @nestjs.
 
 ## Get Started
 
-**_目前 NS-server 依赖于 nodejs 和 MySQL 环境_**
+**_目前 nx-server 依赖于 nodejs 和 MySQL 环境_**
 
-NS-server 有两种启动方式：运行 bundle **(recommended)** / 编译运行 (for development) / docker镜像 **(recommended)**
+nx-server 有两种启动方式：运行 bundle **(recommended)** / 编译运行 (for development) / docker镜像 **(recommended)**
 
 ### Docker 启动 (Beta)
 
@@ -56,7 +56,7 @@ docker compose up -d # 启动/restart容器
 
 若您不是开发者，则我推荐你使用 Bundle 启动此项目，bundle目前已在 Artifacts 和 Release 中发布。
 
-在 Release 页面下载稳定版 **NS-server.zip**，或在 Action 产物中下载开发版 **NS-server.zip** 解压缩，进入文件夹运行如以下命令：
+在 Release 页面下载稳定版 **nx-server.zip**，或在 Action 产物中下载开发版 **nx-server.zip** 解压缩，进入文件夹运行如以下命令：
 
 ```bash
 node index.js --PORT=3001 --DB_DATABASE=nest-server --DB_HOST=127.0.0.1 --DB_PORT=3306 --DB_USERNAME=root --DB_PASSWORD=moonwibus
@@ -80,7 +80,7 @@ node index.js --PORT=3001 --DB_DATABASE=nest-server --DB_HOST=127.0.0.1 --DB_POR
 
 > bundle.zip 是只有一个 index.js，不包含默认主题与视图文件夹，一般来说我不推荐你使用此压缩包 ❌
 >
-> NS-server.zip 是一个完整的项目，包含默认主题与视图文件夹，一般来说我推荐你使用此压缩包 ✅
+> nx-server.zip 是一个完整的项目，包含默认主题与视图文件夹，一般来说我推荐你使用此压缩包 ✅
 
 ## EJS Templates Engine (Beta)
 
@@ -117,6 +117,6 @@ This project referred to:
 
 ## Author
 
-ns-server © Wibus, Released under the AGPL-3.0 License. Created on 2021-09-25
+nx-server © Wibus, Released under the AGPL-3.0 License. Created on 2021-09-25
 
 > [Personal Website](http://iucky.cn/) · [Blog](https://blog.iucky.cn/) · GitHub [@wibus-wee](https://github.com/wibus-wee/) · Telegram [@wibus✪](https://t.me/wibus_wee)
