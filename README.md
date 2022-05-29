@@ -105,6 +105,8 @@ node index.js --PORT=3001 --DB_DATABASE=nest-server --DB_HOST=127.0.0.1 --DB_POR
 
 感谢 **小沐** 的对项目大力支持
 
+感谢 **若志** 提供服务器支持
+
 ## Reference
 
 This project referred to: 
