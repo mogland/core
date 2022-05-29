@@ -17,24 +17,16 @@ export class Comments {
     cid: number; //Pages/Post id
 
   @CreateDateColumn()
-    created: number;
+    created: string;
 
   @Column()
     author: string;
-  
-  @Column()
-    authorID: string;
-
-  @Column()
-    owner: string;
-
-  @Column()
-    ownerID: number;
 
   @Column()
     email: string;
 
-  @Column()
+  // 可选的参数
+  @Column({ nullable: true })
     url?: string = null;
 
   @Column()
@@ -43,12 +35,12 @@ export class Comments {
   // 在建立记录的时候就把后期需要用到的slug直接生成，方便了前端的调用。这是一个原因。
   // 当然这不是重点，通过层次命名的 key，对删除父评论相当方便。
   @Column()
-    key?: string = null;
+    key: string;
 
-  @Column()
+  @Column({ nullable: true })
     ip: string = null;
 
-  @Column()
+  @Column({ nullable: true })
     userAgent: string = null;
 
   @Column()

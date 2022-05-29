@@ -56,7 +56,7 @@ export class CommentsController {
   @ApiOperation({
     summary: "发布评论",
   })
-  async create(@Body() data: CreateCommentsDto) {
+  async create(@Body() data) {
     return await this.commentsService.createComments(data);
   }
 

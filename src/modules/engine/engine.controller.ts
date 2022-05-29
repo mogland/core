@@ -1,4 +1,5 @@
 import { Controller, Get, Logger, Param, Query, Render, Res } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CategoriesService } from 'modules/categories/categories.service';
 import { CommentsService } from 'modules/comments/comments.service';
 import { ConfigsService } from 'modules/configs/configs.service';
@@ -12,6 +13,7 @@ import { argv, fs, path } from 'zx';
 const theme = process.env.theme ? process.env.theme : 'default'
 
 @Controller('engine')
+@ApiTags("Engine")
 export class EngineController {
 
   constructor(

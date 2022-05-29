@@ -1,21 +1,27 @@
-import { Injectable } from "@nestjs/common";
+import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { PostsService } from "./modules/posts/posts.service";
 import { PagesService } from "./modules/pages/pages.service";
 import { CommentsService } from "./modules/comments/comments.service";
 import { FriendsService } from "./modules/friends/friends.service";
 import { CategoriesService } from "./modules/categories/categories.service";
 import { GHttp } from "helper/helper.http.service";
-
+import { ConfigsService } from "./modules/configs/configs.service"
 @Injectable()
 export class AppService {
   constructor(
-    private postsService: PostsService, // 文章
-    private pageService: PagesService, // 页面
-    private commentsService: CommentsService, // 评论
-    private friendsService: FriendsService, // 好友
-    private categoriesService: CategoriesService, // 分类
-    private http: GHttp
-  ) {}
+    @Inject(forwardRef(() => PostsService))
+    private readonly postsService: PostsService,
+    @Inject(forwardRef(() => PagesService))
+    private readonly pageService: PagesService,
+    @Inject(forwardRef(() => CommentsService))
+    private readonly commentsService: CommentsService,
+    @Inject(forwardRef(() => FriendsService))
+    private readonly friendsService: FriendsService,
+    @Inject(forwardRef(() => CategoriesService))
+    private readonly categoriesService: CategoriesService,
+    private readonly http: GHttp,
+    private readonly configService: ConfigsService,
+  ) { }
 
   async getStat(): Promise<any> {
     return {
@@ -26,6 +32,19 @@ export class AppService {
       Allfriends: await this.friendsService.getNum(), // 好友数
       Unfriends: await this.friendsService.getNum(0), // 未审核好友数
       categories: await this.categoriesService.getNum(), // 分类数
+    }
+  }
+
+  async thumbUp(type: string, path?: string) {
+    if (type === 'post') {
+      await this.postsService.thumbUp(path)
+    } else if (type === 'page') {
+      await this.pageService.thumbUp(path)
+    } else {
+      await this.configService.change({
+        name: "theme.thumbs", 
+        value: JSON.stringify(Number(JSON.parse(await this.configService.get("theme.thumbs")) + 1))
+      })
     }
   }
 

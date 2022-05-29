@@ -14,6 +14,12 @@ export class Pages {
   @Column("text")
     content: string;
 
+  @Column("text")
+    views: number;
+
+  @Column("text")
+    thumbs: number;
+
   @CreateDateColumn()
     createdAt: Date;
 

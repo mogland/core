@@ -5,10 +5,11 @@ import {
   Post,
   UseGuards,
   Body,
+  Query,
   // Query,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiProperty } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiProperty, ApiTags } from "@nestjs/swagger";
 import { LocalAuthGuard } from "./modules/auth/local-auth.guard";
 import { AuthService } from "./modules/auth/auth.service";
 import { UsersService } from "./modules/users/users.service";
@@ -22,6 +23,7 @@ class LoginUser { // 登录用户
     password: string; // 密码
 }
 @Controller() // 控制器
+@ApiTags("App")
 export class AppController {
   constructor(
     private readonly authService: AuthService, // 登录
@@ -32,12 +34,12 @@ export class AppController {
   @Get("/")
   async helloworld(){
     return {
-      "name":"@wibus-wee/GS-server",
+      "name":"@wibus-wee/nx-server",
       "author":"Wibus <https://github.com/wibus-wee>",
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       "version":require('../package.json').version,
-      "homepage":"https://https://github.com/wibus-wee/GS-server#readme",
-      "issues":"https://https://github.com/wibus-wee/GS-server/issues"
+      "homepage":"https://github.com/nx-space/nx-server#readme",
+      "issues":"https://github.com/nx-space/nx-server/issues"
     }
   }
 
@@ -72,6 +74,12 @@ export class AppController {
   @Post("profile")
   async changeProfile(@Body() data){
     return this.userService.edit(data); // 修改信息
+  }
+
+  @ApiOperation({ summary: "点赞" })
+  @Get("thumb_up")
+  async thumbUp(@Query() query) {
+    return this.appService.thumbUp(query.type, query.path);
   }
   
   @UseGuards(AuthGuard("jwt")) // 认证

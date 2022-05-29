@@ -1,11 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 /*
- * @FilePath: /GS-server/src/shared/dto/create-comments-dto.ts
+ * @FilePath: /nx-server/src/shared/dto/create-comments-dto.ts
  * @author: Wibus
  * @Date: 2021-10-04 22:04:15
  * @LastEditors: Wibus
- * @LastEditTime: 2022-03-12 07:52:35
+ * @LastEditTime: 2022-05-29 12:11:29
  * Coding With IU
  */
 export class CreateCommentsDto {
@@ -23,15 +23,6 @@ export class CreateCommentsDto {
 
   @ApiProperty()
     author: string;
-  
-  @ApiProperty()
-    authorID: string;
-
-  @ApiProperty()
-    owner: string;
-
-  @ApiProperty()
-    ownerID: number;
 
   @ApiProperty()
     email: string;
@@ -45,13 +36,13 @@ export class CreateCommentsDto {
   // 在建立记录的时候就把后期需要用到的slug直接生成，方便了前端的调用。这是一个原因。
   // 当然这不是重点，通过层次命名的 key，对删除父评论相当方便。
   @ApiProperty()
-    key?: string = null;
+    key: string;
 
   @ApiProperty()
-    ip: string = null;
+    ip?: string = null;
 
   @ApiProperty()
-    userAgent: string = null;
+    userAgent?: string = null;
 
   @ApiProperty()
     status: number;  // 0 need checked, 1 push, 2 shit message

@@ -16,8 +16,8 @@ export class CommentsService {
   ) {}
 
 
-  async getComments(type: string, cid: number){
-    return await this.CommentsRepository.find({
+  getComments(type: string, cid: number){
+    return this.CommentsRepository.find({
       type: type,
       cid: cid,
       status: 1,
@@ -27,7 +27,7 @@ export class CommentsService {
     return await this.CommentsRepository.find();
   }
   async list(query?: listProps) {
-    const select: (keyof Comments)[] = query.select ? query.select.split(",") as (keyof Comments)[] : ["coid", "text", "created", "author", "authorID", "owner", "ownerID", "email", "url", "status", "parent"];
+    const select: (keyof Comments)[] = query.select ? query.select.split(",") as (keyof Comments)[] : ["coid", "text", "created", "author", "email", "url", "status", "parent"];
     query.limit = query.limit ? query.limit : 10;
     query.page = query.page ? query.page : 1;
     return {
@@ -70,6 +70,10 @@ export class CommentsService {
     if (data.text.length > 500) {
       Logger.warn(`检测到一条过长评论提交 ${data.text.length} 字`, "CommentsService");
       throw new BadRequestException("评论过长，请删减后再试")
+    }
+    if (data.type != "post" && data.type != "page") { // 只允许评论文章和页面
+      Logger.warn(`检测到一条非法评论提交`, "CommentsService");
+      throw new BadRequestException("评论类型错误，请检查后重新提交")
     }
     data = delObjXss(data);
     if (isBlock) {

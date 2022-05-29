@@ -20,6 +20,12 @@ export class Posts {
   @Column("text")
     slug: string;
 
+  @Column("text")
+    views: number;
+
+  @Column("text")
+    thumbs: number;
+
   @CreateDateColumn()
     createdAt: Date;
 

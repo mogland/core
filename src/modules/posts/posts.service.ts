@@ -1,52 +1,77 @@
 /*
- * @FilePath: /ns-server/src/modules/posts/posts.service.ts
+ * @FilePath: /nx-server/src/modules/posts/posts.service.ts
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-21 19:50:59
+ * @LastEditTime: 2022-05-29 14:20:12
  * Coding With IU
  */
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CategoriesService } from "../categories/categories.service";
 import { Repository } from "typeorm";
 import { CreatePostDto } from "../../shared/dto/create-post-dto";
 import { Posts } from "../../shared/entities/posts.entity";
 import { listProps } from "shared/interfaces/listProps";
+import { CommentsService } from "modules/comments/comments.service";
 
 @Injectable()
 export class PostsService {
   constructor(
     @InjectRepository(Posts)
     private postsRepository: Repository<Posts>,
-    private categodyService: CategoriesService
+    @Inject(forwardRef(() => CategoriesService))
+    private categodyService: CategoriesService,
+    @Inject(forwardRef(() => CommentsService))
+    private commentsService: CommentsService
   ) {}
 
-  async findOne(path: any): Promise<Posts> {
-    return await this.postsRepository.findOne({
+  async thumbUp(path: string) {
+    return await this.postsRepository.increment({
       path: path,
-    });
+    }, "thumbs", 1);
+  }
+
+  async findOne(path: any): Promise<Posts> {
+    // 数据库view字段+1
+    await this.postsRepository.increment({
+      path: path,
+    }, "views", 1);
+    const data = await this.postsRepository.findOne({
+      path: path,
+    }) as any
+    const comments = await this.commentsService.getComments("post", data.id)
+    data.comments = comments.length
+    return data
   }
 
   async list(query?: listProps) {
-    const select: (keyof Posts)[] = query.select ? query.select.split(",")  as (keyof Posts)[] : ["id", "title", "path", "slug", "createdAt", "updatedAt", "content"];
+    const select: (keyof Posts)[] = query.select ? query.select.split(",")  as (keyof Posts)[] : ["id", "title", "path", "slug", "createdAt", "updatedAt", "content", "views"];
     query.limit = query.limit ? query.limit : 10;
     query.page = query.page ? query.page : 1;
+    let data = await this.postsRepository.find({
+      skip: query.limit > 1 ? (query.page - 1) * query.limit : query.limit,
+      take: query.limit,
+      select: select,
+      order: {
+        id: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
+      },
+      where: query.where ? {
+        [query.where.split(":")[0]]: query.where.split(":")[1]      
+      } : {}
+    }) as any
+    data =  data.map(async (item) => {
+      const commentNum = await this.commentsService.getComments("post", item.id) as any
+      item.comments = commentNum.length
+      return item
+    }) 
+    data = await Promise.all(data)
     return {
       total: Math.ceil(await this.getNum() / query.limit),
       now: query.page,
-      data: await this.postsRepository.find({
-        skip: query.limit > 1 ? (query.page - 1) * query.limit : query.limit,
-        take: query.limit,
-        select: select,
-        order: {
-          id: query.orderBy === 'ASC' ? 'ASC' : 'DESC',
-        },
-        where: query.where ? {
-          [query.where.split(":")[0]]: query.where.split(":")[1]      
-        } : {}
-      })
+      data: data
     }
+
   }
 
   async all(){
