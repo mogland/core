@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-29 14:20:12
+ * @LastEditTime: 2022-05-29 14:58:36
  * Coding With IU
  */
 import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
@@ -32,21 +32,37 @@ export class PostsService {
     }, "thumbs", 1);
   }
 
-  async findOne(path: any): Promise<Posts> {
-    // 数据库view字段+1
-    await this.postsRepository.increment({
-      path: path,
-    }, "views", 1);
-    const data = await this.postsRepository.findOne({
+  async findInPath(path: any): Promise<Posts[]> {
+    const data = await this.postsRepository.find({
       path: path,
     }) as any
-    const comments = await this.commentsService.getComments("post", data.id)
-    data.comments = comments.length
+    return data
+  }
+
+  async findInSlug(slug: string) {
+    const data = await this.postsRepository.find({
+      slug: slug,
+    }) as any
+    return data
+  }
+
+  async findOne(slug: string, path: string): Promise<Posts> {
+    const data = await this.postsRepository.findOne({
+      slug: slug,
+      path: path,
+    }) as any
+    if (data) {
+      await this.postsRepository.increment({
+        path: path,
+      }, "views", 1);
+      const comments = await this.commentsService.getComments("post", data.id)
+      data.comments = comments.length
+    }
     return data
   }
 
   async list(query?: listProps) {
-    const select: (keyof Posts)[] = query.select ? query.select.split(",")  as (keyof Posts)[] : ["id", "title", "path", "slug", "createdAt", "updatedAt", "content", "views"];
+    const select: (keyof Posts)[] = query.select ? query.select.split(",")  as (keyof Posts)[] : ["id", "title", "path", "slug", "createdAt", "updatedAt", "content", "views", "thumbs"];
     query.limit = query.limit ? query.limit : 10;
     query.page = query.page ? query.page : 1;
     let data = await this.postsRepository.find({

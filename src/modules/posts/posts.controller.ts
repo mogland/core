@@ -46,7 +46,7 @@ export class PostsController {
   })
   @ApiParam({type: String, name: "path"})
   async findOne(@Param() params) {
-    return this.postsService.findOne(params.path);
+    return this.postsService.findOne(params.slug, params.path);
   }
 
   @Post("send")

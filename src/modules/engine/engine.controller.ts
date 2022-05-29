@@ -81,7 +81,7 @@ export class EngineController {
   }
 
   // 文章详情页面
-  @Get("posts/:path")
+  @Get("posts/:category/:path")
   @Render(`${theme}/posts/[path]`)
   async post(@Param() param, @Query() query) {
     return {
@@ -94,7 +94,7 @@ export class EngineController {
       page: {
         type: 'posts',
         layout: '[path]',
-        data: await this.postService.findOne(param.path),
+        data: await this.postService.findOne(param.category, param.path),
       },
     };
   }

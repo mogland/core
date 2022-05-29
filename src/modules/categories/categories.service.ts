@@ -1,24 +1,25 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Posts } from "../../shared/entities/posts.entity";
 import { Repository } from "typeorm";
 import { Categories } from "../../shared/entities/categories.entity";
 import { listProps } from "shared/interfaces/listProps";
+import { PostsService } from "modules/posts/posts.service";
+import { CommentsService } from "modules/comments/comments.service";
 
 @Injectable()
 export class CategoriesService {
   constructor(
-    @InjectRepository(Posts)
-    private postsRepository: Repository<Posts>,
-
+    @Inject(forwardRef(() => PostsService))
+    private postsService: PostsService,
+    @Inject(forwardRef(() => CommentsService))
+    private commentsService: CommentsService,
     @InjectRepository(Categories)
-    private CategoriesRepository: Repository<Categories>
+    private CategoriesRepository: Repository<Categories>,
   ) {}
 
-  async findPostInHazy(slug: string): Promise<Posts[]> {
-    return await this.postsRepository.find({
-      slug: slug,
-    });
+  async findPostInHazy(path: string): Promise<Posts[]> {
+    return await this.postsService.findInPath(path);
   }
 
   async all(){
@@ -47,20 +48,11 @@ export class CategoriesService {
   }
 
   async findPost(slug: string, path: string) {
-    return await this.postsRepository.findOne({
-      where: {
-        slug: slug,
-        path: path,
-      },
-    });
+    return await this.postsService.findOne(slug, path);
   }
 
   async findPosts(slug: string) {
-    return await this.postsRepository.find({
-      where: {
-        slug: slug,
-      },
-    });
+    return await this.postsService.findInSlug(slug);
   }
 
   async update(data: Categories) {
