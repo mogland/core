@@ -1,4 +1,4 @@
-import { chooseEnv } from "utils/chooseEnv.utils";
+import { Envs } from "utils/Envs.utils";
 
 /*
  * @FilePath: /GS-server/src/configs.ts
@@ -10,7 +10,7 @@ import { chooseEnv } from "utils/chooseEnv.utils";
  */
 const configs = {
   expiration: 86400, // token expiration time
-  jwtToken: chooseEnv("JWT_KEY") ? chooseEnv("JWT_KEY") : 'asodijoweidjeoaiwod', // jwt token
+  jwtToken: Envs("JWT_KEY") ? Envs("JWT_KEY") : 'asodijoweidjeoaiwod', // jwt token
   get(name: any) {
     return this.hasOwnProperty(name) ? this[name] : null;
   }

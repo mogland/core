@@ -6,14 +6,14 @@
  * @LastEditTime: 2022-03-20 21:24:45
  * Coding With IU
  */
-import { chooseEnv } from "./chooseEnv.utils";
+import { Envs } from "./Envs.utils";
 
 export default () => {
   return {
-    host: chooseEnv("DB_HOST") ? chooseEnv("DB_HOST") : "127.0.0.1",
-    port: chooseEnv("DB_PORT") ? Number(chooseEnv("DB_PORT")) : 3306,
-    database: chooseEnv("DB_DATABASE") ? chooseEnv("DB_DATABASE") : "nest-server",
-    username: chooseEnv("DB_USERNAME") ? chooseEnv("DB_USERNAME") : "root",
-    password: chooseEnv("DB_PASSWORD") ? chooseEnv("DB_PASSWORD") : "root",
+    host: Envs("DB_HOST") ? Envs("DB_HOST") : "127.0.0.1",
+    port: Envs("DB_PORT") ? Number(Envs("DB_PORT")) : 3306,
+    database: Envs("DB_DATABASE") ? Envs("DB_DATABASE") : "nest-server",
+    username: Envs("DB_USERNAME") ? Envs("DB_USERNAME") : "root",
+    password: Envs("DB_PASSWORD") ? Envs("DB_PASSWORD") : "root",
   }
 };

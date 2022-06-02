@@ -1,4 +1,4 @@
-import { chooseEnv } from "./chooseEnv.utils";
+import { Envs } from "./Envs.utils";
 
 /*
  * @FilePath: /GS-server/src/utils/tools.util.ts
@@ -8,4 +8,4 @@ import { chooseEnv } from "./chooseEnv.utils";
  * @LastEditTime: 2022-03-20 17:22:36
  * Coding With IU
  */
-export const isDev = chooseEnv("NODE_ENV") == "development";
+export const isDev = Envs("NODE_ENV") == "development";

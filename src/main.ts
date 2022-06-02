@@ -4,7 +4,7 @@ import { AppModule } from "./app.module"; // 导入模块
 import { Logger, ValidationPipe } from "@nestjs/common"; // 引入日志
 import { UsersService } from "./modules/users/users.service"; // 用户服务
 import { SpiderGuard } from "./common/guards/spiders.guard"; // 爬虫检查
-import { chooseEnv } from "utils/chooseEnv.utils";
+import { Envs } from "utils/Envs.utils";
 import { argv } from "zx";
 import { ConfigsService } from "modules/configs/configs.service";
 import { isDev } from "utils/tools.util";
@@ -13,7 +13,7 @@ async function bootstrap() {
   console.log(argv);
   const app = await NestFactory.create<NestExpressApplication>(AppModule); // create app
 
-  const Origin = chooseEnv("CORS_SERVER")?.split?.(','); // 允许跨域的域名
+  const Origin = Envs("CORS_SERVER")?.split?.(','); // 允许跨域的域名
   const hosts = Origin && Origin.map((host) => new RegExp(host, 'i'))
   
   // 如果 Origin 为空，则设置为 *
@@ -45,12 +45,14 @@ async function bootstrap() {
     }),
   ) // 注册全局验证管道
 
-  // 设置模板引擎
-  app.setBaseViewsDir(__dirname + "/views");
-  app.setViewEngine('ejs');
-  // ejs-locals
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  app.engine('ejs', require('ejs-locals'));
+  if (Envs("ENGINE") == 1) {
+    app.setBaseViewsDir(__dirname + "/views");
+    app.setViewEngine('ejs');
+    // ejs-locals
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    app.engine('ejs', require('ejs-locals'));
+  }
+  
 
 
   if (isDev) {
@@ -69,11 +71,11 @@ async function bootstrap() {
     SwaggerModule.setup('api-docs', app, document)
   }
 
-  await app.listen(chooseEnv("PORT") ? chooseEnv("PORT") : 3000, '127.0.0.1', async() => { // 监听端口
-    Logger.log(`Get the ${chooseEnv("PORT") ? chooseEnv("PORT") : 3000} port and starting`, "gSpaceHelper");
-    Logger.log(`Server is running as ${chooseEnv("NODE_ENV") ? chooseEnv("NODE_ENV") : 'unknown'}`, "gSpaceHelper");
-    Logger.log(`API-Service is running on http://localhost:${chooseEnv("PORT") ? chooseEnv("PORT") : 3000}`, "gSpaceHelper");
-    { isDev ? Logger.debug(`Swagger-Service is running on http://localhost:${chooseEnv("PORT") ? chooseEnv("PORT") : 3000}/api-docs`, "gSpaceHelper") : Logger.log(`Swagger-Service is not running`, "gSpaceHelper")}
+  await app.listen(Envs("PORT") ? Envs("PORT") : 3000, '127.0.0.1', async() => { // 监听端口
+    Logger.log(`Get the ${Envs("PORT") ? Envs("PORT") : 3000} port and starting`, "gSpaceHelper");
+    Logger.log(`Server is running as ${Envs("NODE_ENV") ? Envs("NODE_ENV") : 'unknown'}`, "gSpaceHelper");
+    Logger.log(`API-Service is running on http://localhost:${Envs("PORT") ? Envs("PORT") : 3000}`, "gSpaceHelper");
+    { isDev ? Logger.debug(`Swagger-Service is running on http://localhost:${Envs("PORT") ? Envs("PORT") : 3000}/api-docs`, "gSpaceHelper") : Logger.log(`Swagger-Service is not running`, "gSpaceHelper")}
     Logger.log(`NextSpace Server is ready and working...`, "gSpaceHelper");
   });
 

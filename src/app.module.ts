@@ -9,7 +9,7 @@ import { GHttp } from "helper/helper.http.service";
 import { ProjectsController } from "modules/projects/projects.controller"; // 引入项目模块
 import { ProjectsModule } from "modules/projects/projects.module"; // 引入项目模块
 import { ProjectsService } from "modules/projects/projects.service"; // 引入项目模块
-import { chooseEnv } from "utils/chooseEnv.utils";
+import { Envs } from "utils/Envs.utils";
 import { AppController } from "./app.controller"; // 引入控制器
 import { AppService } from "./app.service"; // 引入服务
 import { AllExceptionFilter } from "./common/filters/all-exception.filter"; // 引入过滤器
@@ -71,11 +71,11 @@ import { Users } from "shared/entities/users.entity";
       useFactory: () => { // use config service
         return { // return config
           type: "mysql", // database type
-          host: chooseEnv("DB_HOST") ? chooseEnv("DB_HOST") : '127.0.0.1',
-          port: chooseEnv("DB_PORT") ? Number(chooseEnv("DB_PORT")) : 3306,
-          username: chooseEnv("DB_USERNAME") ? chooseEnv("DB_USERNAME") : 'root',
-          password: chooseEnv("DB_PASSWORD") ? chooseEnv("DB_PASSWORD") : 'root',
-          database: chooseEnv("DB_DATABASE") ? chooseEnv("DB_DATABASE") : 'server',
+          host: Envs("DB_HOST") ? Envs("DB_HOST") : '127.0.0.1',
+          port: Envs("DB_PORT") ? Number(Envs("DB_PORT")) : 3306,
+          username: Envs("DB_USERNAME") ? Envs("DB_USERNAME") : 'root',
+          password: Envs("DB_PASSWORD") ? Envs("DB_PASSWORD") : 'root',
+          database: Envs("DB_DATABASE") ? Envs("DB_DATABASE") : 'server',
           // entities: [__dirname + "/**/*.entity{.ts,.js}"],
           entities: [
             Users,
