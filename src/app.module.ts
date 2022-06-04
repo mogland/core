@@ -54,6 +54,7 @@ import { Pages } from "shared/entities/pages.entity";
 import { Posts } from "shared/entities/posts.entity";
 import { Projects } from "shared/entities/projects.entity";
 import { Users } from "shared/entities/users.entity";
+import { MarkdownModule } from './modules/markdown/markdown.module';
 
 
 @Module({
@@ -103,6 +104,7 @@ import { Users } from "shared/entities/users.entity";
     ProjectsModule,
     ConfigsModule,
     EngineModule,
+    MarkdownModule,
   ],
   controllers: [
     AppController,
