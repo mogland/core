@@ -1,22 +1,18 @@
 <div align="center">
 <a href="https://github.com/nx-space" target="_blank" rel="noopener noreferrer"><img width="100" src="https://avatars.githubusercontent.com/u/106414194" alt="NEXT logo"></a>
-<h1>NextSpace Server v1.x</h1>
+<h1>NextSpace Server v1.x <small><code>WIP</code></small> </h1>
+  <p>
+  the RESTful API service for N Space, powered by @nestjs.
+  </p>
+  <a href='https://wakatime.com/badge/github/wibus-wee/nx-server'><img src="https://wakatime.com/badge/github/wibus-wee/nx-server.svg" referrerpolicy="no-referrer" alt="wakatime"></a>
+<img src="https://img.shields.io/github/package-json/v/wibus-wee/GS-server" referrerpolicy="no-referrer" alt="version"> 
+<a href='https://deepscan.io/dashboard#view=project&amp;tid=14175&amp;pid=18839&amp;bid=473312'><img src="https://deepscan.io/api/teams/14175/projects/18839/branches/473312/badge/grade.svg" referrerpolicy="no-referrer" alt="DeepScan grade"></a> 
+<a href='https://github.com/wibus-wee/GS-server/actions/workflows/deploy.yml'><img src="https://github.com/wibus-wee/GS-server/actions/workflows/deploy.yml/badge.svg?branch=main" referrerpolicy="no-referrer" alt="Deploy Server"></a> 
 </div>
 
-<pre align="center">
-🧪 Working in Progress
-</pre>
-the RESTful API service for N Space, powered by @nestjs.
-
-> Original project `gs-server`
 
 
 ## Activity
-
-[![wakatime](https://wakatime.com/badge/github/wibus-wee/nx-server.svg)](https://wakatime.com/badge/github/wibus-wee/nx-server)
-![version](https://img.shields.io/github/package-json/v/wibus-wee/GS-server) 
-[![DeepScan grade](https://deepscan.io/api/teams/14175/projects/18839/branches/473312/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=14175&pid=18839&bid=473312) 
-[![Deploy Server](https://github.com/wibus-wee/GS-server/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/wibus-wee/GS-server/actions/workflows/deploy.yml) 
 
 ![Alt](https://repobeats.axiom.co/api/embed/c901877ec290fab2cf7184b8ce2510da577401a1.svg "Repobeats analytics image")
 
@@ -39,7 +35,7 @@ the RESTful API service for N Space, powered by @nestjs.
 
 This project referred to: 
 
-- [mx-space/mx-server](https://github.com/mx-space/mx-server)
+- [mx-space/core](https://github.com/mx-space/core)
 
 ## License
 
