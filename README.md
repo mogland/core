@@ -1,20 +1,11 @@
-# NextSpace Server v1.x
+<div align="center">
+<a href="https://github.com/nx-space" target="_blank" rel="noopener noreferrer"><img width="100" src="https://avatars.githubusercontent.com/u/106414194" alt="NEXT logo"></a>
+<h1>NextSpace Server v1.x</h1>
+</div>
 
 <pre align="center">
 🧪 Working in Progress
 </pre>
-
-<!-- 
-```
-____ ____
- / ___/ ___|       ___  ___ _ ____   _____ _ __ 
-| |  _\___ \ _____/ __|/ _ \ '__\ \ / / _ \ '__|
-| |_| |___) |_____\__ \  __/ |   \ V /  __/ |   
- \____|____/      |___/\___|_|    \_/ \___|_|   
-
-```
--->
-
 the RESTful API service for N Space, powered by @nestjs.
 
 > Original project `gs-server`
