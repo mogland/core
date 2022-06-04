@@ -10,11 +10,11 @@
 <a href='https://github.com/wibus-wee/GS-server/actions/workflows/deploy.yml'><img src="https://github.com/wibus-wee/GS-server/actions/workflows/deploy.yml/badge.svg?branch=main" referrerpolicy="no-referrer" alt="Deploy Server"></a> 
 </div>
 
-
+<br />
 
 ![Alt](https://repobeats.axiom.co/api/embed/c901877ec290fab2cf7184b8ce2510da577401a1.svg "Repobeats analytics image")
 
-
+<br />
 
 ## Get Started
 
