@@ -9,7 +9,7 @@
 
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { CreateProjectsDto } from "shared/dto/create-projects-dto";
+import { CreateProjectsDto } from "../../shared/dto/create-projects-dto";
 import { ProjectsService } from "./projects.service";
 
 @Controller("projects")

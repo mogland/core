@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import globals from "../../globals";
-import { CommentOptionsDto, SeoDto, UrlDto } from 'shared/dto/configs.dto';
+import { CommentOptionsDto, SeoDto, UrlDto } from '../../shared/dto/configs.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Configs } from 'shared/entities/configs.entity';
+import { Configs } from '../../shared/entities/configs.entity';
 import { Repository } from 'typeorm';
 
 interface IConfig {
@@ -84,7 +84,7 @@ export class ConfigsService {
       Logger.warn('初始化配置成功',ConfigsService.name)
     }
   }
-  async change(data: Configs) {
+  async change(data: any) {
     const config = await this.configsRepository.findOne({ name: data.name })
     if (config) {
       config.value = data.value
@@ -108,8 +108,12 @@ export class ConfigsService {
     // 并非真正删除，而是把数据恢复回原始数据
     // 并不考虑提供真正的删除功能
     const data = await this.configsRepository.findOne({ id: id })
-    const name = data.name
-    return await this.configsRepository.update(id, initData[name])
+    if (data) {
+      const name = data.name
+      return await this.configsRepository.update(id, initData[name])
+    }else{
+      return 0
+    }
   }
   
 }

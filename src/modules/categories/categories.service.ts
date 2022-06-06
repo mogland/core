@@ -3,9 +3,9 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Posts } from "../../shared/entities/posts.entity";
 import { Repository } from "typeorm";
 import { Categories } from "../../shared/entities/categories.entity";
-import { listProps } from "shared/interfaces/listProps";
-import { PostsService } from "modules/posts/posts.service";
-import { CommentsService } from "modules/comments/comments.service";
+import { listProps } from "../../shared/interfaces/listProps";
+import { PostsService } from "../../modules/posts/posts.service";
+import { CommentsService } from "../../modules/comments/comments.service";
 
 @Injectable()
 export class CategoriesService {
@@ -55,7 +55,7 @@ export class CategoriesService {
     return await this.postsService.findInSlug(slug);
   }
 
-  async update(data: Categories) {
+  async update(data: any) {
     return await this.CategoriesRepository.update(data.id, data);
   }
 

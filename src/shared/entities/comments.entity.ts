@@ -27,7 +27,7 @@ export class Comments {
 
   // 可选的参数
   @Column({ nullable: true })
-    url?: string = null;
+    url?: string;
 
   @Column()
     text: string; //Comments content
@@ -38,10 +38,10 @@ export class Comments {
     key: string;
 
   @Column({ nullable: true })
-    ip: string = null;
+    ip: string;
 
   @Column({ nullable: true })
-    userAgent: string = null;
+    userAgent: string;
 
   @Column()
     status: number;  // 0 need checked, 1 push, 2 shit message

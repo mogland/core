@@ -26,8 +26,8 @@ export class UsersService {
       );
     }
   }
-  async edit(data: CreateUserDto) {
-    if (this.userRepository.find({name:data.name})) {
+  async edit(data: any) {
+    if (this.userRepository.find({name:data.name})[0]) {
       throw new BadRequestException("此用户名已存在")
     }else if(data.level == null){
       throw new BadRequestException("请输入用户权限")

@@ -5,8 +5,8 @@ import { Comments } from "../../shared/entities/comments.entity";
 import { CreateCommentsDto } from "../../shared/dto/create-comments-dto";
 import BlockedKeywords = require("./block-keywords.json");
 import { UsersService } from "../users/users.service";
-import { delObjXss } from "utils/xss.util";
-import { listProps } from "shared/interfaces/listProps";
+import { delObjXss } from "../../utils/xss.util";
+import { listProps } from "../../shared/interfaces/listProps";
 @Injectable()
 export class CommentsService {
   constructor(
@@ -26,7 +26,7 @@ export class CommentsService {
   async all() {
     return await this.CommentsRepository.find();
   }
-  async list(query?: listProps) {
+  async list(query: listProps) {
     const select: (keyof Comments)[] = query.select ? query.select.split(",") as (keyof Comments)[] : ["coid", "text", "created", "author", "email", "url", "status", "parent"];
     query.limit = query.limit ? query.limit : 10;
     query.page = query.page ? query.page : 1;

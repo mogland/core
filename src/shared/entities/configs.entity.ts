@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-02-26 18:07:54
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-29 14:30:51
+ * @LastEditTime: 2022-06-06 23:23:27
  * Coding With IU
  */
 
@@ -12,7 +12,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 @Entity("configs")
 export class Configs {
   @PrimaryGeneratedColumn()
-    id?: number;
+    id: number;
   @Column("text")
     name: string;
   // @Column()

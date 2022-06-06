@@ -4,10 +4,10 @@ import { AppModule } from "./app.module"; // 导入模块
 import { Logger, ValidationPipe } from "@nestjs/common"; // 引入日志
 import { UsersService } from "./modules/users/users.service"; // 用户服务
 import { SpiderGuard } from "./common/guards/spiders.guard"; // 爬虫检查
-import { Envs } from "utils/Envs.utils";
+import { Envs } from "./utils/Envs.utils";
 import { argv } from "zx";
-import { ConfigsService } from "modules/configs/configs.service";
-import { isDev } from "utils/tools.util";
+import { ConfigsService } from "./modules/configs/configs.service";
+import { isDev } from "./utils/tools.util";
 import { NestExpressApplication } from "@nestjs/platform-express";
 async function bootstrap() {
   console.log(argv);
@@ -82,6 +82,7 @@ async function bootstrap() {
   const usersService = app.get(UsersService); // 获取用户服务
   if (await usersService.find({type: "num"}) == 0) { // 如果没有用户
     await usersService.create({ // 创建管理员
+      uuid: "",
       name: 'master', // 管理员名
       password: 'master', // 管理员密码 (程序会自动加密)
       email: '@example.com', // 管理员邮箱

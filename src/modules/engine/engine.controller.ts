@@ -1,13 +1,13 @@
 import { Controller, Get, Logger, Param, Query, Render, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CategoriesService } from 'modules/categories/categories.service';
-import { CommentsService } from 'modules/comments/comments.service';
-import { ConfigsService } from 'modules/configs/configs.service';
-import { FriendsService } from 'modules/friends/friends.service';
-import { PagesService } from 'modules/pages/pages.service';
-import { PostsService } from 'modules/posts/posts.service';
-import { ProjectsService } from 'modules/projects/projects.service';
-import { isDev } from 'utils/tools.util';
+import { CategoriesService } from '../../modules/categories/categories.service';
+import { CommentsService } from '../../modules/comments/comments.service';
+import { ConfigsService } from '../../modules/configs/configs.service';
+import { FriendsService } from '../../modules/friends/friends.service';
+import { PagesService } from '../../modules/pages/pages.service';
+import { PostsService } from '../../modules/posts/posts.service';
+import { ProjectsService } from '../../modules/projects/projects.service';
+import { isDev } from '../../utils/tools.util';
 import { argv, fs, path } from 'zx';
 
 const theme = process.env.theme ? process.env.theme : 'default'

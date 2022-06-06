@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateProjectsDto } from "shared/dto/create-projects-dto";
-import { Projects } from "shared/entities/projects.entity";
+import { CreateProjectsDto } from "../../shared/dto/create-projects-dto";
+import { Projects } from "../../shared/entities/projects.entity";
 import { Repository } from "typeorm";
 
 @Injectable()

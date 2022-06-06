@@ -5,7 +5,7 @@ import { ApiProperty } from "@nestjs/swagger";
  * @author: Wibus
  * @Date: 2021-10-04 22:04:15
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-29 12:11:29
+ * @LastEditTime: 2022-06-06 23:20:59
  * Coding With IU
  */
 export class CreateCommentsDto {
@@ -28,7 +28,7 @@ export class CreateCommentsDto {
     email: string;
 
   @ApiProperty()
-    url?: string = null;
+    url?: string;
 
   @ApiProperty()
     text: string; //Comments content
@@ -39,10 +39,10 @@ export class CreateCommentsDto {
     key: string;
 
   @ApiProperty()
-    ip?: string = null;
+    ip?: string;
 
   @ApiProperty()
-    userAgent?: string = null;
+    userAgent?: string;
 
   @ApiProperty()
     status: number;  // 0 need checked, 1 push, 2 shit message

@@ -3,13 +3,13 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-29 14:32:11
+ * @LastEditTime: 2022-06-06 22:29:54
  * Coding With IU
  */
 import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CommentsService } from "modules/comments/comments.service";
-import { listProps } from "shared/interfaces/listProps";
+import { CommentsService } from "../../modules/comments/comments.service";
+import { listProps } from "../../shared/interfaces/listProps";
 import { Repository } from "typeorm";
 import { CreatePagesDto } from "../../shared/dto/create-pages-dto";
 import { Pages } from "../../shared/entities/pages.entity";
@@ -43,7 +43,7 @@ export class PagesService {
     return await this.pagesRepository.increment({ path: path }, "thumbs", 1);
   }
 
-  async list(query?: listProps) {
+  async list(query: listProps) {
     const select: (keyof Pages)[] = query.select ? query.select.split(",") as (keyof Pages)[] : ["id", "title", "path", "content", "createdAt", "updatedAt"];
     query.limit = query.limit ? query.limit : 10;
     query.page = query.page ? query.page : 1;

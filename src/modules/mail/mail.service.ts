@@ -1,10 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common'
 // import { InjectRepository } from '@nestjs/typeorm'
-import { ConfigsService } from 'modules/configs/configs.service'
+import { ConfigsService } from '../../modules/configs/configs.service'
 import { render } from 'ejs'
 import { createTransport } from 'nodemailer'
-// import { Configs } from 'shared/entities/configs.entity'
-import { isDev } from 'utils/tools.util'
+// import { Configs } from '../../shared/entities/configs.entity'
+import { isDev } from '../../utils/tools.util'
 
 export enum ReplyMailType {
   Owner = 'owner',
@@ -78,11 +78,11 @@ export class EmailService {
         this.logger.error(message)
         return j(message)
       }
-      r({
-        host: process.env.MAIL_SERVER,
-        port: Number(process.env.MAIL_PORT) || 465,
-        auth: { user, pass },
-      } as const)
+      // r({
+      //   host: process.env.MAIL_SERVER,
+      //   port: Number(process.env.MAIL_PORT) || 465,
+      //   auth: { user, pass },
+      // } as const)
       // })
     })
   }

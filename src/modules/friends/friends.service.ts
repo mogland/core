@@ -5,10 +5,10 @@ import { Repository } from "typeorm";
 import { Friends } from "../../shared/entities/friends.entity";
 import { CreateFriendsDto } from "../../shared/dto/create-friends-dto";
 import { GHttp } from "../../helper/helper.http.service";
-import { delObjXss } from "utils/xss.util";
-import rssParser from "utils/rss.utils";
+import { delObjXss } from "../../utils/xss.util";
+import rssParser from "../../utils/rss.utils";
 import { Cron, CronExpression } from "@nestjs/schedule";
-import { listProps } from "shared/interfaces/listProps";
+import { listProps } from "../../shared/interfaces/listProps";
 
 @Injectable()
 export class FriendsService {
@@ -49,7 +49,7 @@ export class FriendsService {
     return await this.friendsRepository.find()
   }
 
-  async list(query?: listProps) {
+  async list(query: listProps) {
     const select: (keyof Friends)[] = query.select ? query.select.split(",") as (keyof Friends)[] : ["id", "name", "description", "website", "image", "check"];
     query.limit = query.limit ? query.limit : 10;
     query.page = query.page ? query.page : 1;

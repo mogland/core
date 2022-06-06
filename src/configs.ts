@@ -1,11 +1,11 @@
-import { Envs } from "utils/Envs.utils";
+import { Envs } from "./utils/Envs.utils";
 
 /*
- * @FilePath: /GS-server/src/configs.ts
+ * @FilePath: /nx-server/src/configs.ts
  * @author: Wibus
  * @Date: 2021-10-04 15:21:24
  * @LastEditors: Wibus
- * @LastEditTime: 2022-03-20 17:20:22
+ * @LastEditTime: 2022-06-06 22:42:00
  * Coding With IU
  */
 const configs = {

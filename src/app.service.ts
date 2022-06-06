@@ -4,7 +4,7 @@ import { PagesService } from "./modules/pages/pages.service";
 import { CommentsService } from "./modules/comments/comments.service";
 import { FriendsService } from "./modules/friends/friends.service";
 import { CategoriesService } from "./modules/categories/categories.service";
-import { GHttp } from "helper/helper.http.service";
+import { GHttp } from "./helper/helper.http.service";
 import { ConfigsService } from "./modules/configs/configs.service"
 @Injectable()
 export class AppService {
@@ -36,11 +36,12 @@ export class AppService {
   }
 
   async thumbUp(type: string, path?: string) {
-    if (type === 'post') {
+    if (type === 'post' && path) {
       await this.postsService.thumbUp(path)
-    } else if (type === 'page') {
+    } else if (type === 'page' && path) {
       await this.pageService.thumbUp(path)
-    } else {
+    }
+     else {
       await this.configService.change({
         name: "theme.thumbs", 
         value: JSON.stringify(Number(JSON.parse(await this.configService.get("theme.thumbs")) + 1))

@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-06 17:44:45
+ * @LastEditTime: 2022-06-06 22:28:33
  * Coding With IU
  */
 import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
@@ -12,8 +12,8 @@ import { CategoriesService } from "../categories/categories.service";
 import { Repository } from "typeorm";
 import { CreatePostDto } from "../../shared/dto/create-post-dto";
 import { Posts } from "../../shared/entities/posts.entity";
-import { listProps } from "shared/interfaces/listProps";
-import { CommentsService } from "modules/comments/comments.service";
+import { listProps } from "../../shared/interfaces/listProps";
+import { CommentsService } from "../../modules/comments/comments.service";
 
 @Injectable()
 export class PostsService {
@@ -61,7 +61,7 @@ export class PostsService {
     return data
   }
 
-  async list(query?: listProps) {
+  async list(query: listProps) {
     const select: (keyof Posts)[] = query.select ? query.select.split(",")  as (keyof Posts)[] : ["id", "title", "path", "slug", "createdAt", "updatedAt", "content", "views", "thumbs"];
     query.limit = query.limit ? query.limit : 10;
     query.page = query.page ? query.page : 1;
@@ -163,7 +163,7 @@ export class PostsService {
   }
   
   // 更新文章
-  async update(data: CreatePostDto) {
+  async update(data: any) {
     return await this.postsRepository.update(data.id,data);
   }
 

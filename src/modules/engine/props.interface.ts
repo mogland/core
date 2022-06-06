@@ -7,7 +7,7 @@
  * Coding With IU
  */
 
-import { Configs } from "shared/entities/configs.entity";
+import { Configs } from "../../shared/entities/configs.entity";
 
 export interface eneineProps {
     configs: Configs[];

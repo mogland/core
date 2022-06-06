@@ -5,11 +5,11 @@ import { JwtModule } from "@nestjs/jwt"; // 引入jwt模块
 import { PassportModule } from "@nestjs/passport"; // 引入passport模块
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from "@nestjs/typeorm"; // 引入typeorm模块
-import { GHttp } from "helper/helper.http.service";
-import { ProjectsController } from "modules/projects/projects.controller"; // 引入项目模块
-import { ProjectsModule } from "modules/projects/projects.module"; // 引入项目模块
-import { ProjectsService } from "modules/projects/projects.service"; // 引入项目模块
-import { Envs } from "utils/Envs.utils";
+import { GHttp } from "./helper/helper.http.service";
+import { ProjectsController } from "./modules/projects/projects.controller"; // 引入项目模块
+import { ProjectsModule } from "./modules/projects/projects.module"; // 引入项目模块
+import { ProjectsService } from "./modules/projects/projects.service"; // 引入项目模块
+import { Envs } from "./utils/Envs.utils";
 import { AppController } from "./app.controller"; // 引入控制器
 import { AppService } from "./app.service"; // 引入服务
 import { AllExceptionFilter } from "./common/filters/all-exception.filter"; // 引入过滤器
@@ -45,15 +45,15 @@ import { ConfigsController } from './modules/configs/configs.controller';
 import { ConfigsService } from './modules/configs/configs.service';
 import { ConfigsModule } from './modules/configs/configs.module';
 import { EngineModule } from './modules/engine/engine.module';
-import { EngineController } from "modules/engine/engine.controller";
-import { Categories } from "shared/entities/categories.entity";
-import { Comments } from "shared/entities/comments.entity";
-import { Configs } from "shared/entities/configs.entity";
-import { Friends } from "shared/entities/friends.entity";
-import { Pages } from "shared/entities/pages.entity";
-import { Posts } from "shared/entities/posts.entity";
-import { Projects } from "shared/entities/projects.entity";
-import { Users } from "shared/entities/users.entity";
+import { EngineController } from "./modules/engine/engine.controller";
+import { Categories } from "./shared/entities/categories.entity";
+import { Comments } from "./shared/entities/comments.entity";
+import { Configs } from "./shared/entities/configs.entity";
+import { Friends } from "./shared/entities/friends.entity";
+import { Pages } from "./shared/entities/pages.entity";
+import { Posts } from "./shared/entities/posts.entity";
+import { Projects } from "./shared/entities/projects.entity";
+import { Users } from "./shared/entities/users.entity";
 import { MarkdownModule } from './modules/markdown/markdown.module';
 
 

@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Projects } from "shared/entities/projects.entity";
+import { Projects } from "../../shared/entities/projects.entity";
 import { ProjectsController } from "./projects.controller";
 import { ProjectsService } from "./projects.service";
 
