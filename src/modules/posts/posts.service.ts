@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-05-29 14:58:36
+ * @LastEditTime: 2022-06-06 17:44:45
  * Coding With IU
  */
 import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
@@ -25,7 +25,7 @@ export class PostsService {
     @Inject(forwardRef(() => CommentsService))
     private commentsService: CommentsService
   ) {}
-
+  
   async thumbUp(path: string) {
     return await this.postsRepository.increment({
       path: path,

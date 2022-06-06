@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common"; // 引入模块
+import { MiddlewareConsumer, Module, NestModule, Type } from "@nestjs/common"; // 引入模块
 import { ConfigModule } from '@nestjs/config'; // 引入配置文件
 import { APP_FILTER, APP_GUARD } from "@nestjs/core"; // 引入守卫
 import { JwtModule } from "@nestjs/jwt"; // 引入jwt模块
@@ -105,7 +105,7 @@ import { MarkdownModule } from './modules/markdown/markdown.module';
     ConfigsModule,
     EngineModule,
     MarkdownModule,
-  ],
+  ].filter(Boolean) as Type<NestModule>[],
   controllers: [
     AppController,
     UsersController,
@@ -144,4 +144,8 @@ import { MarkdownModule } from './modules/markdown/markdown.module';
     ConfigsService
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    // consumer.apply(AttachHeaderTokenMiddleware).forRoutes('*')
+  }
+}

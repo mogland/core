@@ -1,15 +1,15 @@
-import { ApiProperty } from "@nestjs/swagger"
-import { Transform } from "class-transformer"
-import { IsBoolean, IsOptional } from "class-validator"
-
 /*
  * @FilePath: /nx-server/src/modules/markdown/markdown.dto.ts
  * @author: Wibus
  * @Date: 2022-06-04 16:47:45
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-04 16:47:46
+ * @LastEditTime: 2022-06-06 17:25:09
  * Coding With IU
  */
+import { ApiProperty } from "@nestjs/swagger"
+import { Transform } from "class-transformer"
+import { IsBoolean, IsOptional } from "class-validator"
+
 export class ExportMarkdownQueryDto {
   @IsBoolean()
   @IsOptional()
