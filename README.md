@@ -12,7 +12,7 @@
 
 <br />
 
-![Alt](https://repobeats.axiom.co/api/embed/c901877ec290fab2cf7184b8ce2510da577401a1.svg "Repobeats analytics image")
+![Alt](https://repobeats.axiom.co/api/embed/c41f4aa5c6264c1db4ddd6c2120c0fca64dabcea.svg "Repobeats analytics image")
 
 <br />
 
