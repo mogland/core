@@ -1,17 +1,20 @@
-import { Controller, Get, Header, Query } from '@nestjs/common';
-import { ApiProperty } from '@nestjs/swagger';
+import { Controller, Get, Head, Header, Query, Res } from '@nestjs/common';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import JSZip from 'jszip';
 import { CategoriesService } from '../../modules/categories/categories.service';
 import { CommentsService } from '../../modules/comments/comments.service';
 import { PagesService } from '../../modules/pages/pages.service';
 import { PostsService } from '../../modules/posts/posts.service';
-import { join } from 'path';
+import path, { join } from 'path';
 import { Readable } from 'stream';
 import { ExportMarkdownQueryDto } from './markdown.dto';
 import { MarkdownYAMLProperty } from './markdown.interface';
 import { MarkdownService } from './markdown.service';
+import { HTTPDecorators } from '~/common/decorator/http.decorator';
+import { fs } from 'zx';
 
-@Controller('Markdown')
+@Controller('markdown')
+@ApiTags('Markdown')
 export class MarkdownController {
   constructor(
     private pagesService: PagesService,
@@ -28,9 +31,10 @@ export class MarkdownController {
 
   @Get('/export')
   // @Auth()
+  @HTTPDecorators.Bypass
   @ApiProperty({ description: '导出 Markdown YAML 数据' })
-  @Header('Content-Type', 'application/zip')
-  async exportArticleToMarkdown(@Query() query: ExportMarkdownQueryDto) {
+  // @Header('Content-Type', 'application/zip') // 设置响应头
+  async exportArticleToMarkdown(@Res() res,@Query() query: ExportMarkdownQueryDto) {
     const { show_title: showTitle, slug, yaml } = query
     const allArticles = await this.service.extractAllArticle()
     const { posts } = allArticles
@@ -71,40 +75,39 @@ export class MarkdownController {
         permalink: `posts/${post.path}`,
       }),
     )
+    
+    // zip
     const map = {
       posts: convertPost,
+      // pages: convertPage,
+      // notes: convertNote,
     }
-    // console.log(convertPost)
+
     const rtzip = new JSZip()
+
     await Promise.all(
       Object.entries(map).map(async ([key, arr]) => {
-        console.log(arr)
         const zip = await this.service.generateArchive({
           documents: arr,
           options: {
-            slug
+            slug,
           },
         })
+
         zip.forEach(async (relativePath, file) => {
-          // file.nodeStream() // 获取文件的流，可以用来读取文件
-          // join(key, relativePath) // 获取文件的绝对路径
-          rtzip.file(join(key, relativePath), file.nodeStream())  // 将文件加入到压缩包中
-          // 获取目前的文件的流
-          const readable = file.nodeStream()
-          // console.log(readable)
+          rtzip.file(join(key, relativePath), file.nodeStream())
         })
       }),
     )
 
-    const readable = new Readable() // 创建一个可读流
-    readable.push(await rtzip.generateAsync({
-      type: "nodebuffer", // 压缩类型
-      compression: "DEFLATE", // 压缩算法
-      compressionOptions: { // 压缩级别
-        level: 9
-      }
-    })) // 将压缩包的内容写入到可读流中
-    readable.push(null) // 写入null，表示文件写入结束
-    return readable // 返回可读流
+    const buffer = await rtzip.generateAsync({
+      type: 'nodebuffer',
+    })
+    // use res.send() to send the file to the client instead of writing it to disk
+    // use readable can't send
+    res.setHeader('Content-Disposition', 'attachment; filename=markdown.zip')
+    res.setHeader('Content-Type', 'application/zip')
+    res.send(buffer)
+    
   }
 }
