@@ -1,8 +1,20 @@
-# Nest Http Template
+<div align="center">
+<a href="https://github.com/nx-space" target="_blank" rel="noopener noreferrer"><img width="100" src="https://avatars.githubusercontent.com/u/106414194" alt="NEXT logo"></a>
+<h1><del>NextSpace Server v1.x </del> <small><code>Disabled</code></small></h1>
+  <p>
+  <del>the RESTful API service for N Space, powered by @nestjs.</del> 此项目需要重写
+  </p>
+  <a href='https://wakatime.com/badge/github/wibus-wee/nx-server'><img src="https://wakatime.com/badge/github/wibus-wee/nx-server.svg" referrerpolicy="no-referrer" alt="wakatime"></a>
+<img src="https://img.shields.io/github/package-json/v/wibus-wee/GS-server" referrerpolicy="no-referrer" alt="version"> 
+<a href='https://deepscan.io/dashboard#view=project&amp;tid=14175&amp;pid=18839&amp;bid=473312'><img src="https://deepscan.io/api/teams/14175/projects/18839/branches/473312/badge/grade.svg" referrerpolicy="no-referrer" alt="DeepScan grade"></a> 
+<a href='https://github.com/wibus-wee/GS-server/actions/workflows/deploy.yml'><img src="https://github.com/wibus-wee/GS-server/actions/workflows/deploy.yml/badge.svg?branch=main" referrerpolicy="no-referrer" alt="Deploy Server"></a> 
+</div>
 
-A NestJS template, which used the coolest and fastest stuff.
+<br />
 
-<img width="727" alt="image" src="https://user-images.githubusercontent.com/41265413/159869110-7704ddc4-d0ac-4cc4-9f34-b7b5568481f9.png">
+![Alt](https://repobeats.axiom.co/api/embed/c41f4aa5c6264c1db4ddd6c2120c0fca64dabcea.svg "Repobeats analytics image")
+
+<br />
 
 ## Which Tech Stack In Use
 
@@ -15,51 +27,34 @@ A NestJS template, which used the coolest and fastest stuff.
 - DevOps: Docker
 - Other: Prettier, ESLint, Husky, Bump Version, etc.
 
-## How to start development
+## Get Started
 
-```bash
-npm run dev
-```
+**_nx-server 依赖于 nodejs 和 MySQL 环境_**
 
-## File Structure
+[Documentation 文档](https://nx-docs.iucky.cn)｜[Development Live Demo](htttps://gs-server.vercel.app)
 
-```
-.
-├── app.config.ts                 # 主程序配置，数据库、程序、第三方，一切可配置项
-├── app.controller.ts             # 主程序根控制器
-├── app.module.ts                 # 主程序根模块，负责各业务模块的聚合
-├── common                        # 存放中间件
-│   ├── adapters                  # 适配器的配置
-│   ├── decorator                 # 业务装饰器
-│   ├── exceptions                # 自定义异常
-│   ├── filters                   # 异常处理器
-│   ├── guard                     # 守卫与鉴权
-│   ├── interceptors              # 拦截器, 数据过滤与响应格式化处理
-│   ├── middlewares               # 传统意义上的中间件
-│   └── pipes                     # 管道
-├── constants                     # 常量
-├── main.ts                       # 引入配置，启动主程序，引入各种全局服务
-├── modules                       # 业务逻辑模块
-├── processors                      # 核心辅助模块
-│   ├── cache                       # Redis 缓存相关
-│   ├── database                    # Mongo 数据库相关
-│   ├── gateway                     # Socket.IO 相关
-│   ├── helper                      # 辅助类
-│   └── logger                      # 自定义 Logger
-├── shared                          # 通用模型
-│   ├── dto                         # 数据验证模型
-│   ├── interface                   # 接口
-│   └── model                       # 基本数据模型
-├── utils                           # 工具类
-├── bootstrap.ts                    # 引导程序
-└── main.ts                         # 入口
 
-```
+## Project Sponsors
 
-## Docs
+感谢 **Salted Fish**  的静态资源托管
 
-Please visit [docs](./docs/) folder under this project.
+感谢 **小沐** 的对项目大力支持
 
-## Authors
+感谢 **若志** 提供服务器支持
 
-[Innei](https://github.com/innei).
+## Reference
+
+This project referred to: 
+
+- [mx-space/core](https://github.com/mx-space/core)
+- [innei/nest-http-boilerplate](https://github.com/Innei/nest-http-boilerplate)
+
+## License
+
+此项目 AGPLv3 授权开源，使用此项目进行的二次创作或者衍生项目也必须开源。
+
+## Author
+
+nx-space © Wibus, Released under the AGPL-3.0 License. Created on 2021-09-25
+
+> [Personal Website](http://iucky.cn/) · [Blog](https://blog.iucky.cn/) · GitHub [@wibus-wee](https://github.com/wibus-wee/) · Telegram [@wibus✪](https://t.me/wibus_wee)>
