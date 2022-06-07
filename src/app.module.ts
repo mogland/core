@@ -55,6 +55,7 @@ import { Posts } from "./shared/entities/posts.entity";
 import { Projects } from "./shared/entities/projects.entity";
 import { Users } from "./shared/entities/users.entity";
 import { MarkdownModule } from './modules/markdown/markdown.module';
+import { TextMacroService } from "./helper/helper.macro.service";
 
 
 @Module({

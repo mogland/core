@@ -8,12 +8,14 @@ import { PostsService } from "./posts.service";
 import { CommentsModule } from "../../modules/comments/comments.module";
 import { CommentsService } from "../../modules/comments/comments.service";
 import { UsersModule } from "../../modules/users/users.module";
+import { TextMacroService } from "~/helper/helper.macro.service";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Posts]), 
     forwardRef(() => CategoriesModule),
     CommentsModule,
-    UsersModule],
+    UsersModule,
+  ],
   providers: [PostsService, CategoriesService, CommentsService],
   controllers: [PostsController],
   exports: [TypeOrmModule],

@@ -30,7 +30,7 @@ export class EngineController {
    * 基本配置 通用
    * @returns Object
    */
-  private async baseProps() {
+  async baseProps() {
     return {
       sites: {
         posts: await this.postService.all(),

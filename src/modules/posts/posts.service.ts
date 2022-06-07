@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2021-10-03 22:54:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-06 22:28:33
+ * @LastEditTime: 2022-06-07 18:18:50
  * Coding With IU
  */
 import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
@@ -14,6 +14,7 @@ import { CreatePostDto } from "../../shared/dto/create-post-dto";
 import { Posts } from "../../shared/entities/posts.entity";
 import { listProps } from "../../shared/interfaces/listProps";
 import { CommentsService } from "../../modules/comments/comments.service";
+// import { TextMacroService } from "~/helper/helper.macro.service";
 
 @Injectable()
 export class PostsService {
@@ -23,7 +24,8 @@ export class PostsService {
     @Inject(forwardRef(() => CategoriesService))
     private categodyService: CategoriesService,
     @Inject(forwardRef(() => CommentsService))
-    private commentsService: CommentsService
+    private commentsService: CommentsService,
+    // private textMacroService: TextMacroService,
   ) {}
   
   async thumbUp(path: string) {
@@ -58,6 +60,7 @@ export class PostsService {
       const comments = await this.commentsService.getComments("post", data.id)
       data.comments = comments.length
     }
+    // data.content = this.textMacroService.replaceTextMacro(data.content, data)
     return data
   }
 
