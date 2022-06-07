@@ -1,8 +1,8 @@
 <div align="center">
 <a href="https://github.com/nx-space" target="_blank" rel="noopener noreferrer"><img width="100" src="https://avatars.githubusercontent.com/u/106414194" alt="NEXT logo"></a>
-<h1><del>NextSpace Server v1.x </del> <small><code>Disabled</code></small></h1>
+<h1>NextSpace Server v1.x <small><code>WIP</code></small></h1>
   <p>
-  <del>the RESTful API service for N Space, powered by @nestjs.</del> 此项目需要重写
+  the RESTful API service for N Space, powered by @nestjs.
   </p>
   <a href='https://wakatime.com/badge/github/wibus-wee/nx-server'><img src="https://wakatime.com/badge/github/wibus-wee/nx-server.svg" referrerpolicy="no-referrer" alt="wakatime"></a>
 <img src="https://img.shields.io/github/package-json/v/wibus-wee/GS-server" referrerpolicy="no-referrer" alt="version"> 
