@@ -2,7 +2,7 @@
 <a href="https://github.com/nx-space" target="_blank" rel="noopener noreferrer"><img width="100" src="https://avatars.githubusercontent.com/u/106414194" alt="NEXT logo"></a>
 <h1>NextSpace Server v1.x <small><code>WIP</code></small></h1>
   <p>
-  the RESTful API service for N Space, powered by @nestjs.
+  the RESTful API service for N Space, powered by @nestjs. (refactor version)
   </p>
   <a href='https://wakatime.com/badge/github/wibus-wee/nx-server'><img src="https://wakatime.com/badge/github/wibus-wee/nx-server.svg" referrerpolicy="no-referrer" alt="wakatime"></a>
 <img src="https://img.shields.io/github/package-json/v/wibus-wee/GS-server" referrerpolicy="no-referrer" alt="version"> 
@@ -20,18 +20,18 @@
 
 - Framework: NestJS (Based on Fastify)
 - Language: TypeScript (Best practices, Not AnyScript)
-- Database ODM: Typegoose (Write schema once all in TypeScript)
+- Database ODM: **Typegoose** (Write schema once all in TypeScript)
 - Bundle Toolchain: @vercel/ncc Bundle (Bundle entry, go node_modules away)
-- Testing: Vitest (Test case write in TypeScript, fast and out-of-box)
+- Testing: **Vitest** (Test case write in TypeScript, fast and out-of-box)
 - Package Manager: PNPM (which is fastest)
 - DevOps: Docker
 - Other: Prettier, ESLint, Husky, Bump Version, etc.
 
 ## Get Started
 
-**_nx-server 依赖于 nodejs 和 MySQL 环境_**
+**_nx-server 依赖于 NodeJS, MongoDB 和 Redis 环境_**
 
-[Documentation 文档](https://nx-docs.iucky.cn)｜[Development Live Demo](htttps://gs-server.vercel.app)
+[Documentation 文档](https://nx-docs.iucky.cn)｜ [Development Live Demo](htttps://gs-server.vercel.app)
 
 
 ## Project Sponsors
@@ -55,6 +55,6 @@ This project referred to:
 
 ## Author
 
-nx-space © Wibus, Released under the AGPL-3.0 License. Created on 2021-09-25
+nx-space © Wibus, Released under the AGPL-3.0 License. Created on 2021-09-25. Refactored on 2022-06-07
 
 > [Personal Website](http://iucky.cn/) · [Blog](https://blog.iucky.cn/) · GitHub [@wibus-wee](https://github.com/wibus-wee/) · Telegram [@wibus✪](https://t.me/wibus_wee)>
