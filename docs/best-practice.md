@@ -32,7 +32,7 @@ export PATH="./node_modules/.bin:$PATH"
 
 :::
 
-Do above command, nest-cli will generate a folder in modules, named good, and create a file named good.module.ts, The GoodModule will be imported in `app.module.ts` imports scope.
+执行上述命令，nest-cli将在modules中生成一个名为good的文件夹，并创建一个名为good.module的文件。ts, GoodModule将被导入到app.module中。ts的进口范围。
 
 ```ts
 // app.module.ts
@@ -53,19 +53,19 @@ Do above command, nest-cli will generate a folder in modules, named good, and cr
 export class AppModule {}
 ```
 
-In NestJS, a module wraps controllers, providers. So, should create a new file named `good.controller.ts` and write api in this file. Also, use nestjs-cli to create this file quickly.
+在NestJS中，模块包装了控制器、提供程序。应该创建一个名为good.controller的新文件。并在此文件中写入API。另外，使用nestjs-cli快速创建这个文件。
 
 ```bash
 nest g co modules/good --no-spec
 ```
 
-And create a service for this controller, the responsibility of a service is to manipulate a database, aggregating methods of manipulating data.
+并且为这个控制器创建一个服务，服务的职责是操作数据库，聚合操作数据的方法。
 
 ```bash
 nest g s modules/good --no-spec
 ```
 
-After above all command executed, Good.module.ts will become like this.
+在执行以上所有命令之后，Good.module.ts将变成这样。
 
 ```ts
 @Module({
@@ -75,7 +75,7 @@ After above all command executed, Good.module.ts will become like this.
 export class GoodModule {}
 ```
 
-We also need database model for good, so create file named as `good.model.ts` to define this model. In this project, we use [Typegoose](https://typegoose.github.io/typegoose/docs/guides/quick-start-guide) to define model, it is a "wrapper" for easily writing Mongoose models with TypeScript.
+我们还需要数据库模型，所以创建名为' good.model的文件。来定义这个模型。在这个项目中，我们使用[Typegoose](https://typegoose.github.io/typegoose/docs/guides/quick-start-guide)来定义模型，它是一个“包装器”，可以轻松地用TypeScript编写Mongoose模型。
 
 ```ts
 export class GoodModel extends BaseModel {
@@ -84,7 +84,7 @@ export class GoodModel extends BaseModel {
 }
 ```
 
-A model definition always extends from BaseModel. Finish define model, don't forgot register this model in DatabaseModule. Add this.
+模型定义总是从BaseModel扩展而来。完成模型的定义，不要忘记在DatabaseModule中注册这个模型。添加这个。
 
 ```ts
 // src/processors/database/database.module.ts
@@ -109,7 +109,7 @@ const models = TypegooseModule.forFeature([
 Ok, you can use this model in service now, open `good.service.ts` and inject this model.
 
 :::note
-In NestJS application, all modules including controllers and providers is singleton default and managed by nest framework. So if want to use providers, must inject provide first.
+在NestJS应用中，包括控制器和提供程序在内的所有模块默认都是单例的，并由嵌套框架管理。所以如果想要使用提供程序，必须先注入提供程序。
 :::
 
 ```ts
@@ -142,9 +142,9 @@ export class RuleController {
 
 Ok, a business module was successfully created.
 
-# How to do data validation
+# 如何进行数据验证
 
-For security reasons, middleware is usually added to the request to validate the data for compliance, and NestJS provides a ValidatePipe for data validation. Next, write a simple GoodDto to validate the data.
+出于安全原因，中间件通常被添加到请求中来验证数据的合规性，而NestJS提供了一个ValidatePipe来进行数据验证。接下来，编写一个简单的GoodDto来验证数据。
 
 Create file named `good.dto.ts`
 
@@ -175,7 +175,7 @@ export class RuleController {
 }
 ```
 
-You'll notice that just by adding a decorator @Body and a type definition `GoodDto` on the front of the body, that's it, just define what the type of the body is and nestjs will automatically get the type and then verify that the structure of the request is valid. If it's not valid, it throws an 422 exception.
+你会注意到，只要在正文前面添加一个装饰器@Body和一个类型定义' GoodDto '，就可以定义正文的类型，然后nestjs会自动获得类型，然后验证请求的结构是否有效。如果无效，则抛出422异常。
 
 ## How to name a file
 

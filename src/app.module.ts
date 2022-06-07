@@ -6,6 +6,7 @@ import { HttpCacheInterceptor } from './common/interceptors/cache.interceptor'
 import { JSONSerializeInterceptor } from './common/interceptors/json-serialize.interceptor'
 import { ResponseInterceptor } from './common/interceptors/response.interceptor'
 import { PostModule } from './modules/post/post.module'
+import { UserModule } from './modules/user/user.module'
 import { CacheModule } from './processors/cache/cache.module'
 import { DatabaseModule } from './processors/database/database.module'
 import { HelperModule } from './processors/helper/helper.module'
@@ -18,6 +19,7 @@ import { LoggerModule } from './processors/logger/logger.module'
     HelperModule,
     LoggerModule,
     PostModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [
