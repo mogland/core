@@ -9,13 +9,16 @@ import { ErrorCodeEnum } from '~/constants/error-code.constant'
 @Controller('posts')
 @ApiName
 export class PostController {
-  constructor(private readonly service: PostService) {}
+  constructor(
+    private readonly postService: PostService,
+    // private readonly countingService: CountingService,
+  ) {}
 
   @HTTPDecorators.Paginator
   @Get('/')
   async gets(@Query() query: PagerDto) {
     const { page, select, size } = query
-    return this.service.model.paginate(
+    return this.postService.model.paginate(
       {},
       {
         page,

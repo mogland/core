@@ -44,3 +44,7 @@ lerna-debug.log*
 # ncc
 
 out
+
+#redis
+.redis-cli
+dump.rdb

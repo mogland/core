@@ -11,6 +11,7 @@ import { CacheModule } from './processors/cache/cache.module'
 import { DatabaseModule } from './processors/database/database.module'
 import { HelperModule } from './processors/helper/helper.module'
 import { LoggerModule } from './processors/logger/logger.module'
+import { CategoryModule } from './modules/category/category.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { LoggerModule } from './processors/logger/logger.module'
     HelperModule,
     LoggerModule,
     PostModule,
-    UserModule
+    UserModule,
+    CategoryModule
   ],
   controllers: [AppController],
   providers: [

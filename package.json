@@ -1,9 +1,16 @@
 {
-  "name": "nest-http",
+  "name": "@nx-space/core",
+  "version": "1.0.0",
   "description": "",
-  "author": "Innei <https://innei.ren>",
+  "author": "Wibus <https://iucky.cn>",
   "private": true,
-  "license": "MIT",
+  "license": "AGPLv3",
+  "repository": {
+    "directory": "nx-space/core",
+    "url": "https://github.com/nx-space/core"
+  },
+  "homepage": "https://github.com/nx-space/core#readme",
+  "issues": "https://github.com/nx-space/core/issues",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -68,6 +75,8 @@
     "fastify-swagger": "5.1.1",
     "lodash": "*",
     "mongoose": "6.3.0",
+    "mongoose-lean-id": "^0.3.0",
+    "mongoose-lean-virtuals": "^0.9.1",
     "mongoose-paginate-v2": "1.6.3",
     "nanoid": "3.3.3",
     "passport": "0.5.2",
