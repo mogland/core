@@ -4,7 +4,7 @@ import { PostService } from '../post/post.service';
 import { CategoryModel, CategoryType } from './category.model';
 import { FilterQuery } from 'mongoose'
 import { PostModel } from '../post/post.model';
-import { DocumentType } from '@typegoose/typegoose';
+import { DocumentType, ReturnModelType } from '@typegoose/typegoose';
 import { omit } from 'lodash'
 import { CannotFindException } from '~/common/exceptions/cant-find.exception';
 
@@ -12,11 +12,15 @@ import { CannotFindException } from '~/common/exceptions/cant-find.exception';
 export class CategoryService {
   constructor(
     @InjectModel(CategoryModel)
-    private readonly categoryModel: MongooseModel<CategoryModel>,
+    private readonly categoryModel: ReturnModelType<typeof CategoryModel>,
     @Inject(forwardRef(() => PostService)) // 可以使用 forwardRef 把 PostService 暴露给 CategoryService
     private readonly postService: PostService,
   ) {
     this.createDefaultCategory() // 在初始化时创建默认分类
+  }
+
+  get model() {
+    return this.categoryModel
   }
 
   /**

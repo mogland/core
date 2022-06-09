@@ -30,7 +30,7 @@ export const MONGO_DB = {
 }
 
 export const REDIS = {
-  host: argv.redis_host || 'localhost',
+  host: argv.redis_host || '127.0.0.1',
   port: argv.redis_port || 6379,
   password: argv.redis_password || null,
   ttl: null,

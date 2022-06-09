@@ -63,6 +63,7 @@ specifiers:
   run-script-webpack-plugin: 0.0.11
   rxjs: 7.5.5
   snakecase-keys: 5.4.1
+  source-map-support: ^0.5.21
   ts-loader: 9.2.8
   ts-node: 10.7.0
   tsconfig-paths: 3.14.1
@@ -139,6 +140,7 @@ devDependencies:
   prettier: 2.6.2
   rimraf: 3.0.2
   run-script-webpack-plugin: 0.0.11
+  source-map-support: 0.5.21
   ts-loader: 9.2.8_ysyynzd4vf4kfcx3qwigwoeg2e
   ts-node: 10.7.0_3r2icfqjphnwkspjuhdmgcdtpq
   tsconfig-paths: 3.14.1
@@ -5046,7 +5048,7 @@ packages:
     dev: true
 
   /source-map/0.5.7:
-    resolution: {integrity: sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=}
+    resolution: {integrity: sha512-LbrmJOMUSdEVxIKvdcJzQC+nQhe8FUZQTXQy6+I75skNgn3OoQ0DZA8YnFa7gp8tqtL3KPf1kmo0R5DoApeSGQ==}
     engines: {node: '>=0.10.0'}
     dev: true
 

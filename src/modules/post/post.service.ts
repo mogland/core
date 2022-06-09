@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { PostModel } from './post.model'
 import { InjectModel } from '~/transformers/model.transformer'
 import { FilterQuery, PaginateOptions } from 'mongoose'
@@ -9,6 +9,7 @@ export class PostService {
   constructor(
     @InjectModel(PostModel) 
     private readonly postModel: MongooseModel<PostModel>,
+    @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
   ) {}
   get model(){
