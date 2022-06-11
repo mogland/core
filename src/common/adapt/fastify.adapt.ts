@@ -18,11 +18,11 @@ app.getInstance().addHook('onRequest', (request, reply, done) => {
 
   if (url.endsWith('.php')) {
     reply.raw.statusMessage =
-      'Eh. PHP is not support on this machine. Yep, I also think PHP is bestest programming language. But for me it is beyond my reach.'
+      'PHP是世界上最好的语言! 但我不配用它!'
 
     return reply.code(418).send()
   } else if (url.match(/\/(adminer|admin|wp-login)$/g)) {
-    reply.raw.statusMessage = 'Hey, What the fuck are you doing!'
+    reply.raw.statusMessage = '哈哈，看看是谁在搞渗透！'
     return reply.code(200).send()
   }
 
