@@ -1,8 +1,25 @@
-import { Module } from '@nestjs/common';
+import { Global, Module, Provider } from '@nestjs/common';
+import { CategoryModel } from '~/modules/category/category.model';
+import { PostModel } from '~/modules/post/post.model';
+import { UserModel } from '~/modules/user/user.model';
+import { databaseProvider } from './database.provider';
 import { DbService } from './db.service';
+import { getProviderByTypegooseClass } from './model.transformer';
 
+
+const models = [
+  UserModel,
+  PostModel,
+  CategoryModel
+].map((model) =>
+  getProviderByTypegooseClass(model),
+)
+
+const providers: Provider[] = [DbService, databaseProvider, ...models],
+
+@Global()
 @Module({
-  providers: [DbService],
-  exports: [DbService],
+  providers,
+  exports: providers,
 })
 export class DbModule {}
