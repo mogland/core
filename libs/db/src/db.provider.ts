@@ -1,9 +1,9 @@
 /*
- * @FilePath: /core/libs/db/src/database.provider.ts
+ * @FilePath: /nx-core/libs/db/src/db.provider.ts
  * @author: Wibus
  * @Date: 2022-06-12 08:17:15
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-12 08:17:15
+ * @LastEditTime: 2022-06-12 18:06:43
  * Coding With IU
  */
 /**
