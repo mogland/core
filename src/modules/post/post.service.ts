@@ -3,13 +3,12 @@ import { PostModel } from './post.model'
 import { InjectModel } from '~/transformers/model.transformer'
 import { FilterQuery, PaginateOptions } from 'mongoose'
 import { CategoryService } from '../category/category.service'
-import { ReturnModelType } from '@typegoose/typegoose'
 
 @Injectable()
 export class PostService {
   constructor(
     @InjectModel(PostModel) 
-    private readonly postModel: ReturnModelType<typeof PostModel>,
+    private readonly postModel: MongooseModel<PostModel>,
     @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
   ) {}
