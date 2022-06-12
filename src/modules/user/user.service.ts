@@ -46,6 +46,11 @@ export class UserService {
     return user
   }
 
+  /**
+   * 获取主人的信息
+   * @param getLoginIp - 获取登陆ip
+   * @returns {Promise<LeanDocument>}
+   */
   async getMasterInfo(getLoginIp = false) {
     const user = await this.userModel
       .findOne()
@@ -69,6 +74,11 @@ export class UserService {
     return master
   }
 
+  /**
+   * 初始化主人
+   * @param model - 用户模型
+   * @returns {Promise<{token: string; username: string; authCode: string;}>}
+   */
   async createMaster(
     model: Pick<UserModel, 'username' | 'name' | 'password'> &
       Partial<Pick<UserModel, 'introduce' | 'avatar' | 'url'>>,

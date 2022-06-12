@@ -15,7 +15,7 @@ const models = [
   getProviderByTypegooseClass(model),
 )
 
-const providers: Provider[] = [DbService, databaseProvider, ...models],
+const providers: Provider[] = [DbService, databaseProvider, ...models]
 
 @Global()
 @Module({
