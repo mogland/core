@@ -19,7 +19,7 @@ export const CROSS_DOMAIN = {
 }
 
 export const MONGO_DB = {
-  dbName: argv.collection_name || 'nest-http',
+  dbName: argv.collection_name || 'nx-space',
   host: argv.db_host || '127.0.0.1',
   port: argv.db_port || 27017,
   get uri() {

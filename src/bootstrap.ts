@@ -76,7 +76,7 @@ export async function bootstrap() {
     }
     consola.success(`[${prefix + pid}] Server listen on: ${url}`)
 
-    Logger.log(`Server is up. ${chalk.yellow(`+${performance.now() | 0}ms`)}`)
+    Logger.log(`NxServer is up. ${chalk.yellow(`+${performance.now() | 0}ms`)}`)
   })
   if (module.hot) {
     module.hot.accept()
