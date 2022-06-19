@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, Delete, forwardRef, Get, HttpCode, Inject, Param, Patch, Post, Put, Query } from '@nestjs/common';
-import { ApiBody, ApiParam, ApiQuery } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ApiName } from '~/common/decorator/openapi.decorator';
 import { IsMaster } from '~/common/decorator/role.decorator';
 import { PostService } from '../post/post.service';
@@ -22,6 +22,7 @@ export class CategoryController {
 
 
   @Get('/')
+  @ApiOperation({ summary: "多分类查询、分类列表" })
   async getCategories(
     @Query() query: MultiCategoriesQueryDto
   ) {
@@ -73,6 +74,7 @@ export class CategoryController {
   }
 
   @Get('/:query')
+  @ApiOperation({ summary: "根据分类id或者标签名查询分类" })
   @ApiParam({ name: 'query', type: 'string', required: true, description: '如果这个是标签，则query为标签名，如果是分类，则query为分类id或分类名' })
   @ApiQuery({ // 查询参数
     name: 'tag', // 参数名
@@ -115,6 +117,7 @@ export class CategoryController {
   }
 
   @Post('/')
+  @ApiOperation({ summary: "创建分类" })
   @Auth()
   @ApiBody({ type: CategoryModel })
   async create(@Body() { name, slug }: CategoryModel) {
@@ -122,6 +125,7 @@ export class CategoryController {
   }
 
   @Put('/:id')
+  @ApiOperation({ summary: "更新分类" })
   @Auth()
   @ApiParam({ name: 'id', description: '分类id' })
   @ApiBody({ description: '分类信息', type: CategoryModel })
@@ -130,7 +134,8 @@ export class CategoryController {
     return this.categoryService.model.findById(id) // 返回更新后的分类
   }
 
-  @Patch('/:id')
+  @Patch('/:id') // patch 方法用于更新部分字段
+  @ApiOperation({ summary: "更新分类" })
   @Auth()
   @HttpCode(204)
   async patch(@Param() params: MongoIdDto, @Body() body: PartialCategoryModel) {
@@ -140,6 +145,7 @@ export class CategoryController {
   }
 
   @Delete('/:id')
+  @ApiOperation({ summary: "删除分类" })
   @Auth()
   @ApiParam({ name: 'id', description: '分类id' })
   async deleteCategory(@Param() { id }: MongoIdDto): Promise<any> {
