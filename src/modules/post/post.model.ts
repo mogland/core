@@ -70,4 +70,21 @@ export class PostModel extends BaseModel {
   @ApiProperty({ description: '文章标签' })
   tags: string[]
 
+  @prop({
+    type: Date,
+    default: Date.now,
+  })
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({ description: '文章创建时间' })
+  created: Date
+
+  @prop({
+    type: Date,
+  })
+  @IsString()
+  @IsOptional()
+  @ApiProperty({ description: '文章修改时间' })
+  modified: Date
+
 }

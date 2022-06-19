@@ -64,6 +64,7 @@ specifiers:
   rimraf: 3.0.2
   run-script-webpack-plugin: 0.0.11
   rxjs: 7.5.5
+  slugify: ^1.6.5
   snakecase-keys: 5.4.1
   source-map-support: ^0.5.21
   ts-loader: 9.2.8
@@ -109,6 +110,7 @@ dependencies:
   redis: 4.0.6
   reflect-metadata: 0.1.13
   rxjs: 7.5.5
+  slugify: 1.6.5
   snakecase-keys: 5.4.1
   zx-cjs: 6.1.0
 
@@ -5632,6 +5634,11 @@ packages:
       ansi-styles: 6.1.0
       is-fullwidth-code-point: 4.0.0
     dev: true
+
+  /slugify/1.6.5:
+    resolution: {integrity: sha512-8mo9bslnBO3tr5PEVFzMPIWwWnipGS0xVbYf65zxDqfNwmzYn1LpiKNrR6DlClusuvo+hDHd1zKpmfAe83NQSQ==}
+    engines: {node: '>=8.0.0'}
+    dev: false
 
   /smart-buffer/4.2.0:
     resolution: {integrity: sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==}
