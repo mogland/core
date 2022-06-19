@@ -1,7 +1,5 @@
 import { ApiHideProperty } from '@nestjs/swagger'
 import { index, modelOptions, plugin, prop } from '@typegoose/typegoose'
-import { Type } from 'class-transformer'
-import { IsString, IsNotEmpty, IsOptional, ValidateNested, IsBoolean } from 'class-validator'
 import LeanId from 'mongoose-lean-id'
 import { default as mongooseLeanVirtuals } from 'mongoose-lean-virtuals'
 import Paginate from 'mongoose-paginate-v2'

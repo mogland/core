@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-12 08:17:15
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-12 18:06:43
+ * @LastEditTime: 2022-06-19 08:40:47
  * Coding With IU
  */
 /**
@@ -24,7 +24,7 @@ export const databaseProvider = {
     }
     const Badge = `[${chalk.yellow('MongoDB')}]`
 
-    const color = (str: TemplateStringsArray, ...args: any[]) => {
+    const color = (str: TemplateStringsArray) => {
       return str.map((s) => chalk.green(s)).join('')
     }
     mongoose.connection.on('connecting', () => {

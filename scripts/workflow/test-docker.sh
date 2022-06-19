@@ -18,7 +18,7 @@ if [[ $? -ne 0 ]]; then
   exit 1
 fi
 
-curl https://cdn.jsdelivr.net/gh/Innei/nest-http-template@master/docker-compose.yml >docker-compose.yml
+curl https://cdn.jsdelivr.net/gh/nx-space/nx-core@main/docker-compose.yml >docker-compose.yml
 
 docker-compose up -d
 

@@ -1,13 +1,11 @@
 import { compareSync } from 'bcrypt'
 import { nanoid } from 'nanoid'
-import { sleep } from 'zx-cjs'
 
 import {
   BadRequestException,
   ForbiddenException,
   Injectable,
   Logger,
-  NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common'
 import { ReturnModelType } from '@typegoose/typegoose'
@@ -35,11 +33,11 @@ export class UserService {
   async login(username: string, password: string) {
     const user = await this.userModel.findOne({ username }).select('+password')
     if (!user) {
-      await sleep(3000)
+      // await sleep(3000)
       throw new ForbiddenException('用户名不正确')
     }
     if (!compareSync(password, user.password)) {
-      await sleep(3000)
+      // await sleep(3000)
       throw new ForbiddenException('密码不正确')
     }
 

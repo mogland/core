@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpCode, Patch, Post } from '@nestjs/common'
-import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { ApiOperation } from '@nestjs/swagger'
 import { Auth } from '~/common/decorator/auth.decorator'
 import { HttpCache } from '~/common/decorator/cache.decorator'
 import { CurrentUser } from '~/common/decorator/current-user.decorator'

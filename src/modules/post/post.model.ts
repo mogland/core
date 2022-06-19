@@ -1,8 +1,7 @@
-import { ApiHideProperty, ApiProperty, PartialType } from '@nestjs/swagger'
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger'
 import { Severity, index, modelOptions, prop, Ref } from '@typegoose/typegoose'
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
-import { BaseModel } from '~/shared/model/base.model'
-import { CountMixed as Count } from '~/shared/model/base.model'
+import { BaseModel , CountMixed as Count } from '~/shared/model/base.model'
 import { CategoryModel } from '../category/category.model'
 
 @index({ slug: 1 })

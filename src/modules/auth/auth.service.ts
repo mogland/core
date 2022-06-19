@@ -1,13 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { DocumentType, ReturnModelType } from '@typegoose/typegoose'
-import dayjs from 'dayjs'
-import { isDate, omit } from 'lodash'
-import { customAlphabet } from 'nanoid/async'
-import { TokenDto } from './auth.controller'
+import { ReturnModelType } from '@typegoose/typegoose'
 import { JwtPayload } from './interfaces/jwt-payload.interface'
 import {
-  TokenModel,
   UserModel as User,
   UserDocument,
 } from '~/modules/user/user.model'

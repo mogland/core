@@ -11,8 +11,7 @@ import {
   ValidationArguments,
   ValidationOptions,
   ValidatorConstraintInterface,
-} from 'class-validator'
-import { ValidatorConstraint, registerDecorator } from 'class-validator'
+ ValidatorConstraint, registerDecorator } from 'class-validator'
 
 export function validatorFactory(validator: (value: any) => boolean) {
   @ValidatorConstraint({ async: true })

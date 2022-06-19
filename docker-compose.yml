@@ -2,15 +2,15 @@ version: '3.8'
 
 services:
   app:
-    container_name: nest-http
-    image: nest/nest-http:latest
+    container_name: nx-core
+    image: wibuswee/nx-core:latest
     command: node index.js --redis_host=redis --db_host=mongo --allowed_origins=${ALLOWED_ORIGINS} --jwt_secret=${JWT_SECRET} --color --cluster
     environment:
       - TZ=Asia/Shanghai
       - NODE_ENV=production
     restart: 'on-failure'
     volumes:
-      - ./data/nest:/root/.nest
+      - ./data/nxspace:/root/.nxspace
 
     ports:
       - '3333:3333'
