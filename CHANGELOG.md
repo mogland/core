@@ -1,3 +1,39 @@
+# [0.4.0](https://github.com/nx-space/nx-server/compare/v0.3.6...v0.4.0) (2022-06-19)
+
+
+### Bug Fixes
+
+* **deps:** change ejs dangerous version ([#202](https://github.com/nx-space/nx-server/issues/202)) ([3afbe40](https://github.com/nx-space/nx-server/commit/3afbe402ce9927474d0dce2dec93649722bd6a34))
+* **docker:** db connection failure ([4ac29e0](https://github.com/nx-space/nx-server/commit/4ac29e0b588ca75069572ba816793bbaa99c07ad))
+* **markdown:** return stream zip file as a json ([2d3129f](https://github.com/nx-space/nx-server/commit/2d3129fb6bd5932eac5e27ccf35f52dc2370862d))
+* tsconfig cause to errors ([c2172cd](https://github.com/nx-space/nx-server/commit/c2172cdcf43126ae64209fc4762feff455c76e66))
+
+
+### Features
+
+* **docker:** docker support! ([cae46fc](https://github.com/nx-space/nx-server/commit/cae46fc973dcc2a2e10a0801ad52c455535a05b1))
+* **helper:** new macro helper ([3e18e44](https://github.com/nx-space/nx-server/commit/3e18e444f81bef93e8d6b23d77be65428b52714e)), closes [#176](https://github.com/nx-space/nx-server/issues/176)
+* **markdown:** markdown export ([244ca29](https://github.com/nx-space/nx-server/commit/244ca29ea0aef4262460821b0bd8b7bf0449f0e5)), closes [#182](https://github.com/nx-space/nx-server/issues/182)
+* **module:** new markdown module ([f3a7c74](https://github.com/nx-space/nx-server/commit/f3a7c748ea62f300950377f039ade3a976819971)), closes [#182](https://github.com/nx-space/nx-server/issues/182)
+* thumbUp ([12de13a](https://github.com/nx-space/nx-server/commit/12de13acd3429d6be0f96463a6651f7801d2c1f0))
+
+
+### Performance Improvements
+
+* add NODE_PATH for pm2 ([470dc6c](https://github.com/nx-space/nx-server/commit/470dc6ce8f7664e75c4230a1fe0aca7aaaaa242c))
+* **docker:** make env follows user setting ([1796f3f](https://github.com/nx-space/nx-server/commit/1796f3fe319b1e1e94f07675b165877a088b91a5))
+* **main:** set a option for engine ([622509a](https://github.com/nx-space/nx-server/commit/622509a9bfc3ce526321a2cee03e68ffd5804fac)), closes [#175](https://github.com/nx-space/nx-server/issues/175)
+* **markdown:** add compression to generating ([6469fba](https://github.com/nx-space/nx-server/commit/6469fbaf76c3a503623fb5645562c601dcea2fcd)), closes [#182](https://github.com/nx-space/nx-server/issues/182)
+* use `forwardRef` in post and category ([88988ec](https://github.com/nx-space/nx-server/commit/88988ecefe4e163162328907b51e7f094c72e5b6))
+
+
+### BREAKING CHANGES
+
+* **markdown:** Exporting Markdown is now supported!
+* **docker:** docker support!
+
+
+
 ## [0.3.6](https://github.com/wibus-wee/nx-server/compare/v0.3.5...v0.3.6) (2022-05-22)
 
 
