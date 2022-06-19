@@ -50,7 +50,8 @@
     "test:e2e": "vitest -c ./vitest-e2e.config.ts",
     "test:all": "npm run test && npm run test:e2e",
     "test:watch": "vitest --watch",
-    "test:cov": "vitest --coverage"
+    "test:cov": "vitest --coverage",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
     "@nestjs/common": "8.4.4",
@@ -104,6 +105,7 @@
     "@types/supertest": "2.0.12",
     "@types/ua-parser-js": "0.7.36",
     "@vercel/ncc": "0.33.4",
+    "conventional-changelog": "^3.1.25",
     "cross-env": "7.0.3",
     "eslint": "*",
     "fastify": "*",
