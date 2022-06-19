@@ -35,13 +35,13 @@ export async function bootstrap() {
   !isDev && app.setGlobalPrefix(`api`)
   isDev && app.useGlobalInterceptors(new LoggingInterceptor())
   app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true,
-      whitelist: true,
-      errorHttpStatusCode: 422,
-      forbidUnknownValues: true,
-      enableDebugMessages: isDev,
-      stopAtFirstError: true,
+    new ValidationPipe({ // 校验请求参数
+      transform: true, // 将错误信息转换为异常
+      whitelist: true, // 允许所有参数
+      errorHttpStatusCode: 422, // 返回422错误
+      forbidUnknownValues: true, // 禁止未知参数
+      enableDebugMessages: isDev, // 开启调试模式
+      stopAtFirstError: true, // 在第一个错误后立即停止
     }),
   )
 

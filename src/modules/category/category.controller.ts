@@ -3,7 +3,7 @@ import { ApiBody, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ApiName } from '~/common/decorator/openapi.decorator';
 import { IsMaster } from '~/common/decorator/role.decorator';
 import { PostService } from '../post/post.service';
-import { MultiCategoryQueryDto, MultiQueryTagAndCategoryDto, SlugorIdDto } from './category.dto';
+import { MultiCategoriesQueryDto, MultiQueryTagAndCategoryDto, SlugorIdDto } from './category.dto';
 import { CategoryModel, CategoryType, PartialCategoryModel } from './category.model';
 import { CategoryService } from './category.service';
 import { isValidObjectId } from 'mongoose'
@@ -23,11 +23,10 @@ export class CategoryController {
 
   @Get('/')
   async getCategories(
-    @Query() query: MultiCategoryQueryDto,
-    @IsMaster() isMaster: boolean,
+    @Query() query: MultiCategoriesQueryDto
   ) {
     const {
-      ids, // 分类id列表
+      ids, // 分类id列表,c ategories is category's mongo id
       joint, // 是否连接分类与文章
       type = CategoryType.Category // 分类类型
     } = query
