@@ -79,18 +79,17 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
-    - uses: ncipollo/release-action@v1
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        artifacts: "bundle.zip,NS-server.zip"
-        body: ${{steps.github_release.outputs.changelog}}
-        token: ${{ secrets.GITHUB_TOKEN }}
-        draft: true
-        tag: ${{ env.CI_REF_NAME }}
-    # - name: Create Release
-    #   uses: actions/create-release@v3
-    #   with:
-    #     tag_name: ${{ github.ref }}
-    #     release_name: ${{ github.ref }}
-    #     body: ${{steps.github_release.outputs.changelog}}
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        files: |
+          nx-server.zip
+          bundle.zip
+        tag_name: ${{ github.ref }}
+        release_name: NEXT-${{ github.ref }}
+        draft: false
+        prerelease: false
+        body: ${{steps.build_changelog.outputs.changelog}}
