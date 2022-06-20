@@ -4,10 +4,9 @@
   <p>
   the RESTful API service for NEXT Space, powered by @nestjs. (refactor version)
   </p>
-  <a href='https://wakatime.com/badge/github/wibus-wee/nx-server'><img src="https://wakatime.com/badge/github/wibus-wee/nx-server.svg" referrerpolicy="no-referrer" alt="wakatime"></a>
-<img src="https://img.shields.io/github/package-json/v/wibus-wee/GS-server" referrerpolicy="no-referrer" alt="version"> 
-<a href='https://deepscan.io/dashboard#view=project&amp;tid=14175&amp;pid=18839&amp;bid=473312'><img src="https://deepscan.io/api/teams/14175/projects/18839/branches/473312/badge/grade.svg" referrerpolicy="no-referrer" alt="DeepScan grade"></a> 
-<a href='https://github.com/wibus-wee/GS-server/actions/workflows/deploy.yml'><img src="https://github.com/wibus-wee/GS-server/actions/workflows/deploy.yml/badge.svg?branch=main" referrerpolicy="no-referrer" alt="Deploy Server"></a> 
+  <a href="https://wakatime.com/badge/github/nx-space/core"><img src="https://wakatime.com/badge/github/nx-space/core.svg" alt="wakatime"></a>
+<img src="https://img.shields.io/github/package-json/v/nx-space/core" referrerpolicy="no-referrer" alt="version"> 
+<a href='https://github.com/nx-space/core/actions/workflows/deploy.yml'><img src="https://github.com/nx-space/core/actions/workflows/deploy.yml/badge.svg?branch=main" referrerpolicy="no-referrer" alt="Deploy Server"></a> 
 </div>
 
 <br />
