@@ -134,10 +134,6 @@
   },
   "resolutions": {
     "typescript": "4.6.2"
-  },
-  "engines": {
-    "node": ">=16 <15"
   }
-  
   
 }

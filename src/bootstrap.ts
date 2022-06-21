@@ -8,6 +8,7 @@ import { fastifyApp } from './common/adapt/fastify.adapt'
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor'
 import { MyLogger } from './processors/logger/logger.service'
 import { isDev } from './utils/environment.utils'
+import { argv } from 'zx-cjs'
 
 // const APIVersion = 1
 const Origin = CROSS_DOMAIN.allowedOrigins
@@ -45,20 +46,20 @@ export async function bootstrap() {
     }),
   )
 
-  // if (isDev) {
-    const options = new DocumentBuilder()
-      .setTitle('API')
-      .setDescription('The blog API description')
-      // .setVersion(`${APIVersion}`)
-      .addSecurity('bearer', {
-        type: 'http',
-        scheme: 'bearer',
-      })
-      .addBearerAuth()
-      .build()
-    const document = SwaggerModule.createDocument(app, options)
-    SwaggerModule.setup('api-docs', app, document)
-  // }
+  if (isDev) {
+  const options = new DocumentBuilder()
+    .setTitle('API')
+    .setDescription('The blog API description')
+    // .setVersion(`${APIVersion}`)
+    .addSecurity('bearer', {
+      type: 'http',
+      scheme: 'bearer',
+    })
+    .addBearerAuth()
+    .build()
+  const document = SwaggerModule.createDocument(app, options)
+  SwaggerModule.setup('api-docs', app, document)
+  }
 
   await app.listen(+PORT, '0.0.0.0', async (err) => {
     if (err) {
@@ -71,9 +72,9 @@ export async function bootstrap() {
     const pid = process.pid
 
     const prefix = 'P'
-    // if (isDev) {
+    if (isDev || argv.railway) {
     consola.debug(`[${prefix + pid}] OpenApi: ${url}/api-docs`)
-    // }
+    }
     consola.success(`[${prefix + pid}] Server listen on: ${url}`)
 
     Logger.log(`NxServer is up. ${chalk.yellow(`+${performance.now() | 0}ms`)}`)
