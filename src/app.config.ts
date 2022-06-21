@@ -22,8 +22,11 @@ export const MONGO_DB = {
   dbName: argv.collection_name || 'nx-space',
   host: argv.db_host || '127.0.0.1',
   port: argv.db_port || 27017,
+  user: argv.db_user || '',
+  password: argv.db_password || '',
+  userAndPassword: argv.db_user && argv.db_password ? `${argv.db_user}:${argv.db_password}@` : '',
   get uri() {
-    return `mongodb://${this.host}:${this.port}/${
+    return `mongodb://${this.userAndPassword}${this.host}:${this.port}/${
       process.env.TEST ? 'nest_unitest' : this.dbName
     }`
   },
@@ -33,6 +36,7 @@ export const REDIS = {
   host: argv.redis_host || '127.0.0.1',
   port: argv.redis_port || 6379,
   password: argv.redis_password || null,
+  user: argv.redis_user || null,
   ttl: null,
   httpCacheTTL: 5,
   max: 5,
