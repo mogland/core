@@ -26,9 +26,7 @@ export const MONGO_DB = {
   password: argv.db_password || '',
   userAndPassword: argv.db_user && argv.db_password ? `${argv.db_user}:${argv.db_password}@` : '',
   get uri() {
-    return `mongodb://${this.userAndPassword}${this.host}:${this.port}/${
-      process.env.TEST ? 'nest_unitest' : this.dbName
-    }`
+    return `mongodb://${this.userAndPassword}${this.host}:${this.port}${argv.railway ? "" : `/${this.dbName}`}`
   },
 }
 
