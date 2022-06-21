@@ -17,9 +17,9 @@
 
 ## The default branch has been renamed!
 
-`refactor/mongo` is now named `main`
+`refactor/mongo` 现在已命名为 `main`
 
-If you have a local clone, you can update it by running the following commands.
+如果你有本地克隆仓库，你需要更新你的本地分支，命令参考如下：
 
 ```bash
 git branch -m refactor/mongo main
@@ -30,14 +30,16 @@ git remote set-head origin -a
 
 ## Which Tech Stack In Use
 
-- Framework: NestJS (Based on Fastify)
-- Language: TypeScript (Best practices, Not AnyScript)
-- Database ODM: **Typegoose** (Write schema once all in TypeScript)
-- Bundle Toolchain: @vercel/ncc Bundle (Bundle entry, go node_modules away)
-- Testing: **Vitest** (Test case write in TypeScript, fast and out-of-box)
-- Package Manager: PNPM (which is fastest)
+> **粗体** 指的是与旧分支有技术栈不同的地方
+
+- 框架: NestJS (Based on Fastify)
+- 语言: TypeScript (Best practices, Not AnyScript)
+- 数据库 ODM: **Typegoose** (Write schema once all in TypeScript)
+- 包工具链: @vercel/ncc Bundle (Bundle entry, go node_modules away)
+- 测试: **Vitest** (Test case write in TypeScript, fast and out-of-box)
+- 包管理器: PNPM (which is fastest)
 - DevOps: Docker
-- Other: Prettier, ESLint, Husky, Bump Version, etc.
+- 其他: Prettier, ESLint, Husky, Bump Version, etc.
 
 ## Get Started
 
