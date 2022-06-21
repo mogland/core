@@ -46,7 +46,7 @@ export async function bootstrap() {
     }),
   )
 
-  if (isDev) {
+  if (isDev || argv.dev_online == 'true') {
   const options = new DocumentBuilder()
     .setTitle('API')
     .setDescription('The blog API description')
@@ -72,8 +72,8 @@ export async function bootstrap() {
     const pid = process.pid
 
     const prefix = 'P'
-    if (isDev || argv.railway) {
-    consola.debug(`[${prefix + pid}] OpenApi: ${url}/api-docs`)
+    if (isDev || argv.dev_online == 'true') {
+      consola.debug(`[${prefix + pid}] OpenApi: ${url}/api-docs`)
     }
     consola.success(`[${prefix + pid}] Server listen on: ${url}`)
 
