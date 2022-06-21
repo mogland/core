@@ -2,18 +2,32 @@
 <a href="https://github.com/nx-space" target="_blank" rel="noopener noreferrer"><img width="100" src="https://avatars.githubusercontent.com/u/106414194" alt="NEXT logo"></a>
 <h1>NextSpace Server v1.x <small><code>WIP</code></small></h1>
   <p>
-  the RESTful API service for NEXT Space, powered by @nestjs. (refactor version)
+  the RESTful API service for NEXT Space, powered by @nestjs. 
   </p>
   <a href="https://wakatime.com/badge/github/nx-space/core"><img src="https://wakatime.com/badge/github/nx-space/core.svg" alt="wakatime"></a>
 <img src="https://img.shields.io/github/package-json/v/nx-space/core" referrerpolicy="no-referrer" alt="version"> 
 <a href='https://github.com/nx-space/core/actions/workflows/deploy.yml'><img src="https://github.com/nx-space/core/actions/workflows/deploy.yml/badge.svg?branch=main" referrerpolicy="no-referrer" alt="Deploy Server"></a> 
 </div>
 
+
 <br />
 
 ![Alt](https://repobeats.axiom.co/api/embed/c41f4aa5c6264c1db4ddd6c2120c0fca64dabcea.svg "Repobeats analytics image")
 
 <br />
+
+## The default branch has been renamed!
+
+`refactor/mongo` is now named `main`
+
+If you have a local clone, you can update it by running the following commands.
+
+```bash
+git branch -m refactor/mongo main
+git fetch origin
+git branch -u origin/main main
+git remote set-head origin -a
+```
 
 ## Which Tech Stack In Use
 

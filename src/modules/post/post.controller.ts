@@ -16,7 +16,7 @@ export class PostController {
 
   @HTTPDecorators.Paginator
   @Get('/')
-  async gets(@Query() query: PagerDto) {
+  async getPaginate(@Query() query: PagerDto) {
     const { page, select, size } = query
     return this.postService.model.paginate(
       {},
