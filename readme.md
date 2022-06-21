@@ -6,7 +6,6 @@
   </p>
   <a href="https://wakatime.com/badge/github/nx-space/core"><img src="https://wakatime.com/badge/github/nx-space/core.svg" alt="wakatime"></a>
 <img src="https://img.shields.io/github/package-json/v/nx-space/core" referrerpolicy="no-referrer" alt="version"> 
-<a href='https://github.com/nx-space/core/actions/workflows/deploy.yml'><img src="https://github.com/nx-space/core/actions/workflows/deploy.yml/badge.svg?branch=main" referrerpolicy="no-referrer" alt="Deploy Server"></a> 
 </div>
 
 
