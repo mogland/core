@@ -12,6 +12,7 @@ import { HelperModule } from './processors/helper/helper.module'
 import { LoggerModule } from './processors/logger/logger.module'
 import { CategoryModule } from './modules/category/category.module';
 import { DbModule } from '@app/db'
+import { ConfigsModule } from './modules/configs/configs.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { DbModule } from '@app/db'
     LoggerModule,
     PostModule,
     UserModule,
-    CategoryModule
+    CategoryModule,
+    ConfigsModule
   ],
   controllers: [AppController],
   providers: [

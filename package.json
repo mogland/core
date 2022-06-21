@@ -70,6 +70,7 @@
     "chalk": "*",
     "class-transformer": "0.5.1",
     "class-validator": "0.13.2",
+    "class-validator-jsonschema": "^3.1.1",
     "consola": "*",
     "cron": "*",
     "dayjs": "1.11.1",
@@ -135,5 +136,4 @@
   "resolutions": {
     "typescript": "4.6.2"
   }
-  
 }
