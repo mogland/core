@@ -60,7 +60,7 @@ export async function bootstrap() {
     SwaggerModule.setup('api-docs', app, document)
   // }
 
-  await app.listen(+PORT, '127.0.0.1', async (err) => {
+  await app.listen(+PORT, '0.0.0.0', async (err) => {
     if (err) {
       Logger.error(err)
       process.exit(1)
