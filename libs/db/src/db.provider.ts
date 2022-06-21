@@ -1,17 +1,10 @@
-/*
- * @FilePath: /nx-core/libs/db/src/db.provider.ts
- * @author: Wibus
- * @Date: 2022-06-12 08:17:15
- * @LastEditors: Wibus
- * @LastEditTime: 2022-06-19 08:40:47
- * Coding With IU
- */
 /**
  * @copy https://github.com/surmon-china/nodepress/blob/main/src/processors/database/database.provider.ts
  */
 import { mongoose } from '@typegoose/typegoose'
 import { MONGO_DB } from '~/app.config'
 import { DB_CONNECTION_TOKEN } from '~/constants/system.constant'
+import { chalk } from 'zx-cjs'
 
 export const databaseProvider = {
   provide: DB_CONNECTION_TOKEN,

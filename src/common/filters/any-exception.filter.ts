@@ -1,4 +1,5 @@
 import { WriteStream } from 'fs'
+import { fs, chalk } from 'zx-cjs'
 import { resolve } from 'path'
 import {
   ArgumentsHost,
