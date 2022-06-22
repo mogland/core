@@ -1,7 +1,6 @@
 import { BadRequestException, Body, Controller, Delete, forwardRef, Get, HttpCode, Inject, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ApiName } from '~/common/decorator/openapi.decorator';
-import { IsMaster } from '~/common/decorator/role.decorator';
 import { PostService } from '../post/post.service';
 import { MultiCategoriesQueryDto, MultiQueryTagAndCategoryDto, SlugorIdDto } from './category.dto';
 import { CategoryModel, CategoryType, PartialCategoryModel } from './category.model';

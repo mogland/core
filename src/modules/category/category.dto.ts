@@ -10,7 +10,7 @@
 import { UnprocessableEntityException } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import { IsArray, IsBoolean, IsEnum, IsMongoId, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsMongoId, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { uniq } from "lodash";
 import { IsBooleanOrString } from "~/utils/validator/isBooleanOrString";
 import { CategoryType } from "./category.model";
