@@ -55,4 +55,4 @@ jobs:
           name: bundle
           path: out/index.js
   test:
-    uses: ./.github/workflows/test.yml
+    uses: .github/workflows/test.yml
