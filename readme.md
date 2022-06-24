@@ -20,19 +20,31 @@
 
 <br />
 
-## 关于此项目
 
-Core belongs to the **NEXT Space** project, a unique personal Space that acts as a personal blog.
+## 开始使用
 
-Core 归属于 NEXT Space 项目，NEXT 是一个独特的个人空间，可以作为个人博客。
+**_nx-server 依赖于 NodeJS, MongoDB 和 Redis 环境_**
+
+Work in process 正在开发当中
+
+~~[Documentation 文档](https://nx-docs.iucky.cn)｜ [Development Live Demo](htttps://gs-server.vercel.app)~~
+
+
+## 什么是 NEXT Space
+
+Core belongs to the **`NEXT Space`** project, **`NEXT`** is a unique personal Space that acts as a personal blog. You can use it to share your thoughts, ideas, and more.
+
+Core 归属于 NEXT Space 项目，NEXT 是一个独特的个人空间，可以作为个人博客。 你可以用它来分享你的想法，思考，经验等。
+
+## 关于此项目 (core)
 
 This program (Core) is used to provide the personal space server *API service*. You can view the existing API interface provided by `Swagger`. 
 
-此程序（core）是用来提供个人空间服务端API服务的，你可以通过 Swagger 来查看已提供的现有 API 接口。
-
 You can use the interface to develop your own personal space **the front end**. Looking forward to your results!
 
-可以使用接口来开发属于你的个人空间**前端部分** 期待你的成果！
+此程序（core）是用来提供个人空间服务端API服务的，你可以通过 Swagger 来查看已提供的现有 API 接口。
+
+你可以使用接口来开发属于你的个人空间**前端** 期待你的成果！
 
 ***无限进步！***
 
@@ -48,14 +60,6 @@ git fetch origin
 git branch -u origin/main main
 git remote set-head origin -a
 ```
-
-## 开始使用
-
-**_nx-server 依赖于 NodeJS, MongoDB 和 Redis 环境_**
-
-Work in process 正在开发当中
-
-~~[Documentation 文档](https://nx-docs.iucky.cn)｜ [Development Live Demo](htttps://gs-server.vercel.app)~~
 
 
 ## 项目 Sponsors
