@@ -74,7 +74,6 @@ export class ConfigsService {
 
   /**
    * waitForConfigReady 等待配置初始化完成
-   * @returns {Promise<ConfigsInterface>}
    */
   public async waitForConfigReady() {
     if (this.configInited) {
