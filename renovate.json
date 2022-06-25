@@ -1,5 +1,25 @@
 {
   "extends": [
-    "config:base"
-  ]
+    "config:base",
+    ":automergePatch",
+    ":automergeTypes",
+    ":automergeTesters",
+    ":automergeLinters",
+    ":rebaseStalePrs"
+  ],
+  "packageRules": [
+    {
+      "updateTypes": [
+        "major"
+      ],
+      "labels": [
+        "UPDATE-MAJOR"
+      ]
+    }
+  ],
+  "ignoreDeps": [
+    "nanoid",
+    "camelcase-keys"
+  ],
+  "enabled": true
 }
