@@ -1,0 +1,11 @@
+{
+  "name": "hello-world",
+  "version": "0.0.1",
+  "description": "Hi我是一个简单的hello-world",
+  "author": "wibus",
+  "module": "markdown", // 指明这个插件是一个markdown插件，处理 markdown 模块中的服务
+  "service": "shortcode",  // 指明这个插件是补充短代码服务的，它的主函数是用于处理短代码的
+  "fn": "main" // 指明这个插件的主函数是 main，默认也是 main，但是可以自定义主函数名称
+
+  
+}
