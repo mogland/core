@@ -81,13 +81,4 @@ export class PluginsService {
     }
     return available
   }
-
-  public async getPluginIntro(name: any) {
-    const pluginList = this.getPluginsLists()
-    if (pluginList.includes(name)) {
-      const pluginPath = PLUGIN_DIR
-      const manifest = await fs.readJSON(`${pluginPath}/manifest.json`)
-      return manifest
-    }
-  }
 }
