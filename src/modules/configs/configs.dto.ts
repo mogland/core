@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-22 07:54:11
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-25 18:16:25
+ * @LastEditTime: 2022-06-30 22:36:18
  * Coding With IU
  */
 
@@ -112,4 +112,25 @@ export class ThemeDto {
   @IsOptional()
   @JSONSchemaPlainField("主题配置")
   config: object;
+}
+
+export class PluginDto {
+  @IsString({ message: "插件名称必须是字符串" })
+  @IsNotEmpty({ message: "插件名称不能为空" })
+  @JSONSchemaPlainField("插件名称")
+  name: string;
+
+  @IsObject({ message: "插件配置必须是对象" })
+  @IsOptional()
+  // @JSONSchemaPlainField("插件配置")
+  config?: object;
+  
+  
+  manifest: any
+
+
+  @IsBoolean()
+  @IsOptional()
+  @JSONSchemaToggleField('插件启用')
+  active: boolean
 }

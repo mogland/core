@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PLUGIN_DIR } from '~/constants/path.constant';
+import { PluginDto } from '../configs/configs.dto';
 import { ConfigsService } from '../configs/configs.service';
 
 @Injectable()
@@ -32,16 +33,20 @@ export class PluginsService {
     const pluginList = this.getPluginsLists()
     if (pluginList.includes(name)) {
       const pluginPath = PLUGIN_DIR
-      const manifest = await fs.readJSON(`${pluginPath}/manifest.json`)
+      const manifest = await fs.readJSON(`${pluginPath}/${name}/manifest.json`)
       const configs = await this.configsService.getConfig()
-      const newConfigs = {
+      // 添加一个新的插件
+      const data: PluginDto[] = [
         ...configs.plugins,
-        [name]: {
-          ...manifest,
-          active: true
-        }
-      }
-      this.configsService.patch("plugins", newConfigs)
+        {
+        name,
+        active: true,
+        manifest
+        }]
+      this.configsService.patch("plugins", data)
+      return `插件 ${name} 激活成功`
+    } else {
+      return `插件 ${name} 不存在`
     }
   }
 
@@ -50,17 +55,15 @@ export class PluginsService {
    * @returns {Promise<any>}
    */
   public async availablePlugins() {
-    console.log("availablePlugins")
     const plugins = await this.configsService.get("plugins")
-    console.log(plugins)
     const available = {}
-    for (const plugin in plugins) { 
+    for (const plugin in plugins) {
       if (plugins[plugin].active) {
         available[plugin] = plugins[plugin]
       }
-    }
     return available
   }
+}
 
   /**
    * getPluginsCanUseInThisService 获取可以在本服务中使用的插件
@@ -72,7 +75,7 @@ export class PluginsService {
     const plugins = await this.configsService.get("plugins")
     const available = {}
     for (const plugin in plugins) {
-      if (plugins[plugin].active && plugins[plugin].canUseInThisService(module, service)) {
+      if (plugins[plugin].active && plugins[plugin].manifest.modules.includes(module) && plugins[plugin].manifest.services.includes(service)) {
         available[plugin] = plugins[plugin]
       }
     }

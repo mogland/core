@@ -3,14 +3,14 @@
  * @author: Wibus
  * @Date: 2022-06-25 17:58:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-30 19:54:42
+ * @LastEditTime: 2022-06-30 22:19:58
  * Coding With IU
  */
 
 import { Type } from "class-transformer";
 import { ValidateNested } from "class-validator";
 import { JSONSchema } from "class-validator-jsonschema";
-import { AdminDto, MailOptionsDto, SiteDto, ThemeDto, UrlsDto } from "./configs.dto";
+import { AdminDto, MailOptionsDto, PluginDto, SiteDto, ThemeDto, UrlsDto } from "./configs.dto";
 
 @JSONSchema({
   title: "设置",
@@ -38,5 +38,7 @@ export abstract class ConfigsInterface {
   @ValidateNested()
   theme: Required<ThemeDto>;
 
-  plugins: any[];
+  @Type(() => PluginDto)
+  @ValidateNested()
+  plugins: PluginDto[];
 }
