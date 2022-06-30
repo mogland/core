@@ -12,9 +12,9 @@ export class PluginsService {
 
   /**
    * 获取文件夹中存在的插件列表
-   * @returns {string[]}
+   * @returns {any[]}
    */
-  public getPluginsLists(): any {
+  public getPluginsLists(): any[] {
     const plugins = fs.readdirSync(PLUGIN_DIR)
     // 获取里面全部文件夹的名称
     const pluginList = plugins.filter(plugin => {
@@ -29,7 +29,7 @@ export class PluginsService {
    * 激活插件
    * @param name 插件名称
    */
-  public async activePlugin(name: any) {
+  public async activePlugin(name: string) {
     const pluginList = this.getPluginsLists()
     if (pluginList.includes(name)) {
       const pluginPath = PLUGIN_DIR
@@ -75,7 +75,7 @@ export class PluginsService {
     const plugins = await this.configsService.get("plugins")
     const available = {}
     for (const plugin in plugins) {
-      if (plugins[plugin].active && plugins[plugin].manifest.modules.includes(module) && plugins[plugin].manifest.services.includes(service)) {
+      if (plugins[plugin].active && plugins[plugin].manifest.module === module && plugins[plugin].manifest.service === service) {
         available[plugin] = plugins[plugin]
       }
     }
@@ -88,7 +88,7 @@ export class PluginsService {
    * @param name 插件名称
    * @returns {Promise<any>}
    */
-  private async returnPluginFnPath(name: any) {
+  private async returnPluginFnPath(name: string) {
     // 要先 availablePlugins() 获取这个插件是否可用，再用getPluginsLists() 获取是否有这个插件文件存在
     if ( this.availablePlugins()[name] && this.getPluginsLists().includes(name) ) {
       const plugins = await this.configsService.get("plugins")
@@ -101,9 +101,9 @@ export class PluginsService {
    * usePlugin 调用插件
    * @param name 插件名称
    * @param data 插件传递的数据
-   * @returns {Promise<any>}
+   * @returns {Promise<string>}
    */
-  public async usePlugin(name: any, data: any){
+  public async usePlugin(name: string, data: string){
     const pluginPermission = await this.configsService.get("plugins")[name].manifest.permission
     const pluginFnPath = await this.returnPluginFnPath(name)
     const afterData = data

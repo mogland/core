@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-22 07:54:11
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-30 22:36:18
+ * @LastEditTime: 2022-06-30 23:17:05
  * Coding With IU
  */
 
@@ -114,6 +114,20 @@ export class ThemeDto {
   config: object;
 }
 
+class PluginManifest {
+  name: string;
+  version?: string;
+  author?: string;
+  description?: string;
+  homepage?: string;
+
+  module: string;
+  service: string;
+  fn?: string = 'main';
+  lang?: string = 'js';
+  permission?: string[] = ['read'];
+}
+
 export class PluginDto {
   @IsString({ message: "插件名称必须是字符串" })
   @IsNotEmpty({ message: "插件名称不能为空" })
@@ -126,7 +140,7 @@ export class PluginDto {
   config?: object;
   
   
-  manifest: any
+  manifest: PluginManifest
 
 
   @IsBoolean()
