@@ -12,6 +12,7 @@ import { LoggerModule } from './processors/logger/logger.module'
 import { CategoryModule } from './modules/category/category.module';
 import { DbModule } from '@app/db'
 import { ConfigsModule } from './modules/configs/configs.module';
+import { PluginsModule } from './modules/plugins/plugins.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { ConfigsModule } from './modules/configs/configs.module';
     PostModule,
     UserModule,
     CategoryModule,
-    ConfigsModule
+    ConfigsModule,
+    PluginsModule
   ],
   controllers: [AppController],
   providers: [

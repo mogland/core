@@ -39,17 +39,17 @@ export class ConfigsService {
    */
   protected async initConfigs() {
     const configs = await this.configModel.find().lean()
-    const mergedConfigs = this.defaultConfig
+    const mergedConfig = this.defaultConfig
     configs.forEach(config => { // 合并配置
       const name = config.name as keyof ConfigsInterface // let's make sure the name is correct
-      if (!this.allOptionKeys.has(name)) { // 如果这个配置项不存在
-        this.allOptionKeys.add(name) // 添加到全部配置项中
+      if (!this.allOptionKeys.has(name)) {
+        return
       }
-      mergedConfigs[name] = {
-        ...mergedConfigs[name],
-        ...config.value
-      }
+      const value = config.value
+      mergedConfig[name] = { ...mergedConfig[name], ...value }
     })
+    await this.setConfig(mergedConfig)
+    this.configInited = true // 设置为已初始化
   }
 
   /**
@@ -59,6 +59,16 @@ export class ConfigsService {
   private async setConfig(config: ConfigsInterface){
     const redis = this.redis.getClient() // 获取 redis 客户端
     await redis.set(getRedisKey(RedisKeys.ConfigCache), JSON.stringify(config)) // 将配置写入 redis
+  }
+
+  public get<T extends keyof ConfigsInterface>(key: T): Promise<Readonly<ConfigsInterface[T]>> {
+    return new Promise((resolve, reject) => {
+      this.waitForConfigReady()
+        .then((config) => {
+          resolve(config[key])
+        })
+        .catch(reject)
+    })
   }
 
   /**

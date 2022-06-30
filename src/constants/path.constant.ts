@@ -6,5 +6,5 @@ export const HOME = homedir()
 export const DATA_DIR = isDev
   ? join(process.cwd(), './tmp')
   : join(HOME, `.${appName}`)
-
+export const PLUGIN_DIR = join(DATA_DIR, 'plugins')
 export const LOG_DIR = join(DATA_DIR, 'log')

@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-22 07:47:57
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-25 18:16:13
+ * @LastEditTime: 2022-06-30 19:55:07
  * Coding With IU
  */
 
@@ -36,5 +36,6 @@ export const generateInitConfigs: () => ConfigsInterface = () => ({
   theme: {
     name: 'default', // 模板名
     config: {} // 模板配置项
-  }
+  },
+  plugins: [],
 })

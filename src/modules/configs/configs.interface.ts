@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-25 17:58:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-25 18:16:07
+ * @LastEditTime: 2022-06-30 19:54:42
  * Coding With IU
  */
 
@@ -37,4 +37,6 @@ export abstract class ConfigsInterface {
   @Type(() => ThemeDto)
   @ValidateNested()
   theme: Required<ThemeDto>;
+
+  plugins: any[];
 }

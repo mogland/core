@@ -3,7 +3,7 @@ import { Logger } from '@nestjs/common'
 import { chalk, $ } from 'zx-cjs'
 import { mkdirSync } from 'fs'
 import 'zx/globals'
-import { DATA_DIR, LOG_DIR } from '~/constants/path.constant'
+import { DATA_DIR, LOG_DIR, PLUGIN_DIR } from '~/constants/path.constant'
 import { consola, registerStdLogger } from './consola.global'
 import './dayjs.global'
 import { isDev } from './env.global'
@@ -15,6 +15,9 @@ function mkdirs() {
 
   mkdirSync(LOG_DIR, { recursive: true })
   Logger.log(chalk.blue(`Log dir is make up: ${LOG_DIR}`))
+
+  mkdirSync(PLUGIN_DIR, { recursive: true })
+  Logger.log(chalk.blue(`Plugin dir is make up: ${PLUGIN_DIR}`))
 }
 
 function registerGlobal() {
