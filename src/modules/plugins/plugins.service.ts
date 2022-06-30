@@ -71,7 +71,7 @@ export class PluginsService {
    * @param service 服务名称
    * @returns {Promise<any>}
    */
-  public async getPluginsCanUseInThisService(module: string, service: string) {
+  private async getPluginsCanUseInThisService(module: string, service: string) {
     const plugins = await this.configsService.get("plugins")
     const available = {}
     for (const plugin in plugins) {
@@ -80,5 +80,39 @@ export class PluginsService {
       }
     }
     return available
+  }
+
+  /**
+   * returnPluginFnPath 返回插件函数路径
+   * 已经判断了此插件是否被激活，且是否有函数文件存在
+   * @param name 插件名称
+   * @returns {Promise<any>}
+   */
+  private async returnPluginFnPath(name: any) {
+    // 要先 availablePlugins() 获取这个插件是否可用，再用getPluginsLists() 获取是否有这个插件文件存在
+    if ( this.availablePlugins()[name] && this.getPluginsLists().includes(name) ) {
+      const plugins = await this.configsService.get("plugins")
+      const plugin = plugins[name]
+      return `${PLUGIN_DIR}/${name}/${plugin.manifest.fn}.js`
+    }
+  }
+
+  /**
+   * usePlugin 调用插件
+   * @param name 插件名称
+   * @param data 插件传递的数据
+   * @returns {Promise<any>}
+   */
+  public async usePlugin(name: any, data: any){
+    const pluginPermission = await this.configsService.get("plugins")[name].manifest.permission
+    const pluginFnPath = await this.returnPluginFnPath(name)
+    const afterData = data
+    if (pluginFnPath) {
+      const [{ main }] = require(pluginFnPath)
+      const result = await main(afterData)
+      return pluginPermission.includes("write") ? result : afterData
+    } else {
+      return data
+    }
   }
 }
