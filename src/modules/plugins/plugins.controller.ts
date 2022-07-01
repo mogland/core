@@ -1,5 +1,5 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { ApiName } from '~/common/decorator/openapi.decorator';
 import { PluginsService } from './plugins.service';
 
@@ -18,6 +18,7 @@ export class PluginsController {
 
   @Get('/active')
   @ApiOperation({ summary: '激活插件' })
+  @ApiQuery({ name: 'name', description: '插件名称' })
   async activePlugin(@Query() query: any) {
     return await this.pluginsService.activePlugin(query.name);
   }

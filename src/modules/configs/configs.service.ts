@@ -7,11 +7,14 @@ import { CacheService } from '~/processors/cache/cache.service';
 import { getRedisKey } from '~/utils/redis.util';
 import { UserService } from '../user/user.service';
 import { generateInitConfigs } from './configs.init';
-import { ConfigsInterface } from './configs.interface';
+import { ConfigsInterface, ConfigsInterfaceKeys } from './configs.interface';
 import { ConfigsModel } from './configs.model';
 import { LeanDocument } from 'mongoose'
 import { UserModel } from '../user/user.model';
 import { BeAnObject } from '@typegoose/typegoose/lib/types';
+
+const allOptionKeys: Set<ConfigsInterfaceKeys> = new Set()
+
 @Injectable()
 export class ConfigsService {
   private logger: Logger
@@ -32,7 +35,6 @@ export class ConfigsService {
     return generateInitConfigs()
   }
 
-  allOptionKeys: Set<keyof ConfigsInterface> = new Set() // 全部配置项
 
   /**
    * initConfigs 初始化配置
@@ -42,11 +44,14 @@ export class ConfigsService {
     const mergedConfig = this.defaultConfig
     configs.forEach(config => { // 合并配置
       const name = config.name as keyof ConfigsInterface // let's make sure the name is correct
-      if (!this.allOptionKeys.has(name)) {
-        return
-      }
+      // console.log(allOptionKeys)
+      // if (!allOptionKeys.has(name)) {
+      //   this.logger.warn(`配置初始化发现 ${name} 不存在字段`)
+      //   return
+      // }
       const value = config.value
       mergedConfig[name] = { ...mergedConfig[name], ...value }
+      // console.log(mergedConfig)
     })
     await this.setConfig(mergedConfig)
     this.configInited = true // 设置为已初始化
