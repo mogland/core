@@ -134,4 +134,25 @@ export class PluginsService {
       return data
     }
   }
+
+
+  /**
+   * usePlugins 调用插件
+   * @param module 模块名称
+   * @param service 服务名称
+   * @param data 数据
+   * @returns {Promise<string>}
+   */
+   public async usePlugins(module: string, service: string, data: string): Promise<string> {
+    const plugins = await this.getPluginsCanUseInThisService(module, service)
+    const afterData = data
+    // for (const plugin in plugins) {
+    //   const result = await this.usePlugin(plugin, afterData)
+    //   return result
+    // }
+    const result = await Promise.all(Object.keys(plugins).map(async (plugin) => {
+      this.usePlugin(plugin, afterData)
+    }))
+    return result.join("\n")
+  }
 }
