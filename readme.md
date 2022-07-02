@@ -30,11 +30,35 @@ Work in process 正在开发当中
 ~~[Documentation 文档](https://nx-docs.iucky.cn)｜ [Development Live Demo](htttps://gs-server.vercel.app)~~
 
 
-## 什么是 NEXT Space
+## NEXT Space 的优点
 
-Core belongs to the **`NEXT Space`** project, **`NEXT`** is a unique personal Space that acts as a personal blog. You can use it to share your thoughts, ideas, and more.
+- **开箱即用**
 
-Core 归属于 NEXT Space 项目，NEXT 是一个独特的个人空间，可以作为个人博客。 你可以用它来分享你的想法，思考，经验等。
+  支持 Bundle, Docker 两种启动方式
+
+- **速度飞起**
+
+  可以快速启动项目，多集群处理速度更快
+
+- **指标强大**
+
+  服务端渲染 (SSR) 支持，为 SEO 和高性能提供支持
+
+- **主题插件市场（WIP）**
+
+  主题多种开发方式，提供更多功能
+
+- **未来有望**
+
+  同时支持多种模板引擎和前后端分离，支持组件化开发
+
+- **插件系统**
+
+  支持创建属于你的插件，扩展 NEXT 原生服务的基本功能！
+
+- **更多功能**
+
+  NEXT 的未来等待你的发现和提交!
 
 ## 关于此项目 (core)
 
