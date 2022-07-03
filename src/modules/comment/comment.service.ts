@@ -109,4 +109,11 @@ export class CommentService {
     }
   }
 
+  async delete(id: string){
+    const comment = await this.commentModel.findOneAndDelete({ _id: id })
+    if (!comment) {
+      throw new CannotFindException()
+    }
+  }
+
 }
