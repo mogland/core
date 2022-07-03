@@ -15,6 +15,8 @@ import { ConfigsModule } from './modules/configs/configs.module';
 import { PluginsModule } from './modules/plugins/plugins.module';
 import { PageModule } from './modules/page/page.module';
 import { CommentModule } from './modules/comment/comment.module';
+import { ToolsModule } from './modules/tools/tools.module'
+import { HelperModule } from './processors/helper/helper.module'
 
 @Module({
   imports: [
@@ -27,7 +29,9 @@ import { CommentModule } from './modules/comment/comment.module';
     ConfigsModule,
     PluginsModule,
     PageModule,
-    CommentModule
+    CommentModule,
+    ToolsModule,
+    HelperModule
   ],
   controllers: [AppController],
   providers: [

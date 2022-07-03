@@ -12,6 +12,7 @@ import { CommentModel, CommentType } from './comment.model';
 import { LeanDocument, Types } from 'mongoose'
 import { WriteBaseModel } from '~/shared/model/base.model';
 import { CannotFindException } from '~/common/exceptions/cant-find.exception';
+import { ToolsService } from '../tools/tools.service';
 @Injectable()
 export class CommentService {
   private readonly logger: Logger = new Logger(CommentService.name);
@@ -22,6 +23,7 @@ export class CommentService {
     private readonly dbService: DbService,
     private readonly configs: ConfigsService,
     private readonly userService: UserService,
+    private readonly toolsService: ToolsService,
   ) {}
 
   public get model() {
@@ -203,8 +205,26 @@ export class CommentService {
     }
   }
 
-  async getIpLocation(model: Partial<CommentModel>, ip: string){
-    
+  async attachIpLocation(model: Partial<CommentModel>, ip: string) {
+    if (!ip) {
+      return model
+    }
+
+    const newModel = { ...model }
+
+    newModel.location = await this.toolsService
+      .getIp(ip, 3000)
+      .then(
+        (res) =>
+          `${
+            res.province && res.province !== res.cityName
+              ? `${res.province}`
+              : ''
+          }${res.cityName ? `${res.cityName}` : ''}` || undefined,
+      )
+      .catch(() => undefined)
+
+    return newModel
   }
 
 }

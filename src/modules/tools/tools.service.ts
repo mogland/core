@@ -1,20 +1,21 @@
-import { UnprocessableEntityException } from "@nestjs/common";
-import { isIPv4, isIPv6 } from "net";
-import { HttpService } from "./helper.http.service";
-
 /*
- * @FilePath: /nx-core/src/processors/helper/helper.location.service.ts
+ * @FilePath: /nx-core/src/modules/tools/tools.service.ts
  * @author: Wibus
- * @Date: 2022-07-03 20:54:24
+ * @Date: 2022-07-03 21:22:32
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-03 21:11:36
+ * @LastEditTime: 2022-07-03 21:30:53
  * Coding With IU
  */
-export class LocationService {
+
+import { Injectable, UnprocessableEntityException } from "@nestjs/common";
+import { isIPv4, isIPv6 } from "net";
+import { HttpService } from "~/processors/helper/helper.http.service";
+
+@Injectable()
+export class ToolsService {
   constructor(
     private readonly http: HttpService,
-  ){}
-
+  ) {}
   async getIp(ip: string, timeout = 3000){
     const isV4 = isIPv4(ip)
     const isV6 = isIPv6(ip)
@@ -29,7 +30,7 @@ export class LocationService {
       province: data.data.province,
       cityName: data.data.city,
       isp: data.data.isp,
-      ip: data.data.ip,
+      ip: data.data.addr,
     }
 
     return res
