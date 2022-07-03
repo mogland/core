@@ -1,0 +1,82 @@
+
+name: Release
+
+on:
+  push:
+    tags: [ 'v*' ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: FranzDiebold/github-env-vars-action@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Cache pnpm modules
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-pnpm-modules
+      with:
+        path: ~/.pnpm-store
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.7.0
+        with:
+          mongodb-version: 4.4
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.4.0
+        with:
+          redis-version: 6
+    - uses: pnpm/action-setup@v2.2.1
+      with:
+        version: latest
+        run_install: true
+    - name: Build Server
+      run: |
+        pnpm build
+        pnpm bundle
+    - name: Test Server
+      run: |
+        sh ./scripts/workflow/test-server.sh
+    - name: Bundle Package
+      uses: actions/upload-artifact@v3
+      with:
+        name: nx-core-bundle
+        path: out/index.js
+    - name: Programs Package
+      uses: actions/upload-artifact@v3
+      with:
+        name: nx-core
+        path: out
+    - name: zip the bundle
+      run: |
+        zip -r nx-core-bundle.zip out/index.js
+    - name: zip the programs
+      run: |
+        zip -r nx-core.zip out
+
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: |
+          nx-core-bundle.zip
+        tag_name: ${{ github.ref }}
+        release_name: NEXT-${{ github.ref }}
+        draft: true
+        prerelease: false
