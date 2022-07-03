@@ -14,6 +14,9 @@ import { DbModule } from '@app/db'
 import { ConfigsModule } from './modules/configs/configs.module';
 import { PluginsModule } from './modules/plugins/plugins.module';
 import { PageModule } from './modules/page/page.module';
+import { CommentModule } from './modules/comment/comment.module';
+import { ToolsModule } from './modules/tools/tools.module'
+import { HelperModule } from './processors/helper/helper.module'
 
 @Module({
   imports: [
@@ -25,7 +28,10 @@ import { PageModule } from './modules/page/page.module';
     CategoryModule,
     ConfigsModule,
     PluginsModule,
-    PageModule
+    PageModule,
+    CommentModule,
+    ToolsModule,
+    HelperModule
   ],
   controllers: [AppController],
   providers: [

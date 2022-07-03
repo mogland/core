@@ -45,3 +45,8 @@ export const SECURITY = {
   jwtSecret: argv.jwtSecret || 'asjhczxiucipoiopiqm2376',
   jwtExpire: '7d',
 }
+
+export const DEBUG_MODE = {
+  httpRequestVerbose:
+    argv.httpRequestVerbose ?? argv.http_request_verbose ?? true,
+}

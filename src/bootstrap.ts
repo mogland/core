@@ -78,6 +78,7 @@ export async function bootstrap() {
     consola.success(`[${prefix + pid}] 服务器正在监听: ${url}`)
 
     Logger.log(`NxServer 已启动. ${chalk.yellow(`+${performance.now() | 0}ms`)}`)
+
   })
   if (module.hot) {
     module.hot.accept()
