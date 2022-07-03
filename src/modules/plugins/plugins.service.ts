@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PLUGIN_DIR } from '~/constants/path.constant';
+import { safeEval } from '~/utils/safe-eval.util';
 import { PluginDto } from '../configs/configs.dto';
 import { ConfigsService } from '../configs/configs.service';
 
@@ -135,7 +136,7 @@ export class PluginsService {
         const plugin = new NxPlugin()
         return plugin.main(${data})
       })()`
-      const pluginFnResult = eval(pluginFnStr)
+      const pluginFnResult = safeEval(pluginFnStr)
       return pluginPermissions.includes("write") ? pluginFnResult : afterData
     } else {
       return data
