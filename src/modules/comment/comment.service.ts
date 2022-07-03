@@ -1,7 +1,7 @@
 import { DbService } from '@app/db';
 import { InjectModel } from '@app/db/model.transformer';
 import BlockedKeywords from './block-keywords.json'
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { BeAnObject, DocumentType } from '@typegoose/typegoose/lib/types';
 import { ConfigsService } from '../configs/configs.service';
@@ -100,6 +100,13 @@ export class CommentService {
     )
 
     return commentCreate
+  }
+
+  async validateName(name: string): Promise<void> {
+    const user = await this.userService.model.findOne({ name })
+    if (!user) {
+      throw new BadRequestException('用户名与主人重名啦！但是您似乎不是主人哎')
+    }
   }
 
 }
