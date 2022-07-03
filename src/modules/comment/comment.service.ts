@@ -74,7 +74,7 @@ export class CommentService {
   async create(
     id: string,
     comment: Partial<CommentModel>, 
-    refType: CommentType,
+    refType?: CommentType,
   ){
     let ref: LeanDocument<DocumentType<WriteBaseModel, BeAnObject>> // 引用对象, LeanDocument 用于提高性能，DocumentType 用于提高类型检查
     if (refType) {
@@ -150,7 +150,7 @@ export class CommentService {
    * @param id 评论 id
    * @param refType 评论类型
    */
-  async allowComment(id: string, refType: CommentType){
+  async allowComment(id: string, refType?: CommentType){
     if (refType) {
       const document = await this.getModelByRefType(refType).findById(id)
       if (!document) {
