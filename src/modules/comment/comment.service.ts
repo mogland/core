@@ -102,6 +102,10 @@ export class CommentService {
     return commentCreate
   }
 
+  /**
+   * validateName 校验评论名称
+   * @param name 名称
+   */
   async validateName(name: string): Promise<void> {
     const user = await this.userService.model.findOne({ name })
     if (!user) {
@@ -109,6 +113,10 @@ export class CommentService {
     }
   }
 
+  /**
+   * delete 删除评论
+   * @param id 评论 id
+   */
   async delete(id: string){
     const comment = await this.commentModel.findOneAndDelete({ _id: id })
     if (!comment) {
@@ -133,6 +141,49 @@ export class CommentService {
         })
       }
     }
+  }
+
+  /**
+   * allowComment 是否允许评论
+   * @param id 评论 id
+   * @param refType 评论类型
+   */
+  async allowComment(id: string, refType: CommentType){
+    if (refType) {
+      const document = await this.getModelByRefType(refType).findById(id)
+      if (!document) {
+        throw new CannotFindException()
+      }
+      return document.allowComment ?? true // 获取引用对象的 allowComment 属性, 如果没有则默认为 true
+    } else {
+      const { document } = await this.dbService.findGlobalById(id) // 查找引用对象
+      if (!document) {
+        throw new CannotFindException()
+      }
+      return document.allowComment ?? true
+    }
+  }
+
+  /**
+   * getComments 获取评论
+   * @param page,size,state
+   * @returns 评论列表
+   */
+  async getComments({ page, size, state } = { page: 1, size: 10, state: 0 }){
+    const queryList = await this.commentModel.paginate(
+      { state }, // 查询条件
+      {
+        page, // 当前页
+        limit: size, // 每页显示条数
+        select: '+ip +agent -children', // 查询字段
+        sort: { created: -1 }, // 排序
+        populate: [ // 关联查询
+          { path: 'parent', select: '-children' }, // 关联父评论
+          { path: 'ref', select: 'title _id slug nid categoryId' }, // 关联引用对象
+        ]
+      }
+    )
+    return queryList
   }
 
 }
