@@ -114,6 +114,25 @@ export class CommentService {
     if (!comment) {
       throw new CannotFindException()
     }
+    // 更新引用对象的评论索引
+    const { children, parent }  = comment
+    if (children && children.length > 0){ // 删除全部的子评论
+      await Promise.all(
+        children.map(async (child) => {
+          await this.commentModel.findByIdAndDelete(child as any as string)
+        })
+      )
+    }
+    if (parent) { // 更新父评论的评论索引
+      const parent = await this.commentModel.findById(comment.parent)
+      if (parent) {
+        await parent.updateOne({
+          $pull: {
+            children: comment._id
+          }
+        })
+      }
+    }
   }
 
 }
