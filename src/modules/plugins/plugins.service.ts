@@ -31,27 +31,34 @@ export class PluginsService {
    * @return {Promise<string>}
    */
   public async activePlugin(name: string): Promise<string> {
-    const plugins = await this.availablePlugins()
-    if (!plugins[name]) {
-      const pluginList = this.getPluginsLists()
-      if (pluginList.includes(name)) {
-        const pluginPath = PLUGIN_DIR
-        const manifest = await fs.readJSON(`${pluginPath}/${name}/manifest.json`)
-        const configs = await this.configsService.getConfig()
-        const data: PluginDto[] = [
-          ...configs.plugins,
-          {
-            name,
-            active: true,
-            manifest
-          }]
-        this.configsService.patch("plugins", data)
-        return `插件 ${name} 激活成功`
+    // fs检查文件夹是否存在
+    if (fs.existsSync(path.join(PLUGIN_DIR, name))) {
+      const plugins = await this.availablePlugins()
+      if (!plugins[name]) {
+        const pluginList = this.getPluginsLists()
+        if (pluginList.includes(name)) {
+          const pluginPath = PLUGIN_DIR
+          const manifest = await fs.readJSON(`${pluginPath}/${name}/manifest.json`).catch(() => {
+            throw new BadRequestException(`${name} 插件的 manifest.json 文件不存在`)
+          })
+          const configs = await this.configsService.getConfig()
+          const data: PluginDto[] = [
+            ...configs.plugins,
+            {
+              name,
+              active: true,
+              manifest
+            }]
+          this.configsService.patch("plugins", data)
+          return `插件 ${name} 激活成功`
+        } else {
+          throw new BadRequestException(`插件 ${name} 不存在`)
+        }
       } else {
-        throw new BadRequestException(`插件 ${name} 不存在`)
+        throw new BadRequestException(`插件 ${name} 已处于激活状态`)
       }
     } else {
-      throw new BadRequestException(`插件 ${name} 已处于激活状态`)
+      throw new BadRequestException(`插件 ${name} 不存在`)
     }
   }
 
@@ -104,7 +111,7 @@ export class PluginsService {
     if (pluginsList[name] && this.getPluginsLists().includes(name)) {
       const plugin = pluginsList[name]
       return `${PLUGIN_DIR}/${name}/${plugin.manifest.fn}.js`
-    } else { 
+    } else {
       return null
     }
   }
@@ -118,7 +125,7 @@ export class PluginsService {
   public async usePlugin(name: string, data: string): Promise<string> {
     const pluginsList = await this.availablePlugins()
     const pluginPermissions = pluginsList[name].manifest.permissions
-  
+
     const pluginFnPath = await this.returnPluginFnPath(name)
     const afterData = data
     if (pluginFnPath) {
@@ -143,7 +150,7 @@ export class PluginsService {
    * @param data 数据
    * @returns {Promise<string>}
    */
-   public async usePlugins(module: string, service: string, data: string): Promise<string> {
+  public async usePlugins(module: string, service: string, data: string): Promise<string> {
     const plugins = await this.getPluginsCanUseInThisService(module, service)
     const afterData = data
     // for (const plugin in plugins) {
