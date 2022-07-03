@@ -186,4 +186,25 @@ export class CommentService {
     return queryList
   }
 
+  /**
+   * resloveUrlByType 解析评论引用对象的 url
+   * @param type 评论类型
+   * @param model 引用对象的 Model
+   */
+  async resloveUrlByType(type: CommentType, model: any){
+    const {
+      urls: { webUrl: base },
+    } = await this.configs.waitForConfigReady()
+    switch (type) {
+      case CommentType.Post:
+        return new URL(`/${model.category.slug}/${model.slug}`, base).toString()
+      case CommentType.Page:
+        return new URL(`/${model.slug}`, base).toString()
+    }
+  }
+
+  async getIpLocation(model: Partial<CommentModel>, ip: string){
+    
+  }
+
 }

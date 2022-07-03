@@ -9,6 +9,7 @@ import { LoggingInterceptor } from './common/interceptors/logging.interceptor'
 import { MyLogger } from './processors/logger/logger.service'
 import { isDev } from './utils/environment.utils'
 import { argv } from 'zx-cjs'
+import { LocationService } from './processors/helper/helper.location.service'
 
 // const APIVersion = 1
 const Origin = CROSS_DOMAIN.allowedOrigins
@@ -78,6 +79,10 @@ export async function bootstrap() {
     consola.success(`[${prefix + pid}] 服务器正在监听: ${url}`)
 
     Logger.log(`NxServer 已启动. ${chalk.yellow(`+${performance.now() | 0}ms`)}`)
+
+    const a = app.get(LocationService)
+    console.log(a.getIp('58.62.122.66'))
+
   })
   if (module.hot) {
     module.hot.accept()
