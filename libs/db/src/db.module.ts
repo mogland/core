@@ -1,6 +1,7 @@
 import { Global, Module, Provider } from '@nestjs/common';
 import { CategoryModel } from '~/modules/category/category.model';
 import { ConfigsModel } from '~/modules/configs/configs.model';
+import { PageModel } from '~/modules/page/page.model';
 import { PostModel } from '~/modules/post/post.model';
 import { UserModel } from '~/modules/user/user.model';
 import { databaseProvider } from './db.provider';
@@ -12,7 +13,8 @@ const models = [
   UserModel,
   PostModel,
   CategoryModel,
-  ConfigsModel
+  ConfigsModel,
+  PageModel
 ].map((model) =>
   getProviderByTypegooseClass(model),
 )
