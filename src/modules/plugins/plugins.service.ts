@@ -151,7 +151,7 @@ export class PluginsService {
    * @param data 数据
    * @returns {Promise<string>}
    */
-  public async usePlugins(module: string, service: string, data: string): Promise<string> {
+  public async usePlugins(module: string, service: string, data: any): Promise<string> {
     const plugins = await this.getPluginsCanUseInThisService(module, service)
     const afterData = data
     // for (const plugin in plugins) {

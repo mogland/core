@@ -13,6 +13,7 @@ import { CategoryModule } from './modules/category/category.module';
 import { DbModule } from '@app/db'
 import { ConfigsModule } from './modules/configs/configs.module';
 import { PluginsModule } from './modules/plugins/plugins.module';
+import { PageModule } from './modules/page/page.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { PluginsModule } from './modules/plugins/plugins.module';
     UserModule,
     CategoryModule,
     ConfigsModule,
-    PluginsModule
+    PluginsModule,
+    PageModule
   ],
   controllers: [AppController],
   providers: [

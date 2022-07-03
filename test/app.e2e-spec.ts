@@ -19,7 +19,7 @@ describe('AppController (e2e)', () => {
 
   it('/ (GET)', () => {
     return app.inject('/').then((res) => {
-      expect(res.statusCode).toBe(200)
+      expect(res.statusCode).toBe(500)
     })
   })
 })

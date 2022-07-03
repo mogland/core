@@ -1,31 +1,21 @@
+import { UnprocessableEntityException } from '@nestjs/common'
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger'
 import { Severity, index, modelOptions, prop, Ref } from '@typegoose/typegoose'
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
-import { BaseModel , CountMixed as Count } from '~/shared/model/base.model'
+import { Transform } from 'class-transformer'
+import { IsDate, isDateString, IsInt, IsNotEmpty, IsOptional, IsString, Min } from 'class-validator'
+import { CountMixed as Count, WriteBaseModel } from '~/shared/model/base.model'
 import { CategoryModel } from '../category/category.model'
 
 @index({ slug: 1 })
 @index({ modified: -1 })
 @index({ text: 'text' })
 @modelOptions({ options: { customName: 'Post', allowMixed: Severity.ALLOW } })
-export class PostModel extends BaseModel {
+export class PostModel extends WriteBaseModel {
   @prop({ trim: true, unique: true, required: true })
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ description: '文章路径' })
   slug!: string
-
-  @prop({ trim: true, required: true })
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({ description: '文章内容' })
-  text: string
-
-  @prop({ trim: true, required: true })
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({ description: '文章标题' })
-  title: string
 
   @prop({ trim: true, required: true })
   @IsString()
@@ -37,7 +27,7 @@ export class PostModel extends BaseModel {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ description: '文章分类' })
-  categoryId: string // Ref<Category>
+  categoryId: Ref<CategoryModel>
 
   @prop({
     ref: () => CategoryModel,
@@ -60,7 +50,44 @@ export class PostModel extends BaseModel {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ description: '文章阅读数' })
-  count: number
+  view: number
+
+  @prop()
+  @IsDate()
+  @IsOptional()
+  @Transform(({ value }) => {
+    if (typeof value === 'undefined') {
+      return value
+    }
+    const isDateIsoString = isDateString(value)
+    if (isDateIsoString) {
+      return new Date(value)
+    }
+    if (typeof value != 'boolean') {
+      throw new UnprocessableEntityException('pin value must be boolean')
+    }
+
+    if (value === true) {
+      return new Date()
+    } else {
+      return null
+    }
+  })
+  @ApiProperty({ description: '文章置顶' })
+  pin?: Date | null
+
+  @prop()
+  @Min(0)
+  @IsInt()
+  @IsOptional()
+  @Transform(({ obj, value }) => {
+    if (!obj.pin) {
+      return null
+    }
+    return value
+  })
+  @ApiProperty({ description: '文章置顶优先级' })
+  pinOrder?: number
 
   @prop({ 
     type: String
