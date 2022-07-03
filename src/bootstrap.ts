@@ -75,9 +75,9 @@ export async function bootstrap() {
     if (isDev || argv.dev_online == 'true') {
       consola.debug(`[${prefix + pid}] OpenApi: ${url}/api-docs`)
     }
-    consola.success(`[${prefix + pid}] Server listen on: ${url}`)
+    consola.success(`[${prefix + pid}] 服务器正在监听: ${url}`)
 
-    Logger.log(`NxServer is up. ${chalk.yellow(`+${performance.now() | 0}ms`)}`)
+    Logger.log(`NxServer 已启动. ${chalk.yellow(`+${performance.now() | 0}ms`)}`)
   })
   if (module.hot) {
     module.hot.accept()

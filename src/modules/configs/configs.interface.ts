@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-25 17:58:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-01 21:55:26
+ * @LastEditTime: 2022-07-03 08:46:09
  * Coding With IU
  */
 
@@ -40,7 +40,7 @@ export abstract class ConfigsInterface {
 
   @Type(() => PluginDto)
   @ValidateNested()
-  plugins: PluginDto[];
+  plugins: Required<PluginDto[]>;
 }
 
 export type ConfigsInterfaceKeys = keyof ConfigsInterface

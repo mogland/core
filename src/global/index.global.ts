@@ -11,13 +11,13 @@ import { isDev } from './env.global'
 // 建立目录
 function mkdirs() {
   mkdirSync(DATA_DIR, { recursive: true })
-  Logger.log(chalk.blue(`Data dir is make up: ${DATA_DIR}`))
+  Logger.log(chalk.blue(`数据文件夹 已准备好: ${DATA_DIR}`))
 
   mkdirSync(LOG_DIR, { recursive: true })
-  Logger.log(chalk.blue(`Log dir is make up: ${LOG_DIR}`))
+  Logger.log(chalk.blue(`日志文件夹 已准备好: ${LOG_DIR}`))
 
   mkdirSync(PLUGIN_DIR, { recursive: true })
-  Logger.log(chalk.blue(`Plugin dir is make up: ${PLUGIN_DIR}`))
+  Logger.log(chalk.blue(`插件文件夹 已准备好: ${PLUGIN_DIR}`))
 }
 
 function registerGlobal() {

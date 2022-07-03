@@ -1,5 +1,6 @@
+import camelcaseKeys from 'camelcase-keys'
 import { InjectModel } from '@app/db/model.transformer';
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, ValidationPipe } from '@nestjs/common';
 import { ReturnModelType, DocumentType } from '@typegoose/typegoose';
 import { cloneDeep, mergeWith } from 'lodash';
 import { RedisKeys } from '~/constants/cache.constant';
@@ -12,8 +13,24 @@ import { ConfigsModel } from './configs.model';
 import { LeanDocument } from 'mongoose'
 import { UserModel } from '../user/user.model';
 import { BeAnObject } from '@typegoose/typegoose/lib/types';
+import * as configDto from './configs.dto';
+import { validateSync, ValidatorOptions } from 'class-validator';
+import { ClassConstructor, plainToInstance } from 'class-transformer';
+
 
 const allOptionKeys: Set<ConfigsInterfaceKeys> = new Set()
+const map: Record<string, any> = Object.entries(configDto).reduce(
+  (obj, [key, value]) => {
+    const optionKey = (key.charAt(0).toLowerCase() +
+      key.slice(1).replace(/Dto$/, '')) as ConfigsInterfaceKeys
+    allOptionKeys.add(optionKey)
+    return {
+      ...obj,
+      [`${optionKey}`]: value,
+    }
+  },
+  {},
+)
 
 @Injectable()
 export class ConfigsService {
@@ -44,14 +61,12 @@ export class ConfigsService {
     const mergedConfig = this.defaultConfig
     configs.forEach(config => { // 合并配置
       const name = config.name as keyof ConfigsInterface // let's make sure the name is correct
-      // console.log(allOptionKeys)
-      // if (!allOptionKeys.has(name)) {
-      //   this.logger.warn(`配置初始化发现 ${name} 不存在字段`)
-      //   return
-      // }
+      if (!allOptionKeys.has(name)) {
+        this.logger.warn(`配置初始化发现 ${name} 不存在字段`)
+        return
+      }
       const value = config.value
       mergedConfig[name] = { ...mergedConfig[name], ...value }
-      // console.log(mergedConfig)
     })
     await this.setConfig(mergedConfig)
     this.configInited = true // 设置为已初始化
@@ -66,6 +81,11 @@ export class ConfigsService {
     await redis.set(getRedisKey(RedisKeys.ConfigCache), JSON.stringify(config)) // 将配置写入 redis
   }
 
+  /**
+   * get 获取配置
+   * @param key 配置项名称
+   * @returns {Promise<ConfigsInterface[keyof ConfigsInterface]>}
+   */
   public get<T extends keyof ConfigsInterface>(key: T): Promise<Readonly<ConfigsInterface[T]>> {
     return new Promise((resolve, reject) => {
       this.waitForConfigReady()
@@ -144,6 +164,45 @@ export class ConfigsService {
     await this.setConfig(mergedFullConfig) // 将配置写入 redis
     return newData
   }
+
+  validateOptions: ValidatorOptions = {
+    whitelist: true,
+    forbidNonWhitelisted: true
+  }
+
+  private validateWithDto<T extends keyof object>(
+    dto: ClassConstructor<T>, data: any
+    ): T {
+
+    const model = plainToInstance(dto, data)
+    const errors = validateSync(model, this.validateOptions)
+    if (errors.length) {
+      throw this.validate.createExceptionFactory()(errors as any)
+    }
+    return model
+    
+  }
+
+  validate = new ValidationPipe(this.validateOptions)
+
+  /**
+   * patchAndValidate 更新配置并验证
+   * @param key 配置项名称
+   * @param data 配置项数据
+   * @returns {Promise<ConfigsInterface[T]>}
+   */
+  async patchAndValidate<T extends keyof ConfigsInterface>(
+    key: T,  // 配置项名称
+    data: Partial<ConfigsInterface[T]> // 配置项数据
+    ): Promise<ConfigsInterface[T]> {
+      data = camelcaseKeys(data, { deep: true }) as any
+
+      const dto = map[key] // 获取配置模型
+      if (!dto) {
+        throw new BadRequestException(`设置 ${key} 不存在`)
+      }
+      return this.patch(key, this.validateWithDto(dto, data))
+    }
 
   get getUser() {
     return this.userService.getMaster.bind(this.userService) as () => Promise<

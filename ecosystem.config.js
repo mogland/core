@@ -8,7 +8,7 @@ const cpuLen = cpus().length
 module.exports = {
   apps: [
     {
-      name: 'mx-server',
+      name: 'nx-core',
       script: 'index.js',
       autorestart: true,
       exec_mode: 'cluster',
