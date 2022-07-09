@@ -1,3 +1,18 @@
+## [1.2.1](https://github.com/nx-space/core/compare/v1.2.0...v1.2.1) (2022-07-09)
+
+
+### Bug Fixes
+
+* **deps:** bump passport version to 0.6.0 ([8539464](https://github.com/nx-space/core/commit/8539464bdf3fbde25ab67f2056854471f60a525a))
+* **pnpm:** update lock file ([40a4402](https://github.com/nx-space/core/commit/40a4402b3eb733f725d06b5a54e9083fe938c34b))
+
+
+### Features
+
+* **module:** aggregate module ([92e3841](https://github.com/nx-space/core/commit/92e384135e2fddada57d327a2ebf4aa8e9d5fc68))
+
+
+
 ## v1.2.0 (2022-07-03)
 
 ### Feat

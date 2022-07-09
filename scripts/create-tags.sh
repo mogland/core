@@ -1,12 +1,13 @@
 set -e
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-if [[ "$BRANCH" != "master" ]]; then
-  echo 'current branch not on master, abort'
+if [[ "$BRANCH" != "main" ]]; then
+  echo 'current branch not on main, abort'
   exit 1
 fi
 
-tag=v$(json -f package.json version)
+# 获取package.json的版本号
+tags="$(node -p "require('./package.json').version")"  
 yarn changelog
 git add .
 git commit -a -m "release: $tag" &>/dev/null
