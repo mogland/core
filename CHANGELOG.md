@@ -1,3 +1,12 @@
+## [1.2.2](https://github.com/nx-space/core/compare/v1.2.1...v1.2.2) (2022-07-09)
+
+
+### Performance Improvements
+
+* **app:** remove useless test api ([df3e4b7](https://github.com/nx-space/core/commit/df3e4b71de76c018173f51c523d217c882bf6dfd))
+
+
+
 ## [1.2.1](https://github.com/nx-space/core/compare/v1.2.0...v1.2.1) (2022-07-09)
 
 
