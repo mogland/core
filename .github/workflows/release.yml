@@ -1,36 +1,28 @@
+on:
+  push:
+    tags:
+      - 'v*'
 
 name: Release
 
-on:
-  push:
-    tags: [ 'v*' ]
-
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    name: Upload Release Asset
     strategy:
       matrix:
-        node-version: [16.x]
-
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    outputs:
+      release_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: FranzDiebold/github-env-vars-action@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Cache pnpm modules
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-pnpm-modules
-      with:
-        path: ~/.pnpm-store
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.7.0
         with:
@@ -39,44 +31,57 @@ jobs:
         uses: supercharge/redis-github-action@1.4.0
         with:
           redis-version: 6
-    - uses: pnpm/action-setup@v2.2.1
-      with:
-        version: latest
-        run_install: true
-    - name: Build Server
-      run: |
-        pnpm build
-        pnpm bundle
-    - name: Test Server
-      run: |
-        sh ./scripts/workflow/test-server.sh
-    - name: Bundle Package
-      uses: actions/upload-artifact@v3
-      with:
-        name: nx-core-bundle
-        path: out/index.js
-    - name: Programs Package
-      uses: actions/upload-artifact@v3
-      with:
-        name: nx-core
-        path: out
-    - name: zip the bundle
-      run: |
-        zip -r nx-core-bundle.zip out/index.js
-    - name: zip the programs
-      run: |
-        zip -r nx-core.zip out
+      - name: Cache pnpm modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-pnpm-modules
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: latest
+          run_install: true
+      - name: Test
+        timeout-minutes: 10
+        run: |
+          npm run lint
+          npm run test
+          npm run test:e2e
 
-
-    - name: Create Release
-      id: create_release
-      uses: softprops/action-gh-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        files: |
-          nx-core-bundle.zip
-        tag_name: ${{ github.ref }}
-        release_name: NEXT-${{ github.ref }}
-        draft: true
-        prerelease: false
+      - name: Build project
+        run: |
+          pnpm run bundle
+      - name: Test Bundle Server
+        run: |
+          bash scripts/workflow/test-server.sh
+      - name: zip the bundle
+        run: |
+          zip -r nx-core-bundle.zip out/index.js
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: true
+          prerelease: false
+      - run: npx changelogithub
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./nx-core-bundle.zip
+          asset_name: release-${{ matrix.os }}.zip
+          asset_content_type: application/zip
