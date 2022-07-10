@@ -204,7 +204,7 @@ export class ConfigsService {
       return this.patch(key, this.validateWithDto(dto, data))
     }
 
-  get getUser() {
+  get getMaster() {
     return this.userService.getMaster.bind(this.userService) as () => Promise<
       LeanDocument<DocumentType<UserModel, BeAnObject>>
     >
