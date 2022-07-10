@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/nx-space/core/compare/1.2.2...1.3.0) (2022-07-10)
+
+
+### Features
+
+* **aggregate:** find top & rss builder ([4c6b365](https://github.com/nx-space/core/commit/4c6b36522c7698e43cdce248bd8bee41ff4b1ddc))
+
+
+
 ## [1.2.2](https://github.com/nx-space/core/compare/v1.2.1...v1.2.2) (2022-07-09)
 
 
