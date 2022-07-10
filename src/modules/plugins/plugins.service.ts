@@ -93,7 +93,11 @@ export class PluginsService {
     const plugins = await this.configsService.get("plugins")
     const available = {}
     for (const plugin in plugins) {
-      if (plugins[plugin].active && plugins[plugin].manifest.module === module && plugins[plugin].manifest.service === service) {
+      if (
+        plugins[plugin].active 
+        && plugins[plugin].manifest.module === module 
+        && plugins[plugin].manifest.service === service
+      ) {
         available[plugin] = plugins[plugin]
       }
     }
