@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -95,7 +95,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}
-            
+
       - name: Build Pkg
         run: |
           pkg .
