@@ -7,7 +7,7 @@ if [[ "$BRANCH" != "main" ]]; then
 fi
 
 # 获取package.json的版本号
-tag="$(node -p "require('./package.json').version")"  
+tag="v$(node -p "require('./package.json').version")"  
 yarn changelog
 git add .
 git commit -a -m "release: $tag" &>/dev/null
