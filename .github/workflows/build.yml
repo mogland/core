@@ -99,11 +99,22 @@ jobs:
       - name: Build Pkg
         run: |
           pkg .
+      
+      - name: Cache Pkg binaries
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-pkg-binaries
+        with:
+          path: ~/.pkg-cache
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}
+
       - name: Zip Pkg
         run: |
-          zip -r nx-core-node16-linux.zip out/core-node16-linux
-          zip -r nx-core-node16-macos.zip out/core-node16-macos
-          zip -r nx-core-node16-win.zip out/core-node16-win
+          zip -r nx-core-node16-linux.zip ./out/core-node16-linux
+          zip -r nx-core-node16-macos.zip ./out/core-node16-macos
+          zip -r nx-core-node16-win.zip ./out/core-node16-win
 
       - name: Upload macOS Pkg Asset
         uses: actions/upload-artifact@v3
