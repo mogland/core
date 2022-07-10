@@ -54,3 +54,75 @@ jobs:
         with:
           name: bundle
           path: out/index.js
+
+  build_pkg:
+    name: Build Pkg
+    strategy:
+      matrix:
+        os: [macos-latest]
+    runs-on: ${{ matrix.os }}
+    needs: [build]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Cache pnpm modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-pnpm-modules
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: latest
+          run_install: true
+      - name: Build project
+        run: |
+          pnpm run bundle
+
+      - name: Install Pkg
+        run: |
+          npm install -g pkg
+      
+      - name: Cache Pkg binaries
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-pkg-binaries
+        with:
+          path: ~/.pkg-cache
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}
+            
+      - name: Build Pkg
+        run: |
+          pkg .
+      - name: Zip Pkg
+        run: |
+          zip -r nx-core-node16-linux.zip out/core-node16-linux
+          zip -r nx-core-node16-macos.zip out/core-node16-macos
+          zip -r nx-core-node16-win.zip out/core-node16-win
+
+      - name: Upload macOS Pkg Asset
+        uses: actions/upload-artifact@v3
+        with:
+          path: ./nx-core-node16-macos.zip
+          name: nx-core-node16-macos.zip.zip
+
+      - name: Upload Linux Pkg Asset
+        uses: actions/upload-artifact@v3
+        with:
+          path: ./nx-core-node16-linux.zip
+          name: nx-core-node16-linux.zip.zip
+
+      - name: Upload Windows Pkg Asset
+        uses: actions/upload-artifact@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.build.outputs.release_url }}
+          path: ./nx-core-node16-win.zip
+          name: nx-core-node16-win.zip.zip
+          
