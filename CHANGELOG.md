@@ -1,3 +1,7 @@
+## [1.3.1](https://github.com/nx-space/core/compare/1.3.0...1.3.1) (2022-07-10)
+
+
+
 # [1.3.0](https://github.com/nx-space/core/compare/1.2.2...1.3.0) (2022-07-10)
 
 
