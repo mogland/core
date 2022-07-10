@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, UnprocessableEntityException } from '@nestjs/common';
+import { ApiOperation } from '@nestjs/swagger';
 import { Auth } from '~/common/decorator/auth.decorator';
 import { Paginator } from '~/common/decorator/http.decorator';
 import { ApiName } from '~/common/decorator/openapi.decorator';
@@ -19,6 +20,7 @@ export class PageController {
 
   @Get('/')
   @Paginator
+  @ApiOperation({ summary: '获取页面概要' })
   async getPagesSummary(@Query() query: PagerDto) {
     const { size, select, page, sortBy, sortOrder } = query
     return this.pageService.model.paginate(
@@ -35,6 +37,7 @@ export class PageController {
   }
 
   @Get("/:id")
+  @ApiOperation({ summary: '通过id获取页面详情' })
   @Auth()
   async getPage(@Query() params: MongoIdDto) {
     const page = this.pageService.model
@@ -47,6 +50,7 @@ export class PageController {
   }
 
   @Get('/slug/:slug')
+  @ApiOperation({ summary: '使用slug获取页面详情' })
   async getPageBySlug(@Param('slug') slug: string) {
     if (typeof slug !== 'string') {
       throw new UnprocessableEntityException('slug必须是字符串')
@@ -67,12 +71,14 @@ export class PageController {
   }
 
   @Post("/create")
+  @ApiOperation({ summary: '创建页面' })
   @Auth()
   async create(@Body() body: PageModel){
     return this.pageService.create(body)
   }
 
   @Put('/:id')
+  @ApiOperation({ summary: '更新页面' })
   @Auth()
   async modify(@Body() body: PageModel, @Param() params: MongoIdDto) {
     const { id } = params
@@ -83,6 +89,7 @@ export class PageController {
   }
 
   @Patch('/:id')
+  @ApiOperation({ summary: '更新页面' })
   @Auth()
   async patch(@Body() body: PartialPageModel, @Param() params: MongoIdDto) {
     const { id } = params
@@ -93,6 +100,7 @@ export class PageController {
   }
 
   @Delete('/:id')
+  @ApiOperation({ summary: '删除页面' })
   @Auth()
   async deletePage(@Param() params: MongoIdDto) {
     await this.pageService.model.deleteOne({

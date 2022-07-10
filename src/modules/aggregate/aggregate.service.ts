@@ -3,10 +3,12 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types';
 import { pick } from 'lodash';
+import { CacheKeys } from '~/constants/cache.constant';
 import { CacheService } from '~/processors/cache/cache.service';
 import { UrlService } from '~/processors/helper/helper.url.service';
 import { CategoryModel } from '../category/category.model';
 import { CategoryService } from '../category/category.service';
+import { CommentStatus } from '../comment/comment.model';
 import { CommentService } from '../comment/comment.service';
 import { ConfigsService } from '../configs/configs.service';
 import { PageService } from '../page/page.service';
@@ -94,6 +96,9 @@ export class AggregateService {
     return { posts }
   }
 
+  /**
+   * getSiteMapContent 获取站点地图
+   */
   async getSiteMapContent() {
     const {
       urls: { webUrl: baseURL },
@@ -123,6 +128,9 @@ export class AggregateService {
     .sort((a, b) => -(a.published_at.getTime() - b.published_at.getTime()))
   }
 
+  /**
+   * getRSSFeedContent 获取RSS内容
+   */
   async getRSSFeedContent() {
     const {
       urls: { webUrl },
@@ -152,6 +160,10 @@ export class AggregateService {
       .slice(0, 10)
   }
 
+  /**
+   * buildRssStructure 构建RSS结构
+   * @returns {Promise<RSSProps>}
+   */
   async buildRssStructure(): Promise<RSSProps> {
     const data = await this.getRSSFeedContent()
     const title = (await this.configsService.get('site')).title
@@ -163,6 +175,53 @@ export class AggregateService {
       url,
       data,
     }
+  }
+
+  /**
+   * getCounts 获取数量
+   */
+  async getCounts() {
+    const [
+      posts,
+      pages,
+      categories,
+      comments,
+      allComments,
+      unreadComments,
+    ] = await Promise.all([
+      this.postService.model.countDocuments(),
+      this.pageService.model.countDocuments(),
+      this.categoryService.model.countDocuments(),
+      this.commentService.model.countDocuments({
+        parent: null,
+        $or: [{ state: CommentStatus.Read }, { state: CommentStatus.Unread }],
+      }),
+      this.commentService.model.countDocuments({
+        $or: [{ state: CommentStatus.Read }, { state: CommentStatus.Unread }],
+      }),
+      this.commentService.model.countDocuments({
+        state: CommentStatus.Unread,
+      }),
+    ])
+
+    return {
+      posts,
+      pages,
+      categories,
+      comments,
+      allComments,
+      unreadComments,
+    }
+  }
+
+  public clearAggregateCache() {
+    return Promise.all([
+      this.redis.getClient().del(CacheKeys.RSS),
+      this.redis.getClient().del(CacheKeys.RSSXmlCatch),
+      this.redis.getClient().del(CacheKeys.AggregateCatch),
+      this.redis.getClient().del(CacheKeys.SiteMapCatch),
+      this.redis.getClient().del(CacheKeys.SiteMapXmlCatch),
+    ])
   }
 
 }
