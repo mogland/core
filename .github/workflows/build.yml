@@ -82,9 +82,15 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}
-
+     - name: ls all
+        run: |
+          pwd
+          ls
+          cd out
+          ls
       - name: Zip Pkg
         run: |
+          
           zip -r nx-core-node16-linux.zip ./out/core-node16-linux
           zip -r nx-core-node16-macos.zip ./out/core-node16-macos
           zip -r nx-core-node16-win.zip ./out/core-node16-win
