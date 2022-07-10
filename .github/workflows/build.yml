@@ -82,7 +82,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}
-     - name: ls all
+      - name: ls all
         run: |
           pwd
           ls
