@@ -67,4 +67,25 @@ export class LinksService {
     }
   }
 
+  /**
+   * setFriendLinkStatus 设置好友链接状态
+   * @param id 链接id
+   */
+  async setFriendLinkStatus(id: string, status: LinksStatus) {
+    const doc = await this.model
+      .findOneAndUpdate(
+        { _id: id },
+        {
+          $set: { status: status ? status : LinksStatus.Pass }, // 默认审核通过
+        },
+      )
+      .lean()
+
+    if (!doc) {
+      throw new NotFoundException()
+    }
+
+    return doc
+  }
+
 }
