@@ -87,6 +87,7 @@
     "consola": "*",
     "cron": "*",
     "dayjs": "1.11.1",
+    "entities": "^4.3.1",
     "lodash": "*",
     "mongoose": "6.3.0",
     "mongoose-lean-id": "^0.3.0",
@@ -101,6 +102,7 @@
     "slugify": "^1.6.5",
     "snakecase-keys": "5.4.1",
     "vm2": "^3.9.9",
+    "xml2js": "^0.4.23",
     "zx-cjs": "6.1.0"
   },
   "devDependencies": {

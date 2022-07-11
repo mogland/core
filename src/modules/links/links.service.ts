@@ -1,5 +1,6 @@
 import { InjectModel } from '@app/db/model.transformer';
 import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import Parser from 'rss-parser';
 import { HttpService } from '~/processors/helper/helper.http.service';
 import { ConfigsService } from '../configs/configs.service';
 import { LinksModel, LinksStatus, LinksType } from './links.model';
@@ -133,5 +134,11 @@ export class LinksService {
   )
 
     return health
+  }
+
+  async parseRSS(url: string){
+    const parser: Parser = new Parser()
+    const feed = await parser.parseURL(url)
+    return feed
   }
 }
