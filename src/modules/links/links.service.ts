@@ -50,4 +50,21 @@ export class LinksService {
     }
   }
 
+  /**
+   * applyForFriendLink 申请好友链接
+   * @param link 链接**模型**
+   */
+  async applyForFriendLink(link: LinksModel) {
+    try {
+      const document = await this.model.create({
+        ...link,
+        status: LinksStatus.Audit,
+        types: LinksType.Friend,
+      });
+      return document
+    } catch (error) {
+      throw new BadRequestException("不要重复搞事情哦～");
+    }
+  }
+
 }
