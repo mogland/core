@@ -88,4 +88,49 @@ export class LinksService {
     return doc
   }
 
+  /**
+   * checkLinksHealth 检查链接的健康状态
+   */
+  async checkLinksHealth() {
+    const links = await this.model.find({
+      state: LinksStatus.Pass,
+    }).lean()
+
+    const health = await Promise.all(
+      links.map(({ id, url }) => {
+        Logger.debug(
+          `检查友链 ${id} 的健康状态: GET -> ${url}`,
+          LinksService.name,
+        )
+        return this.http.axiosRef
+          .get(url, {
+            timeout: 5000,
+            'axios-retry': {
+              retries: 1,
+              shouldResetTimeout: true,
+            },
+          })
+          .then((res) => {
+            return {
+              status: res.status,
+              id,
+            }
+          })
+          .catch((err) => {
+            return {
+              id,
+              status: err.response?.status || 'ERROR',
+              message: err.message,
+            }
+          })
+      }),
+    ).then((arr) =>
+    arr.reduce((acc, cur) => {
+      acc[cur.id] = cur // 将每个链接的健康状态放入对象中
+      return acc 
+    }, {}),
+  )
+
+    return health
+  }
 }
