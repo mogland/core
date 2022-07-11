@@ -72,4 +72,11 @@ export class LinksController {
     return this.linksService.checkLinksHealth()
   }
 
+  @Get('/feed')
+  @ApiOperation({ summary: '获取链接的feed' })
+  async getFeed(@Query() params){
+    const { url } = params
+    return await this.linksService.parseRSS(url)
+  }
+
 }
