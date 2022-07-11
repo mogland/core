@@ -18,6 +18,7 @@ import { CommentModule } from './modules/comment/comment.module';
 import { ToolsModule } from './modules/tools/tools.module'
 import { HelperModule } from './processors/helper/helper.module'
 import { AggregateModule } from './modules/aggregate/aggregate.module';
+import { LinksModule } from './modules/links/links.module';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { AggregateModule } from './modules/aggregate/aggregate.module';
     CommentModule,
     ToolsModule,
     HelperModule,
-    AggregateModule
+    AggregateModule,
+    LinksModule
   ],
   controllers: [AppController],
   providers: [
