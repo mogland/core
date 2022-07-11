@@ -136,7 +136,7 @@ export class LinksService {
     return health
   }
 
-  async parseRSS(url: string){
+  async parseRSS(url: string, type: RssParserType = RssParserType.RSS) {
     const res = await this.http.axiosRef.get(url, {
       timeout: 5000,
       'axios-retry': {
@@ -145,6 +145,6 @@ export class LinksService {
       },
     })
     const { data } = res
-    return Parser(data, RssParserType.ATOM)
+    return Parser(data, type)
   }
 }
