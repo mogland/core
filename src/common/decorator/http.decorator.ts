@@ -24,7 +24,6 @@ export const Bypass: MethodDecorator = (
 export declare interface FileDecoratorProps {
   description: string
 }
-
 export const HTTPDecorators = {
   Paginator,
   Bypass,

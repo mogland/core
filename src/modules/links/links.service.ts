@@ -70,6 +70,7 @@ export class LinksService {
   /**
    * setFriendLinkStatus 设置好友链接状态
    * @param id 链接id
+   * @param status 状态
    */
   async setFriendLinkStatus(id: string, status: LinksStatus) {
     const doc = await this.model
