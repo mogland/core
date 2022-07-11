@@ -30,6 +30,7 @@ specifiers:
   '@types/passport-jwt': 3.0.6
   '@types/supertest': 2.0.12
   '@types/ua-parser-js': 0.7.36
+  '@types/xml2js': ^0.4.11
   '@vercel/ncc': 0.33.4
   axios: '*'
   axios-retry: 3.2.6
@@ -148,6 +149,7 @@ devDependencies:
   '@types/passport-jwt': 3.0.6
   '@types/supertest': 2.0.12
   '@types/ua-parser-js': 0.7.36
+  '@types/xml2js': 0.4.11
   '@vercel/ncc': 0.33.4
   conventional-changelog: 3.1.25
   cross-env: 7.0.3
@@ -1189,6 +1191,12 @@ packages:
       '@types/node': 17.0.24
       '@types/webidl-conversions': 6.1.1
     dev: false
+
+  /@types/xml2js/0.4.11:
+    resolution: {integrity: sha512-JdigeAKmCyoJUiQljjr7tQG3if9NkqGUgwEUqBvV0N7LM4HyQk7UXCnusRa1lnvXAEYJ8mw8GtZWioagNztOwA==}
+    dependencies:
+      '@types/node': 17.0.24
+    dev: true
 
   /@types/yauzl/2.9.2:
     resolution: {integrity: sha512-8uALY5LTvSuHgloDVUvWP3pIauILm+8/0pDMokuDYIoNsOkSwd5AiHBTSEJjKTDcZr5z8UpgOWZkxBF4iJftoA==}
