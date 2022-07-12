@@ -1,3 +1,36 @@
+# [1.4.0-alpha.0](https://github.com/nx-space/core/compare/v1.3.1...v1.4.0-alpha.0) (2022-07-12)
+
+
+### Bug Fixes
+
+* **ci:** file name is wrong ([#218](https://github.com/nx-space/core/issues/218)) ([674dffb](https://github.com/nx-space/core/commit/674dffbaad1a33e28f21bdd36c62b0842d8fee54))
+* **ci:** try fix path ([84168ff](https://github.com/nx-space/core/commit/84168ff88420bff45814798ee466af0a9d25c474))
+
+
+### Features
+
+* **links/module:** init module and test ([4050cf7](https://github.com/nx-space/core/commit/4050cf76eeb0301cd318a68920c8e80384252487)), closes [#217](https://github.com/nx-space/core/issues/217)
+* **links/service:** check all friends link's health ([f85ac4f](https://github.com/nx-space/core/commit/f85ac4fba7d5752d6f729c4a18f7e07cff45ed96))
+* **links:** basic links service ([#219](https://github.com/nx-space/core/issues/219)) ([ab3dc77](https://github.com/nx-space/core/commit/ab3dc77fbf92fce5fc22a57e89c9e3de61c81be9)), closes [#217](https://github.com/nx-space/core/issues/217)
+* **utils/parser:** atom parser ([6fc2e9f](https://github.com/nx-space/core/commit/6fc2e9fd38219a4647e80d7ca6babaa0044d85c7))
+* **utils/parser:** rss parser ([57226fd](https://github.com/nx-space/core/commit/57226fd1a126a02394a532d32ea2c2e9dc55ce81))
+* **utils:** rss parser utils ([c6e1207](https://github.com/nx-space/core/commit/c6e1207aeb75bb5395f1ff885fcd52eb980c2c70))
+
+
+### Performance Improvements
+
+* **links/model:** set up links model ([e29fb0d](https://github.com/nx-space/core/commit/e29fb0d27765daaf7f5fe284ccbe53c5b0efcbd2))
+* **links/service:** get all links count ([726cbe9](https://github.com/nx-space/core/commit/726cbe99206688256d8cb9aced423de9e076bc32))
+* **links/service:** guest can apply link ([f23806c](https://github.com/nx-space/core/commit/f23806c6dfababeb0a39a812442551244aa6b64d))
+* **links/service:** set links status in auth ([7dcbbae](https://github.com/nx-space/core/commit/7dcbbaeb7f1350efe6a02ed3f218229da211f1b1))
+
+
+### Reverts
+
+* **utils:** remove original rss parser ([5fdc0c0](https://github.com/nx-space/core/commit/5fdc0c0f23bc57b3e835a1e04af372f30ef316b9))
+
+
+
 ## [1.3.1](https://github.com/nx-space/core/compare/1.3.0...1.3.1) (2022-07-10)
 
 
