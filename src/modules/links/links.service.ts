@@ -1,5 +1,7 @@
 import { InjectModel } from '@app/db/model.transformer';
 import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { CronExpression } from '@nestjs/schedule';
+import { CronOnce } from '~/common/decorator/cron-once.decorator';
 import { HttpService } from '~/processors/helper/helper.http.service';
 import { Parser, RssParserType } from '~/utils/rss-parser.utils';
 import { ConfigsService } from '../configs/configs.service';
@@ -195,5 +197,11 @@ export class LinksService {
       Logger.warn(`没有友链 RSS 订阅设定哦`, LinksService.name)
       return
     }
+  }
+
+  @CronOnce(CronExpression.EVERY_DAY_AT_1AM, {name: 'updateFriendsFeed'})
+  async RssSpider() {
+    Logger.log(`开始更新友链 RSS 订阅`, LinksService.name)
+    await this.getLinksRss()
   }
 }
