@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { mongoose } from '@typegoose/typegoose';
 import { Auth } from '~/common/decorator/auth.decorator';
@@ -76,7 +76,16 @@ export class LinksController {
   @ApiOperation({ summary: '获取链接的feed' })
   async getFeed(@Query() params){
     const { url } = params
-    return await this.linksService.parseRSS(url)
+    if (!url) {
+      throw new BadRequestException('url is required')
+    }
+    return await this.linksService.parseRSS(url, params.type)
+  }
+
+  @Get('/update')
+  @ApiOperation({ summary: '更新拉取友链的feed' })
+  async getFriendsFeed(){
+    return await this.linksService.getLinksRss()
   }
 
 }

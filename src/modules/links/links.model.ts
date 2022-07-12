@@ -3,15 +3,16 @@
  * @author: Wibus
  * @Date: 2022-07-11 11:54:02
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-11 12:07:41
+ * @LastEditTime: 2022-07-12 18:39:55
  * Coding With IU
  */
 
 import { ApiProperty } from "@nestjs/swagger";
 import { modelOptions, prop } from "@typegoose/typegoose";
 import { Transform } from "class-transformer";
-import { IsEmail, IsEnum, IsOptional, IsString, IsUrl, MaxLength } from "class-validator";
+import { IsBoolean, IsEmail, IsEnum, IsOptional, IsString, IsUrl, MaxLength } from "class-validator";
 import { BaseModel } from "~/shared/model/base.model";
+import { RssParserType } from "~/utils/rss-parser.utils";
 
 export enum LinksType {
   Friend, // 好友链接
@@ -26,10 +27,6 @@ export enum LinksStatus {
   Banned, // 禁止访问
 }
 
-export enum RssType {
-  rss = "rss", // RSS
-  atom = "atom", // Atom
-}
 
 @modelOptions({
   options: {
@@ -100,14 +97,19 @@ export class LinksModel extends BaseModel{
   rss?: string;
 
   @IsOptional()
-  @IsEnum(RssType, { message: "RSS类型不正确" })
-  @prop({ default: RssType.rss })
-  rssType?: RssType;
+  @IsEnum(RssParserType, { message: "RSS类型不正确" })
+  @prop({ default: RssParserType.RSS })
+  rssType?: RssParserType;
 
   @IsOptional()
   @IsString()
   @prop()
   rssContent?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  @prop({ default: false })
+  rssStatus: boolean
 
 
   get hide() {
