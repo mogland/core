@@ -30,17 +30,6 @@
       "sh ./scripts/create-tags.sh"
     ]
   },
-  "pkg": {
-    "scripts": "out/**/*.js",
-    "assets": "out/**/*",
-    "outputPath": "out",
-    "targets": [
-      "node16-linux-x64",
-      "node16-macos-x64",
-      "node16-win-x64"
-    ]
-  },
-  "bin": "out/index.js",
   "scripts": {
     "prepare": "husky install",
     "prebuild": "rimraf dist",

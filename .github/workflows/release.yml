@@ -44,16 +44,22 @@ jobs:
         with:
           version: latest
           run_install: true
-      
-      - name: Build bundle
+      # - name: Test
+      #   timeout-minutes: 10
+      #   run: |
+      #     npm run lint
+      #     npm run test
+      #     npm run test:e2e
+
+      - name: Build project
         run: |
           pnpm run bundle
+          zip -r release.zip out/
       - name: Test Bundle Server
         run: |
           bash scripts/workflow/test-server.sh
-      - name: zip the bundle
-        run: |
-          zip -r nx-core-bundle.zip out/index.js
+
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -63,12 +69,13 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: true
-          prerelease: true
-      - run: npx changelogithub
+          prerelease: false
+
+
+      - run: npx changelogithub -d
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
@@ -76,12 +83,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./nx-core-bundle.zip
-          asset_name: nx-core-bundle-${{ matrix.os }}.zip
+          asset_path: ./release.zip
+          asset_name: nx-core-release-${{ matrix.os }}.zip
           asset_content_type: application/zip
 
-  build_pkg_other_platform:
-    name: Build Pkg Platform
+  build_other_platform:
+    name: Build Other Platform
     strategy:
       matrix:
         os: [macos-latest]
@@ -106,58 +113,14 @@ jobs:
       - name: Build project
         run: |
           pnpm run bundle
-
-      - name: Install Pkg
-        run: |
-          npm install -g pkg
-      
-      - name: Cache Pkg binaries
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-pkg-binaries
-        with:
-          path: ~/.pkg-cache
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}
-      - name: Build Pkg
-        run: |
-          pkg .
-      - name: Zip Pkg
-        run: |
-          zip -r nx-core-node16-linux.zip out/core-node16-linux
-          zip -r nx-core-node16-macos.zip out/core-node16-macos
-          zip -r nx-core-node16-win.zip out/core-node16-win
-
-      - name: Upload macOS Pkg Asset
+          zip -r release.zip out/
+      - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.build.outputs.release_url }}
-          asset_path: ./nx-core-node16-macos.zip
-          asset_name: nx-core-node16-macos.zip.zip
-          asset_content_type: application/zip
-
-      - name: Upload Linux Pkg Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.build.outputs.release_url }}
-          asset_path: ./nx-core-node16-linux.zip
-          asset_name: nx-core-node16-linux.zip.zip
-          asset_content_type: application/zip
-
-      - name: Upload Windows Pkg Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.build.outputs.release_url }}
-          asset_path: ./nx-core-node16-win.zip
-          asset_name: nx-core-node16-win.zip.zip
+          asset_path: ./release.zip
+          asset_name: nx-core-release-${{ matrix.os }}.zip
           asset_content_type: application/zip
