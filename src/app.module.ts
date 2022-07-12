@@ -19,9 +19,11 @@ import { ToolsModule } from './modules/tools/tools.module'
 import { HelperModule } from './processors/helper/helper.module'
 import { AggregateModule } from './modules/aggregate/aggregate.module';
 import { LinksModule } from './modules/links/links.module';
+import { ScheduleModule } from '@nestjs/schedule'
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     CacheModule,
     DbModule,
     LoggerModule,

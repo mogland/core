@@ -1,3 +1,4 @@
+import cluster from 'cluster'
 import { argv } from 'zx-cjs'
 
 import { isDev } from './utils/environment.utils'
@@ -50,3 +51,8 @@ export const DEBUG_MODE = {
   httpRequestVerbose:
     argv.httpRequestVerbose ?? argv.http_request_verbose ?? true,
 }
+
+/** Is main cluster in PM2 */
+export const isMainCluster =
+  process.env.NODE_APP_INSTANCE && parseInt(process.env.NODE_APP_INSTANCE) === 0
+export const isMainProcess = cluster.isPrimary || isMainCluster

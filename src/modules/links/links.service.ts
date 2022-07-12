@@ -1,5 +1,7 @@
 import { InjectModel } from '@app/db/model.transformer';
 import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { CronExpression } from '@nestjs/schedule';
+import { CronOnce } from '~/common/decorator/cron-once.decorator';
 import { HttpService } from '~/processors/helper/helper.http.service';
 import { Parser, RssParserType } from '~/utils/rss-parser.utils';
 import { ConfigsService } from '../configs/configs.service';
@@ -12,7 +14,7 @@ export class LinksService {
     private readonly linksModel: MongooseModel<LinksModel>,
     private readonly configs: ConfigsService,
     private readonly http: HttpService,
-  ) {}
+  ) { }
 
   public get model() {
     return this.linksModel;
@@ -42,11 +44,11 @@ export class LinksService {
       }),
     ])
     return {
-      audit, 
-      friends, 
-      collection, 
-      navigate, 
-      outdate, 
+      audit,
+      friends,
+      collection,
+      navigate,
+      outdate,
       banned
     }
   }
@@ -127,11 +129,11 @@ export class LinksService {
           })
       }),
     ).then((arr) =>
-    arr.reduce((acc, cur) => {
-      acc[cur.id] = cur // 将每个链接的健康状态放入对象中
-      return acc 
-    }, {}),
-  )
+      arr.reduce((acc, cur) => {
+        acc[cur.id] = cur // 将每个链接的健康状态放入对象中
+        return acc
+      }, {}),
+    )
 
     return health
   }
@@ -146,5 +148,60 @@ export class LinksService {
     })
     const { data } = res
     return Parser(data, type)
+  }
+
+  async getLinksRss() {
+    const links = await this.model.find({
+      type: LinksType.Friend,
+      state: LinksStatus.Pass,
+      rss: { $exists: true },
+    }).lean()
+
+    let successRes
+
+    if (links) {
+      await Promise.all(
+        links.map(async ({ name, rss, rssType }) => {
+          Logger.debug(
+            `正在拉取友链 ${name} 的 ${rssType ? rssType.toUpperCase() : ""} 订阅: GET -> ${rss}`,
+            LinksService.name,
+          )
+          if (!rss) {
+            Logger.warn(`友链 ${name} 的 RSS 订阅拉取失败`, LinksService.name)
+            return
+          }
+          const rssContent = await this.parseRSS(rss, rssType ? rssType : RssParserType.RSS)
+          // rssContent 转json字符串
+          const rssContentJson = JSON.stringify(rssContent)
+          // console.log(rssContentJson)
+          if (rssContentJson) {
+            await this.model.updateOne(
+              { name },
+              {
+                $set: {
+                  rssContent: rss ? rssContentJson : {},
+                  rssStatus: rss ? true : false
+                }
+              }
+            )
+          }
+          Logger.log(`友链 ${name} 的 ${rssType ? rssType.toUpperCase() : ""} 订阅拉取成功`, LinksService.name)
+          successRes = {
+            ...successRes,
+            [name]: true,
+          }
+        })
+      )
+      return successRes
+    } else {
+      Logger.warn(`没有友链 RSS 订阅设定哦`, LinksService.name)
+      return
+    }
+  }
+
+  @CronOnce(CronExpression.EVERY_DAY_AT_1AM, {name: 'updateFriendsFeed'})
+  async RssSpider() {
+    Logger.log(`开始更新友链 RSS 订阅`, LinksService.name)
+    await this.getLinksRss()
   }
 }
