@@ -39,7 +39,7 @@ export abstract class BaseCommentIndexModel extends BaseModel {
   @prop({ default: true })
   @IsBoolean()
   @IsOptional()
-  allowComment: boolean
+  allowComment?: boolean
 
   static get protectedKeys() {
     return ['commentsIndex'].concat(super.protectedKeys)
@@ -64,7 +64,8 @@ export class WriteBaseModel extends BaseCommentIndexModel {
 
   @prop({ default: null, type: Date })
   @ApiHideProperty()
-  modified: Date | null
+  @IsOptional()
+  modified?: Date | null
 
   static get protectedKeys() {
     return super.protectedKeys

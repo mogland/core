@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-03 09:16:33
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-03 09:33:47
+ * @LastEditTime: 2022-07-13 19:35:30
  * Coding With IU
  */
 
@@ -36,7 +36,7 @@ export class PageModel extends WriteBaseModel {
   @Min(0)
   @IsOptional()
   @Transform(( { value } ) => parseInt(value))
-  order!: number;
+  order?: number;
 }
 
 export class PartialPageModel extends PartialType(PageModel){}

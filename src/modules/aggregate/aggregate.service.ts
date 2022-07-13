@@ -151,7 +151,7 @@ export class AggregateService {
         title: post.title,
         text: post.text,
         created: post.created!,
-        modified: post.modified,
+        modified: post.modified || null,
         link: baseURL + this.urlService.build(post),
       }
     })

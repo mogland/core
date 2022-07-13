@@ -17,6 +17,9 @@ import { InjectModel } from '~/transformers/model.transformer'
 
 import { AuthService } from '../auth/auth.service'
 import { UserDocument, UserModel } from './user.model'
+import { PageService } from '../page/page.service'
+import { PostService } from '../post/post.service'
+import { CategoryService } from '../category/category.service'
 
 @Injectable()
 export class UserService {
@@ -25,7 +28,9 @@ export class UserService {
     @InjectModel(UserModel)
     private readonly userModel: ReturnModelType<typeof UserModel>,
     private readonly authService: AuthService,
-    private readonly redis: CacheService,
+    private readonly postService: PostService,
+    private readonly pageService: PageService,
+    private readonly categoryService: CategoryService,
   ) {}
   public get model() {
     return this.userModel
@@ -87,6 +92,30 @@ export class UserService {
       throw new BadRequestException('我已经有一个主人了哦')
     }
     const authCode = nanoid(10)
+
+    // 初始化文章、页面、分类
+    const defaultCate = await this.categoryService.createDefaultCategory()
+    const defaultCateId = defaultCate ? defaultCate._id : undefined
+    if (!defaultCateId) {
+      throw new BadRequestException('初始化分类失败')
+    } else {
+      await Promise.all([
+        this.postService.create({
+          title: '欢迎来到 NEXT',
+          slug: 'welcome-to-next',
+          text: '欢迎来到 NEXT，当你看到这条文章的时候，说明你已经成功的安装并初始化了 NEXT。',
+          summary: "欢迎来到 NEXT",
+          categoryId: defaultCateId,
+          category: defaultCate,
+        }),
+        this.pageService.create({
+          title: 'NEXT 的第一个页面',
+          slug: 'welcome-to-next-page',
+          text: '欢迎来到 NEXT，当你看到这个页面的时候，说明你已经成功的安装并初始化了 NEXT。',
+        })
+      ])
+      Logger.log('初始化文章、页面、分类成功')
+    }
 
     // @ts-ignore
     const res = await this.userModel.create({ ...model, authCode })

@@ -2,7 +2,7 @@ import { InjectModel } from '@app/db/model.transformer';
 import { Injectable } from '@nestjs/common';
 import { isDefined } from 'class-validator';
 import slugify from 'slugify';
-import { PluginsService } from '../plugins/plugins.service';
+// import { PluginsService } from '../plugins/plugins.service';
 import { PageModel } from './page.model';
 import { omit } from 'lodash'
 import { CannotFindException } from '~/common/exceptions/cant-find.exception';
@@ -13,7 +13,7 @@ export class PageService {
   constructor(
     @InjectModel(PageModel)
     private readonly pageModel: MongooseModel<PageModel>,
-    private readonly pluginService: PluginsService,
+    // private readonly pluginService: PluginsService,
   ){}
 
   public get model() {
@@ -21,7 +21,7 @@ export class PageService {
   }
 
   public async create(data: PageModel){
-    data.text = await this.pluginService.usePlugins("page", "create", data.text)
+    // data.text = await this.pluginService.usePlugins("page", "create", data.text)
     const res = await this.model.create({
       ...data,
       slug: slugify(data.slug),
@@ -37,7 +37,7 @@ export class PageService {
     if (data.slug) {
       data.slug = slugify(data.slug)
     }
-    data.text = await this.pluginService.usePlugins("page", "update", data.text)
+    // data.text = await this.pluginService.usePlugins("page", "update", data.text)
     const res = await this.model
       .findOneAndUpdate(
         { _id: id },

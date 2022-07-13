@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, UnprocessableEntityException } from '@nestjs/common';
+import { Body, Controller, Delete, forwardRef, Get, Inject, Param, Patch, Post, Put, Query, UnprocessableEntityException } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { Auth } from '~/common/decorator/auth.decorator';
 import { Paginator } from '~/common/decorator/http.decorator';
@@ -7,6 +7,7 @@ import { CannotFindException } from '~/common/exceptions/cant-find.exception';
 import { MongoIdDto } from '~/shared/dto/id.dto';
 import { PagerDto } from '~/shared/dto/pager.dto';
 import { PluginsService } from '../plugins/plugins.service';
+
 import { PageModel, PartialPageModel } from './page.model';
 import { PageService } from './page.service';
 
@@ -15,7 +16,8 @@ import { PageService } from './page.service';
 export class PageController {
   constructor(
     private readonly pageService: PageService,
-    private readonly pluginService: PluginsService,
+    // @Inject(forwardRef(() => PluginsService))
+    // private readonly pluginService: PluginsService,
   ) {}
 
   @Get('/')
@@ -65,7 +67,7 @@ export class PageController {
       throw new CannotFindException()
     }
 
-    page.text = await this.pluginService.usePlugins('page', 'render', page.text)
+    // page.text = await this.pluginService.usePlugins('page', 'render', page.text)
 
     return page
   }
@@ -82,7 +84,7 @@ export class PageController {
   @Auth()
   async modify(@Body() body: PageModel, @Param() params: MongoIdDto) {
     const { id } = params
-    body.text = await this.pluginService.usePlugins('page', 'update', body.text)
+    // body.text = await this.pluginService.usePlugins('page', 'update', body.text)
     await this.pageService.updateById(id, body)
 
     return await this.pageService.model.findById(id).lean()
@@ -93,7 +95,7 @@ export class PageController {
   @Auth()
   async patch(@Body() body: PartialPageModel, @Param() params: MongoIdDto) {
     const { id } = params
-    body.text = await this.pluginService.usePlugins('page', 'update', body.text)
+    // body.text = await this.pluginService.usePlugins('page', 'update', body.text)
     await this.pageService.updateById(id, body)
 
     return
