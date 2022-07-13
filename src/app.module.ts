@@ -20,6 +20,7 @@ import { HelperModule } from './processors/helper/helper.module'
 import { AggregateModule } from './modules/aggregate/aggregate.module';
 import { LinksModule } from './modules/links/links.module';
 import { ScheduleModule } from '@nestjs/schedule'
+import { InitModule } from './modules/init/init.module';
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { ScheduleModule } from '@nestjs/schedule'
     ToolsModule,
     HelperModule,
     AggregateModule,
-    LinksModule
+    LinksModule,
+    InitModule
   ],
   controllers: [AppController],
   providers: [
