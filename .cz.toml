@@ -1,9 +1,0 @@
-[tool.commitizen]
-version = "1.2.0"
-bump_message = "release: $current_version → $new_version"
-update_changelog_on_bump = true
-annotated_tag = true
-tag_format = "v$major.$minor.$patch$prerelease"
-version_files = [
-    "package.json:version",
-]
