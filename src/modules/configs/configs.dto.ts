@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-22 07:54:11
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-30 23:17:05
+ * @LastEditTime: 2022-07-13 23:30:31
  * Coding With IU
  */
 
@@ -57,13 +57,13 @@ class AuthMailOption {
   @IsEmail()
   @IsOptional()
   @JSONSchemaHalfGirdPlainField('发件邮箱地址')
-  user: string
+  user?: string
   @IsString()
   @IsNotEmpty()
   @IsOptional()
   @Exclude({ toPlainOnly: true })
   @JSONSchemaPasswordField('发件邮箱授权码', halfFieldOption)
-  pass: string
+  pass?: string
 }
 
 @JSONSchema({ title: "邮件设置" })
@@ -111,7 +111,7 @@ export class ThemeDto {
   @IsObject({ message: "主题配置必须是对象" })
   @IsOptional()
   @JSONSchemaPlainField("主题配置")
-  config: object;
+  config?: object;
 }
 
 class PluginManifest {

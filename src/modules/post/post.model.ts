@@ -2,7 +2,7 @@ import { UnprocessableEntityException } from '@nestjs/common'
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger'
 import { Severity, index, modelOptions, prop, Ref } from '@typegoose/typegoose'
 import { Transform } from 'class-transformer'
-import { IsBoolean, IsDate, isDateString, IsInt, IsNotEmpty, IsOptional, IsString, Min } from 'class-validator'
+import { IsBoolean, IsDate, isDateString, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-validator'
 import { CountMixed as Count, WriteBaseModel } from '~/shared/model/base.model'
 import { CategoryModel } from '../category/category.model'
 
@@ -37,7 +37,7 @@ export class PostModel extends WriteBaseModel {
   @ApiHideProperty()
   public category: Ref<CategoryModel>
 
-  @prop({ trim: true, required: true })
+  @prop({ trim: true })
   @IsBoolean()
   @IsOptional()
   @ApiProperty({ description: '文章署名' })
@@ -45,9 +45,8 @@ export class PostModel extends WriteBaseModel {
 
   @prop({ 
     type: Count,
-    default: 0,
    })
-  @IsString()
+  @IsNumber()
   @IsOptional()
   @ApiProperty({ description: '文章阅读数' })
   view?: number

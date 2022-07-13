@@ -94,7 +94,7 @@ export class UserService {
     const authCode = nanoid(10)
 
     // 初始化文章、页面、分类
-    const defaultCate = await this.categoryService.createDefaultCategory()
+    const defaultCate = (await this.categoryService.findAllCategory()).find( cate => cate.slug === 'default' ) ? await (await this.categoryService.findAllCategory()).find( cate => cate.slug === 'default' ) : await this.categoryService.createDefaultCategory()
     const defaultCateId = defaultCate ? defaultCate._id : undefined
     if (!defaultCateId) {
       throw new BadRequestException('初始化分类失败')

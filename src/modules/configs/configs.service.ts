@@ -76,7 +76,7 @@ export class ConfigsService {
    *  setConfigs 设置配置
    * @param config 配置项
    */
-  private async setConfig(config: ConfigsInterface){
+  private async setConfig(config: ConfigsInterface) {
     const redis = this.redis.getClient() // 获取 redis 客户端
     await redis.set(getRedisKey(RedisKeys.ConfigCache), JSON.stringify(config)) // 将配置写入 redis
   }
@@ -139,7 +139,7 @@ export class ConfigsService {
   public async patch<T extends keyof ConfigsInterface>(
     key: T,  // 配置项名称
     data: Partial<ConfigsInterface[T]> // 配置项数据
-    ): Promise<ConfigsInterface[T]> {
+  ): Promise<ConfigsInterface[T]> {
     const config = await this.getConfig() // 获取配置
     const updatedConfigRow = await this.configModel // 获取配置模型
       .findOneAndUpdate( // 更新配置
@@ -152,7 +152,7 @@ export class ConfigsService {
             }
             // 对象合并
             if (typeof old === 'object' && typeof newer === 'object') {
-              return { ...old, ...newer } 
+              return { ...old, ...newer }
             }
           }),
         },
@@ -172,7 +172,7 @@ export class ConfigsService {
 
   private validateWithDto<T extends keyof object>(
     dto: ClassConstructor<T>, data: any
-    ): T {
+  ): T {
 
     const model = plainToInstance(dto, data)
     const errors = validateSync(model, this.validateOptions)
@@ -180,7 +180,7 @@ export class ConfigsService {
       throw this.validate.createExceptionFactory()(errors as any)
     }
     return model
-    
+
   }
 
   validate = new ValidationPipe(this.validateOptions)
@@ -194,15 +194,23 @@ export class ConfigsService {
   async patchAndValidate<T extends keyof ConfigsInterface>(
     key: T,  // 配置项名称
     data: Partial<ConfigsInterface[T]> // 配置项数据
-    ): Promise<ConfigsInterface[T]> {
-      data = camelcaseKeys(data, { deep: true }) as any
+  ): Promise<ConfigsInterface[T]> {
+    data = camelcaseKeys(data, { deep: true }) as any
 
-      const dto = map[key] // 获取配置模型
-      if (!dto) {
-        throw new BadRequestException(`设置 ${key} 不存在`)
-      }
-      return this.patch(key, this.validateWithDto(dto, data))
+    const dto = map[key] // 获取配置模型
+    if (!dto) {
+      throw new BadRequestException(`设置 ${key} 不存在`)
     }
+    return this.patch(key, this.validateWithDto(dto, data))
+  }
+
+  /**
+   * getAllConfigs 获取所有配置
+   */
+  async getAllConfigs() {
+    const config = await this.configModel.find().lean()
+    return config
+  }
 
   get getMaster() {
     return this.userService.getMaster.bind(this.userService) as () => Promise<
