@@ -8,6 +8,7 @@ import { LoggingInterceptor } from "./common/interceptors/logging.interceptor";
 import { MyLogger } from "./processors/logger/logger.service";
 import { isDev } from "./utils/environment.utils";
 import { argv } from "zx-cjs";
+import { join } from "path";
 
 // const APIVersion = 1
 const Origin = CROSS_DOMAIN.allowedOrigins;
@@ -20,6 +21,17 @@ export async function bootstrap() {
     fastifyApp,
     { logger: ["error", "debug"] }
   );
+
+  app.useStaticAssets({
+    root: join(__dirname, '..', 'public'),
+    prefix: '/public/',
+  });
+  app.setViewEngine({
+    engine: {
+      handlebars: require('handlebars'),
+    },
+    templates: join(__dirname, '..', 'views'),
+  });
 
   const hosts = Origin.map((host) => new RegExp(host, "i"));
 
