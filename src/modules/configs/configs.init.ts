@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-22 07:47:57
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-30 22:20:02
+ * @LastEditTime: 2022-07-14 16:21:30
  * Coding With IU
  */
 
@@ -25,17 +25,17 @@ export const generateInitConfigs: () => ConfigsInterface = () => ({
     host: 'smtp.qq.com',
     port: 465,
     auth: {
-      user: '',
-      pass: '',
+      // user: '',
+      // pass: '',
     },
   },
   admin: {
     title: 'Nx Core',
     background: '',
   },
-  theme: {
-    name: 'default', // 模板名
-    config: {} // 模板配置项
-  },
-  plugins: [],
+  // theme: {
+  //   name: 'default', // 模板名
+  //   config: {} // 模板配置项
+  // },
+  // plugins: [],
 })

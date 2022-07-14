@@ -44,7 +44,7 @@ export class PluginsService {
           })
           const configs = await this.configsService.getConfig()
           const data: PluginDto[] = [
-            ...configs.plugins,
+            ...configs.plugins ? configs.plugins : [],
             {
               name,
               active: true,

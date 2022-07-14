@@ -38,7 +38,7 @@ export class InitController {
     if (!canInit) throw new BadRequestException("无法完成初始化，请检查控制台日志");
     const defaultConfig = this.configs.defaultConfig;
     for (const theKey in defaultConfig) {
-      Logger.warn(`正在初始化默认配置: ${theKey}`);
+      Logger.warn(`正在初始化默认配置: ${theKey}`, InitController.name);
       const key = theKey as keyof ConfigsInterface; // convert to <keyof ConfigsInterface>
       if (defaultConfig[key] !== undefined) {
         const element = defaultConfig[key];

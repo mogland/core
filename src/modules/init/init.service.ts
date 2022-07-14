@@ -13,7 +13,7 @@ export class InitService {
   async canInit() {
     const configs = await this.configs.getAllConfigs()
     const user = await this.userService.hasMaster()
-    console.log(configs)
+    // console.log(configs)
     // 没有用户，不应当初始化
     if (!user) {
       this.logger.warn('用户未注册，无法初始化')

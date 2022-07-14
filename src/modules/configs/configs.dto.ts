@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-22 07:54:11
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-13 23:30:31
+ * @LastEditTime: 2022-07-14 16:20:46
  * Coding With IU
  */
 
@@ -54,13 +54,12 @@ export class UrlsDto {
 }
 
 class AuthMailOption {
-  @IsEmail()
   @IsOptional()
+  @IsEmail()
   @JSONSchemaHalfGirdPlainField('发件邮箱地址')
   user?: string
-  @IsString()
-  @IsNotEmpty()
   @IsOptional()
+  @IsString()
   @Exclude({ toPlainOnly: true })
   @JSONSchemaPasswordField('发件邮箱授权码', halfFieldOption)
   pass?: string
@@ -71,16 +70,16 @@ export class MailOptionsDto {
   @IsBoolean()
   @IsOptional()
   @JSONSchemaToggleField('开启邮箱服务')
-  enable: boolean
+  enable?: boolean
   @IsUrl({ require_protocol: false })
   @IsOptional()
   @JSONSchemaHalfGirdPlainField('邮箱服务器地址')
-  host: string
+  host?: string
   @IsInt()
   @Transform(({ value: val }) => parseInt(val))
   @IsOptional()
   @JSONSchemaHalfGirdPlainField('邮箱服务器端口')
-  port: number
+  port?: number
 
   @ValidateNested()
   @Type(() => AuthMailOption)

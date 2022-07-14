@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-25 17:58:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-03 08:46:09
+ * @LastEditTime: 2022-07-14 16:21:26
  * Coding With IU
  */
 
@@ -36,11 +36,11 @@ export abstract class ConfigsInterface {
 
   @Type(() => ThemeDto)
   @ValidateNested()
-  theme: Required<ThemeDto>;
+  theme?: Required<ThemeDto>;
 
   @Type(() => PluginDto)
   @ValidateNested()
-  plugins: Required<PluginDto[]>;
+  plugins?: Required<PluginDto[]>;
 }
 
 export type ConfigsInterfaceKeys = keyof ConfigsInterface
