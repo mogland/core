@@ -1,3 +1,19 @@
+# [1.4.0-alpha.2](https://github.com/nx-space/core/compare/v1.4.0-alpha.1...v1.4.0-alpha.2) (2022-07-14)
+
+
+### Features
+
+* **init:** init post and page in initing ([3810eb8](https://github.com/nx-space/core/commit/3810eb831e81a18e076dac6d135e9cfb128651c3))
+* **module:** init configs module ([eb56ec4](https://github.com/nx-space/core/commit/eb56ec4f00dc4dc02e6a0ea8d1aaca58722af3c2))
+
+
+### Performance Improvements
+
+* **init:** `canInit` instead of `isInit` ([1ebcc68](https://github.com/nx-space/core/commit/1ebcc68007f3353f76198857386417156243288e))
+* **init:** cancel custom config init to default ([b0799bb](https://github.com/nx-space/core/commit/b0799bb04c930db53a32f1fc8abc000777f3385f))
+
+
+
 # [1.4.0-alpha.1](https://github.com/nx-space/core/compare/v1.4.0-alpha.0...v1.4.0-alpha.1) (2022-07-12)
 
 
