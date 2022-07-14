@@ -1,7 +1,7 @@
-import { forwardRef, Module } from '@nestjs/common'
-import { CategoryModule } from '../category/category.module'
-import { PostController } from './post.controller'
-import { PostService } from './post.service'
+import { forwardRef, Module } from "@nestjs/common";
+import { CategoryModule } from "../category/category.module";
+import { PostController } from "./post.controller";
+import { PostService } from "./post.service";
 
 @Module({
   imports: [forwardRef(() => CategoryModule)],

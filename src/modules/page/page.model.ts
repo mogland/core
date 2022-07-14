@@ -17,7 +17,7 @@ import { IsNilOrString } from "~/utils/validator/isNilOrString";
 @modelOptions({
   options: {
     customName: "page",
-  }
+  },
 })
 export class PageModel extends WriteBaseModel {
   @prop({ required: true, unique: true, trim: 1, index: true })
@@ -35,8 +35,8 @@ export class PageModel extends WriteBaseModel {
   @IsInt()
   @Min(0)
   @IsOptional()
-  @Transform(( { value } ) => parseInt(value))
+  @Transform(({ value }) => parseInt(value))
   order?: number;
 }
 
-export class PartialPageModel extends PartialType(PageModel){}
+export class PartialPageModel extends PartialType(PageModel) {}

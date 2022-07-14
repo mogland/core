@@ -11,13 +11,15 @@ import {
   ValidationArguments,
   ValidationOptions,
   ValidatorConstraintInterface,
- ValidatorConstraint, registerDecorator } from 'class-validator'
+  ValidatorConstraint,
+  registerDecorator,
+} from "class-validator";
 
 export function validatorFactory(validator: (value: any) => boolean) {
   @ValidatorConstraint({ async: true })
   class IsBooleanOrStringConstraint implements ValidatorConstraintInterface {
     validate(value: any, _args: ValidationArguments) {
-      return validator.call(this, value)
+      return validator.call(this, value);
     }
   }
 
@@ -29,7 +31,7 @@ export function validatorFactory(validator: (value: any) => boolean) {
         options: validationOptions,
         constraints: [],
         validator: IsBooleanOrStringConstraint,
-      })
-    }
-  }
+      });
+    };
+  };
 }

@@ -1,9 +1,9 @@
-import { ApiHideProperty } from '@nestjs/swagger'
-import { index, modelOptions, plugin, prop } from '@typegoose/typegoose'
-import { IsBoolean, IsOptional, IsString, IsNotEmpty } from 'class-validator'
-import LeanId from 'mongoose-lean-id'
-import { default as mongooseLeanVirtuals } from 'mongoose-lean-virtuals'
-import Paginate from 'mongoose-paginate-v2'
+import { ApiHideProperty } from "@nestjs/swagger";
+import { index, modelOptions, plugin, prop } from "@typegoose/typegoose";
+import { IsBoolean, IsOptional, IsString, IsNotEmpty } from "class-validator";
+import LeanId from "mongoose-lean-id";
+import { default as mongooseLeanVirtuals } from "mongoose-lean-virtuals";
+import Paginate from "mongoose-paginate-v2";
 
 @plugin(mongooseLeanVirtuals)
 @plugin(LeanId)
@@ -13,7 +13,7 @@ import Paginate from 'mongoose-paginate-v2'
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
     timestamps: {
-      createdAt: 'created',
+      createdAt: "created",
       updatedAt: false,
     },
   },
@@ -22,38 +22,38 @@ import Paginate from 'mongoose-paginate-v2'
 @index({ created: 1 })
 export class BaseModel {
   @ApiHideProperty()
-  created?: Date
+  created?: Date;
 
   @ApiHideProperty()
-  id?: string
+  id?: string;
 
   static get protectedKeys() {
-    return ['created', 'id', '_id']
+    return ["created", "id", "_id"];
   }
 }
 export abstract class BaseCommentIndexModel extends BaseModel {
   @prop({ default: 0 })
   @ApiHideProperty()
-  commentsIndex?: number
+  commentsIndex?: number;
 
   @prop({ default: true })
   @IsBoolean()
   @IsOptional()
-  allowComment?: boolean
+  allowComment?: boolean;
 
   static get protectedKeys() {
-    return ['commentsIndex'].concat(super.protectedKeys)
+    return ["commentsIndex"].concat(super.protectedKeys);
   }
 }
 export class WriteBaseModel extends BaseCommentIndexModel {
   @prop({ trim: true, index: true, required: true })
   @IsString()
   @IsNotEmpty()
-  title: string
+  title: string;
 
   @prop({ trim: true })
   @IsString()
-  text: string
+  text: string;
 
   // @prop({ type: ImageModel })
   // @ApiHideProperty()
@@ -65,20 +65,20 @@ export class WriteBaseModel extends BaseCommentIndexModel {
   @prop({ default: null, type: Date })
   @ApiHideProperty()
   @IsOptional()
-  modified?: Date | null
+  modified?: Date | null;
 
   static get protectedKeys() {
-    return super.protectedKeys
+    return super.protectedKeys;
   }
 }
 @modelOptions({
   schemaOptions: { id: false, _id: false },
-  options: { customName: 'count' },
+  options: { customName: "count" },
 })
 export class CountMixed {
   @prop({ default: 0 })
-  read?: number
+  read?: number;
 
   @prop({ default: 0 })
-  like?: number
+  like?: number;
 }

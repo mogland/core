@@ -7,7 +7,12 @@
  * Coding With IU
  */
 
-import { registerDecorator, ValidationArguments, ValidationOptions, ValidatorConstraintInterface } from "class-validator";
+import {
+  registerDecorator,
+  ValidationArguments,
+  ValidationOptions,
+  ValidatorConstraintInterface,
+} from "class-validator";
 import { isNil, isString } from "lodash";
 
 class IsNilOrStringConstraint implements ValidatorConstraintInterface {
@@ -16,14 +21,14 @@ class IsNilOrStringConstraint implements ValidatorConstraintInterface {
   }
 }
 
-export function IsNilOrString(validationOptions?: ValidationOptions){
+export function IsNilOrString(validationOptions?: ValidationOptions) {
   return function (object: Object, propertyName: string) {
     registerDecorator({
       target: object.constructor,
       propertyName,
       options: validationOptions,
       constraints: [],
-      validator: IsNilOrStringConstraint
+      validator: IsNilOrStringConstraint,
     });
-  }
+  };
 }

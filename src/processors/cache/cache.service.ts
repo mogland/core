@@ -1,12 +1,12 @@
-import { CACHE_MANAGER, Inject, Injectable, Logger } from '@nestjs/common'
-import { Cache } from 'cache-manager'
-import { Redis } from 'ioredis'
+import { CACHE_MANAGER, Inject, Injectable, Logger } from "@nestjs/common";
+import { Cache } from "cache-manager";
+import { Redis } from "ioredis";
 
 // Cache 客户端管理器
 
 // 获取器
-export type TCacheKey = string
-export type TCacheResult<T> = Promise<T | undefined>
+export type TCacheKey = string;
+export type TCacheResult<T> = Promise<T | undefined>;
 
 /**
  * @class CacheService
@@ -16,34 +16,34 @@ export type TCacheResult<T> = Promise<T | undefined>
  */
 @Injectable()
 export class CacheService {
-  private cache!: Cache
-  private logger = new Logger(CacheService.name)
+  private cache!: Cache;
+  private logger = new Logger(CacheService.name);
 
   constructor(@Inject(CACHE_MANAGER) cache: Cache) {
-    this.cache = cache
-    this.redisClient.on('ready', () => {
-      this.logger.log('Redis 已准备好!')
-    })
+    this.cache = cache;
+    this.redisClient.on("ready", () => {
+      this.logger.log("Redis 已准备好!");
+    });
   }
 
   private get redisClient(): Redis {
     // @ts-expect-error
-    return this.cache.store.getClient()
+    return this.cache.store.getClient();
   }
 
   public get<T>(key: TCacheKey): TCacheResult<T> {
-    return this.cache.get(key)
+    return this.cache.get(key);
   }
 
   public set<T>(
     key: TCacheKey,
     value: any,
-    options?: { ttl: number },
+    options?: { ttl: number }
   ): TCacheResult<T> {
-    return this.cache.set(key, value, options)
+    return this.cache.set(key, value, options);
   }
 
   public getClient() {
-    return this.redisClient
+    return this.redisClient;
   }
 }

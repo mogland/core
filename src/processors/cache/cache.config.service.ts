@@ -9,11 +9,11 @@ import {
   CacheModuleOptions,
   CacheOptionsFactory,
   Injectable,
-} from '@nestjs/common'
+} from "@nestjs/common";
 // import redisStore from 'cache-manager-redis-store'
-import redisStore from 'cache-manager-ioredis'
+import redisStore from "cache-manager-ioredis";
 
-import { REDIS } from '~/app.config'
+import { REDIS } from "~/app.config";
 
 @Injectable()
 export class CacheConfigService implements CacheOptionsFactory {
@@ -22,10 +22,10 @@ export class CacheConfigService implements CacheOptionsFactory {
     const redisOptions: any = {
       host: REDIS.host as string,
       port: REDIS.port as number,
-    }
+    };
     if (REDIS.password) {
-      redisOptions.password = REDIS.password
-      redisOptions.user = REDIS.user
+      redisOptions.password = REDIS.password;
+      redisOptions.user = REDIS.user;
     }
     return {
       store: redisStore,
@@ -35,6 +35,6 @@ export class CacheConfigService implements CacheOptionsFactory {
       is_cacheable_value: () => true,
       max: REDIS.max,
       ...redisOptions,
-    }
+    };
   }
 }

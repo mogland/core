@@ -7,7 +7,6 @@
  * Coding With IU
  */
 
-
 export type BaseCrudModuleType<T> = {
-  _model: MongooseModel<T>
-}
+  _model: MongooseModel<T>;
+};

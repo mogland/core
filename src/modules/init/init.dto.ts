@@ -10,7 +10,6 @@
 import { IsNotEmpty, IsString } from "class-validator";
 import { ConfigsInterfaceKeys } from "../configs/configs.interface";
 
-
 export class InitKeyDto {
   @IsString()
   @IsNotEmpty()

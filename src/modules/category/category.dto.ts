@@ -10,62 +10,69 @@
 import { UnprocessableEntityException } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import { IsBoolean, IsMongoId, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import {
+  IsBoolean,
+  IsMongoId,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from "class-validator";
 import { uniq } from "lodash";
 import { IsBooleanOrString } from "~/utils/validator/isBooleanOrString";
 import { CategoryType } from "./category.model";
 
-
-export class SlugorIdDto { // slug or id
+export class SlugorIdDto {
+  // slug or id
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  query?: string
+  query?: string;
 }
 
-export class MultiQueryTagAndCategoryDto { // 查询多个标签和多个分类
+export class MultiQueryTagAndCategoryDto {
+  // 查询多个标签和多个分类
   @IsOptional()
   @IsBooleanOrString()
   @Transform(({ value: val }) => {
-    if (val === 'true' || val === '1') {
-      return true
+    if (val === "true" || val === "1") {
+      return true;
     } else {
-      return val 
+      return val;
     }
   })
-  tag?: boolean | string
+  tag?: boolean | string;
 }
 
 export class MultiCategoriesQueryDto {
   @IsOptional()
   @IsMongoId({
     each: true,
-    message: '多分类查询使用逗号分隔, 应为 mongoID',
+    message: "多分类查询使用逗号分隔, 应为 mongoID",
   })
-  @Transform(({ value: v }) => uniq(v.split(',')))
-  ids?: Array<string>
+  @Transform(({ value: v }) => uniq(v.split(",")))
+  ids?: Array<string>;
 
   @IsOptional()
   @IsBoolean()
   @Transform((b) => Boolean(b))
   @ApiProperty({ enum: [1, 0] })
-  joint?: boolean
+  joint?: boolean;
 
   @IsOptional()
   @Transform(({ value: v }: { value: string }) => {
-    if (typeof v !== 'string') {
-      throw new UnprocessableEntityException('type must be a string')
+    if (typeof v !== "string") {
+      throw new UnprocessableEntityException("type must be a string");
     }
     switch (v.toLowerCase()) {
-      case 'category':
-        return CategoryType.Category
-      case 'tag':
-        return CategoryType.Tag
+      case "category":
+        return CategoryType.Category;
+      case "tag":
+        return CategoryType.Tag;
       default:
         return Object.values(CategoryType).includes(+v)
           ? +v
-          : CategoryType.Category
+          : CategoryType.Category;
     }
   })
-  type: CategoryType
+  type: CategoryType;
 }

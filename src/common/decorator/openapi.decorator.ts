@@ -1,9 +1,9 @@
-import { ApiTags } from '@nestjs/swagger'
+import { ApiTags } from "@nestjs/swagger";
 
 export const ApiName: ClassDecorator = (target) => {
   if (!isDev) {
-    return
+    return;
   }
-  const [name] = target.name.split('Controller')
-  ApiTags(`${name} Routes`).call(null, target)
-}
+  const [name] = target.name.split("Controller");
+  ApiTags(`${name} Routes`).call(null, target);
+};

@@ -10,9 +10,8 @@
 import { IsString, MaxLength } from "class-validator";
 import { LinksModel } from "./links.model";
 
-
 export class linksDto extends LinksModel {
-  @IsString({ message: '大名只能字符串, 哼！' })
-  @MaxLength(20, { message: '你的名字是真滴长啊2333' })
-  author: string
+  @IsString({ message: "大名只能字符串, 哼！" })
+  @MaxLength(20, { message: "你的名字是真滴长啊2333" })
+  author: string;
 }

@@ -4,80 +4,80 @@ import {
   mongoose,
   prop,
   Severity,
-} from '@typegoose/typegoose'
-import { hashSync } from 'bcrypt'
-import { BaseModel } from '~/shared/model/base.model'
+} from "@typegoose/typegoose";
+import { hashSync } from "bcrypt";
+import { BaseModel } from "~/shared/model/base.model";
 
-export type UserDocument = DocumentType<UserModel>
+export type UserDocument = DocumentType<UserModel>;
 
 export class OAuthModel {
   @prop()
-  platform: string
+  platform: string;
   @prop()
-  id: string
+  id: string;
 }
 
 export class TokenModel {
   @prop()
-  created: Date
+  created: Date;
 
   @prop()
-  token: string
+  token: string;
 
   @prop()
-  expired?: Date
+  expired?: Date;
 
   @prop({ unique: true })
-  name: string
+  name: string;
 }
 
-@modelOptions({ options: { customName: 'User', allowMixed: Severity.ALLOW } })
+@modelOptions({ options: { customName: "User", allowMixed: Severity.ALLOW } })
 export class UserModel extends BaseModel {
   @prop({ required: true, unique: true, trim: true })
-  username!: string
+  username!: string;
 
   @prop({ trim: true })
-  name!: string
+  name!: string;
 
   @prop()
-  introduce?: string
+  introduce?: string;
 
   @prop()
-  avatar?: string
+  avatar?: string;
 
   @prop({
     select: false,
     get(val) {
-      return val
+      return val;
     },
     set(val) {
-      return hashSync(val, 6)
+      return hashSync(val, 6);
     },
     required: true,
   })
-  password!: string
+  password!: string;
 
   @prop()
-  mail?: string
+  mail?: string;
 
   @prop()
-  url?: string
+  url?: string;
 
   @prop()
-  lastLoginTime?: Date
+  lastLoginTime?: Date;
 
   @prop({ select: false })
-  lastLoginIp?: string
+  lastLoginIp?: string;
 
   @prop({ type: mongoose.Schema.Types.Mixed })
-  socialIds?: any
+  socialIds?: any;
 
   @prop({ select: false, required: true })
-  authCode!: string
+  authCode!: string;
 
   @prop({ type: TokenModel, select: false })
-  apiToken?: TokenModel[]
+  apiToken?: TokenModel[];
 
   @prop({ type: OAuthModel, select: false })
-  oauth2?: OAuthModel[]
+  oauth2?: OAuthModel[];
 }

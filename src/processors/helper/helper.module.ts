@@ -13,16 +13,10 @@ import { PostModule } from "~/modules/post/post.module";
 import { HttpService } from "./helper.http.service";
 import { UrlService } from "./helper.url.service";
 
-const providers: Provider<any>[] = [
-  HttpService,
-  UrlService,
-]
+const providers: Provider<any>[] = [HttpService, UrlService];
 
 @Module({
-  imports: [
-    forwardRef(() => PostModule),
-    forwardRef(() => PageModule),
-  ],
+  imports: [forwardRef(() => PostModule), forwardRef(() => PageModule)],
   providers,
   exports: providers,
 })

@@ -10,7 +10,15 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { modelOptions, prop } from "@typegoose/typegoose";
 import { Transform } from "class-transformer";
-import { IsBoolean, IsEmail, IsEnum, IsOptional, IsString, IsUrl, MaxLength } from "class-validator";
+import {
+  IsBoolean,
+  IsEmail,
+  IsEnum,
+  IsOptional,
+  IsString,
+  IsUrl,
+  MaxLength,
+} from "class-validator";
 import { BaseModel } from "~/shared/model/base.model";
 import { RssParserType } from "~/utils/rss-parser.utils";
 
@@ -27,26 +35,24 @@ export enum LinksStatus {
   Banned, // 禁止访问
 }
 
-
 @modelOptions({
   options: {
     customName: "links",
-  }
+  },
 })
-export class LinksModel extends BaseModel{
-
+export class LinksModel extends BaseModel {
   @prop({ required: true, trim: true, unique: true })
   @IsString({ message: "链接名称不能为空" })
   @MaxLength(20, { message: "链接名称是不是填错了呀www" })
   name: string;
 
-  @prop({ 
+  @prop({
     required: true,
     trim: true,
     unique: true,
     set: (val: string) => {
       return new URL(val.toLowerCase()).origin; // 将链接转换为小写，并去掉链接中的多余信息
-    }
+    },
   })
   @IsUrl(
     { require_protocol: true, protocols: ["https"] },
@@ -60,7 +66,7 @@ export class LinksModel extends BaseModel{
     { message: "只接受 HTTPS 链接哦～" }
   )
   @prop({ trim: true })
-  @Transform(({ value }) => (value === '' ? null : value))
+  @Transform(({ value }) => (value === "" ? null : value))
   @MaxLength(200)
   avatar?: string;
 
@@ -81,9 +87,9 @@ export class LinksModel extends BaseModel{
   status: LinksStatus;
 
   @prop()
-  @IsEmail(undefined, { message: '请输入正确的邮箱！' })
+  @IsEmail(undefined, { message: "请输入正确的邮箱！" })
   @IsOptional()
-  @Transform(({ value }) => (value === '' ? null : value)) // 如果是空字符串，则转换为null
+  @Transform(({ value }) => (value === "" ? null : value)) // 如果是空字符串，则转换为null
   @MaxLength(50)
   email?: string;
 
@@ -109,13 +115,12 @@ export class LinksModel extends BaseModel{
   @IsOptional()
   @IsBoolean()
   @prop({ default: false })
-  rssStatus: boolean
-
+  rssStatus: boolean;
 
   get hide() {
-    return this.status === LinksStatus.Audit
+    return this.status === LinksStatus.Audit;
   }
   set hide(value) {
-    return
+    return;
   }
 }

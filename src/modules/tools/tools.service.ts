@@ -13,17 +13,15 @@ import { HttpService } from "~/processors/helper/helper.http.service";
 
 @Injectable()
 export class ToolsService {
-  constructor(
-    private readonly http: HttpService,
-  ) {}
-  async getIp(ip: string, timeout = 3000){
-    const isV4 = isIPv4(ip)
-    const isV6 = isIPv6(ip)
+  constructor(private readonly http: HttpService) {}
+  async getIp(ip: string, timeout = 3000) {
+    const isV4 = isIPv4(ip);
+    const isV6 = isIPv6(ip);
     if (!isV4 && !isV6) {
-      throw new UnprocessableEntityException('Invalid IP')
+      throw new UnprocessableEntityException("Invalid IP");
     }
-    const url = `https://api.live.bilibili.com/client/v1/Ip/getInfoNew?ip=${ip}`
-    const { data } = await this.http.axiosRef.get(url, { timeout })
+    const url = `https://api.live.bilibili.com/client/v1/Ip/getInfoNew?ip=${ip}`;
+    const { data } = await this.http.axiosRef.get(url, { timeout });
 
     const res = {
       country: data.data.country,
@@ -31,9 +29,8 @@ export class ToolsService {
       cityName: data.data.city,
       isp: data.data.isp,
       ip: data.data.addr,
-    }
+    };
 
-    return res
-    
+    return res;
   }
 }

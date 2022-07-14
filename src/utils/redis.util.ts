@@ -7,16 +7,16 @@
  * Coding With IU
  */
 // import { isInDemoMode } from '~/app.config'
-import { RedisKeys } from '~/constants/cache.constant'
+import { RedisKeys } from "~/constants/cache.constant";
 
-type Prefix = 'next'
-const prefix = 'next'
+type Prefix = "next";
+const prefix = "next";
 
-export const getRedisKey = <T extends string = RedisKeys | '*'>(
+export const getRedisKey = <T extends string = RedisKeys | "*">(
   key: T,
   ...concatKeys: string[]
-): `${Prefix}:${T}${string | ''}` => {
+): `${Prefix}:${T}${string | ""}` => {
   return `${prefix}:${key}${
-    concatKeys && concatKeys.length ? `:${concatKeys.join('_')}` : ''
-  }`
-}
+    concatKeys && concatKeys.length ? `:${concatKeys.join("_")}` : ""
+  }`;
+};

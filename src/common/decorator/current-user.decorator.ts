@@ -6,12 +6,12 @@
  * @LastEditTime: 2022-06-07 22:10:06
  * Coding With IU
  */
-import { ExecutionContext, createParamDecorator } from '@nestjs/common'
+import { ExecutionContext, createParamDecorator } from "@nestjs/common";
 
-import { getNestExecutionContextRequest } from '~/transformers/get-req.transformer'
+import { getNestExecutionContextRequest } from "~/transformers/get-req.transformer";
 
 export const CurrentUser = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
-    return getNestExecutionContextRequest(ctx).user
-  },
-)
+    return getNestExecutionContextRequest(ctx).user;
+  }
+);

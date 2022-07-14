@@ -19,32 +19,32 @@ export enum CategoryType {
   Tag,
 }
 @index({ slug: -1 })
-@modelOptions({ options: { customName: 'Category' } })
+@modelOptions({ options: { customName: "Category" } })
 export class CategoryModel extends BaseModel {
-  @prop({ 
+  @prop({
     trim: true, // 去除空格
     unique: true, // 唯一
-    required: true  // 必填
+    required: true, // 必填
   })
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ description: '分类名' })
-  name!: string
+  @ApiProperty({ description: "分类名" })
+  name!: string;
 
   @prop({
     default: CategoryType.Category, // 默认为分类
   })
   @IsEnum(CategoryType)
   @IsOptional()
-  @ApiProperty({ description: '分类类型' })
-  type?: CategoryType
+  @ApiProperty({ description: "分类类型" })
+  type?: CategoryType;
 
   @prop({ unique: true, required: true })
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  slug!: string
+  slug!: string;
 }
 
 // 定义一个 Partial 类型 来包含所有的属性
-export class PartialCategoryModel extends PartialType(CategoryModel) {} 
+export class PartialCategoryModel extends PartialType(CategoryModel) {}

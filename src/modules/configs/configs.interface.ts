@@ -10,14 +10,20 @@
 import { Type } from "class-transformer";
 import { ValidateNested } from "class-validator";
 import { JSONSchema } from "class-validator-jsonschema";
-import { AdminDto, MailOptionsDto, PluginDto, SiteDto, ThemeDto, UrlsDto } from "./configs.dto";
+import {
+  AdminDto,
+  MailOptionsDto,
+  PluginDto,
+  SiteDto,
+  ThemeDto,
+  UrlsDto,
+} from "./configs.dto";
 
 @JSONSchema({
   title: "设置",
-  ps: ['* 敏感字段不显示，后端默认不返回敏感字段，显示为空'],
+  ps: ["* 敏感字段不显示，后端默认不返回敏感字段，显示为空"],
 })
 export abstract class ConfigsInterface {
-  
   @Type(() => SiteDto)
   @ValidateNested()
   site: Required<SiteDto>;
@@ -43,4 +49,4 @@ export abstract class ConfigsInterface {
   plugins?: Required<PluginDto[]>;
 }
 
-export type ConfigsInterfaceKeys = keyof ConfigsInterface
+export type ConfigsInterfaceKeys = keyof ConfigsInterface;

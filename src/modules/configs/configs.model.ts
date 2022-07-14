@@ -8,10 +8,10 @@
  */
 
 import { modelOptions, prop, Severity } from "@typegoose/typegoose";
-import { Schema } from 'mongoose';
+import { Schema } from "mongoose";
 
 @modelOptions({
-  options: { allowMixed: Severity.ALLOW, customName: 'Configs' },
+  options: { allowMixed: Severity.ALLOW, customName: "Configs" },
 })
 export class ConfigsModel {
   @prop({ required: true, unique: true })

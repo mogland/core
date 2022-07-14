@@ -1,21 +1,21 @@
-import { Controller, Scope } from '@nestjs/common'
-import { Transform } from 'class-transformer'
-import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator'
-import { AuthService } from './auth.service'
+import { Controller, Scope } from "@nestjs/common";
+import { Transform } from "class-transformer";
+import { IsDate, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { AuthService } from "./auth.service";
 
 export class TokenDto {
   @IsDate()
   @IsOptional()
   @Transform(({ value: v }) => new Date(v))
-  expired?: Date
+  expired?: Date;
 
   @IsString()
   @IsNotEmpty()
-  name: string
+  name: string;
 }
 
 @Controller({
-  path: 'auth',
+  path: "auth",
   scope: Scope.REQUEST,
 })
 export class AuthController {

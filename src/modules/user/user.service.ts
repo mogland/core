@@ -1,5 +1,5 @@
-import { compareSync } from 'bcrypt'
-import { nanoid } from 'nanoid'
+import { compareSync } from "bcrypt";
+import { nanoid } from "nanoid";
 
 import {
   BadRequestException,
@@ -7,46 +7,45 @@ import {
   Injectable,
   Logger,
   UnprocessableEntityException,
-} from '@nestjs/common'
-import { ReturnModelType } from '@typegoose/typegoose'
+} from "@nestjs/common";
+import { ReturnModelType } from "@typegoose/typegoose";
 
-import { BusinessException } from '~/common/exceptions/business.excpetion'
-import { ErrorCodeEnum } from '~/constants/error-code.constant'
-import { CacheService } from '~/processors/cache/cache.service'
-import { InjectModel } from '~/transformers/model.transformer'
+import { BusinessException } from "~/common/exceptions/business.excpetion";
+import { ErrorCodeEnum } from "~/constants/error-code.constant";
+import { InjectModel } from "~/transformers/model.transformer";
 
-import { AuthService } from '../auth/auth.service'
-import { UserDocument, UserModel } from './user.model'
-import { PageService } from '../page/page.service'
-import { PostService } from '../post/post.service'
-import { CategoryService } from '../category/category.service'
+import { AuthService } from "../auth/auth.service";
+import { UserDocument, UserModel } from "./user.model";
+import { PageService } from "../page/page.service";
+import { PostService } from "../post/post.service";
+import { CategoryService } from "../category/category.service";
 
 @Injectable()
 export class UserService {
-  private Logger = new Logger(UserService.name)
+  private Logger = new Logger(UserService.name);
   constructor(
     @InjectModel(UserModel)
     private readonly userModel: ReturnModelType<typeof UserModel>,
     private readonly authService: AuthService,
     private readonly postService: PostService,
     private readonly pageService: PageService,
-    private readonly categoryService: CategoryService,
+    private readonly categoryService: CategoryService
   ) {}
   public get model() {
-    return this.userModel
+    return this.userModel;
   }
   async login(username: string, password: string) {
-    const user = await this.userModel.findOne({ username }).select('+password')
+    const user = await this.userModel.findOne({ username }).select("+password");
     if (!user) {
       // await sleep(3000)
-      throw new ForbiddenException('用户名不正确')
+      throw new ForbiddenException("用户名不正确");
     }
     if (!compareSync(password, user.password)) {
       // await sleep(3000)
-      throw new ForbiddenException('密码不正确')
+      throw new ForbiddenException("密码不正确");
     }
 
-    return user
+    return user;
   }
 
   /**
@@ -57,24 +56,24 @@ export class UserService {
   async getMasterInfo(getLoginIp = false) {
     const user = await this.userModel
       .findOne()
-      .select(`-authCode${getLoginIp ? ' +lastLoginIp' : ''}`)
-      .lean({ virtuals: true })
+      .select(`-authCode${getLoginIp ? " +lastLoginIp" : ""}`)
+      .lean({ virtuals: true });
     if (!user) {
-      throw new BadRequestException('没有完成初始化!')
+      throw new BadRequestException("没有完成初始化!");
     }
 
-    return { ...user }
+    return { ...user };
   }
   async hasMaster() {
-    return !!(await this.userModel.countDocuments())
+    return !!(await this.userModel.countDocuments());
   }
 
   public async getMaster() {
-    const master = await this.userModel.findOne().lean()
+    const master = await this.userModel.findOne().lean();
     if (!master) {
-      throw new BadRequestException('我还没有主人')
+      throw new BadRequestException("我还没有主人");
     }
-    return master
+    return master;
   }
 
   /**
@@ -83,44 +82,50 @@ export class UserService {
    * @returns {Promise<{token: string; username: string; authCode: string;}>}
    */
   async createMaster(
-    model: Pick<UserModel, 'username' | 'name' | 'password'> &
-      Partial<Pick<UserModel, 'introduce' | 'avatar' | 'url'>>,
+    model: Pick<UserModel, "username" | "name" | "password"> &
+      Partial<Pick<UserModel, "introduce" | "avatar" | "url">>
   ) {
-    const hasMaster = await this.hasMaster()
+    const hasMaster = await this.hasMaster();
     // 禁止注册两个以上账户
     if (hasMaster) {
-      throw new BadRequestException('我已经有一个主人了哦')
+      throw new BadRequestException("我已经有一个主人了哦");
     }
-    const authCode = nanoid(10)
+    const authCode = nanoid(10);
 
     // 初始化文章、页面、分类
-    const defaultCate = (await this.categoryService.findAllCategory()).find( cate => cate.slug === 'default' ) ? await (await this.categoryService.findAllCategory()).find( cate => cate.slug === 'default' ) : await this.categoryService.createDefaultCategory()
-    const defaultCateId = defaultCate ? defaultCate._id : undefined
+    const defaultCate = (await this.categoryService.findAllCategory()).find(
+      (cate) => cate.slug === "default"
+    )
+      ? await (
+          await this.categoryService.findAllCategory()
+        ).find((cate) => cate.slug === "default")
+      : await this.categoryService.createDefaultCategory();
+    const defaultCateId = defaultCate ? defaultCate._id : undefined;
     if (!defaultCateId) {
-      throw new BadRequestException('初始化分类失败')
+      throw new BadRequestException("初始化分类失败");
     } else {
       await Promise.all([
         this.postService.create({
-          title: '欢迎来到 NEXT',
-          slug: 'welcome-to-next',
-          text: '欢迎来到 NEXT，当你看到这条文章的时候，说明你已经成功的安装并初始化了 NEXT。',
+          title: "欢迎来到 NEXT",
+          slug: "welcome-to-next",
+          text: "欢迎来到 NEXT，当你看到这条文章的时候，说明你已经成功的安装并初始化了 NEXT。",
           summary: "欢迎来到 NEXT",
           categoryId: defaultCateId,
           category: defaultCate,
         }),
         this.pageService.create({
-          title: 'NEXT 的第一个页面',
-          slug: 'welcome-to-next-page',
-          text: '欢迎来到 NEXT，当你看到这个页面的时候，说明你已经成功的安装并初始化了 NEXT。',
-        })
-      ])
-      Logger.log('初始化文章、页面、分类成功')
+          title: "NEXT 的第一个页面",
+          slug: "welcome-to-next-page",
+          text: "欢迎来到 NEXT，当你看到这个页面的时候，说明你已经成功的安装并初始化了 NEXT。",
+        }),
+      ]);
+      Logger.log("初始化文章、页面、分类成功");
     }
 
     // @ts-ignore
-    const res = await this.userModel.create({ ...model, authCode })
-    const token = await this.authService.signToken(res._id)
-    return { token, username: res.username, authCode: res.authCode }
+    const res = await this.userModel.create({ ...model, authCode });
+    const token = await this.authService.signToken(res._id);
+    return { token, username: res.username, authCode: res.authCode };
   }
 
   /**
@@ -132,32 +137,32 @@ export class UserService {
    */
   async patchUserData(
     user: UserDocument,
-    data: Partial<UserModel>,
+    data: Partial<UserModel>
   ): Promise<any> {
-    const { password } = data
-    const doc = { ...data }
+    const { password } = data;
+    const doc = { ...data };
     if (password !== undefined) {
-      const { _id } = user
+      const { _id } = user;
       const currentUser = await this.userModel
         .findById(_id)
-        .select('+password +apiToken')
+        .select("+password +apiToken");
 
       if (!currentUser) {
-        throw new BusinessException(ErrorCodeEnum.MasterLostError)
+        throw new BusinessException(ErrorCodeEnum.MasterLostError);
       }
       // 1. 验证新旧密码是否一致
-      const isSamePassword = compareSync(password, currentUser.password)
+      const isSamePassword = compareSync(password, currentUser.password);
       if (isSamePassword) {
-        throw new UnprocessableEntityException('密码可不能和原来的一样哦')
+        throw new UnprocessableEntityException("密码可不能和原来的一样哦");
       }
 
       // 2. 认证码重新生成
-      const newCode = nanoid(10)
-      doc.authCode = newCode
+      const newCode = nanoid(10);
+      doc.authCode = newCode;
     }
     return await this.userModel
       .updateOne({ _id: user._id }, doc)
-      .setOptions({ omitUndefined: true })
+      .setOptions({ omitUndefined: true });
   }
 
   /**
@@ -168,20 +173,20 @@ export class UserService {
    * @return {Promise<Record<string, Date|string>>} 返回上次足迹
    */
   async recordFootstep(ip: string): Promise<Record<string, Date | string>> {
-    const master = await this.userModel.findOne()
+    const master = await this.userModel.findOne();
     if (!master) {
-      throw new BusinessException(ErrorCodeEnum.MasterLostError)
+      throw new BusinessException(ErrorCodeEnum.MasterLostError);
     }
     const PrevFootstep = {
       lastLoginTime: master.lastLoginTime || new Date(1586090559569),
       lastLoginIp: master.lastLoginIp || null,
-    }
+    };
     await master.updateOne({
       lastLoginTime: new Date(),
       lastLoginIp: ip,
-    })
+    });
 
-    this.Logger.warn(`主人已登录, IP: ${ip}`)
-    return PrevFootstep as any
+    this.Logger.warn(`主人已登录, IP: ${ip}`);
+    return PrevFootstep as any;
   }
 }

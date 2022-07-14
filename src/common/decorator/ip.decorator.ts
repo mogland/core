@@ -6,24 +6,24 @@
  * @LastEditTime: 2022-06-07 22:09:07
  * Coding With IU
  */
-import { FastifyRequest } from 'fastify'
+import { FastifyRequest } from "fastify";
 
-import { ExecutionContext, createParamDecorator } from '@nestjs/common'
+import { ExecutionContext, createParamDecorator } from "@nestjs/common";
 
-import { getIp } from '~/utils/ip.util'
+import { getIp } from "~/utils/ip.util";
 
 export type IpRecord = {
-  ip: string
-  agent: string
-}
+  ip: string;
+  agent: string;
+};
 export const IpLocation = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
-    const request = ctx.switchToHttp().getRequest<FastifyRequest>()
-    const ip = getIp(request)
-    const agent = request.headers['user-agent']
+    const request = ctx.switchToHttp().getRequest<FastifyRequest>();
+    const ip = getIp(request);
+    const agent = request.headers["user-agent"];
     return {
       ip,
       agent,
-    }
-  },
-)
+    };
+  }
+);

@@ -1,11 +1,16 @@
-import { InjectModel } from '@app/db/model.transformer';
-import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { CronExpression } from '@nestjs/schedule';
-import { CronOnce } from '~/common/decorator/cron-once.decorator';
-import { HttpService } from '~/processors/helper/helper.http.service';
-import { Parser, RssParserType } from '~/utils/rss-parser.utils';
-import { ConfigsService } from '../configs/configs.service';
-import { LinksModel, LinksStatus, LinksType } from './links.model';
+import { InjectModel } from "@app/db/model.transformer";
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from "@nestjs/common";
+import { CronExpression } from "@nestjs/schedule";
+import { CronOnce } from "~/common/decorator/cron-once.decorator";
+import { HttpService } from "~/processors/helper/helper.http.service";
+import { Parser, RssParserType } from "~/utils/rss-parser.utils";
+import { ConfigsService } from "../configs/configs.service";
+import { LinksModel, LinksStatus, LinksType } from "./links.model";
 
 @Injectable()
 export class LinksService {
@@ -13,8 +18,8 @@ export class LinksService {
     @InjectModel(LinksModel)
     private readonly linksModel: MongooseModel<LinksModel>,
     private readonly configs: ConfigsService,
-    private readonly http: HttpService,
-  ) { }
+    private readonly http: HttpService
+  ) {}
 
   public get model() {
     return this.linksModel;
@@ -24,33 +29,34 @@ export class LinksService {
    * getCount 获取各项链接总数
    */
   async getCount() {
-    const [audit, friends, collection, navigate, outdate, banned] = await Promise.all([
-      this.model.countDocuments({ state: LinksStatus.Audit }),
-      this.model.countDocuments({
-        type: LinksType.Friend,
-        state: LinksStatus.Pass,
-      }),
-      this.model.countDocuments({
-        type: LinksType.Star,
-      }),
-      this.model.countDocuments({
-        type: LinksType.Navigate,
-      }),
-      this.model.countDocuments({
-        state: LinksStatus.Outdate,
-      }),
-      this.model.countDocuments({
-        state: LinksStatus.Banned,
-      }),
-    ])
+    const [audit, friends, collection, navigate, outdate, banned] =
+      await Promise.all([
+        this.model.countDocuments({ state: LinksStatus.Audit }),
+        this.model.countDocuments({
+          type: LinksType.Friend,
+          state: LinksStatus.Pass,
+        }),
+        this.model.countDocuments({
+          type: LinksType.Star,
+        }),
+        this.model.countDocuments({
+          type: LinksType.Navigate,
+        }),
+        this.model.countDocuments({
+          state: LinksStatus.Outdate,
+        }),
+        this.model.countDocuments({
+          state: LinksStatus.Banned,
+        }),
+      ]);
     return {
       audit,
       friends,
       collection,
       navigate,
       outdate,
-      banned
-    }
+      banned,
+    };
   }
 
   /**
@@ -64,7 +70,7 @@ export class LinksService {
         status: LinksStatus.Audit,
         types: LinksType.Friend,
       });
-      return document
+      return document;
     } catch (error) {
       throw new BadRequestException("不要重复搞事情哦～");
     }
@@ -81,35 +87,37 @@ export class LinksService {
         { _id: id },
         {
           $set: { status: status ? status : LinksStatus.Pass }, // 默认审核通过
-        },
+        }
       )
-      .lean()
+      .lean();
 
     if (!doc) {
-      throw new NotFoundException()
+      throw new NotFoundException();
     }
 
-    return doc
+    return doc;
   }
 
   /**
    * checkLinksHealth 检查链接的健康状态
    */
   async checkLinksHealth() {
-    const links = await this.model.find({
-      state: LinksStatus.Pass,
-    }).lean()
+    const links = await this.model
+      .find({
+        state: LinksStatus.Pass,
+      })
+      .lean();
 
     const health = await Promise.all(
       links.map(({ id, url }) => {
         Logger.debug(
           `检查友链 ${id} 的健康状态: GET -> ${url}`,
-          LinksService.name,
-        )
+          LinksService.name
+        );
         return this.http.axiosRef
           .get(url, {
             timeout: 5000,
-            'axios-retry': {
+            "axios-retry": {
               retries: 1,
               shouldResetTimeout: true,
             },
@@ -118,61 +126,68 @@ export class LinksService {
             return {
               status: res.status,
               id,
-            }
+            };
           })
           .catch((err) => {
             return {
               id,
-              status: err.response?.status || 'ERROR',
+              status: err.response?.status || "ERROR",
               message: err.message,
-            }
-          })
-      }),
+            };
+          });
+      })
     ).then((arr) =>
       arr.reduce((acc, cur) => {
-        acc[cur.id] = cur // 将每个链接的健康状态放入对象中
-        return acc
-      }, {}),
-    )
+        acc[cur.id] = cur; // 将每个链接的健康状态放入对象中
+        return acc;
+      }, {})
+    );
 
-    return health
+    return health;
   }
 
   async parseRSS(url: string, type: RssParserType = RssParserType.RSS) {
     const res = await this.http.axiosRef.get(url, {
       timeout: 5000,
-      'axios-retry': {
+      "axios-retry": {
         retries: 1,
         shouldResetTimeout: true,
       },
-    })
-    const { data } = res
-    return Parser(data, type)
+    });
+    const { data } = res;
+    return Parser(data, type);
   }
 
   async getLinksRss() {
-    const links = await this.model.find({
-      type: LinksType.Friend,
-      state: LinksStatus.Pass,
-      rss: { $exists: true },
-    }).lean()
+    const links = await this.model
+      .find({
+        type: LinksType.Friend,
+        state: LinksStatus.Pass,
+        rss: { $exists: true },
+      })
+      .lean();
 
-    let successRes
+    let successRes;
 
     if (links) {
       await Promise.all(
         links.map(async ({ name, rss, rssType }) => {
           Logger.debug(
-            `正在拉取友链 ${name} 的 ${rssType ? rssType.toUpperCase() : ""} 订阅: GET -> ${rss}`,
-            LinksService.name,
-          )
+            `正在拉取友链 ${name} 的 ${
+              rssType ? rssType.toUpperCase() : ""
+            } 订阅: GET -> ${rss}`,
+            LinksService.name
+          );
           if (!rss) {
-            Logger.warn(`友链 ${name} 的 RSS 订阅拉取失败`, LinksService.name)
-            return
+            Logger.warn(`友链 ${name} 的 RSS 订阅拉取失败`, LinksService.name);
+            return;
           }
-          const rssContent = await this.parseRSS(rss, rssType ? rssType : RssParserType.RSS)
+          const rssContent = await this.parseRSS(
+            rss,
+            rssType ? rssType : RssParserType.RSS
+          );
           // rssContent 转json字符串
-          const rssContentJson = JSON.stringify(rssContent)
+          const rssContentJson = JSON.stringify(rssContent);
           // console.log(rssContentJson)
           if (rssContentJson) {
             await this.model.updateOne(
@@ -180,28 +195,33 @@ export class LinksService {
               {
                 $set: {
                   rssContent: rss ? rssContentJson : {},
-                  rssStatus: rss ? true : false
-                }
+                  rssStatus: rss ? true : false,
+                },
               }
-            )
+            );
           }
-          Logger.log(`友链 ${name} 的 ${rssType ? rssType.toUpperCase() : ""} 订阅拉取成功`, LinksService.name)
+          Logger.log(
+            `友链 ${name} 的 ${
+              rssType ? rssType.toUpperCase() : ""
+            } 订阅拉取成功`,
+            LinksService.name
+          );
           successRes = {
             ...successRes,
             [name]: true,
-          }
+          };
         })
-      )
-      return successRes
+      );
+      return successRes;
     } else {
-      Logger.warn(`没有友链 RSS 订阅设定哦`, LinksService.name)
-      return
+      Logger.warn(`没有友链 RSS 订阅设定哦`, LinksService.name);
+      return;
     }
   }
 
-  @CronOnce(CronExpression.EVERY_DAY_AT_1AM, {name: 'updateFriendsFeed'})
+  @CronOnce(CronExpression.EVERY_DAY_AT_1AM, { name: "updateFriendsFeed" })
   async RssSpider() {
-    Logger.log(`开始更新友链 RSS 订阅`, LinksService.name)
-    await this.getLinksRss()
+    Logger.log(`开始更新友链 RSS 订阅`, LinksService.name);
+    await this.getLinksRss();
   }
 }

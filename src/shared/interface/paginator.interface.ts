@@ -1,24 +1,24 @@
 export interface Pagination<T> {
-  data: T[]
-  pagination: Paginator
+  data: T[];
+  pagination: Paginator;
 }
 export class Paginator {
   /**
    * 总条数
    */
-  readonly total: number
+  readonly total: number;
   /**
    * 一页多少条
    */
-  readonly size: number
+  readonly size: number;
   /**
    * 当前页
    */
-  readonly currentPage: number
+  readonly currentPage: number;
   /**
    * 总页数
    */
-  readonly totalPage: number
-  readonly hasNextPage: boolean
-  readonly hasPrevPage: boolean
+  readonly totalPage: number;
+  readonly hasNextPage: boolean;
+  readonly hasPrevPage: boolean;
 }

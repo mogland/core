@@ -1,9 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { beforeEach, expect,describe, it } from 'vitest';
-import { AggregateService } from '~/modules/aggregate/aggregate.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { beforeEach, expect, describe, it } from "vitest";
+import { AggregateService } from "~/modules/aggregate/aggregate.service";
 
-
-describe('AggregateService', () => {
+describe("AggregateService", () => {
   let service: AggregateService;
 
   beforeEach(async () => {
@@ -14,7 +13,7 @@ describe('AggregateService', () => {
     service = module.get<AggregateService>(AggregateService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 });

@@ -15,5 +15,5 @@ export class TopQueryDto {
   @Min(1)
   @Max(10)
   @IsOptional()
-  size?: number
+  size?: number;
 }

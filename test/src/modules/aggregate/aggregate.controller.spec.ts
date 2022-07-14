@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { beforeEach, expect,describe, it } from 'vitest';
-import { AggregateController } from '~/modules/aggregate/aggregate.controller';
+import { Test, TestingModule } from "@nestjs/testing";
+import { beforeEach, expect, describe, it } from "vitest";
+import { AggregateController } from "~/modules/aggregate/aggregate.controller";
 
-describe('AggregateController', () => {
+describe("AggregateController", () => {
   let controller: AggregateController;
 
   beforeEach(async () => {
@@ -13,7 +13,7 @@ describe('AggregateController', () => {
     controller = module.get<AggregateController>(AggregateController);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 });

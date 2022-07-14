@@ -1,8 +1,8 @@
-import { mongoose } from '@typegoose/typegoose'
-import { Pagination } from '~/shared/interface/paginator.interface'
+import { mongoose } from "@typegoose/typegoose";
+import { Pagination } from "~/shared/interface/paginator.interface";
 
 export function transformDataToPaginate<T = any>(
-  data: mongoose.PaginateResult<T>,
+  data: mongoose.PaginateResult<T>
 ): Pagination<T> {
   return {
     data: data.docs,
@@ -14,5 +14,5 @@ export function transformDataToPaginate<T = any>(
       hasNextPage: data.hasNextPage,
       hasPrevPage: data.hasPrevPage,
     },
-  }
+  };
 }

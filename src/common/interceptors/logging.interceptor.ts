@@ -13,44 +13,44 @@ import {
   Logger,
   NestInterceptor,
   SetMetadata,
-} from '@nestjs/common'
-import { Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
-import { HTTP_REQUEST_TIME } from '~/constants/meta.constant'
-import { isDev } from '~/utils/environment.utils'
+} from "@nestjs/common";
+import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
+import { HTTP_REQUEST_TIME } from "~/constants/meta.constant";
+import { isDev } from "~/utils/environment.utils";
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
-  private logger: Logger
+  private logger: Logger;
 
   constructor() {
-    this.logger = new Logger(LoggingInterceptor.name)
+    this.logger = new Logger(LoggingInterceptor.name);
   }
   intercept(
     context: ExecutionContext,
-    next: CallHandler<any>,
+    next: CallHandler<any>
   ): Observable<any> {
-    const call$ = next.handle()
+    const call$ = next.handle();
     if (!isDev) {
-      return call$
+      return call$;
     }
-    const request = this.getRequest(context)
-    const content = `${request.method} -> ${request.url}`
-    Logger.debug(`+++ Request：${content}`, LoggingInterceptor.name)
-    const now = +new Date()
-    SetMetadata(HTTP_REQUEST_TIME, now)(this.getRequest(context))
+    const request = this.getRequest(context);
+    const content = `${request.method} -> ${request.url}`;
+    Logger.debug(`+++ Request：${content}`, LoggingInterceptor.name);
+    const now = +new Date();
+    SetMetadata(HTTP_REQUEST_TIME, now)(this.getRequest(context));
 
     return call$.pipe(
       tap(() =>
-        this.logger.debug(`--- Response：${content} +${+new Date() - now}ms`),
-      ),
-    )
+        this.logger.debug(`--- Response：${content} +${+new Date() - now}ms`)
+      )
+    );
   }
 
   getRequest(context: ExecutionContext) {
-    const req = context.switchToHttp().getRequest()
+    const req = context.switchToHttp().getRequest();
     if (req) {
-      return req
+      return req;
     }
   }
 }
