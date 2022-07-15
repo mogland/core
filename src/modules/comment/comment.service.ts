@@ -110,7 +110,7 @@ export class CommentService {
    */
   async validateName(name: string): Promise<void> {
     const user = await this.userService.model.findOne({ name });
-    if (!user) {
+    if (user) {
       throw new BadRequestException("用户名与主人重名啦！但是您似乎不是主人哎");
     }
   }

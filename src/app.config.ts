@@ -15,6 +15,7 @@ export const CROSS_DOMAIN = {
     "mbp.cc",
     "local.innei.test",
     "22333322.xyz",
+    "localhost:3000"
   ],
   allowedReferer: "innei.ren",
 };
