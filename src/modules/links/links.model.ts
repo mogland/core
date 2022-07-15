@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-11 11:54:02
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 18:12:37
+ * @LastEditTime: 2022-07-15 18:16:51
  * Coding With IU
  */
 
@@ -29,8 +29,8 @@ export enum LinksType {
 }
 
 export enum LinksStatus {
-  Pass, // 通过
   Audit, // 审核中
+  Pass, // 通过
   Outdate, // 已过期
   Banned, // 禁止访问
 }
