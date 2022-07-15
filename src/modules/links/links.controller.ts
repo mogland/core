@@ -28,10 +28,10 @@ export class LinksController {
   @Paginator
   @ApiOperation({ summary: "获取链接(附带分页器)" })
   async gets(@Query() pager: PagerDto, @IsMaster() master: boolean) {
-    const { size, page, state } = pager;
+    const { size, page, status } = pager;
 
     return await this.linksService.model.paginate(
-      state !== undefined ? { state } : {},
+      status !== undefined ? { status } : {},
       {
         limit: size,
         page,

@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-11 11:54:02
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-12 18:39:55
+ * @LastEditTime: 2022-07-15 18:12:37
  * Coding With IU
  */
 
@@ -83,7 +83,7 @@ export class LinksModel extends BaseModel {
 
   @IsOptional()
   @IsEnum(LinksStatus, { message: "链接状态不正确" })
-  @prop({ default: LinksStatus.Pass })
+  @prop({ default: LinksStatus.Audit })
   status: LinksStatus;
 
   @prop()

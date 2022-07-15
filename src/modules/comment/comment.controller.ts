@@ -45,9 +45,9 @@ export class CommentController {
   @Get("/")
   @Auth()
   async getRecentlyComments(@Query() query: PagerDto) {
-    const { size = 10, page = 1, state = 0 } = query;
+    const { size = 10, page = 1, status = 0 } = query;
     return transformDataToPaginate(
-      await this.commentService.getComments({ size, page, state })
+      await this.commentService.getComments({ size, page, status })
     );
   }
 

@@ -173,9 +173,9 @@ export class CommentService {
    * @param page,size,state
    * @returns 评论列表
    */
-  async getComments({ page, size, state } = { page: 1, size: 10, state: 0 }) {
+  async getComments({ page, size, status } = { page: 1, size: 10, status: 0 }) {
     const queryList = await this.commentModel.paginate(
-      { state }, // 查询条件
+      { status }, // 查询条件
       {
         page, // 当前页
         limit: size, // 每页显示条数

@@ -72,5 +72,5 @@ export class PagerDto extends DbQueryBasicDto {
   @IsOptional()
   @Transform(({ value: val }) => parseInt(val))
   @IsInt()
-  state?: number;
+  status?: number;
 }
