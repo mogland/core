@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common";
 import { PostModel } from "./post.model";
 import { InjectModel } from "~/transformers/model.transformer";
-import { FilterQuery, PaginateOptions } from "mongoose";
+import { AggregatePaginateModel, Document } from 'mongoose'
 import { CategoryService } from "../category/category.service";
 import slugify from "slugify";
 import { isDefined } from "class-validator";
@@ -18,7 +18,8 @@ import { ErrorCodeEnum } from "~/constants/error-code.constant";
 export class PostService {
   constructor(
     @InjectModel(PostModel)
-    private readonly postModel: MongooseModel<PostModel>,
+    private readonly postModel: MongooseModel<PostModel> &
+      AggregatePaginateModel<PostModel & Document>,
     @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService
   ) {}
@@ -26,18 +27,6 @@ export class PostService {
     return this.postModel;
   }
 
-  /**
-   * 带分页的查询
-   * @param conditions 查询条件
-   * @param options 分页参数
-   * @returns Promise<PostModel[]>
-   */
-  findWithPaginator(
-    conditions: FilterQuery<PostModel>,
-    options: PaginateOptions
-  ) {
-    return this.postModel.paginate(conditions as any, options);
-  }
 
   /**
    * 创建新文章
