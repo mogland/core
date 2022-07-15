@@ -29,7 +29,6 @@ export class PostModel extends WriteBaseModel {
 
   @prop({ trim: true, required: true })
   @IsString()
-  @IsBoolean()
   @ApiProperty({ description: "文章摘要" })
   summary?: string;
 
