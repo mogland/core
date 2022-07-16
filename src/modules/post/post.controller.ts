@@ -94,6 +94,12 @@ export class PostController {
               as: 'category', // as the "category" field
             },
           },
+          {
+            $unwind: { // unwind 将数组的每个元素解析为单个文档
+              path: '$category', // the path to the array
+              preserveNullAndEmptyArrays: true, // if set to true, MongoDB will still create a document if the array is empty
+            },
+          },
         ].filter(Boolean) as PipelineStage[],
       ),
       {
