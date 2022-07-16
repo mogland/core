@@ -1,3 +1,30 @@
+## [1.4.1-alpha.0](https://github.com/nx-space/core/compare/v1.4.0-alpha.2...v1.4.1-alpha.0) (2022-07-16)
+
+
+### Bug Fixes
+
+* **dto:** use `status` instead of `state` ([ff0c529](https://github.com/nx-space/core/commit/ff0c52991e7ad0613ef4a53fa4c8b1bba1f0369f))
+* **post:** field type crashed with transform options ([77b9913](https://github.com/nx-space/core/commit/77b991394b87e95f0d6363ee5d26176765c4a48a))
+* **post:** field type crashed with transform options ([716834e](https://github.com/nx-space/core/commit/716834e2e350db082e2ab11c4a61b128429a8594))
+* **post:** post model set summary to string ([58fa5d1](https://github.com/nx-space/core/commit/58fa5d1ca5e7f7a1f1751f9a0015edb3f02a2b05))
+* **user:** throw exception in a wrong time ([6d375f3](https://github.com/nx-space/core/commit/6d375f3208227efd042df79f951143a608e7d069))
+
+
+### Performance Improvements
+
+* **comment:** set status default as Unread key ([a641e3b](https://github.com/nx-space/core/commit/a641e3bbe3cd847220bb3e1db834664f9ed48914))
+* **links:** swap positions of Audit and Pass ([ab8e9b3](https://github.com/nx-space/core/commit/ab8e9b320b3c853863167f123b54b8b0f3863610))
+* **post:** active aggregate paginate plugin ([7a80d1b](https://github.com/nx-space/core/commit/7a80d1b73036a3b07637edd3d33f54b5da92c1e7))
+* **post:** paginate auto join category collection ([cb0c6d9](https://github.com/nx-space/core/commit/cb0c6d9e6aa1dc0b77deac6a7f3433f147590da2))
+* **post:** set a unwind field ([0fd9eb3](https://github.com/nx-space/core/commit/0fd9eb3dc79912f580344e9b842336633572dacd))
+
+
+### Reverts
+
+* **posts:** remove useless plugin ([1b90b11](https://github.com/nx-space/core/commit/1b90b113a2eb28746b81aba985251ac288eb9de5))
+
+
+
 # [1.4.0-alpha.2](https://github.com/nx-space/core/compare/v1.4.0-alpha.1...v1.4.0-alpha.2) (2022-07-14)
 
 
