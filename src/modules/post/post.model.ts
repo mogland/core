@@ -1,6 +1,6 @@
 import { UnprocessableEntityException } from "@nestjs/common";
 import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
-import { Severity, index, modelOptions, prop, Ref, DocumentType, pre } from "@typegoose/typegoose";
+import { Severity, index, modelOptions, prop, Ref, DocumentType, pre, plugin } from "@typegoose/typegoose";
 import { Transform } from "class-transformer";
 import {
   IsBoolean,
@@ -18,7 +18,9 @@ import { CountMixed as Count, WriteBaseModel } from "~/shared/model/base.model";
 import { CategoryModel } from "../category/category.model";
 import { BeAnObject } from "@typegoose/typegoose/lib/types";
 import { Query } from "mongoose";
+import aggregatePaginate from 'mongoose-aggregate-paginate-v2'
 
+@plugin(aggregatePaginate)
 @pre<PostModel>('findOne', autoPopulateRelated)
 @pre<PostModel>('findOne', autoPopulateCategory)
 @pre<PostModel>('find', autoPopulateCategory)
