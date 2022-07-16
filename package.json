@@ -28,6 +28,7 @@
     ]
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "prebuild": "rimraf dist",
     "build": "nest build",
