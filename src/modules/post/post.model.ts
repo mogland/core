@@ -1,12 +1,13 @@
 import { UnprocessableEntityException } from "@nestjs/common";
 import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
-import { Severity, index, modelOptions, prop, Ref } from "@typegoose/typegoose";
+import { Severity, index, modelOptions, prop, Ref, plugin, DocumentType, pre } from "@typegoose/typegoose";
 import { Transform } from "class-transformer";
 import {
   IsBoolean,
   IsDate,
   isDateString,
   IsInt,
+  IsMongoId,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -15,7 +16,14 @@ import {
 } from "class-validator";
 import { CountMixed as Count, WriteBaseModel } from "~/shared/model/base.model";
 import { CategoryModel } from "../category/category.model";
+import aggregatePaginate from 'mongoose-aggregate-paginate-v2'
+import { BeAnObject } from "@typegoose/typegoose/lib/types";
+import { Query } from "mongoose";
 
+@plugin(aggregatePaginate)
+@pre<PostModel>('findOne', autoPopulateRelated)
+@pre<PostModel>('findOne', autoPopulateCategory)
+@pre<PostModel>('find', autoPopulateCategory)
 @index({ slug: 1 })
 @index({ modified: -1 })
 @index({ text: "text" })
@@ -32,8 +40,9 @@ export class PostModel extends WriteBaseModel {
   @ApiProperty({ description: "文章摘要" })
   summary?: string;
 
-  @prop({ trim: true, required: true })
-  @IsNotEmpty()
+  @prop({ ref: () => CategoryModel, required: true })
+  @IsMongoId()
+  @ApiProperty({ example: '5eb2c62a613a5ab0642f1f7a' })
   @ApiProperty({ description: "文章分类" })
   categoryId: Ref<CategoryModel>;
 
@@ -46,7 +55,7 @@ export class PostModel extends WriteBaseModel {
   @ApiHideProperty()
   public category: Ref<CategoryModel>;
 
-  @prop({ trim: true })
+  @prop()
   @IsBoolean()
   @IsOptional()
   @ApiProperty({ description: "文章署名" })
@@ -114,11 +123,51 @@ export class PostModel extends WriteBaseModel {
   @ApiProperty({ description: "文章创建时间" })
   created?: Date;
 
-  // @prop({
-  //   type: Date,
-  // })
-  // @IsString()
-  // @IsOptional()
-  // @ApiProperty({ description: '文章修改时间' })
-  // modified?: Date
+  @prop({
+    type: Date,
+  })
+  @IsString()
+  @IsOptional()
+  @ApiProperty({ description: '文章修改时间' })
+  modified?: Date
+}
+
+
+
+function autoPopulateCategory(
+  this: Query<
+    any,
+    DocumentType<PostModel, BeAnObject>,
+    {},
+    DocumentType<PostModel, BeAnObject>
+  >,
+  next: () => void,
+) {
+  this.populate({ path: 'category' })
+  next()
+}
+
+function autoPopulateRelated(
+  this: Query<
+    any,
+    DocumentType<PostModel, BeAnObject>,
+    {},
+    DocumentType<PostModel, BeAnObject>
+  >,
+  next: () => void,
+) {
+  this.populate({
+    path: 'related',
+    select: [
+      'slug',
+      'title',
+      'summary',
+      'created',
+      'categoryId',
+      'modified',
+      '_id',
+      'id',
+    ],
+  })
+  next()
 }
