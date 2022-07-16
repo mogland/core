@@ -7,6 +7,7 @@ import {
   IsDate,
   isDateString,
   IsInt,
+  IsMongoId,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -39,8 +40,9 @@ export class PostModel extends WriteBaseModel {
   @ApiProperty({ description: "文章摘要" })
   summary?: string;
 
-  @prop({ trim: true, required: true })
-  @IsNotEmpty()
+  @prop({ ref: () => CategoryModel, required: true })
+  @IsMongoId()
+  @ApiProperty({ example: '5eb2c62a613a5ab0642f1f7a' })
   @ApiProperty({ description: "文章分类" })
   categoryId: Ref<CategoryModel>;
 
@@ -53,7 +55,7 @@ export class PostModel extends WriteBaseModel {
   @ApiHideProperty()
   public category: Ref<CategoryModel>;
 
-  @prop({ trim: true })
+  @prop()
   @IsBoolean()
   @IsOptional()
   @ApiProperty({ description: "文章署名" })
