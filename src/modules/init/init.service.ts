@@ -17,14 +17,24 @@ export class InitService {
     // 没有用户，不应当初始化
     if (!user) {
       this.logger.warn("用户未注册，无法初始化");
-      return false;
+      return {
+        can_init: false,
+        mes: "用户未注册，无法初始化",
+        reason: 0,
+      };
     } else if (configs.length === 0) {
-      return true;
+      return {
+        can_init: true,
+        mes: "可以初始化",
+      };
     } else if (configs.length) {
       this.logger.warn("配置已存在，无法初始化");
-      return false;
+      return {
+        can_init: false,
+        mes: "配置已存在，无法初始化",
+        reason: 1,
+      };
     }
     throw new BadRequestException("发生未知错误，无法初始化");
-    return false;
   }
 }

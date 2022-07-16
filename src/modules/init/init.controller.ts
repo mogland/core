@@ -22,16 +22,14 @@ export class InitController {
   @Get("/")
   @ApiOperation({ summary: "获取初始化情况" })
   async canInit() {
-    return {
-      canInit: await this.init.canInit(),
-    };
+    return await this.init.canInit()
   }
 
   @Get("/configs/get/default")
   @ApiOperation({ summary: "获取默认配置" })
   async initDefault() {
-    const { canInit } = await this.canInit();
-    if (!canInit)
+    const { can_init } = await this.canInit();
+    if (!can_init)
       throw new ForbiddenException("无法获取默认配置，请检查控制台日志");
     return this.configs.defaultConfig;
   }
@@ -39,8 +37,8 @@ export class InitController {
   @Get("/configs/default")
   @ApiOperation({ summary: "初始化默认配置" })
   async setConfig() {
-    const { canInit } = await this.canInit();
-    if (!canInit)
+    const { can_init } = await this.canInit();
+    if (!can_init)
       throw new BadRequestException("无法完成初始化，请检查控制台日志");
     const defaultConfig = this.configs.defaultConfig;
     for (const theKey in defaultConfig) {
