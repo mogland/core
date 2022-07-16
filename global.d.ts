@@ -8,6 +8,7 @@ declare global {
   export const consola: Consola
 
   export type MongooseModel<T> = ModelType<T> & PaginateModel<T & Document>
+
 }
 
 export {}

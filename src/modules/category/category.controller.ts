@@ -142,9 +142,7 @@ export class CategoryController {
         $and: [tag ? { tags: tag } : {}], // 如果tag存在，则查询标签下的文章
       })) || [];
 
-    return {
-      data: { ...data, children },
-    };
+    return { data: { ...data, children } };
   }
 
   @Post("/")
