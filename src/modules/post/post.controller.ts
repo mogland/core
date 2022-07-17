@@ -36,16 +36,6 @@ export class PostController {
   @ApiOperation({ summary: "获取文章列表(附带分页器)" })
   async getPaginate(@Query() query: PagerDto, @IsMaster() isMaster: boolean) {
     const { size, select, page, year, sortBy, sortOrder } = query
-    let hideProperty
-    if (!isMaster) {
-      hideProperty = {
-        $project: {
-          hide: 0,
-          password: 0,
-          rss: 0,
-        },
-      }
-    }
     return this.postService.model.aggregatePaginate(
       this.postService.model.aggregate(
         [
@@ -110,8 +100,29 @@ export class PostController {
               preserveNullAndEmptyArrays: true, // if set to true, MongoDB will still create a document if the array is empty
             },
           },
-          // 移除 hide 字段
-          ...hideProperty,
+          !isMaster && { // if not master, only show usual fields
+            $project: {
+              hide: 0,
+              password: 0,
+              rss: 0,
+            },
+          },
+          // if not master, only show published posts
+          !isMaster && {
+            $match: { // match the condition
+              hide: { $ne: true }, // $ne: not equal
+            }
+          },
+          // 如果不是master，并且password不为空，则将标题修改为“[密码]”
+          !isMaster && {
+            $match: {
+              password: { $ne: null },
+            },
+            $project: {
+              title: { $concat: ['[密码]', ' ', '此文章已被加密'] }, // $concat: 用于拼接字符串
+              text: { $concat: ['内容已被隐藏'] },
+            },
+          },
         ].filter(Boolean) as PipelineStage[],
       ),
       {
@@ -136,7 +147,7 @@ export class PostController {
       })
       .populate("category");
 
-    if (!postDocument) {
+    if (!postDocument || postDocument.hide) { // 若遇到了 hide 字段为 true 的文章，则自动返回 404
       throw new CannotFindException();
     }
     return postDocument.toJSON();
