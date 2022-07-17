@@ -29,7 +29,7 @@ export class PostController {
   constructor(
     private readonly postService: PostService
   ) // private readonly countingService: CountingService,
-  {}
+  { }
 
   @Get('/')
   @Paginator
@@ -46,7 +46,7 @@ export class PostController {
           },
           // @see https://stackoverflow.com/questions/54810712/mongodb-sort-by-field-a-if-field-b-null-otherwise-sort-by-field-c
           {
-            $addFields: { 
+            $addFields: {
               sortField: {
                 // create a new field called "sortField"
                 $cond: {
@@ -58,16 +58,51 @@ export class PostController {
               },
             },
           },
+          // if not master, only show published posts
+          !isMaster && {
+            $match: { // match the condition
+              hide: { $ne: true }, // $ne: not equal
+            }
+          },
+          // 如果不是master，并且password不为空，则将标题修改为“[密码]”
+          !isMaster && {
+            $set: { // set the field to a new value
+              summary: {
+                $cond: {
+                  if: { $ne: ['$password', null], }, // if "password" is not null
+                  then: { $concat: ['内容已被隐藏，请输入密码'] }, // then the value of "内容已被隐藏"
+                  else: '$title', // otherwise, use the original title
+                }, // $concat: 用于拼接字符串
+              },
+              text: {
+                $cond: {
+                  // 如果密码字段不为空，且isMaster为false，则不显示
+                  if: {
+                    $ne: ['$password', null]
+                  }, // whether "b" is not null
+                  then: { $concat: ['内容已被隐藏，请输入密码'] },
+                  else: '$text',
+                },
+              },
+            },
+          },
+          !isMaster && { // if not master, only show usual fields
+            $project: {
+              hide: 0,
+              password: 0,
+              rss: 0,
+            },
+          },
           {
             $sort: sortBy
               ? {
-                  [sortBy]: sortOrder as any,
-                }
+                [sortBy]: sortOrder as any,
+              }
               : {
-                  sortField: -1, // sort by our computed field
-                  pin: -1,
-                  created: -1, // and then by the "created" field
-                },
+                sortField: -1, // sort by our computed field
+                pin: -1,
+                created: -1, // and then by the "created" field
+              },
           },
           {
             $project: { // project the fields we want to keep
@@ -100,29 +135,6 @@ export class PostController {
               preserveNullAndEmptyArrays: true, // if set to true, MongoDB will still create a document if the array is empty
             },
           },
-          !isMaster && { // if not master, only show usual fields
-            $project: {
-              hide: 0,
-              password: 0,
-              rss: 0,
-            },
-          },
-          // if not master, only show published posts
-          !isMaster && {
-            $match: { // match the condition
-              hide: { $ne: true }, // $ne: not equal
-            }
-          },
-          // 如果不是master，并且password不为空，则将标题修改为“[密码]”
-          !isMaster && {
-            $match: {
-              password: { $ne: null },
-            },
-            $project: {
-              title: { $concat: ['[密码]', ' ', '此文章已被加密'] }, // $concat: 用于拼接字符串
-              text: { $concat: ['内容已被隐藏'] },
-            },
-          },
         ].filter(Boolean) as PipelineStage[],
       ),
       {
@@ -134,18 +146,49 @@ export class PostController {
 
   @Get("/:category/:slug")
   @ApiOperation({ summary: "根据分类名与自定义别名获取文章详情" })
-  async getByCategoryAndSlug(@Param() params: CategoryAndSlugDto) {
+  async getByCategoryAndSlug(@Param() params: CategoryAndSlugDto, @IsMaster() isMaster: boolean, @Body() body: any) {
     const { category, slug } = params;
     const categoryDocument = await this.postService.getCategoryBySlug(category);
     if (!categoryDocument) {
       throw new NotFoundException("该分类不存在w");
     }
     const postDocument = await this.postService.model
-      .findOne({
-        category: categoryDocument._id,
-        slug,
-      })
-      .populate("category");
+      .findOne(
+        {
+          category: categoryDocument._id,
+          slug,
+        },
+        // match hide not equal to true
+        {
+          ...(!isMaster && { hide: { $ne: true } }),
+        },
+        // 如果不是master，并且password不为空且body.password与password比较，如果相等，则返回文章内容，否则返回文章已被加密
+        {
+          ...(
+            !isMaster && {
+              password: {
+                $ne: null,
+              },
+              // 如果不是master，并且password不匹配或为空，则将标题修改为“[密码]”
+              title: {
+                $cond: {
+                  if: { $ne: ['$password', body.password] }, // $ne: not equal, password 不为空且 password 与 body.password 相等
+                  then: { $concat: ['[密码]', ' ', '此文章已被加密'] },
+                  else: '$title',
+                },
+              },
+              text: {
+                $cond: {
+                  if: { $ne: ['$password', body.password] },
+                  then: { $concat: ['内容已被隐藏，请输入密码'] },
+                  else: '$text',
+                },
+              },
+            }
+          )
+        }
+      )
+      .populate("category"); // populate the category field
 
     if (!postDocument || postDocument.hide) { // 若遇到了 hide 字段为 true 的文章，则自动返回 404
       throw new CannotFindException();
