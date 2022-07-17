@@ -22,6 +22,7 @@ import { Auth } from "~/common/decorator/auth.decorator";
 import { PostModel } from "./post.model";
 import { Types, PipelineStage } from "mongoose";
 import { MongoIdDto } from "~/shared/dto/id.dto";
+import { IsMaster } from "~/common/decorator/role.decorator";
 @Controller("posts")
 @ApiName
 export class PostController {
@@ -33,9 +34,18 @@ export class PostController {
   @Get('/')
   @Paginator
   @ApiOperation({ summary: "获取文章列表(附带分页器)" })
-  async getPaginate(@Query() query: PagerDto) {
+  async getPaginate(@Query() query: PagerDto, @IsMaster() isMaster: boolean) {
     const { size, select, page, year, sortBy, sortOrder } = query
-
+    let hideProperty
+    if (!isMaster) {
+      hideProperty = {
+        $project: {
+          hide: 0,
+          password: 0,
+          rss: 0,
+        },
+      }
+    }
     return this.postService.model.aggregatePaginate(
       this.postService.model.aggregate(
         [
@@ -46,7 +56,7 @@ export class PostController {
           },
           // @see https://stackoverflow.com/questions/54810712/mongodb-sort-by-field-a-if-field-b-null-otherwise-sort-by-field-c
           {
-            $addFields: {
+            $addFields: { 
               sortField: {
                 // create a new field called "sortField"
                 $cond: {
@@ -70,7 +80,7 @@ export class PostController {
                 },
           },
           {
-            $project: {
+            $project: { // project the fields we want to keep
               sortField: 0, // remove "sort" field if needed
             },
           },
@@ -100,6 +110,8 @@ export class PostController {
               preserveNullAndEmptyArrays: true, // if set to true, MongoDB will still create a document if the array is empty
             },
           },
+          // 移除 hide 字段
+          ...hideProperty,
         ].filter(Boolean) as PipelineStage[],
       ),
       {

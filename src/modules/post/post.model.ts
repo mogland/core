@@ -90,7 +90,7 @@ export class PostModel extends WriteBaseModel {
       return null;
     }
   })
-  @ApiProperty({ description: "文章置顶" })
+  @ApiProperty({ description: "文章pin日期" })
   pin?: Date | null;
 
   @prop()
@@ -130,6 +130,24 @@ export class PostModel extends WriteBaseModel {
   @IsOptional()
   @ApiProperty({ description: '文章修改时间' })
   modified?: Date
+
+  @prop({ type: Boolean, default: false })
+  @IsOptional()
+  @IsBoolean()
+  @ApiProperty({ description: "文章是否隐藏" })
+  hide?: boolean;
+
+  @prop({ type: String, default: null })
+  @IsOptional()
+  @IsString()
+  @ApiProperty({ description: "文章加密密码（若填写则启动加密）" })
+  password?: string;
+
+  @prop({ type: Boolean, default: true })
+  @IsOptional()
+  @IsBoolean()
+  @ApiProperty({ description: "文章是否公开在RSS输出" })
+  rss?: boolean;
 }
 
 
