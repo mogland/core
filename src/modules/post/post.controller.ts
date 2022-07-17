@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -23,6 +24,7 @@ import { PostModel } from "./post.model";
 import { Types, PipelineStage } from "mongoose";
 import { MongoIdDto } from "~/shared/dto/id.dto";
 import { IsMaster } from "~/common/decorator/role.decorator";
+import { md5 } from "~/utils/tools.util";
 @Controller("posts")
 @ApiName
 export class PostController {
@@ -64,7 +66,7 @@ export class PostController {
               hide: { $ne: true }, // $ne: not equal
             }
           },
-          // 如果不是master，并且password不为空，则将标题修改为“[密码]”
+          // 如果不是master，并且password不为空，则将text,summary修改
           !isMaster && {
             $set: { // set the field to a new value
               summary: {
@@ -149,45 +151,29 @@ export class PostController {
   async getByCategoryAndSlug(@Param() params: CategoryAndSlugDto, @IsMaster() isMaster: boolean, @Body() body: any) {
     const { category, slug } = params;
     const categoryDocument = await this.postService.getCategoryBySlug(category);
+    if (body === undefined || body.password === undefined || !body.password) body = { password: null };
     if (!categoryDocument) {
       throw new NotFoundException("该分类不存在w");
     }
-    const postDocument = await this.postService.model
+    const postDocument = await (await this.postService.model
       .findOne(
         {
           category: categoryDocument._id,
           slug,
-        },
-        // match hide not equal to true
-        {
-          ...(!isMaster && { hide: { $ne: true } }),
-        },
-        // 如果不是master，并且password不为空且body.password与password比较，如果相等，则返回文章内容，否则返回文章已被加密
-        {
-          ...(
-            !isMaster && {
-              password: {
-                $ne: null,
-              },
-              // 如果不是master，并且password不匹配或为空，则将标题修改为“[密码]”
-              title: {
-                $cond: {
-                  if: { $ne: ['$password', body.password] }, // $ne: not equal, password 不为空且 password 与 body.password 相等
-                  then: { $concat: ['[密码]', ' ', '此文章已被加密'] },
-                  else: '$title',
-                },
-              },
-              text: {
-                $cond: {
-                  if: { $ne: ['$password', body.password] },
-                  then: { $concat: ['内容已被隐藏，请输入密码'] },
-                  else: '$text',
-                },
-              },
-            }
-          )
         }
       )
+      // 如果不是master，并且password不为空，则将text,summary修改
+      .then((postDocument) => {
+        if (!postDocument) {
+          throw new CannotFindException();
+        }
+        if (!isMaster && postDocument.password) {
+          if (!body.password || md5(body.password) !== postDocument.password) { // 将传入的 password 转换为 md5 字符串，与数据库中的 password 比较
+            throw new BadRequestException("密码错误");
+          }
+        }
+        return postDocument;
+      }))
       .populate("category"); // populate the category field
 
     if (!postDocument || postDocument.hide) { // 若遇到了 hide 字段为 true 的文章，则自动返回 404
@@ -201,6 +187,7 @@ export class PostController {
   @ApiOperation({ summary: "创建文章" })
   async create(@Body() body: PostModel) {
     const _id = new Types.ObjectId();
+    body.password ? body.password = md5(body.password) : body.password = null; // 将传入的 password 转换为 md5 字符串
     return await this.postService.model.create({
       ...body,
       created: new Date(),
@@ -217,6 +204,7 @@ export class PostController {
     if (!postDocument) {
       throw new CannotFindException();
     }
+    body.password ? body.password = md5(body.password) : body.password = null;
     return await postDocument.updateOne(body);
   }
 
@@ -228,6 +216,7 @@ export class PostController {
     if (!postDocument) {
       throw new CannotFindException();
     }
+    body.password ? body.password = md5(body.password) : body.password = null;
     return await postDocument.updateOne(body);
   }
 

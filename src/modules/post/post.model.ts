@@ -19,9 +19,9 @@ import { CategoryModel } from "../category/category.model";
 import { BeAnObject } from "@typegoose/typegoose/lib/types";
 import { Query } from "mongoose";
 import aggregatePaginate from 'mongoose-aggregate-paginate-v2'
+import { IsNilOrString } from "~/utils/validator/isNilOrString";
 
 @plugin(aggregatePaginate)
-@pre<PostModel>('findOne', autoPopulateRelated)
 @pre<PostModel>('findOne', autoPopulateCategory)
 @pre<PostModel>('find', autoPopulateCategory)
 @index({ slug: 1 })
@@ -139,9 +139,9 @@ export class PostModel extends WriteBaseModel {
 
   @prop({ type: String, default: null })
   @IsOptional()
-  @IsString()
+  @IsNilOrString()
   @ApiProperty({ description: "文章加密密码（若填写则启动加密）" })
-  password?: string;
+  password?: string | null;
 
   @prop({ type: Boolean, default: true })
   @IsOptional()
@@ -162,31 +162,6 @@ function autoPopulateCategory(
   next: () => void,
 ) {
   this.populate({ path: 'category' })
-  next()
-}
-
-function autoPopulateRelated(
-  this: Query<
-    any,
-    DocumentType<PostModel, BeAnObject>,
-    {},
-    DocumentType<PostModel, BeAnObject>
-  >,
-  next: () => void,
-) {
-  this.populate({
-    path: 'related',
-    select: [
-      'slug',
-      'title',
-      'summary',
-      'created',
-      'categoryId',
-      'modified',
-      '_id',
-      'id',
-    ],
-  })
   next()
 }
 
