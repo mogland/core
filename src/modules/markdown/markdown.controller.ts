@@ -10,7 +10,6 @@ import { MarkdownYAMLProps } from './markdown.interface';
 import { MarkdownService } from './markdown.service';
 import JSZip from 'jszip';
 import { join } from 'path';
-import { Readable } from 'stream';
 @Controller('markdown')
 @ApiName
 export class MarkdownController {
@@ -24,6 +23,7 @@ export class MarkdownController {
   @ApiProperty({ description: '导出 Markdown YAML 数据' })
   @HTTPDecorators.Bypass
   @Header('Content-Type', 'application/zip')
+  @Header('Content-Disposition', 'attachment; filename=markdown.zip')
   async exportMarkdown(@Query() { showTitle, slug, yaml }: ExportMarkdownDto) {
     const { posts, pages } = await this.markdownService.getAllMarkdownData();
 
@@ -95,11 +95,14 @@ export class MarkdownController {
       })
     )
 
-    const readable = new Readable()
-    readable.push(await rtzip.generateAsync({ type: 'nodebuffer' }))
-    readable.push(null)
+    const buffer = await rtzip.generateAsync({ type: 'nodebuffer' })
+    return buffer
 
-    return readable
+    // const readable = new Readable()
+    // readable.push()
+    // readable.push(null)
+
+    // return readable
 
   }
 }
