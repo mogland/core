@@ -16,7 +16,9 @@ export class BackupService {
   constructor(
     private readonly configs: ConfigsService,
     private readonly redis: CacheService,
-  ) { }
+  ) {
+    this.logger = new Logger(BackupService.name)
+  }
 
   async backup() {
     this.logger.log('正在备份数据库...')
