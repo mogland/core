@@ -149,7 +149,7 @@ export class PostController {
 
   @Get("/:category/:slug")
   @ApiOperation({ summary: "根据分类名与自定义别名获取文章详情" })
-  async getByCategoryAndSlug(@Param() params: CategoryAndSlugDto, @IsMaster() isMaster: boolean, @Cookies() password: any) {
+  async getByCategoryAndSlug(@Param() params: CategoryAndSlugDto, @IsMaster() isMaster: boolean, @Cookies("password") password: any) {
     const { category, slug } = params;
     const categoryDocument = await this.postService.getCategoryBySlug(category);
     console.log(password);

@@ -22,6 +22,6 @@ export const Cookies = createParamDecorator(
       cookieObj[key] = value;
     }
     );
-    return cookieObj;
+    return data ? cookieObj[data] : cookieObj;
   },
 );
