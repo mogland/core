@@ -152,9 +152,7 @@ export class PostController {
   async getByCategoryAndSlug(@Param() params: CategoryAndSlugDto, @IsMaster() isMaster: boolean, @Cookies("password") password: any) {
     const { category, slug } = params;
     const categoryDocument = await this.postService.getCategoryBySlug(category);
-    console.log(password);
     if (password === undefined || !password) password = null;
-    console.log(password);
     if (!categoryDocument) {
       throw new NotFoundException("该分类不存在w");
     }
