@@ -52,6 +52,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
+    "@fastify/multipart": "^7.1.0",
     "@fastify/static": "^6.4.0",
     "@fastify/view": "^7.0.0",
     "@nestjs/common": "9.0.3",
@@ -124,8 +125,6 @@
     "conventional-changelog": "^3.1.25",
     "cross-env": "7.0.3",
     "eslint": "*",
-    "fastify": "4.2.1",
-    "fastify-swagger": "5.1.1",
     "husky": "7.0.4",
     "ioredis": "*",
     "lint-staged": "12.3.8",
