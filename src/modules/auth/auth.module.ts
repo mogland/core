@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Global, Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { SECURITY } from "~/app.config";
@@ -19,6 +19,7 @@ const jwtModule = JwtModule.registerAsync({
     };
   },
 });
+@Global()
 @Module({
   imports: [PassportModule, jwtModule],
   providers: [AuthService, JwtStrategy],

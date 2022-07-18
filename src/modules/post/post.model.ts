@@ -19,9 +19,9 @@ import { CategoryModel } from "../category/category.model";
 import { BeAnObject } from "@typegoose/typegoose/lib/types";
 import { Query } from "mongoose";
 import aggregatePaginate from 'mongoose-aggregate-paginate-v2'
+import { IsNilOrString } from "~/utils/validator/isNilOrString";
 
 @plugin(aggregatePaginate)
-@pre<PostModel>('findOne', autoPopulateRelated)
 @pre<PostModel>('findOne', autoPopulateCategory)
 @pre<PostModel>('find', autoPopulateCategory)
 @index({ slug: 1 })
@@ -90,7 +90,7 @@ export class PostModel extends WriteBaseModel {
       return null;
     }
   })
-  @ApiProperty({ description: "文章置顶" })
+  @ApiProperty({ description: "文章pin日期" })
   pin?: Date | null;
 
   @prop()
@@ -130,6 +130,24 @@ export class PostModel extends WriteBaseModel {
   @IsOptional()
   @ApiProperty({ description: '文章修改时间' })
   modified?: Date
+
+  @prop({ type: Boolean, default: false })
+  @IsOptional()
+  @IsBoolean()
+  @ApiProperty({ description: "文章是否隐藏" })
+  hide?: boolean;
+
+  @prop({ type: String, default: null })
+  @IsOptional()
+  @IsNilOrString()
+  @ApiProperty({ description: "文章加密密码（若填写则启动加密）" })
+  password?: string | null;
+
+  @prop({ type: Boolean, default: true })
+  @IsOptional()
+  @IsBoolean()
+  @ApiProperty({ description: "文章是否公开在RSS输出" })
+  rss?: boolean;
 }
 
 
@@ -144,31 +162,6 @@ function autoPopulateCategory(
   next: () => void,
 ) {
   this.populate({ path: 'category' })
-  next()
-}
-
-function autoPopulateRelated(
-  this: Query<
-    any,
-    DocumentType<PostModel, BeAnObject>,
-    {},
-    DocumentType<PostModel, BeAnObject>
-  >,
-  next: () => void,
-) {
-  this.populate({
-    path: 'related',
-    select: [
-      'slug',
-      'title',
-      'summary',
-      'created',
-      'categoryId',
-      'modified',
-      '_id',
-      'id',
-    ],
-  })
   next()
 }
 

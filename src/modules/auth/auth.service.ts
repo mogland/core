@@ -14,6 +14,10 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
+  get jwtServicePublic() {
+    return this.jwtService;
+  }
+
   async signToken(_id: string) {
     const { authCode } = (await this.userModel
       .findById(_id)

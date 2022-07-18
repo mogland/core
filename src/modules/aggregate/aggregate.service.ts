@@ -105,7 +105,9 @@ export class AggregateService {
     const combineTasks = await Promise.all([
       this.postService.model
         .find({
-          hide: false,
+          hide: false, // 只获取发布的文章
+          password: { $nq: null }, // 只获取没有密码的文章
+          rss: true, // 只获取公开RSS的文章
         })
         .populate("category")
         .then((list) =>
@@ -141,7 +143,11 @@ export class AggregateService {
 
     const [posts] = await Promise.all([
       this.postService.model
-        .find({ hide: false })
+        .find({ 
+          hide: false,
+          password: { $nq: null },
+          rss: true,
+         })
         .limit(10)
         .sort({ created: -1 })
         .populate("category"),
@@ -184,7 +190,11 @@ export class AggregateService {
   async getCounts() {
     const [posts, pages, categories, comments, allComments, unreadComments] =
       await Promise.all([
-        this.postService.model.countDocuments(),
+        this.postService.model.countDocuments({
+          hide: false,
+          password: { $nq: null },
+          rss: true,
+        }),
         this.pageService.model.countDocuments(),
         this.categoryService.model.countDocuments(),
         this.commentService.model.countDocuments({

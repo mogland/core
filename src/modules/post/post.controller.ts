@@ -22,20 +22,22 @@ import { Auth } from "~/common/decorator/auth.decorator";
 import { PostModel } from "./post.model";
 import { Types, PipelineStage } from "mongoose";
 import { MongoIdDto } from "~/shared/dto/id.dto";
+import { IsMaster } from "~/common/decorator/role.decorator";
+import { md5 } from "~/utils/tools.util";
+import { Cookies } from "~/common/decorator/cookie.decorator";
 @Controller("posts")
 @ApiName
 export class PostController {
   constructor(
     private readonly postService: PostService
   ) // private readonly countingService: CountingService,
-  {}
+  { }
 
   @Get('/')
   @Paginator
   @ApiOperation({ summary: "获取文章列表(附带分页器)" })
-  async getPaginate(@Query() query: PagerDto) {
+  async getPaginate(@Query() query: PagerDto, @IsMaster() isMaster: boolean) {
     const { size, select, page, year, sortBy, sortOrder } = query
-
     return this.postService.model.aggregatePaginate(
       this.postService.model.aggregate(
         [
@@ -58,19 +60,54 @@ export class PostController {
               },
             },
           },
+          // if not master, only show published posts
+          !isMaster && {
+            $match: { // match the condition
+              hide: { $ne: true }, // $ne: not equal
+            }
+          },
+          // 如果不是master，并且password不为空，则将text,summary修改
+          !isMaster && {
+            $set: { // set the field to a new value
+              summary: {
+                $cond: {
+                  if: { $ne: ['$password', null], }, // if "password" is not null
+                  then: { $concat: ['内容已被隐藏，请输入密码'] }, // then the value of "内容已被隐藏"
+                  else: '$title', // otherwise, use the original title
+                }, // $concat: 用于拼接字符串
+              },
+              text: {
+                $cond: {
+                  // 如果密码字段不为空，且isMaster为false，则不显示
+                  if: {
+                    $ne: ['$password', null]
+                  }, // whether "b" is not null
+                  then: { $concat: ['内容已被隐藏，请输入密码'] },
+                  else: '$text',
+                },
+              },
+            },
+          },
+          !isMaster && { // if not master, only show usual fields
+            $project: {
+              hide: 0,
+              password: 0,
+              rss: 0,
+            },
+          },
           {
             $sort: sortBy
               ? {
-                  [sortBy]: sortOrder as any,
-                }
+                [sortBy]: sortOrder as any,
+              }
               : {
-                  sortField: -1, // sort by our computed field
-                  pin: -1,
-                  created: -1, // and then by the "created" field
-                },
+                sortField: -1, // sort by our computed field
+                pin: -1,
+                created: -1, // and then by the "created" field
+              },
           },
           {
-            $project: {
+            $project: { // project the fields we want to keep
               sortField: 0, // remove "sort" field if needed
             },
           },
@@ -111,20 +148,37 @@ export class PostController {
 
   @Get("/:category/:slug")
   @ApiOperation({ summary: "根据分类名与自定义别名获取文章详情" })
-  async getByCategoryAndSlug(@Param() params: CategoryAndSlugDto) {
+  async getByCategoryAndSlug(@Param() params: CategoryAndSlugDto, @IsMaster() isMaster: boolean, @Cookies("password") password: any) {
     const { category, slug } = params;
     const categoryDocument = await this.postService.getCategoryBySlug(category);
+    if (password === undefined || !password) password = null;
     if (!categoryDocument) {
       throw new NotFoundException("该分类不存在w");
     }
-    const postDocument = await this.postService.model
-      .findOne({
-        category: categoryDocument._id,
-        slug,
-      })
-      .populate("category");
+    const postDocument = await (await this.postService.model
+      .findOne(
+        {
+          category: categoryDocument._id,
+          slug,
+        }
+      )
+      // 如果不是master，并且password不为空，则将text,summary修改
+      .then((postDocument) => {
+        if (!postDocument) {
+          throw new CannotFindException();
+        }
+        if (!isMaster && postDocument.password) {
+          if (!password || md5(password) !== postDocument.password) { // 将传入的 password 转换为 md5 字符串，与数据库中的 password 比较
+            // 将text, summary改为"内容已被隐藏"
+            postDocument.text = "内容已被隐藏，请输入密码";
+            postDocument.summary = "内容已被隐藏，请输入密码";
+          }
+        }
+        return postDocument;
+      }))
+      .populate("category"); // populate the category field
 
-    if (!postDocument) {
+    if (!postDocument || postDocument.hide) { // 若遇到了 hide 字段为 true 的文章，则自动返回 404
       throw new CannotFindException();
     }
     return postDocument.toJSON();
@@ -135,6 +189,7 @@ export class PostController {
   @ApiOperation({ summary: "创建文章" })
   async create(@Body() body: PostModel) {
     const _id = new Types.ObjectId();
+    body.password ? body.password = md5(body.password) : body.password = null; // 将传入的 password 转换为 md5 字符串
     return await this.postService.model.create({
       ...body,
       created: new Date(),
@@ -151,6 +206,7 @@ export class PostController {
     if (!postDocument) {
       throw new CannotFindException();
     }
+    body.password ? body.password = md5(body.password) : body.password = null;
     return await postDocument.updateOne(body);
   }
 
@@ -162,6 +218,7 @@ export class PostController {
     if (!postDocument) {
       throw new CannotFindException();
     }
+    body.password ? body.password = md5(body.password) : body.password = null;
     return await postDocument.updateOne(body);
   }
 

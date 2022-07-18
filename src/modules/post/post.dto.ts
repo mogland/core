@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-21 23:59:41
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-21 23:59:42
+ * @LastEditTime: 2022-07-17 22:38:09
  * Coding With IU
  */
 
@@ -17,4 +17,8 @@ export class CategoryAndSlugDto {
   @IsString()
   @Transform(({ value: v }) => decodeURI(v))
   readonly slug: string;
+}
+
+export class PostVerifyDto {
+  readonly password: string | undefined | null;
 }

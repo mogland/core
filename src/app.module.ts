@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { APP_FILTER, APP_INTERCEPTOR } from "@nestjs/core";
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import { AppController } from "./app.controller";
 import { AllExceptionsFilter } from "./common/filters/any-exception.filter";
 import { HttpCacheInterceptor } from "./common/interceptors/cache.interceptor";
@@ -21,6 +21,8 @@ import { AggregateModule } from "./modules/aggregate/aggregate.module";
 import { LinksModule } from "./modules/links/links.module";
 import { ScheduleModule } from "@nestjs/schedule";
 import { InitModule } from "./modules/init/init.module";
+import { RolesGuard } from "./common/guard/roles.guard";
+import { AuthModule } from "./modules/auth/auth.module";
 
 @Module({
   imports: [
@@ -28,6 +30,7 @@ import { InitModule } from "./modules/init/init.module";
     CacheModule,
     DbModule,
     LoggerModule,
+    AuthModule,
     PostModule,
     UserModule,
     CategoryModule,
@@ -60,6 +63,10 @@ import { InitModule } from "./modules/init/init.module";
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })
