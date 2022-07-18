@@ -80,6 +80,7 @@
     "handlebars": "^4.7.7",
     "i": "^0.3.7",
     "lodash": "*",
+    "mkdirp": "^1.0.4",
     "mongoose": "6.4.4",
     "mongoose-aggregate-paginate-v2": "1.0.6",
     "mongoose-lean-id": "0.3.0",

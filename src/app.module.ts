@@ -23,6 +23,7 @@ import { ScheduleModule } from "@nestjs/schedule";
 import { InitModule } from "./modules/init/init.module";
 import { RolesGuard } from "./common/guard/roles.guard";
 import { AuthModule } from "./modules/auth/auth.module";
+import { BackupModule } from './modules/backup/backup.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { AuthModule } from "./modules/auth/auth.module";
     AggregateModule,
     LinksModule,
     InitModule,
+    BackupModule,
   ],
   controllers: [AppController],
   providers: [
