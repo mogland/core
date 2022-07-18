@@ -25,6 +25,7 @@ import { Types, PipelineStage } from "mongoose";
 import { MongoIdDto } from "~/shared/dto/id.dto";
 import { IsMaster } from "~/common/decorator/role.decorator";
 import { md5 } from "~/utils/tools.util";
+import { Cookies } from "~/common/decorator/cookie.decorator";
 @Controller("posts")
 @ApiName
 export class PostController {
@@ -148,10 +149,12 @@ export class PostController {
 
   @Get("/:category/:slug")
   @ApiOperation({ summary: "根据分类名与自定义别名获取文章详情" })
-  async getByCategoryAndSlug(@Param() params: CategoryAndSlugDto, @IsMaster() isMaster: boolean, @Body() body: any) {
+  async getByCategoryAndSlug(@Param() params: CategoryAndSlugDto, @IsMaster() isMaster: boolean, @Cookies() password: any) {
     const { category, slug } = params;
     const categoryDocument = await this.postService.getCategoryBySlug(category);
-    if (body === undefined || body.password === undefined || !body.password) body = { password: null };
+    console.log(password);
+    if (password === undefined || !password) password = null;
+    console.log(password);
     if (!categoryDocument) {
       throw new NotFoundException("该分类不存在w");
     }
@@ -168,8 +171,10 @@ export class PostController {
           throw new CannotFindException();
         }
         if (!isMaster && postDocument.password) {
-          if (!body.password || md5(body.password) !== postDocument.password) { // 将传入的 password 转换为 md5 字符串，与数据库中的 password 比较
-            throw new BadRequestException("密码错误");
+          if (!password || md5(password) !== postDocument.password) { // 将传入的 password 转换为 md5 字符串，与数据库中的 password 比较
+            // 将text, summary改为"内容已被隐藏"
+            postDocument.text = "内容已被隐藏，请输入密码";
+            postDocument.summary = "内容已被隐藏，请输入密码";
           }
         }
         return postDocument;
