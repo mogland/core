@@ -25,9 +25,8 @@ import { PageService } from "./page.service";
 @ApiName
 export class PageController {
   constructor(
-    private readonly pageService: PageService // @Inject(forwardRef(() => PluginsService))
-  ) // private readonly pluginService: PluginsService,
-  {}
+    private readonly pageService: PageService // @Inject(forwardRef(() => PluginsService)) // private readonly pluginService: PluginsService,
+  ) {}
 
   @Get("/")
   @Paginator

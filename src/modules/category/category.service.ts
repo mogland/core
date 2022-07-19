@@ -144,6 +144,33 @@ export class CategoryService {
   }
 
   /**
+   * mergeTag 合并标签
+   * @param from 标签名
+   * @param to 目标标签名
+   */
+  async mergeTag(from: string, to: string) {
+    const posts = await this.postService.model.find({ tags: from }); // 查找所有包含 from 标签的文章
+    for (const post of posts) {
+      const tags = post.tags?.filter((tag) => tag !== from); // 删除 from 标签
+      tags?.push(to); // 将 to 标签添加到 tags 数组中
+      await post.updateOne({ tags }); // 更新文章的 tags 字段
+    }
+  }
+
+  /**
+   * 合并分类
+   * @param from 分类名
+   * @param to 目标分类名
+   */
+  async mergeCategory(from: string, to: string) {
+    await this.postService.model.updateMany(
+      { categoryId: from },
+      { categoryId: to }
+    ); // 更新文章的 categoryId 字段 为 to
+    await this.categoryModel.deleteOne({ _id: from }); // 删除 from 分类
+  }
+
+  /**
    * 创建默认分类
    * @returns Promise<CategoryModel[]>
    */
