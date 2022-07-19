@@ -22,11 +22,56 @@ export class MarkdownService {
     private readonly dbService: DbService,
   ) { }
 
+  // 将 Markdown 数据转换成 YAML 数据 的「转换器」
+  convertor = <
+    T extends {
+      title: string,
+      slug: string,
+      text: string,
+      created?: Date,
+      modified?: Date | null,
+    }>(
+      item: T, // 待转换的数据
+      metaData: Record<string, any> = {}, // 其他字段
+      yaml,
+      showTitle,
+  ): MarkdownYAMLProps => {
+
+    const meta = {
+      ...metaData,
+      title: item.title,
+      slug: item.slug || item.title,
+      created: item.created!,
+      modified: item.modified,
+    }
+
+    return {
+      meta,
+      text: this.markdownBuilder(
+        { meta, text: item.text },
+        yaml,
+        showTitle,
+      )
+    }
+  }
+
   async getAllMarkdownData() {
     return {
       posts: await this.postModel.find({}).populate('category'), // 待讨论：加密文章是否允许导出？
       pages: await this.pageModel.find({}).lean(),
     }
+  }
+
+  async getSomeMarkdownData(id: string[]) {
+    const docs = await Promise.all([
+      this.postModel.find({ _id: { $in: id } }).populate('category'),
+      this.pageModel.find({ _id: { $in: id } }).lean(),
+    ]);
+    const [posts, pages] = docs;
+    return {
+      posts,
+      pages,
+    };
   }
 
   markdownBuilder(

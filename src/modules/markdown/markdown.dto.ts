@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-18 21:25:29
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-18 21:34:19
+ * @LastEditTime: 2022-07-19 11:21:33
  * Coding With IU
  */
 
@@ -65,4 +65,11 @@ export class ExportMarkdownDto {
   @Transform(({ value }) => value === '1' || value === 'true')
   @ApiProperty({ description: 'Markdown 文件第一行是否显示标题' })
   showTitle?: boolean;
+}
+
+export class ExportSomeMarkdownsDto {
+  @IsString()
+  // @Transform(({ value }) => value.split(',')) // 将字符串转换成数组
+  @ApiProperty({ description: '要导出的 Markdown 文件 ID' })
+  id: string[];
 }
