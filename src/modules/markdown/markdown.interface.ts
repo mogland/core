@@ -20,13 +20,13 @@ export interface MarkdownYAMLProps {
 }
 
 export const ArticleType = Object.freeze({
-  Post: 'post',
-  Note: 'note',
-  Page: 'page',
-} as const)
+  Post: "post",
+  Note: "note",
+  Page: "page",
+} as const);
 
 export enum ArticleTypeEnum {
-  Post = 'post',
-  Note = 'note',
-  Page = 'page',
+  Post = "post",
+  Note = "note",
+  Page = "page",
 }

@@ -143,11 +143,11 @@ export class AggregateService {
 
     const [posts] = await Promise.all([
       this.postService.model
-        .find({ 
+        .find({
           hide: false,
           password: { $nq: null },
           rss: true,
-         })
+        })
         .limit(10)
         .sort({ created: -1 })
         .populate("category"),

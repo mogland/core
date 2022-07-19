@@ -17,8 +17,8 @@ export const IsGuest = createParamDecorator(
   }
 );
 
-export const IsMaster = createParamDecorator( 
-  (data: unknown, ctx: ExecutionContext) => { 
+export const IsMaster = createParamDecorator(
+  (data: unknown, ctx: ExecutionContext) => {
     const request = getNestExecutionContextRequest(ctx); // get the request from the execution context
     return request.isMaster; // return the value of the "isMaster" property
   }

@@ -11,9 +11,8 @@ import { CannotFindException } from "~/common/exceptions/cant-find.exception";
 export class PageService {
   constructor(
     @InjectModel(PageModel)
-    private readonly pageModel: MongooseModel<PageModel>
-  ) // private readonly pluginService: PluginsService,
-  {}
+    private readonly pageModel: MongooseModel<PageModel> // private readonly pluginService: PluginsService,
+  ) {}
 
   public get model() {
     return this.pageModel;

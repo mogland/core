@@ -25,12 +25,12 @@ export const Bypass: MethodDecorator = (
 
 export function FileUpload({ description }: FileDecoratorProps) {
   return applyDecorators(
-    ApiConsumes('multipart/form-data'),
+    ApiConsumes("multipart/form-data"),
     ApiBody({
       description,
       type: FileUploadDto,
-    }),
-  )
+    })
+  );
 }
 
 export declare interface FileDecoratorProps {

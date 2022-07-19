@@ -8,4 +8,4 @@ export const DATA_DIR = isDev
   : join(HOME, `.${appName}`);
 export const PLUGIN_DIR = join(DATA_DIR, "plugins");
 export const LOG_DIR = join(DATA_DIR, "log");
-export const BACKUP_DIR = join(DATA_DIR, "backup")
+export const BACKUP_DIR = join(DATA_DIR, "backup");

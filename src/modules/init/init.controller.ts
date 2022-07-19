@@ -22,7 +22,7 @@ export class InitController {
   @Get("/")
   @ApiOperation({ summary: "获取初始化情况" })
   async canInit() {
-    return await this.init.canInit()
+    return await this.init.canInit();
   }
 
   @Get("/configs/get/default")

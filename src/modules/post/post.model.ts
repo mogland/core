@@ -1,6 +1,15 @@
 import { UnprocessableEntityException } from "@nestjs/common";
 import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
-import { Severity, index, modelOptions, prop, Ref, DocumentType, pre, plugin } from "@typegoose/typegoose";
+import {
+  Severity,
+  index,
+  modelOptions,
+  prop,
+  Ref,
+  DocumentType,
+  pre,
+  plugin,
+} from "@typegoose/typegoose";
 import { Transform } from "class-transformer";
 import {
   IsBoolean,
@@ -18,12 +27,12 @@ import { CountMixed as Count, WriteBaseModel } from "~/shared/model/base.model";
 import { CategoryModel } from "../category/category.model";
 import { BeAnObject } from "@typegoose/typegoose/lib/types";
 import { Query } from "mongoose";
-import aggregatePaginate from 'mongoose-aggregate-paginate-v2'
+import aggregatePaginate from "mongoose-aggregate-paginate-v2";
 import { IsNilOrString } from "~/utils/validator/isNilOrString";
 
 @plugin(aggregatePaginate)
-@pre<PostModel>('findOne', autoPopulateCategory)
-@pre<PostModel>('find', autoPopulateCategory)
+@pre<PostModel>("findOne", autoPopulateCategory)
+@pre<PostModel>("find", autoPopulateCategory)
 @index({ slug: 1 })
 @index({ modified: -1 })
 @index({ text: "text" })
@@ -42,7 +51,7 @@ export class PostModel extends WriteBaseModel {
 
   @prop({ ref: () => CategoryModel, required: true })
   @IsMongoId()
-  @ApiProperty({ example: '5eb2c62a613a5ab0642f1f7a' })
+  @ApiProperty({ example: "5eb2c62a613a5ab0642f1f7a" })
   @ApiProperty({ description: "文章分类" })
   categoryId: Ref<CategoryModel>;
 
@@ -128,8 +137,8 @@ export class PostModel extends WriteBaseModel {
   })
   @IsString()
   @IsOptional()
-  @ApiProperty({ description: '文章修改时间' })
-  modified?: Date
+  @ApiProperty({ description: "文章修改时间" })
+  modified?: Date;
 
   @prop({ type: Boolean, default: false })
   @IsOptional()
@@ -150,8 +159,6 @@ export class PostModel extends WriteBaseModel {
   rss?: boolean;
 }
 
-
-
 function autoPopulateCategory(
   this: Query<
     any,
@@ -159,9 +166,8 @@ function autoPopulateCategory(
     {},
     DocumentType<PostModel, BeAnObject>
   >,
-  next: () => void,
+  next: () => void
 ) {
-  this.populate({ path: 'category' })
-  next()
+  this.populate({ path: "category" });
+  next();
 }
-

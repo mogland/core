@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common";
 import { PostModel } from "./post.model";
 import { InjectModel } from "~/transformers/model.transformer";
-import { AggregatePaginateModel, Document } from 'mongoose'
+import { AggregatePaginateModel, Document } from "mongoose";
 import { CategoryService } from "../category/category.service";
 import slugify from "slugify";
 import { isDefined } from "class-validator";
@@ -26,7 +26,6 @@ export class PostService {
   get model() {
     return this.postModel;
   }
-
 
   /**
    * 创建新文章

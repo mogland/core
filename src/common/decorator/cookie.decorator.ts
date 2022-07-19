@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-07-18 16:49:42
  * Coding With IU
  */
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { createParamDecorator, ExecutionContext } from "@nestjs/common";
 
 export const Cookies = createParamDecorator(
   (data: string, ctx: ExecutionContext) => {
@@ -15,13 +15,12 @@ export const Cookies = createParamDecorator(
     const cookies = request.headers.cookie;
     console.log(cookies);
     // 解析 cookie
-    const cookie = cookies ? cookies.split('; ') : [];
+    const cookie = cookies ? cookies.split("; ") : [];
     const cookieObj = {};
-    cookie.forEach(item => {
-      const [key, value] = item.split('=');
+    cookie.forEach((item) => {
+      const [key, value] = item.split("=");
       cookieObj[key] = value;
-    }
-    );
+    });
     return data ? cookieObj[data] : cookieObj;
-  },
+  }
 );

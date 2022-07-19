@@ -23,14 +23,14 @@ export async function bootstrap() {
   );
 
   app.useStaticAssets({
-    root: join(__dirname, '..', 'public'),
-    prefix: '/public/',
+    root: join(__dirname, "..", "public"),
+    prefix: "/public/",
   });
   app.setViewEngine({
     engine: {
-      handlebars: require('handlebars'),
+      handlebars: require("handlebars"),
     },
-    templates: join(__dirname, '..', 'views'),
+    templates: join(__dirname, "..", "views"),
   });
 
   const hosts = Origin.map((host) => new RegExp(host, "i"));
