@@ -94,7 +94,7 @@ specifiers:
   typescript: 4.6.2
   vite-tsconfig-paths: 3.4.1
   vitest: 0.16.0
-  vm2: ^3.9.9
+  vm2: 3.9.10
   webpack: '*'
   webpack-node-externals: 3.0.0
   xml2js: ^0.4.23
@@ -151,7 +151,7 @@ dependencies:
   rxjs: 7.5.5
   slugify: 1.6.5
   snakecase-keys: 5.4.1
-  vm2: 3.9.9
+  vm2: 3.9.10
   xml2js: 0.4.23
   zx-cjs: 6.1.0
 
@@ -7187,8 +7187,8 @@ packages:
       - supports-color
     dev: true
 
-  /vm2/3.9.9:
-    resolution: {integrity: sha512-xwTm7NLh/uOjARRBs8/95H0e8fT3Ukw5D/JJWhxMbhKzNh1Nu981jQKvkep9iKYNxzlVrdzD0mlBGkDKZWprlw==}
+  /vm2/3.9.10:
+    resolution: {integrity: sha512-AuECTSvwu2OHLAZYhG716YzwodKCIJxB6u1zG7PgSQwIgAlEaoXH52bxdcvT8GkGjnYK7r7yWDW0m0sOsPuBjQ==}
     engines: {node: '>=6.0'}
     hasBin: true
     dependencies:
