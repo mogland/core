@@ -1,4 +1,4 @@
-# NextSpace Server v1.x `Alpha`
+# NextSpace Server v1.5.1
 
 the RESTful API service for NEXT Space, powered by @nestjs. 
 
