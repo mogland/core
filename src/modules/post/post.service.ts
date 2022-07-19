@@ -13,6 +13,7 @@ import { isDefined } from "class-validator";
 import { omit } from "lodash";
 import { BusinessException } from "~/common/exceptions/business.excpetion";
 import { ErrorCodeEnum } from "~/constants/error-code.constant";
+import { ImageService } from "~/processors/helper/helper.image.service";
 
 @Injectable()
 export class PostService {
@@ -21,7 +22,9 @@ export class PostService {
     private readonly postModel: MongooseModel<PostModel> &
       AggregatePaginateModel<PostModel & Document>,
     @Inject(forwardRef(() => CategoryService))
-    private readonly categoryService: CategoryService
+    private readonly categoryService: CategoryService,
+    
+    private readonly imageService: ImageService,
   ) {}
   get model() {
     return this.postModel;
@@ -53,6 +56,11 @@ export class PostService {
       created: new Date(),
       modified: null,
     });
+    process.nextTick(async () => { // 异步更新缓存
+      await Promise.all([
+        this.imageService.recordImageMeta(this.model as MongooseModel<PostModel>, res._id)
+      ])
+    })
     return res;
   }
 
@@ -96,6 +104,13 @@ export class PostService {
     }
     Object.assign(originDocument, omit(data, PostModel.protectedKeys));
     await originDocument.save();
+
+    process.nextTick(async () => {
+      await Promise.all([
+        this.imageService.recordImageMeta(this.model as MongooseModel<PostModel>, id)
+      ])
+    })
+
     return originDocument.toObject();
   }
 

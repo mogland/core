@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -25,11 +26,14 @@ import { MongoIdDto } from "~/shared/dto/id.dto";
 import { IsMaster } from "~/common/decorator/role.decorator";
 import { md5 } from "~/utils/tools.util";
 import { Cookies } from "~/common/decorator/cookie.decorator";
+import { IpLocation, IpRecord } from "~/common/decorator/ip.decorator";
+import { ThumbsService } from "~/processors/helper/helper.thumbs.service";
 @Controller("posts")
 @ApiName
 export class PostController {
   constructor(
-    private readonly postService: PostService // private readonly countingService: CountingService,
+    private readonly postService: PostService,
+    private readonly thumbsService: ThumbsService,
   ) {}
 
   @Get("/")
@@ -244,5 +248,24 @@ export class PostController {
   async delete(@Param() params: MongoIdDto) {
     const { id } = params;
     await this.postService.deletePost(id);
+  }
+
+  @Get('/_like')
+  async thumbsUpArticle(
+    @Query() query: MongoIdDto,
+    @IpLocation() location: IpRecord,
+  ) {
+    const { ip } = location
+    const { id } = query
+    try {
+      const res = await this.thumbsService.updateLikeCount('Post', id, ip)
+      if (!res) {
+        throw new BadRequestException('你已经支持过啦!')
+      }
+    } catch (e: any) {
+      throw new BadRequestException(e)
+    }
+
+    return
   }
 }
