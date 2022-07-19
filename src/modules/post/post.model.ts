@@ -62,7 +62,7 @@ export class PostModel extends WriteBaseModel {
     justOne: true,
   })
   @ApiHideProperty()
-  public category: Ref<CategoryModel>;
+  public category?: Ref<CategoryModel>;
 
   @prop()
   @IsBoolean()

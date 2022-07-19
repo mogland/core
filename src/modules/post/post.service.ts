@@ -14,6 +14,7 @@ import { omit } from "lodash";
 import { BusinessException } from "~/common/exceptions/business.excpetion";
 import { ErrorCodeEnum } from "~/constants/error-code.constant";
 import { ImageService } from "~/processors/helper/helper.image.service";
+import { CommentModel, CommentType } from "../comment/comment.model";
 
 @Injectable()
 export class PostService {
@@ -21,11 +22,13 @@ export class PostService {
     @InjectModel(PostModel)
     private readonly postModel: MongooseModel<PostModel> &
       AggregatePaginateModel<PostModel & Document>,
+    @InjectModel(CommentModel)
+    private readonly commentModel: MongooseModel<CommentModel>,
     @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
-    
+
     private readonly imageService: ImageService,
-  ) {}
+  ) { }
   get model() {
     return this.postModel;
   }
@@ -122,7 +125,7 @@ export class PostService {
   async deletePost(id: string) {
     await Promise.all([
       this.model.deleteOne({ _id: id }),
-      // this.commentModel.deleteMany({ ref: id, refType: CommentRefTypes.Post }),
+      this.commentModel.deleteMany({ ref: id, refType: CommentType.Post }),
     ]);
   }
 

@@ -111,7 +111,6 @@ export class UserService {
           text: "欢迎来到 NEXT，当你看到这条文章的时候，说明你已经成功的安装并初始化了 NEXT。",
           summary: "欢迎来到 NEXT",
           categoryId: defaultCateId,
-          category: defaultCate,
         }),
         this.pageService.create({
           title: "NEXT 的第一个页面",
