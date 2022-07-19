@@ -5,10 +5,11 @@ import { Auth } from '~/common/decorator/auth.decorator';
 import { HTTPDecorators } from '~/common/decorator/http.decorator';
 import { ApiName } from '~/common/decorator/openapi.decorator';
 import { CategoryModel } from '../category/category.model';
-import { ExportMarkdownDto } from './markdown.dto';
+import { ExportMarkdownDto, ImportMarkdownDto } from './markdown.dto';
 import { MarkdownService } from './markdown.service';
 import JSZip from 'jszip';
 import { join } from 'path';
+import { ArticleTypeEnum } from './markdown.interface';
 @Controller('markdown')
 @ApiName
 export class MarkdownController {
@@ -146,5 +147,21 @@ export class MarkdownController {
 
     // return readable
 
+  }
+
+  @Post('/import')
+  @Auth()
+  @ApiProperty({ description: '导入 Markdown YAML 数据' })
+  async importMarkdownData(@Body() body: ImportMarkdownDto) {
+    const type = body.type
+
+    switch (type) {
+      case ArticleTypeEnum.Post: {
+        return await this.markdownService.importPostMarkdownData(body.data)
+      }
+      case ArticleTypeEnum.Page: {
+        return await this.markdownService.importPageMarkdownData(body.data)
+      }
+    }
   }
 }

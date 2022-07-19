@@ -243,4 +243,35 @@ ${text.trim()}
     })
 
   }
+
+  /**
+   * 导入页面
+   * @param data 数据
+   */
+  async importPageMarkdownData(data: DataDto[]) {
+    let count = 1
+    const models = [] as PageModel[]
+    for await (const item of data) {
+      if (item.meta) {
+        models.push({
+          title: item.meta.title,
+          slug: item.meta.slug || item.meta.title.replace(/\s/g, '-'),
+          text: item.text,
+          ...this.genDate(item),
+        } as PageModel)
+      } else {
+        models.push({
+          title: `未命名-${count++}`,
+          slug: new Date().getTime(),
+          text: item.text,
+          ...this.genDate(item),
+        } as any as PageModel)
+      }
+    }
+    return await this.pageModel.insertMany(models, { ordered: false }).catch(err => {
+      Logger.warn(`一个或多个页面导入失败：${err.message}`, MarkdownService.name)
+    })
+  }
+
+
 }
