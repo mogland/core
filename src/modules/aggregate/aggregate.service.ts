@@ -32,7 +32,7 @@ export class AggregateService {
     private readonly configsService: ConfigsService,
     private readonly redis: CacheService,
     private readonly urlService: UrlService
-  ) {}
+  ) { }
 
   /**
    * getAllCategory 获取所有分类
@@ -110,12 +110,18 @@ export class AggregateService {
           rss: true, // 只获取公开RSS的文章
         })
         .populate("category")
+        .then((list) => {
+          // 如果文章存在密码，则不获取
+          return list.filter((document) => {
+            return document.password === null;
+          })
+        })
         .then((list) =>
+
           list.map((document) => {
             return {
               url: new URL(
-                `/posts/${(document.category as CategoryModel).slug}/${
-                  document.slug
+                `/posts/${(document.category as CategoryModel).slug}/${document.slug
                 }`,
                 baseURL
               ),
@@ -128,7 +134,9 @@ export class AggregateService {
     ]);
     return combineTasks
       .flat(1)
-      .sort((a, b) => -(a.published_at.getTime() - b.published_at.getTime()));
+      .sort((a, b) => {
+        return -a.published_at.getTime() - b.published_at.getTime();
+      });
   }
 
   /**
@@ -142,15 +150,21 @@ export class AggregateService {
     const baseURL = webUrl.replace(/\/$/, "");
 
     const [posts] = await Promise.all([
-      this.postService.model
+      await this.postService.model
         .find({
           hide: false,
-          password: { $nq: null },
           rss: true,
         })
         .limit(10)
         .sort({ created: -1 })
-        .populate("category"),
+        .populate("category")
+        .then((list) => {
+          // 如果文章存在密码，则不获取
+          return list.filter((document) => {
+            return document.password === null;
+          })
+        })
+
     ]);
     const postsRss: RSSProps["data"] = posts.map((post) => {
       return {
