@@ -6,7 +6,6 @@ import { ConfigsService } from "./configs.service";
 @Global()
 @Module({
   imports: [UserModule],
-  // controllers: [ConfigsController],
   providers: [ConfigsService],
   exports: [ConfigsService],
 })

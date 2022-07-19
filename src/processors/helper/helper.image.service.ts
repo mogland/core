@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-19 13:24:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-19 14:09:18
+ * @LastEditTime: 2022-07-19 15:05:21
  * Coding With IU
  */
 
@@ -11,7 +11,7 @@ import { Injectable, InternalServerErrorException, Logger } from "@nestjs/common
 import { ReturnModelType } from "@typegoose/typegoose";
 import imageSize from "image-size";
 import { marked } from "marked";
-import { ConfigsService } from "~/modules/configs/configs.service";
+// import { ConfigsService } from "~/modules/configs/configs.service";
 import { WriteBaseModel } from "~/shared/model/base.model";
 import { ImageModel } from "~/shared/model/image.model";
 import { getImageColor } from "~/utils/pic.util";
@@ -23,7 +23,7 @@ export class ImageService {
   private logger: Logger
   constructor(
     private readonly httpService: HttpService,
-    private readonly configs: ConfigsService,
+    // private readonly configsService: ConfigsService,
   ) {
     this.logger = new Logger(ImageService.name)
   }
@@ -49,15 +49,17 @@ export class ImageService {
   }
 
   async getOnlineImageMeta(src: string) {
-    const {
-      urls: { webUrl },
-    } = await this.configs.waitForConfigReady()
+    // FIXME: configsService 无法导入，即使在 src/processors/helper/helper.module.ts 中引入了 ConfigsModule
+    
+    // const {
+    //   urls: { webUrl },
+    // } = await this.configsService.waitForConfigReady()
     const { data, headers } = await this.httpService.axiosRef.get<any>(src, {
       responseType: 'arraybuffer',
       headers: {
         'user-agent':
           'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36',
-        referer: webUrl,
+        // referer: webUrl,
       },
     })
     const type = headers['content-type']

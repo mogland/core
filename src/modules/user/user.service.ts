@@ -105,13 +105,7 @@ export class UserService {
       throw new BadRequestException("初始化分类失败");
     } else {
       await Promise.all([
-        this.postService.create({
-          title: "欢迎来到 NEXT",
-          slug: "welcome-to-next",
-          text: "欢迎来到 NEXT，当你看到这条文章的时候，说明你已经成功的安装并初始化了 NEXT。",
-          summary: "欢迎来到 NEXT",
-          categoryId: defaultCateId,
-        }),
+        this.postService.CreateDefaultPost(defaultCateId),
         this.pageService.create({
           title: "NEXT 的第一个页面",
           slug: "welcome-to-next-page",

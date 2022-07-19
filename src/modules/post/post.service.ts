@@ -27,7 +27,7 @@ export class PostService {
     @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
 
-    private readonly imageService: ImageService,
+    // private readonly imageService: ImageService,
   ) { }
   get model() {
     return this.postModel;
@@ -61,7 +61,7 @@ export class PostService {
     });
     process.nextTick(async () => { // 异步更新缓存
       await Promise.all([
-        this.imageService.recordImageMeta(this.model as MongooseModel<PostModel>, res._id)
+        // this.imageService.recordImageMeta(this.model as MongooseModel<PostModel>, res._id)
       ])
     })
     return res;
@@ -110,7 +110,7 @@ export class PostService {
 
     process.nextTick(async () => {
       await Promise.all([
-        this.imageService.recordImageMeta(this.model as MongooseModel<PostModel>, id)
+        // this.imageService.recordImageMeta(this.model as MongooseModel<PostModel>, id)
       ])
     })
 
@@ -145,5 +145,19 @@ export class PostService {
    */
   async isAvailableSlug(slug: string) {
     return (await this.postModel.countDocuments({ slug })) === 0;
+  }
+
+  async CreateDefaultPost(cateId: string) {
+    await this.postModel.countDocuments({}).then(async (count) => {
+      if (!count) {
+        this.postModel.countDocuments({
+          title: "欢迎来到 NEXT",
+          slug: "welcome-to-next",
+          text: "欢迎来到 NEXT，当你看到这条文章的时候，说明你已经成功的安装并初始化了 NEXT。",
+          summary: "欢迎来到 NEXT",
+          categoryId: cateId,
+        })
+      }
+    })
   }
 }
