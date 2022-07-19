@@ -10,7 +10,7 @@
     "url": "https://github.com/nx-space/core"
   },
   "homepage": "https://github.com/nx-space/core#readme",
-  "issues": "https://github.com/nx-space/core/issues",
+  "bugs": "https://github.com/nx-space/core/issues",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
