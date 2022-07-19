@@ -96,6 +96,7 @@ export class PostService {
     }
     Object.assign(originDocument, omit(data, PostModel.protectedKeys));
     await originDocument.save();
+    
     return originDocument.toObject();
   }
 
