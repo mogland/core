@@ -5,7 +5,7 @@ import { Auth } from '~/common/decorator/auth.decorator';
 import { HTTPDecorators } from '~/common/decorator/http.decorator';
 import { ApiName } from '~/common/decorator/openapi.decorator';
 import { CategoryModel } from '../category/category.model';
-import { ExportMarkdownDto, ExportSomeMarkdownsDto } from './markdown.dto';
+import { ExportMarkdownDto } from './markdown.dto';
 import { MarkdownService } from './markdown.service';
 import JSZip from 'jszip';
 import { join } from 'path';
@@ -22,7 +22,6 @@ export class MarkdownController {
   @ApiProperty({ description: '导出部分 Markdown 文件' })
   @HTTPDecorators.Bypass
   async exportSomeMarkdowns(@Query() { showTitle, slug, yaml }: ExportMarkdownDto, @Body() { id }: any, @Res() res) {
-    console.log(id)
     const { posts, pages } = await this.markdownService.getSomeMarkdownData(id); // 获取部分数据
     // 如果 posts 和 pages 合起来只有一条数据，则直接导出
     if (id.length === 1) {
