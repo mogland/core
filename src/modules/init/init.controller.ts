@@ -13,7 +13,6 @@ import { ConfigsService } from "../configs/configs.service";
 import { InitService } from "./init.service";
 
 @Controller("init")
-@Auth()
 @ApiName
 export class InitController {
   constructor(
@@ -29,6 +28,7 @@ export class InitController {
 
   @Get("/configs/get/default")
   @ApiOperation({ summary: "获取默认配置" })
+  @Auth()
   async initDefault() {
     const { can_init } = await this.canInit();
     if (!can_init)
@@ -38,6 +38,7 @@ export class InitController {
 
   @Get("/configs/default")
   @ApiOperation({ summary: "初始化默认配置" })
+  @Auth()
   async setConfig() {
     const { can_init } = await this.canInit();
     if (!can_init)
