@@ -30,7 +30,7 @@ export class UserService {
     private readonly postService: PostService,
     private readonly pageService: PageService,
     private readonly categoryService: CategoryService
-  ) {}
+  ) { }
   public get model() {
     return this.userModel;
   }
@@ -97,15 +97,22 @@ export class UserService {
       (cate) => cate.slug === "default"
     )
       ? await (
-          await this.categoryService.findAllCategory()
-        ).find((cate) => cate.slug === "default")
+        await this.categoryService.findAllCategory()
+      ).find((cate) => cate.slug === "default")
       : await this.categoryService.createDefaultCategory();
     const defaultCateId = defaultCate ? defaultCate._id : undefined;
     if (!defaultCateId) {
       throw new BadRequestException("初始化分类失败");
     } else {
       await Promise.all([
-        this.postService.CreateDefaultPost(defaultCateId),
+        this.postService.create({
+          title: "欢迎来到 NEXT",
+          slug: "welcome-to-next",
+          text: "欢迎来到 NEXT，当你看到这条文章的时候，说明你已经成功的安装并初始化了 NEXT。",
+          summary: "欢迎来到 NEXT",
+          categoryId: defaultCateId,
+          category: defaultCate,
+        }),
         this.pageService.create({
           title: "NEXT 的第一个页面",
           slug: "welcome-to-next-page",

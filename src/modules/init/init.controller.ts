@@ -6,12 +6,14 @@ import {
   Logger,
 } from "@nestjs/common";
 import { ApiOperation } from "@nestjs/swagger";
+import { Auth } from "~/common/decorator/auth.decorator";
 import { ApiName } from "~/common/decorator/openapi.decorator";
 import { ConfigsInterface } from "../configs/configs.interface";
 import { ConfigsService } from "../configs/configs.service";
 import { InitService } from "./init.service";
 
 @Controller("init")
+@Auth()
 @ApiName
 export class InitController {
   constructor(
