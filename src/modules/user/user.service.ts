@@ -30,7 +30,7 @@ export class UserService {
     private readonly postService: PostService,
     private readonly pageService: PageService,
     private readonly categoryService: CategoryService
-  ) { }
+  ) {}
   public get model() {
     return this.userModel;
   }
@@ -97,8 +97,8 @@ export class UserService {
       (cate) => cate.slug === "default"
     )
       ? await (
-        await this.categoryService.findAllCategory()
-      ).find((cate) => cate.slug === "default")
+          await this.categoryService.findAllCategory()
+        ).find((cate) => cate.slug === "default")
       : await this.categoryService.createDefaultCategory();
     const defaultCateId = defaultCate ? defaultCate._id : undefined;
     if (!defaultCateId) {

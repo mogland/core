@@ -20,7 +20,7 @@ const providers: Provider<any>[] = [
   HttpService,
   UrlService,
   ThumbsService,
-  ImageService
+  ImageService,
 ];
 
 @Global()

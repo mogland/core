@@ -33,7 +33,7 @@ import { ThumbsService } from "~/processors/helper/helper.thumbs.service";
 export class PostController {
   constructor(
     private readonly postService: PostService,
-    private readonly thumbsService: ThumbsService,
+    private readonly thumbsService: ThumbsService
   ) {}
 
   @Get("/")
@@ -250,22 +250,22 @@ export class PostController {
     await this.postService.deletePost(id);
   }
 
-  @Get('/_like')
+  @Get("/_like")
   async thumbsUpArticle(
     @Query() query: MongoIdDto,
-    @IpLocation() location: IpRecord,
+    @IpLocation() location: IpRecord
   ) {
-    const { ip } = location
-    const { id } = query
+    const { ip } = location;
+    const { id } = query;
     try {
-      const res = await this.thumbsService.updateLikeCount('Post', id, ip)
+      const res = await this.thumbsService.updateLikeCount("Post", id, ip);
       if (!res) {
-        throw new BadRequestException('你已经支持过啦!')
+        throw new BadRequestException("你已经支持过啦!");
       }
     } catch (e: any) {
-      throw new BadRequestException(e)
+      throw new BadRequestException(e);
     }
 
-    return
+    return;
   }
 }

@@ -13,9 +13,9 @@ import {
   IsOptional,
   IsString,
   IsUrl,
-} from 'class-validator'
+} from "class-validator";
 
-import { modelOptions, prop } from '@typegoose/typegoose'
+import { modelOptions, prop } from "@typegoose/typegoose";
 
 @modelOptions({
   schemaOptions: { _id: false },
@@ -24,25 +24,25 @@ export abstract class ImageModel {
   @prop()
   @IsOptional()
   @IsNumber()
-  width?: number
+  width?: number;
 
   @prop()
   @IsOptional()
   @IsNumber()
-  height?: number
+  height?: number;
 
   @prop()
   @IsOptional()
   @IsHexColor()
-  color?: string
+  color?: string;
 
   @prop()
   @IsString()
   @IsOptional()
-  type?: string
+  type?: string;
 
   @prop()
   @IsOptional()
   @IsUrl()
-  src?: string
+  src?: string;
 }

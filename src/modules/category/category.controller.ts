@@ -158,7 +158,10 @@ export class CategoryController {
   @Auth()
   @ApiParam({ name: "from", type: "string", required: true })
   @ApiParam({ name: "to", type: "string", required: true })
-  async merge(@Param() { from, to }, @Query() { tag }: MultiQueryTagAndCategoryDto) {
+  async merge(
+    @Param() { from, to },
+    @Query() { tag }: MultiQueryTagAndCategoryDto
+  ) {
     if (!from || !to) {
       throw new BadRequestException("from and to are required");
     }

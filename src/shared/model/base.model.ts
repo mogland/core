@@ -1,7 +1,13 @@
 import { ApiHideProperty } from "@nestjs/swagger";
 import { index, modelOptions, plugin, prop } from "@typegoose/typegoose";
 import { Type } from "class-transformer";
-import { IsBoolean, IsOptional, IsString, IsNotEmpty, ValidateNested } from "class-validator";
+import {
+  IsBoolean,
+  IsOptional,
+  IsString,
+  IsNotEmpty,
+  ValidateNested,
+} from "class-validator";
 import LeanId from "mongoose-lean-id";
 import { default as mongooseLeanVirtuals } from "mongoose-lean-virtuals";
 import Paginate from "mongoose-paginate-v2";
@@ -62,7 +68,7 @@ export class WriteBaseModel extends BaseCommentIndexModel {
   @IsOptional()
   @ValidateNested()
   @Type(() => ImageModel)
-  images?: ImageModel[]
+  images?: ImageModel[];
 
   @prop({ default: null, type: Date })
   @ApiHideProperty()

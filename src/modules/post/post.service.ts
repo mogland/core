@@ -25,10 +25,9 @@ export class PostService {
     @InjectModel(CommentModel)
     private readonly commentModel: MongooseModel<CommentModel>,
     @Inject(forwardRef(() => CategoryService))
-    private readonly categoryService: CategoryService,
-
-    // private readonly imageService: ImageService,
-  ) { }
+    private readonly categoryService: CategoryService
+  ) // private readonly imageService: ImageService,
+  {}
   get model() {
     return this.postModel;
   }
@@ -59,11 +58,12 @@ export class PostService {
       created: new Date(),
       modified: null,
     });
-    process.nextTick(async () => { // 异步更新缓存
+    process.nextTick(async () => {
+      // 异步更新缓存
       await Promise.all([
         // this.imageService.recordImageMeta(this.model as MongooseModel<PostModel>, res._id)
-      ])
-    })
+      ]);
+    });
     return res;
   }
 
@@ -111,8 +111,8 @@ export class PostService {
     process.nextTick(async () => {
       await Promise.all([
         // this.imageService.recordImageMeta(this.model as MongooseModel<PostModel>, id)
-      ])
-    })
+      ]);
+    });
 
     return originDocument.toObject();
   }
@@ -156,8 +156,8 @@ export class PostService {
           text: "欢迎来到 NEXT，当你看到这条文章的时候，说明你已经成功的安装并初始化了 NEXT。",
           summary: "欢迎来到 NEXT",
           categoryId: cateId,
-        })
+        });
       }
-    })
+    });
   }
 }

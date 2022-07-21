@@ -13,8 +13,8 @@ export class PageService {
   constructor(
     @InjectModel(PageModel)
     private readonly pageModel: MongooseModel<PageModel>,
-    
-    private readonly imageService: ImageService,
+
+    private readonly imageService: ImageService
   ) {}
 
   public get model() {
@@ -28,11 +28,12 @@ export class PageService {
       slug: slugify(data.slug),
       created: new Date(),
     });
-    process.nextTick(async () => { // 异步更新缓存
+    process.nextTick(async () => {
+      // 异步更新缓存
       await Promise.all([
-        this.imageService.recordImageMeta(this.pageModel, res._id)
-      ])
-    })
+        this.imageService.recordImageMeta(this.pageModel, res._id),
+      ]);
+    });
     return res;
   }
 
@@ -54,11 +55,12 @@ export class PageService {
     if (!res) {
       throw new CannotFindException();
     }
-    process.nextTick(async () => { // 异步更新缓存
+    process.nextTick(async () => {
+      // 异步更新缓存
       await Promise.all([
-        this.imageService.recordImageMeta(this.pageModel, id)
-      ])
-    })
+        this.imageService.recordImageMeta(this.pageModel, id),
+      ]);
+    });
     return res;
   }
 }

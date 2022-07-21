@@ -32,7 +32,7 @@ export class AggregateService {
     private readonly configsService: ConfigsService,
     private readonly redis: CacheService,
     private readonly urlService: UrlService
-  ) { }
+  ) {}
 
   /**
    * getAllCategory 获取所有分类
@@ -114,14 +114,14 @@ export class AggregateService {
           // 如果文章存在密码，则不获取
           return list.filter((document) => {
             return document.password === null;
-          })
+          });
         })
         .then((list) =>
-
           list.map((document) => {
             return {
               url: new URL(
-                `/posts/${(document.category as CategoryModel).slug}/${document.slug
+                `/posts/${(document.category as CategoryModel).slug}/${
+                  document.slug
                 }`,
                 baseURL
               ),
@@ -132,11 +132,9 @@ export class AggregateService {
           })
         ),
     ]);
-    return combineTasks
-      .flat(1)
-      .sort((a, b) => {
-        return -a.published_at.getTime() - b.published_at.getTime();
-      });
+    return combineTasks.flat(1).sort((a, b) => {
+      return -a.published_at.getTime() - b.published_at.getTime();
+    });
   }
 
   /**
@@ -162,9 +160,8 @@ export class AggregateService {
           // 如果文章存在密码，则不获取
           return list.filter((document) => {
             return document.password === null;
-          })
-        })
-
+          });
+        }),
     ]);
     const postsRss: RSSProps["data"] = posts.map((post) => {
       return {
