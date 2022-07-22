@@ -1,8 +1,8 @@
-# NextSpace Server v1.5.1
+# NEXT Core `v1.5.1`
 
-the RESTful API service for NEXT Space, powered by @nestjs. 
-
-NEXT 博客空间的核心API服务，基于 @nestjs **_无限进步！_**
+> the RESTful API service for NEXT Space, powered by @nestjs. 
+> 
+> NEXT 博客空间的核心API服务，基于 @nestjs **_无限进步！_**
 
 <img src="https://img.shields.io/github/package-json/v/nx-space/core" referrerpolicy="no-referrer" alt="version"><a href="https://wakatime.com/badge/github/nx-space/core"><img src="https://wakatime.com/badge/github/nx-space/core.svg" alt="wakatime"></a>
 <a href="https://github.com/nx-space/core/actions/workflows/build.yml"><img src="https://github.com/nx-space/core/actions/workflows/build.yml/badge.svg"></a>

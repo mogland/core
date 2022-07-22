@@ -18,8 +18,6 @@ import {
   IsInt,
   IsMongoId,
   IsNotEmpty,
-  IsNumber,
-  IsObject,
   IsOptional,
   IsString,
   Min,
@@ -30,7 +28,6 @@ import { BeAnObject } from "@typegoose/typegoose/lib/types";
 import { Query } from "mongoose";
 import aggregatePaginate from "mongoose-aggregate-paginate-v2";
 import { IsNilOrString } from "~/utils/validator/isNilOrString";
-import _ from "mongoose-paginate-v2";
 
 @plugin(aggregatePaginate)
 @pre<PostModel>("findOne", autoPopulateCategory)
