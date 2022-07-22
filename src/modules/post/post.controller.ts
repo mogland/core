@@ -155,6 +155,20 @@ export class PostController {
     );
   }
 
+  @Get("/:id")
+  @ApiOperation({ summary: "通过id获取文章详情" })
+  @Auth()
+  async getPost(@Param() params) {
+    const post = this.postService.model
+      .findById(params.id)
+      .lean({ getters: true }); // getters: true to get the virtuals
+    // TODO: Master Check
+    if (!post) {
+      throw new CannotFindException();
+    }
+    return post;
+  }
+
   @Get("/:category/:slug")
   @ApiOperation({ summary: "根据分类名与自定义别名获取文章详情" })
   async getByCategoryAndSlug(
