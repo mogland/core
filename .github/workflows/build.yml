@@ -85,7 +85,7 @@ jobs:
       - name: Build project
         run: |
           pnpm run bundle
-          zip -r nx-core-bundle-macos.zip out/
+          zip -r nx-core-bundle-${{ runner.os }}.zip out/
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.7.0
         with:
@@ -97,8 +97,8 @@ jobs:
       - name: Test Bundle Server
         run: |
           bash scripts/workflow/test-server.sh
-      - name: Upload macOS Bundle
+      - name: Upload Bundle
         uses: actions/upload-artifact@v3
         with:
-          path: ./nx-core-bundle-macos.zip
-          name: nx-core-bundle-macos.zip
+          path: ./nx-core-bundle-${{ runner.os }}.zip
+          name: nx-core-bundle-${{ runner.os }}.zip
