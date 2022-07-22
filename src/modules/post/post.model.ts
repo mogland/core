@@ -19,6 +19,7 @@ import {
   IsMongoId,
   IsNotEmpty,
   IsNumber,
+  IsObject,
   IsOptional,
   IsString,
   Min,
@@ -29,6 +30,7 @@ import { BeAnObject } from "@typegoose/typegoose/lib/types";
 import { Query } from "mongoose";
 import aggregatePaginate from "mongoose-aggregate-paginate-v2";
 import { IsNilOrString } from "~/utils/validator/isNilOrString";
+import _ from "mongoose-paginate-v2";
 
 @plugin(aggregatePaginate)
 @pre<PostModel>("findOne", autoPopulateCategory)
@@ -72,11 +74,15 @@ export class PostModel extends WriteBaseModel {
 
   @prop({
     type: Count,
+    default: {
+      read: 0,
+      like: 0,
+    },
+    _id: false, // 关闭_id
   })
-  @IsNumber()
   @IsOptional()
-  @ApiProperty({ description: "文章阅读数" })
-  view?: number;
+  @ApiProperty({ description: "文章阅读 & 喜欢数" })
+  count?: Count;
 
   @prop()
   @IsDate()
