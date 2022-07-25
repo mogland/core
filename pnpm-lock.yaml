@@ -86,7 +86,7 @@ specifiers:
   run-script-webpack-plugin: 0.0.14
   rxjs: 7.5.6
   slugify: ^1.6.5
-  snakecase-keys: 5.4.1
+  snakecase-keys: 5.4.2
   source-map-support: ^0.5.21
   ts-loader: 9.2.9
   ts-node: 10.7.0
@@ -150,7 +150,7 @@ dependencies:
   reflect-metadata: 0.1.13
   rxjs: 7.5.6
   slugify: 1.6.5
-  snakecase-keys: 5.4.1
+  snakecase-keys: 5.4.2
   vm2: 3.9.10
   xml2js: 0.4.23
   zx-cjs: 6.1.0
@@ -6397,8 +6397,8 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /snakecase-keys/5.4.1:
-    resolution: {integrity: sha512-XjOWwWUu+IfIS95K/4+MPBCr4FlY0KBQC5PUHAa/rTEZgbC3+cqIAu0AGlSWq1jRPu8mHeXqdOpMRIBRYhRqyA==}
+  /snakecase-keys/5.4.2:
+    resolution: {integrity: sha512-6mzBNP9t1ghArxcaCxZNGIJewE9qyH+eUQIGba9I7MJcZoV4WX4fM2Y+/K9+BGHCFB94ZASfoC3F44UxLXce+A==}
     engines: {node: '>=12'}
     dependencies:
       map-obj: 4.3.0
