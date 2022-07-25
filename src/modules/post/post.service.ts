@@ -13,7 +13,6 @@ import { isDefined } from "class-validator";
 import { omit } from "lodash";
 import { BusinessException } from "~/common/exceptions/business.excpetion";
 import { ErrorCodeEnum } from "~/constants/error-code.constant";
-import { ImageService } from "~/processors/helper/helper.image.service";
 import { CommentModel, CommentType } from "../comment/comment.model";
 
 @Injectable()
@@ -25,9 +24,8 @@ export class PostService {
     @InjectModel(CommentModel)
     private readonly commentModel: MongooseModel<CommentModel>,
     @Inject(forwardRef(() => CategoryService))
-    private readonly categoryService: CategoryService
-  ) // private readonly imageService: ImageService,
-  {}
+    private readonly categoryService: CategoryService // private readonly imageService: ImageService,
+  ) {}
   get model() {
     return this.postModel;
   }

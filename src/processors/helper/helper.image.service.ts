@@ -25,9 +25,8 @@ import { HttpService } from "./helper.http.service";
 export class ImageService {
   private logger: Logger;
   constructor(
-    private readonly httpService: HttpService
-  ) // private readonly configsService: ConfigsService,
-  {
+    private readonly httpService: HttpService // private readonly configsService: ConfigsService,
+  ) {
     this.logger = new Logger(ImageService.name);
   }
 
