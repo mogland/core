@@ -1,7 +1,6 @@
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [created]
 
 name: Release
 
@@ -23,12 +22,12 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Create Release
-        id: create_release
-        run: |
-          npx changelogithub --prerelease --contributors
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Create Release
+      #   id: create_release
+      #   run: |
+      #     npx changelogithub --prerelease --contributors
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.7.0
@@ -63,6 +62,7 @@ jobs:
         run: |
           pnpm run bundle
           zip -r release.zip out/
+          
       - name: Test Bundle Server
         run: |
           bash scripts/workflow/test-server.sh
