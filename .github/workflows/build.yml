@@ -38,7 +38,7 @@ jobs:
       - name: Build project
         run: |
           npm run bundle
-          zip -r nx-core-bundle-linux.zip out/
+          zip -r nx-core-bundle-${{ runner.os }}.zip out/
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.7.0
         with:
@@ -53,8 +53,8 @@ jobs:
       - name: Upload Linux Bundle
         uses: actions/upload-artifact@v3
         with:
-          path: ./nx-core-bundle-linux.zip
-          name: nx-core-bundle-linux.zip
+          path: ./nx-core-bundle-${{ runner.os }}.zip
+          name: nx-core-bundle-${{ runner.os }}.zip
 
           
 
@@ -63,7 +63,7 @@ jobs:
     name: Build Other Platform
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [macos-latest]
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
