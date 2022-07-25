@@ -78,25 +78,17 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
+            
       - uses: pnpm/action-setup@v2.2.2
         with:
           version: latest
           run_install: true
+
       - name: Build project
         run: |
           pnpm run bundle
           zip -r nx-core-bundle-${{ runner.os }}.zip out/
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.7.0
-        with:
-          mongodb-version: 4.4
-      - name: Start Redis
-        uses: supercharge/redis-github-action@1.4.0
-        with:
-          redis-version: 6
-      - name: Test Bundle Server
-        run: |
-          bash scripts/workflow/test-server.sh
+      
       - name: Upload Bundle
         uses: actions/upload-artifact@v3
         with:
