@@ -41,7 +41,7 @@ specifiers:
   axios: '*'
   axios-retry: 3.2.6
   bcrypt: 5.0.1
-  cache-manager: 3.6.1
+  cache-manager: 3.6.3
   cache-manager-ioredis: 2.1.0
   camelcase-keys: 7.0.2
   chalk: '*'
@@ -105,7 +105,7 @@ dependencies:
   '@fastify/multipart': 7.1.0
   '@fastify/static': 6.4.0
   '@fastify/view': 7.0.0
-  '@nestjs/common': 9.0.5_5jjik4n247rug6wg4nklwaga6q
+  '@nestjs/common': 9.0.5_37tgzg5iwyrf23cqcmjxlmljgu
   '@nestjs/core': 9.0.5_wclkcf3nqj4alixp6w234apqaq
   '@nestjs/jwt': 9.0.0_@nestjs+common@9.0.5
   '@nestjs/mapped-types': 1.1.0_2ugod5dj2hwbwg5i4ceingecfa
@@ -117,7 +117,7 @@ dependencies:
   axios: 0.27.2
   axios-retry: 3.2.6
   bcrypt: 5.0.1
-  cache-manager: 3.6.1
+  cache-manager: 3.6.3
   cache-manager-ioredis: 2.1.0
   camelcase-keys: 7.0.2
   chalk: 5.0.1
@@ -789,7 +789,7 @@ packages:
       - webpack-cli
     dev: true
 
-  /@nestjs/common/9.0.5_5jjik4n247rug6wg4nklwaga6q:
+  /@nestjs/common/9.0.5_37tgzg5iwyrf23cqcmjxlmljgu:
     resolution: {integrity: sha512-13mncUq4JDSluI5IGvusDZANUfNYCIyPamxlPXJOLawGp8JjqRLHGn9ppNJp7W9mN/B/SmpvW9NFEYFIrKYj9g==}
     peerDependencies:
       cache-manager: '*'
@@ -805,7 +805,7 @@ packages:
       class-validator:
         optional: true
     dependencies:
-      cache-manager: 3.6.1
+      cache-manager: 3.6.3
       class-transformer: 0.5.1
       class-validator: 0.13.2
       iterare: 1.2.1
@@ -832,7 +832,7 @@ packages:
       '@nestjs/websockets':
         optional: true
     dependencies:
-      '@nestjs/common': 9.0.5_5jjik4n247rug6wg4nklwaga6q
+      '@nestjs/common': 9.0.5_37tgzg5iwyrf23cqcmjxlmljgu
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.1.1
       iterare: 1.2.1
@@ -850,7 +850,7 @@ packages:
     peerDependencies:
       '@nestjs/common': ^8.0.0 || ^9.0.0
     dependencies:
-      '@nestjs/common': 9.0.5_5jjik4n247rug6wg4nklwaga6q
+      '@nestjs/common': 9.0.5_37tgzg5iwyrf23cqcmjxlmljgu
       '@types/jsonwebtoken': 8.5.8
       jsonwebtoken: 8.5.1
     dev: false
@@ -868,7 +868,7 @@ packages:
       class-validator:
         optional: true
     dependencies:
-      '@nestjs/common': 9.0.5_5jjik4n247rug6wg4nklwaga6q
+      '@nestjs/common': 9.0.5_37tgzg5iwyrf23cqcmjxlmljgu
       class-transformer: 0.5.1
       class-validator: 0.13.2
       reflect-metadata: 0.1.13
@@ -879,7 +879,7 @@ packages:
       '@nestjs/common': ^8.0.0 || ^9.0.0
       passport: ^0.4.0 || ^0.5.0 || ^0.6.0
     dependencies:
-      '@nestjs/common': 9.0.5_5jjik4n247rug6wg4nklwaga6q
+      '@nestjs/common': 9.0.5_37tgzg5iwyrf23cqcmjxlmljgu
       passport: 0.6.0
     dev: false
 
@@ -901,7 +901,7 @@ packages:
       '@fastify/middie': 8.0.0
       '@fastify/static': 6.4.0
       '@fastify/view': 7.0.0
-      '@nestjs/common': 9.0.5_5jjik4n247rug6wg4nklwaga6q
+      '@nestjs/common': 9.0.5_37tgzg5iwyrf23cqcmjxlmljgu
       '@nestjs/core': 9.0.5_wclkcf3nqj4alixp6w234apqaq
       fastify: 4.2.1
       light-my-request: 5.2.0
@@ -918,7 +918,7 @@ packages:
       '@nestjs/core': ^7.0.0 || ^8.0.0 || ^9.0.0
       reflect-metadata: ^0.1.12
     dependencies:
-      '@nestjs/common': 9.0.5_5jjik4n247rug6wg4nklwaga6q
+      '@nestjs/common': 9.0.5_37tgzg5iwyrf23cqcmjxlmljgu
       '@nestjs/core': 9.0.5_wclkcf3nqj4alixp6w234apqaq
       cron: 2.0.0
       reflect-metadata: 0.1.13
@@ -967,7 +967,7 @@ packages:
         optional: true
     dependencies:
       '@fastify/static': 6.4.0
-      '@nestjs/common': 9.0.5_5jjik4n247rug6wg4nklwaga6q
+      '@nestjs/common': 9.0.5_37tgzg5iwyrf23cqcmjxlmljgu
       '@nestjs/core': 9.0.5_wclkcf3nqj4alixp6w234apqaq
       '@nestjs/mapped-types': 1.1.0_2ugod5dj2hwbwg5i4ceingecfa
       js-yaml: 4.1.0
@@ -993,7 +993,7 @@ packages:
       '@nestjs/platform-express':
         optional: true
     dependencies:
-      '@nestjs/common': 9.0.5_5jjik4n247rug6wg4nklwaga6q
+      '@nestjs/common': 9.0.5_37tgzg5iwyrf23cqcmjxlmljgu
       '@nestjs/core': 9.0.5_wclkcf3nqj4alixp6w234apqaq
       tslib: 2.4.0
     dev: true
@@ -2201,11 +2201,11 @@ packages:
       - supports-color
     dev: false
 
-  /cache-manager/3.6.1:
-    resolution: {integrity: sha512-jxJvGYhN5dUgpriAdsDnnYbKse4dEXI5i3XpwTfPq5utPtXH1uYXWyGLHGlbSlh9Vq4ytrgAUVwY+IodNeKigA==}
+  /cache-manager/3.6.3:
+    resolution: {integrity: sha512-dS4DnV6c6cQcVH5OxzIU1XZaACXwvVIiUPkFytnRmLOACuBGv3GQgRQ1RJGRRw4/9DF14ZK2RFlZu1TUgDniMg==}
     dependencies:
       async: 3.2.3
-      lodash: 4.17.21
+      lodash.clonedeep: 4.5.0
       lru-cache: 6.0.0
 
   /call-bind/1.0.2:
@@ -4854,6 +4854,9 @@ packages:
   /lodash.bind/4.2.1:
     resolution: {integrity: sha512-lxdsn7xxlCymgLYo1gGvVrfHmkjDiyqVv62FAeF2i5ta72BipE1SLxw8hPEPLhD4/247Ijw07UQH7Hq/chT5LA==}
     dev: true
+
+  /lodash.clonedeep/4.5.0:
+    resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
 
   /lodash.compact/3.0.1:
     resolution: {integrity: sha512-2ozeiPi+5eBXW1CLtzjk8XQFhQOEMwwfxblqeq6EGyTxZJ1bPATqilY0e6g2SLQpP4KuMeuioBhEnWz5Pr7ICQ==}

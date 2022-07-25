@@ -67,7 +67,7 @@
     "axios": "*",
     "axios-retry": "3.2.6",
     "bcrypt": "5.0.1",
-    "cache-manager": "3.6.1",
+    "cache-manager": "3.6.3",
     "cache-manager-ioredis": "2.1.0",
     "camelcase-keys": "7.0.2",
     "chalk": "*",
