@@ -67,7 +67,7 @@ specifiers:
   lodash: '*'
   marked: ^4.0.18
   mkdirp: ^1.0.4
-  mongodb-memory-server: 8.5.0
+  mongodb-memory-server: 8.5.2
   mongoose: 6.4.4
   mongoose-aggregate-paginate-v2: 1.0.6
   mongoose-lean-id: 0.3.0
@@ -156,7 +156,7 @@ dependencies:
   zx-cjs: 6.1.0
 
 optionalDependencies:
-  mongodb-memory-server: 8.5.0
+  mongodb-memory-server: 8.5.2
   redis-memory-server: 0.5.0
 
 devDependencies:
@@ -5144,8 +5144,8 @@ packages:
       '@types/whatwg-url': 8.2.1
       whatwg-url: 11.0.0
 
-  /mongodb-memory-server-core/8.5.0:
-    resolution: {integrity: sha512-Hv/1QWWUAq5oxkLvQnUFfzprUdJHGA6/i3K5VNUjfiqaDqBteztPAEYXV8NPBxceYYzudoc/py935DNYq+RqVQ==}
+  /mongodb-memory-server-core/8.5.2:
+    resolution: {integrity: sha512-JVQWZ0ZRWsEeX23cAxhetaJ9q5eILU01dKHrJBwHmMc79BKLdUI2iyIiGve6vyyzYNh4amBcUiWpnbgLmiTlrQ==}
     engines: {node: '>=12.22.0'}
     dependencies:
       '@types/tmp': 0.2.3
@@ -5156,7 +5156,7 @@ packages:
       get-port: 5.1.1
       https-proxy-agent: 5.0.1
       md5-file: 5.0.0
-      mongodb: 4.5.0
+      mongodb: 4.7.0
       new-find-package-json: 1.1.0
       semver: 7.3.7
       tar-stream: 2.2.0
@@ -5169,28 +5169,15 @@ packages:
     dev: false
     optional: true
 
-  /mongodb-memory-server/8.5.0:
-    resolution: {integrity: sha512-bU6B+sat/qFep5EqZ5KpVM+xYssYKR8/VUZT9SanaP69nSLbYGNwny7b8Egs3DvfLR874uhspGKOOdQV8LEqxA==}
+  /mongodb-memory-server/8.5.2:
+    resolution: {integrity: sha512-+4/zxz9TxpPMxaUEm0axQvSf+tS6GtPyc5MEjwkiprBGsH7aTe9GEjuHKnXGP8ObarHFpgW3kV4C4oEzYvxQIQ==}
     engines: {node: '>=12.22.0'}
     requiresBuild: true
     dependencies:
-      mongodb-memory-server-core: 8.5.0
-      tslib: 2.3.1
+      mongodb-memory-server-core: 8.5.2
+      tslib: 2.4.0
     transitivePeerDependencies:
       - supports-color
-    dev: false
-    optional: true
-
-  /mongodb/4.5.0:
-    resolution: {integrity: sha512-A2l8MjEpKojnhbCM0MK3+UOGUSGvTNNSv7AkP1fsT7tkambrkkqN/5F2y+PhzsV0Nbv58u04TETpkaSEdI2zKA==}
-    engines: {node: '>=12.9.0'}
-    dependencies:
-      bson: 4.6.2
-      denque: 2.0.1
-      mongodb-connection-string-url: 2.5.2
-      socks: 2.6.2
-    optionalDependencies:
-      saslprep: 1.0.3
     dev: false
     optional: true
 
