@@ -150,7 +150,7 @@
     "zx": "6.1.0"
   },
   "optionalDependencies": {
-    "mongodb-memory-server": "8.5.0",
+    "mongodb-memory-server": "8.5.2",
     "redis-memory-server": "0.5.0"
   },
   "resolutions": {
