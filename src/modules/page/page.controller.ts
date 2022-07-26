@@ -30,7 +30,7 @@ export class PageController {
 
   @Get("/")
   @Paginator
-  @ApiOperation({ summary: "获取页面概要" })
+  @ApiOperation({ summary: "获取页面列表" })
   async getPagesSummary(@Query() query: PagerDto) {
     const { size, select, page, sortBy, sortOrder } = query;
     return this.pageService.model.paginate(
@@ -49,7 +49,7 @@ export class PageController {
   @Get("/:id")
   @ApiOperation({ summary: "通过id获取页面详情" })
   @Auth()
-  async getPage(@Query() params: MongoIdDto) {
+  async getPage(@Param() params) {
     const page = this.pageService.model
       .findById(params.id)
       .lean({ getters: true }); // getters: true to get the virtuals
