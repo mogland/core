@@ -89,7 +89,7 @@ specifiers:
   snakecase-keys: 5.4.2
   source-map-support: ^0.5.21
   ts-loader: 9.3.1
-  ts-node: 10.7.0
+  ts-node: 10.9.1
   tsconfig-paths: 3.14.1
   typescript: 4.7.4
   vite-tsconfig-paths: 3.4.1
@@ -194,7 +194,7 @@ devDependencies:
   run-script-webpack-plugin: 0.1.1
   source-map-support: 0.5.21
   ts-loader: 9.3.1_wrqa5goo72nrbtdxyiaqyje4me
-  ts-node: 10.7.0_pq3pyki46hbpbiyhjufgaftsja
+  ts-node: 10.9.1_pq3pyki46hbpbiyhjufgaftsja
   tsconfig-paths: 3.14.1
   typescript: 4.7.4
   vite-tsconfig-paths: 3.4.1
@@ -209,7 +209,7 @@ packages:
     resolution: {integrity: sha512-hoyByceqwKirw7w3Z7gnIIZC3Wx3J484Y3L/cMpXFbr7d9ZQj2mODrirNzcJa+SM3UlpWXYvKV4RlRpFXlWgXg==}
     engines: {node: '>=6.0.0'}
     dependencies:
-      '@jridgewell/trace-mapping': 0.3.4
+      '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
   /@angular-devkit/core/13.3.5:
@@ -522,16 +522,11 @@ packages:
     dev: true
     optional: true
 
-  /@cspotcode/source-map-consumer/0.8.0:
-    resolution: {integrity: sha512-41qniHzTU8yAGbCp04ohlmSrZf8bkf/iJsl3V0dRGsQN/5GFfx+LbCSsCpp2gqrqjTVg/K6O8ycoV35JIwAzAg==}
-    engines: {node: '>= 12'}
-    dev: true
-
-  /@cspotcode/source-map-support/0.7.0:
-    resolution: {integrity: sha512-X4xqRHqN8ACt2aHVe51OxeA2HjbcL4MqFqXkrmQszJ1NOUuUu5u6Vqx/0lZSVNku7velL5FC/s5uEAj1lsBMhA==}
+  /@cspotcode/source-map-support/0.8.1:
+    resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
     dependencies:
-      '@cspotcode/source-map-consumer': 0.8.0
+      '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
   /@cush/relative/1.0.0:
@@ -729,8 +724,8 @@ packages:
     resolution: {integrity: sha512-Fg32GrJo61m+VqYSdRSjRXMjQ06j8YIYfcTqndLYVAaHmroZHLJZCydsWBOTDqXS2v+mjxohBWEMfg97GXmYQg==}
     dev: true
 
-  /@jridgewell/trace-mapping/0.3.4:
-    resolution: {integrity: sha512-vFv9ttIedivx0ux3QSjhgtCVjPZd5l46ZOMDSCwnH1yUO2e964gO8LZGyv2QkqcgR6TnBU1v+1IFqmeoG+0UJQ==}
+  /@jridgewell/trace-mapping/0.3.9:
+    resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
     dependencies:
       '@jridgewell/resolve-uri': 3.0.5
       '@jridgewell/sourcemap-codec': 1.4.11
@@ -6874,8 +6869,8 @@ packages:
       webpack: 5.58.2
     dev: true
 
-  /ts-node/10.7.0_pq3pyki46hbpbiyhjufgaftsja:
-    resolution: {integrity: sha512-TbIGS4xgJoX2i3do417KSaep1uRAW/Lu+WAL2doDHC0D6ummjirVOXU5/7aiZotbQ5p1Zp9tP7U6cYhA0O7M8A==}
+  /ts-node/10.9.1_pq3pyki46hbpbiyhjufgaftsja:
+    resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
       '@swc/core': '>=1.2.50'
@@ -6888,7 +6883,7 @@ packages:
       '@swc/wasm':
         optional: true
     dependencies:
-      '@cspotcode/source-map-support': 0.7.0
+      '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.8
       '@tsconfig/node12': 1.0.9
       '@tsconfig/node14': 1.0.1
@@ -6901,7 +6896,7 @@ packages:
       diff: 4.0.2
       make-error: 1.3.6
       typescript: 4.7.4
-      v8-compile-cache-lib: 3.0.0
+      v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: true
 
@@ -7059,8 +7054,8 @@ packages:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
 
-  /v8-compile-cache-lib/3.0.0:
-    resolution: {integrity: sha512-mpSYqfsFvASnSn5qMiwrr4VKfumbPyONLCOPmsR3A6pTY/r0+tSaVbgPWSAIuzbk3lCTa+FForeTiO+wBQGkjA==}
+  /v8-compile-cache-lib/3.0.1:
+    resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
     dev: true
 
   /v8-compile-cache/2.3.0:
