@@ -88,7 +88,7 @@ specifiers:
   slugify: ^1.6.5
   snakecase-keys: 5.4.2
   source-map-support: ^0.5.21
-  ts-loader: 9.2.9
+  ts-loader: 9.3.1
   ts-node: 10.7.0
   tsconfig-paths: 3.14.1
   typescript: 4.7.4
@@ -193,7 +193,7 @@ devDependencies:
   rimraf: 3.0.2
   run-script-webpack-plugin: 0.0.14
   source-map-support: 0.5.21
-  ts-loader: 9.2.9_wrqa5goo72nrbtdxyiaqyje4me
+  ts-loader: 9.3.1_wrqa5goo72nrbtdxyiaqyje4me
   ts-node: 10.7.0_pq3pyki46hbpbiyhjufgaftsja
   tsconfig-paths: 3.14.1
   typescript: 4.7.4
@@ -3023,14 +3023,6 @@ packages:
       tapable: 2.2.1
     dev: true
 
-  /enhanced-resolve/5.9.2:
-    resolution: {integrity: sha512-GIm3fQfwLJ8YZx2smuHpBKkXC1yOk+OBEmKckVyL0i/ea8mqDEykK3ld5dgH1QYPNyT/lIllxV2LULnxCHaHkA==}
-    engines: {node: '>=10.13.0'}
-    dependencies:
-      graceful-fs: 4.2.9
-      tapable: 2.2.1
-    dev: true
-
   /entities/1.1.2:
     resolution: {integrity: sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==}
     dev: true
@@ -5070,14 +5062,6 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /micromatch/4.0.4:
-    resolution: {integrity: sha512-pRmzw/XUcwXGpD9aI9q/0XOwLNygjETJ8y0ao0wdqprrzDa4YnxLcz7fQRZr8voh8V10kGhABbNcHVk5wHgWwg==}
-    engines: {node: '>=8.6'}
-    dependencies:
-      braces: 3.0.2
-      picomatch: 2.3.1
-    dev: true
-
   /micromatch/4.0.5:
     resolution: {integrity: sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA==}
     engines: {node: '>=8.6'}
@@ -6875,16 +6859,16 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /ts-loader/9.2.9_wrqa5goo72nrbtdxyiaqyje4me:
-    resolution: {integrity: sha512-b0+vUY2/enb0qYtDQuNlDnJ9900NTiPiJcDJ6sY7ax1CCCwXfYIqPOMm/BwW7jsF1km+Oz8W9s31HLuD+FLIMg==}
+  /ts-loader/9.3.1_wrqa5goo72nrbtdxyiaqyje4me:
+    resolution: {integrity: sha512-OkyShkcZTsTwyS3Kt7a4rsT/t2qvEVQuKCTg4LJmpj9fhFR7ukGdZwV6Qq3tRUkqcXtfGpPR7+hFKHCG/0d3Lw==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       typescript: '*'
       webpack: ^5.0.0
     dependencies:
       chalk: 4.1.2
-      enhanced-resolve: 5.9.2
-      micromatch: 4.0.4
+      enhanced-resolve: 5.10.0
+      micromatch: 4.0.5
       semver: 7.3.7
       typescript: 4.7.4
       webpack: 5.58.2
@@ -6925,7 +6909,7 @@ packages:
     resolution: {integrity: sha512-EhnfjHbzm5IYI9YPNVIxx1moxMI4bpHD2e0zTXeDNQcwjjRaGepP7IhTHJkyDBG0CAOoxRfe7jCG630Ou+C6Pw==}
     dependencies:
       chalk: 4.1.2
-      enhanced-resolve: 5.9.2
+      enhanced-resolve: 5.10.0
       tsconfig-paths: 3.14.1
     dev: true
 
