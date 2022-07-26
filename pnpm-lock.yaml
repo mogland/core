@@ -83,7 +83,7 @@ specifiers:
   redis-memory-server: 0.5.0
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
-  run-script-webpack-plugin: 0.0.14
+  run-script-webpack-plugin: 0.1.1
   rxjs: 7.5.6
   slugify: ^1.6.5
   snakecase-keys: 5.4.2
@@ -191,7 +191,7 @@ devDependencies:
   lint-staged: 12.5.0
   prettier: 2.7.1
   rimraf: 3.0.2
-  run-script-webpack-plugin: 0.0.14
+  run-script-webpack-plugin: 0.1.1
   source-map-support: 0.5.21
   ts-loader: 9.3.1_wrqa5goo72nrbtdxyiaqyje4me
   ts-node: 10.7.0_pq3pyki46hbpbiyhjufgaftsja
@@ -6180,9 +6180,9 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
-  /run-script-webpack-plugin/0.0.14:
-    resolution: {integrity: sha512-DXe6lzzEVXjBr/74zd4m4yOfmz5P6GMjzhQxDDsViOmwG7cap8UCE6RgD5rT7zf4wM83a+ToHnpB3v4efUv5IA==}
-    engines: {node: '>=12'}
+  /run-script-webpack-plugin/0.1.1:
+    resolution: {integrity: sha512-PrxBRLv1K9itDKMlootSCyGhdTU+KbKGJ2wF6/k0eyo6M0YGPC58HYbS/J/QsDiwM0t7G99WcuCqto0J7omOXA==}
+    engines: {node: '>=14'}
     dev: true
 
   /rxjs/6.6.7:
