@@ -106,7 +106,7 @@ export class PageController {
     // body.text = await this.pluginService.usePlugins('page', 'update', body.text)
     await this.pageService.updateById(id, body);
 
-    return;
+    return await this.pageService.model.findById(id).lean();
   }
 
   @Delete("/:id")

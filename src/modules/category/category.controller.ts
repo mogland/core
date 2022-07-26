@@ -175,6 +175,7 @@ export class CategoryController {
       // 合并分类
       await this.categoryService.mergeCategory(from, to);
     }
+    return { message: "success" };
   }
 
   @Put("/:id")
@@ -200,7 +201,7 @@ export class CategoryController {
   async patch(@Param() params: MongoIdDto, @Body() body: PartialCategoryModel) {
     const { id } = params;
     await this.categoryService.model.updateOne({ _id: id }, body);
-    return;
+    return await this.categoryService.model.findById(id);
   }
 
   @Delete("/:id")

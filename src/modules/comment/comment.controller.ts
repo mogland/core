@@ -263,14 +263,12 @@ export class CommentController {
     }
 
     try {
-      await this.commentService.model.updateOne(
+      return await this.commentService.model.updateOne(
         {
           _id: id,
         },
         updateResult
       );
-
-      return;
     } catch {
       throw new CannotFindException();
     }
