@@ -135,7 +135,7 @@
     "husky": "7.0.4",
     "ioredis": "*",
     "lint-staged": "12.5.0",
-    "prettier": "2.6.2",
+    "prettier": "2.7.1",
     "rimraf": "3.0.2",
     "run-script-webpack-plugin": "0.0.14",
     "source-map-support": "^0.5.21",
