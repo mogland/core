@@ -134,7 +134,7 @@
     "get-image-colors": "^4.0.1",
     "husky": "7.0.4",
     "ioredis": "*",
-    "lint-staged": "12.5.0",
+    "lint-staged": "13.0.3",
     "prettier": "2.7.1",
     "rimraf": "3.0.2",
     "run-script-webpack-plugin": "0.1.1",
