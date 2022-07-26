@@ -115,7 +115,7 @@
     "@nestjs/testing": "9.0.5",
     "@types/bcrypt": "5.0.0",
     "@types/cache-manager": "3.4.3",
-    "@types/cron": "1.7.3",
+    "@types/cron": "2.0.0",
     "@types/ioredis": "4.28.10",
     "@types/js-yaml": "^4.0.5",
     "@types/lodash": "4.14.182",

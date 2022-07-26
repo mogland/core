@@ -25,7 +25,7 @@ specifiers:
   '@typegoose/typegoose': 9.10.1
   '@types/bcrypt': 5.0.0
   '@types/cache-manager': 3.4.3
-  '@types/cron': 1.7.3
+  '@types/cron': 2.0.0
   '@types/ioredis': 4.28.10
   '@types/js-yaml': ^4.0.5
   '@types/lodash': 4.14.182
@@ -169,7 +169,7 @@ devDependencies:
   '@nestjs/testing': 9.0.5_yhkp7kxuauoq6imzcegikmb6ju
   '@types/bcrypt': 5.0.0
   '@types/cache-manager': 3.4.3
-  '@types/cron': 1.7.3
+  '@types/cron': 2.0.0
   '@types/ioredis': 4.28.10
   '@types/js-yaml': 4.0.5
   '@types/lodash': 4.14.182
@@ -1152,11 +1152,11 @@ packages:
     resolution: {integrity: sha512-t73xJJrvdTjXrn4jLS9VSGRbz0nUY3cl2DMGDU48lKl+HR9dbbjW2A9r3g40VA++mQpy6uuHg33gy7du2BKpog==}
     dev: true
 
-  /@types/cron/1.7.3:
-    resolution: {integrity: sha512-iPmUXyIJG1Js+ldPYhOQcYU3kCAQ2FWrSkm1FJPoii2eYSn6wEW6onPukNTT0bfiflexNSRPl6KWmAIqS+36YA==}
+  /@types/cron/2.0.0:
+    resolution: {integrity: sha512-xZM08fqvwIXgghtPVkSPKNgC+JoMQ2OHazEvyTKnNf7aWu1aB6/4lBbQFrb03Td2cUGG7ITzMv3mFYnMu6xRaQ==}
     dependencies:
+      '@types/luxon': 3.0.0
       '@types/node': 17.0.24
-      moment: 2.29.1
     dev: true
 
   /@types/eslint-scope/3.7.1:
@@ -1237,6 +1237,10 @@ packages:
 
   /@types/lodash/4.14.182:
     resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
+    dev: true
+
+  /@types/luxon/3.0.0:
+    resolution: {integrity: sha512-Lx+EZoJxUKw4dp8uei9XiUVNlgkYmax5+ovqt6Xf3LzJOnWhlfJw/jLBmqfGVwOP/pDr4HT8bI1WtxK0IChMLw==}
     dev: true
 
   /@types/marked/4.0.3:
@@ -5158,6 +5162,7 @@ packages:
 
   /moment/2.29.1:
     resolution: {integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==}
+    dev: false
 
   /mongodb-connection-string-url/2.5.2:
     resolution: {integrity: sha512-tWDyIG8cQlI5k3skB6ywaEA5F9f5OntrKKsT/Lteub2zgwSUlhqEN2inGgBTm8bpYJf8QYBdA/5naz65XDpczA==}
