@@ -21,7 +21,7 @@ specifiers:
   '@nestjs/schematics': 9.0.1
   '@nestjs/swagger': 6.0.4
   '@nestjs/testing': 9.0.7
-  '@typegoose/auto-increment': 1.4.1
+  '@typegoose/auto-increment': 1.5.0
   '@typegoose/typegoose': 9.11.0
   '@types/bcrypt': 5.0.0
   '@types/cache-manager': 4.0.1
@@ -112,7 +112,7 @@ dependencies:
   '@nestjs/passport': 9.0.0_2fq5yfrcl6cznjgkyjyniahzdi
   '@nestjs/platform-fastify': 9.0.7_a4z7x2t3dea6cyjnnqjuedzqhy
   '@nestjs/schedule': 2.1.0_pdtl3hujhzr673j53ucwmxga3i
-  '@typegoose/auto-increment': 1.4.1_mongoose@6.5.0
+  '@typegoose/auto-increment': 1.5.0_mongoose@6.5.0
   '@typegoose/typegoose': 9.11.0_mongoose@6.5.0
   axios: 0.27.2
   axios-retry: 3.3.1
@@ -1057,11 +1057,11 @@ packages:
     resolution: {integrity: sha512-eZxlbI8GZscaGS7kkc/trHTT5xgrjH3/1n2JDwusC9iahPKWMRvRjJSAN5mCXviuTGQ/lHnhvv8Q1YTpnfz9gA==}
     dev: true
 
-  /@typegoose/auto-increment/1.4.1_mongoose@6.5.0:
-    resolution: {integrity: sha512-Hh7Vcjlz3GWkbEKwH7UxsbPQD1vpm76vFMCPOm2z36E+dCu2hyHruWnaAIK8co6iNGxyam617e+6yuHr114fCQ==}
+  /@typegoose/auto-increment/1.5.0_mongoose@6.5.0:
+    resolution: {integrity: sha512-gdsCBw3XkNEyvFeDQdJHU5moQSP7a1YIqRVfwN2pM7aB3dn1bC/0l7l3W5MKhV9cdLZZhelkkVWGvyMo+RtZ5w==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
-      mongoose: ~6.4.2
+      mongoose: ~6.5.0
     dependencies:
       loglevel: 1.8.0
       mongoose: 6.5.0
