@@ -6,7 +6,7 @@ import { CacheService } from "~/processors/cache/cache.service";
 import { getMediumDateTime } from "~/utils/time.util";
 import { ConfigsService } from "../configs/configs.service";
 import mkdirp from "mkdirp";
-import { quiet } from "zx";
+import { quiet } from "zx-cjs";
 import { readFile, writeFile } from "fs/promises";
 import { existsSync } from "fs";
 @Injectable()

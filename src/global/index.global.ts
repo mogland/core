@@ -2,7 +2,7 @@
 import { Logger } from "@nestjs/common";
 import { chalk, $ } from "zx-cjs";
 import { mkdirSync } from "fs";
-import "zx/globals";
+import "zx-cjs/globals";
 import { DATA_DIR, LOG_DIR, PLUGIN_DIR } from "~/constants/path.constant";
 import { consola, registerStdLogger } from "./consola.global";
 import "./dayjs.global";

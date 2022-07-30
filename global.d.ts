@@ -1,5 +1,5 @@
 import { Consola } from 'consola'
-import 'zx/globals'
+import 'zx-cjs/globals'
 import { ModelType } from '@typegoose/typegoose/lib/types'
 import { Document, PaginateModel } from 'mongoose'
 declare global {

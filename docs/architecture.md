@@ -44,7 +44,7 @@ What is global, in NodeJS, `global` is a global context object, with the recent 
 
 So we can define some methods or constants on `global`.
 
-Currently, zx/globals, consola, etc. is already defined directly on the `global`, no need to import.
+Currently, zx-cjs/globals, consola, etc. is already defined directly on the `global`, no need to import.
 
 #### Folder `modules`
 
