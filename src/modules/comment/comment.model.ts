@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-03 17:49:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-15 18:15:26
+ * @LastEditTime: 2022-07-30 18:08:13
  * Coding With IU
  */
 
@@ -64,7 +64,7 @@ export class CommentModel extends BaseModel {
   author!: string;
 
   @prop({ trim: true })
-  email!: string;
+  mail!: string;
 
   @prop({
     trim: true,
