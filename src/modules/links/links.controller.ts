@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -93,5 +94,12 @@ export class LinksController {
   @ApiOperation({ summary: "更新拉取友链的feed" })
   async getFriendsFeed() {
     return await this.linksService.getLinksRss();
+  }
+
+  @Delete("/:id")
+  @Auth()
+  @ApiOperation({ summary: "删除链接" })
+  async deleteLink(@Param("id") id) {
+    return await this.linksService.model.findByIdAndDelete(id);
   }
 }
