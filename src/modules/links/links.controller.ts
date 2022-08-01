@@ -73,6 +73,18 @@ export class LinksController {
     return await this.linksService.setFriendLinkStatus(id, status);
   }
 
+  @Patch("/:id")
+  @ApiOperation({ summary: "修改链接信息" })
+  @Auth()
+  async updateMes(@Param() params, @Body() body) {
+    const { id } = params;
+    const status: LinksStatus = body.status ? body.status : LinksStatus.Pass;
+    return await this.linksService.model.findByIdAndUpdate(id, {
+      status,
+      ...body,
+    })
+  }
+
   @Auth()
   @Get("/health")
   @ApiOperation({ summary: "检查链接健康状态" })
