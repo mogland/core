@@ -234,11 +234,11 @@ export class CommentController {
     @Body() body: CommentStatusPatchDto
   ) {
     const { id } = params;
-    const { state, pin } = body;
+    const { status, pin } = body;
 
     const updateResult = {} as any;
 
-    !isUndefined(state) && Reflect.set(updateResult, "state", state);
+    !isUndefined(status) && Reflect.set(updateResult, "status", status);
     !isUndefined(pin) && Reflect.set(updateResult, "pin", pin);
 
     if (pin) {

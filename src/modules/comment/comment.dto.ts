@@ -3,7 +3,7 @@
  * @author: Innei
  * @Date: 2022-07-03 17:48:49
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-30 19:12:46
+ * @LastEditTime: 2022-08-01 13:38:07
  * Coding With IU
  */
 
@@ -68,7 +68,7 @@ export class CommentStatusPatchDto {
   @IsInt()
   @IsIn([0, 1, 2])
   @IsOptional()
-  state?: number;
+  status?: number;
 
   @IsOptional()
   @IsBoolean()
