@@ -1,4 +1,4 @@
-# NEXT Core v1.5.1
+# NEXT Core v1.5.3
 
 > the RESTful API service for NEXT Space, powered by @nestjs. 
 > 
