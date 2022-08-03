@@ -9,7 +9,7 @@ module.exports = {
   apps: [
     {
       name: 'nx-core',
-      script: 'index.js',
+      script: 'dist/main.js',
       autorestart: true,
       exec_mode: 'cluster',
       watch: false,
