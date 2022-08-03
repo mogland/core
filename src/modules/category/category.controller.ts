@@ -153,27 +153,28 @@ export class CategoryController {
     return this.categoryService.model.create({ name, slug: slug ?? name }); // 创建分类
   }
 
-  @Put("/:from/to/:to")
+  @Post("/merge")
   @ApiOperation({ summary: "合并分类或标签 (Beta)" })
   @Auth()
-  @ApiParam({ name: "from", type: "string", required: true })
-  @ApiParam({ name: "to", type: "string", required: true })
   async merge(
-    @Param() { from, to },
-    @Query() { tag }: MultiQueryTagAndCategoryDto
+    @Body() body: {
+      type: CategoryType;
+      from: string;
+      to: string;
+    }
   ) {
-    if (!from || !to) {
+    if (!body.from || !body.to) {
       throw new BadRequestException("from and to are required");
     }
-    if (from === to) {
+    if (body.from === body.to) {
       throw new BadRequestException("from and to are same");
     }
-    if (tag) {
+    if (body.type === CategoryType.Tag) {
       // 合并标签
-      await this.categoryService.mergeTag(from, to);
-    } else {
+      await this.categoryService.mergeTag(body.from, body.to);
+    } else if (body.type === CategoryType.Category) {
       // 合并分类
-      await this.categoryService.mergeCategory(from, to);
+      await this.categoryService.mergeCategory(body.from, body.to);
     }
     return { message: "success" };
   }
