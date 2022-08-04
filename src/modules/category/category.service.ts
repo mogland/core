@@ -125,13 +125,14 @@ export class CategoryService {
    * @returns Promise<any[]>
    */
   async findCategoryPost(categoryId: string, condition: any = {}) {
+
     return await this.postService.model
       .find({
         categoryId,
-        ...condition,
+        condition,
       })
-      .select("title created slug _id") // select() 方法可以指定要显示的字段, 选择标题、创建时间、slug、_id
-      .sort({ created: -1 }); // sort() 方法可以指定排序规则，-1 表示倒序
+      // .select("title created slug _id") 
+      .sort({ created: -1 })
   }
 
   /**
