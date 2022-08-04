@@ -19,7 +19,7 @@ specifiers:
   '@nestjs/platform-fastify': 9.0.8
   '@nestjs/schedule': 2.1.0
   '@nestjs/schematics': 9.0.1
-  '@nestjs/swagger': 6.0.4
+  '@nestjs/swagger': 6.0.5
   '@nestjs/testing': 9.0.8
   '@typegoose/auto-increment': 1.6.0
   '@typegoose/typegoose': 9.11.0
@@ -165,7 +165,7 @@ devDependencies:
   '@innei/eslint-config-ts': 0.9.2_typescript@4.7.4
   '@nestjs/cli': 9.0.0
   '@nestjs/schematics': 9.0.1_typescript@4.7.4
-  '@nestjs/swagger': 6.0.4_hqu65pnpxmivmfspgeyhip7uca
+  '@nestjs/swagger': 6.0.5_hqu65pnpxmivmfspgeyhip7uca
   '@nestjs/testing': 9.0.8_cw6o3dkuyuli4a5gq7b223evly
   '@types/bcrypt': 5.0.0
   '@types/cache-manager': 4.0.1
@@ -917,8 +917,8 @@ packages:
       - chokidar
     dev: true
 
-  /@nestjs/swagger/6.0.4_hqu65pnpxmivmfspgeyhip7uca:
-    resolution: {integrity: sha512-YKf9RvCYHAgqkMvUG3xRr0zAcnuN8JsWPfvi7h0hzEXLRhNxByj2FT8Rzj+0fPAe6VZioWXBDpLzshO2PjE48Q==}
+  /@nestjs/swagger/6.0.5_hqu65pnpxmivmfspgeyhip7uca:
+    resolution: {integrity: sha512-Iy6/Xvd+YVC2F6flIDew5/VnpM2m7kK3IMoft0JqQc0RVXEO45+9gSasN6c8E/s0PbOy9de055mivAhFjk/+lA==}
     peerDependencies:
       '@fastify/static': ^6.0.0
       '@nestjs/common': ^9.0.0
@@ -936,7 +936,7 @@ packages:
       lodash: 4.17.21
       path-to-regexp: 3.2.0
       reflect-metadata: 0.1.13
-      swagger-ui-dist: 4.12.0
+      swagger-ui-dist: 4.13.2
     transitivePeerDependencies:
       - class-transformer
       - class-validator
@@ -6761,8 +6761,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /swagger-ui-dist/4.12.0:
-    resolution: {integrity: sha512-B0Iy2ueXtbByE6OOyHTi3lFQkpPi/L7kFOKFeKTr44za7dJIELa9kzaca6GkndCgpK1QTjArnoXG+aUy0XQp1w==}
+  /swagger-ui-dist/4.13.2:
+    resolution: {integrity: sha512-jHL6UyIYpvEI7NsuWd0R3hJaPQTg6Oo4qSBo+oVfOEkv6rrQm/475RGSMmZgV6ajp+Sgrp9CqrDjQYAgQqiv1A==}
     dev: true
 
   /symbol-observable/4.0.0:
