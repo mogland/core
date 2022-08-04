@@ -82,7 +82,7 @@ export class LinksController {
     return await this.linksService.model.findByIdAndUpdate(id, {
       status,
       ...body,
-    })
+    });
   }
 
   @Auth()

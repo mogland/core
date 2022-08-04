@@ -173,7 +173,7 @@ export class CommentService {
    * @param page,size,state
    * @returns 评论列表
    */
-  async getComments({ page, size, status } = { page: 1, size: 10, status: 0 }, isMaster = false) {
+  async getComments({ page, size, status } = { page: 1, size: 10, status: 0 }) {
     const queryList = await this.commentModel.paginate(
       { status }, // 查询条件
       {

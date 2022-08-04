@@ -25,7 +25,6 @@ import { Types, PipelineStage } from "mongoose";
 import { MongoIdDto } from "~/shared/dto/id.dto";
 import { IsMaster } from "~/common/decorator/role.decorator";
 import { md5 } from "~/utils/tools.util";
-import { Cookies } from "~/common/decorator/cookie.decorator";
 import { IpLocation, IpRecord } from "~/common/decorator/ip.decorator";
 import { ThumbsService } from "~/processors/helper/helper.thumbs.service";
 @Controller("posts")
@@ -199,7 +198,6 @@ export class PostController {
               // 将text, summary改为"内容已被隐藏"
               postDocument.text = "内容已被隐藏，请输入密码";
               postDocument.summary = "内容已被隐藏，请输入密码";
-              
             } else {
               postDocument.password = null;
             }

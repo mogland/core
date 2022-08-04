@@ -125,14 +125,13 @@ export class CategoryService {
    * @returns Promise<any[]>
    */
   async findCategoryPost(categoryId: string, condition: any = {}) {
-
     return await this.postService.model
       .find({
         categoryId,
         condition,
       })
-      // .select("title created slug _id") 
-      .sort({ created: -1 })
+      // .select("title created slug _id")
+      .sort({ created: -1 });
   }
 
   /**

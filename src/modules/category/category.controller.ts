@@ -156,13 +156,7 @@ export class CategoryController {
   @Post("/merge")
   @ApiOperation({ summary: "合并分类或标签 (Beta)" })
   @Auth()
-  async merge(
-    @Body() body: {
-      type: CategoryType;
-      from: string;
-      to: string;
-    }
-  ) {
+  async merge(@Body() body: { type: CategoryType; from: string; to: string }) {
     if (!body.from || !body.to) {
       throw new BadRequestException("from and to are required");
     }

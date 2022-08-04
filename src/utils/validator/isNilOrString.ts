@@ -3,20 +3,23 @@
  * @author: Wibus
  * @Date: 2022-07-03 09:27:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-03 09:29:39
+ * @LastEditTime: 2022-08-04 23:05:15
  * Coding With IU
  */
 
 import {
   registerDecorator,
-  ValidationArguments,
+  // ValidationArguments,
   ValidationOptions,
   ValidatorConstraintInterface,
 } from "class-validator";
 import { isNil, isString } from "lodash";
 
 class IsNilOrStringConstraint implements ValidatorConstraintInterface {
-  validate(value: any, args: ValidationArguments) {
+  validate(
+    value: any
+    // args: ValidationArguments
+  ) {
     return isNil(value) || isString(value);
   }
 }
