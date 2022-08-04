@@ -37,17 +37,17 @@ import {
 import { CommentModel, CommentStatus } from "./comment.model";
 import { CommentService } from "./comment.service";
 
-@Controller("comment")
+@Controller("comments")
 @ApiName
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Get("/")
-  @Auth()
-  async getRecentlyComments(@Query() query: PagerDto) {
+  // @Auth()
+  async getRecentlyComments(@Query() query: PagerDto, @IsMaster() isMaster: boolean) {
     const { size = 10, page = 1, status = 0 } = query;
     return transformDataToPaginate(
-      await this.commentService.getComments({ size, page, status })
+      await this.commentService.getComments({ size, page, status }, isMaster)
     );
   }
 

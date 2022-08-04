@@ -11,6 +11,7 @@ export const CROSS_DOMAIN = {
     "shizuri.net",
     "localhost:9528",
     "localhost:2323",
+    "localhost:2222",
     "127.0.0.1",
     "mbp.cc",
     "local.innei.test",
