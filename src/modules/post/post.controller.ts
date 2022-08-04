@@ -174,7 +174,7 @@ export class PostController {
   async getByCategoryAndSlug(
     @Param() params: CategoryAndSlugDto,
     @IsMaster() isMaster: boolean,
-    @Cookies("password") password: any
+    @Query("password") password: any
   ) {
     const { category, slug } = params;
     const categoryDocument = await this.postService.getCategoryBySlug(category);
@@ -199,7 +199,12 @@ export class PostController {
               // 将text, summary改为"内容已被隐藏"
               postDocument.text = "内容已被隐藏，请输入密码";
               postDocument.summary = "内容已被隐藏，请输入密码";
+              
+            } else {
+              postDocument.password = null;
             }
+          } else {
+            postDocument.password = null;
           }
           return postDocument;
         })

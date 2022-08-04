@@ -179,7 +179,7 @@ export class CommentService {
       {
         page, // 当前页
         limit: size, // 每页显示条数
-        select: isMaster ? "+ip +agent -children" : "",
+        select: "+ip +agent -children", // 查询字段
         sort: { created: -1 }, // 排序
         populate: [
           // 关联查询
