@@ -93,7 +93,7 @@ specifiers:
   tsconfig-paths: 3.14.1
   typescript: 4.7.4
   vite-tsconfig-paths: 3.5.0
-  vitest: 0.20.3
+  vitest: 0.21.0
   vm2: 3.9.10
   webpack: '*'
   webpack-node-externals: 3.0.0
@@ -198,7 +198,7 @@ devDependencies:
   tsconfig-paths: 3.14.1
   typescript: 4.7.4
   vite-tsconfig-paths: 3.5.0
-  vitest: 0.20.3
+  vitest: 0.21.0
   webpack: 5.58.2
   webpack-node-externals: 3.0.0
   zx: 7.0.8
@@ -7246,8 +7246,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.20.3:
-    resolution: {integrity: sha512-cXMjTbZxBBUUuIF3PUzEGPLJWtIMeURBDXVxckSHpk7xss4JxkiiWh5cnIlfGyfJne2Ii3QpbiRuFL5dMJtljw==}
+  /vitest/0.21.0:
+    resolution: {integrity: sha512-+BQB2swk4wQdw5loOoL8esIYh/1ifAliuwj2HWHNE2F8SAl/jF7/aoCJBoXGSf/Ws19k3pH4NrWeVtcSwM0j2w==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
