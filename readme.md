@@ -31,7 +31,6 @@
 ## 活跃情况 Activity
 
 ![Alt](https://repobeats.axiom.co/api/embed/c41f4aa5c6264c1db4ddd6c2120c0fca64dabcea.svg "Repobeats analytics image")
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnx-space%2Fcore.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnx-space%2Fcore?ref=badge_shield)
 
 ## 项目重构后所使用的技术栈
 
@@ -56,9 +55,6 @@ This project referred to:
 ## License
 
 此项目 AGPLv3 授权开源，使用此项目进行的二次创作或者衍生项目也必须开源。
-
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnx-space%2Fcore.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnx-space%2Fcore?ref=badge_large)
 
 ## Author
 
