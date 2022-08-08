@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nx-core/src/modules/comment/comment.dto.ts
+ * @FilePath: /nx-core/src/modules/comments/comments.dto.ts
  * @author: Innei
  * @Date: 2022-07-03 17:48:49
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-01 13:38:07
+ * @LastEditTime: 2022-08-08 17:07:57
  * Coding With IU
  */
 
@@ -22,7 +22,7 @@ import {
 
 import { ApiProperty } from "@nestjs/swagger";
 
-import { CommentType } from "./comment.model";
+import { CommentType } from "./comments.model";
 
 export class CommentDto {
   @IsString()

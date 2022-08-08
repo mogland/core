@@ -8,7 +8,7 @@ import { ConfigsService } from "../configs/configs.service";
 import { PageModel } from "../page/page.model";
 import { PostModel } from "../post/post.model";
 import { UserService } from "../user/user.service";
-import { CommentModel, CommentType } from "./comment.model";
+import { CommentModel, CommentType } from "./comments.model";
 import { LeanDocument, Types } from "mongoose";
 import { WriteBaseModel } from "~/shared/model/base.model";
 import { CannotFindException } from "~/common/exceptions/cant-find.exception";

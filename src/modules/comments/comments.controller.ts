@@ -33,9 +33,9 @@ import {
   CommentRefTypesDto,
   CommentStatusPatchDto,
   TextOnlyDto,
-} from "./comment.dto";
-import { CommentModel, CommentStatus } from "./comment.model";
-import { CommentService } from "./comment.service";
+} from "./comments.dto";
+import { CommentModel, CommentStatus } from "./comments.model";
+import { CommentService } from "./comments.service";
 
 @Controller("comments")
 @ApiName

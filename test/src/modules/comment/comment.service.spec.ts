@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { beforeEach, expect, describe, it } from "vitest";
-import { CommentService } from "~/modules/comment/comment.service";
+import { CommentService } from "~/modules/comments/comments.service";
 
 describe("CommentService", () => {
   let service: CommentService;

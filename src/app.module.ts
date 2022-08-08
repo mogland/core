@@ -14,7 +14,7 @@ import { DbModule } from "@app/db";
 import { ConfigsModule } from "./modules/configs/configs.module";
 import { PluginsModule } from "./modules/plugins/plugins.module";
 import { PageModule } from "./modules/page/page.module";
-import { CommentModule } from "./modules/comment/comment.module";
+import { CommentModule } from "./modules/comments/comments.module";
 import { ToolsModule } from "./modules/tools/tools.module";
 import { HelperModule } from "./processors/helper/helper.module";
 import { AggregateModule } from "./modules/aggregate/aggregate.module";

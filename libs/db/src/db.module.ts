@@ -1,6 +1,6 @@
 import { Global, Module, Provider } from "@nestjs/common";
 import { CategoryModel } from "~/modules/category/category.model";
-import { CommentModel } from "~/modules/comment/comment.model";
+import { CommentModel } from "~/modules/comments/comments.model";
 import { ConfigsModel } from "~/modules/configs/configs.model";
 import { LinksModel } from "~/modules/links/links.model";
 import { PageModel } from "~/modules/page/page.model";

@@ -13,7 +13,7 @@ import { isDefined } from "class-validator";
 import { omit } from "lodash";
 import { BusinessException } from "~/common/exceptions/business.excpetion";
 import { ErrorCodeEnum } from "~/constants/error-code.constant";
-import { CommentModel, CommentType } from "../comment/comment.model";
+import { CommentModel, CommentType } from "../comments/comments.model";
 
 @Injectable()
 export class PostService {
