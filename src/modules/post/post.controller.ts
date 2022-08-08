@@ -256,7 +256,7 @@ export class PostController {
     body.password
       ? (body.password = md5(body.password))
       : (body.password = null);
-    return await postDocument.updateOne(body);
+    return await this.postService.updateById(params.id, body);
   }
 
   @Delete("/:id")

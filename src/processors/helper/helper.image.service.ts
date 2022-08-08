@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-19 13:24:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-19 15:05:21
+ * @LastEditTime: 2022-08-08 17:13:21
  * Coding With IU
  */
 
@@ -102,6 +102,7 @@ export class ImageService {
       ) {
         // shit code
         result.push(origin);
+        this.logger.log(`图片链接没有变化`);
         continue;
       }
 

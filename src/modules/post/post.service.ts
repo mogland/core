@@ -14,6 +14,7 @@ import { omit } from "lodash";
 import { BusinessException } from "~/common/exceptions/business.excpetion";
 import { ErrorCodeEnum } from "~/constants/error-code.constant";
 import { CommentModel, CommentType } from "../comments/comments.model";
+import { ImageService } from "~/processors/helper/helper.image.service";
 
 @Injectable()
 export class PostService {
@@ -24,7 +25,8 @@ export class PostService {
     @InjectModel(CommentModel)
     private readonly commentModel: MongooseModel<CommentModel>,
     @Inject(forwardRef(() => CategoryService))
-    private readonly categoryService: CategoryService // private readonly imageService: ImageService,
+    private readonly categoryService: CategoryService,
+    private readonly imageService: ImageService,
   ) {}
   get model() {
     return this.postModel;
@@ -108,7 +110,7 @@ export class PostService {
 
     process.nextTick(async () => {
       await Promise.all([
-        // this.imageService.recordImageMeta(this.model as MongooseModel<PostModel>, id)
+        this.imageService.recordImageMeta(this.model as MongooseModel<PostModel>, id)
       ]);
     });
 
