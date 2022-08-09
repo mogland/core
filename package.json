@@ -1,6 +1,6 @@
 {
   "name": "@nx-space/core",
-  "version": "1.5.3",
+  "version": "1.6.0",
   "description": "The RESTful API service for NEXT Space, more features, powered by @nestjs.",
   "author": "Wibus <https://iucky.cn>",
   "license": "AGPLv3",
