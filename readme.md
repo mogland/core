@@ -1,4 +1,4 @@
-# NEXT Core v1.5.3
+# NEXT Core
 
 > the RESTful API service for NEXT Space, powered by @nestjs. 
 > 
@@ -7,17 +7,17 @@
 <img src="https://img.shields.io/github/package-json/v/nx-space/core" referrerpolicy="no-referrer" alt="version"><a href="https://wakatime.com/badge/github/nx-space/core"><img src="https://wakatime.com/badge/github/nx-space/core.svg" alt="wakatime"></a>
 <a href="https://github.com/nx-space/core/actions/workflows/build.yml"><img src="https://github.com/nx-space/core/actions/workflows/build.yml/badge.svg"></a>
 
+目前已实现或准备实现的一些小功能：
+
+- 插件系统
+- 模板引擎
+- 低代码前端框架
+
 ## 开始使用
 
 **_nx-core 依赖于 NodeJS 14 (at least), MongoDB 和 Redis 环境_**
 
-~~[Documentation 文档](https://nx-docs.iucky.cn)｜ [Development Live Demo](#)~~
-
-## 关于此项目 (core)
-
-此程序（core）是用来提供个人空间服务端API服务的，你可以通过 Swagger 来查看已提供的现有 API 接口。
-
-你可以使用接口来开发属于你的个人空间**前端** 期待你的成果！
+[Documentation 文档](https://nx.js.org)
 
 
 ## 项目 Sponsors
