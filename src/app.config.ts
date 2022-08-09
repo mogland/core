@@ -6,18 +6,20 @@ import { isDev } from "./utils/environment.utils";
 console.log(argv);
 export const PORT = argv.port || 3333;
 export const CROSS_DOMAIN = {
-  allowedOrigins: [
-    "innei.ren",
-    "shizuri.net",
-    "localhost:9528",
-    "localhost:2323",
-    "localhost:2222",
-    "127.0.0.1",
-    "mbp.cc",
-    "local.innei.test",
-    "22333322.xyz",
-    "localhost:3000",
-  ],
+  allowedOrigins: argv.allowed_origins
+    ? argv.allowed_origins?.split?.(',')
+    : [
+      "iucky.cn",
+      "blog.iucky.cn",
+      "localhost:9528",
+      "localhost:2323",
+      "localhost:2222",
+      "127.0.0.1",
+      "mbp.cc",
+      "local.innei.test",
+      "22333322.xyz",
+      "localhost:3000",
+    ],
   allowedReferer: "innei.ren",
 };
 
@@ -32,9 +34,8 @@ export const MONGO_DB = {
       ? `${argv.db_user}:${argv.db_password}@`
       : "",
   get uri() {
-    return `mongodb://${this.userAndPassword}${this.host}:${this.port}${
-      argv.railway ? "" : `/${this.dbName}`
-    }`;
+    return `mongodb://${this.userAndPassword}${this.host}:${this.port}${argv.railway ? "" : `/${this.dbName}`
+      }`;
   },
 };
 
