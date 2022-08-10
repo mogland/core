@@ -30,9 +30,10 @@ export class MarkdownController {
   @HTTPDecorators.Bypass
   async exportSomeMarkdowns(
     @Query() { showTitle, slug, yaml }: ExportMarkdownDto,
-    @Body() { id }: any,
+    @Body() { ids }: any,
     @Res() res
   ) {
+    const id = ids.split(",");
     const { posts, pages } = await this.markdownService.getSomeMarkdownData(id); // 获取部分数据
     // 如果 posts 和 pages 合起来只有一条数据，则直接导出
     if (id.length === 1) {
