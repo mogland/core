@@ -163,11 +163,11 @@ export class CategoryService {
    * @param to 目标分类名
    */
   async mergeCategory(from: string, to: string) {
-    await this.postService.model.updateMany(
-      { categoryId: from },
-      { categoryId: to }
-    ); // 更新文章的 categoryId 字段 为 to
-    await this.categoryModel.deleteOne({ _id: from }); // 删除 from 分类
+    const posts = await this.postService.model.find({ categoryId: from }); // 查找所有包含 from 分类的文章
+    for (const post of posts) {
+      await post.updateOne({ categoryId: to }); // 更新文章的 category 字段
+    }
+    return 1
   }
 
   /**
