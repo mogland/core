@@ -43,9 +43,10 @@ export class PostModel extends WriteBaseModel {
   @ApiProperty({ description: "文章路径" })
   slug!: string;
 
-  @prop({ trim: true, required: true })
+  @prop({ trim: true })
   @IsString()
   @ApiProperty({ description: "文章摘要" })
+  @IsOptional()
   summary?: string;
 
   @prop({ ref: () => CategoryModel, required: true })
