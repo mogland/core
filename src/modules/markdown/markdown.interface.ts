@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-18 21:25:36
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-19 11:37:07
+ * @LastEditTime: 2022-08-10 18:03:13
  * Coding With IU
  */
 
@@ -27,6 +27,5 @@ export const ArticleType = Object.freeze({
 
 export enum ArticleTypeEnum {
   Post = "post",
-  Note = "note",
   Page = "page",
 }
