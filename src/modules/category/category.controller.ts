@@ -163,12 +163,14 @@ export class CategoryController {
     if (body.from === body.to) {
       throw new BadRequestException("from and to are same");
     }
-    if (body.type === CategoryType.Tag) {
+    if (body.type == CategoryType.Tag) {
       // 合并标签
       await this.categoryService.mergeTag(body.from, body.to);
-    } else if (body.type === CategoryType.Category) {
+    } else if (body.type == CategoryType.Category) {
       // 合并分类
       await this.categoryService.mergeCategory(body.from, body.to);
+    } else {
+      throw new BadRequestException("type is invalid");
     }
     return { message: "success" };
   }
