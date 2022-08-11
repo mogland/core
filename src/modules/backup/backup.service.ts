@@ -95,4 +95,8 @@ export class BackupService {
       throw e; // 抛出异常
     }
   }
+
+  async backupWithJSON(json: BackupInterface) {
+
+  }
 }

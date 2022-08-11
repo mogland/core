@@ -1,6 +1,7 @@
 import { MultipartFile } from "@fastify/multipart";
 import {
   BadRequestException,
+  Body,
   Controller,
   Get,
   Header,
@@ -21,6 +22,12 @@ import { BackupService } from "./backup.service";
 @Auth()
 export class BackupController {
   constructor(private readonly backupService: BackupService) {}
+
+  @Post("/json")
+  @ApiOperation({ summary: "使用 json 恢复数据" })
+  async backupWithJSON(@Body() body: BackupInterface){
+    return await this.backupService.backupWithJSON(body);
+  }
 
   @Get("/new")
   @ApiResponseProperty({ type: "string", format: "binary" })
