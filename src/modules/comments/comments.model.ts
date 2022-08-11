@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nx-core/src/modules/comment/comment.model.ts
+ * @FilePath: /nx-core/src/modules/comments/comments.model.ts
  * @author: Wibus
  * @Date: 2022-07-03 17:49:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-30 18:08:13
+ * @LastEditTime: 2022-08-11 22:53:14
  * Coding With IU
  */
 
@@ -72,7 +72,7 @@ export class CommentModel extends BaseModel {
       return new URL(val).origin;
     },
   })
-  urls?: string;
+  url?: string;
 
   @prop({ required: true })
   text: string;
