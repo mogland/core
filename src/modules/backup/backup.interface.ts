@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-08-11 18:20:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-12 15:23:57
+ * @LastEditTime: 2022-08-12 15:29:15
  * Coding With IU
  */
 
@@ -176,10 +176,10 @@ interface Comment {
 }
 
 export interface BackupInterface {
-  site: Required<Site>;
-  master: Required<Master>;
-  categories: Category[];
-  posts: Post[];
-  pages: Page[];
-  comments: Comment[];
+  site?: Required<Site>;
+  master?: Required<Master>;
+  categories?: Category[];
+  posts?: Post[];
+  pages?: Page[];
+  comments?: Comment[];
 }
