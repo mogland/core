@@ -3,11 +3,11 @@
  * @author: Wibus
  * @Date: 2022-08-11 18:20:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-12 15:29:15
+ * @LastEditTime: 2022-08-12 18:33:08
  * Coding With IU
  */
 
-import { CommentType } from "~/modules/comment/comment.model";
+import { CommentType } from "../comments/comments.model";
 
 /**
 
