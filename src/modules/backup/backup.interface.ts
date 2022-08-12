@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-08-11 18:20:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-12 00:45:21
+ * @LastEditTime: 2022-08-12 12:12:02
  * Coding With IU
  */
 
@@ -120,6 +120,7 @@ interface Master {
   mail?: string;
   avatar?: string;
   url?: string;
+  password: string;
 }
 
 interface Category {
@@ -172,7 +173,7 @@ interface Comment {
   children?: Comment[];
 }
 
-interface BackupInterface {
+export interface BackupInterface {
   site: Required<Site>;
   master: Required<Master>;
   categories: Category[];
