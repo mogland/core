@@ -27,22 +27,24 @@ export async function bootstrap() {
   const configService = app.get(ConfigsService);
   const theme = configService.model.findOne({ name: "theme" });
   const themeEnabled = theme?.value?.find((item) => item.enabled);
-  app.useStaticAssets({
-    root: join(THEME_DIR, themeEnabled?.name || "default", "public"),
-    prefix: "/public/",
-  });
-  app.setViewEngine({
-    engine: {
-      handlebars: require("handlebars"),
-      "art-template": require("art-template"),
-      ejs: require("ejs"),
-    },
-    templates: join(THEME_DIR, themeEnabled.name || "default"),
-    viewExt: themeEnabled.viewExt || "art-template",
-    defaultContext: {
-      dev: process.env.NODE_ENV === "development",
-    },
-  });
+  if (themeEnabled) {
+    app.useStaticAssets({
+      root: join(THEME_DIR, themeEnabled?.name || "default", "public"),
+      prefix: "/public/",
+    });
+    app.setViewEngine({
+      engine: {
+        handlebars: require("handlebars"),
+        "art-template": require("art-template"),
+        ejs: require("ejs"),
+      },
+      templates: join(THEME_DIR, themeEnabled.name || "default"),
+      viewExt: themeEnabled.viewExt || "art-template",
+      defaultContext: {
+        dev: process.env.NODE_ENV === "development",
+      },
+    });
+  }
 
   const hosts = Origin.map((host) => new RegExp(host, "i"));
 

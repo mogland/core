@@ -25,6 +25,7 @@ import { RolesGuard } from "./common/guard/roles.guard";
 import { AuthModule } from "./modules/auth/auth.module";
 import { BackupModule } from "./modules/backup/backup.module";
 import { MarkdownModule } from "./modules/markdown/markdown.module";
+import { ThemeModule } from './modules/theme/theme.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { MarkdownModule } from "./modules/markdown/markdown.module";
     InitModule,
     BackupModule,
     MarkdownModule,
+    ThemeModule,
   ],
   controllers: [AppController],
   providers: [
