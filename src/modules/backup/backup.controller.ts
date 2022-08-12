@@ -1,6 +1,7 @@
 import { MultipartFile } from "@fastify/multipart";
 import {
   BadRequestException,
+  Body,
   Controller,
   Get,
   Header,
@@ -11,9 +12,12 @@ import { ApiOperation, ApiResponseProperty } from "@nestjs/swagger";
 import { FastifyRequest } from "fastify";
 import { Readable } from "stream";
 import { Auth } from "~/common/decorator/auth.decorator";
+import { CurrentUser } from "~/common/decorator/current-user.decorator";
 import { Bypass, FileUpload } from "~/common/decorator/http.decorator";
 import { ApiName } from "~/common/decorator/openapi.decorator";
 import { getMediumDateTime } from "~/utils/time.util";
+import { UserDocument } from "../user/user.model";
+import { BackupInterface } from "./backup.interface";
 import { BackupService } from "./backup.service";
 
 @Controller("backup")
@@ -21,6 +25,12 @@ import { BackupService } from "./backup.service";
 @Auth()
 export class BackupController {
   constructor(private readonly backupService: BackupService) {}
+
+  @Post("/json")
+  @ApiOperation({ summary: "使用 json 恢复数据" })
+  async backupWithJSON(@Body() body: BackupInterface, @CurrentUser() user: UserDocument){
+    return await this.backupService.backupWithJSON(body, user);
+  }
 
   @Get("/new")
   @ApiResponseProperty({ type: "string", format: "binary" })

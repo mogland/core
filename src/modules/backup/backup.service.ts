@@ -9,13 +9,25 @@ import mkdirp from "mkdirp";
 import { quiet } from "zx-cjs";
 import { readFile, writeFile } from "fs/promises";
 import { existsSync } from "fs";
+import { UserService } from "../user/user.service";
+import { UserDocument } from "../user/user.model";
+import { CategoryService } from "../category/category.service";
+import { PostService } from "../post/post.service";
+import { PageService } from "../page/page.service";
+import { CommentService } from "~/modules/comment/comment.service";
+import { BackupInterface } from "./backup.interface";
 @Injectable()
 export class BackupService {
   private logger: Logger;
 
   constructor(
     private readonly configs: ConfigsService,
-    private readonly redis: CacheService
+    private readonly redis: CacheService,
+    private readonly userService: UserService,
+    private readonly categoryService: CategoryService,
+    private readonly postService: PostService,
+    private readonly pageService: PageService,
+    private readonly commentService: CommentService
   ) {
     this.logger = new Logger(BackupService.name);
   }
@@ -37,7 +49,7 @@ export class BackupService {
     } catch (e) {
       this.logger.error(
         `备份数据库失败，请检查是否安装 mongo-tools, mongo-tools 的版本需要与 mongod 版本一致, ${e.message}` ||
-          e.stderr
+        e.stderr
       );
       throw e; // 抛出异常
     }
@@ -90,9 +102,48 @@ export class BackupService {
     } catch (e) {
       this.logger.error(
         `还原数据库失败，请检查是否安装 mongo-tools, mongo-tools 的版本需要与 mongod 版本一致, ${e.message}` ||
-          e.stderr
+        e.stderr
       );
       throw e; // 抛出异常
     }
+  }
+
+  async backupWithJSON(json: BackupInterface, user: UserDocument) {
+    const errorLog: string[] = [];
+    const { site, master, categories, posts, pages, comments } = json;
+    site && await this.configs.patchAndValidate("site", site);
+    master && await this.userService.patchUserData(user, master);
+    categories && categories.forEach(async (category) => {
+      await this.categoryService.model.create({
+        name: category.name,
+        slug: category.slug,
+      })
+    })
+    posts && posts.forEach(async (post) => {
+      await this.postService.model.create({
+        title: post.title,
+        slug: post.slug,
+        text: post.text,
+        categoryId: post.category,
+        tags: post?.tags,
+        created: post.created,
+        modified: post?.modified,
+        summary: post?.summary,
+        allowComment: post?.allowComment,
+      })
+    })
+    pages && pages.forEach(async (page) => {
+      await this.pageService.model.create({
+        title: page.title,
+        subtitle: page?.subtitle,
+        slug: page.slug,
+        text: page.text,
+        created: page.created,
+        modified: page?.modified,
+        summary: page?.summary,
+        allowComment: page?.allowComment,
+        order: page?.order,
+      })
+    })
   }
 }
