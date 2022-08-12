@@ -109,17 +109,17 @@ export class BackupService {
   }
 
   async backupWithJSON(json: BackupInterface, user: UserDocument) {
-    // const errorLog: string[] = [];
+    const errorLog: string[] = [];
     const { site, master, categories, posts, pages, comments } = json;
-    await this.configs.patchAndValidate("site", site);
-    await this.userService.patchUserData(user, master);
-    categories.forEach(async (category) => {
+    site && await this.configs.patchAndValidate("site", site);
+    master && await this.userService.patchUserData(user, master);
+    categories && categories.forEach(async (category) => {
       await this.categoryService.model.create({
         name: category.name,
         slug: category.slug,
       })
     })
-    posts.forEach(async (post) => {
+    posts && posts.forEach(async (post) => {
       await this.postService.model.create({
         title: post.title,
         slug: post.slug,
@@ -132,7 +132,7 @@ export class BackupService {
         allowComment: post?.allowComment,
       })
     })
-    pages.forEach(async (page) => {
+    pages && pages.forEach(async (page) => {
       await this.pageService.model.create({
         title: page.title,
         subtitle: page?.subtitle,
@@ -145,55 +145,5 @@ export class BackupService {
         order: page?.order,
       })
     })
-
-    // const createChildComment = async (children) => {
-    //   children.map(async (comment) => {
-    //     await this.commentService.validateName(comment.author);
-    //     const children = comment.children || [];
-    //     const ref = comment.refType
-    //     delete comment.children;
-    //     const parent = await this.commentService.model.findById(id).populate("ref");
-    //     if (!parent) {
-    //       throw new CannotFindException();
-    //     }
-    //     const commentIndex = parent.commentsIndex; // 获取评论的索引
-    //     const key = `${parent.key}#${commentIndex}`;
-    //     await this.commentService.create(refPostId, {
-    //       refType: ref,
-    //       author: comment.author,
-    //       text: comment.text,
-    //       created: comment.created,
-    //       urls: comment?.urls,
-    //       ip: comment?.ip,
-    //       status: comment?.status,
-    //       agent: comment?.agent,
-    //     }, ref)
-    //   })
-    // }
-
-    // comments.forEach(async (comment) => {
-    //   await this.commentService.validateName(comment.author);
-    //   const children = comment.children || [];
-    //   const ref = comment.refType
-    //   delete comment.children;
-    //   const refPostId = await this.postService.getPostBySlug(ref).then(post => post?._id);
-    //   if (!refPostId) {
-    //     errorLog.push(`${comment.author} 的评论找不到文章 ${ref}`);
-    //     this.logger.error(`评论 ${comment.author} 的文章 ${ref} 不存在`);
-    //   }
-    //   await this.commentService.create(refPostId, {
-    //     refType: ref,
-    //     author: comment.author,
-    //     text: comment.text,
-    //     created: comment.created,
-    //     urls: comment?.urls,
-    //     ip: comment?.ip,
-    //     status: comment?.status,
-    //     agent: comment?.agent,
-    //   }, ref)
-
-    //   await createChildComment(children);
-
-    // })
   }
 }
