@@ -12,9 +12,12 @@ import { ApiOperation, ApiResponseProperty } from "@nestjs/swagger";
 import { FastifyRequest } from "fastify";
 import { Readable } from "stream";
 import { Auth } from "~/common/decorator/auth.decorator";
+import { CurrentUser } from "~/common/decorator/current-user.decorator";
 import { Bypass, FileUpload } from "~/common/decorator/http.decorator";
 import { ApiName } from "~/common/decorator/openapi.decorator";
 import { getMediumDateTime } from "~/utils/time.util";
+import { UserDocument } from "../user/user.model";
+import { BackupInterface } from "./backup.interface";
 import { BackupService } from "./backup.service";
 
 @Controller("backup")
@@ -25,8 +28,8 @@ export class BackupController {
 
   @Post("/json")
   @ApiOperation({ summary: "使用 json 恢复数据" })
-  async backupWithJSON(@Body() body: BackupInterface){
-    return await this.backupService.backupWithJSON(body);
+  async backupWithJSON(@Body() body: BackupInterface, @CurrentUser() user: UserDocument){
+    return await this.backupService.backupWithJSON(body, user);
   }
 
   @Get("/new")

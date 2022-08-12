@@ -9,13 +9,25 @@ import mkdirp from "mkdirp";
 import { quiet } from "zx-cjs";
 import { readFile, writeFile } from "fs/promises";
 import { existsSync } from "fs";
+import { UserService } from "../user/user.service";
+import { UserDocument } from "../user/user.model";
+import { CategoryService } from "../category/category.service";
+import { PostService } from "../post/post.service";
+import { PageService } from "../page/page.service";
+import { CommentService } from "../comment/comment.service";
+import { BackupInterface } from "./backup.interface";
 @Injectable()
 export class BackupService {
   private logger: Logger;
 
   constructor(
     private readonly configs: ConfigsService,
-    private readonly redis: CacheService
+    private readonly redis: CacheService,
+    private readonly userService: UserService,
+    private readonly categoryService: CategoryService,
+    private readonly postService: PostService,
+    private readonly pageService: PageService,
+    private readonly commentsService: CommentService
   ) {
     this.logger = new Logger(BackupService.name);
   }
@@ -96,7 +108,15 @@ export class BackupService {
     }
   }
 
-  async backupWithJSON(json: BackupInterface) {
-
+  async backupWithJSON(json: BackupInterface, user: UserDocument) {
+    const { site, master, categories, posts, pages, comments } = json;
+    await this.configs.patchAndValidate("site", site);
+    await this.userService.patchUserData(user, master);
+    categories.forEach(async (category) => {
+      await this.categoryService.model.create({
+        name: category.name,
+        slug: category.slug,
+      })
+    })
   }
 }
