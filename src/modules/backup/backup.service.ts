@@ -14,7 +14,7 @@ import { UserDocument } from "../user/user.model";
 import { CategoryService } from "../category/category.service";
 import { PostService } from "../post/post.service";
 import { PageService } from "../page/page.service";
-import { CommentService } from "../comment/comment.service";
+import { CommentService } from "~/modules/comment/comment.service";
 import { BackupInterface } from "./backup.interface";
 @Injectable()
 export class BackupService {

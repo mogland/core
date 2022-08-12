@@ -5,7 +5,7 @@ import { UserModule } from "../user/user.module";
 import { CategoryModule } from "../category/category.module";
 import { PostModule } from "../post/post.module";
 import { PageModule } from "../page/page.module";
-import { CommentModule } from "../comment/comment.module";
+import { CommentModule } from "~/modules/comment/comment.module";
 
 @Module({
   imports: [UserModule, CategoryModule, PostModule, PageModule, CommentModule],

@@ -7,7 +7,7 @@
  * Coding With IU
  */
 
-import { CommentType } from "../comment/comment.model";
+import { CommentType } from "~/modules/comment/comment.model";
 
 /**
 
