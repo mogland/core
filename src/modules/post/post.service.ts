@@ -130,10 +130,9 @@ export class PostService {
   /**
    * 根据id查询文章
    * @param slug 文章slug
-   * @returns Promise<CategoryModel>
    */
-  async getCategoryBySlug(slug: string) {
-    return await this.categoryService.model.findOne({ slug });
+  async getPostBySlug(slug: string) {
+    return await this.model.findOne({ slug });
   }
 
   /**

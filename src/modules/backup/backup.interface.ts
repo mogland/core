@@ -3,9 +3,11 @@
  * @author: Wibus
  * @Date: 2022-08-11 18:20:13
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-12 12:12:02
+ * @LastEditTime: 2022-08-12 15:23:57
  * Coding With IU
  */
+
+import { CommentType } from "../comment/comment.model";
 
 /**
 
@@ -133,9 +135,9 @@ interface Post {
   slug: string;
   text: string;
   summary?: string;
-  allowComment: boolean;
-  modified?: string;
-  created: string;
+  allowComment?: boolean;
+  modified?: Date;
+  created: Date;
   copyright: boolean;
   view?: {
     like: number;
@@ -155,21 +157,21 @@ interface Page {
   summary?: string;
   order?: number;
   allowComment: boolean;
-  modified?: string;
-  created: string;
+  modified?: Date;
+  created: Date;
 }
 
 interface Comment {
-  ref_type: "Post" | "Page";
-  ref: string;
+  refType: CommentType;
+  ref: string; // 如果是 主评论 则填写slug，如果子评论则填写父评论的id
   author: string;
-  email: string;
+  mail: string;
   text: string;
   urls?: string;
   status: 0 | 1 | 2;
   ip?: string;
   agent?: string;
-  created: string;
+  created: Date;
   children?: Comment[];
 }
 

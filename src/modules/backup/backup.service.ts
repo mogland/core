@@ -27,7 +27,7 @@ export class BackupService {
     private readonly categoryService: CategoryService,
     private readonly postService: PostService,
     private readonly pageService: PageService,
-    private readonly commentsService: CommentService
+    private readonly commentService: CommentService
   ) {
     this.logger = new Logger(BackupService.name);
   }
@@ -49,7 +49,7 @@ export class BackupService {
     } catch (e) {
       this.logger.error(
         `备份数据库失败，请检查是否安装 mongo-tools, mongo-tools 的版本需要与 mongod 版本一致, ${e.message}` ||
-          e.stderr
+        e.stderr
       );
       throw e; // 抛出异常
     }
@@ -102,13 +102,14 @@ export class BackupService {
     } catch (e) {
       this.logger.error(
         `还原数据库失败，请检查是否安装 mongo-tools, mongo-tools 的版本需要与 mongod 版本一致, ${e.message}` ||
-          e.stderr
+        e.stderr
       );
       throw e; // 抛出异常
     }
   }
 
   async backupWithJSON(json: BackupInterface, user: UserDocument) {
+    // const errorLog: string[] = [];
     const { site, master, categories, posts, pages, comments } = json;
     await this.configs.patchAndValidate("site", site);
     await this.userService.patchUserData(user, master);
@@ -118,5 +119,81 @@ export class BackupService {
         slug: category.slug,
       })
     })
+    posts.forEach(async (post) => {
+      await this.postService.model.create({
+        title: post.title,
+        slug: post.slug,
+        text: post.text,
+        categoryId: post.category,
+        tags: post?.tags,
+        created: post.created,
+        modified: post?.modified,
+        summary: post?.summary,
+        allowComment: post?.allowComment,
+      })
+    })
+    pages.forEach(async (page) => {
+      await this.pageService.model.create({
+        title: page.title,
+        subtitle: page?.subtitle,
+        slug: page.slug,
+        text: page.text,
+        created: page.created,
+        modified: page?.modified,
+        summary: page?.summary,
+        allowComment: page?.allowComment,
+        order: page?.order,
+      })
+    })
+
+    // const createChildComment = async (children) => {
+    //   children.map(async (comment) => {
+    //     await this.commentService.validateName(comment.author);
+    //     const children = comment.children || [];
+    //     const ref = comment.refType
+    //     delete comment.children;
+    //     const parent = await this.commentService.model.findById(id).populate("ref");
+    //     if (!parent) {
+    //       throw new CannotFindException();
+    //     }
+    //     const commentIndex = parent.commentsIndex; // 获取评论的索引
+    //     const key = `${parent.key}#${commentIndex}`;
+    //     await this.commentService.create(refPostId, {
+    //       refType: ref,
+    //       author: comment.author,
+    //       text: comment.text,
+    //       created: comment.created,
+    //       urls: comment?.urls,
+    //       ip: comment?.ip,
+    //       status: comment?.status,
+    //       agent: comment?.agent,
+    //     }, ref)
+    //   })
+    // }
+
+    // comments.forEach(async (comment) => {
+    //   await this.commentService.validateName(comment.author);
+    //   const children = comment.children || [];
+    //   const ref = comment.refType
+    //   delete comment.children;
+    //   const refPostId = await this.postService.getPostBySlug(ref).then(post => post?._id);
+    //   if (!refPostId) {
+    //     errorLog.push(`${comment.author} 的评论找不到文章 ${ref}`);
+    //     this.logger.error(`评论 ${comment.author} 的文章 ${ref} 不存在`);
+    //   }
+    //   await this.commentService.create(refPostId, {
+    //     refType: ref,
+    //     author: comment.author,
+    //     text: comment.text,
+    //     created: comment.created,
+    //     urls: comment?.urls,
+    //     ip: comment?.ip,
+    //     status: comment?.status,
+    //     agent: comment?.agent,
+    //   }, ref)
+
+    //   await createChildComment(children);
+
+    // })
   }
 }
