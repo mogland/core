@@ -52,7 +52,7 @@ specifiers:
   conventional-changelog: ^3.1.25
   cron: '*'
   cross-env: 7.0.3
-  dayjs: 1.11.4
+  dayjs: 1.11.5
   entities: ^4.3.1
   eslint: '*'
   get-image-colors: ^4.0.1
@@ -126,7 +126,7 @@ dependencies:
   class-validator-jsonschema: 3.1.1_e6kgdsnyya5caxg3ysdyxrqm7a
   consola: 2.15.3
   cron: 1.8.2
-  dayjs: 1.11.4
+  dayjs: 1.11.5
   entities: 4.3.1
   handlebars: 4.7.7
   i: 0.3.7
@@ -2739,8 +2739,8 @@ packages:
     resolution: {integrity: sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==}
     dev: true
 
-  /dayjs/1.11.4:
-    resolution: {integrity: sha512-Zj/lPM5hOvQ1Bf7uAvewDaUcsJoI6JmNqmHhHl3nyumwe0XHwt8sWdOVAPACJzCebL8gQCi+K49w7iKWnGwX9g==}
+  /dayjs/1.11.5:
+    resolution: {integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==}
     dev: false
 
   /debug/2.6.9:
