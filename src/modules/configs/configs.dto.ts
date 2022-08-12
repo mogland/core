@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-22 07:54:11
  * @LastEditors: Wibus
- * @LastEditTime: 2022-07-14 16:20:46
+ * @LastEditTime: 2022-08-12 21:10:21
  * Coding With IU
  */
 
@@ -130,15 +130,26 @@ export class AdminDto {
 
 @JSONSchema({ title: "主题设置" })
 export class ThemeDto {
+
+  @IsBoolean()
+  @IsOptional()
+  @JSONSchemaToggleField("开启主题")
+  enable: boolean;
+
   @IsString({ message: "主题名称必须是字符串" })
   @IsNotEmpty({ message: "主题名称不能为空" })
   @JSONSchemaPlainField("主题名称")
   name: string;
 
-  @IsObject({ message: "主题配置必须是对象" })
+  @IsNotEmpty({ message: "主题使用的引擎不能为空" })
+  @IsString({ message: "主题使用的引擎必须是字符串" })
+  @JSONSchemaPlainField("主题使用的引擎")
+  viewExt: "ejs" | "handlebars" | "art-template";
+
+
   @IsOptional()
   @JSONSchemaPlainField("主题配置")
-  config?: object;
+  configs: any;
 }
 
 class PluginManifest {

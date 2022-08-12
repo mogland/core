@@ -9,6 +9,8 @@ import { MyLogger } from "./processors/logger/logger.service";
 import { isDev } from "./utils/environment.utils";
 import { argv } from "zx-cjs";
 import { join } from "path";
+import { THEME_DIR } from "./constants/path.constant";
+import { ConfigsService } from "./modules/configs/configs.service";
 
 // const APIVersion = 1
 const Origin = CROSS_DOMAIN.allowedOrigins;
@@ -22,15 +24,24 @@ export async function bootstrap() {
     { logger: ["error", "debug"] }
   );
 
+  const configService = app.get(ConfigsService);
+  const theme = configService.model.findOne({ name: "theme" });
+  const themeEnabled = theme?.value?.find((item) => item.enabled);
   app.useStaticAssets({
-    root: join(__dirname, "..", "public"),
+    root: join(THEME_DIR, themeEnabled?.name || "default", "public"),
     prefix: "/public/",
   });
   app.setViewEngine({
     engine: {
       handlebars: require("handlebars"),
+      "art-template": require("art-template"),
+      ejs: require("ejs"),
     },
-    templates: join(__dirname, "..", "views"),
+    templates: join(THEME_DIR, themeEnabled.name || "default"),
+    viewExt: themeEnabled.viewExt || "art-template",
+    defaultContext: {
+      dev: process.env.NODE_ENV === "development",
+    },
   });
 
   const hosts = Origin.map((host) => new RegExp(host, "i"));
