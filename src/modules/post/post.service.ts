@@ -61,7 +61,7 @@ export class PostService {
     process.nextTick(async () => {
       // 异步更新缓存
       await Promise.all([
-        // this.imageService.recordImageMeta(this.model as MongooseModel<PostModel>, res._id)
+        this.imageService.recordImageMeta(this.model as MongooseModel<PostModel>, res._id)
       ]);
     });
     return res;
