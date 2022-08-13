@@ -1,4 +1,4 @@
-import { BadRequestException, Get, Injectable, Logger, Render } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { YAML } from 'zx-cjs';
 import { THEME_DIR } from '~/constants/path.constant';
 import { ThemeDto } from '../configs/configs.dto';
@@ -87,10 +87,4 @@ export class ThemeService {
     return theme;
   }
 
-  // ********************************************************
-  // 以下是主题渲染相关的方法
-
-  @Get('/')
-  
-  async renderIndex() {}
 }
