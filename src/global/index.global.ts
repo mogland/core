@@ -3,7 +3,7 @@ import { Logger } from "@nestjs/common";
 import { chalk, $ } from "zx-cjs";
 import { mkdirSync } from "fs";
 import "zx-cjs/globals";
-import { DATA_DIR, LOG_DIR, PLUGIN_DIR, THEME_DIR } from "~/constants/path.constant";
+import { DATA_DIR, LOG_DIR, PLUGIN_DIR, PUBLIC_DIR, THEME_DIR } from "~/constants/path.constant";
 import { consola, registerStdLogger } from "./consola.global";
 import "./dayjs.global";
 import { isDev } from "./env.global";
@@ -21,6 +21,9 @@ function mkdirs() {
 
   mkdirSync(THEME_DIR, { recursive: true });
   Logger.log(chalk.blue(`主题文件夹 已准备好: ${THEME_DIR}`));
+
+  mkdirSync(PUBLIC_DIR, { recursive: true });
+  Logger.log(chalk.blue(`公共文件夹 已准备好: ${PUBLIC_DIR}`));
 }
 
 function registerGlobal() {

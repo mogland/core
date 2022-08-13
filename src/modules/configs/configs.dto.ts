@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-06-22 07:54:11
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-12 21:10:21
+ * @LastEditTime: 2022-08-13 11:11:45
  * Coding With IU
  */
 
@@ -140,12 +140,6 @@ export class ThemeDto {
   @IsNotEmpty({ message: "主题名称不能为空" })
   @JSONSchemaPlainField("主题名称")
   name: string;
-
-  @IsNotEmpty({ message: "主题使用的引擎不能为空" })
-  @IsString({ message: "主题使用的引擎必须是字符串" })
-  @JSONSchemaPlainField("主题使用的引擎")
-  viewExt: "ejs" | "handlebars" | "art-template";
-
 
   @IsOptional()
   @JSONSchemaPlainField("主题配置")

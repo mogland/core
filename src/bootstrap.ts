@@ -9,8 +9,8 @@ import { MyLogger } from "./processors/logger/logger.service";
 import { isDev } from "./utils/environment.utils";
 import { argv } from "zx-cjs";
 import { join } from "path";
-import { THEME_DIR } from "./constants/path.constant";
-import { ConfigsService } from "./modules/configs/configs.service";
+import { PUBLIC_DIR, THEME_DIR } from "./constants/path.constant";
+import { ThemeService } from "./modules/theme/theme.service";
 
 // const APIVersion = 1
 const Origin = CROSS_DOMAIN.allowedOrigins;
@@ -24,22 +24,19 @@ export async function bootstrap() {
     { logger: ["error", "debug"] }
   );
 
-  const configService = app.get(ConfigsService);
-  const theme = configService.model.findOne({ name: "theme" });
-  const themeEnabled = theme?.value?.find((item) => item.enabled);
-  if (themeEnabled) {
+  const themeService = app.get(ThemeService);
+  const themeEnabled = await themeService.currentTheme();
+  if (!argv.noTheme) {
     app.useStaticAssets({
-      root: join(THEME_DIR, themeEnabled?.name || "default", "public"),
+      root: join(PUBLIC_DIR),
       prefix: "/public/",
     });
     app.setViewEngine({
       engine: {
-        handlebars: require("handlebars"),
-        "art-template": require("art-template"),
         ejs: require("ejs"),
       },
-      templates: join(THEME_DIR, themeEnabled.name || "default"),
-      viewExt: themeEnabled.viewExt || "art-template",
+      templates: join(THEME_DIR), // 模板目录，模板名字应在 Render 中指定
+      viewExt: "ejs",
       defaultContext: {
         dev: process.env.NODE_ENV === "development",
       },
@@ -102,7 +99,9 @@ export async function bootstrap() {
       consola.debug(`[${prefix + pid}] OpenApi: ${url}/api-docs`);
     }
     consola.success(`[${prefix + pid}] 服务器正在监听: ${url}`);
-
+    if (themeEnabled) {
+      consola.success(`[${prefix + pid}] 当前主题: ${themeEnabled.name}`);
+    }
     Logger.log(
       `NxServer 已启动. ${chalk.yellow(`+${performance.now() | 0}ms`)}`
     );
