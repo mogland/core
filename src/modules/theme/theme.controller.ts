@@ -1,19 +1,32 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Controller, Get, Param, Query, Res } from '@nestjs/common';
-import { fileTypeFromBuffer, fileTypeFromFile, fileTypeStream } from 'file-type';
 import { join } from 'path';
 import { Auth } from '~/common/decorator/auth.decorator';
 import { ApiName } from '~/common/decorator/openapi.decorator';
 import { THEME_DIR } from '~/constants/path.constant';
 import { ThemeService } from './theme.service';
 import mime from 'mime';
+import { CategoryService } from '../category/category.service';
+import { CommentService } from '../comments/comments.service';
+import { LinksService } from '../links/links.service';
+import { PageService } from '../page/page.service';
+import { PostService } from '../post/post.service';
+import { UserService } from '../user/user.service';
 
 @Controller('theme')
 @ApiName
 export class ThemeController {
   constructor(
     private readonly themeService: ThemeService,
+    private readonly postService: PostService,
+    private readonly pageService: PageService,
+    private readonly categoryService: CategoryService,
+    private readonly commentService: CommentService,
+    private readonly linksService: LinksService,
+    private readonly userService: UserService,
   ) { }
+
+  private async basicProps() {}
 
   // ********************************************************
   // 以下是管理命令
