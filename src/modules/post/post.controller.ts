@@ -21,7 +21,7 @@ import { CategoryAndSlugDto } from "./post.dto";
 import { CannotFindException } from "~/common/exceptions/cant-find.exception";
 import { Auth } from "~/common/decorator/auth.decorator";
 import { PostModel } from "./post.model";
-import { Types, PipelineStage } from "mongoose";
+import { Types } from "mongoose";
 import { MongoIdDto } from "~/shared/dto/id.dto";
 import { IsMaster } from "~/common/decorator/role.decorator";
 import { md5 } from "~/utils/tools.util";
@@ -39,119 +39,7 @@ export class PostController {
   @Paginator
   @ApiOperation({ summary: "获取文章列表(附带分页器)" })
   async getPaginate(@Query() query: PagerDto, @IsMaster() isMaster: boolean) {
-    const { size, select, page, year, sortBy, sortOrder } = query;
-    return this.postService.model.aggregatePaginate(
-      this.postService.model.aggregate(
-        [
-          {
-            $match: {
-              ...addYearCondition(year),
-            },
-          },
-          // @see https://stackoverflow.com/questions/54810712/mongodb-sort-by-field-a-if-field-b-null-otherwise-sort-by-field-c
-          {
-            $addFields: {
-              sortField: {
-                // create a new field called "sortField"
-                $cond: {
-                  // and assign a value that depends on
-                  if: { $ne: ["$pin", null] }, // whether "b" is not null
-                  then: "$pinOrder", // in which case our field shall hold the value of "a"
-                  else: "$$REMOVE",
-                },
-              },
-            },
-          },
-          // if not master, only show published posts
-          !isMaster && {
-            $match: {
-              // match the condition
-              hide: { $ne: true }, // $ne: not equal
-            },
-          },
-          // 如果不是master，并且password不为空，则将text,summary修改
-          !isMaster && {
-            $set: {
-              // set the field to a new value
-              summary: {
-                $cond: {
-                  if: { $ne: ["$password", null] }, // if "password" is not null
-                  then: { $concat: ["内容已被隐藏，请输入密码"] }, // then the value of "内容已被隐藏"
-                  else: "$title", // otherwise, use the original title
-                }, // $concat: 用于拼接字符串
-              },
-              text: {
-                $cond: {
-                  // 如果密码字段不为空，且isMaster为false，则不显示
-                  if: {
-                    $ne: ["$password", null],
-                  }, // whether "b" is not null
-                  then: { $concat: ["内容已被隐藏，请输入密码"] },
-                  else: "$text",
-                },
-              },
-            },
-          },
-          !isMaster && {
-            // if not master, only show usual fields
-            $project: {
-              hide: 0,
-              password: 0,
-              rss: 0,
-            },
-          },
-          {
-            $sort: sortBy
-              ? {
-                  [sortBy]: sortOrder as any,
-                }
-              : {
-                  sortField: -1, // sort by our computed field
-                  pin: -1,
-                  created: -1, // and then by the "created" field
-                },
-          },
-          {
-            $project: {
-              // project the fields we want to keep
-              sortField: 0, // remove "sort" field if needed
-            },
-          },
-          select && {
-            $project: {
-              ...(select?.split(" ").reduce(
-                (acc, cur) => {
-                  const field = cur.trim();
-                  acc[field] = 1;
-                  return acc;
-                },
-                Object.keys(new PostModel()).map((k) => ({ [k]: 0 }))
-              ) as any),
-            },
-          },
-          {
-            $lookup: {
-              // lookup can be used to join two collections
-              from: "categories", // from the "categories" collection
-              localField: "categoryId", // using the "categoryId" field
-              foreignField: "_id", // from the "categories" collection
-              as: "category", // as the "category" field
-            },
-          },
-          {
-            $unwind: {
-              // unwind 将数组的每个元素解析为单个文档
-              path: "$category", // the path to the array
-              preserveNullAndEmptyArrays: true, // if set to true, MongoDB will still create a document if the array is empty
-            },
-          },
-        ].filter(Boolean) as PipelineStage[]
-      ),
-      {
-        limit: size,
-        page,
-      }
-    );
+    return this.postService.aggregatePaginate(query, isMaster)
   }
 
   @Get("/:id")

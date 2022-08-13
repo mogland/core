@@ -7,6 +7,7 @@ import { PageModel } from "./page.model";
 import { omit } from "lodash";
 import { CannotFindException } from "~/common/exceptions/cant-find.exception";
 import { ImageService } from "~/processors/helper/helper.image.service";
+import { PagerDto } from "~/shared/dto/pager.dto";
 
 @Injectable()
 export class PageService {
@@ -19,6 +20,21 @@ export class PageService {
 
   public get model() {
     return this.pageModel;
+  }
+
+  async getPaginate(query: PagerDto) {
+    const { size, select, page, sortBy, sortOrder } = query;
+    return this.model.paginate(
+      {},
+      {
+        page,
+        limit: size,
+        select,
+        sort: sortBy
+          ? { [sortBy]: sortOrder || -1 }
+          : { order: -1, modified: -1 },
+      }
+    );
   }
 
   public async create(data: PageModel) {
