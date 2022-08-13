@@ -43,4 +43,14 @@ export class ThemeController {
     }
   }
 
+
+  // ********************************************************
+  // 以下是主题渲染相关的方法
+
+  @Get('/')
+  async renderIndex(@Res() res) {
+    return await res.view(`${(await this.themeService.currentTheme())!.name}/index.ejs`, {
+      title: '首页',
+    });
+  }
 }
