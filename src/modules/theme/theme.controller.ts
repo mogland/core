@@ -12,7 +12,7 @@ import { LinksService } from '../links/links.service';
 import { PageService } from '../page/page.service';
 import { PostService } from '../post/post.service';
 import { UserService } from '../user/user.service';
-import { CategoryThemeInterface, IndexThemeInterface, PageThemeInterface, PostThemeInterface, TagThemeInterface, ThemeBasicInterface } from './theme.interface';
+import { CategoryThemeInterface, CustomThemeInterface, IndexThemeInterface, PageThemeInterface, PostThemeInterface, TagThemeInterface, ThemeBasicInterface } from './theme.interface';
 import { CategoryType } from '../category/category.model';
 import { ConfigsService } from '../configs/configs.service';
 import { CannotFindException } from '~/common/exceptions/cant-find.exception';
@@ -289,5 +289,24 @@ export class ThemeController {
     );
   }
 
+  @Get(":path/:props*")
+  async dynamic(
+    @Res() res,
+    @Param("path") path: string,
+    @Param("props") props: string,
+  ) {
+    // 检查是否存在该路径对应的文件
+    const filePath = join(THEME_DIR, (await this.themeService.currentTheme())!.name, `page-${path}.ejs`);
+    if (!fs.existsSync(filePath)) {
+      return res.view(
+        `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+        {
+          ...(await this.basicProps()),
+          path: `/${path}`,
+          props: props.split("/"),
+        } as CustomThemeInterface,
+      )
+    }
+  }
 
 }
