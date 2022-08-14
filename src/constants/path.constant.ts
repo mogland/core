@@ -9,3 +9,5 @@ export const DATA_DIR = isDev
 export const PLUGIN_DIR = join(DATA_DIR, "plugins");
 export const LOG_DIR = join(DATA_DIR, "log");
 export const BACKUP_DIR = join(DATA_DIR, "backup");
+export const THEME_DIR = join(DATA_DIR, "themes");
+export const PUBLIC_DIR = join(DATA_DIR, "public");

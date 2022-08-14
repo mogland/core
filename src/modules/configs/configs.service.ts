@@ -56,6 +56,10 @@ export class ConfigsService {
     return generateInitConfigs();
   }
 
+  public get model() {
+    return this.configModel;
+  }
+
   /**
    * initConfigs 初始化配置
    */

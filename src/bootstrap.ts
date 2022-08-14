@@ -9,6 +9,8 @@ import { MyLogger } from "./processors/logger/logger.service";
 import { isDev } from "./utils/environment.utils";
 import { argv } from "zx-cjs";
 import { join } from "path";
+import { PUBLIC_DIR, THEME_DIR } from "./constants/path.constant";
+import { ThemeService } from "./modules/theme/theme.service";
 
 // const APIVersion = 1
 const Origin = CROSS_DOMAIN.allowedOrigins;
@@ -22,16 +24,24 @@ export async function bootstrap() {
     { logger: ["error", "debug"] }
   );
 
-  app.useStaticAssets({
-    root: join(__dirname, "..", "public"),
-    prefix: "/public/",
-  });
-  app.setViewEngine({
-    engine: {
-      handlebars: require("handlebars"),
-    },
-    templates: join(__dirname, "..", "views"),
-  });
+  const themeService = app.get(ThemeService);
+  const themeEnabled = await themeService.currentTheme();
+  if (!argv.noTheme) {
+    app.useStaticAssets({
+      root: join(PUBLIC_DIR),
+      prefix: "/public/",
+    });
+    app.setViewEngine({
+      engine: {
+        ejs: require("ejs"),
+      },
+      templates: join(THEME_DIR), // 模板目录，模板名字应在 Render 中指定
+      viewExt: "ejs", // 模板文件的后缀名
+      defaultContext: {
+        dev: process.env.NODE_ENV === "development",
+      },
+    });
+  }
 
   const hosts = Origin.map((host) => new RegExp(host, "i"));
 
@@ -89,7 +99,9 @@ export async function bootstrap() {
       consola.debug(`[${prefix + pid}] OpenApi: ${url}/api-docs`);
     }
     consola.success(`[${prefix + pid}] 服务器正在监听: ${url}`);
-
+    if (themeEnabled) {
+      consola.success(`[${prefix + pid}] 当前主题: ${themeEnabled.name}`);
+    }
     Logger.log(
       `NxServer 已启动. ${chalk.yellow(`+${performance.now() | 0}ms`)}`
     );

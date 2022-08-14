@@ -32,18 +32,7 @@ export class PageController {
   @Paginator
   @ApiOperation({ summary: "获取页面列表" })
   async getPagesSummary(@Query() query: PagerDto) {
-    const { size, select, page, sortBy, sortOrder } = query;
-    return this.pageService.model.paginate(
-      {},
-      {
-        page,
-        limit: size,
-        select,
-        sort: sortBy
-          ? { [sortBy]: sortOrder || -1 }
-          : { order: -1, modified: -1 },
-      }
-    );
+    return this.pageService.getPaginate(query)
   }
 
   @Get("/:id")
