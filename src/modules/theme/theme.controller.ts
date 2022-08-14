@@ -12,12 +12,16 @@ import { LinksService } from '../links/links.service';
 import { PageService } from '../page/page.service';
 import { PostService } from '../post/post.service';
 import { UserService } from '../user/user.service';
+import { ThemeBasicInterface } from './theme.interface';
+import { CategoryType } from '../category/category.model';
+import { ConfigsService } from '../configs/configs.service';
 
 @Controller('theme')
 @ApiName
 export class ThemeController {
   constructor(
     private readonly themeService: ThemeService,
+    private readonly configService: ConfigsService,
     private readonly postService: PostService,
     private readonly pageService: PageService,
     private readonly categoryService: CategoryService,
@@ -93,8 +97,13 @@ export class ThemeController {
 
   @Get('/')
   async renderIndex(@Res() res) {
-    return await res.view(`${(await this.themeService.currentTheme())!.name}/index.ejs`, {
-      title: '首页',
-    });
+    return await res.view(
+      `${(await this.themeService.currentTheme())!.name}/index.ejs` as string,
+      {
+        ...(await this.basicProps()),
+        path: '/',
+        url: '/',
+      } as ThemeBasicInterface,
+    );
   }
 }
