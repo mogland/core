@@ -123,13 +123,71 @@ export class ThemeController {
   async renderPost(@Res() res, @Param() param: string) {}
 
   @Get("/archive") // 归档
-  async renderArchive(@Res() res) {}
+  async renderArchive(@Res() res) {
+    return await res.view(
+      `${(await this.themeService.currentTheme())!.name}/archive.ejs` as string,
+      {
+        ...(await this.basicProps()),
+        path: '/archive',
+      } as ThemeBasicInterface,
+    );
+  }
 
   @Get("/category/:slug") // 分类
-  async renderCategory(@Res() res, @Param() param: string) {}
+  async renderCategory(@Res() res, @Param("slug") slug: string) {
+    const pageDoc = await this.categoryService.model.findOne({ slug }).sort({ created: -1 }).lean()
+    if (!pageDoc) {
+      return res.view(
+        `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+        {
+          ...(await this.basicProps()),
+          path: `/category/${slug}`,
+        } as ThemeBasicInterface,
+      )
+    }
+    const pageChildren = await this.categoryService.findPostsInCategory(pageDoc._id) || [];
+    const page = {
+      data: {
+        ...pageDoc,
+        children: pageChildren,
+      }
+    }
+    const data: CategoryThemeInterface = {
+      ...(await this.basicProps()),
+      path: `/category/${slug}`,
+      page,
+    }
+    return res.view(
+      `${(await this.themeService.currentTheme())!.name}/category.ejs` as string,
+      data,
+    );
+  }
 
   @Get("/tag/:slug") // 标签
-  async renderTag(@Res() res, @Param() param: string) {}
+  async renderTag(@Res() res, @Param("slug") slug: string) {
+    const page = {
+      tag: slug,
+      data: await this.categoryService.findPostWithTag(slug) || [],
+    }
+    if (!page.data.length) {
+      return res.view(
+        `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+        {
+          ...(await this.basicProps()),
+          path: `/tag/${slug}`,
+        } as ThemeBasicInterface,
+      )
+    }
+    const data: TagThemeInterface = {
+      ...(await this.basicProps()),
+      path: `/tag/${slug}`,
+      page,
+    }
+    return res.view(
+      `${(await this.themeService.currentTheme())!.name}/tag.ejs` as string,
+      data,
+    );
+  }
 
   @Get("/links") // 友链
   async renderLinks(@Res() res, @Query() pager: PagerDto) {
