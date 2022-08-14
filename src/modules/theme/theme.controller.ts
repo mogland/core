@@ -20,6 +20,7 @@ import { md5 } from '~/utils/tools.util';
 import { ThemeDto } from '../configs/configs.dto';
 import { CommentStatus, CommentType } from '../comments/comments.model';
 import { PagerDto } from '~/shared/dto/pager.dto';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('theme')
 @ApiName
@@ -59,24 +60,28 @@ export class ThemeController {
   // 以下是管理命令
 
   @Get('/admin/available')
+  @ApiOperation({ summary: '获取可用的主题' })
   @Auth()
   async availableThemes() {
     return this.themeService.availableThemes();
   }
 
   @Get('/admin/up')
+  @ApiOperation({ summary: '启动主题' })
   @Auth()
   async turnOnTheme(@Query('name') name: string) {
     return this.themeService.turnOnTheme(name);
   }
 
   @Get('/admin/current')
+  @ApiOperation({ summary: '获取当前主题' })
   @Auth()
   async currentTheme() {
     return this.themeService.currentTheme();
   }
 
   @Get('/admin/off')
+  @ApiOperation({ summary: '关闭主题' })
   @Auth()
   async turnOffTheme(@Query('name') name: string) {
     return this.themeService.turnOffTheme(name);
@@ -85,6 +90,7 @@ export class ThemeController {
   // ********************************************************
   // 以下是针对静态资源访问的接口
   @Get('/public/*')
+  @ApiOperation({ summary: '静态资源访问接口' })
   async public(@Res() res, @Param() param: string) {
     const filePath = join(THEME_DIR, (await this.themeService.currentTheme())!.name, "public", param['*']);
     const file = await fs.readFile(filePath);
@@ -101,6 +107,7 @@ export class ThemeController {
   // 以下是主题渲染相关的方法
 
   @Get('/') // 首页
+  @ApiOperation({ summary: '首页' })
   async renderIndex(@Res() res, @Query() pager: PagerDto) {
     return await res.view(
       `${(await this.themeService.currentTheme())!.name}/index.ejs` as string,
@@ -112,7 +119,8 @@ export class ThemeController {
     );
   }
 
-  @Get("/:path") // 页面
+  @Get(":path") // 页面
+  @ApiOperation({ summary: '页面' })
   async renderPage(@Res() res, @Param("path") path: string) {
     const page = await this.pageService.model.findOne({ path })
     if (!page) {
@@ -140,11 +148,20 @@ export class ThemeController {
   }
 
   @Get("/:category/:slug") // 文章
+  @ApiOperation({ summary: '文章' })
   async renderPost(@Res() res, @Param() param: any, @Query("password") password: string | null) {
     const { category, slug } = param;
+
     const categoryDocument = await this.postService.getCategoryBySlug(category);
     if (password === undefined || !password) password = null;
     if (!categoryDocument) {
+      res.view(
+        `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+        {
+          ...(await this.basicProps()),
+          path: `/${category}/${slug}`,
+        } as ThemeBasicInterface,
+      )
       throw new NotFoundException("该分类不存在w");
     }
     const postDocument = await (
@@ -154,9 +171,16 @@ export class ThemeController {
           slug,
         })
         // 如果不是master，并且password不为空，则将text,summary修改
-        .then((postDocument) => {
+        .then(async (postDocument) => {
           if (!postDocument) {
-            throw new CannotFindException();
+            res.view(
+              `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+              {
+                ...(await this.basicProps()),
+                path: `/${category}/${slug}`,
+              } as ThemeBasicInterface,
+            )
+            throw new CannotFindException()
           }
           if (postDocument.password) {
             if (!password || md5(password) !== postDocument.password) {
@@ -200,6 +224,7 @@ export class ThemeController {
   }
 
   @Get("/archive") // 归档
+  @ApiOperation({ summary: '归档' })
   async renderArchive(@Res() res) {
     return await res.view(
       `${(await this.themeService.currentTheme())!.name}/archive.ejs` as string,
@@ -211,6 +236,7 @@ export class ThemeController {
   }
 
   @Get("/category/:slug") // 分类
+  @ApiOperation({ summary: '分类' })
   async renderCategory(@Res() res, @Param("slug") slug: string) {
     const pageDoc = await this.categoryService.model.findOne({ slug }).sort({ created: -1 }).lean()
     if (!pageDoc) {
@@ -241,6 +267,7 @@ export class ThemeController {
   }
 
   @Get("/tag/:slug") // 标签
+  @ApiOperation({ summary: '标签' })
   async renderTag(@Res() res, @Param("slug") slug: string) {
     const page = {
       tag: slug,
@@ -267,6 +294,7 @@ export class ThemeController {
   }
 
   @Get("/links") // 友链
+  @ApiOperation({ summary: '友链' })
   async renderLinks(@Res() res, @Query() pager: PagerDto) {
     const { size, page, status } = pager;
     const linksData = await this.linksService.model.paginate(
@@ -289,24 +317,25 @@ export class ThemeController {
     );
   }
 
-  @Get(":path/:props*")
-  async dynamic(
-    @Res() res,
-    @Param("path") path: string,
-    @Param("props") props: string,
-  ) {
-    // 检查是否存在该路径对应的文件
-    const filePath = join(THEME_DIR, (await this.themeService.currentTheme())!.name, `page-${path}.ejs`);
-    if (!fs.existsSync(filePath)) {
-      return res.view(
-        `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
-        {
-          ...(await this.basicProps()),
-          path: `/${path}`,
-          props: props.split("/"),
-        } as CustomThemeInterface,
-      )
-    }
-  }
+  // @Get(":path/:props")
+  // @ApiOperation({ summary: '自定义页面' })
+  // async dynamic(
+  //   @Res() res,
+  //   @Param("path") path: string,
+  //   @Param("props") props: string,
+  // ) {
+  //   // 检查是否存在该路径对应的文件
+  //   const filePath = join(THEME_DIR, (await this.themeService.currentTheme())!.name, `page-${path}.ejs`);
+  //   if (!fs.existsSync(filePath)) {
+  //     return res.view(
+  //       `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+  //       {
+  //         ...(await this.basicProps()),
+  //         path: `/${path}`,
+  //         props: props.split("/"),
+  //       } as CustomThemeInterface,
+  //     )
+  //   }
+  // }
 
 }
