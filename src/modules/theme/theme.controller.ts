@@ -12,7 +12,7 @@ import { LinksService } from '../links/links.service';
 import { PageService } from '../page/page.service';
 import { PostService } from '../post/post.service';
 import { UserService } from '../user/user.service';
-import { ThemeBasicInterface } from './theme.interface';
+import { IndexThemeInterface, PageThemeInterface, ThemeBasicInterface } from './theme.interface';
 import { CategoryType } from '../category/category.model';
 import { ConfigsService } from '../configs/configs.service';
 
@@ -95,15 +95,42 @@ export class ThemeController {
   // ********************************************************
   // 以下是主题渲染相关的方法
 
-  @Get('/')
+  @Get('/') // 首页
   async renderIndex(@Res() res) {
     return await res.view(
       `${(await this.themeService.currentTheme())!.name}/index.ejs` as string,
       {
         ...(await this.basicProps()),
         path: '/',
-        url: '/',
-      } as ThemeBasicInterface,
+        aggregate: await this.postService.aggregatePaginate({size: 10, page: 1}),
+      } as IndexThemeInterface,
     );
   }
+
+  @Get("/:path") // 页面
+  async renderPage(@Res() res, @Param("path") path: string) {
+    return await res.view(
+      `${(await this.themeService.currentTheme())!.name}/page.ejs` as string,
+      {
+        ...(await this.basicProps()),
+        path,
+        page: await this.pageService.model.findOne({path}),
+      } as PageThemeInterface,
+    );
+  }
+
+  @Get("/:category/:slug") // 文章
+  async renderPost(@Res() res, @Param() param: string) {}
+
+  @Get("/archive") // 归档
+  async renderArchive(@Res() res) {}
+
+  @Get("/category/:slug") // 分类
+  async renderCategory(@Res() res, @Param() param: string) {}
+
+  @Get("/tag/:slug") // 标签
+  async renderTag(@Res() res, @Param() param: string) {}
+
+  @Get("/links") // 友链
+  async renderLinks(@Res() res) {}
 }
