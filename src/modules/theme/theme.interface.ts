@@ -3,12 +3,13 @@
  * @author: Wibus
  * @Date: 2022-08-13 23:14:55
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-14 12:30:49
+ * @LastEditTime: 2022-08-14 18:37:18
  * Coding With IU
  */
 
-import { Aggregate, AggregatePaginateResult } from "mongoose";
+import { AggregatePaginateResult } from "mongoose";
 import { CategoryModel } from "../category/category.model";
+import { CommentModel } from "../comments/comments.model";
 import { SiteDto, ThemeDto, UrlsDto } from "../configs/configs.dto";
 import { PageModel } from "../page/page.model";
 import { PostModel } from "../post/post.model";
@@ -31,19 +32,38 @@ export interface ThemeBasicInterface {
   configs: ConfigsThemeInterface, // 网站配置
   path: string, // 页面路径
 }
-
 export interface IndexThemeInterface extends ThemeBasicInterface {
   aggregate: AggregatePaginateResult<PostModel | PageModel>, // 当前页面的文章列表
 }
 
 export interface PostThemeInterface extends ThemeBasicInterface {
   page: PostModel, // 针对该页面的内容
+  comments: CommentModel[] | null, // 评论列表
 }
 
 export interface PageThemeInterface extends ThemeBasicInterface {
   page: PageModel, // 针对该页面的内容
+  comments: CommentModel[] | null, // 评论列表
+}
+
+export interface CategoryModelForTheme {
+  // children: PostModel[]
+  [key: string]: any;
+}
+
+export interface TagModelForTheme {
+  tag: string,
+  data: PostModel[]
 }
 
 export interface CategoryThemeInterface extends ThemeBasicInterface {
-  page: CategoryModel, // 针对该页面的内容
+  page: CategoryModelForTheme , // 针对该页面的内容
+}
+
+export interface TagThemeInterface extends ThemeBasicInterface {
+  page: TagModelForTheme, // 针对该页面的内容
+}
+
+export interface CustomThemeInterface extends ThemeBasicInterface {
+  props: string[]
 }
