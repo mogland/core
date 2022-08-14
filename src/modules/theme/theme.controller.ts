@@ -26,7 +26,25 @@ export class ThemeController {
     private readonly userService: UserService,
   ) { }
 
-  private async basicProps() {}
+  private async basicProps() {
+    return {
+      site: {
+        posts: await this.postService.model.find(),
+        pages: await this.pageService.model.find(),
+        categories: await this.categoryService.model.find({
+          type: CategoryType.Category
+        }),
+        tags: await this.categoryService.model.find({
+          type: CategoryType.Tag
+        }),
+      },
+      configs: {
+        urls: await this.configService.get("urls"),
+        site: await this.configService.get("site"),
+        theme: await this.configService.get("theme"),
+      },
+    }
+  }
 
   // ********************************************************
   // 以下是管理命令
