@@ -132,5 +132,25 @@ export class ThemeController {
   async renderTag(@Res() res, @Param() param: string) {}
 
   @Get("/links") // 友链
-  async renderLinks(@Res() res) {}
+  async renderLinks(@Res() res, @Query() pager: PagerDto) {
+    const { size, page, status } = pager;
+    const linksData = await this.linksService.model.paginate(
+      status !== undefined ? { status } : {},
+      {
+        limit: size,
+        page,
+        sort: { created: -1 },
+        select: "-email",
+      }
+    );
+    const data = {
+      ...(await this.basicProps()),
+      path: "/links",
+      links: linksData,
+    }
+    return res.view(
+      `${(await this.themeService.currentTheme())!.name}/links.ejs` as string,
+      data,
+    );
+  }
 }
