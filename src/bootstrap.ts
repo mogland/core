@@ -33,7 +33,7 @@ export async function bootstrap() {
     });
     app.setViewEngine({
       engine: {
-        ejs: require("ejs"),
+        "art-template": require("art-template"),
       },
       templates: join(THEME_DIR), // 模板目录，模板名字应在 Render 中指定
       viewExt: "ejs", // 模板文件的后缀名

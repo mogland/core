@@ -110,7 +110,7 @@ export class ThemeController {
   @ApiOperation({ summary: '首页' })
   async renderIndex(@Res() res, @Query() pager: PagerDto) {
     return await res.view(
-      `${(await this.themeService.currentTheme())!.name}/index.ejs` as string,
+      `${(await this.themeService.currentTheme())!.name}/index` as string,
       {
         ...(await this.basicProps()),
         path: '/',
@@ -124,10 +124,10 @@ export class ThemeController {
   async renderPage(@Res() res, @Param("path") path: string) {
     const page = await this.pageService.model.findOne({ path })
     if (!page) {
-      const filePath = join(THEME_DIR, (await this.themeService.currentTheme())!.name, `page-${path}.ejs`);
+      const filePath = join(THEME_DIR, (await this.themeService.currentTheme())!.name, `page-${path}`);
       if (!fs.existsSync(filePath)) {
         return res.view(
-          `${(await this.themeService.currentTheme())!.name}/page-${path}.ejs` as string,
+          `${(await this.themeService.currentTheme())!.name}/page-${path}` as string,
           {
             ...(await this.basicProps()),
             path,
@@ -135,7 +135,7 @@ export class ThemeController {
         )
       }
       return res.view(
-        `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+        `${(await this.themeService.currentTheme())!.name}/404` as string,
         {
           ...(await this.basicProps()),
           path,
@@ -143,7 +143,7 @@ export class ThemeController {
       )
     }
     return await res.view(
-      `${(await this.themeService.currentTheme())!.name}/page.ejs` as string,
+      `${(await this.themeService.currentTheme())!.name}/page` as string,
       {
         ...(await this.basicProps()),
         path,
@@ -166,7 +166,7 @@ export class ThemeController {
     if (password === undefined || !password) password = null;
     if (!categoryDocument) {
       res.view(
-        `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+        `${(await this.themeService.currentTheme())!.name}/404` as string,
         {
           ...(await this.basicProps()),
           path: `/${category}/${slug}`,
@@ -184,7 +184,7 @@ export class ThemeController {
         .then(async (postDocument) => {
           if (!postDocument) {
             res.view(
-              `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+              `${(await this.themeService.currentTheme())!.name}/404` as string,
               {
                 ...(await this.basicProps()),
                 path: `/${category}/${slug}`,
@@ -210,7 +210,7 @@ export class ThemeController {
 
     if (!postDocument || postDocument.hide) {
       return res.view(
-        `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+        `${(await this.themeService.currentTheme())!.name}/404` as string,
         {
           ...(await this.basicProps()),
           path: `/${category}/${slug}`,
@@ -228,7 +228,7 @@ export class ThemeController {
       }),
     };
     return res.view(
-      `${(await this.themeService.currentTheme())!.name}/post.ejs` as string,
+      `${(await this.themeService.currentTheme())!.name}/post` as string,
       data,
     );
   }
@@ -237,7 +237,7 @@ export class ThemeController {
   @ApiOperation({ summary: '归档' })
   async renderArchive(@Res() res) {
     return await res.view(
-      `${(await this.themeService.currentTheme())!.name}/archive.ejs` as string,
+      `${(await this.themeService.currentTheme())!.name}/archive` as string,
       {
         ...(await this.basicProps()),
         path: '/archive',
@@ -251,7 +251,7 @@ export class ThemeController {
     const pageDoc = await this.categoryService.model.findOne({ slug }).sort({ created: -1 }).lean()
     if (!pageDoc) {
       return res.view(
-        `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+        `${(await this.themeService.currentTheme())!.name}/404` as string,
         {
           ...(await this.basicProps()),
           path: `/category/${slug}`,
@@ -271,7 +271,7 @@ export class ThemeController {
       page,
     }
     return res.view(
-      `${(await this.themeService.currentTheme())!.name}/category.ejs` as string,
+      `${(await this.themeService.currentTheme())!.name}/category` as string,
       data,
     );
   }
@@ -285,7 +285,7 @@ export class ThemeController {
     }
     if (!page.data.length) {
       return res.view(
-        `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+        `${(await this.themeService.currentTheme())!.name}/404` as string,
         {
           ...(await this.basicProps()),
           path: `/tag/${slug}`,
@@ -298,7 +298,7 @@ export class ThemeController {
       page,
     }
     return res.view(
-      `${(await this.themeService.currentTheme())!.name}/tag.ejs` as string,
+      `${(await this.themeService.currentTheme())!.name}/tag` as string,
       data,
     );
   }
@@ -322,7 +322,7 @@ export class ThemeController {
       links: linksData,
     }
     return res.view(
-      `${(await this.themeService.currentTheme())!.name}/links.ejs` as string,
+      `${(await this.themeService.currentTheme())!.name}/links` as string,
       data,
     );
   }
@@ -335,10 +335,10 @@ export class ThemeController {
   //   @Param("props") props: string,
   // ) {
   //   // 检查是否存在该路径对应的文件
-  //   const filePath = join(THEME_DIR, (await this.themeService.currentTheme())!.name, `page-${path}.ejs`);
+  //   const filePath = join(THEME_DIR, (await this.themeService.currentTheme())!.name, `page-${path}`);
   //   if (!fs.existsSync(filePath)) {
   //     return res.view(
-  //       `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+  //       `${(await this.themeService.currentTheme())!.name}/404` as string,
   //       {
   //         ...(await this.basicProps()),
   //         path: `/${path}`,
