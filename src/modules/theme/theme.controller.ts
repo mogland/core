@@ -12,7 +12,7 @@ import { LinksService } from '../links/links.service';
 import { PageService } from '../page/page.service';
 import { PostService } from '../post/post.service';
 import { UserService } from '../user/user.service';
-import { CategoryThemeInterface, CustomThemeInterface, IndexThemeInterface, PageThemeInterface, PostThemeInterface, TagThemeInterface, ThemeBasicInterface } from './theme.interface';
+import { CategoryThemeInterface, IndexThemeInterface, PageThemeInterface, PostThemeInterface, TagThemeInterface, ThemeBasicInterface } from './theme.interface';
 import { CategoryType } from '../category/category.model';
 import { ConfigsService } from '../configs/configs.service';
 import { CannotFindException } from '~/common/exceptions/cant-find.exception';
@@ -124,6 +124,16 @@ export class ThemeController {
   async renderPage(@Res() res, @Param("path") path: string) {
     const page = await this.pageService.model.findOne({ path })
     if (!page) {
+      const filePath = join(THEME_DIR, (await this.themeService.currentTheme())!.name, `page-${path}.ejs`);
+      if (!fs.existsSync(filePath)) {
+        return res.view(
+          `${(await this.themeService.currentTheme())!.name}/page-${path}.ejs` as string,
+          {
+            ...(await this.basicProps()),
+            path,
+          } as ThemeBasicInterface,
+        )
+      }
       return res.view(
         `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
         {

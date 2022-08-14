@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-08-13 23:14:55
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-14 18:37:18
+ * @LastEditTime: 2022-08-14 19:02:53
  * Coding With IU
  */
 
@@ -62,8 +62,4 @@ export interface CategoryThemeInterface extends ThemeBasicInterface {
 
 export interface TagThemeInterface extends ThemeBasicInterface {
   page: TagModelForTheme, // 针对该页面的内容
-}
-
-export interface CustomThemeInterface extends ThemeBasicInterface {
-  props: string[]
 }
