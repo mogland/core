@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Controller, Get, Param, Query, Res } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Param, Query, Res } from '@nestjs/common';
 import { join } from 'path';
 import { Auth } from '~/common/decorator/auth.decorator';
 import { ApiName } from '~/common/decorator/openapi.decorator';
@@ -12,9 +12,14 @@ import { LinksService } from '../links/links.service';
 import { PageService } from '../page/page.service';
 import { PostService } from '../post/post.service';
 import { UserService } from '../user/user.service';
-import { IndexThemeInterface, PageThemeInterface, ThemeBasicInterface } from './theme.interface';
+import { CategoryThemeInterface, IndexThemeInterface, PageThemeInterface, PostThemeInterface, TagThemeInterface, ThemeBasicInterface } from './theme.interface';
 import { CategoryType } from '../category/category.model';
 import { ConfigsService } from '../configs/configs.service';
+import { CannotFindException } from '~/common/exceptions/cant-find.exception';
+import { md5 } from '~/utils/tools.util';
+import { ThemeDto } from '../configs/configs.dto';
+import { CommentStatus, CommentType } from '../comments/comments.model';
+import { PagerDto } from '~/shared/dto/pager.dto';
 
 @Controller('theme')
 @ApiName
@@ -45,7 +50,7 @@ export class ThemeController {
       configs: {
         urls: await this.configService.get("urls"),
         site: await this.configService.get("site"),
-        theme: await this.configService.get("theme"),
+        theme: await this.configService.get("theme") as ThemeDto,
       },
     }
   }
@@ -96,31 +101,103 @@ export class ThemeController {
   // 以下是主题渲染相关的方法
 
   @Get('/') // 首页
-  async renderIndex(@Res() res) {
+  async renderIndex(@Res() res, @Query() pager: PagerDto) {
     return await res.view(
       `${(await this.themeService.currentTheme())!.name}/index.ejs` as string,
       {
         ...(await this.basicProps()),
         path: '/',
-        aggregate: await this.postService.aggregatePaginate({size: 10, page: 1}),
+        aggregate: await this.postService.aggregatePaginate(pager),
       } as IndexThemeInterface,
     );
   }
 
   @Get("/:path") // 页面
   async renderPage(@Res() res, @Param("path") path: string) {
+    const page = await this.pageService.model.findOne({ path })
+    if (!page) {
+      return res.view(
+        `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+        {
+          ...(await this.basicProps()),
+          path,
+        } as ThemeBasicInterface,
+      )
+    }
     return await res.view(
       `${(await this.themeService.currentTheme())!.name}/page.ejs` as string,
       {
         ...(await this.basicProps()),
         path,
-        page: await this.pageService.model.findOne({path}),
+        page,
+        comments: await this.commentService.model.find({
+          ref: page._id,
+          refType: CommentType.Page,
+          status: CommentStatus.Read,
+        })
       } as PageThemeInterface,
     );
   }
 
   @Get("/:category/:slug") // 文章
-  async renderPost(@Res() res, @Param() param: string) {}
+  async renderPost(@Res() res, @Param() param: any, @Query("password") password: string | null) {
+    const { category, slug } = param;
+    const categoryDocument = await this.postService.getCategoryBySlug(category);
+    if (password === undefined || !password) password = null;
+    if (!categoryDocument) {
+      throw new NotFoundException("该分类不存在w");
+    }
+    const postDocument = await (
+      await this.postService.model
+        .findOne({
+          category: categoryDocument._id,
+          slug,
+        })
+        // 如果不是master，并且password不为空，则将text,summary修改
+        .then((postDocument) => {
+          if (!postDocument) {
+            throw new CannotFindException();
+          }
+          if (postDocument.password) {
+            if (!password || md5(password) !== postDocument.password) {
+              // 将传入的 password 转换为 md5 字符串，与数据库中的 password 比较
+              // 将text, summary改为"内容已被隐藏"
+              postDocument.text = "内容已被隐藏，请输入密码";
+              postDocument.summary = "内容已被隐藏，请输入密码";
+            } else {
+              postDocument.password = null;
+            }
+          } else {
+            postDocument.password = null;
+          }
+          return postDocument;
+        })
+    )
+
+    if (!postDocument || postDocument.hide) {
+      return res.view(
+        `${(await this.themeService.currentTheme())!.name}/404.ejs` as string,
+        {
+          ...(await this.basicProps()),
+          path: `/${category}/${slug}`,
+        } as ThemeBasicInterface,
+      )
+    }
+    const data: PostThemeInterface = {
+      ...(await this.basicProps()),
+      path: `/${category}/${slug}`,
+      page: postDocument,
+      comments: await this.commentService.model.find({
+        ref: postDocument._id,
+        refType: CommentType.Post,
+        status: CommentStatus.Read,
+      }),
+    };
+    return res.view(
+      `${(await this.themeService.currentTheme())!.name}/post.ejs` as string,
+      data,
+    );
+  }
 
   @Get("/archive") // 归档
   async renderArchive(@Res() res) {
@@ -211,4 +288,6 @@ export class ThemeController {
       data,
     );
   }
+
+
 }
