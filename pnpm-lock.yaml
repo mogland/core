@@ -54,8 +54,8 @@ specifiers:
   conventional-changelog: ^3.1.25
   cron: '*'
   cross-env: 7.0.3
-  ejs: 3.1.8
   dayjs: 1.11.5
+  ejs: 3.1.8
   entities: ^4.3.1
   eslint: '*'
   get-image-colors: ^4.0.1
@@ -71,6 +71,7 @@ specifiers:
   marked: ^4.0.18
   mime: ^3.0.0
   mkdirp: ^1.0.4
+  moment: ^2.29.4
   mongodb-memory-server: 8.8.0
   mongoose: 6.5.0
   mongoose-aggregate-paginate-v2: 1.0.6
@@ -131,8 +132,8 @@ dependencies:
   class-validator-jsonschema: 3.1.1_e6kgdsnyya5caxg3ysdyxrqm7a
   consola: 2.15.3
   cron: 1.8.2
-  ejs: 3.1.8
   dayjs: 1.11.5
+  ejs: 3.1.8
   entities: 4.3.1
   handlebars: 4.7.7
   i: 0.3.7
@@ -143,6 +144,7 @@ dependencies:
   marked: 4.0.18
   mime: 3.0.0
   mkdirp: 1.0.4
+  moment: 2.29.4
   mongoose: 6.5.0
   mongoose-aggregate-paginate-v2: 1.0.6
   mongoose-lean-id: 0.3.0_mongoose@6.5.0
@@ -5346,11 +5348,11 @@ packages:
   /moment-timezone/0.5.34:
     resolution: {integrity: sha512-3zAEHh2hKUs3EXLESx/wsgw6IQdusOT8Bxm3D9UrHPQR7zlMmzwybC8zHEM1tQ4LJwP7fcxrWr8tuBg05fFCbg==}
     dependencies:
-      moment: 2.29.1
+      moment: 2.29.4
     dev: false
 
-  /moment/2.29.1:
-    resolution: {integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==}
+  /moment/2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
     dev: false
 
   /mongodb-connection-string-url/2.5.2:

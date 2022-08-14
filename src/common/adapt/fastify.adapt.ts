@@ -13,6 +13,14 @@ app.register(FastifyMultipart, {
   },
 });
 
+// set locals
+app.getInstance().decorateReply("locals", null);
+app.getInstance().addHook("preHandler", (req, res: any, next) => {
+  res.locals = {};
+  res.locals.moment = require("moment");
+  next();
+});
+
 app.getInstance().addHook("onRequest", (request, reply, done) => {
   // set undefined origin
   const origin = request.headers.origin;
