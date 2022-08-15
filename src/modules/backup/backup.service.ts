@@ -78,11 +78,11 @@ export class BackupService {
   async restore(buffer: Buffer) {
     // 检查buffer是否为tar.gz文件
     if (!buffer.slice(0, 2).toString("hex").includes("1f8b")) {
-      throw new Error("不是tar.gz文件");
+      throw new BadRequestException("不是tar.gz文件");
     }
     // 检查大小
     if (!buffer.length) {
-      throw new Error("文件为空");
+      throw new BadRequestException("文件为空");
     }
     this.logger.log("正在还原数据库...");
     const dir = getMediumDateTime(new Date());
