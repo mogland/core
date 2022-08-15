@@ -89,7 +89,7 @@
     "mime": "^3.0.0",
     "mkdirp": "^1.0.4",
     "moment": "^2.29.4",
-    "mongoose": "6.5.0",
+    "mongoose": "6.5.2",
     "mongoose-aggregate-paginate-v2": "1.0.6",
     "mongoose-lean-id": "0.3.0",
     "mongoose-lean-virtuals": "0.9.1",
