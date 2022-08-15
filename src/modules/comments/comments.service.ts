@@ -24,7 +24,7 @@ export class CommentService {
     private readonly configs: ConfigsService,
     private readonly userService: UserService,
     private readonly toolsService: ToolsService
-  ) {}
+  ) { }
 
   public get model() {
     return this.commentModel;
@@ -35,9 +35,9 @@ export class CommentService {
   ): ReturnModelType<typeof PostModel | typeof PageModel, BeAnObject> {
     switch (refType) {
       case CommentType.Post:
-        return this.dbService.getModelByRefType("post");
+        return this.dbService.getModelByRefType("post") as any;
       case CommentType.Page:
-        return this.dbService.getModelByRefType("page");
+        return this.dbService.getModelByRefType("page") as any;
       default:
         throw new Error("refType is not supported");
     }
@@ -222,10 +222,9 @@ export class CommentService {
       .getIp(ip, 3000)
       .then(
         (res) =>
-          `${
-            res.province && res.province !== res.cityName
-              ? `${res.province}`
-              : ""
+          `${res.province && res.province !== res.cityName
+            ? `${res.province}`
+            : ""
           }${res.cityName ? `${res.cityName}` : ""}` || undefined
       )
       .catch(() => undefined);
