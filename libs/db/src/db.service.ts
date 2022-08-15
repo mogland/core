@@ -12,7 +12,8 @@ export class DbService {
     @InjectModel(PageModel)
     private readonly pageModel: ReturnModelType<typeof PageModel>
   ) {}
-
+  
+  // @ts-ignore
   public getModelByRefType(type: "Post"): ReturnModelType<typeof PostModel>;
   public getModelByRefType(type: "post"): ReturnModelType<typeof PostModel>;
   public getModelByRefType(type: "Page"): ReturnModelType<typeof PageModel>;
