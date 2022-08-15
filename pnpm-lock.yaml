@@ -73,7 +73,7 @@ specifiers:
   mkdirp: ^1.0.4
   moment: ^2.29.4
   mongodb-memory-server: 8.8.0
-  mongoose: 6.5.0
+  mongoose: 6.5.2
   mongoose-aggregate-paginate-v2: 1.0.6
   mongoose-lean-id: 0.3.0
   mongoose-lean-virtuals: 0.9.1
@@ -117,8 +117,8 @@ dependencies:
   '@nestjs/passport': 9.0.0_dmueulop52nydmpvnlnw57odqm
   '@nestjs/platform-fastify': 9.0.9_unfhvdzcdspchgshgxpxqgxqb4
   '@nestjs/schedule': 2.1.0_ac5kpodkfjj4txbcuwlvaffele
-  '@typegoose/auto-increment': 1.6.0_mongoose@6.5.0
-  '@typegoose/typegoose': 9.11.0_mongoose@6.5.0
+  '@typegoose/auto-increment': 1.6.0_mongoose@6.5.2
+  '@typegoose/typegoose': 9.11.0_mongoose@6.5.2
   art-template: 4.13.2
   axios: 0.27.2
   axios-retry: 3.3.1
@@ -145,10 +145,10 @@ dependencies:
   mime: 3.0.0
   mkdirp: 1.0.4
   moment: 2.29.4
-  mongoose: 6.5.0
+  mongoose: 6.5.2
   mongoose-aggregate-paginate-v2: 1.0.6
-  mongoose-lean-id: 0.3.0_mongoose@6.5.0
-  mongoose-lean-virtuals: 0.9.1_mongoose@6.5.0
+  mongoose-lean-id: 0.3.0_mongoose@6.5.2
+  mongoose-lean-virtuals: 0.9.1_mongoose@6.5.2
   mongoose-paginate-v2: 1.7.0
   nanoid: 3.3.3
   passport: 0.6.0
@@ -1067,18 +1067,18 @@ packages:
     resolution: {integrity: sha512-eZxlbI8GZscaGS7kkc/trHTT5xgrjH3/1n2JDwusC9iahPKWMRvRjJSAN5mCXviuTGQ/lHnhvv8Q1YTpnfz9gA==}
     dev: true
 
-  /@typegoose/auto-increment/1.6.0_mongoose@6.5.0:
+  /@typegoose/auto-increment/1.6.0_mongoose@6.5.2:
     resolution: {integrity: sha512-EDw+6N+ZS3V6I4IFj4mDxAkhZH0W6/3Zk3E7MPt3ybGcuJGAQEPBceOjMkoxVTaP8LxmYzrmeoKs8TIUCf+y/A==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       mongoose: ~6.5.0
     dependencies:
       loglevel: 1.8.0
-      mongoose: 6.5.0
+      mongoose: 6.5.2
       tslib: 2.4.0
     dev: false
 
-  /@typegoose/typegoose/9.11.0_mongoose@6.5.0:
+  /@typegoose/typegoose/9.11.0_mongoose@6.5.2:
     resolution: {integrity: sha512-abAeJ3pxWVldG0WEV00vs7UyORSLUrFigRDCa71P1GTPRpAzfF28VwYdnDWq+L5b34GYAV7sQTU80ViAX2V18w==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
@@ -1086,7 +1086,7 @@ packages:
     dependencies:
       lodash: 4.17.21
       loglevel: 1.8.0
-      mongoose: 6.5.0
+      mongoose: 6.5.2
       reflect-metadata: 0.1.13
       semver: 7.3.7
       tslib: 2.4.0
@@ -1245,7 +1245,7 @@ packages:
   /@types/mongoose-aggregate-paginate-v2/1.0.5:
     resolution: {integrity: sha512-c3KXTwzW6+BZw2g2TgNgGUyMbotTcI2Ip+NSZWoJjG2UO+8BRjmy+kJUNu64rfdIqWJ1+8h5NLm9w+aVis93Hw==}
     dependencies:
-      mongoose: 6.5.0
+      mongoose: 6.5.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2682,8 +2682,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
-      is-text-path: 1.0.1
       JSONStream: 1.3.5
+      is-text-path: 1.0.1
       lodash: 4.17.21
       meow: 8.1.2
       split2: 3.2.2
@@ -5427,21 +5427,21 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: false
 
-  /mongoose-lean-id/0.3.0_mongoose@6.5.0:
+  /mongoose-lean-id/0.3.0_mongoose@6.5.2:
     resolution: {integrity: sha512-/eONPzg+tA7/VR4uv0uKxKwH4OCseZShqwbMW572QvlSU0g48zDFTiDuCjZmNykfZgK3ZOwjfLVbXBAAAbXI4Q==}
     peerDependencies:
       mongoose: 4.x || 5.x || 6.x
     dependencies:
-      mongoose: 6.5.0
+      mongoose: 6.5.2
     dev: false
 
-  /mongoose-lean-virtuals/0.9.1_mongoose@6.5.0:
+  /mongoose-lean-virtuals/0.9.1_mongoose@6.5.2:
     resolution: {integrity: sha512-jx4rhXuaQPam/lwef3z/FfYHlKdbFkDr9Qb7JEMeoa7y4pOuyJ83RkcNL25HRaoi4Bt71zKmV1cuJdv243t9aA==}
     peerDependencies:
       mongoose: '>=5.11.10'
     dependencies:
       array.prototype.flat: 1.2.3
-      mongoose: 6.5.0
+      mongoose: 6.5.2
       mpath: 0.8.4
     dev: false
 
@@ -5450,8 +5450,8 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: false
 
-  /mongoose/6.5.0:
-    resolution: {integrity: sha512-swOX8ZEbmCeJaEs29B1j67StBIhuOccNNkipbVhsnLYYCDpNE7heM9W54MFGwN5es9tGGoxINHSzOhJ9kTOZGg==}
+  /mongoose/6.5.2:
+    resolution: {integrity: sha512-3CFDrSLtK2qjM1pZeZpLTUyqPRkc11Iuh74ZrwS4IwEJ3K2PqGnmyPLw7ex4Kzu37ujIMp3MAuiBlUjfrcb6hw==}
     engines: {node: '>=12.0.0'}
     dependencies:
       bson: 4.6.5
