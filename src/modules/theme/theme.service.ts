@@ -1,8 +1,13 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-import { YAML } from 'zx-cjs';
+import { join } from 'path';
+import { quiet, YAML } from 'zx-cjs';
+import mkdirp from 'mkdirp';
 import { THEME_DIR } from '~/constants/path.constant';
+import { HttpService } from '~/processors/helper/helper.http.service';
 import { ThemeDto } from '../configs/configs.dto';
 import { ConfigsService } from '../configs/configs.service';
+import { writeFile } from 'fs/promises';
+import { cp } from 'fs';
 
 @Injectable()
 export class ThemeService {
@@ -10,10 +15,12 @@ export class ThemeService {
   private CORE_VERSION = require('../../../package.json').version
   constructor(
     private readonly configsService: ConfigsService,
-    
+    private readonly http: HttpService,
+
   ) {
     this.logger = new Logger(ThemeService.name)
   }
+
 
   private async turnOnThemeLibs(name: string) {
     // 查找配置文件是否存在
@@ -36,7 +43,7 @@ export class ThemeService {
     ) {
       // 提醒建议使用的版本
       this.CORE_VERSION !== themeConfig.recommend_version && this.logger.warn(`主题 ${name} 建议使用版本 ${themeConfig.recommend_version}`)
-    } else if ( themeConfig.support_max_version == 'latest' ) {} else {
+    } else if (themeConfig.support_max_version == 'latest') { } else {
       throw new BadRequestException(`主题 ${name} 不支持当前版本`);
     }
 
@@ -85,6 +92,42 @@ export class ThemeService {
   async currentTheme() {
     const theme = await this.configsService.get('theme');
     return theme;
+  }
+
+  async downloadRepoArchive(repo: string, type: "GitHub" | "Custom") {
+    const url = type === "GitHub" ? `https://api.github.com/repos/${repo}/zipball` : repo;
+    const { data } = await this.http.axiosRef.get(url);
+    return await this.uploadThemeFile(data, repo.split('/')[1]);
+  }
+
+  async uploadThemeFile(buffer: Buffer, name: string) {
+    if (!buffer.slice(0, 2).toString("hex").includes("1f8b")) {
+      throw new BadRequestException("不是tar.gz文件");
+    }
+    // 检查大小
+    if (!buffer.length) {
+      throw new BadRequestException("文件为空");
+    }
+    this.logger.warn("正在上传主题文件...");
+    const themePath = join(THEME_DIR, name)
+    mkdirp.sync(themePath)
+    const tmpPath = join(THEME_DIR, "tmp", `${name}_tmp.tar.gz`)
+    try {
+      await writeFile(tmpPath, buffer) // 写入临时文件
+      cd(tmpPath)
+      await nothrow(quiet($`tar -xzf ${name}_tmp.tar.gz`)) // 解压
+      const files = await nothrow(quiet($`ls | grep -v ${name}_tmp.tar.gz`)) // 获取文件列表, 去除临时文件, 获取主题文件目录名
+      cd(join(THEME_DIR, "tmp", files[0])) // 进入主题目录
+      await nothrow(quiet($`mv * ${themePath}`)) // 将主题文件移动到主题目录
+      await nothrow(quiet($`rm -rf ${tmpPath}`)) // 删除临时文件
+      this.logger.warn("主题 ${name} 上传成功");
+      return `主题 ${name} 上传成功`;
+      
+    } catch (e) {
+      this.logger.error(
+        `上传主题文件失败，请检查主题文件是否正确` || e.stderr
+      )
+    }
   }
 
 }

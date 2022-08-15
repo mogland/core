@@ -7,6 +7,7 @@ import { DATA_DIR, LOG_DIR, PLUGIN_DIR, PUBLIC_DIR, THEME_DIR } from "~/constant
 import { consola, registerStdLogger } from "./consola.global";
 import "./dayjs.global";
 import { isDev } from "./env.global";
+import { join } from "path";
 
 // 建立目录
 function mkdirs() {
@@ -20,6 +21,7 @@ function mkdirs() {
   Logger.log(chalk.blue(`插件文件夹 已准备好: ${PLUGIN_DIR}`));
 
   mkdirSync(THEME_DIR, { recursive: true });
+  mkdirSync(join(THEME_DIR, 'tmp'), { recursive: true });
   Logger.log(chalk.blue(`主题文件夹 已准备好: ${THEME_DIR}`));
 
   mkdirSync(PUBLIC_DIR, { recursive: true });

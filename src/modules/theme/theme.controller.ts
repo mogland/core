@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Controller, Get, NotFoundException, Param, Query, Res } from '@nestjs/common';
+import { BadRequestException, Controller, Get, NotFoundException, Param, Query, Req, Res } from '@nestjs/common';
 import { join } from 'path';
+import { FastifyRequest } from 'fastify';
 import { Auth } from '~/common/decorator/auth.decorator';
 import { ApiName } from '~/common/decorator/openapi.decorator';
 import { THEME_DIR } from '~/constants/path.constant';
@@ -22,6 +23,7 @@ import { CommentStatus, CommentType } from '../comments/comments.model';
 import { PagerDto } from '~/shared/dto/pager.dto';
 import { ApiOperation } from '@nestjs/swagger';
 import { AggregateService } from '../aggregate/aggregate.service';
+import { MultipartFile } from '@fastify/multipart';
 
 @Controller('theme')
 @ApiName
@@ -38,6 +40,7 @@ export class ThemeController {
     private readonly aggregateService: AggregateService,
   ) { }
 
+  // 基本配置
   private async basicProps() {
     return {
       site: {
@@ -90,6 +93,45 @@ export class ThemeController {
   }
 
   // ********************************************************
+  // 以下是关于管理主题下载 上传的接口
+
+  private async ValidMultipartFields(
+    req: FastifyRequest
+  ): Promise<MultipartFile> {
+    const data = await req.file();
+
+    if (!data) {
+      throw new BadRequestException("仅供上传文件!");
+    }
+    if (data.fieldname != "file") {
+      throw new BadRequestException("字段必须为 file");
+    }
+
+    return data;
+  }
+
+  @Get('/admin/upload')
+  @ApiOperation({ summary: '上传主题' })
+  @Auth()
+  async uploadTheme(@Req() req: FastifyRequest, @Query("name") name: string) {
+    const data = await this.ValidMultipartFields(req);
+    const { mimetype } = data;
+    // 如果不是 tar.gz 文件，则抛出异常
+    if (mimetype != "application/x-gzip") {
+      throw new BadRequestException("仅支持 tar.gz 文件");
+    }
+    return await this.themeService.uploadThemeFile(await data.toBuffer(), name);
+  }
+
+  @Get('/admin/download')
+  @ApiOperation({ summary: '自定义链接或从 GitHub 下载主题并上传' })
+  @Auth()
+  async downloadThemeAndUpload(@Query("repo") repo: string, @Query("type") type: "GitHub" | "Custom") {
+    return await this.themeService.downloadRepoArchive(repo, type);
+  }
+
+
+  // ********************************************************
   // 以下是针对静态资源访问的接口
   @Get('/public/*')
   @ApiOperation({ summary: '静态资源访问接口' })
@@ -122,7 +164,7 @@ export class ThemeController {
   }
 
   @Get(["/posts", "/posts/*"]) // 文章列表
-  @ApiOperation({ summary: '文章列表 (聚合携带分页器)'})
+  @ApiOperation({ summary: '文章列表 (聚合携带分页器)' })
   async renderPosts(@Res() res, @Param("*") pageProp: any) {
     const page = pageProp && pageProp.split("/")[1] || 1;
     return await res.view(

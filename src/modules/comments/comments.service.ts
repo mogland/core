@@ -50,6 +50,9 @@ export class CommentService {
       }
       const isBlock = [...BlockedKeywords].some((keyword) => {
         new RegExp(keyword, "i").test(comment.text);
+        new RegExp(keyword, "i").test(comment.author);
+        new RegExp(keyword, "i").test(comment.mail);
+        comment.url && new RegExp(keyword, "i").test(comment.url);
       });
       if (isBlock) {
         return true;
