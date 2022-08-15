@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-08-13 23:14:55
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-14 19:02:53
+ * @LastEditTime: 2022-08-15 11:55:53
  * Coding With IU
  */
 
@@ -33,7 +33,7 @@ export interface ThemeBasicInterface {
   path: string, // 页面路径
 }
 export interface IndexThemeInterface extends ThemeBasicInterface {
-  aggregate: AggregatePaginateResult<PostModel | PageModel>, // 当前页面的文章列表
+  aggregate: any, // 当前页面的文章列表
 }
 
 export interface PostThemeInterface extends ThemeBasicInterface {

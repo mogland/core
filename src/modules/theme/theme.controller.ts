@@ -21,6 +21,7 @@ import { ThemeDto } from '../configs/configs.dto';
 import { CommentStatus, CommentType } from '../comments/comments.model';
 import { PagerDto } from '~/shared/dto/pager.dto';
 import { ApiOperation } from '@nestjs/swagger';
+import { AggregateService } from '../aggregate/aggregate.service';
 
 @Controller('theme')
 @ApiName
@@ -34,6 +35,7 @@ export class ThemeController {
     private readonly commentService: CommentService,
     private readonly linksService: LinksService,
     private readonly userService: UserService,
+    private readonly aggregateService: AggregateService,
   ) { }
 
   private async basicProps() {
@@ -106,17 +108,32 @@ export class ThemeController {
   // ********************************************************
   // 以下是主题渲染相关的方法
 
-  @Get('/') // 首页
-  @ApiOperation({ summary: '首页' })
-  async renderIndex(@Res() res, @Query() pager: PagerDto) {
+  @Get('/') // 首页 聚合
+  @ApiOperation({ summary: '首页 (最新文章聚合)' })
+  async renderIndex(@Res() res) {
     return await res.view(
       `${(await this.themeService.currentTheme())!.name}/index` as string,
       {
         ...(await this.basicProps()),
         path: '/',
-        aggregate: await this.postService.aggregatePaginate(pager),
+        aggregate: this.aggregateService.topActivity(5, false)
       } as IndexThemeInterface,
     );
+  }
+
+  @Get(["/posts", "/posts/*"]) // 文章列表
+  @ApiOperation({ summary: '文章列表 (聚合携带分页器)'})
+  async renderPosts(@Res() res, @Param("*") pageProp: any) {
+    const page = pageProp && pageProp.split("/")[1] || 1;
+    return await res.view(
+      `${(await this.themeService.currentTheme())!.name}/posts` as string,
+      {
+        aggregate: await this.postService.aggregatePaginate({
+          size: 10,
+          page: page ? Number(page) : 1,
+        }),
+      } as IndexThemeInterface,
+    )
   }
 
   @Get(":path") // 页面

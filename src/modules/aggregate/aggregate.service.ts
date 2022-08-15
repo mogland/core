@@ -70,7 +70,7 @@ export class AggregateService {
   }
 
   /**
-   * topActivity 查询置顶文章
+   * topActivity 查询最新文章
    * @param size 获取数量
    * @param isMaster 是否主人
    */

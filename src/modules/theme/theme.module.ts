@@ -1,4 +1,5 @@
 import { Module, forwardRef } from '@nestjs/common';
+import { AggregateModule } from '../aggregate/aggregate.module';
 import { CategoryModule } from '../category/category.module';
 import { CommentModule } from '../comments/comments.module';
 import { LinksModule } from '../links/links.module';
@@ -16,6 +17,7 @@ import { ThemeService } from './theme.service';
     forwardRef(() => CommentModule),
     forwardRef(() => LinksModule),
     forwardRef(() => UserModule),
+    forwardRef(() => AggregateModule),
   ],
   controllers: [ThemeController],
   providers: [ThemeService]
