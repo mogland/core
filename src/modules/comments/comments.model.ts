@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-03 17:49:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-11 22:53:14
+ * @LastEditTime: 2022-08-16 22:11:31
  * Coding With IU
  */
 
@@ -54,7 +54,7 @@ export enum CommentStatus {
 @pre<CommentModel>("find", autoPopulateSubs) // 自动填充子评论
 @pre<CommentModel>("findOne", autoPopulateSubs) // 自动填充子评论
 export class CommentModel extends BaseModel {
-  @prop({ refPath: "type" })
+  @prop({ refPath: "refType" })
   ref: Ref<PostModel | PageModel>; // 引用的文章或页面
 
   @prop({ required: true, enum: CommentType, default: "Post" })

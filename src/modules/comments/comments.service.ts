@@ -8,7 +8,7 @@ import { ConfigsService } from "../configs/configs.service";
 import { PageModel } from "../page/page.model";
 import { PostModel } from "../post/post.model";
 import { UserService } from "../user/user.service";
-import { CommentModel, CommentType } from "./comments.model";
+import { CommentModel, CommentStatus, CommentType } from "./comments.model";
 import { LeanDocument, Types } from "mongoose";
 import { WriteBaseModel } from "~/shared/model/base.model";
 import { CannotFindException } from "~/common/exceptions/cant-find.exception";
@@ -176,7 +176,7 @@ export class CommentService {
    * @param page,size,state
    * @returns 评论列表
    */
-  async getComments({ page, size, status } = { page: 1, size: 10, status: 0 }) {
+  async getComments({ page, size, status } = { page: 1, size: 10, status: CommentStatus.Read }) {
     const queryList = await this.commentModel.paginate(
       { status }, // 查询条件
       {
