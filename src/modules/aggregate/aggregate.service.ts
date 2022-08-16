@@ -32,7 +32,7 @@ export class AggregateService {
     private readonly configsService: ConfigsService,
     private readonly redis: CacheService,
     private readonly urlService: UrlService
-  ) {}
+  ) { }
 
   /**
    * getAllCategory 获取所有分类
@@ -75,7 +75,7 @@ export class AggregateService {
    * @param isMaster 是否主人
    */
   async topActivity(size = 6, isMaster = false) {
-    const [posts] = await Promise.all([
+    const [posts, comments] = await Promise.all([
       this.findTop(
         this.postService.model,
         !isMaster ? { hide: false } : {},
@@ -90,9 +90,12 @@ export class AggregateService {
             return post;
           });
         }),
+      this.commentService.getComments().then((res) => {
+        return res.docs
+      })
     ]);
 
-    return { posts };
+    return { posts, comments };
   }
 
   /**
@@ -120,8 +123,7 @@ export class AggregateService {
           list.map((document) => {
             return {
               url: new URL(
-                `/posts/${(document.category as CategoryModel).slug}/${
-                  document.slug
+                `/posts/${(document.category as CategoryModel).slug}/${document.slug
                 }`,
                 baseURL
               ),
