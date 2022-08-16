@@ -10,7 +10,7 @@ services:
       - NODE_ENV=production
     restart: 'on-failure'
     volumes:
-      - ./data/nxspace:/root/.nxspace
+      - ./data/nx-space:/root/.nx-space
 
     ports:
       - '3333:3333'
