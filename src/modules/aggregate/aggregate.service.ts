@@ -52,7 +52,7 @@ export class AggregateService {
   }
 
   /**
-   * findTop 查询置顶文章
+   * findTop 查询最新文章
    * @param model 模型
    * @param condition 查询条件
    * @param size 获取数量
@@ -65,8 +65,8 @@ export class AggregateService {
     return model
       .find(condition) // 获取所有文章
       .sort({ created: -1 }) // 按照时间降序
-      .limit(size) // 获取前6篇
-      .select("_id title name slug avatar nid created"); // 获取文章的id、标题、slug、作者、创建时间
+      .limit(size) // 获取篇目
+      .select("_id title name slug avatar nid created text"); // 获取文章的id、标题、slug、作者、创建时间、内容
   }
 
   /**

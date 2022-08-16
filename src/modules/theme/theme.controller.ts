@@ -25,7 +25,7 @@ import { ApiOperation } from '@nestjs/swagger';
 import { AggregateService } from '../aggregate/aggregate.service';
 import { MultipartFile } from '@fastify/multipart';
 
-@Controller('theme')
+@Controller(['theme'])
 @ApiName
 export class ThemeController {
   constructor(
@@ -158,7 +158,7 @@ export class ThemeController {
       {
         ...(await this.basicProps()),
         path: '/',
-        aggregate: this.aggregateService.topActivity(5, false)
+        aggregate: (await this.aggregateService.topActivity(5, false))
       } as IndexThemeInterface,
     );
   }
@@ -170,6 +170,8 @@ export class ThemeController {
     return await res.view(
       `${(await this.themeService.currentTheme())!.name}/posts` as string,
       {
+        ...(await this.basicProps()),
+        path: '/posts',
         aggregate: await this.postService.aggregatePaginate({
           size: 10,
           page: page ? Number(page) : 1,

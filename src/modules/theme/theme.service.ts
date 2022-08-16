@@ -7,7 +7,6 @@ import { HttpService } from '~/processors/helper/helper.http.service';
 import { ThemeDto } from '../configs/configs.dto';
 import { ConfigsService } from '../configs/configs.service';
 import { writeFile } from 'fs/promises';
-import { cp } from 'fs';
 
 @Injectable()
 export class ThemeService {
