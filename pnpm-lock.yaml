@@ -81,7 +81,7 @@ specifiers:
   nanoid: 3.3.3
   passport: 0.6.0
   passport-jwt: 4.0.0
-  pnpm: 7.9.0
+  pnpm: 7.9.3
   point-of-view: 6.3.0
   prettier: 2.7.1
   redis: 4.2.0
@@ -153,7 +153,7 @@ dependencies:
   nanoid: 3.3.3
   passport: 0.6.0
   passport-jwt: 4.0.0
-  pnpm: 7.9.0
+  pnpm: 7.9.3
   point-of-view: 6.3.0
   redis: 4.2.0
   reflect-metadata: 0.1.13
@@ -171,7 +171,7 @@ optionalDependencies:
 devDependencies:
   '@innei-util/eslint-config-ts': 0.8.2_typescript@4.7.4
   '@innei-util/prettier': 0.8.2
-  '@innei/eslint-config-ts': 0.9.4
+  '@innei/eslint-config-ts': 0.9.4_typescript@4.7.4
   '@nestjs/cli': 9.0.0
   '@nestjs/schematics': 9.0.1_typescript@4.7.4
   '@nestjs/swagger': 6.0.5_mafirdz2v2yiqi5vgldmeyydne
@@ -678,8 +678,10 @@ packages:
       - supports-color
     dev: true
 
-  /@innei/eslint-config-ts/0.9.4:
+  /@innei/eslint-config-ts/0.9.4_typescript@4.7.4:
     resolution: {integrity: sha512-T52M6omBVNP6CbRN0sWNf8TjEEocuPTSN+FnVUY7c1P8JfgOTH9PFOG8fEt59UZLxZEIjy26pHGDqATv9inGVA==}
+    peerDependencies:
+      typescript: '>=4'
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.30.7_ekzva32mmeirpotegy4j67keia
       '@typescript-eslint/parser': 5.15.0_zxrpxoxr7lobjojzlmx5xwg6ym
@@ -6054,8 +6056,8 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: true
 
-  /pnpm/7.9.0:
-    resolution: {integrity: sha512-xkIVw73yJm/h5M4VvFIS5Q+gQCRDrp3r92g58PtcCK86aZCa7EQ6q6ivdfTAz0KsAVgloA6Anub28n6wju5v3w==}
+  /pnpm/7.9.3:
+    resolution: {integrity: sha512-0hpAD1vtILw0i9gTN4ffagnScWMW9/avfZIKllBUd++fAvCss+hVgPPDd0HS9XcOT675gid4H9esGkbLdaFy+w==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: false
