@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-11 11:54:02
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-01 23:05:39
+ * @LastEditTime: 2022-08-18 15:23:22
  * Coding With IU
  */
 
@@ -43,7 +43,7 @@ export enum LinksStatus {
 export class LinksModel extends BaseModel {
   @prop({ required: true, trim: true, unique: true })
   @IsString({ message: "链接名称不能为空" })
-  @MaxLength(20, { message: "链接名称是不是填错了呀www" })
+  @MaxLength(25, { message: "链接名称是不是填错了呀www" })
   name: string;
 
   @prop({
