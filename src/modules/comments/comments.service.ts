@@ -187,7 +187,7 @@ export class CommentService {
         populate: [
           // 关联查询
           { path: "parent", select: "-children" }, // 关联父评论
-          { path: "ref", select: "title _id slug nid categoryId" }, // 关联引用对象
+          { path: "ref", select: "title _id slug categoryId" }, // 关联引用对象
         ],
       }
     );

@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-07-03 17:49:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-16 22:11:31
+ * @LastEditTime: 2022-08-18 18:34:57
  * Coding With IU
  */
 
@@ -35,8 +35,8 @@ function autoPopulateSubs(
 
 // 评论种类
 export enum CommentType {
-  Post = "Post",
-  Page = "Page",
+  Post = "post",
+  Page = "page",
 }
 
 // 评论状态
@@ -57,7 +57,7 @@ export class CommentModel extends BaseModel {
   @prop({ refPath: "refType" })
   ref: Ref<PostModel | PageModel>; // 引用的文章或页面
 
-  @prop({ required: true, enum: CommentType, default: "Post" })
+  @prop({ required: true, enum: CommentType, default: CommentType.Post })
   refType: CommentType; // 评论种类
 
   @prop({ trim: true, required: true })
