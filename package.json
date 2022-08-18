@@ -122,7 +122,7 @@
     "@types/ioredis": "4.28.10",
     "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.183",
-    "@types/marked": "4.0.4",
+    "@types/marked": "4.0.5",
     "@types/mime": "3.0.1",
     "@types/mongoose-aggregate-paginate-v2": "1.0.5",
     "@types/node": "17.0.24",
