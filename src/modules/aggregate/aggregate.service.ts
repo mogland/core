@@ -75,7 +75,7 @@ export class AggregateService {
    * @param isMaster 是否主人
    */
   async topActivity(size = 6, isMaster = false) {
-    const [posts, comments] = await Promise.all([
+    const [posts] = await Promise.all([
       this.findTop(
         this.postService.model,
         !isMaster ? { hide: false } : {},
@@ -89,13 +89,10 @@ export class AggregateService {
             delete post.categoryId;
             return post;
           });
-        }),
-      this.commentService.getComments().then((res) => {
-        return res.docs
-      })
+        })
     ]);
 
-    return { posts, comments };
+    return { posts };
   }
 
   /**
