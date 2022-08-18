@@ -1,3 +1,4 @@
+import { InjectModel } from "@app/db/model.transformer";
 import {
   Body,
   Controller,
@@ -17,6 +18,7 @@ import { ApiName } from "~/common/decorator/openapi.decorator";
 import { CannotFindException } from "~/common/exceptions/cant-find.exception";
 import { MongoIdDto } from "~/shared/dto/id.dto";
 import { PagerDto } from "~/shared/dto/pager.dto";
+import { CommentModel, CommentType } from "../comments/comments.model";
 
 import { PageModel, PartialPageModel } from "./page.model";
 import { PageService } from "./page.service";
@@ -25,6 +27,8 @@ import { PageService } from "./page.service";
 @ApiName
 export class PageController {
   constructor(
+    @InjectModel(CommentModel)
+    private readonly commentModel: MongooseModel<CommentModel>,
     private readonly pageService: PageService // @Inject(forwardRef(() => PluginsService)) // private readonly pluginService: PluginsService,
   ) {}
 
@@ -102,9 +106,12 @@ export class PageController {
   @ApiOperation({ summary: "删除页面" })
   @Auth()
   async deletePage(@Param() params: MongoIdDto) {
-    await this.pageService.model.deleteOne({
-      _id: params.id,
-    });
+    await Promise.all([
+      this.pageService.model.deleteOne({
+        _id: params.id,
+      }),
+      this.commentModel.deleteMany({ ref: params.id, refType: CommentType.Page }),
+    ])
     return;
   }
 }
