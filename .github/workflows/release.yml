@@ -22,12 +22,12 @@ jobs:
         with:
           node-version: 16.x
 
-      # - name: Create Release
-      #   id: create_release
-      #   run: |
-      #     npx changelogithub --prerelease --contributors
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release
+        id: create_release
+        run: |
+          npx changelogithub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.7.0
