@@ -155,6 +155,20 @@ export class PostController {
     await this.postService.deletePost(id);
   }
 
+  @Patch("/createIndex")
+  // @Auth()
+  @ApiOperation({ summary: "创建文章索引" })
+  async createIndex() {
+    return this.postService.createIndexed();
+  }
+
+  @Get("/indexes")
+  // @Auth()
+  @ApiOperation({ summary: "获取文章索引" })
+  async getIndexes() {
+    return this.postService.model.listIndexes();
+  }
+
   @Get("/_like")
   async thumbsUpArticle(
     @Query() query: MongoIdDto,

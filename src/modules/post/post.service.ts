@@ -272,6 +272,18 @@ export class PostService {
     return (await this.postModel.countDocuments({ slug })) === 0;
   }
 
+  async createIndexed() {
+    return await this.model.createIndexes({
+      background: true,
+      unique: true,
+      name: "post-indexes",
+      default_language: "Chinese",
+      partialFilterExpression: {
+        hide: { $eq: false }, // 只创建不隐藏的文章
+      },
+    })
+  }
+
   async CreateDefaultPost(cateId: string) {
     await this.postModel.countDocuments({}).then(async (count) => {
       if (!count) {
