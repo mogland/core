@@ -178,6 +178,12 @@ export class PostController {
     return await this.redis.del("posts-index");
   }
 
+  @Get("/search")
+  @ApiOperation({ summary: "搜索文章" })
+  async search(@Query("key") key: string) {
+    return await this.postService.search(key);
+  }
+
   @Get("/_like")
   async thumbsUpArticle(
     @Query() query: MongoIdDto,
