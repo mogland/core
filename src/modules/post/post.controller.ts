@@ -27,13 +27,15 @@ import { IsMaster } from "~/common/decorator/role.decorator";
 import { md5 } from "~/utils/tools.util";
 import { IpLocation, IpRecord } from "~/common/decorator/ip.decorator";
 import { ThumbsService } from "~/processors/helper/helper.thumbs.service";
+import { CacheService } from "~/processors/cache/cache.service";
 @Controller("posts")
 @ApiName
 export class PostController {
   constructor(
     private readonly postService: PostService,
-    private readonly thumbsService: ThumbsService
-  ) {}
+    private readonly thumbsService: ThumbsService,
+    private readonly redis: CacheService,
+  ) { }
 
   @Get("/")
   @Paginator
@@ -157,16 +159,23 @@ export class PostController {
 
   @Patch("/createIndex")
   // @Auth()
-  @ApiOperation({ summary: "创建文章索引" })
+  @ApiOperation({ summary: "创建或更新文章 json 索引" })
   async createIndex() {
-    return this.postService.createIndexed();
+    return await this.postService.createIndex();
   }
 
   @Get("/indexes")
   // @Auth()
   @ApiOperation({ summary: "获取文章索引" })
   async getIndexes() {
-    return this.postService.model.listIndexes();
+    return await this.redis.get("posts-index");
+  }
+
+  @Delete("/indexes")
+  // @Auth()
+  @ApiOperation({ summary: "删除文章索引" })
+  async deleteIndexes() {
+    return await this.redis.del("posts-index");
   }
 
   @Get("/_like")
