@@ -11,7 +11,6 @@ import {
 class UserOptionDto {
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
   @ApiProperty({ example: "我是练习时长两年半的个人练习生" })
   readonly introduce?: string;
 
