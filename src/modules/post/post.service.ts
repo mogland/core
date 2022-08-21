@@ -181,7 +181,8 @@ export class PostService {
     process.nextTick(async () => {
       // 异步更新缓存
       await Promise.all([
-        this.imageService.recordImageMeta(this.model, res._id)
+        this.imageService.recordImageMeta(this.model, res._id),
+        this.createIndex(),
       ]);
     });
     return res;
@@ -230,7 +231,8 @@ export class PostService {
 
     process.nextTick(async () => {
       await Promise.all([
-        this.imageService.recordImageMeta(this.model, id)
+        this.imageService.recordImageMeta(this.model, id),
+        this.createIndex(),
       ]);
     });
 
