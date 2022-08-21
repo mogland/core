@@ -17,6 +17,7 @@ import { CommentModel, CommentType } from "../comments/comments.model";
 import { ImageService } from "~/processors/helper/helper.image.service";
 import { PagerDto } from "~/shared/dto/pager.dto";
 import { addYearCondition } from "~/transformers/db-query.transformer";
+import { CacheService } from "~/processors/cache/cache.service";
 
 @Injectable()
 export class PostService {
@@ -29,6 +30,7 @@ export class PostService {
     @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
     private readonly imageService: ImageService,
+    private readonly redis: CacheService,
   ) {}
   get model() {
     return this.postModel;
@@ -272,16 +274,30 @@ export class PostService {
     return (await this.postModel.countDocuments({ slug })) === 0;
   }
 
-  async createIndexed() {
-    return await this.model.createIndexes({
-      background: true,
-      unique: true,
-      name: "post-indexes",
-      default_language: "Chinese",
-      partialFilterExpression: {
-        hide: { $eq: false }, // 只创建不隐藏的文章
-      },
-    })
+  async createIndex() {
+    // 1. 获取全部文章（ 仅获取 Text, Title, Summary 字段 ）
+    const posts = await this.model.find({
+      hide: false,
+    }, {
+      text: 1,
+      title: 1,
+      summary: 1,
+      created: 1,
+    }).sort({ created: -1 }).lean()
+    // 2. 将文章转换为 json 字符串
+    let postsJson: { text: string, title: string, summary?: string, created?: Date }[] = [];
+    for (let post of posts) {
+      postsJson.push({
+        text: post.text,
+        title: post.title,
+        summary: post.summary,
+        created: post.created,
+      })
+    }
+    // 3. 创建索引，存入 Redis
+    return await this.redis.set("posts-index", JSON.stringify(postsJson), {
+      ttl: 24 * 60 * 60, // 1 day
+    });
   }
 
   async CreateDefaultPost(cateId: string) {
