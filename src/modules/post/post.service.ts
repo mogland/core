@@ -18,6 +18,7 @@ import { ImageService } from "~/processors/helper/helper.image.service";
 import { PagerDto } from "~/shared/dto/pager.dto";
 import { addYearCondition } from "~/transformers/db-query.transformer";
 import { CacheService } from "~/processors/cache/cache.service";
+import { CategoryModel } from "../category/category.model";
 
 @Injectable()
 export class PostService {
@@ -288,15 +289,22 @@ export class PostService {
       title: 1,
       summary: 1,
       created: 1,
+      slug: 1,
+      category: {
+        name: 1,
+        slug: 1,
+      }
     }).sort({ created: -1 }).lean()
     // 2. 将文章转换为 json 字符串
-    let postsJson: { text: string, title: string, summary?: string, created?: Date }[] = [];
+    let postsJson: { text: string, title: string, summary?: string, created?: Date, slug: string, category: any }[] = [];
     for (let post of posts) {
       postsJson.push({
         text: post.text,
         title: post.title,
         summary: post.summary,
         created: post.created,
+        slug: post.slug,
+        category: (post.category),
       })
     }
     // 3. 创建索引，存入 Redis
