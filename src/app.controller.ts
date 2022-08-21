@@ -6,6 +6,7 @@ import PKG from "../package.json";
 @Controller()
 @ApiTags("Root")
 export class AppController {
+
   @UseInterceptors(AllowAllCorsInterceptor)
   @Get(["/", "/info"])
   @ApiOperation({ summary: "获取服务端版本等信息" })

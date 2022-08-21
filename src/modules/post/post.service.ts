@@ -17,6 +17,7 @@ import { CommentModel, CommentType } from "../comments/comments.model";
 import { ImageService } from "~/processors/helper/helper.image.service";
 import { PagerDto } from "~/shared/dto/pager.dto";
 import { addYearCondition } from "~/transformers/db-query.transformer";
+import { CacheService } from "~/processors/cache/cache.service";
 
 @Injectable()
 export class PostService {
@@ -29,6 +30,7 @@ export class PostService {
     @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
     private readonly imageService: ImageService,
+    private readonly redis: CacheService,
   ) {}
   get model() {
     return this.postModel;
@@ -179,7 +181,8 @@ export class PostService {
     process.nextTick(async () => {
       // 异步更新缓存
       await Promise.all([
-        this.imageService.recordImageMeta(this.model, res._id)
+        this.imageService.recordImageMeta(this.model, res._id),
+        this.createIndex(),
       ]);
     });
     return res;
@@ -228,7 +231,8 @@ export class PostService {
 
     process.nextTick(async () => {
       await Promise.all([
-        this.imageService.recordImageMeta(this.model, id)
+        this.imageService.recordImageMeta(this.model, id),
+        this.createIndex(),
       ]);
     });
 
@@ -270,6 +274,69 @@ export class PostService {
    */
   async isAvailableSlug(slug: string) {
     return (await this.postModel.countDocuments({ slug })) === 0;
+  }
+
+  /**
+   * 创建文章索引
+   */
+  async createIndex() {
+    // 1. 获取全部文章（ 仅获取 Text, Title, Summary 字段 ）
+    const posts = await this.model.find({
+      hide: false,
+    }, {
+      text: 1,
+      title: 1,
+      summary: 1,
+      created: 1,
+    }).sort({ created: -1 }).lean()
+    // 2. 将文章转换为 json 字符串
+    let postsJson: { text: string, title: string, summary?: string, created?: Date }[] = [];
+    for (let post of posts) {
+      postsJson.push({
+        text: post.text,
+        title: post.title,
+        summary: post.summary,
+        created: post.created,
+      })
+    }
+    // 3. 创建索引，存入 Redis
+    return await this.redis.set("posts-index", JSON.stringify(postsJson), {
+      ttl: 24 * 60 * 60, // 1 day
+    });
+  }
+
+  /**
+   * 搜索文章
+   * @param keyword 关键词
+   */
+  search(keyword: string) {
+    return this.redis.get("posts-index").then((index: string) => {
+      if (!index) {
+        return this.createIndex().then(() => {
+          return this.redis.get("posts-index");
+        }).then((index: string) => {
+          return this.search(keyword);
+        }).catch(() => {
+          return [];
+        });
+      }
+      const indexJson = JSON.parse(index);
+      const result = indexJson.filter((post) => {
+        return post.text.includes(keyword) || post.title.includes(keyword);
+      }).map((post) => {
+        return {
+          text: post.text,
+          title: post.title,
+          summary: post.summary,
+          created: post.created,
+        };
+      }).sort((a, b) => {
+        return b.created.getTime() - a.created.getTime();
+      }).slice(0, 10);
+      return result;
+    }).catch(() => {
+      return [];
+    });
   }
 
   async CreateDefaultPost(cateId: string) {
