@@ -9,7 +9,7 @@ import {
   Query,
   Res,
 } from "@nestjs/common";
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiOperation } from "@nestjs/swagger";
 import { Auth } from "~/common/decorator/auth.decorator";
 import { HTTPDecorators } from "~/common/decorator/http.decorator";
 import { ApiName } from "~/common/decorator/openapi.decorator";
@@ -26,7 +26,7 @@ export class MarkdownController {
 
   @Post("/export")
   @Auth()
-  @ApiProperty({ description: "导出部分 Markdown 文件" })
+  @ApiOperation({ summary: "导出部分 Markdown 文件" })
   @HTTPDecorators.Bypass
   async exportSomeMarkdowns(
     @Query() { showTitle, slug, yaml }: ExportMarkdownDto,
@@ -124,7 +124,7 @@ export class MarkdownController {
 
   @Get("/export/all")
   @Auth()
-  @ApiProperty({ description: "导出 Markdown YAML 数据" })
+  @ApiOperation({ summary: "导出 Markdown YAML 数据" })
   @HTTPDecorators.Bypass
   @Header("Content-Type", "application/zip")
   @Header("Content-Disposition", "attachment; filename=markdown.zip")
@@ -192,7 +192,7 @@ export class MarkdownController {
 
   @Post("/import")
   @Auth()
-  @ApiProperty({ description: "导入 Markdown YAML 数据" })
+  @ApiOperation({ summary: "导入 Markdown YAML 数据" })
   async importMarkdownData(@Body() body: ImportMarkdownDto) {
     const type = body.type;
 

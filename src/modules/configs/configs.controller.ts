@@ -3,11 +3,12 @@
  * @author: Wibus
  * @Date: 2022-08-02 23:41:21
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-03 00:04:59
+ * @LastEditTime: 2022-08-21 11:19:20
  * Coding With IU
  */
 
 import { Body, Controller, Get, Patch } from "@nestjs/common";
+import { ApiOperation } from "@nestjs/swagger";
 import { instanceToPlain } from "class-transformer";
 import { ApiName } from "~/common/decorator/openapi.decorator";
 import { ConfigsInterfaceKeys } from "./configs.interface";
@@ -19,6 +20,7 @@ export class ConfigsController {
   constructor(private readonly configsService: ConfigsService) {}
 
   @Get("/")
+  @ApiOperation({ summary: "获取配置" })
   async getOption() {
     const configs = await this.configsService.getAllConfigs();
     let result = {};
@@ -32,6 +34,7 @@ export class ConfigsController {
   }
 
   @Patch("/")
+  @ApiOperation({ summary: "更新配置" })
   async updateOption(@Body() body: any) {
     for (const key in body) {
       // 将 key 转换为驼峰式

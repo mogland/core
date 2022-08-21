@@ -15,7 +15,6 @@ import { PostService } from "./post.service";
 import { Paginator } from "~/common/decorator/http.decorator";
 import { ApiName } from "~/common/decorator/openapi.decorator";
 import { PagerDto } from "~/shared/dto/pager.dto";
-import { addYearCondition } from "~/transformers/db-query.transformer";
 import { ApiOperation } from "@nestjs/swagger";
 import { CategoryAndSlugDto } from "./post.dto";
 import { CannotFindException } from "~/common/exceptions/cant-find.exception";
@@ -156,6 +155,7 @@ export class PostController {
   }
 
   @Get("/_like")
+  @ApiOperation({ summary: "点赞文章" })
   async thumbsUpArticle(
     @Query() query: MongoIdDto,
     @IpLocation() location: IpRecord

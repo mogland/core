@@ -44,6 +44,7 @@ export class CommentController {
 
   @Get("/")
   // @Auth()
+  @ApiOperation({ summary: "获取评论列表" })
   async getRecentlyComments(@Query() query: PagerDto) {
     const { size = 10, page = 1, status = 0 } = query;
     return transformDataToPaginate(
@@ -127,6 +128,7 @@ export class CommentController {
   }
 
   @Post("/reply/:id")
+  @ApiOperation({ summary: "回复评论" })
   @ApiParam({
     name: "id",
     description: "cid",
