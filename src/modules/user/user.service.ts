@@ -129,7 +129,7 @@ export class UserService {
   }
 
   /**
-   * 修改密码
+   * 修改用户数据
    *
    * @async
    * @param {DocumentType} user - 用户查询结果, 已经挂载在 req.user

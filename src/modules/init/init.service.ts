@@ -19,7 +19,7 @@ export class InitService {
       this.logger.warn("用户未注册，无法初始化");
       return {
         can_init: false,
-        mes: "用户未注册，无法初始化",
+        mes: "用户未注册",
         reason: 0,
       };
     } else if (configs.length === 0) {
@@ -28,7 +28,7 @@ export class InitService {
         mes: "可以初始化",
       };
     } else if (configs.length) {
-      this.logger.warn("配置已存在，无法初始化");
+      this.logger.warn("配置已存在");
       return {
         can_init: false,
         mes: "配置已存在，无法初始化",
