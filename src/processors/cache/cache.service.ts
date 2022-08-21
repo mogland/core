@@ -46,4 +46,8 @@ export class CacheService {
   public getClient() {
     return this.redisClient;
   }
+
+  public del(key: TCacheKey): TCacheResult<void> {
+    return this.cache.del(key);
+  }
 }
