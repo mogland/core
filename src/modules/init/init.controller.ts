@@ -38,7 +38,6 @@ export class InitController {
 
   @Get("/configs/default")
   @ApiOperation({ summary: "初始化默认配置" })
-  @Auth()
   async setConfig() {
     const { can_init } = await this.canInit();
     if (!can_init)
