@@ -7,7 +7,7 @@ on:
 jobs:
 # feature-request, bug, duplicate, invalid, not-belong
   auto-create-feature-label:
-    if: contain(github.event.comment.body, '/label feature') == true
+    if: contains(github.event.comment.body, '/label feature') == true
     runs-on: ubuntu-latest
     steps:
       - name: Add labels
@@ -18,7 +18,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           labels: "feature-request, enhancement"
   auto-create-bug-label:
-    if: contain(github.event.comment.body, '/label bug') == true
+    if: contains(github.event.comment.body, '/label bug') == true
     runs-on: ubuntu-latest
     steps:
       - name: Add labels
@@ -29,7 +29,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           labels: "bug"
   auto-create-duplicate-label:
-    if: contain(github.event.comment.body, '/label duplicate') == true
+    if: contains(github.event.comment.body, '/label duplicate') == true
     runs-on: ubuntu-latest
     steps:
       - name: Add labels
@@ -40,7 +40,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           labels: "duplicate"
   auto-create-invalid-label:
-    if: contain(github.event.comment.body, '/label invalid') == true
+    if: contains(github.event.comment.body, '/label invalid') == true
     runs-on: ubuntu-latest
     steps:
       - name: Add labels
@@ -51,7 +51,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           labels: "*invalid"
   auto-create-not-belong-label:
-    if: contain(github.event.comment.body, '/label not-belong') == true
+    if: contains(github.event.comment.body, '/label not-belong') == true
     runs-on: ubuntu-latest
     steps:
       - name: Add labels
@@ -63,7 +63,7 @@ jobs:
           labels: "invalid/not-belong"
 # wontfix, question, need-discuss
   auto-create-wontfix-label:
-    if: contain(github.event.comment.body, '/label wontfix') == true
+    if: contains(github.event.comment.body, '/label wontfix') == true
     runs-on: ubuntu-latest
     steps:
       - name: Add labels
@@ -74,7 +74,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           labels: "wontfix"
   auto-create-question-label:
-    if: contain(github.event.comment.body, '/label question') == true
+    if: contains(github.event.comment.body, '/label question') == true
     runs-on: ubuntu-latest
     steps:
       - name: Add labels
@@ -85,7 +85,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           labels: "question"
   auto-create-need-discuss-label:
-    if: contain(github.event.comment.body, '/label need-discuss') == true
+    if: contains(github.event.comment.body, '/label need-discuss') == true
     runs-on: ubuntu-latest
     steps:
       - name: Add labels
