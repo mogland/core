@@ -9,6 +9,19 @@ import "./dayjs.global";
 import { isDev } from "./env.global";
 import { join } from "path";
 
+function consoleNEXT() {
+  console.log(`
+  
+   _   _________  ________
+  / | / / ____/ |/ /_  __/
+ /  |/ / __/  |   / / /   
+/ /|  / /___ /   | / /    
+/_/ |_/_____//_/|_|/_/     
+                          
+
+  `);
+}
+
 // 建立目录
 function mkdirs() {
   mkdirSync(DATA_DIR, { recursive: true });
@@ -42,6 +55,7 @@ function registerGlobal() {
 }
 
 export function register() {
+  consoleNEXT();
   mkdirs();
   registerStdLogger();
 
