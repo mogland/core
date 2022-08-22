@@ -157,21 +157,21 @@ export class PostController {
   }
 
   @Patch("/createIndex")
-  // @Auth()
+  @Auth()
   @ApiOperation({ summary: "创建或更新文章 json 索引" })
   async createIndex() {
     return await this.postService.createIndex();
   }
 
   @Get("/indexes")
-  // @Auth()
+  @Auth()
   @ApiOperation({ summary: "获取文章索引" })
   async getIndexes() {
     return await this.redis.get("posts-index");
   }
 
   @Delete("/indexes")
-  // @Auth()
+  @Auth()
   @ApiOperation({ summary: "删除文章索引" })
   async deleteIndexes() {
     return await this.redis.del("posts-index");
