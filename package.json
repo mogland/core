@@ -97,7 +97,7 @@
     "nanoid": "3.3.3",
     "passport": "0.6.0",
     "passport-jwt": "4.0.0",
-    "pnpm": "7.9.4",
+    "pnpm": "7.9.5",
     "point-of-view": "6.3.0",
     "redis": "4.2.0",
     "reflect-metadata": "0.1.13",
