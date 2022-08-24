@@ -81,7 +81,7 @@ specifiers:
   nanoid: 3.3.3
   passport: 0.6.0
   passport-jwt: 4.0.0
-  pnpm: 7.9.4
+  pnpm: 7.9.5
   point-of-view: 6.3.0
   prettier: 2.7.1
   redis: 4.2.0
@@ -153,7 +153,7 @@ dependencies:
   nanoid: 3.3.3
   passport: 0.6.0
   passport-jwt: 4.0.0
-  pnpm: 7.9.4
+  pnpm: 7.9.5
   point-of-view: 6.3.0
   redis: 4.2.0
   reflect-metadata: 0.1.13
@@ -6062,8 +6062,8 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: true
 
-  /pnpm/7.9.4:
-    resolution: {integrity: sha512-eZG33kdDFmIzBZoSRguEHVLtnHdJTvfP6wm53SyBt4Mqzbro9eIaQcEcB4qfJCGMaLvPegG2MQxD2EiArALaJA==}
+  /pnpm/7.9.5:
+    resolution: {integrity: sha512-+r7+PlBIsblqia8eUOUsBp/R+lHmGAm55jyQRt3DWMUI0srVR1aNJhQECfx24L53Ckz9g48mVxQXEniQMWQPmw==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: false
