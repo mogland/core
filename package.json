@@ -62,7 +62,7 @@
     "@nestjs/platform-fastify": "9.0.11",
     "@nestjs/schedule": "2.1.0",
     "@typegoose/auto-increment": "1.6.0",
-    "@typegoose/typegoose": "9.11.0",
+    "@typegoose/typegoose": "9.11.2",
     "art-template": "4.13.2",
     "axios": "*",
     "axios-retry": "3.3.1",
