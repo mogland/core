@@ -112,7 +112,7 @@
     "@innei-util/eslint-config-ts": "0.8.2",
     "@innei-util/prettier": "0.8.2",
     "@innei/eslint-config-ts": "0.9.4",
-    "@nestjs/cli": "9.0.0",
+    "@nestjs/cli": "9.1.1",
     "@nestjs/schematics": "9.0.1",
     "@nestjs/swagger": "6.1.0",
     "@nestjs/testing": "9.0.11",
