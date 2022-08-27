@@ -146,7 +146,7 @@
     "ts-loader": "9.3.1",
     "ts-node": "10.9.1",
     "tsconfig-paths": "3.14.1",
-    "typescript": "4.7.4",
+    "typescript": "4.8.2",
     "vite-tsconfig-paths": "3.5.0",
     "vitest": "0.22.1",
     "webpack": "*",
@@ -158,6 +158,6 @@
     "redis-memory-server": "0.5.0"
   },
   "resolutions": {
-    "typescript": "4.7.4"
+    "typescript": "4.8.2"
   }
 }
