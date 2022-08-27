@@ -1,11 +1,3 @@
-/*
- * @FilePath: /nx-core/.eslintrc.js
- * @author: Wibus
- * @Date: 2022-06-19 08:39:57
- * @LastEditors: Wibus
- * @LastEditTime: 2022-06-19 08:39:58
- * Coding With IU
- */
 module.exports = {
   extends: ['@innei/eslint-config-ts'],
   root: true,
