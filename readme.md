@@ -1,4 +1,8 @@
-# NEXT Core
+# NEXT Core Next
+
+> **Note**
+>
+> This is a draft version of the NEXT Core project.
 
 > 🎆 Next, 下一个博客. 一款永向未来的 CMS 博客系统
 > 
