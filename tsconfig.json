@@ -23,7 +23,19 @@
       ],
       "@libs/database/*": [
         "libs/database/src/*"
-      ]
+      ],
+      "@core": [
+        "apps/core/src/"
+      ],
+      "@core/*": [
+        "apps/core/src/*"
+      ],
+      "~": [
+        "."
+      ],
+      "~/*": [
+        "./*"
+      ],
     }
   }
 }
