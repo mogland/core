@@ -36,6 +36,12 @@
       "~/*": [
         "./*"
       ],
+      "@cache/cache": [
+        "libs/cache/src"
+      ],
+      "@cache/cache/*": [
+        "libs/cache/src/*"
+      ]
     }
   }
 }
