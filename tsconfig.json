@@ -17,6 +17,7 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "resolveJsonModule": true,
     "paths": {
       "@libs/database": [
         "libs/database/src"
@@ -41,6 +42,12 @@
       ],
       "@cache/cache/*": [
         "libs/cache/src/*"
+      ],
+      "@helper/helper": [
+        "libs/helper/src"
+      ],
+      "@helper/helper/*": [
+        "libs/helper/src/*"
       ]
     }
   }
