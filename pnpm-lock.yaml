@@ -4,6 +4,7 @@ specifiers:
   '@nestjs/cli': ^8.0.0
   '@nestjs/common': ^8.0.0
   '@nestjs/core': ^8.0.0
+  '@nestjs/microservices': ^9.0.11
   '@nestjs/platform-express': ^8.0.0
   '@nestjs/schematics': ^8.0.0
   '@nestjs/testing': ^8.0.0
@@ -36,7 +37,8 @@ specifiers:
 
 dependencies:
   '@nestjs/common': 8.4.7_j5hagqx4mwzscud4kyjdvubauy
-  '@nestjs/core': 8.4.7_vfcxgjfmqg6zhc6pfncoklq5wm
+  '@nestjs/core': 8.4.7_tvsysahvsvuay5i46smlwi2hle
+  '@nestjs/microservices': 9.0.11_qulkres23m7bwwmcapc3d33zra
   '@nestjs/platform-express': 8.4.7_7tsmhnugyerf5okgqzer2mfqme
   '@typegoose/typegoose': 9.11.2_mongoose@6.5.3
   chalk: 5.0.1
@@ -50,7 +52,7 @@ dependencies:
 devDependencies:
   '@nestjs/cli': 8.2.8
   '@nestjs/schematics': 8.0.11_typescript@4.8.2
-  '@nestjs/testing': 8.4.7_yg656aic4dli3q2c2sx4xyqza4
+  '@nestjs/testing': 8.4.7_3gav4v6hoi4mjjzz7tj7m6kc7e
   '@types/express': 4.17.13
   '@types/jest': 27.5.2
   '@types/node': 16.11.56
@@ -879,7 +881,7 @@ packages:
     transitivePeerDependencies:
       - debug
 
-  /@nestjs/core/8.4.7_vfcxgjfmqg6zhc6pfncoklq5wm:
+  /@nestjs/core/8.4.7_tvsysahvsvuay5i46smlwi2hle:
     resolution: {integrity: sha512-XB9uexHqzr2xkPo6QSiQWJJttyYYLmvQ5My64cFvWFi7Wk2NIus0/xUNInwX3kmFWB6pF1ab5Y2ZBvWdPwGBhw==}
     requiresBuild: true
     peerDependencies:
@@ -898,6 +900,7 @@ packages:
         optional: true
     dependencies:
       '@nestjs/common': 8.4.7_j5hagqx4mwzscud4kyjdvubauy
+      '@nestjs/microservices': 9.0.11_qulkres23m7bwwmcapc3d33zra
       '@nestjs/platform-express': 8.4.7_7tsmhnugyerf5okgqzer2mfqme
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.1.1
@@ -911,6 +914,49 @@ packages:
     transitivePeerDependencies:
       - encoding
 
+  /@nestjs/microservices/9.0.11_qulkres23m7bwwmcapc3d33zra:
+    resolution: {integrity: sha512-SalP+y96HAsrNnPkt+RQAYlPSzofs/D90Y0ZS9oveBiCQhezKSnkBZ7Qpv3uLFbs6TsL/VHG9nVoQC6aiZA0ww==}
+    peerDependencies:
+      '@grpc/grpc-js': '*'
+      '@nestjs/common': ^9.0.0
+      '@nestjs/core': ^9.0.0
+      '@nestjs/websockets': ^9.0.0
+      amqp-connection-manager: '*'
+      amqplib: '*'
+      cache-manager: '*'
+      ioredis: '*'
+      kafkajs: '*'
+      mqtt: '*'
+      nats: '*'
+      reflect-metadata: ^0.1.12
+      rxjs: ^7.1.0
+    peerDependenciesMeta:
+      '@grpc/grpc-js':
+        optional: true
+      '@nestjs/websockets':
+        optional: true
+      amqp-connection-manager:
+        optional: true
+      amqplib:
+        optional: true
+      cache-manager:
+        optional: true
+      ioredis:
+        optional: true
+      kafkajs:
+        optional: true
+      mqtt:
+        optional: true
+      nats:
+        optional: true
+    dependencies:
+      '@nestjs/common': 8.4.7_j5hagqx4mwzscud4kyjdvubauy
+      '@nestjs/core': 8.4.7_tvsysahvsvuay5i46smlwi2hle
+      iterare: 1.2.1
+      reflect-metadata: 0.1.13
+      rxjs: 7.5.6
+      tslib: 2.4.0
+
   /@nestjs/platform-express/8.4.7_7tsmhnugyerf5okgqzer2mfqme:
     resolution: {integrity: sha512-lPE5Ltg2NbQGRQIwXWY+4cNrXhJdycbxFDQ8mNxSIuv+LbrJBIdEB/NONk+LLn9N/8d2+I2LsIETGQrPvsejBg==}
     peerDependencies:
@@ -918,7 +964,7 @@ packages:
       '@nestjs/core': ^8.0.0
     dependencies:
       '@nestjs/common': 8.4.7_j5hagqx4mwzscud4kyjdvubauy
-      '@nestjs/core': 8.4.7_vfcxgjfmqg6zhc6pfncoklq5wm
+      '@nestjs/core': 8.4.7_tvsysahvsvuay5i46smlwi2hle
       body-parser: 1.20.0
       cors: 2.8.5
       express: 4.18.1
@@ -957,7 +1003,7 @@ packages:
       - chokidar
     dev: true
 
-  /@nestjs/testing/8.4.7_yg656aic4dli3q2c2sx4xyqza4:
+  /@nestjs/testing/8.4.7_3gav4v6hoi4mjjzz7tj7m6kc7e:
     resolution: {integrity: sha512-aedpeJFicTBeiTCvJWUG45WMMS53f5eu8t2fXsfjsU1t+WdDJqYcZyrlCzA4dL1B7MfbqaTURdvuVVHTmJO8ag==}
     peerDependencies:
       '@nestjs/common': ^8.0.0
@@ -971,7 +1017,8 @@ packages:
         optional: true
     dependencies:
       '@nestjs/common': 8.4.7_j5hagqx4mwzscud4kyjdvubauy
-      '@nestjs/core': 8.4.7_vfcxgjfmqg6zhc6pfncoklq5wm
+      '@nestjs/core': 8.4.7_tvsysahvsvuay5i46smlwi2hle
+      '@nestjs/microservices': 9.0.11_qulkres23m7bwwmcapc3d33zra
       '@nestjs/platform-express': 8.4.7_7tsmhnugyerf5okgqzer2mfqme
       tslib: 2.4.0
     dev: true

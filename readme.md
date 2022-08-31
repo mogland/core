@@ -1,73 +1,42 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# NEXT Core
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+> 🎆 Next, 下一个博客. 一款永向未来的 CMS 博客系统
+> 
+> **_无限进步！_**
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+> 如果你想知道为什么要对服务端进行重构，你可以查看[此处](https://nx.js.org/blog/we-are-developing-v2#%E5%88%B0%E5%BA%95%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%B8%93%E9%97%A8%E8%B5%B7%E4%B8%80%E4%B8%AA-pr-%E6%9D%A5%E4%BF%AE%E6%94%B9)
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<img src="https://img.shields.io/github/package-json/v/nx-space/core?style=flat-square" referrerpolicy="no-referrer" alt="version"><a href="https://wakatime.com/badge/github/nx-space/core"><img src="https://wakatime.com/badge/github/nx-space/core.svg?style=flat-square" alt="wakatime"></a>
+<a href="https://github.com/nx-space/core/actions/workflows/build.yml"><img src="https://github.com/nx-space/core/actions/workflows/build.yml/badge.svg?style=flat-square"></a>
 
-## Installation
+## Features 项目特性
 
-```bash
-$ npm install
-```
+- [ ] 插件系统，便携地在原有基础上拓展功能
+- [ ] 模板引擎，更快速地开发高质量的页面
+- [ ] 采用微服务架构，提高了v1 版本服务端的扩展性和服务稳定性
+- [ ] 统一的社区规范，提高了开发者的友好度
+- [ ] 项目核心将永远开源
 
-## Running the app
 
-```bash
-# development
-$ npm run start
+## 活跃情况 Activity
 
-# watch mode
-$ npm run start:dev
+![Alt](https://repobeats.axiom.co/api/embed/c41f4aa5c6264c1db4ddd6c2120c0fca64dabcea.svg "Repobeats analytics image")
 
-# production mode
-$ npm run start:prod
-```
 
-## Test
+## Reference
 
-```bash
-# unit tests
-$ npm run test
+This project referred to: 
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- [mx-space/core](https://github.com/mx-space/core)
+- [innei/nest-http-boilerplate](https://github.com/Innei/nest-http-boilerplate)
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+此项目 AGPLv3 授权开源，使用此项目进行的二次创作或者衍生项目也必须开源。
+
+## Author
+
+nx-space © Wibus, Released under the AGPL-3.0 License. Created on 2021-09-25.
+
+> [Personal Website](http://iucky.cn/) · [Blog](https://blog.iucky.cn/) · GitHub [@wibus-wee](https://github.com/wibus-wee/) · Telegram [@wibus✪](https://t.me/wibus_wee)
