@@ -1,11 +1,12 @@
 /*
  * @FilePath: /nx-core/shared/constants/cache.constant.ts
  * @author: Wibus
- * @Date: 2022-08-31 19:55:40
+ * @Date: 2022-08-31 20:55:36
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-31 19:55:40
+ * @LastEditTime: 2022-08-31 20:55:36
  * Coding With IU
  */
+
 export enum RedisKeys {
   AccessIp = "access_ip",
   Like = "like",

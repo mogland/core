@@ -1,11 +1,3 @@
-/*
- * @FilePath: /nx-core/constant/system.constant.ts
- * @author: Wibus
- * @Date: 2022-08-28 10:28:30
- * @LastEditors: Wibus
- * @LastEditTime: 2022-08-28 10:28:30
- * Coding With IU
- */
 export const HTTP_ADAPTER_HOST = "HttpAdapterHost";
 export const REFLECTOR = "Reflector";
 
