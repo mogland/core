@@ -78,7 +78,7 @@
     "cron": "*",
     "dayjs": "1.11.5",
     "ejs": "3.1.8",
-    "entities": "4.3.1",
+    "entities": "4.4.0",
     "handlebars": "4.7.7",
     "i": "0.3.7",
     "image-size": "1.0.2",
