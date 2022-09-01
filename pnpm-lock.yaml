@@ -56,7 +56,7 @@ specifiers:
   cross-env: 7.0.3
   dayjs: 1.11.5
   ejs: 3.1.8
-  entities: 4.3.1
+  entities: 4.4.0
   eslint: '*'
   get-image-colors: 4.0.1
   handlebars: 4.7.7
@@ -134,7 +134,7 @@ dependencies:
   cron: 1.8.2
   dayjs: 1.11.5
   ejs: 3.1.8
-  entities: 4.3.1
+  entities: 4.4.0
   handlebars: 4.7.7
   i: 0.3.7
   image-size: 1.0.2
@@ -3089,8 +3089,8 @@ packages:
     resolution: {integrity: sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==}
     dev: true
 
-  /entities/4.3.1:
-    resolution: {integrity: sha512-o4q/dYJlmyjP2zfnaWDUC6A3BQFmVTX+tZPezK7k0GLSU9QYCauscf5Y+qcEPzKL+EixVouYDgLQK5H9GrLpkg==}
+  /entities/4.4.0:
+    resolution: {integrity: sha512-oYp7156SP8LkeGD0GF85ad1X9Ai79WtRsZ2gxJqtBuzH+98YUV6jkHEKlZkMbcrjJjIVJNIDP/3WL9wQkoPbWA==}
     engines: {node: '>=0.12'}
     dev: false
 
