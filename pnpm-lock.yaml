@@ -72,7 +72,7 @@ specifiers:
   mime: 3.0.0
   mkdirp: 1.0.4
   moment: 2.29.4
-  mongodb-memory-server: 8.9.0
+  mongodb-memory-server: 8.9.1
   mongoose: 6.5.4
   mongoose-aggregate-paginate-v2: 1.0.6
   mongoose-lean-id: 0.3.0
@@ -165,7 +165,7 @@ dependencies:
   zx-cjs: 6.1.0
 
 optionalDependencies:
-  mongodb-memory-server: 8.9.0
+  mongodb-memory-server: 8.9.1
   redis-memory-server: 0.6.0
 
 devDependencies:
@@ -747,7 +747,7 @@ packages:
     hasBin: true
     dependencies:
       detect-libc: 1.0.3
-      https-proxy-agent: 5.0.0
+      https-proxy-agent: 5.0.1
       make-dir: 3.1.0
       node-fetch: 2.6.7
       nopt: 5.0.0
@@ -4355,16 +4355,6 @@ packages:
       sshpk: 1.17.0
     dev: true
 
-  /https-proxy-agent/5.0.0:
-    resolution: {integrity: sha512-EkYm5BcKUGiduxzSt3Eppko+PiNWNEpa4ySk9vTC6wDsQJW9rHSa+UhGNJoRYp7bz6Ht1eaRIa6QaJqO5rCFbA==}
-    engines: {node: '>= 6'}
-    dependencies:
-      agent-base: 6.0.2
-      debug: 4.3.4
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /https-proxy-agent/5.0.1:
     resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
     engines: {node: '>= 6'}
@@ -4374,7 +4364,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: false
-    optional: true
 
   /human-signals/1.1.1:
     resolution: {integrity: sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==}
@@ -5402,8 +5391,8 @@ packages:
       '@types/whatwg-url': 8.2.1
       whatwg-url: 11.0.0
 
-  /mongodb-memory-server-core/8.9.0:
-    resolution: {integrity: sha512-Ol9BrKij2QVMgtzQ/xl5+5FTonsBmB3L+krn0kfpfo+sHk5uTWvWkPwEpt+yU4cxY2M/yYfMZD8eXfvZz6yEtQ==}
+  /mongodb-memory-server-core/8.9.1:
+    resolution: {integrity: sha512-aAP+XPTCTTI5T/3lg3b/xFWPU8j/LGJXtfnecvTUjAxTfsGga39/N416lG4SUSSZK+ObrWb382v+w4GTNWDvEQ==}
     engines: {node: '>=12.22.0'}
     dependencies:
       '@types/tmp': 0.2.3
@@ -5427,12 +5416,12 @@ packages:
     dev: false
     optional: true
 
-  /mongodb-memory-server/8.9.0:
-    resolution: {integrity: sha512-+0bBBRggSdD7mbLGF8+iRFlfzdMvpQnyfk1aDgGqWjdhlLRVTxyTxyY5f+Zr/NA+bt5rehFn1EyCI46QhacUdg==}
+  /mongodb-memory-server/8.9.1:
+    resolution: {integrity: sha512-mpAEluTwWrB4k1beL5VOX7EJzn52wmRr8ZNXRhPLlNFat4VsJzTzqBNwjoSwXuj9QxQqWDrTx18Sb36xZYawzA==}
     engines: {node: '>=12.22.0'}
     requiresBuild: true
     dependencies:
-      mongodb-memory-server-core: 8.9.0
+      mongodb-memory-server-core: 8.9.1
       tslib: 2.4.0
     transitivePeerDependencies:
       - supports-color
