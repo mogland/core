@@ -114,7 +114,7 @@
     "@innei/eslint-config-ts": "0.9.4",
     "@nestjs/cli": "9.1.1",
     "@nestjs/schematics": "9.0.1",
-    "@nestjs/swagger": "6.1.0",
+    "@nestjs/swagger": "6.1.1",
     "@nestjs/testing": "9.0.11",
     "@types/bcrypt": "5.0.0",
     "@types/cache-manager": "4.0.1",
