@@ -4,10 +4,10 @@ overrides:
   typescript: 4.8.2
 
 specifiers:
-  '@commitlint/cli': ^17.1.2
-  '@commitlint/config-angular': ^17.1.0
-  '@commitlint/cz-commitlint': ^17.1.2
-  '@fastify/static': ^6.5.0
+  '@commitlint/cli': 17.1.2
+  '@commitlint/config-angular': 17.1.0
+  '@commitlint/cz-commitlint': 17.1.2
+  '@fastify/static': 6.5.0
   '@nestjs/cli': 8.2.8
   '@nestjs/common': 9.0.11
   '@nestjs/core': 9.0.11
@@ -33,7 +33,7 @@ specifiers:
   chalk: 5.0.1
   class-transformer: 0.5.1
   class-validator: 0.13.2
-  commitizen: ^4.2.5
+  commitizen: 4.2.5
   consola: 2.15.3
   cron: 2.1.0
   dayjs: 1.11.5
