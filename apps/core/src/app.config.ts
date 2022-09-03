@@ -4,23 +4,21 @@ import { isDev } from "~/shared/utils/environment.util";
 
 
 console.log(argv);
-export const PORT = argv.port || 3333;
+export const PORT = argv.port || 2330;
 export const CROSS_DOMAIN = {
   allowedOrigins: argv.allowed_origins
     ? argv.allowed_origins?.split?.(',')
     : [
       "iucky.cn",
       "blog.iucky.cn",
+      "admin.iucky.cn",
       "localhost:9528",
       "localhost:2323",
       "localhost:2222",
       "127.0.0.1",
-      "mbp.cc",
-      "local.innei.test",
-      "22333322.xyz",
       "localhost:3000",
     ],
-  allowedReferer: "innei.ren",
+  allowedReferer: "iucky.cn",
 };
 
 export const MONGO_DB = {
