@@ -143,7 +143,7 @@ packages:
       fast-json-stable-stringify: 2.1.0
       magic-string: 0.25.7
       rxjs: 6.6.7
-      source-map: 0.7.4
+      source-map: 0.7.3
     dev: true
 
   /@angular-devkit/core/13.3.5_chokidar@3.5.3:
@@ -161,7 +161,7 @@ packages:
       fast-json-stable-stringify: 2.1.0
       magic-string: 0.25.7
       rxjs: 6.6.7
-      source-map: 0.7.4
+      source-map: 0.7.3
     dev: true
 
   /@angular-devkit/core/13.3.6_chokidar@3.5.3:
@@ -1125,7 +1125,7 @@ packages:
       '@angular-devkit/core': 13.3.5
       '@angular-devkit/schematics': 13.3.5
       fs-extra: 10.1.0
-      jsonc-parser: 3.2.0
+      jsonc-parser: 3.0.0
       pluralize: 8.0.0
       typescript: 4.8.2
     transitivePeerDependencies:
@@ -1140,7 +1140,7 @@ packages:
       '@angular-devkit/core': 13.3.5_chokidar@3.5.3
       '@angular-devkit/schematics': 13.3.5_chokidar@3.5.3
       fs-extra: 10.1.0
-      jsonc-parser: 3.2.0
+      jsonc-parser: 3.0.0
       pluralize: 8.0.0
       typescript: 4.8.2
     transitivePeerDependencies:
@@ -5363,6 +5363,11 @@ packages:
   /source-map/0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /source-map/0.7.3:
+    resolution: {integrity: sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==}
+    engines: {node: '>= 8'}
     dev: true
 
   /source-map/0.7.4:
