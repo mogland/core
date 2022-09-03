@@ -4,60 +4,60 @@ overrides:
   typescript: 4.8.2
 
 specifiers:
-  '@nestjs/cli': ^8.2.8
+  '@nestjs/cli': 8.2.8
   '@nestjs/common': 9.0.11
   '@nestjs/core': 9.0.11
-  '@nestjs/microservices': ^9.0.11
-  '@nestjs/platform-fastify': ^9.0.11
-  '@nestjs/schedule': ^2.1.0
-  '@nestjs/schematics': ^8.0.11
-  '@nestjs/swagger': ^6.1.0
+  '@nestjs/microservices': 9.0.11
+  '@nestjs/platform-fastify': 9.0.11
+  '@nestjs/schedule': 2.1.0
+  '@nestjs/schematics': 8.0.11
+  '@nestjs/swagger': 6.1.1
   '@nestjs/testing': 9.0.11
-  '@typegoose/typegoose': ^9.11.2
-  '@types/cache-manager-ioredis': ^2.0.2
-  '@types/express': ^4.17.13
-  '@types/jest': ^27.5.2
-  '@types/lodash-es': ^4.17.6
-  '@types/node': ^16.11.56
-  '@types/supertest': ^2.0.12
-  '@typescript-eslint/eslint-plugin': ^4.33.0
-  '@typescript-eslint/parser': ^4.33.0
-  axios: ^0.27.2
-  axios-retry: ^3.3.1
-  cache-manager: ^4.1.0
-  cache-manager-ioredis: ^2.1.0
-  chalk: ^5.0.1
-  class-transformer: ^0.5.1
-  class-validator: ^0.13.2
-  consola: ^2.15.3
-  cron: ^2.1.0
-  dayjs: ^1.11.5
-  eslint: ^7.32.0
-  eslint-config-prettier: ^8.5.0
-  eslint-plugin-prettier: ^3.4.1
+  '@typegoose/typegoose': 9.11.2
+  '@types/cache-manager-ioredis': 2.0.2
+  '@types/express': 4.17.13
+  '@types/jest': 27.5.2
+  '@types/lodash-es': 4.17.6
+  '@types/node': 16.11.56
+  '@types/supertest': 2.0.12
+  '@typescript-eslint/eslint-plugin': 4.33.0
+  '@typescript-eslint/parser': 4.33.0
+  axios: 0.27.2
+  axios-retry: 3.3.1
+  cache-manager: 4.1.0
+  cache-manager-ioredis: 2.1.0
+  chalk: 5.0.1
+  class-transformer: 0.5.1
+  class-validator: 0.13.2
+  consola: 2.15.3
+  cron: 2.1.0
+  dayjs: 1.11.5
+  eslint: 7.32.0
+  eslint-config-prettier: 8.5.0
+  eslint-plugin-prettier: 3.4.1
   husky: 7.0.4
   ioredis: '*'
-  jest: ^27.5.1
-  lint-staged: ^13.0.3
-  lodash-es: ^4.17.21
-  mongoose: ^6.5.4
-  mongoose-lean-id: ^0.3.0
-  mongoose-lean-virtuals: ^0.9.1
-  mongoose-paginate-v2: ^1.7.0
-  prettier: ^2.7.1
-  reflect-metadata: ^0.1.13
-  rimraf: ^3.0.2
-  rxjs: ^7.5.6
-  source-map-support: ^0.5.21
-  supertest: ^6.2.4
-  ts-jest: ^27.1.5
-  ts-loader: ^9.3.1
-  ts-node: ^10.9.1
-  tsconfig-paths: ^3.14.1
+  jest: 27.5.1
+  lint-staged: 13.0.3
+  lodash-es: 4.17.21
+  mongoose: 6.5.4
+  mongoose-lean-id: 0.3.0
+  mongoose-lean-virtuals: 0.9.1
+  mongoose-paginate-v2: 1.7.0
+  prettier: 2.7.1
+  reflect-metadata: 0.1.13
+  rimraf: 3.0.2
+  rxjs: 7.5.6
+  source-map-support: 0.5.21
+  supertest: 6.2.4
+  ts-jest: 27.1.5
+  ts-loader: 9.3.1
+  ts-node: 10.9.1
+  tsconfig-paths: 3.14.1
   typescript: 4.8.2
-  vm2: ^3.9.11
+  vm2: 3.9.11
   webpack: '*'
-  xml2js: ^0.4.23
+  xml2js: 0.4.23
   zx-cjs: 7.0.7-0
 
 dependencies:
@@ -91,7 +91,7 @@ dependencies:
 devDependencies:
   '@nestjs/cli': 8.2.8
   '@nestjs/schematics': 8.0.11_typescript@4.8.2
-  '@nestjs/swagger': 6.1.0_ivnm4e5qsl7bn6kf5k4o57kelu
+  '@nestjs/swagger': 6.1.1_ivnm4e5qsl7bn6kf5k4o57kelu
   '@nestjs/testing': 9.0.11_22aqaldwhkq733wedt5e3lqkaa
   '@types/cache-manager-ioredis': 2.0.2
   '@types/express': 4.17.13
@@ -1147,8 +1147,8 @@ packages:
       - chokidar
     dev: true
 
-  /@nestjs/swagger/6.1.0_ivnm4e5qsl7bn6kf5k4o57kelu:
-    resolution: {integrity: sha512-Lflplv216nXkH6By/jMggQjpuH1V67M07tgHXUAZujAwG3LAJ1CfSvzuFckK4MAb54xQTYvFgfVPWkXqvKXzdA==}
+  /@nestjs/swagger/6.1.1_ivnm4e5qsl7bn6kf5k4o57kelu:
+    resolution: {integrity: sha512-csCVDIpGm7Bc63lc/QdmXSTvOZICgsTK91rEPOZHn9mzqUZVjnCfWo4bFi678a5Ue1LoqdZBLSyKBbcit/JnRw==}
     peerDependencies:
       '@fastify/static': ^6.0.0
       '@nestjs/common': ^9.0.0
@@ -1783,7 +1783,7 @@ packages:
       ajv:
         optional: true
     dependencies:
-      ajv: 8.9.0
+      ajv: 8.11.0
 
   /ajv-keywords/3.5.2_ajv@6.12.6:
     resolution: {integrity: sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==}
@@ -1817,6 +1817,7 @@ packages:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
       uri-js: 4.4.1
+    dev: true
 
   /ansi-colors/4.1.1:
     resolution: {integrity: sha512-JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==}
