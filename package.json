@@ -29,8 +29,8 @@
     "dev": "npm run start",
     "bundle": "echo 'TODO: bundle the project.'",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
-    "start": "concurrently --kill-others \"nest start -w core\" \"nest start -w user-service\" ",
-    "start:core": "cross-env NODE_ENV=development nest start -w",
+    "start": "NODE_ENV=development concurrently --kill-others \"nest start -w core\" \"nest start -w user-service\" ",
+    "start:core": "cross-env NODE_ENV=development cross-env NODE_ENV=development nest start -w",
     "start:dev": "nest build --webpack --webpackPath webpack-hmr.config.js --watch",
     "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
     "start:prod": "cross-env NODE_ENV=production node dist/main.js",
@@ -47,6 +47,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
+    "@fastify/static": "^6.5.0",
     "@nestjs/common": "9.0.11",
     "@nestjs/core": "9.0.11",
     "@nestjs/microservices": "9.0.11",

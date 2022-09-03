@@ -5,7 +5,20 @@
   "root": "apps/core",
   "compilerOptions": {
     "webpack": true,
-    "tsConfigPath": "apps/core/tsconfig.app.json"
+    "tsConfigPath": "apps/core/tsconfig.app.json",
+    "plugins": [
+      {
+        "name": "@nestjs/swagger",
+        "options": {
+          "classValidatorShim": false,
+          "introspectComments": true,
+          "dtoFileNameSuffix": [
+            ".dto.ts",
+            ".model.ts"
+          ]
+        }
+      }
+    ]
   },
   "projects": {
     "core": {

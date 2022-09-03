@@ -3,11 +3,11 @@
  * @author: Wibus
  * @Date: 2022-09-03 14:19:53
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-03 16:11:53
+ * @LastEditTime: 2022-09-03 22:11:56
  * Coding With IU
  */
 
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
@@ -31,8 +31,39 @@ export async function bootstrap() {
     credentials: true,
   });
 
+  app.useGlobalPipes(
+    new ValidationPipe({
+      // 校验请求参数
+      transform: true, // 将错误信息转换为异常
+      whitelist: true, // 允许所有参数
+      errorHttpStatusCode: 422, // 返回422错误
+      forbidUnknownValues: true, // 禁止未知参数
+      // @ts-ignore
+      enableDebugMessages: isDev, // 开启调试模式
+      stopAtFirstError: true, // 在第一个错误后立即停止
+    })
+  );
+
   // @ts-ignore
   !isDev && app.setGlobalPrefix(`api`);
+
+  // @ts-ignore
+  if (isDev) {
+    const { DocumentBuilder, SwaggerModule } = await import("@nestjs/swagger");
+    const options = new DocumentBuilder()
+      .setTitle("API")
+      .setDescription("The blog API description")
+      // .setVersion(`${APIVersion}`)
+      .addSecurity("bearer", {
+        type: "http",
+        scheme: "bearer",
+      })
+      .addBearerAuth()
+      .build();
+    const document = SwaggerModule.createDocument(app, options);
+    SwaggerModule.setup("api-docs", app, document);
+  }
+
   await app.listen(+PORT, "0.0.0.0", async (err) => {
     if (err) {
       Logger.error(err);
