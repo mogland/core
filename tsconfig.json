@@ -18,17 +18,38 @@
     "skipLibCheck": true,
     "paths": {
       "~": [
-        "./src"
+        "."
       ],
       "~/*": [
-        "./src/*"
+        "./*"
       ],
-      "@app/db": [
-        "libs/db/src"
+      "@shared/*": [
+        "shared/*",
       ],
-      "@app/db/*": [
-        "libs/db/src/*"
-      ]
+      "@libs/database": [
+        "libs/database/src/"
+      ],
+      "@libs/database/*": [
+        "libs/database/src/*"
+      ],
+      "@libs/cache": [
+        "libs/cache/src"
+      ],
+      "@libs/cache/*": [
+        "libs/cache/src/*"
+      ],
+      "@libs/helper": [
+        "libs/helper/src"
+      ],
+      "@libs/helper/*": [
+        "libs/helper/src/*"
+      ],
+      "@core": [
+        "apps/core/src/"
+      ],
+      "@core/*": [
+        "apps/core/src/*"
+      ],
     }
   },
   "exclude": [

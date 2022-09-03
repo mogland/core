@@ -39,13 +39,6 @@ jobs:
     - name: Build Server
       run: |
         pnpm build
-        pnpm bundle
-    - name: Test Server
-      run: |
-        sh ./scripts/workflow/test-server.sh
-    - name: Bundle Package
-      uses: actions/upload-artifact@v3
-      with:
-        name: bundle
-        path: out/index.js
-        
+    # - name: Test Server
+    #   run: |
+    #     sh ./scripts/workflow/test-server.sh

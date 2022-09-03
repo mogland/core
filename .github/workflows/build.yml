@@ -37,60 +37,60 @@ jobs:
         run: pnpm i --no-optional
       - name: Build project
         run: |
-          npm run bundle
-          zip -r nx-core-bundle-${{ runner.os }}.zip out/
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.8.0
-        with:
-          mongodb-version: 4.4
-      - name: Start Redis
-        uses: supercharge/redis-github-action@1.4.0
-        with:
-          redis-version: 6
-      - name: Test Bundle Server
-        run: |
-          bash scripts/workflow/test-server.sh
-      - name: Upload Linux Bundle
-        uses: actions/upload-artifact@v3
-        with:
-          path: ./nx-core-bundle-${{ runner.os }}.zip
-          name: nx-core-bundle-${{ runner.os }}.zip
+          npm run build
+      #     zip -r nx-core-bundle-${{ runner.os }}.zip out/
+      # - name: Start MongoDB
+      #   uses: supercharge/mongodb-github-action@1.8.0
+      #   with:
+      #     mongodb-version: 4.4
+      # - name: Start Redis
+      #   uses: supercharge/redis-github-action@1.4.0
+      #   with:
+      #     redis-version: 6
+      # - name: Test Bundle Server
+      #   run: |
+      #     bash scripts/workflow/test-server.sh
+      # - name: Upload Linux Bundle
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     path: ./nx-core-bundle-${{ runner.os }}.zip
+      #     name: nx-core-bundle-${{ runner.os }}.zip
 
           
 
 
-  build_other_platform:
-    name: Build Other Platform
-    strategy:
-      matrix:
-        os: [macos-latest]
-    runs-on: ${{ matrix.os }}
-    needs: [build]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Cache pnpm modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-pnpm-modules
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
+  # build_other_platform:
+  #   name: Build Other Platform
+  #   strategy:
+  #     matrix:
+  #       os: [macos-latest]
+  #   runs-on: ${{ matrix.os }}
+  #   needs: [build]
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #     - name: Cache pnpm modules
+  #       uses: actions/cache@v3
+  #       env:
+  #         cache-name: cache-pnpm-modules
+  #       with:
+  #         path: ~/.pnpm-store
+  #         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
             
-      - uses: pnpm/action-setup@v2.2.2
-        with:
-          version: latest
-          run_install: true
+  #     - uses: pnpm/action-setup@v2.2.2
+  #       with:
+  #         version: latest
+  #         run_install: true
 
-      - name: Build project
-        run: |
-          pnpm run bundle
-          zip -r nx-core-bundle-${{ runner.os }}.zip out/
+  #     - name: Build project
+  #       run: |
+  #         pnpm run bundle
+  #         zip -r nx-core-bundle-${{ runner.os }}.zip out/
       
-      - name: Upload Bundle
-        uses: actions/upload-artifact@v3
-        with:
-          path: ./nx-core-bundle-${{ runner.os }}.zip
-          name: nx-core-bundle-${{ runner.os }}.zip
+  #     - name: Upload Bundle
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         path: ./nx-core-bundle-${{ runner.os }}.zip
+  #         name: nx-core-bundle-${{ runner.os }}.zip
