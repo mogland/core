@@ -3,7 +3,7 @@ import { Logger } from "@nestjs/common";
 import { chalk, $ } from "zx-cjs";
 import { mkdirSync } from "fs";
 import "zx-cjs/globals";
-import { DATA_DIR, LOG_DIR, PLUGIN_DIR, PUBLIC_DIR, THEME_DIR } from "../constants/path.constant";
+import { DATA_DIR, LOG_DIR, PLUGIN_DIR, PUBLIC_DIR, THEME_DIR } from "@shared/constants/path.constant";
 import { consola, registerStdLogger } from "./consola.global";
 import "./dayjs.global";
 import { isDev } from "./env.global";
@@ -55,9 +55,8 @@ function registerGlobal() {
 }
 
 export function register() {
+  registerGlobal();
   consoleNEXT();
   mkdirs();
   registerStdLogger();
-
-  registerGlobal();
 }

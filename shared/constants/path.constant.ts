@@ -1,6 +1,6 @@
 import { homedir } from "os";
 import { join } from "path";
-import { isDev } from "../global/env.global";
+import { isDev } from "~/apps/core/src/global/env.global";
 const appName = "nx-space";
 export const HOME = homedir();
 export const DATA_DIR = isDev

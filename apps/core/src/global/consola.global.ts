@@ -9,9 +9,9 @@ import { CronExpression } from "@nestjs/schedule";
 
 
 
-import { getShortDate, getShortTime } from "../utils/time.util";
+import { getShortDate, getShortTime } from "../../../../shared/utils/time.util";
 import { isDev, isTest } from "./env.global";
-import { LOG_DIR } from "../constants/path.constant";
+import { LOG_DIR } from "../../../../shared/constants/path.constant";
 
 export const getTodayLogFilePath = () =>
   resolve(LOG_DIR, `stdout_${getShortDate(new Date())}.log`);

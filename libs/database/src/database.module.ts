@@ -14,4 +14,4 @@ const providers: Provider[] = [DatabaseService, databaseProvider, ...models];
   providers,
   exports: providers,
 })
-export class DatabaseModule {}
+export class DatabaseModule { }
