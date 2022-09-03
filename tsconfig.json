@@ -1,29 +1,48 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
     "declaration": true,
+    "strictNullChecks": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
+    "baseUrl": ".",
     "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
+    "incremental": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "paths": {
+      "~": [
+        "."
+      ],
+      "~/*": [
+        "./*"
+      ],
+      "@shared/*": [
+        "shared/*",
+      ],
       "@libs/database": [
-        "libs/database/src"
+        "libs/database/src/"
       ],
       "@libs/database/*": [
         "libs/database/src/*"
+      ],
+      "@libs/cache": [
+        "libs/cache/src"
+      ],
+      "@libs/cache/*": [
+        "libs/cache/src/*"
+      ],
+      "@libs/helper": [
+        "libs/helper/src"
+      ],
+      "@libs/helper/*": [
+        "libs/helper/src/*"
       ],
       "@core": [
         "apps/core/src/"
@@ -31,24 +50,10 @@
       "@core/*": [
         "apps/core/src/*"
       ],
-      "~": [
-        "."
-      ],
-      "~/*": [
-        "./*"
-      ],
-      "@cache/cache": [
-        "libs/cache/src"
-      ],
-      "@cache/cache/*": [
-        "libs/cache/src/*"
-      ],
-      "@helper/helper": [
-        "libs/helper/src"
-      ],
-      "@helper/helper/*": [
-        "libs/helper/src/*"
-      ]
     }
-  }
+  },
+  "exclude": [
+    "dist",
+    "tmp"
+  ]
 }
