@@ -1,10 +1,12 @@
 # NEXT Core
 
+**目前我们正在开发下一个突破级版本，此版本尚处于开发阶段，不建议您使用。**
+
 > 🎆 Next, 下一个博客. 一款永向未来的 CMS 博客系统
 > 
 > **_无限进步！_**
-
-> 如果你想知道为什么要对服务端进行重构，你可以查看[此处](https://nx.js.org/blog/we-are-developing-v2#%E5%88%B0%E5%BA%95%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%B8%93%E9%97%A8%E8%B5%B7%E4%B8%80%E4%B8%AA-pr-%E6%9D%A5%E4%BF%AE%E6%94%B9)
+>
+> `v2` 使用 `nestjs` 重构，突破性地采用了微服务架构，之前的版本[在此处](https://github.com/nx-space/core/branches)可以找到.
 
 
 <img src="https://img.shields.io/github/package-json/v/nx-space/core?style=flat-square" referrerpolicy="no-referrer" alt="version"><a href="https://wakatime.com/badge/github/nx-space/core"><img src="https://wakatime.com/badge/github/nx-space/core.svg?style=flat-square" alt="wakatime"></a>
@@ -14,7 +16,7 @@
 
 - [ ] 插件系统，便携地在原有基础上拓展功能
 - [ ] 模板引擎，更快速地开发高质量的页面
-- [ ] 采用微服务架构，提高了v1 版本服务端的扩展性和服务稳定性
+- [X] 采用微服务架构，提高了原 v1 版本服务端的扩展性和服务稳定性
 - [ ] 统一的社区规范，提高了开发者的友好度
 - [ ] 项目核心将永远开源
 
@@ -29,7 +31,6 @@
 This project referred to: 
 
 - [mx-space/core](https://github.com/mx-space/core)
-- [innei/nest-http-boilerplate](https://github.com/Innei/nest-http-boilerplate)
 
 ## License
 
