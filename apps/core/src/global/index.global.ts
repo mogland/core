@@ -1,13 +1,19 @@
 /* eslint-disable import/order */
-import { Logger } from "@nestjs/common";
-import { chalk, $ } from "zx-cjs";
-import { mkdirSync } from "fs";
-import "zx-cjs/globals";
-import { DATA_DIR, LOG_DIR, PLUGIN_DIR, PUBLIC_DIR, THEME_DIR } from "@shared/constants/path.constant";
-import { consola, registerStdLogger } from "./consola.global";
-import "./dayjs.global";
-import { isDev } from "./env.global";
-import { join } from "path";
+import { Logger } from '@nestjs/common';
+import { chalk, $ } from 'zx-cjs';
+import { mkdirSync } from 'fs';
+import 'zx-cjs/globals';
+import {
+  DATA_DIR,
+  LOG_DIR,
+  PLUGIN_DIR,
+  PUBLIC_DIR,
+  THEME_DIR,
+} from '@shared/constants/path.constant';
+import { consola, registerStdLogger } from './consola.global';
+import './dayjs.global';
+import { isDev } from './env.global';
+import { join } from 'path';
 
 function consoleNEXT() {
   console.log(`
@@ -41,7 +47,7 @@ function mkdirs() {
   Logger.log(chalk.blue(`公共文件夹 已准备好: ${PUBLIC_DIR}`));
 }
 
-function registerGlobal() {
+export function registerGlobal() {
   $.verbose = isDev;
   Object.assign(globalThis, {
     isDev,

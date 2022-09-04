@@ -11,10 +11,8 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-
-import { AuthService } from '~/modules/auth/auth.service';
-import { ConfigsService } from '~/modules/configs/configs.service';
-import { getNestExecutionContextRequest } from '~/transformers/get-req.transformer';
+import { AuthService } from '~/libs/auth/src';
+import { getNestExecutionContextRequest } from '~/shared/transformers/get-req.transformer';
 
 /**
  * JWT auth guard

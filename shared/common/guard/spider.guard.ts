@@ -12,8 +12,8 @@ import {
   Injectable,
 } from '@nestjs/common';
 
-import { isDev } from '~/global/env.global';
-import { getNestExecutionContextRequest } from '~/transformers/get-req.transformer';
+import { isDev } from '~/apps/core/src/global/env.global';
+import { getNestExecutionContextRequest } from '~/shared/transformers/get-req.transformer';
 
 @Injectable()
 export class SpiderGuard implements CanActivate {
