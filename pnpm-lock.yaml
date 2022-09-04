@@ -45,7 +45,7 @@ specifiers:
   eslint-config-prettier: 8.5.0
   eslint-plugin-prettier: 3.4.1
   husky: 8.0.1
-  inquirer: 8.0.0
+  inquirer: 8.0.1
   ioredis: '*'
   jest: 29.0.2
   jsonwebtoken: ^8.5.1
@@ -110,7 +110,7 @@ dependencies:
 devDependencies:
   '@commitlint/cli': 17.1.2
   '@commitlint/config-angular': 17.1.0
-  '@commitlint/cz-commitlint': 17.1.2_qhuvkv2c2j4oc57z3nb6anbxou
+  '@commitlint/cz-commitlint': 17.1.2_mhu3gmllikzhzaiwoqiie47afe
   '@innei/eslint-config-ts': 0.9.4_typescript@4.8.2
   '@nestjs/cli': 9.1.1
   '@nestjs/schematics': 9.0.2_typescript@4.8.2
@@ -130,7 +130,7 @@ devDependencies:
   eslint-config-prettier: 8.5.0_eslint@7.32.0
   eslint-plugin-prettier: 3.4.1_7gsvg5lgwpfdww3i7smtqxamuy
   husky: 8.0.1
-  inquirer: 8.0.0
+  inquirer: 8.0.1
   ioredis: 5.2.3
   jest: 29.0.2_oj7xplv46gm37jffc22wy7co6m
   lint-staged: 13.0.3
@@ -650,7 +650,7 @@ packages:
       ajv: 8.11.0
     dev: true
 
-  /@commitlint/cz-commitlint/17.1.2_qhuvkv2c2j4oc57z3nb6anbxou:
+  /@commitlint/cz-commitlint/17.1.2_mhu3gmllikzhzaiwoqiie47afe:
     resolution: {integrity: sha512-U1cpvTiri5Ib3m4xkmI4sk4Wh95dQRy2hrxt8YWTSKvyBHpOXfu9EIIqDQ+j8/aLSKo2RjBxS4lValxXnpJ4xA==}
     engines: {node: '>=v14'}
     peerDependencies:
@@ -662,7 +662,7 @@ packages:
       '@commitlint/types': 17.0.0
       chalk: 4.1.2
       commitizen: 4.2.5
-      inquirer: 8.0.0
+      inquirer: 8.0.1
       lodash: 4.17.21
       word-wrap: 1.2.3
     transitivePeerDependencies:
@@ -4487,8 +4487,8 @@ packages:
       through: 2.3.8
     dev: true
 
-  /inquirer/8.0.0:
-    resolution: {integrity: sha512-ON8pEJPPCdyjxj+cxsYRe6XfCJepTxANdNnTebsTuQgXpRyZRRT9t4dJwjRubgmvn20CLSEnozRUayXyM9VTXA==}
+  /inquirer/8.0.1:
+    resolution: {integrity: sha512-BwZ5KPT4cY1Hg6nzhFA0NBx4ae8n1T4zCD0vr1qQMo8EsO+bLLtwfwSyhi7E1i+Dcpi8UNuCQYC7H8QpvOFZzg==}
     engines: {node: '>=8.0.0'}
     dependencies:
       ansi-escapes: 4.3.2
