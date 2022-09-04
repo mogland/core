@@ -55,6 +55,12 @@
       ],
       "@libs/auth/*": [
         "libs/auth/src/*"
+      ],
+      "@libs/config": [
+        "libs/config/src"
+      ],
+      "@libs/config/*": [
+        "libs/config/src/*"
       ]
     }
   },

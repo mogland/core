@@ -4,10 +4,9 @@
  * @author Innei <https://innei.ren>
  */
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-
-import { AuthService } from '~/modules/auth/auth.service';
-import { ConfigsService } from '~/modules/configs/configs.service';
-import { getNestExecutionContextRequest } from '~/transformers/get-req.transformer';
+import { AuthService } from '~/libs/auth/src';
+import { ConfigsService } from '~/libs/config/src/configs.service';
+import { getNestExecutionContextRequest } from '~/shared/transformers/get-req.transformer';
 
 import { AuthGuard } from './auth.guard';
 

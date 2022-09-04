@@ -11,10 +11,9 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-
-import { AuthService } from '~/modules/auth/auth.service';
-import { ConfigsService } from '~/modules/configs/configs.service';
-import { getNestExecutionContextRequest } from '~/transformers/get-req.transformer';
+import { AuthService } from '~/libs/auth/src';
+import { ConfigsService } from '~/libs/config/src/configs.service';
+import { getNestExecutionContextRequest } from '~/shared/transformers/get-req.transformer';
 
 /**
  * JWT auth guard
@@ -48,7 +47,7 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException('身份过期');
     }
 
-    request.user = await this.configs.getMaster();
+    // request.user = await this.configs.getMaster();
     request.token = jwt;
     return true;
   }
