@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
 import { UserEvents } from '~/shared/constants/event.constant';
 import { UserServiceService } from './user-service.service';
@@ -9,22 +9,21 @@ export class UserServiceController {
 
   @EventPattern(UserEvents.UserGet)
   handleUserGet() {
-    return "Wibus!";
+    return 'Wibus!';
   }
 
   @EventPattern(UserEvents.UserCheck)
-  handleUserCheckLogged(){}
+  handleUserCheckLogged() {}
 
   @EventPattern(UserEvents.UserRegister)
-  handleUserRegister(){}
+  handleUserRegister() {}
 
   @EventPattern(UserEvents.UserPatch)
-  handleUserPatch(){}
+  handleUserPatch() {}
 
   @EventPattern(UserEvents.UserLogout)
-  handleUserLogout(){}
+  handleUserLogout() {}
 
   @EventPattern(UserEvents.UserLogin)
-  handleUserLogin(){}
-
+  handleUserLogin() {}
 }

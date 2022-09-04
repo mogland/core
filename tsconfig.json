@@ -24,7 +24,7 @@
         "./*"
       ],
       "@shared/*": [
-        "shared/*",
+        "shared/*"
       ],
       "@libs/database": [
         "libs/database/src/"
@@ -50,6 +50,12 @@
       "@core/*": [
         "apps/core/src/*"
       ],
+      "@libs/auth": [
+        "libs/auth/src"
+      ],
+      "@libs/auth/*": [
+        "libs/auth/src/*"
+      ]
     }
   },
   "exclude": [
