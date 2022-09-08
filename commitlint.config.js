@@ -15,6 +15,7 @@ module.exports = {
         'style',
         'test',
         'ci',
+        'release',
       ],
     ],
     'scope-enum': [
