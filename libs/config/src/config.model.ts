@@ -11,7 +11,7 @@ import { Severity, modelOptions, prop } from '@typegoose/typegoose';
     },
   },
 })
-export class OptionModel {
+export class ConfigModel {
   @prop({ unique: true, required: true })
   name: string;
 
