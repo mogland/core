@@ -52,7 +52,7 @@ specifiers:
   jsonwebtoken: ^8.5.1
   lint-staged: 13.0.3
   lodash-es: 4.17.21
-  mongoose: 6.5.4
+  mongoose: 6.5.5
   mongoose-lean-id: 0.3.0
   mongoose-lean-virtuals: 0.9.1
   mongoose-paginate-v2: 1.7.0
@@ -84,7 +84,7 @@ dependencies:
   '@nestjs/microservices': 9.0.11_di3numhf27vzyyalnbcw57rlhe
   '@nestjs/platform-fastify': 9.0.11_ipnr4fefuhr2x3on7pwr6cwcw4
   '@nestjs/schedule': 2.1.0_fvppslgepxggj3fnmtlnh4cori
-  '@typegoose/typegoose': 9.11.2_mongoose@6.5.4
+  '@typegoose/typegoose': 9.11.2_mongoose@6.5.5
   axios: 0.27.2
   axios-retry: 3.3.1
   bcrypt: 5.0.1
@@ -100,9 +100,9 @@ dependencies:
   dayjs: 1.11.5
   jsonwebtoken: 8.5.1
   lodash-es: 4.17.21
-  mongoose: 6.5.4
-  mongoose-lean-id: 0.3.0_mongoose@6.5.4
-  mongoose-lean-virtuals: 0.9.1_mongoose@6.5.4
+  mongoose: 6.5.5
+  mongoose-lean-id: 0.3.0_mongoose@6.5.5
+  mongoose-lean-virtuals: 0.9.1_mongoose@6.5.5
   mongoose-paginate-v2: 1.7.0
   nanoid: 3.3.3
   node-machine-id: 1.1.12
@@ -114,7 +114,7 @@ dependencies:
   zx-cjs: 7.0.7-0
 
 devDependencies:
-  '@innei/eslint-config-ts': 0.9.4
+  '@innei/eslint-config-ts': 0.9.4_typescript@4.8.2
   '@nestjs/cli': 9.1.1
   '@nestjs/schematics': 9.0.2_typescript@4.8.2
   '@nestjs/swagger': 6.1.1_mafirdz2v2yiqi5vgldmeyydne
@@ -632,6 +632,7 @@ packages:
   /@commitlint/load/17.1.2:
     resolution: {integrity: sha512-sk2p/jFYAWLChIfOIp/MGSIn/WzZ0vkc3afw+l4X8hGEYkvDe4gQUUAVxjl/6xMRn0HgnSLMZ04xXh5pkTsmgg==}
     engines: {node: '>=v14'}
+    requiresBuild: true
     dependencies:
       '@commitlint/config-validator': 17.1.0
       '@commitlint/execute-rule': 17.0.0
@@ -828,8 +829,10 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@innei/eslint-config-ts/0.9.4:
+  /@innei/eslint-config-ts/0.9.4_typescript@4.8.2:
     resolution: {integrity: sha512-T52M6omBVNP6CbRN0sWNf8TjEEocuPTSN+FnVUY7c1P8JfgOTH9PFOG8fEt59UZLxZEIjy26pHGDqATv9inGVA==}
+    peerDependencies:
+      typescript: '>=4'
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.30.7_lbwfnm54o3pmr3ypeqp3btnera
       '@typescript-eslint/parser': 5.36.1_yqf6kl63nyoq5megxukfnom5rm
@@ -1521,7 +1524,7 @@ packages:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: true
 
-  /@typegoose/typegoose/9.11.2_mongoose@6.5.4:
+  /@typegoose/typegoose/9.11.2_mongoose@6.5.5:
     resolution: {integrity: sha512-ocszTQDHUtM7F+LxGMklFPOYEZ5Dem/xJ5e98wD6HNhltSuG1UWhHK3YJBJLmjxVK3n574egp32efuTlnTcFGw==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
@@ -1529,7 +1532,7 @@ packages:
     dependencies:
       lodash: 4.17.21
       loglevel: 1.8.0
-      mongoose: 6.5.4
+      mongoose: 6.5.5
       reflect-metadata: 0.1.13
       semver: 7.3.7
       tslib: 2.4.0
@@ -5565,21 +5568,21 @@ packages:
       saslprep: 1.0.3
     dev: false
 
-  /mongoose-lean-id/0.3.0_mongoose@6.5.4:
+  /mongoose-lean-id/0.3.0_mongoose@6.5.5:
     resolution: {integrity: sha512-/eONPzg+tA7/VR4uv0uKxKwH4OCseZShqwbMW572QvlSU0g48zDFTiDuCjZmNykfZgK3ZOwjfLVbXBAAAbXI4Q==}
     peerDependencies:
       mongoose: 4.x || 5.x || 6.x
     dependencies:
-      mongoose: 6.5.4
+      mongoose: 6.5.5
     dev: false
 
-  /mongoose-lean-virtuals/0.9.1_mongoose@6.5.4:
+  /mongoose-lean-virtuals/0.9.1_mongoose@6.5.5:
     resolution: {integrity: sha512-jx4rhXuaQPam/lwef3z/FfYHlKdbFkDr9Qb7JEMeoa7y4pOuyJ83RkcNL25HRaoi4Bt71zKmV1cuJdv243t9aA==}
     peerDependencies:
       mongoose: '>=5.11.10'
     dependencies:
       array.prototype.flat: 1.2.3
-      mongoose: 6.5.4
+      mongoose: 6.5.5
       mpath: 0.8.4
     dev: false
 
@@ -5588,8 +5591,8 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: false
 
-  /mongoose/6.5.4:
-    resolution: {integrity: sha512-8hKV+9baDa7fyWRADQcSN/c0/QQbnewA2D0xOqdFb7f1UGYAHk4YSMNu9Hu2bdRUfQbK/daFuqlcmI17j6/8eg==}
+  /mongoose/6.5.5:
+    resolution: {integrity: sha512-sfRRRmkDAPV1H8Qy+zbCEVo8E2jLENF1GA5oaNOrDe1pNTqBtudbnZETOG+5XgGeH52kpPLNzcTCSOijcy505g==}
     engines: {node: '>=12.0.0'}
     dependencies:
       bson: 4.7.0
