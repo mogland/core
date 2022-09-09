@@ -3,6 +3,16 @@
  * @author: Wibus
  * @Date: 2022-09-08 21:34:16
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-08 21:35:43
+ * @LastEditTime: 2022-09-09 21:01:16
  * Coding With IU
  */
+
+import { Type } from 'class-transformer';
+import { ValidateNested } from 'class-validator';
+import { SEODto } from './config.dto';
+
+export abstract class ConfigsInterface {
+  @Type(() => SEODto)
+  @ValidateNested()
+  seo: SEODto;
+}

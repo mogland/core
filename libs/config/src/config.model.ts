@@ -17,4 +17,7 @@ export class ConfigModel {
 
   @prop({ type: Schema.Types.Mixed })
   value: any;
+
+  // @prop({ type: Boolean, default: false })
+  // auth: boolean;
 }
