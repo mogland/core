@@ -105,7 +105,7 @@
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-prettier": "3.4.1",
     "husky": "8.0.1",
-    "inquirer": "8.0.0",
+    "inquirer": "8.2.4",
     "ioredis": "*",
     "jest": "29.0.2",
     "lint-staged": "13.0.3",
