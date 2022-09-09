@@ -47,6 +47,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
+    "@fastify/multipart": "^7.1.2",
     "@fastify/static": "6.5.0",
     "@nestjs/common": "9.0.11",
     "@nestjs/core": "9.0.11",
@@ -74,11 +75,12 @@
     "mongoose-lean-id": "0.3.0",
     "mongoose-lean-virtuals": "0.9.1",
     "mongoose-paginate-v2": "1.7.0",
-    "nanoid": "^4.0.0",
+    "nanoid": "3.3.3",
     "node-machine-id": "^1.1.12",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "rxjs": "7.5.6",
+    "snakecase-keys": "^5.4.4",
     "vm2": "3.9.11",
     "zx-cjs": "7.0.7-0"
   },
