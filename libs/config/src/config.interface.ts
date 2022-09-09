@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-08 21:34:16
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-09 21:01:16
+ * @LastEditTime: 2022-09-09 21:12:50
  * Coding With IU
  */
 
@@ -16,3 +16,5 @@ export abstract class ConfigsInterface {
   @ValidateNested()
   seo: SEODto;
 }
+
+export type ConfigsInterfaceKeys = keyof ConfigsInterface;
