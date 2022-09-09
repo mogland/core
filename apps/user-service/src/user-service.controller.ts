@@ -1,11 +1,11 @@
 import { Controller } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
 import { UserEvents } from '~/shared/constants/event.constant';
-import { UserServiceService } from './user-service.service';
+import { UserService } from './user-service.service';
 
 @Controller()
 export class UserServiceController {
-  constructor(private readonly userServiceService: UserServiceService) {}
+  constructor(private readonly userService: UserService) {}
 
   @EventPattern(UserEvents.UserGet)
   handleUserGet() {

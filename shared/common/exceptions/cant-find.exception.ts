@@ -1,12 +1,12 @@
 /*
- * @FilePath: /nx-core/src/common/exceptions/cant-find.exception.ts
+ * @FilePath: /nx-core/shared/common/exceptions/cant-find.exception.ts
  * @author: Wibus
  * @Date: 2022-06-08 21:00:25
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-08 21:01:52
+ * @LastEditTime: 2022-09-09 21:36:50
  * Coding With IU
  */
-import { sample } from 'lodash';
+import { sample } from 'lodash-es';
 
 import { NotFoundException } from '@nestjs/common';
 

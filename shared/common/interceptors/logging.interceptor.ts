@@ -16,8 +16,8 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { HTTP_REQUEST_TIME } from '~/constants/meta.constant';
-import { isDev } from '~/utils/environment.utils';
+import { HTTP_REQUEST_TIME } from '../../constants/meta.constant';
+import { isDev } from '../../utils/environment.util';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {

@@ -9,10 +9,10 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { isArrayLike, isObjectLike } from 'lodash';
+import { isArrayLike, isObjectLike } from 'lodash-es';
 import { Observable, map } from 'rxjs';
 import snakecaseKeys from 'snakecase-keys';
-import { RESPONSE_PASSTHROUGH_METADATA } from '~/constants/system.constant';
+import { RESPONSE_PASSTHROUGH_METADATA } from '../../constants/system.constant';
 
 @Injectable()
 export class JSONSerializeInterceptor implements NestInterceptor {

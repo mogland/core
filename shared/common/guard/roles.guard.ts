@@ -4,10 +4,10 @@
  * @author Innei <https://innei.ren>
  */
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { AuthService } from '~/libs/auth/src';
+import { ConfigService } from '~/libs/config/src';
 
-import { AuthService } from '~/modules/auth/auth.service';
-import { ConfigsService } from '~/modules/configs/configs.service';
-import { getNestExecutionContextRequest } from '~/transformers/get-req.transformer';
+import { getNestExecutionContextRequest } from '~/shared/transformers/get-req.transformer';
 
 import { AuthGuard } from './auth.guard';
 
@@ -19,7 +19,7 @@ import { AuthGuard } from './auth.guard';
 export class RolesGuard extends AuthGuard implements CanActivate {
   constructor(
     protected readonly authService: AuthService,
-    protected readonly configs: ConfigsService,
+    protected readonly configs: ConfigService,
   ) {
     super(authService, configs);
   }
