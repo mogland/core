@@ -12,8 +12,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { AuthService } from '~/libs/auth/src';
-import { ConfigsService } from '~/libs/config/src/configs.service';
+
 import { getNestExecutionContextRequest } from '~/shared/transformers/get-req.transformer';
+import { ConfigService } from '~/libs/config/src';
 
 /**
  * JWT auth guard
@@ -23,7 +24,7 @@ import { getNestExecutionContextRequest } from '~/shared/transformers/get-req.tr
 export class AuthGuard implements CanActivate {
   constructor(
     protected readonly authService: AuthService,
-    protected readonly configs: ConfigsService,
+    protected readonly configs: ConfigService,
   ) {}
   async canActivate(context: ExecutionContext): Promise<any> {
     const request = this.getRequest(context);

@@ -1,16 +1,16 @@
 /*
- * @FilePath: /nx-core/src/common/decorator/ip.decorator.ts
+ * @FilePath: /nx-core/shared/common/decorator/ip.decorator.ts
  * @author: Wibus
  * @Date: 2022-06-07 22:09:07
  * @LastEditors: Wibus
- * @LastEditTime: 2022-06-07 22:09:07
+ * @LastEditTime: 2022-09-09 21:36:50
  * Coding With IU
  */
 import { FastifyRequest } from 'fastify';
 
 import { ExecutionContext, createParamDecorator } from '@nestjs/common';
 
-import { getIp } from '~/utils/ip.util';
+import { getIp } from '../../utils/ip.util';
 
 export type IpRecord = {
   ip: string;

@@ -1,6 +1,7 @@
 import { ApiTags } from '@nestjs/swagger';
 
 export const ApiName: ClassDecorator = (target) => {
+  // @ts-ignore
   if (!isDev) {
     return;
   }

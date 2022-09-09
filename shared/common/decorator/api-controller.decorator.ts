@@ -1,5 +1,6 @@
 import { Controller, ControllerOptions } from '@nestjs/common';
 
+// @ts-ignore
 export const apiRoutePrefix = isDev ? '' : `/api`;
 export const ApiController: (
   optionOrString?: string | string[] | undefined | ControllerOptions,

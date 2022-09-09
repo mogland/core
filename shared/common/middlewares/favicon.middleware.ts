@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { IncomingMessage, ServerResponse } from 'http';
-import { parseRelativeUrl } from '~/utils/ip.util';
+import { parseRelativeUrl } from '../../utils/ip.util';
 
 @Injectable()
 export class SkipBrowserDefaultRequestMiddleware implements NestMiddleware {

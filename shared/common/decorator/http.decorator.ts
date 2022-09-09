@@ -1,7 +1,7 @@
 import { applyDecorators, SetMetadata } from '@nestjs/common';
 import { ApiConsumes, ApiBody } from '@nestjs/swagger';
-import { HTTP_RES_TRANSFORM_PAGINATE } from '~/constants/meta.constant';
-import * as SYSTEM from '~/constants/system.constant';
+import { HTTP_RES_TRANSFORM_PAGINATE } from '../../constants/meta.constant';
+import * as SYSTEM from '../../constants/system.constant';
 import { FileUploadDto } from '~/shared/dto/file.dto';
 
 export const Paginator: MethodDecorator = (

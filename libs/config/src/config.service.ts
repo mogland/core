@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-08 21:11:49
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-09 21:14:52
+ * @LastEditTime: 2022-09-09 21:50:46
  * Coding With IU
  */
 
@@ -18,7 +18,6 @@ import { ReturnModelType } from '@typegoose/typegoose';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { validateSync, ValidatorOptions } from 'class-validator';
 import { cloneDeep, mergeWith } from 'lodash-es';
-import { UserModel } from '~/apps/user-service/src/user.model';
 import { CacheService } from '~/libs/cache/src';
 import { InjectModel } from '~/libs/database/src/model.transformer';
 import { RedisKeys } from '~/shared/constants/cache.constant';
@@ -48,8 +47,6 @@ export class ConfigService {
   constructor(
     @InjectModel(ConfigModel)
     private readonly configModel: ReturnModelType<typeof ConfigModel>,
-    @InjectModel(UserModel)
-    private readonly userModel: MongooseModel<UserModel>,
     private readonly redis: CacheService,
   ) {}
   private configInit = false;

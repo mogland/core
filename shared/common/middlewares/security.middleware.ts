@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { IncomingMessage, ServerResponse } from 'http';
-import { parseRelativeUrl } from '~/utils/ip.util';
+import { parseRelativeUrl } from '../../utils/ip.util';
 // 用于屏蔽 PHP 的请求
 
 @Injectable()

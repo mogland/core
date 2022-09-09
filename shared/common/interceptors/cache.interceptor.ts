@@ -18,11 +18,12 @@ import {
 import { Reflector } from '@nestjs/core';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { REDIS } from '~/app.config';
-import * as META from '~/constants/meta.constant';
-import * as SYSTEM from '~/constants/system.constant';
-import { CacheService } from '~/processors/cache/cache.service';
-import { getNestExecutionContextRequest } from '~/transformers/get-req.transformer';
+import { REDIS } from '~/apps/core/src/app.config';
+import { CacheService } from '~/libs/cache/src';
+import * as META from '../../constants/meta.constant';
+import * as SYSTEM from '../../constants/system.constant';
+
+import { getNestExecutionContextRequest } from '../../transformers/get-req.transformer';
 
 /**
  * @class HttpCacheInterceptor
