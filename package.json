@@ -25,7 +25,6 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "prebuild": "rimraf dist",
-    "commit": "git-cz",
     "build": "nest build",
     "dev": "npm run start",
     "bundle": "echo 'TODO: bundle the project.'",
@@ -84,9 +83,6 @@
     "zx-cjs": "7.0.7-0"
   },
   "devDependencies": {
-    "@commitlint/cli": "17.1.2",
-    "@commitlint/config-angular": "17.1.0",
-    "@commitlint/cz-commitlint": "17.1.2",
     "@innei/eslint-config-ts": "^0.9.4",
     "@nestjs/cli": "9.1.1",
     "@nestjs/schematics": "9.0.2",
@@ -123,11 +119,6 @@
   },
   "resolutions": {
     "typescript": "4.8.2"
-  },
-  "config": {
-    "commitizen": {
-      "path": "@commitlint/cz-commitlint"
-    }
   },
   "jest": {
     "moduleFileExtensions": [
