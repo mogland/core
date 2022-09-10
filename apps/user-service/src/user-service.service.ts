@@ -27,7 +27,7 @@ export class UserService {
    */
   async register(
     model: Pick<UserModel, 'username' | 'nickname' | 'password'> &
-      Partial<Pick<UserModel, 'description' | 'avatar' | 'url' | 'role'>>,
+      Partial<Pick<UserModel, 'description' | 'avatar' | 'url'>>,
   ) {
     const authCode = nanoid(10);
     // TODO：初始化当前用户的文章、页面、分类
@@ -63,5 +63,13 @@ export class UserService {
     }
 
     return user;
+  }
+
+  /**
+   * 根据username获取某个用户信息
+   * @param username 用户名
+   */
+  async getUserByUsername(username: string) {
+    return this.userModel.findOne({ username });
   }
 }

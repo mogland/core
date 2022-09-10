@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-04 13:58:22
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-04 14:13:41
+ * @LastEditTime: 2022-09-10 22:18:14
  * Coding With IU
  */
 
@@ -95,15 +95,15 @@ export class UserModel extends BaseModel {
   @ApiProperty({ description: '用户登录授权码' })
   authCode!: string;
 
-  @prop({ type: TokenModel, select: false })
-  @ApiProperty({ description: 'API 密钥' })
-  apiToken?: TokenModel[];
+  // @prop({ type: TokenModel, select: false })
+  // @ApiProperty({ description: 'API 密钥' })
+  // apiToken?: TokenModel[];
 
-  @prop({ type: OAuthModel, select: false })
-  @ApiProperty({ description: 'OAUTH 授权' })
-  oauth2?: OAuthModel[];
+  // @prop({ type: OAuthModel, select: false })
+  // @ApiProperty({ description: 'OAUTH 授权' })
+  // oauth2?: OAuthModel[];
 
-  @prop({ enum: UserRole, default: UserRole.visitor })
-  @ApiProperty({ description: '用户角色' })
-  role?: UserRole;
+  // @prop({ enum: UserRole, default: UserRole.visitor })
+  // @ApiProperty({ description: '用户角色' })
+  // role?: UserRole;
 }

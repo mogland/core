@@ -8,8 +8,8 @@ export class UserServiceController {
   constructor(private readonly userService: UserService) {}
 
   @EventPattern(UserEvents.UserGet)
-  handleUserGet() {
-    return 'Wibus!';
+  handleUserGet(username: string) {
+    return this.userService.getUserByUsername(username);
   }
 
   @EventPattern(UserEvents.UserCheck)
