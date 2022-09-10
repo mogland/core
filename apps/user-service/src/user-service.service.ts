@@ -7,6 +7,7 @@ import {
 import { ReturnModelType } from '@typegoose/typegoose';
 import { compareSync } from 'bcrypt';
 import { nanoid } from 'nanoid';
+import { CannotFindException } from '~/shared/common/exceptions/cant-find.exception';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { UserModel } from './user.model';
 
@@ -70,6 +71,8 @@ export class UserService {
    * @param username 用户名
    */
   async getUserByUsername(username: string) {
-    return this.userModel.findOne({ username });
+    const user = await this.userModel.findOne({ username });
+    if (!user) throw new CannotFindException();
+    return user;
   }
 }
