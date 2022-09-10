@@ -36,6 +36,11 @@ export class UserServiceController {
     return this.userService.signoutAll();
   }
 
+  @EventPattern(UserEvents.UserGetAllSession)
+  handleUserGetAllSession(token: string) {
+    return this.userService.getAllSignSession(token);
+  }
+
   @EventPattern(UserEvents.UserLogin)
   async handleUserLogin(dto: LoginDto, ipLocation: IpRecord) {
     return this.userService.login(dto, ipLocation);

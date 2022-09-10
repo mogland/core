@@ -106,6 +106,10 @@ export class UserService {
     return this.authService.jwtServicePublic.revokeAll();
   }
 
+  async getAllSignSession(token: string) {
+    return this.authService.jwtServicePublic.getAllSignSession(token);
+  }
+
   /**
    * 根据username获取某个用户信息
    * @param username 用户名
