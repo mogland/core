@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { compareSync } from 'bcrypt';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import { AuthService } from '~/libs/auth/src';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { BusinessException } from '~/shared/common/exceptions/business.excpetion';
@@ -39,18 +39,17 @@ export class UserService {
     model: Pick<UserModel, 'username' | 'nickname' | 'password'> &
       Partial<Pick<UserModel, 'description' | 'avatar' | 'url'>>,
   ) {
-    const authCode = nanoid(10);
+    // const authCode = nanoid(10);
+
     // TODO：初始化当前用户的文章、页面、分类
     const exist = await this.userModel.findOne({ username: model.username });
     if (exist) throw new BadRequestException('用户名已存在');
 
-    const res = await this.userModel.create({
-      ...model,
-      authCode,
-    });
+    const res = await this.userModel.create({ ...model });
+    const token = await this.authService.jwtServicePublic.sign(res.id);
     return {
       username: res.username,
-      authCode: res.authCode,
+      token,
     };
   }
 
@@ -146,9 +145,9 @@ export class UserService {
         throw new UnprocessableEntityException('密码可不能和原来的一样哦');
       }
 
-      // 2. 认证码重新生成
-      const newCode = nanoid(10);
-      doc.authCode = newCode;
+      // // 2. 认证码重新生成
+      // const newCode = nanoid(10);
+      // doc.authCode = newCode;
 
       // 3. 撤销所有token
       await this.signoutAll();

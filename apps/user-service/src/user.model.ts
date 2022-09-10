@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-04 13:58:22
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-10 22:35:06
+ * @LastEditTime: 2022-09-11 07:49:33
  * Coding With IU
  */
 
@@ -98,9 +98,9 @@ export class UserModel extends BaseModel {
   @ApiProperty({ description: '用户社交账户 ID' })
   socialIds?: any;
 
-  @prop({ select: false, required: true })
-  @ApiProperty({ description: '用户登录授权码' })
-  authCode!: string;
+  // @prop({ select: false, required: true })
+  // @ApiProperty({ description: '用户登录授权码' })
+  // authCode!: string;
 
   @prop({ type: TokenModel, select: false })
   @ApiProperty({ description: 'API 密钥' })

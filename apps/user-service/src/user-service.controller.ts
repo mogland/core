@@ -3,8 +3,8 @@ import { EventPattern } from '@nestjs/microservices';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { UserEvents } from '~/shared/constants/event.constant';
 import { UserService } from './user-service.service';
-import { LoginDto, UserPatchDto } from './user.dto';
-import { UserDocument } from './user.model';
+import { LoginDto, UserDto, UserPatchDto } from './user.dto';
+import { UserDocument, UserModel } from './user.model';
 
 @Controller()
 export class UserServiceController {
@@ -15,11 +15,14 @@ export class UserServiceController {
     return this.userService.getUserByUsername(username, getLoginIp);
   }
 
-  @EventPattern(UserEvents.UserCheck)
-  handleUserCheckLogged() {}
+  // @EventPattern(UserEvents.UserCheck)
+  // handleUserCheckLogged() {}
 
   @EventPattern(UserEvents.UserRegister)
-  handleUserRegister() {}
+  handleUserRegister(user: UserDto) {
+    user.nickname = user.nickname ?? user.username;
+    return this.userService.register(user as UserModel);
+  }
 
   @EventPattern(UserEvents.UserPatch)
   handleUserPatch(user: UserDocument, data: UserPatchDto) {
