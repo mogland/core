@@ -49,3 +49,6 @@ dump.rdb
 
 # next
 tmp
+
+#eslint
+.eslintcache

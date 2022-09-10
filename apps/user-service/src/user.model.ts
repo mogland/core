@@ -3,15 +3,22 @@
  * @author: Wibus
  * @Date: 2022-09-04 13:58:22
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-10 22:18:14
+ * @LastEditTime: 2022-09-10 22:35:06
  * Coding With IU
  */
 
-import { modelOptions, prop, Severity } from '@typegoose/typegoose';
+import {
+  modelOptions,
+  prop,
+  Severity,
+  DocumentType,
+} from '@typegoose/typegoose';
 import mongoose from 'mongoose';
 import { hashSync } from 'bcrypt';
 import { BaseModel } from '~/shared/model/base.model';
 import { ApiProperty } from '@nestjs/swagger';
+
+export type UserDocument = DocumentType<UserModel>;
 
 export enum UserRole {
   root,
@@ -95,9 +102,9 @@ export class UserModel extends BaseModel {
   @ApiProperty({ description: '用户登录授权码' })
   authCode!: string;
 
-  // @prop({ type: TokenModel, select: false })
-  // @ApiProperty({ description: 'API 密钥' })
-  // apiToken?: TokenModel[];
+  @prop({ type: TokenModel, select: false })
+  @ApiProperty({ description: 'API 密钥' })
+  apiToken?: TokenModel[];
 
   // @prop({ type: OAuthModel, select: false })
   // @ApiProperty({ description: 'OAUTH 授权' })
