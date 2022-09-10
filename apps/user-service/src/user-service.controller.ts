@@ -1,18 +1,14 @@
 import { Controller } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
-import { AuthService } from '~/libs/auth/src';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { UserEvents } from '~/shared/constants/event.constant';
-import { getAvatar } from '~/shared/utils';
 import { UserService } from './user-service.service';
-import { LoginDto } from './user.dto';
+import { LoginDto, UserPatchDto } from './user.dto';
+import { UserDocument } from './user.model';
 
 @Controller()
 export class UserServiceController {
-  constructor(
-    private readonly userService: UserService,
-    private readonly authService: AuthService,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   @EventPattern(UserEvents.UserGet)
   handleUserGet(username: string, getLoginIp: boolean) {
@@ -26,34 +22,22 @@ export class UserServiceController {
   handleUserRegister() {}
 
   @EventPattern(UserEvents.UserPatch)
-  handleUserPatch() {}
+  handleUserPatch(user: UserDocument, data: UserPatchDto) {
+    return this.userService.patchUserData(user, data);
+  }
 
   @EventPattern(UserEvents.UserLogout)
-  handleUserLogout() {}
+  handleUserLogout(token: string) {
+    return this.userService.signout(token);
+  }
+
+  @EventPattern(UserEvents.UserLogoutAll)
+  handleUserLogoutAll() {
+    return this.userService.signoutAll();
+  }
 
   @EventPattern(UserEvents.UserLogin)
   async handleUserLogin(dto: LoginDto, ipLocation: IpRecord) {
-    const user = await this.userService.login(dto.username, dto.password);
-    const footstep = await this.userService.recordFootstep(
-      dto.username,
-      ipLocation.ip,
-    );
-    const { nickname, username, created, url, email, id } = user;
-    const avatar = user.avatar ?? getAvatar(email);
-    const token = this.authService.jwtServicePublic.sign(user.id, {
-      ip: ipLocation.ip,
-      ua: ipLocation.agent,
-    });
-    return {
-      token,
-      ...footstep,
-      nickname,
-      username,
-      created,
-      url,
-      email,
-      avatar,
-      id,
-    };
+    return this.userService.login(dto, ipLocation);
   }
 }

@@ -8,10 +8,14 @@ import {
 import { ReturnModelType } from '@typegoose/typegoose';
 import { compareSync } from 'bcrypt';
 import { nanoid } from 'nanoid';
+import { AuthService } from '~/libs/auth/src';
+import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { BusinessException } from '~/shared/common/exceptions/business.excpetion';
 import { CannotFindException } from '~/shared/common/exceptions/cant-find.exception';
 import { ErrorCodeEnum } from '~/shared/constants/error-code.constant';
 import { InjectModel } from '~/shared/transformers/model.transformer';
+import { getAvatar } from '~/shared/utils';
+import { LoginDto } from './user.dto';
 import { UserDocument, UserModel } from './user.model';
 
 @Injectable()
@@ -21,6 +25,8 @@ export class UserService {
   constructor(
     @InjectModel(UserModel)
     private readonly userModel: ReturnModelType<typeof UserModel>,
+
+    private readonly authService: AuthService,
   ) {}
   public get model() {
     return this.userModel;
@@ -49,11 +55,11 @@ export class UserService {
   }
 
   /**
-   * 登录用户
+   * 1. 返回登录用户信息
    * @param username 用户名
    * @param password 密码
    */
-  async login(username: string, password: string) {
+  async returnLoginData(username: string, password: string) {
     const user = await this.userModel.findOne({ username }).select('+password');
     if (!user) {
       throw new ForbiddenException('用户名不正确');
@@ -63,6 +69,41 @@ export class UserService {
     }
 
     return user;
+  }
+
+  /**
+   * 2. 登录
+   * @param dto 登录信息
+   * @param ipLocation ip地址
+   */
+  async login(dto: LoginDto, ipLocation: IpRecord) {
+    const user = await this.returnLoginData(dto.username, dto.password);
+    const footstep = await this.recordFootstep(dto.username, ipLocation.ip);
+    const { nickname, username, created, url, email, id } = user;
+    const avatar = user.avatar ?? getAvatar(email);
+    const token = this.authService.jwtServicePublic.sign(user.id, {
+      ip: ipLocation.ip,
+      ua: ipLocation.agent,
+    });
+    return {
+      token,
+      ...footstep,
+      nickname,
+      username,
+      created,
+      url,
+      email,
+      avatar,
+      id,
+    };
+  }
+
+  async signout(token: string) {
+    return this.authService.jwtServicePublic.revokeToken(token);
+  }
+
+  async signoutAll() {
+    return this.authService.jwtServicePublic.revokeAll();
   }
 
   /**
@@ -78,6 +119,11 @@ export class UserService {
     return user;
   }
 
+  /**
+   * 更新用户信息
+   * @param user 用户信息
+   * @param data 更新的数据
+   */
   async patchUserData(user: UserDocument, data: Partial<UserModel>) {
     const { password } = data;
     const doc = { ...data };
@@ -99,6 +145,9 @@ export class UserService {
       // 2. 认证码重新生成
       const newCode = nanoid(10);
       doc.authCode = newCode;
+
+      // 3. 撤销所有token
+      await this.signoutAll();
     }
     return await this.userModel
       .updateOne({ _id: user._id }, doc)
@@ -129,7 +178,7 @@ export class UserService {
       lastLoginIp: ip,
     });
 
-    this.Logger.warn(`主人已登录, IP: ${ip}`);
+    this.Logger.warn(`${master.username} 已登录 IP: ${ip}`);
     return PrevFootstep as any;
   }
 }
