@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-09-09 21:36:50
  * Coding With IU
  */
-import { sample } from 'lodash-es';
+import { sample } from 'lodash';
 
 import { NotFoundException } from '@nestjs/common';
 

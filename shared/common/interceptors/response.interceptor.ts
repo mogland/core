@@ -9,7 +9,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { isArrayLike } from 'lodash-es';
+import { isArrayLike } from 'lodash';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HTTP_RES_TRANSFORM_PAGINATE } from '../../constants/meta.constant';
