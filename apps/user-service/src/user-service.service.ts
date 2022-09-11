@@ -42,8 +42,17 @@ export class UserService {
     // const authCode = nanoid(10);
 
     // TODO：初始化当前用户的文章、页面、分类
+
     const exist = await this.userModel.findOne({ username: model.username });
     if (exist) throw new BadRequestException('用户名已存在');
+
+    // 角色控制若完成后，应删除此行下方的代码
+    const count = await this.userModel.countDocuments();
+    const hasMaster = !!(await this.userModel.countDocuments());
+    // 禁止注册两个以上账户
+    if (hasMaster) {
+      throw new BadRequestException('我已经有一个主人了哦');
+    }
 
     const res = await this.userModel.create({ ...model });
     const token = await this.authService.jwtServicePublic.sign(res.id);
@@ -81,6 +90,7 @@ export class UserService {
     const { nickname, username, created, url, email, id } = user;
     const avatar = user.avatar ?? getAvatar(email);
     const token = this.authService.jwtServicePublic.sign(user.id, {
+      user,
       ip: ipLocation.ip,
       ua: ipLocation.agent,
     });
@@ -184,4 +194,6 @@ export class UserService {
     this.Logger.warn(`${master.username} 已登录 IP: ${ip}`);
     return PrevFootstep as any;
   }
+
+  async getMaster() {}
 }
