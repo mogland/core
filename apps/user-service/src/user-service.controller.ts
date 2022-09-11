@@ -25,13 +25,13 @@ export class UserServiceController {
   }
 
   @MessagePattern({ cmd: UserEvents.UserPatch })
-  handleUserPatch(user: UserDocument, data: UserPatchDto) {
-    return this.userService.patchUserData(user, data);
+  handleUserPatch(input: { user: UserDocument; data: UserPatchDto }) {
+    return this.userService.patchUserData(input.user, input.data);
   }
 
   @MessagePattern({ cmd: UserEvents.UserLogin })
-  async handleUserLogin(dto: LoginDto, ipLocation: IpRecord) {
-    return this.userService.login(dto, ipLocation);
+  async handleUserLogin(input: { dto: LoginDto; ipLocation: IpRecord }) {
+    return this.userService.login(input.dto, input.ipLocation);
   }
 
   @MessagePattern({ cmd: UserEvents.UserLogout })
