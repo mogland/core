@@ -12,7 +12,10 @@ import { compareSync } from 'bcrypt';
 import { AuthService } from '~/libs/auth/src';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { BusinessException } from '~/shared/common/exceptions/business.excpetion';
-import { ErrorCodeEnum } from '~/shared/constants/error-code.constant';
+import {
+  ErrorCodeEnum,
+  RequestStatusEnum,
+} from '~/shared/constants/error-code.constant';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { getAvatar } from '~/shared/utils';
 import { LoginDto } from './user.dto';
@@ -129,7 +132,10 @@ export class UserService {
       .select(`${getLoginIp ? ' +lastLoginIp' : ''}`)
       .lean({ virtuals: true });
     if (!user) {
-      throw new RpcException('用户不存在');
+      throw new RpcException({
+        status: RequestStatusEnum.NotFound,
+        message: '用户不存在',
+      });
     }
     return user;
   }

@@ -3,12 +3,11 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:26:41
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-11 09:16:20
+ * @LastEditTime: 2022-09-11 09:29:32
  * Coding With IU
  */
 
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -22,7 +21,7 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiOperation } from '@nestjs/swagger';
-import { catchError, timeout } from 'rxjs/operators';
+import { timeout } from 'rxjs/operators';
 import {
   LoginDto,
   UserDto,
@@ -59,20 +58,7 @@ export class UserController {
           getLoginIp,
         },
       )
-      .pipe(
-        timeout(1000),
-        catchError((err) => {
-          throw new BadRequestException(err.message);
-        }),
-      )
-      .subscribe(
-        (res) => {
-          return res;
-        },
-        (err) => {
-          return err;
-        },
-      );
+      .pipe(timeout(1000));
     return data;
   }
 
