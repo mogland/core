@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:26:41
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-11 09:29:32
+ * @LastEditTime: 2022-09-11 19:55:29
  * Coding With IU
  */
 
@@ -13,6 +13,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpException,
   Inject,
   Param,
   Patch,
@@ -21,7 +22,8 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiOperation } from '@nestjs/swagger';
-import { timeout } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { catchError, timeout } from 'rxjs/operators';
 import {
   LoginDto,
   UserDto,
@@ -58,7 +60,12 @@ export class UserController {
           getLoginIp,
         },
       )
-      .pipe(timeout(1000));
+      .pipe(
+        timeout(1000),
+        catchError((err) => {
+          return throwError(() => new HttpException(err.message, err.status));
+        }),
+      );
     return data;
   }
 

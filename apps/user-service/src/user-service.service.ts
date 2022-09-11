@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ForbiddenException,
+  HttpStatus,
   Injectable,
   Logger,
   UnprocessableEntityException,
@@ -14,7 +15,6 @@ import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { BusinessException } from '~/shared/common/exceptions/business.excpetion';
 import {
   ErrorCodeEnum,
-  RequestStatusEnum,
 } from '~/shared/constants/error-code.constant';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { getAvatar } from '~/shared/utils';
@@ -133,7 +133,7 @@ export class UserService {
       .lean({ virtuals: true });
     if (!user) {
       throw new RpcException({
-        status: RequestStatusEnum.NotFound,
+        status: HttpStatus.NOT_FOUND,
         message: '用户不存在',
       });
     }
