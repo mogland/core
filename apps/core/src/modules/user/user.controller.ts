@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:26:41
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-11 08:27:58
+ * @LastEditTime: 2022-09-11 08:40:05
  * Coding With IU
  */
 
@@ -44,7 +44,7 @@ export class UserController {
   constructor(@Inject(ServicesEnum.user) private readonly user: ClientProxy) {}
 
   @Get('info')
-  @ApiOperation({ description: '获取用户信息' })
+  @ApiOperation({ summary: '获取用户信息' })
   getUser(
     @Query('username') username: string,
     @Query('getLoginIp') getLoginIp = false,
@@ -57,14 +57,14 @@ export class UserController {
 
   @Post('/register')
   @HttpCache.disable
-  @ApiOperation({ description: '注册用户' })
+  @ApiOperation({ summary: '注册用户' })
   register(@Body() user: UserDto) {
     return this.user.send(UserEvents.UserRegister, user);
   }
 
   @Patch('/info')
   @HttpCache.disable
-  @ApiOperation({ description: '修改用户信息' })
+  @ApiOperation({ summary: '修改用户信息' })
   patch(@RequestUser() user: UserDocument, data: UserPatchDto) {
     return this.user.send(UserEvents.UserPatch, {
       user,
@@ -75,7 +75,7 @@ export class UserController {
   @Post('/login')
   @HttpCache.disable
   @HttpCode(200)
-  @ApiOperation({ description: '登录' })
+  @ApiOperation({ summary: '登录' })
   async login(@Body() dto: LoginDto, @IpLocation() ipLocation: IpRecord) {
     return this.user.send(UserEvents.UserLogin, {
       dto,
@@ -97,21 +97,21 @@ export class UserController {
 
   @Get(['/getAllSession', '/session'])
   @Auth()
-  @ApiOperation({ description: '获取所有session' })
+  @ApiOperation({ summary: '获取所有session' })
   async getAllSession(@RequestUserToken() token: string) {
     return this.user.send(UserEvents.UserGetAllSession, token);
   }
 
   @Delete('/session/:tokenId')
   @Auth()
-  @ApiOperation({ description: '删除指定的session' })
+  @ApiOperation({ summary: '删除指定的session' })
   async deleteSession(@Param('tokenId') tokenId: string) {
     return this.user.send(UserEvents.UserLogout, tokenId);
   }
 
   @Delete('/session/all')
   @Auth()
-  @ApiOperation({ description: '获取所有session' })
+  @ApiOperation({ summary: '获取所有session' })
   async deleteAllSession() {
     return this.user.send(UserEvents.UserLogoutAll, null);
   }
