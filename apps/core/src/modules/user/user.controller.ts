@@ -3,11 +3,12 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:26:41
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-11 08:40:05
+ * @LastEditTime: 2022-09-11 09:16:20
  * Coding With IU
  */
 
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -21,6 +22,7 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiOperation } from '@nestjs/swagger';
+import { catchError, timeout } from 'rxjs/operators';
 import {
   LoginDto,
   UserDto,
@@ -49,27 +51,50 @@ export class UserController {
     @Query('username') username: string,
     @Query('getLoginIp') getLoginIp = false,
   ) {
-    return this.user.send(UserEvents.UserGet, {
-      username,
-      getLoginIp,
-    });
+    const data = this.user
+      .send(
+        { cmd: UserEvents.UserGet },
+        {
+          username,
+          getLoginIp,
+        },
+      )
+      .pipe(
+        timeout(1000),
+        catchError((err) => {
+          throw new BadRequestException(err.message);
+        }),
+      )
+      .subscribe(
+        (res) => {
+          return res;
+        },
+        (err) => {
+          return err;
+        },
+      );
+    return data;
   }
 
   @Post('/register')
   @HttpCache.disable
   @ApiOperation({ summary: '注册用户' })
   register(@Body() user: UserDto) {
-    return this.user.send(UserEvents.UserRegister, user);
+    // return this.user.send(UserEvents.UserRegister, user);
+    return this.user.send({ cmd: UserEvents.UserRegister }, user);
   }
 
   @Patch('/info')
   @HttpCache.disable
   @ApiOperation({ summary: '修改用户信息' })
   patch(@RequestUser() user: UserDocument, data: UserPatchDto) {
-    return this.user.send(UserEvents.UserPatch, {
-      user,
-      data,
-    });
+    return this.user.send(
+      { cmd: UserEvents.UserPatch },
+      {
+        user,
+        data,
+      },
+    );
   }
 
   @Post('/login')
@@ -77,42 +102,45 @@ export class UserController {
   @HttpCode(200)
   @ApiOperation({ summary: '登录' })
   async login(@Body() dto: LoginDto, @IpLocation() ipLocation: IpRecord) {
-    return this.user.send(UserEvents.UserLogin, {
-      dto,
-      ipLocation,
-    });
+    return this.user.send(
+      { cmd: UserEvents.UserLogin },
+      {
+        dto,
+        ipLocation,
+      },
+    );
   }
 
   @Post('/logout')
   @Auth()
   async logout(@RequestUserToken() token: string) {
-    return this.user.send(UserEvents.UserLogout, token);
+    return this.user.send({ cmd: UserEvents.UserLogout }, token);
   }
 
   @Post('/logoutAll')
   @Auth()
   async logoutAll() {
-    return this.user.send(UserEvents.UserLogoutAll, null);
+    return this.user.send({ cmd: UserEvents.UserLogoutAll }, null);
   }
 
   @Get(['/getAllSession', '/session'])
   @Auth()
   @ApiOperation({ summary: '获取所有session' })
   async getAllSession(@RequestUserToken() token: string) {
-    return this.user.send(UserEvents.UserGetAllSession, token);
+    return this.user.send({ cmd: UserEvents.UserGetAllSession }, token);
   }
 
   @Delete('/session/:tokenId')
   @Auth()
   @ApiOperation({ summary: '删除指定的session' })
   async deleteSession(@Param('tokenId') tokenId: string) {
-    return this.user.send(UserEvents.UserLogout, tokenId);
+    return this.user.send({ cmd: UserEvents.UserLogout }, tokenId);
   }
 
   @Delete('/session/all')
   @Auth()
   @ApiOperation({ summary: '获取所有session' })
   async deleteAllSession() {
-    return this.user.send(UserEvents.UserLogoutAll, null);
+    return this.user.send({ cmd: UserEvents.UserLogoutAll }, null);
   }
 }

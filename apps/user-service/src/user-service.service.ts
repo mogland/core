@@ -5,13 +5,13 @@ import {
   Logger,
   UnprocessableEntityException,
 } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { compareSync } from 'bcrypt';
 // import { nanoid } from 'nanoid';
 import { AuthService } from '~/libs/auth/src';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { BusinessException } from '~/shared/common/exceptions/business.excpetion';
-import { CannotFindException } from '~/shared/common/exceptions/cant-find.exception';
 import { ErrorCodeEnum } from '~/shared/constants/error-code.constant';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { getAvatar } from '~/shared/utils';
@@ -126,9 +126,11 @@ export class UserService {
   async getUserByUsername(username: string, getLoginIp = false) {
     const user = await this.userModel
       .findOne({ username })
-      .select(`-authCode${getLoginIp ? ' +lastLoginIp' : ''}`)
+      .select(`${getLoginIp ? ' +lastLoginIp' : ''}`)
       .lean({ virtuals: true });
-    if (!user) throw new CannotFindException();
+    if (!user) {
+      throw new RpcException('用户不存在');
+    }
     return user;
   }
 
@@ -147,7 +149,9 @@ export class UserService {
         .select('+password +apiToken');
 
       if (!currentUser) {
-        throw new BusinessException(ErrorCodeEnum.MasterLostError);
+        throw new RpcException(
+          new BusinessException(ErrorCodeEnum.MasterLostError),
+        );
       }
       // 1. 验证新旧密码是否一致
       const isSamePassword = compareSync(password, currentUser.password);

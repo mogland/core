@@ -16,6 +16,7 @@ import { getIp } from '../../utils/ip.util';
 import { LoggingInterceptor } from '../interceptors/logging.interceptor';
 import { LOG_DIR } from '~/shared/constants/path.constant';
 import { REFLECTOR } from '~/shared/constants/system.constant';
+import { HTTP_REQUEST_TIME } from '~/shared/constants/meta.constant';
 
 type myError = {
   readonly status: number;
@@ -46,10 +47,11 @@ export class AllExceptionsFilter implements ExceptionFilter {
       (exception as myError)?.message ||
       '';
 
-    const url = request.raw.url!;
+    const url = request?.raw?.url ? decodeURI(request.raw.url) : 'URL';
     if (status === HttpStatus.INTERNAL_SERVER_ERROR) {
       Logger.error(exception, undefined, 'Catch');
 
+      // @ts-ignore
       if (!isDev) {
         this.errorLogPipe =
           this.errorLogPipe ??
@@ -59,7 +61,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
           });
 
         this.errorLogPipe.write(
-          `[${new Date().toISOString()}] ${decodeURI(url)}: ${
+          `[${new Date().toISOString()}] ${url}: ${
             (exception as any)?.response?.message ||
             (exception as myError)?.message
           }\n${(exception as Error).stack}\n`,
@@ -68,7 +70,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     } else {
       const ip = getIp(request);
       this.logger.warn(
-        `IP: ${ip} Error Info: (${status}) ${message} Path: ${decodeURI(url)}`,
+        `IP: ${ip} Error Info: (${status}) ${message} Path: ${url}`,
       );
     }
     // @ts-ignore
@@ -77,7 +79,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     if (prevRequestTs) {
       const content = `${request.method} -> ${request.url}`;
       Logger.debug(
-        `--- ResponseError：${content}${chalk.yellow(
+        `--- ResponseError ${content}${chalk.yellow(
           ` +${+new Date() - prevRequestTs}ms`,
         )}`,
         LoggingInterceptor.name,

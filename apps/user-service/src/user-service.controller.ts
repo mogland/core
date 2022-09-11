@@ -11,8 +11,8 @@ export class UserServiceController {
   constructor(private readonly userService: UserService) {}
 
   @MessagePattern({ cmd: UserEvents.UserGet })
-  handleUserGet(username: string, getLoginIp: boolean) {
-    return this.userService.getUserByUsername(username, getLoginIp);
+  handleUserGet(data: { username: string; getLoginIp: boolean }) {
+    return this.userService.getUserByUsername(data.username, data.getLoginIp);
   }
 
   // @EventPattern(UserEvents.UserCheck)
