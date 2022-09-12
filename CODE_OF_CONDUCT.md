@@ -1,52 +1,39 @@
-# Contributor Covenant Code of Conduct
+# 贡献者契约行为准则
 
-## Our Pledge
+## 我们的承诺
 
-We as members, contributors, and leaders pledge to make participation in our
-community a harassment-free experience for everyone, regardless of age, body
-size, visible or invisible disability, ethnicity, sex characteristics, gender
-identity and expression, level of experience, education, socio-economic status,
-nationality, personal appearance, race, religion, or sexual identity
-and orientation.
+作为成员、贡献者和组织者，我们承诺参与社区为每个人提供服务，无论年龄、身体、可见或不可见残疾、种族、性别特征、性别身份和表达、经验水平、教育、社会经济地位，国籍、个人外貌、种族、宗教或性别认同以及方向。
 
-We pledge to act and interact in ways that contribute to an open, welcoming,
-diverse, inclusive, and healthy community.
+我们承诺以有助于建立一个开放、欢迎、开放的世界的方式采取行动，多元、包容和健康的社区。
 
-## Our Standards
+## 我们的标准
 
-Examples of behavior that contributes to a positive environment for our
-community include:
+有助于为我们创造积极环境的行为示例社区包括：
 
-* Demonstrating empathy and kindness toward other people
-* Being respectful of differing opinions, viewpoints, and experiences
-* Giving and gracefully accepting constructive feedback
-* Accepting responsibility and apologizing to those affected by our mistakes,
-  and learning from the experience
-* Focusing on what is best not just for us as individuals, but for the
-  overall community
+* 对他人表现出同理心和善意
+* 尊重不同的意见、观点和经验
+* 给予并优雅地接受建设性反馈
+* 接受责任并向受我们错误影响的人道歉，从经验中学习
+* 专注于对我们个人最有利的事情，而不是整体社会
 
-Examples of unacceptable behavior include:
+不可接受行为的例子包括：
 
-* The use of sexualized language or imagery, and sexual attention or
-  advances of any kind
-* Trolling, insulting or derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or email
-  address, without their explicit permission
-* Other conduct which could reasonably be considered inappropriate in a
-  professional setting
+* 使用性化语言或图像，以及性关注或
+任何类型的进展
+* 辱骂、侮辱或贬损评论，以及人身攻击或政治攻击
+* 公共或私人骚扰
+* 发布他人的私人信息，如物理或电子邮件
+地址，未经其明确许可
+* 在下列情况下被合理认为不适当的其他行为：
+专业设置
 
-## Enforcement Responsibilities
+## 执行责任
 
-Community leaders are responsible for clarifying and enforcing our standards of
-acceptable behavior and will take appropriate and fair corrective action in
-response to any behavior that they deem inappropriate, threatening, offensive,
-or harmful.
+社区领导人负责澄清和执行我们的可接受的行为，并将采取适当和公平的纠正措施：
 
-Community leaders have the right and responsibility to remove, edit, or reject
-comments, commits, code, wiki edits, issues, and other contributions that are
-not aligned to this Code of Conduct, and will communicate reasons for moderation
-decisions when appropriate.
+对他们认为不适当、威胁性、攻击性的任何行为作出反应，或有害的。
+
+社区领导人有权利和责任删除、编辑或拒绝评论、提交、代码、维基编辑、问题和其他贡献不符合本行为准则，并将传达适度的理由适当时作出决定。
 
 ## Scope
 
