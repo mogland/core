@@ -35,69 +35,55 @@
 
 社区领导人有权利和责任删除、编辑或拒绝评论、提交、代码、维基编辑、问题和其他贡献不符合本行为准则，并将传达适度的理由适当时作出决定。
 
-## Scope
+# 范围
 
-This Code of Conduct applies within all community spaces, and also applies when
-an individual is officially representing the community in public spaces.
-Examples of representing our community include using an official e-mail address,
-posting via an official social media account, or acting as an appointed
-representative at an online or offline event.
+本行为准则适用于所有社区空间，也适用于以下情况：
 
-## Enforcement
+- 个人在公共空间正式代表社区。
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the community leaders responsible for enforcement at
-GitHub.
-All complaints will be reviewed and investigated promptly and fairly.
+- 代表我们社区的例子包括使用官方电子邮件地址，
 
-All community leaders are obligated to respect the privacy and security of the
-reporter of any incident.
+- 通过官方社交媒体账号发布，或作为指定的线上或线下活动的代表。
 
-## Enforcement Guidelines
+# 执法
 
-Community leaders will follow these Community Impact Guidelines in determining
-the consequences for any action they deem in violation of this Code of Conduct:
+辱骂、骚扰或其他不可接受的行为可能会报告给负责执行的社区领导人GitHub。
 
-### 1. Correction
+所有投诉均会迅速而公正地接受审查和调查。
 
-**Community Impact**: Use of inappropriate language or other behavior deemed
-unprofessional or unwelcome in the community.
+所有社区领导人都有义务尊重他们的隐私和安全任何事件的记者。
 
-**Consequence**: A private, written warning from community leaders, providing
-clarity around the nature of the violation and an explanation of why the
-behavior was inappropriate. A public apology may be requested.
+# 执法指南
 
-### 2. Warning
+社区领导将遵循这些社区影响指南来决定他们认为违反本行为守则的任何行为的后果：
 
-**Community Impact**: A violation through a single incident or series
-of actions.
+### 1.改错
 
-**Consequence**: A warning with consequences for continued behavior. No
-interaction with the people involved, including unsolicited interaction with
-those enforcing the Code of Conduct, for a specified period of time. This
-includes avoiding interactions in community spaces as well as external channels
-like social media. Violating these terms may lead to a temporary or
-permanent ban.
+**社区影响**:使用不恰当的语言或其他行为被视为不专业或不受社会欢迎。
 
-### 3. Temporary Ban
+**后果**:社区领导人私下书面警告，提供明确违规的性质并解释原因行为是不合适的。可能会要求公开道歉。
 
-**Community Impact**: A serious violation of community standards, including
-sustained inappropriate behavior.
+### 2. 警告
 
-**Consequence**: A temporary ban from any sort of interaction or public
-communication with the community for a specified period of time. No public or
-private interaction with the people involved, including unsolicited interaction
-with those enforcing the Code of Conduct, is allowed during this period.
-Violating these terms may lead to a permanent ban.
+**社区影响**:单一事件或系列的违规行为的行动。
 
-### 4. Permanent Ban
+**后果**:对持续行为的后果的警告。没有与相关人员的互动，包括主动的互动
+在一段特定时间内执行行为准则的人。这包括避免在社区空间和外部渠道的互动
+像社交媒体。违反这些条款可能会导致暂时的或永久禁令。
 
-**Community Impact**: Demonstrating a pattern of violation of community
-standards, including sustained inappropriate behavior,  harassment of an
-individual, or aggression toward or disparagement of classes of individuals.
+### 3. 暂时禁令
 
-**Consequence**: A permanent ban from any sort of public interaction within
-the community.
+**社区影响**:严重违反社区标准，包括持续的不得体的行为。
+
+**结果**:暂时禁止任何形式的互动或公众活动在指定的时间内与社区进行沟通。没有公开或与相关人员的私人互动，包括未经请求的互动在此期间是允许的。
+
+违反这些条款可能会导致永久禁令。
+
+### 4. 永久禁令
+
+**社区影响**:显示出一种侵犯社区的模式标准，包括持续的不当行为、骚扰等个体的，或对个体阶级的攻击或贬低。
+
+**后果**:永久禁止内部任何形式的公共互动社区。
 
 ## Attribution
 
