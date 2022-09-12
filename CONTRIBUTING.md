@@ -1,8 +1,8 @@
-# Contributing to nx-space/core
+# Contributing to mogland/core
 
-👍🎉 首先感谢你利用空余时间对 nx-space 的贡献！👍🎉
+👍🎉 首先感谢你利用空余时间对 Mog 的贡献！👍🎉
 
-下面是一些为 nx-space/core 做出贡献的指南.
+下面是一些为 mogland/core 做出贡献的指南.
 
 ## 如何命名一个新的分支
 
