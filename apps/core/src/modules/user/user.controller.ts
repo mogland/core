@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:26:41
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-12 15:05:54
+ * @LastEditTime: 2022-09-12 21:51:38
  * Coding With IU
  */
 
@@ -140,7 +140,7 @@ export class UserController {
     );
   }
 
-  @Get(['/getAllSession', '/session'])
+  @Get(['/sessions'])
   @Auth()
   @ApiOperation({ summary: '获取所有session' })
   async getAllSession(@RequestUserToken() token: string) {
