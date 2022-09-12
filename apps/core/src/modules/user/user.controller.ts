@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:26:41
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-11 19:55:29
+ * @LastEditTime: 2022-09-12 15:05:54
  * Coding With IU
  */
 
@@ -81,13 +81,20 @@ export class UserController {
   @HttpCache.disable
   @ApiOperation({ summary: '修改用户信息' })
   patch(@RequestUser() user: UserDocument, data: UserPatchDto) {
-    return this.user.send(
-      { cmd: UserEvents.UserPatch },
-      {
-        user,
-        data,
-      },
-    );
+    return this.user
+      .send(
+        { cmd: UserEvents.UserPatch },
+        {
+          user,
+          data,
+        },
+      )
+      .pipe(
+        timeout(1000),
+        catchError((err) => {
+          return throwError(() => new HttpException(err.message, err.status));
+        }),
+      );
   }
 
   @Post('/login')
@@ -95,45 +102,77 @@ export class UserController {
   @HttpCode(200)
   @ApiOperation({ summary: '登录' })
   async login(@Body() dto: LoginDto, @IpLocation() ipLocation: IpRecord) {
-    return this.user.send(
-      { cmd: UserEvents.UserLogin },
-      {
-        dto,
-        ipLocation,
-      },
-    );
+    return this.user
+      .send(
+        { cmd: UserEvents.UserLogin },
+        {
+          dto,
+          ipLocation,
+        },
+      )
+      .pipe(
+        timeout(1000),
+        catchError((err) => {
+          return throwError(() => new HttpException(err.message, err.status));
+        }),
+      );
   }
 
   @Post('/logout')
   @Auth()
   async logout(@RequestUserToken() token: string) {
-    return this.user.send({ cmd: UserEvents.UserLogout }, token);
+    return this.user.send({ cmd: UserEvents.UserLogout }, token).pipe(
+      timeout(1000),
+      catchError((err) => {
+        return throwError(() => new HttpException(err.message, err.status));
+      }),
+    );
   }
 
   @Post('/logoutAll')
   @Auth()
   async logoutAll() {
-    return this.user.send({ cmd: UserEvents.UserLogoutAll }, null);
+    return this.user.send({ cmd: UserEvents.UserLogoutAll }, null).pipe(
+      timeout(1000),
+      catchError((err) => {
+        return throwError(() => new HttpException(err.message, err.status));
+      }),
+    );
   }
 
   @Get(['/getAllSession', '/session'])
   @Auth()
   @ApiOperation({ summary: '获取所有session' })
   async getAllSession(@RequestUserToken() token: string) {
-    return this.user.send({ cmd: UserEvents.UserGetAllSession }, token);
+    return this.user.send({ cmd: UserEvents.UserGetAllSession }, token).pipe(
+      timeout(1000),
+      catchError((err) => {
+        return throwError(() => new HttpException(err.message, err.status));
+      }),
+    );
   }
 
   @Delete('/session/:tokenId')
   @Auth()
   @ApiOperation({ summary: '删除指定的session' })
   async deleteSession(@Param('tokenId') tokenId: string) {
-    return this.user.send({ cmd: UserEvents.UserLogout }, tokenId);
+    return this.user.send({ cmd: UserEvents.UserLogout }, tokenId).pipe(
+      timeout(1000),
+      catchError((err) => {
+        return throwError(() => new HttpException(err.message, err.status));
+      }),
+    );
   }
 
   @Delete('/session/all')
   @Auth()
   @ApiOperation({ summary: '获取所有session' })
   async deleteAllSession() {
-    return this.user.send({ cmd: UserEvents.UserLogoutAll }, null);
+    return this.user.send({ cmd: UserEvents.UserLogoutAll }, null).pipe(
+      timeout(1000),
+      catchError((err) => {
+        return throwError(() => new HttpException(err.message, err.status));
+      }),
+    );
   }
 }
