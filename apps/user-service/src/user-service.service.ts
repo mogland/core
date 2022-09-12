@@ -1,21 +1,11 @@
-import {
-  BadRequestException,
-  ForbiddenException,
-  HttpStatus,
-  Injectable,
-  Logger,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { compareSync } from 'bcrypt';
 // import { nanoid } from 'nanoid';
 import { AuthService } from '~/libs/auth/src';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
-import { BusinessException } from '~/shared/common/exceptions/business.excpetion';
-import {
-  ErrorCodeEnum,
-} from '~/shared/constants/error-code.constant';
+import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { getAvatar } from '~/shared/utils';
 import { LoginDto } from './user.dto';
@@ -47,14 +37,20 @@ export class UserService {
     // TODO：初始化当前用户的文章、页面、分类
 
     const exist = await this.userModel.findOne({ username: model.username });
-    if (exist) throw new BadRequestException('用户名已存在');
+    if (exist)
+      throw new RpcException({
+        status: HttpStatus.BAD_REQUEST,
+        message: ExceptionMessage.UserNameIsExist,
+      });
 
     // 角色控制若完成后，应删除此行下方的代码
-    const count = await this.userModel.countDocuments();
     const hasMaster = !!(await this.userModel.countDocuments());
     // 禁止注册两个以上账户
     if (hasMaster) {
-      throw new BadRequestException('我已经有一个主人了哦');
+      throw new RpcException({
+        status: HttpStatus.BAD_REQUEST,
+        message: ExceptionMessage.UserIsExist,
+      });
     }
 
     const res = await this.userModel.create({ ...model });
@@ -73,10 +69,16 @@ export class UserService {
   async returnLoginData(username: string, password: string) {
     const user = await this.userModel.findOne({ username }).select('+password');
     if (!user) {
-      throw new ForbiddenException('用户名不正确');
+      throw new RpcException({
+        status: HttpStatus.FORBIDDEN,
+        message: ExceptionMessage.UserNameError,
+      });
     }
     if (!compareSync(password, user.password)) {
-      throw new ForbiddenException('密码不正确');
+      throw new RpcException({
+        status: HttpStatus.FORBIDDEN,
+        message: ExceptionMessage.UserPasswordError,
+      });
     }
 
     return user;
@@ -134,7 +136,7 @@ export class UserService {
     if (!user) {
       throw new RpcException({
         status: HttpStatus.NOT_FOUND,
-        message: '用户不存在',
+        message: ExceptionMessage.UserNotFound,
       });
     }
     return user;
@@ -155,14 +157,18 @@ export class UserService {
         .select('+password +apiToken');
 
       if (!currentUser) {
-        throw new RpcException(
-          new BusinessException(ErrorCodeEnum.MasterLostError),
-        );
+        throw new RpcException({
+          status: HttpStatus.NOT_FOUND,
+          message: ExceptionMessage.UserNotFound,
+        });
       }
       // 1. 验证新旧密码是否一致
       const isSamePassword = compareSync(password, currentUser.password);
       if (isSamePassword) {
-        throw new UnprocessableEntityException('密码可不能和原来的一样哦');
+        throw new RpcException({
+          status: HttpStatus.BAD_REQUEST,
+          message: ExceptionMessage.UserPasswordIsSame,
+        });
       }
 
       // // 2. 认证码重新生成
@@ -190,7 +196,10 @@ export class UserService {
   ): Promise<Record<string, Date | string>> {
     const master = await this.userModel.findOne({ username });
     if (!master) {
-      throw new BusinessException(ErrorCodeEnum.MasterLostError);
+      throw new RpcException({
+        status: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.UserNotFound,
+      });
     }
     const PrevFootstep = {
       lastLoginTime: master.lastLoginTime || new Date(1586090559569),
