@@ -3,15 +3,15 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:26:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-03 22:31:59
+ * @LastEditTime: 2022-09-11 08:31:45
  * Coding With IU
  */
 
-import { Module } from "@nestjs/common";
-import { ClientsModule, Transport } from "@nestjs/microservices";
-import { ServicesEnum } from "~/shared/constants/services.constant";
-import { UserController } from "./user.controller";
-
+import { Module } from '@nestjs/common';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { AuthModule } from '~/libs/auth/src';
+import { ServicesEnum } from '~/shared/constants/services.constant';
+import { UserController } from './user.controller';
 
 @Module({
   imports: [
@@ -19,8 +19,9 @@ import { UserController } from "./user.controller";
       {
         name: ServicesEnum.user,
         transport: Transport.TCP,
-      }
-    ])
+      },
+    ]),
+    AuthModule,
   ],
   controllers: [UserController],
   providers: [],

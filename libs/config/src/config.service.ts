@@ -17,7 +17,7 @@ import {
 import { ReturnModelType } from '@typegoose/typegoose';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { validateSync, ValidatorOptions } from 'class-validator';
-import { cloneDeep, mergeWith } from 'lodash-es';
+import { cloneDeep, mergeWith } from 'lodash';
 import { CacheService } from '~/libs/cache/src';
 import { InjectModel } from '~/libs/database/src/model.transformer';
 import { RedisKeys } from '~/shared/constants/cache.constant';

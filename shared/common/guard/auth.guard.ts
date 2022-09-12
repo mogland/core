@@ -12,9 +12,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { AuthService } from '~/libs/auth/src';
-
-import { getNestExecutionContextRequest } from '~/shared/transformers/get-req.transformer';
 import { ConfigService } from '~/libs/config/src';
+import { getNestExecutionContextRequest } from '~/shared/transformers/get-req.transformer';
 
 /**
  * JWT auth guard
@@ -38,6 +37,18 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException('未登录');
     }
 
+    if (this.authService.isCustomToken(Authorization)) {
+      const [isValid, userModel] = await this.authService.verifyCustomToken(
+        Authorization,
+      );
+      if (!isValid) {
+        throw new UnauthorizedException('令牌无效');
+      }
+      request.user = userModel; // 让后续的中间件可以获取到用户信息
+      request.token = Authorization;
+      return true;
+    }
+
     const jwt = Authorization.replace(/[Bb]earer /, '');
 
     if (!isJWT(jwt)) {
@@ -48,7 +59,7 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException('身份过期');
     }
 
-    // request.user = await this.configs.getMaster();
+    request.user = this.authService.jwtServicePublic.decode(jwt).user;
     request.token = jwt;
     return true;
   }

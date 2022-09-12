@@ -6,17 +6,16 @@
  * @LastEditTime: 2022-08-31 20:45:56
  * Coding With IU
  */
-import { ValidationOptions, isString } from "class-validator";
-import isBoolean from "lodash-es/isBoolean";
-import merge from "lodash-es/merge";
+import { ValidationOptions, isString } from 'class-validator';
+import isBoolean from 'lodash/isBoolean';
+import merge from 'lodash/merge';
 
-
-import { validatorFactory } from "./simpleValidatorFactory";
+import { validatorFactory } from './simpleValidatorFactory';
 
 export function IsBooleanOrString(validationOptions?: ValidationOptions) {
   return validatorFactory((value) => isBoolean(value) || isString(value))(
     merge<ValidationOptions, ValidationOptions>(validationOptions || {}, {
-      message: "类型必须为 String or Boolean",
-    })
+      message: '类型必须为 String or Boolean',
+    }),
   );
 }

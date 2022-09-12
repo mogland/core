@@ -6,7 +6,7 @@ import { Injectable } from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { TokenModel, UserModel } from '~/apps/user-service/src/user.model';
 import { isDate } from 'class-validator';
-import { omit } from 'lodash-es';
+import { omit } from 'lodash';
 import { JWTService } from '~/libs/helper/src/helper.jwt.service';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { alphabet } from '~/shared/constants/others.constant';

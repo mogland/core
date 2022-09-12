@@ -12,6 +12,7 @@ import { CLUSTER, SECURITY } from '~/apps/core/src/app.config';
 import { CacheService } from '~/libs/cache/src';
 import { RedisKeys } from '~/shared/constants/cache.constant';
 import { getRedisKey, md5 } from '~/shared/utils';
+import { UserModel } from '~/apps/user-service/src/user.model';
 
 @Injectable()
 export class JWTService {
@@ -114,12 +115,16 @@ export class JWTService {
 
   public static readonly expiresDay = SECURITY.jwtExpire;
 
-  sign(id: string, info?: { ip: string; ua: string }) {
+  sign(id: string, info?: { user: UserModel; ip: string; ua: string }) {
     const token = sign({ id }, this.secret, {
       expiresIn: `${JWTService.expiresDay}d`,
     });
     this.storeTokenInRedis(token, info || {});
     return token;
+  }
+
+  decode(token: string) {
+    return verify(token, this.secret);
   }
 }
 

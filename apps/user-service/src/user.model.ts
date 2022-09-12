@@ -3,15 +3,22 @@
  * @author: Wibus
  * @Date: 2022-09-04 13:58:22
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-04 14:13:41
+ * @LastEditTime: 2022-09-11 07:49:33
  * Coding With IU
  */
 
-import { modelOptions, prop, Severity } from '@typegoose/typegoose';
+import {
+  modelOptions,
+  prop,
+  Severity,
+  DocumentType,
+} from '@typegoose/typegoose';
 import mongoose from 'mongoose';
 import { hashSync } from 'bcrypt';
 import { BaseModel } from '~/shared/model/base.model';
 import { ApiProperty } from '@nestjs/swagger';
+
+export type UserDocument = DocumentType<UserModel>;
 
 export enum UserRole {
   root,
@@ -91,19 +98,19 @@ export class UserModel extends BaseModel {
   @ApiProperty({ description: '用户社交账户 ID' })
   socialIds?: any;
 
-  @prop({ select: false, required: true })
-  @ApiProperty({ description: '用户登录授权码' })
-  authCode!: string;
+  // @prop({ select: false, required: true })
+  // @ApiProperty({ description: '用户登录授权码' })
+  // authCode!: string;
 
   @prop({ type: TokenModel, select: false })
   @ApiProperty({ description: 'API 密钥' })
   apiToken?: TokenModel[];
 
-  @prop({ type: OAuthModel, select: false })
-  @ApiProperty({ description: 'OAUTH 授权' })
-  oauth2?: OAuthModel[];
+  // @prop({ type: OAuthModel, select: false })
+  // @ApiProperty({ description: 'OAUTH 授权' })
+  // oauth2?: OAuthModel[];
 
-  @prop({ enum: UserRole, default: UserRole.visitor })
-  @ApiProperty({ description: '用户角色' })
-  role?: UserRole;
+  // @prop({ enum: UserRole, default: UserRole.visitor })
+  // @ApiProperty({ description: '用户角色' })
+  // role?: UserRole;
 }

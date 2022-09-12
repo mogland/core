@@ -12,14 +12,13 @@ import {
   // ValidationArguments,
   ValidationOptions,
   ValidatorConstraintInterface,
-} from "class-validator";
-import isNil from "lodash-es/isNil";
-import isString from "lodash-es/isString";
-
+} from 'class-validator';
+import isNil from 'lodash/isNil';
+import isString from 'lodash/isString';
 
 class IsNilOrStringConstraint implements ValidatorConstraintInterface {
   validate(
-    value: any
+    value: any,
     // args: ValidationArguments
   ) {
     return isNil(value) || isString(value);
