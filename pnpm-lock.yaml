@@ -66,7 +66,7 @@ specifiers:
   snakecase-keys: 5.4.4
   source-map-support: 0.5.21
   supertest: 6.2.4
-  ts-jest: 29.0.0
+  ts-jest: 29.0.1
   ts-loader: 9.3.1
   ts-node: 10.9.1
   tsconfig-paths: 4.1.0
@@ -143,7 +143,7 @@ devDependencies:
   prettier: 2.7.1
   source-map-support: 0.5.21
   supertest: 6.2.4
-  ts-jest: 29.0.0_wwfqqmkoyydtjs56cbrp7ttepi
+  ts-jest: 29.0.1_wwfqqmkoyydtjs56cbrp7ttepi
   ts-loader: 9.3.1_4bz3etpdgsvghw6bzhdz5wqrfu
   ts-node: 10.9.1_jo7canvdyegimszc24bn5dmoxi
   tsconfig-paths: 4.1.0
@@ -6607,8 +6607,8 @@ packages:
     hasBin: true
     dev: true
 
-  /ts-jest/29.0.0_wwfqqmkoyydtjs56cbrp7ttepi:
-    resolution: {integrity: sha512-OxUaigbv5Aon3OMLY9HBtwkGMs1upWE/URrmmVQFzzOcGlEPVuWzGmXUIkWGt/95Dj/T6MGuTrHHGL6kT6Yn8g==}
+  /ts-jest/29.0.1_wwfqqmkoyydtjs56cbrp7ttepi:
+    resolution: {integrity: sha512-htQOHshgvhn93QLxrmxpiQPk69+M1g7govO1g6kf6GsjCv4uvRV0znVmDrrvjUrVCnTYeY4FBxTYYYD4airyJA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
     peerDependencies:
