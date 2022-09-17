@@ -83,6 +83,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/config/tsconfig.lib.json"
       }
+    },
+    "category-service": {
+      "type": "application",
+      "root": "apps/category-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/category-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/category-service/tsconfig.app.json"
+      }
     }
   }
 }
