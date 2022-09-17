@@ -20,7 +20,6 @@ specifiers:
   '@typegoose/typegoose': 9.12.0
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.2
-  '@types/express': 4.17.13
   '@types/jest': 29.0.3
   '@types/lodash': 4.14.185
   '@types/node': 16.11.59
@@ -122,7 +121,6 @@ devDependencies:
   '@nestjs/testing': 9.0.11_22aqaldwhkq733wedt5e3lqkaa
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.2
-  '@types/express': 4.17.13
   '@types/jest': 29.0.3
   '@types/lodash': 4.14.185
   '@types/node': 16.11.59
@@ -1515,13 +1513,6 @@ packages:
       '@types/node': 16.11.59
     dev: true
 
-  /@types/body-parser/1.19.2:
-    resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
-    dependencies:
-      '@types/connect': 3.4.35
-      '@types/node': 16.11.59
-    dev: true
-
   /@types/cache-manager-ioredis/2.0.2:
     resolution: {integrity: sha512-mcn1k5bCJ/iAIymLRq4d6KSvEdrdspuo8KEIIPkPEl5WP+2CC7NWtRJmgFBoNqCgNxr++B62kOmIH1HYXAiBdA==}
     dependencies:
@@ -1531,12 +1522,6 @@ packages:
 
   /@types/cache-manager/4.0.1:
     resolution: {integrity: sha512-w4Gm7qg4ohvk0k4CLhOoqnMohWEyeyAOTovPgkguhuDCfVEV1wN/HWEd1XzB1S9/NV9pUcZcc498qU4E15ck6A==}
-    dev: true
-
-  /@types/connect/3.4.35:
-    resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
-    dependencies:
-      '@types/node': 16.11.59
     dev: true
 
   /@types/cookiejar/2.1.2:
@@ -1559,23 +1544,6 @@ packages:
 
   /@types/estree/0.0.51:
     resolution: {integrity: sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ==}
-    dev: true
-
-  /@types/express-serve-static-core/4.17.30:
-    resolution: {integrity: sha512-gstzbTWro2/nFed1WXtf+TtrpwxH7Ggs4RLYTLbeVgIkUQOI3WG/JKjgeOU1zXDvezllupjrf8OPIdvTbIaVOQ==}
-    dependencies:
-      '@types/node': 16.11.59
-      '@types/qs': 6.9.7
-      '@types/range-parser': 1.2.4
-    dev: true
-
-  /@types/express/4.17.13:
-    resolution: {integrity: sha512-6bSZTPaTIACxn48l50SR+axgrqm6qXFIxrdAKaG6PaJk3+zuUr35hBlgT7vOmJcum+OEaIBLtHV/qloEAFITeA==}
-    dependencies:
-      '@types/body-parser': 1.19.2
-      '@types/express-serve-static-core': 4.17.30
-      '@types/qs': 6.9.7
-      '@types/serve-static': 1.15.0
     dev: true
 
   /@types/graceful-fs/4.1.5:
@@ -1625,10 +1593,6 @@ packages:
     resolution: {integrity: sha512-evMDG1bC4rgQg4ku9tKpuMh5iBNEwNa3tf9zRHdP1qlv+1WUg44xat4IxCE14gIpZRGUUWAx2VhItCZc25NfMA==}
     dev: true
 
-  /@types/mime/3.0.1:
-    resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
-    dev: true
-
   /@types/node/14.18.26:
     resolution: {integrity: sha512-0b+utRBSYj8L7XAp0d+DX7lI4cSmowNaaTkk6/1SKzbKkG+doLuPusB9EOvzLJ8ahJSk03bTLIL6cWaEd4dBKA==}
     dev: true
@@ -1643,21 +1607,6 @@ packages:
 
   /@types/prettier/2.7.0:
     resolution: {integrity: sha512-RI1L7N4JnW5gQw2spvL7Sllfuf1SaHdrZpCHiBlCXjIlufi1SMNnbu2teze3/QE67Fg2tBlH7W+mi4hVNk4p0A==}
-    dev: true
-
-  /@types/qs/6.9.7:
-    resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
-    dev: true
-
-  /@types/range-parser/1.2.4:
-    resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
-    dev: true
-
-  /@types/serve-static/1.15.0:
-    resolution: {integrity: sha512-z5xyF6uh8CbjAu9760KDKsH2FcDxZ2tFCsA4HIMWE6IkiYMXfVoa+4f9KX+FN0ZLsaMw1WNG2ETLA6N+/YA+cg==}
-    dependencies:
-      '@types/mime': 3.0.1
-      '@types/node': 16.11.59
     dev: true
 
   /@types/stack-utils/2.0.1:
