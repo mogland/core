@@ -1,7 +1,6 @@
 import slugify from 'slugify';
 import { forwardRef, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { AggregatePaginateModel, Document, PipelineStage } from 'mongoose';
-import { CacheService } from '~/libs/cache/src';
 import { InjectModel } from '~/libs/database/src/model.transformer';
 import { PagerDto } from '~/shared/dto/pager.dto';
 import { addYearCondition } from '~/shared/transformers/db-query.transformer';
@@ -20,17 +19,15 @@ export class PageService {
       AggregatePaginateModel<PostModel & Document>,
     @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
-
-    private readonly redis: CacheService,
   ) {}
 
   get model() {
     return this.postModel;
   }
 
-  async aggregatePaginate(input: { query: PagerDto; isMaster: boolean }) {
-    if (!input.isMaster) input.isMaster = false;
-    const { size, select, page, year, sortBy, sortOrder } = input.query;
+  async aggregatePaginate(query: PagerDto, isMaster: boolean) {
+    if (!isMaster) isMaster = false;
+    const { size, select, page, year, sortBy, sortOrder } = query;
     return this.model.aggregatePaginate(
       this.model.aggregate(
         [
@@ -54,14 +51,14 @@ export class PageService {
           //   },
           // },
           // if not master, only show published posts
-          !input.isMaster && {
+          !isMaster && {
             $match: {
               // match the condition
               hide: { $ne: true }, // $ne: not equal
             },
           },
           // 如果不是master，并且password不为空，则将text,summary修改
-          !input.isMaster && {
+          !isMaster && {
             $set: {
               // set the field to a new value
               summary: {
@@ -83,7 +80,7 @@ export class PageService {
               },
             },
           },
-          !input.isMaster && {
+          !isMaster && {
             // if not master, only show usual fields
             $project: {
               hide: 0,
@@ -156,14 +153,14 @@ export class PageService {
   /**
    * 根据文章slug和分类slug查询文章
    */
-  async getPostByCategoryAndSlug(input: {
-    category: string;
-    slug: string;
-    password: any;
-    isMaster: boolean;
-  }) {
+  async getPostByCategoryAndSlug(
+    category: string,
+    slug: string,
+    password?: any,
+    isMaster?: boolean,
+  ) {
     const categoryDocument = await this.categoryService.getCategoryBySlug(
-      input.category,
+      category,
     );
     if (!categoryDocument) {
       throw new RpcException({
@@ -175,17 +172,17 @@ export class PageService {
       await this.model
         .findOne({
           categoryId: categoryDocument._id,
-          slug: input.slug,
+          slug,
         })
         .then((post) => {
-          if (!post || (!input.isMaster && post.hide)) {
+          if (!post || (!isMaster && post.hide)) {
             throw new RpcException({
               code: HttpStatus.NOT_FOUND,
               message: ExceptionMessage.PostIsNotExist,
             });
           }
-          if (!input.isMaster && post.password) {
-            if (!input.password || input.password !== post.password) {
+          if (!isMaster && post.password) {
+            if (!password || password !== post.password) {
               post.text = ExceptionMessage.PostIsProtected;
               post.summary = ExceptionMessage.PostIsProtected;
             } else {
@@ -206,7 +203,7 @@ export class PageService {
    * @param slug 文章slug
    * @returns Promise<boolean>
    */
-  async isAvailableSlug(slug: string) {
+  async isAvailablePostSlug(slug: string) {
     return (await this.postModel.countDocuments({ slug })) === 0;
   }
 
@@ -215,7 +212,7 @@ export class PageService {
    * @param post 文章
    * @returns Promise<PostModel>
    */
-  async create(post: PostModel) {
+  async createPost(post: PostModel) {
     const { categoryId } = post;
     const category = await this.categoryService.getCategoryById(
       categoryId as any as string,
@@ -228,7 +225,7 @@ export class PageService {
     }
 
     const slug = post.slug ? slugify(post.slug) : slugify(post.title);
-    const isAvailableSlug = await this.isAvailableSlug(slug);
+    const isAvailableSlug = await this.isAvailablePostSlug(slug);
     if (!isAvailableSlug) {
       throw new RpcException({
         code: HttpStatus.BAD_REQUEST,
@@ -250,19 +247,17 @@ export class PageService {
 
   /**
    * 更新文章
-   * @param id 文章id
-   * @param data 文章数据
    * @returns Promise<PostModel>
    */
-  async updateById(input: { id: string; data: Partial<PostModel> }) {
-    const oldDocument = await this.postModel.findById(input.id).lean();
+  async updatePostById(id: string, data: Partial<PostModel>) {
+    const oldDocument = await this.postModel.findById(id).lean();
     if (!oldDocument) {
       throw new RpcException({
         code: HttpStatus.BAD_REQUEST,
         message: ExceptionMessage.PostIsNotExist,
       });
     }
-    const { categoryId } = input.data;
+    const { categoryId } = data;
     if (categoryId && categoryId !== oldDocument.categoryId) {
       const category = await this.categoryService.getCategoryById(
         categoryId as any as string,
@@ -274,27 +269,22 @@ export class PageService {
         });
       }
     }
-    if (
-      [input.data.text, input.data.title, input.data.slug].some((i) =>
-        isDefined(i),
-      )
-    ) {
+    if ([data.text, data.title, data.slug].some((i) => isDefined(i))) {
       const now = new Date();
-
-      input.data.modified = now;
+      data.modified = now;
     }
 
-    const originDocument = await this.postModel.findById(input.id);
+    const originDocument = await this.postModel.findById(id);
     if (!originDocument) {
       throw new RpcException({
         code: HttpStatus.BAD_REQUEST,
         message: ExceptionMessage.PostIsNotExist,
       });
     }
-    if (input.data.slug && input.data.slug !== originDocument.slug) {
-      input.data.slug = slugify(input.data.slug);
+    if (data.slug && data.slug !== originDocument.slug) {
+      data.slug = slugify(data.slug);
       // 检查slug是否已存在
-      const isAvailableSlug = await this.isAvailableSlug(input.data.slug);
+      const isAvailableSlug = await this.isAvailablePostSlug(data.slug);
       if (!isAvailableSlug) {
         throw new RpcException({
           code: HttpStatus.BAD_REQUEST,
@@ -302,13 +292,25 @@ export class PageService {
         });
       }
     }
-    Object.assign(originDocument, omit(input.data, PostModel.protectedKeys));
+    Object.assign(originDocument, omit(data, PostModel.protectedKeys));
     await originDocument.save();
 
     process.nextTick(async () => {
       await Promise.all([]);
     });
     return originDocument.toObject();
+  }
+
+  /**
+   * 根据id删除文章
+   * @param id 文章id
+   * @returns void
+   **/
+  async deletePostById(id: string) {
+    await Promise.all([
+      this.model.deleteOne({ _id: id }),
+      // this.commentModel.deleteMany({ ref: id, refType: CommentType.Post }),
+    ]);
   }
 
   async CreateDefaultPost(cateId: string) {
