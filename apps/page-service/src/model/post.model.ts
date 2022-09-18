@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-18 15:02:05
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-18 15:12:11
+ * @LastEditTime: 2022-09-18 15:27:43
  * Coding With IU
  */
 
@@ -25,6 +25,7 @@ import {
   IsOptional,
   IsMongoId,
   IsBoolean,
+  ArrayUnique,
 } from 'class-validator';
 import { Query } from 'mongoose';
 import { CountMixed, WriteBaseModel } from '~/shared/model/base.model';
@@ -90,6 +91,7 @@ export class PostModel extends WriteBaseModel {
   })
   @IsString({ each: true })
   @IsOptional()
+  @ArrayUnique()
   @ApiProperty({ description: '文章标签' })
   tags?: string[];
 

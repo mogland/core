@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-18 15:00:16
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-18 15:00:16
+ * @LastEditTime: 2022-09-18 15:20:57
  * Coding With IU
  */
 import { Injectable } from '@nestjs/common';
@@ -19,7 +19,7 @@ export class CategoryService {
     private readonly categoryModel: ReturnModelType<typeof CategoryModel>,
   ) {}
 
-  get category() {
+  get model() {
     return this.categoryModel;
   }
 
