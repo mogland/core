@@ -53,6 +53,7 @@ specifiers:
   lint-staged: 13.0.3
   lodash: 4.17.21
   mongoose: 6.6.1
+  mongoose-aggregate-paginate-v2: ^1.0.6
   mongoose-lean-id: 0.3.0
   mongoose-lean-virtuals: 0.9.1
   mongoose-paginate-v2: 1.7.1
@@ -101,6 +102,7 @@ dependencies:
   jsonwebtoken: 8.5.1
   lodash: 4.17.21
   mongoose: 6.6.1
+  mongoose-aggregate-paginate-v2: 1.0.6
   mongoose-lean-id: 0.3.0_mongoose@6.6.1
   mongoose-lean-virtuals: 0.9.1_mongoose@6.6.1
   mongoose-paginate-v2: 1.7.1
@@ -5247,6 +5249,11 @@ packages:
       socks: 2.7.0
     optionalDependencies:
       saslprep: 1.0.3
+    dev: false
+
+  /mongoose-aggregate-paginate-v2/1.0.6:
+    resolution: {integrity: sha512-UuALu+mjhQa1K9lMQvjLL3vm3iALvNw8PQNIh2gp1b+tO5hUa0NC0Wf6/8QrT9PSJVTihXaD8hQVy3J4e0jO0Q==}
+    engines: {node: '>=4.0.0'}
     dev: false
 
   /mongoose-lean-id/0.3.0_mongoose@6.6.1:
