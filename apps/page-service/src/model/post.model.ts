@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-18 15:02:05
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-18 15:27:43
+ * @LastEditTime: 2022-09-18 20:54:39
  * Coding With IU
  */
 
@@ -21,7 +21,6 @@ import {
 import { BeAnObject } from '@typegoose/typegoose/lib/types';
 import {
   IsString,
-  IsNotEmpty,
   IsOptional,
   IsMongoId,
   IsBoolean,
@@ -41,11 +40,11 @@ import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
 @index({ text: 'text' })
 @modelOptions({ options: { customName: 'Post', allowMixed: Severity.ALLOW } })
 export class PostModel extends WriteBaseModel {
-  @prop({ trim: true, unique: true, required: true })
+  @prop({ trim: true, unique: true })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @ApiProperty({ description: '文章路径' })
-  slug!: string;
+  slug?: string;
 
   @prop({ trim: true })
   @IsString()
