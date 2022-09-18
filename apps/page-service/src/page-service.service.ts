@@ -1,21 +1,16 @@
 import slugify from 'slugify';
-import {
-  BadRequestException,
-  forwardRef,
-  Inject,
-  Injectable,
-} from '@nestjs/common';
+import { forwardRef, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { AggregatePaginateModel, Document, PipelineStage } from 'mongoose';
 import { CacheService } from '~/libs/cache/src';
 import { InjectModel } from '~/libs/database/src/model.transformer';
-import { BusinessException } from '~/shared/common/exceptions/business.excpetion';
-import { ErrorCodeEnum } from '~/shared/constants/error-code.constant';
 import { PagerDto } from '~/shared/dto/pager.dto';
 import { addYearCondition } from '~/shared/transformers/db-query.transformer';
 import { CategoryService } from './category.service';
 import { PostModel } from './model/post.model';
 import { isDefined } from 'class-validator';
 import { omit } from 'lodash';
+import { RpcException } from '@nestjs/microservices';
+import { ExceptionMessage } from '~/shared/constants/echo.constant';
 
 @Injectable()
 export class PageService {
@@ -150,7 +145,7 @@ export class PageService {
   }
 
   /**
-   * 根据id查询文章
+   * 根据文章 slug 查询文章
    * @param slug 文章slug
    */
   async getPostBySlug(slug: string) {
@@ -158,15 +153,7 @@ export class PageService {
   }
 
   /**
-   * 根据 id 查找文章分类
-   * @param id 分类 slug
-   */
-  async getCategoryBySlug(slug: string) {
-    return await this.categoryService.model.findOne({ slug });
-  }
-
-  /**
-   * 查询slug是否可用
+   * 查询文章 slug 是否可用
    * @param slug 文章slug
    * @returns Promise<boolean>
    */
@@ -185,13 +172,19 @@ export class PageService {
       categoryId as any as string,
     );
     if (!category) {
-      throw new BadRequestException('分类不存在o(╯□╰)o');
+      throw new RpcException({
+        code: HttpStatus.BAD_REQUEST,
+        message: ExceptionMessage.CategoryIsNotExist,
+      });
     }
 
     const slug = post.slug ? slugify(post.slug) : slugify(post.title);
     const isAvailableSlug = await this.isAvailableSlug(slug);
     if (!isAvailableSlug) {
-      throw new BusinessException(ErrorCodeEnum.SlugNotAvailable);
+      throw new RpcException({
+        code: HttpStatus.BAD_REQUEST,
+        message: ExceptionMessage.SlugIsExist,
+      });
     }
     const res = await this.postModel.create({
       ...post,
@@ -215,7 +208,10 @@ export class PageService {
   async updateById(id: string, data: Partial<PostModel>) {
     const oldDocument = await this.postModel.findById(id).lean();
     if (!oldDocument) {
-      throw new BadRequestException('文章不存在o(╯□╰)o');
+      throw new RpcException({
+        code: HttpStatus.BAD_REQUEST,
+        message: ExceptionMessage.PostIsNotExist,
+      });
     }
     const { categoryId } = data;
     if (categoryId && categoryId !== oldDocument.categoryId) {
@@ -223,7 +219,10 @@ export class PageService {
         categoryId as any as string,
       );
       if (!category) {
-        throw new BadRequestException('分类不存在o(╯□╰)o');
+        throw new RpcException({
+          code: HttpStatus.BAD_REQUEST,
+          message: ExceptionMessage.CategoryIsNotExist,
+        });
       }
     }
     if ([data.text, data.title, data.slug].some((i) => isDefined(i))) {
@@ -234,14 +233,20 @@ export class PageService {
 
     const originDocument = await this.postModel.findById(id);
     if (!originDocument) {
-      throw new BadRequestException();
+      throw new RpcException({
+        code: HttpStatus.BAD_REQUEST,
+        message: ExceptionMessage.PostIsNotExist,
+      });
     }
     if (data.slug && data.slug !== originDocument.slug) {
       data.slug = slugify(data.slug);
       // 检查slug是否已存在
       const isAvailableSlug = await this.isAvailableSlug(data.slug);
       if (!isAvailableSlug) {
-        throw new BusinessException(ErrorCodeEnum.SlugNotAvailable);
+        throw new RpcException({
+          code: HttpStatus.BAD_REQUEST,
+          message: ExceptionMessage.SlugIsExist,
+        });
       }
     }
     Object.assign(originDocument, omit(data, PostModel.protectedKeys));

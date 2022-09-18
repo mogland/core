@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-12 15:08:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-12 15:14:33
+ * @LastEditTime: 2022-09-18 15:45:05
  * Coding With IU
  */
 
@@ -14,4 +14,9 @@ export enum ExceptionMessage {
   UserPasswordError = '密码错误',
   UserNotFound = '用户不存在',
   UserPasswordIsSame = '密码可不能和原来的一样哦',
+
+  CategoryIsNotExist = '分类不存在o(╯□╰)o',
+
+  SlugIsExist = '文章路径已经存在了哦',
+  PostIsNotExist = '文章不存在o(╯□╰)o',
 }
