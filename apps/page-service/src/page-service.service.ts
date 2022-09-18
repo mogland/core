@@ -153,6 +153,54 @@ export class PageService {
   }
 
   /**
+   * 根据文章slug和分类slug查询文章
+   */
+  async getPostByCategoryAndSlug(input: {
+    category: string;
+    slug: string;
+    password: any;
+    isMaster: boolean;
+  }) {
+    const categoryDocument = await this.categoryService.getCategoryBySlug(
+      input.category,
+    );
+    if (!categoryDocument) {
+      throw new RpcException({
+        code: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.CategoryIsNotExist,
+      });
+    }
+    const postDocument = await (
+      await this.model
+        .findOne({
+          categoryId: categoryDocument._id,
+          slug: input.slug,
+        })
+        .then((post) => {
+          if (!post || (!input.isMaster && post.hide)) {
+            throw new RpcException({
+              code: HttpStatus.NOT_FOUND,
+              message: ExceptionMessage.PostIsNotExist,
+            });
+          }
+          if (!input.isMaster && post.password) {
+            if (!input.password || input.password !== post.password) {
+              post.text = ExceptionMessage.PostIsProtected;
+              post.summary = ExceptionMessage.PostIsProtected;
+            } else {
+              post.password = undefined;
+            }
+          } else {
+            post.password = undefined;
+          }
+          return post;
+        })
+    ).populate('category');
+
+    return postDocument.toJSON();
+  }
+
+  /**
    * 查询文章 slug 是否可用
    * @param slug 文章slug
    * @returns Promise<boolean>
