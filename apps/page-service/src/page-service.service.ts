@@ -28,8 +28,9 @@ export class PageService {
     return this.postModel;
   }
 
-  async aggregatePaginate(query: PagerDto, isMaster = false) {
-    const { size, select, page, year, sortBy, sortOrder } = query;
+  async aggregatePaginate(input: { query: PagerDto; isMaster: boolean }) {
+    if (!input.isMaster) input.isMaster = false;
+    const { size, select, page, year, sortBy, sortOrder } = input.query;
     return this.model.aggregatePaginate(
       this.model.aggregate(
         [
@@ -53,14 +54,14 @@ export class PageService {
           //   },
           // },
           // if not master, only show published posts
-          !isMaster && {
+          !input.isMaster && {
             $match: {
               // match the condition
               hide: { $ne: true }, // $ne: not equal
             },
           },
           // 如果不是master，并且password不为空，则将text,summary修改
-          !isMaster && {
+          !input.isMaster && {
             $set: {
               // set the field to a new value
               summary: {
@@ -82,7 +83,7 @@ export class PageService {
               },
             },
           },
-          !isMaster && {
+          !input.isMaster && {
             // if not master, only show usual fields
             $project: {
               hide: 0,
@@ -253,15 +254,15 @@ export class PageService {
    * @param data 文章数据
    * @returns Promise<PostModel>
    */
-  async updateById(id: string, data: Partial<PostModel>) {
-    const oldDocument = await this.postModel.findById(id).lean();
+  async updateById(input: { id: string; data: Partial<PostModel> }) {
+    const oldDocument = await this.postModel.findById(input.id).lean();
     if (!oldDocument) {
       throw new RpcException({
         code: HttpStatus.BAD_REQUEST,
         message: ExceptionMessage.PostIsNotExist,
       });
     }
-    const { categoryId } = data;
+    const { categoryId } = input.data;
     if (categoryId && categoryId !== oldDocument.categoryId) {
       const category = await this.categoryService.getCategoryById(
         categoryId as any as string,
@@ -273,23 +274,27 @@ export class PageService {
         });
       }
     }
-    if ([data.text, data.title, data.slug].some((i) => isDefined(i))) {
+    if (
+      [input.data.text, input.data.title, input.data.slug].some((i) =>
+        isDefined(i),
+      )
+    ) {
       const now = new Date();
 
-      data.modified = now;
+      input.data.modified = now;
     }
 
-    const originDocument = await this.postModel.findById(id);
+    const originDocument = await this.postModel.findById(input.id);
     if (!originDocument) {
       throw new RpcException({
         code: HttpStatus.BAD_REQUEST,
         message: ExceptionMessage.PostIsNotExist,
       });
     }
-    if (data.slug && data.slug !== originDocument.slug) {
-      data.slug = slugify(data.slug);
+    if (input.data.slug && input.data.slug !== originDocument.slug) {
+      input.data.slug = slugify(input.data.slug);
       // 检查slug是否已存在
-      const isAvailableSlug = await this.isAvailableSlug(data.slug);
+      const isAvailableSlug = await this.isAvailableSlug(input.data.slug);
       if (!isAvailableSlug) {
         throw new RpcException({
           code: HttpStatus.BAD_REQUEST,
@@ -297,7 +302,7 @@ export class PageService {
         });
       }
     }
-    Object.assign(originDocument, omit(data, PostModel.protectedKeys));
+    Object.assign(originDocument, omit(input.data, PostModel.protectedKeys));
     await originDocument.save();
 
     process.nextTick(async () => {
