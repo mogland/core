@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-18 15:02:05
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 07:55:07
+ * @LastEditTime: 2022-09-24 07:58:13
  * Coding With IU
  */
 
@@ -25,7 +25,6 @@ import {
   IsMongoId,
   IsBoolean,
   ArrayUnique,
-  IsObject,
 } from 'class-validator';
 import { Query } from 'mongoose';
 import { CountMixed, WriteBaseModel } from '~/shared/model/base.model';
@@ -129,12 +128,6 @@ export class PostModel extends WriteBaseModel {
   @IsBoolean()
   @ApiProperty({ description: '文章是否公开在RSS输出' })
   rss?: boolean;
-
-  @prop()
-  @ApiProperty({ description: '文章自定义字段' })
-  @IsOptional()
-  @IsObject()
-  fields?: BeAnObject;
 
   // @prop()
   // @IsOptional()
