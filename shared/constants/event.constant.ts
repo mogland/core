@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:18:46
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 15:37:31
+ * @LastEditTime: 2022-09-24 15:55:26
  * Coding With IU
  */
 
@@ -30,8 +30,7 @@ export enum PostEvents {
 }
 
 export enum CategoryEvents {
-  CategoryGetById = 'category.get.id',
-  CategoryGetBySlug = 'category.get.slug',
+  CategoryGet = 'category.get',
   CategoryGetAll = 'category.get.all',
   CategoryCreate = 'category.create',
   CategoryPatch = 'category.patch',

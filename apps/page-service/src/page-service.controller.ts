@@ -39,7 +39,7 @@ export class PageServiceController {
     return this.categoryService.multiGetCategories(query);
   }
 
-  @MessagePattern({ cmd: CategoryEvents.CategoryGetById })
+  @MessagePattern({ cmd: CategoryEvents.CategoryGet })
   @ApiParam({
     name: 'query',
     type: 'string',
