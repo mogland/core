@@ -3,14 +3,14 @@
  * @author: Wibus
  * @Date: 2022-09-24 07:56:12
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 07:58:13
+ * @LastEditTime: 2022-09-24 08:35:29
  * Coding With IU
  */
 
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { modelOptions, prop } from '@typegoose/typegoose';
 import { Transform } from 'class-transformer';
-import { IsString, IsNotEmpty, IsOptional, IsInt, Min } from 'class-validator';
+import { IsString, IsOptional, IsInt, Min } from 'class-validator';
 import { WriteBaseModel } from '~/shared/model/base.model';
 import { IsNilOrString } from '~/shared/utils';
 
@@ -22,9 +22,9 @@ import { IsNilOrString } from '~/shared/utils';
 export class PageModel extends WriteBaseModel {
   @prop({ required: true, unique: true, trim: 1, index: true })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @ApiProperty({ description: '页面路径' })
-  slug!: string;
+  slug?: string;
 
   @prop({ trim: 1, type: String })
   @IsString()
@@ -41,3 +41,5 @@ export class PageModel extends WriteBaseModel {
   @ApiProperty({ description: '页面排序' })
   order?: number;
 }
+
+export class PartialPageModel extends PartialType(PageModel) {}

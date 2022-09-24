@@ -9,6 +9,8 @@ import { CategoryService } from './category.service';
 import { PostModel } from './model/post.model';
 import { PostService } from './post-service.service';
 import { PageService } from './page-service.service';
+import { PageModel, PartialPageModel } from './model/page.model';
+import { MongoIdDto } from '~/shared/dto/id.dto';
 
 @Controller()
 export class PageServiceController {
@@ -18,11 +20,51 @@ export class PageServiceController {
     private readonly categoryService: CategoryService,
   ) {}
 
+  // ==================== Category ====================
+
+  // ====================== Page ======================
+
   @MessagePattern(PageEvents.PageGetAll)
   @ApiOperation({ summary: '获取页面列表' })
   async getPagesSummary(query: PagerDto) {
     return this.pageService.getPaginate(query);
   }
+
+  @MessagePattern(PageEvents.PageGetByIdWithMaster)
+  @ApiOperation({ summary: '通过 id 获取页面' })
+  async getPage(params: { id: string }) {
+    return this.pageService.getPageById(params.id);
+  }
+
+  @MessagePattern(PageEvents.PageGet)
+  @ApiOperation({ summary: '通过 slug 获取页面' })
+  async getPageBySlug(params: {
+    slug: string;
+    password?: string;
+    isMaster?: boolean;
+  }) {
+    return this.pageService.getPageBySlug(
+      params.slug,
+      params.password,
+      params.isMaster,
+    );
+  }
+
+  @MessagePattern(PageEvents.PageCreate)
+  @ApiOperation({ summary: '创建页面' })
+  async createPage(page: PageModel) {
+    const slug = page.slug ? slugify(page.slug) : slugify(page.title);
+    Object.assign(page, { slug });
+    return this.pageService.create(page);
+  }
+
+  @MessagePattern(PageEvents.PagePatch)
+  @ApiOperation({ summary: '更新页面' })
+  async patch(input: { body: PartialPageModel; params: MongoIdDto }) {
+    return await this.pageService.updateById(input.params.id, input.body);
+  }
+
+  // ==================== Post ====================
 
   @MessagePattern({ cmd: PostEvents.PostsListGet })
   @ApiOperation({ summary: '获取文章列表(附带分页器)' })

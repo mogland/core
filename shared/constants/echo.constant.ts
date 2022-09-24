@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-12 15:08:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 08:05:18
+ * @LastEditTime: 2022-09-24 08:39:43
  * Coding With IU
  */
 
@@ -23,4 +23,5 @@ export enum ExceptionMessage {
   PostPasswordIsWrong = '文章密码错误了o(╯□╰)o',
 
   PageIsNotExist = '页面不存在o(╯□╰)o',
+  PageIsProtected = '页面受保护了哦，需要密码才能查看',
 }
