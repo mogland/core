@@ -180,7 +180,7 @@ export class PageServiceController {
 
   @MessagePattern({ cmd: PageEvents.PagePatch })
   @ApiOperation({ summary: '更新页面' })
-  async patch(input: { body: PartialPageModel; params: MongoIdDto }) {
+  async patch(input: { params: MongoIdDto; body: PartialPageModel }) {
     return await this.pageService.updateById(input.params.id, input.body);
   }
 
