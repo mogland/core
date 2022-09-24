@@ -3,12 +3,13 @@
  * @author: Wibus
  * @Date: 2022-09-24 15:42:05
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 15:42:05
+ * @LastEditTime: 2022-09-24 16:15:05
  * Coding With IU
  */
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ServicesEnum } from '~/shared/constants/services.constant';
+import { CategoryController } from './category.controller';
 
 @Module({
   imports: [
@@ -19,5 +20,6 @@ import { ServicesEnum } from '~/shared/constants/services.constant';
       },
     ]),
   ],
+  controllers: [CategoryController],
 })
 export class CategoryModule {}

@@ -9,6 +9,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ServicesEnum } from '~/shared/constants/services.constant';
+import { PageController } from './page.controller';
 
 @Module({
   imports: [
@@ -19,5 +20,6 @@ import { ServicesEnum } from '~/shared/constants/services.constant';
       },
     ]),
   ],
+  controllers: [PageController],
 })
 export class PageModule {}
