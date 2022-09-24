@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable import/order */
 import { Logger } from '@nestjs/common';
 import { chalk, $ } from 'zx-cjs';
@@ -15,14 +16,15 @@ import './dayjs.global';
 import { isDev } from './env.global';
 import { join } from 'path';
 
-function consoleNEXT() {
+function consoleMog() {
   console.log(`
   
-   _   _________  ________
-  / | / / ____/ |/ /_  __/
- /  |/ / __/  |   / / /   
-/ /|  / /___ /   | / /    
-/_/ |_/_____//_/|_|/_/     
+  __  __             
+  |  \/  | ___   __ _ 
+  | |\/| |/ _ \ / _ \ |
+  | |  | | (_) | (_| |
+  |_|  |_|\___/ \__, |
+                |___/ 
                           
 
   `);
@@ -62,7 +64,7 @@ export function registerGlobal() {
 
 export function register() {
   registerGlobal();
-  consoleNEXT();
+  consoleMog();
   mkdirs();
   registerStdLogger();
 }
