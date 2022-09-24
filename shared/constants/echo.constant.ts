@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-12 15:08:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-18 15:54:45
+ * @LastEditTime: 2022-09-24 08:05:18
  * Coding With IU
  */
 
@@ -21,4 +21,6 @@ export enum ExceptionMessage {
   PostIsNotExist = '文章不存在o(╯□╰)o',
   PostIsProtected = '文章受保护了哦，需要密码才能查看',
   PostPasswordIsWrong = '文章密码错误了o(╯□╰)o',
+
+  PageIsNotExist = '页面不存在o(╯□╰)o',
 }

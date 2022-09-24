@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:18:46
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-18 20:50:09
+ * @LastEditTime: 2022-09-24 08:06:41
  * Coding With IU
  */
 
@@ -27,4 +27,20 @@ export enum PostEvents {
   PostPatch = 'post.patch',
   PostDelete = 'post.delete',
   PostThumbUp = 'post.thumbup',
+}
+
+export enum CategoryEvents {
+  CategoryGet = 'category.get',
+  CategoryGetAll = 'category.get.all',
+  CategoryCreate = 'category.create',
+  CategoryPatch = 'category.patch',
+  CategoryDelete = 'category.delete',
+}
+
+export enum PageEvents {
+  PageGet = 'page.get',
+  PageGetAll = 'page.get.all',
+  PageCreate = 'page.create',
+  PagePatch = 'page.patch',
+  PageDelete = 'page.delete',
 }

@@ -13,6 +13,7 @@ import {
 import LeanId from 'mongoose-lean-id';
 import { default as mongooseLeanVirtuals } from 'mongoose-lean-virtuals';
 import Paginate from 'mongoose-paginate-v2';
+import { IsNilOrString } from '../utils';
 import { ImageModel } from './image.model';
 
 @plugin(mongooseLeanVirtuals)
@@ -86,6 +87,24 @@ export class WriteBaseModel extends BaseCommentIndexModel {
   @IsOptional()
   @IsObject()
   fields?: BeAnObject;
+
+  @prop({ type: String, default: null })
+  @IsOptional()
+  @IsNilOrString()
+  @ApiProperty({ description: '加密密码（若填写则启动加密）' })
+  password?: string | null;
+
+  @prop({ type: Boolean, default: false })
+  @IsOptional()
+  @IsBoolean()
+  @ApiProperty({ description: '是否隐藏' })
+  hide?: boolean;
+
+  @prop({ type: Boolean, default: true })
+  @IsOptional()
+  @IsBoolean()
+  @ApiProperty({ description: '是否公开在RSS输出' })
+  rss?: boolean;
 
   static get protectedKeys() {
     return super.protectedKeys;

@@ -2,20 +2,27 @@ import slugify from 'slugify';
 import { Controller, HttpStatus } from '@nestjs/common';
 import { MessagePattern, RpcException } from '@nestjs/microservices';
 import { ApiOperation } from '@nestjs/swagger';
-import { PostEvents } from '~/shared/constants/event.constant';
+import { PageEvents, PostEvents } from '~/shared/constants/event.constant';
 import { PagerDto } from '~/shared/dto/pager.dto';
 
 import { CategoryService } from './category.service';
 import { PostModel } from './model/post.model';
+import { PostService } from './post-service.service';
 import { PageService } from './page-service.service';
 
 @Controller()
 export class PageServiceController {
   constructor(
     private readonly pageService: PageService,
-    private readonly postService: PageService,
+    private readonly postService: PostService,
     private readonly categoryService: CategoryService,
   ) {}
+
+  @MessagePattern(PageEvents.PageGetAll)
+  @ApiOperation({ summary: '获取页面列表' })
+  async getPagesSummary(query: PagerDto) {
+    return this.pageService.getPaginate(query);
+  }
 
   @MessagePattern({ cmd: PostEvents.PostsListGet })
   @ApiOperation({ summary: '获取文章列表(附带分页器)' })

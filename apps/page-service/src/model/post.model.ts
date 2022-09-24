@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-18 15:02:05
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 07:58:13
+ * @LastEditTime: 2022-09-24 07:59:35
  * Coding With IU
  */
 
@@ -28,7 +28,6 @@ import {
 } from 'class-validator';
 import { Query } from 'mongoose';
 import { CountMixed, WriteBaseModel } from '~/shared/model/base.model';
-import { IsNilOrString } from '~/shared/utils';
 import { CategoryModel } from './category.model';
 import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
 
@@ -110,24 +109,6 @@ export class PostModel extends WriteBaseModel {
   @IsOptional()
   @ApiProperty({ description: '文章修改时间' })
   modified?: Date;
-
-  @prop({ type: Boolean, default: false })
-  @IsOptional()
-  @IsBoolean()
-  @ApiProperty({ description: '文章是否隐藏' })
-  hide?: boolean;
-
-  @prop({ type: String, default: null })
-  @IsOptional()
-  @IsNilOrString()
-  @ApiProperty({ description: '文章加密密码（若填写则启动加密）' })
-  password?: string | null;
-
-  @prop({ type: Boolean, default: true })
-  @IsOptional()
-  @IsBoolean()
-  @ApiProperty({ description: '文章是否公开在RSS输出' })
-  rss?: boolean;
 
   // @prop()
   // @IsOptional()
