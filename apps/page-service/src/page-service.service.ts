@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-24 08:01:39
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 08:05:52
+ * @LastEditTime: 2022-09-24 08:39:47
  * Coding With IU
  */
 
@@ -42,11 +42,48 @@ export class PageService {
     );
   }
 
+  async getPageById(id: string) {
+    const res = this.model.findById(id).lean({ getters: true });
+    if (!res) {
+      throw new RpcException({
+        code: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.PageIsNotExist,
+      });
+    }
+    return res;
+  }
+
+  async getPageBySlug(slug: string, password?: any, isMaster?: boolean) {
+    const res = await this.model
+      .findOne({ slug })
+      .lean({ getters: true })
+      .then((page) => {
+        if (!page) {
+          throw new RpcException({
+            code: HttpStatus.NOT_FOUND,
+            message: ExceptionMessage.PageIsNotExist,
+          });
+        }
+        if (!isMaster && page.password) {
+          if (!password || password !== page.password) {
+            page.text = ExceptionMessage.PageIsProtected;
+          } else {
+            page.password = undefined;
+          }
+        } else {
+          page.password = undefined;
+        }
+        return page;
+      });
+
+    return res;
+  }
+
   public async create(data: PageModel) {
     // data.text = await this.pluginService.usePlugins("page", "create", data.text)
     const res = await this.model.create({
       ...data,
-      slug: slugify(data.slug),
+      slug: slugify(data.slug!),
       created: new Date(),
     });
     return res;
