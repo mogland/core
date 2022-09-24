@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:18:46
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 08:29:41
+ * @LastEditTime: 2022-09-24 15:37:31
  * Coding With IU
  */
 
@@ -30,11 +30,13 @@ export enum PostEvents {
 }
 
 export enum CategoryEvents {
-  CategoryGet = 'category.get',
+  CategoryGetById = 'category.get.id',
+  CategoryGetBySlug = 'category.get.slug',
   CategoryGetAll = 'category.get.all',
   CategoryCreate = 'category.create',
   CategoryPatch = 'category.patch',
   CategoryDelete = 'category.delete',
+  CategoryMerge = 'category.merge',
 }
 
 export enum PageEvents {

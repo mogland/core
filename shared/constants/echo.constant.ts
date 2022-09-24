@@ -3,11 +3,13 @@
  * @author: Wibus
  * @Date: 2022-09-12 15:08:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 08:39:43
+ * @LastEditTime: 2022-09-24 15:35:57
  * Coding With IU
  */
 
 export enum ExceptionMessage {
+  QueryArgIsRequire = 'Query参数必须存在o',
+
   UserIsExist = '我已经有一个主人了哦',
   UserNameIsExist = '用户名已存在',
   UserNameError = '用户名错误',
@@ -16,6 +18,8 @@ export enum ExceptionMessage {
   UserPasswordIsSame = '密码可不能和原来的一样哦',
 
   CategoryIsNotExist = '分类不存在o(╯□╰)o',
+  CantFindCategory = '找不到分类o(╯□╰)o',
+  CategoryHasPost = '分类下有文章，不能删除哦',
 
   SlugIsExist = '文章路径已经存在了哦',
   PostIsNotExist = '文章不存在o(╯□╰)o',
