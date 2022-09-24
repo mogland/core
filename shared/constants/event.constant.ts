@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:18:46
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 08:06:41
+ * @LastEditTime: 2022-09-24 08:29:41
  * Coding With IU
  */
 
@@ -20,7 +20,7 @@ export enum UserEvents {
 }
 
 export enum PostEvents {
-  PostsListGet = 'posts.list.get',
+  PostsListGet = 'posts.get.all',
   PostGet = 'post.get',
   PostGetByMaster = 'post.get.auth',
   PostCreate = 'post.create',
@@ -40,6 +40,7 @@ export enum CategoryEvents {
 export enum PageEvents {
   PageGet = 'page.get',
   PageGetAll = 'page.get.all',
+  PageGetByIdWithMaster = 'page.get.byid.auth',
   PageCreate = 'page.create',
   PagePatch = 'page.patch',
   PageDelete = 'page.delete',
