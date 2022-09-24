@@ -23,7 +23,7 @@
 
 ## 活跃情况 Activity
 
-![Alt](https://repobeats.axiom.co/api/embed/c41f4aa5c6264c1db4ddd6c2120c0fca64dabcea.svg "Repobeats analytics image")
+![Alt](https://repobeats.axiom.co/api/embed/78247003f5d123971c1f1830175bec934e80a48c.svg "Repobeats analytics image")
 
 
 ## Reference
