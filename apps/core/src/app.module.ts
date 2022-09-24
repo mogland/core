@@ -8,6 +8,9 @@ import { AllExceptionsFilter } from '~/shared/common/filters/any-exception.filte
 import { RolesGuard } from '~/shared/common/guard/roles.guard';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CategoryModule } from './modules/category/category.module';
+import { PageModule } from './modules/page/page.module';
+import { PostModule } from './modules/post/post.module';
 import { UserModule } from './modules/user/user.module';
 
 @Module({
@@ -17,6 +20,9 @@ import { UserModule } from './modules/user/user.module';
     DatabaseModule,
     ConfigModule,
     UserModule,
+    PostModule,
+    PageModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [

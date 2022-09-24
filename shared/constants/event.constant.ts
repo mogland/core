@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:18:46
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-10 23:51:52
+ * @LastEditTime: 2022-09-24 15:55:26
  * Coding With IU
  */
 
@@ -17,4 +17,32 @@ export enum UserEvents {
   UserCheck = 'user.check',
   UserGet = 'user.get',
   UserGetAllSession = 'user.get.session.all',
+}
+
+export enum PostEvents {
+  PostsListGet = 'posts.get.all',
+  PostGet = 'post.get',
+  PostGetByMaster = 'post.get.auth',
+  PostCreate = 'post.create',
+  PostPatch = 'post.patch',
+  PostDelete = 'post.delete',
+  PostThumbUp = 'post.thumbup',
+}
+
+export enum CategoryEvents {
+  CategoryGet = 'category.get',
+  CategoryGetAll = 'category.get.all',
+  CategoryCreate = 'category.create',
+  CategoryPatch = 'category.patch',
+  CategoryDelete = 'category.delete',
+  CategoryMerge = 'category.merge',
+}
+
+export enum PageEvents {
+  PageGet = 'page.get',
+  PageGetAll = 'page.get.all',
+  PageGetByIdWithMaster = 'page.get.byid.auth',
+  PageCreate = 'page.create',
+  PagePatch = 'page.patch',
+  PageDelete = 'page.delete',
 }

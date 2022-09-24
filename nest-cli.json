@@ -83,6 +83,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/config/tsconfig.lib.json"
       }
+    },
+    "page-service": {
+      "type": "application",
+      "root": "apps/page-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/page-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/page-service/tsconfig.app.json"
+      }
     }
   }
 }
