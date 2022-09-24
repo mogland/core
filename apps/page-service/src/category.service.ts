@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-18 15:00:16
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 09:09:15
+ * @LastEditTime: 2022-09-24 15:36:36
  * Coding With IU
  */
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
@@ -235,7 +235,23 @@ export class CategoryService {
   }
 
   async deleteCategory(categoryId: string) {
-    const action = this.categoryModel.findByIdAndDelete(categoryId);
+    const category = await this.model.findById(categoryId);
+    if (!category) {
+      throw new RpcException({
+        code: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.CategoryIsNotExist,
+      });
+    }
+    const postsInCategory = await this.findPostsInCategory(category.id);
+    if (postsInCategory.length > 0) {
+      throw new RpcException({
+        code: HttpStatus.BAD_REQUEST,
+        message: ExceptionMessage.CategoryHasPost,
+      });
+    }
+    const action = this.categoryModel.deleteOne({
+      _id: categoryId,
+    });
     nextTick(async () => {
       const count = await this.categoryModel.countDocuments();
       if (!count) {
