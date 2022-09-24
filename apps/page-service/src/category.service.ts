@@ -3,36 +3,198 @@
  * @author: Wibus
  * @Date: 2022-09-18 15:00:16
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-18 15:20:57
+ * @LastEditTime: 2022-09-24 09:09:15
  * Coding With IU
  */
-import { Injectable } from '@nestjs/common';
-import { ReturnModelType } from '@typegoose/typegoose';
+import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
+import { ReturnModelType, DocumentType } from '@typegoose/typegoose';
+import { omit } from 'lodash';
+import { FilterQuery } from 'mongoose';
 import { nextTick } from 'process';
 import { InjectModel } from '~/libs/database/src/model.transformer';
-import { CategoryModel } from './model/category.model';
+import { ExceptionMessage } from '~/shared/constants/echo.constant';
+import { MultiCategoriesQueryDto } from './dto/category.dto';
+import { CategoryModel, CategoryType } from './model/category.model';
+import { PostModel } from './model/post.model';
+import { PostService } from './post-service.service';
 
 @Injectable()
 export class CategoryService {
   constructor(
     @InjectModel(CategoryModel)
     private readonly categoryModel: ReturnModelType<typeof CategoryModel>,
+    @Inject(PostService)
+    private readonly postService: PostService,
   ) {}
 
   get model() {
     return this.categoryModel;
   }
 
+  async multiGetCategories(query: MultiCategoriesQueryDto) {
+    const {
+      ids, // 分类id列表,c ategories is category's mongo id
+      joint, // 是否连接分类与文章
+      type = CategoryType.Category, // 分类类型
+    } = query;
+
+    if (ids) {
+      // 获取指定分类
+      const ignores = '-text -summary -hide -images -commentsIndex'; // 忽略的字段, -表示忽略
+      const obj = new Object();
+      if (joint) {
+        // 连接分类与文章
+        await Promise.all(
+          ids.map(async (id) => {
+            const data = await this.postService.model
+              .find({ categoryId: id }, ignores)
+              .sort({ createdAt: -1 }) // sort 和 populate 的区别：sort是排序，populate是关联
+              .lean();
+
+            obj[id] = data; // 将文章数据添加到对象中
+            return id;
+          }),
+        );
+
+        return { entries: obj }; // 分类与文章列表
+      } else {
+        await Promise.all(
+          ids.map(async (id) => {
+            const posts = await this.postService.model
+              .find({ categoryId: id }, ignores)
+              .sort({ created: -1 })
+              .lean();
+            const category = await this.getCategoryById(id);
+            obj[id] = Object.assign({ ...category, children: posts });
+            return id;
+          }),
+        );
+
+        return { entries: obj };
+      }
+    }
+    return type === CategoryType.Category
+      ? await this.getAllCategories()
+      : await this.getPostTagsSum();
+  }
+
   async getCategoryById(categoryId: string) {
-    return this.categoryModel.findById(categoryId).lean();
+    const [category, count] = await Promise.all([
+      this.categoryModel.findById(categoryId).lean(), // lean() 返回纯 JSON 对象
+      this.postService.model.countDocuments({ categoryId }),
+    ]);
+    return {
+      ...category,
+      count,
+    };
   }
 
   async getCategoryBySlug(slug: string) {
     return this.categoryModel.findOne({ slug }).lean();
   }
 
-  async getCategories() {
-    return this.categoryModel.find().lean();
+  async getAllCategories() {
+    const data = await this.categoryModel
+      .find({ type: CategoryType.Category })
+      .lean(); // type 用于区分分类和标签
+    const counts = await Promise.all(
+      data.map((item) => {
+        return this.postService.model.countDocuments({ categoryId: item._id });
+      }),
+    );
+    for (let index = 0; index < data.length; index++) {
+      Reflect.set(data[index], 'count', counts[index]); // Reflect 可以用于设置属性值, 参考 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect
+    }
+    return data;
+  }
+
+  /**
+   * 获取所有标签
+   * @returns Promise<any[]>
+   */
+  async getPostTagsSum() {
+    const data = await this.postService.model.aggregate([
+      // aggregate() 方法可以按照指定的规则对数据进行操作
+      {
+        $project: {
+          tags: 1, // 只查询 tags 字段
+        },
+      }, // $project 指定要显示的字段
+      {
+        $unwind: '$tags', // $unwind 指定拆分数组
+      },
+      { $group: { _id: '$tags', count: { $sum: 1 } } }, // $group 指定分组规则
+      {
+        $project: {
+          _id: 0, // _id 字段不显示
+          name: '$_id', // name 字段显示为 _id 字段的值
+          count: 1, // 显示 count 字段
+        },
+      },
+    ]);
+    return data;
+  }
+
+  /**
+   * 用标签查找文章
+   * @param tag 标签名
+   * @param conditions 查询条件
+   * @returns Promise<null | any[]>
+   */
+  async findPostWithTag(
+    tag: string,
+    conditions: FilterQuery<DocumentType<PostModel>> = {},
+  ): Promise<null | any[]> {
+    const posts = await this.postService.model
+      .find(
+        {
+          tags: tag,
+          ...conditions,
+        },
+        undefined,
+        { lean: true },
+      )
+      .populate('category');
+
+    if (!posts.length)
+      throw new RpcException({
+        code: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.PageIsNotExist,
+      });
+
+    return posts.map(({ _id, title, slug, category, created }) => ({
+      _id,
+      title,
+      slug,
+      category: omit(category, ['count', '__v', 'created', 'modified']),
+      created,
+    }));
+  }
+
+  /**
+   * 用分类Id查找文章
+   * @param categoryId 分类 ID
+   * @param condition 查询条件
+   * @returns Promise<any[]>
+   */
+  async findCategoryPost(categoryId: string, condition: any = {}) {
+    return await this.postService.model
+      .find({
+        categoryId,
+        condition,
+      })
+      // .select("title created slug _id")
+      .sort({ created: -1 });
+  }
+
+  /**
+   * 查找分类的文章
+   * @param categoryId 分类 ID
+   * @returns Promise<PostModel>
+   */
+  async findPostsInCategory(categoryId: string) {
+    return await this.postService.model.find({ categoryId });
   }
 
   async createCategory(data: any) {
