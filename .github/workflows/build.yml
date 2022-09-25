@@ -37,7 +37,6 @@ jobs:
         run: pnpm i --no-optional
       - name: Build project
         run: |
-          npm i ncc -g
           npm run build
           npm run build:user-service
           # npm run build:page-service
