@@ -48,7 +48,13 @@ export class PostController {
       .pipe(
         timeout(1000),
         catchError((err) => {
-          return throwError(() => new HttpException(err.message, err.status));
+          return throwError(
+            () =>
+              new HttpException(
+                err.message || '未知错误，请联系管理员',
+                err.status || 500,
+              ),
+          );
         }),
       );
   }
@@ -60,7 +66,13 @@ export class PostController {
     return this.post.send({ cmd: PostEvents.PostGet }, params).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }
@@ -80,7 +92,13 @@ export class PostController {
       .pipe(
         timeout(1000),
         catchError((err) => {
-          return throwError(() => new HttpException(err.message, err.status));
+          return throwError(
+            () =>
+              new HttpException(
+                err.message || '未知错误，请联系管理员',
+                err.status || 500,
+              ),
+          );
         }),
       );
   }
@@ -92,7 +110,13 @@ export class PostController {
     return this.post.send({ cmd: PostEvents.PostCreate }, body).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }
@@ -107,7 +131,13 @@ export class PostController {
       .pipe(
         timeout(1000),
         catchError((err) => {
-          return throwError(() => new HttpException(err.message, err.status));
+          return throwError(
+            () =>
+              new HttpException(
+                err.message || '未知错误，请联系管理员',
+                err.status || 500,
+              ),
+          );
         }),
       );
   }
@@ -119,7 +149,13 @@ export class PostController {
     return this.post.send({ cmd: PostEvents.PostDelete }, params.id).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }

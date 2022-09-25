@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nx-core/apps/core/src/modules/category/category.controller.ts
+ * @FilePath: /mog-core/apps/core/src/modules/category/category.controller.ts
  * @author: Wibus
  * @Date: 2022-09-24 15:53:29
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 16:00:01
+ * @LastEditTime: 2022-09-25 15:35:14
  * Coding With IU
  */
 
@@ -55,7 +55,13 @@ export class CategoryController {
       .pipe(
         timeout(1000),
         catchError((err) => {
-          return throwError(() => new HttpException(err.message, err.status));
+          return throwError(
+            () =>
+              new HttpException(
+                err.message || '未知错误，请联系管理员',
+                err.status || 500,
+              ),
+          );
         }),
       );
   }
@@ -86,7 +92,13 @@ export class CategoryController {
       .pipe(
         timeout(1000),
         catchError((err) => {
-          return throwError(() => new HttpException(err.message, err.status));
+          return throwError(
+            () =>
+              new HttpException(
+                err.message || '未知错误，请联系管理员',
+                err.status || 500,
+              ),
+          );
         }),
       );
   }
@@ -101,7 +113,13 @@ export class CategoryController {
       .pipe(
         timeout(1000),
         catchError((err) => {
-          return throwError(() => new HttpException(err.message, err.status));
+          return throwError(
+            () =>
+              new HttpException(
+                err.message || '未知错误，请联系管理员',
+                err.status || 500,
+              ),
+          );
         }),
       );
   }
@@ -113,7 +131,13 @@ export class CategoryController {
     return this.category.send({ cmd: CategoryEvents.CategoryMerge }, body).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }
@@ -134,7 +158,13 @@ export class CategoryController {
     return this.category.send({ cmd: CategoryEvents.CategoryPatch }, send).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }
@@ -152,7 +182,13 @@ export class CategoryController {
       .pipe(
         timeout(1000),
         catchError((err) => {
-          return throwError(() => new HttpException(err.message, err.status));
+          return throwError(
+            () =>
+              new HttpException(
+                err.message || '未知错误，请联系管理员',
+                err.status || 500,
+              ),
+          );
         }),
       );
   }
@@ -165,7 +201,13 @@ export class CategoryController {
     return this.category.send({ cmd: CategoryEvents.CategoryDelete }, id).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }

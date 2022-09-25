@@ -44,7 +44,13 @@ export class PageController {
     return this.page.send({ cmd: PageEvents.PageGetAll }, query).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }
@@ -58,7 +64,13 @@ export class PageController {
       .pipe(
         timeout(1000),
         catchError((err) => {
-          return throwError(() => new HttpException(err.message, err.status));
+          return throwError(
+            () =>
+              new HttpException(
+                err.message || '未知错误，请联系管理员',
+                err.status || 500,
+              ),
+          );
         }),
       );
   }
@@ -69,7 +81,13 @@ export class PageController {
     return this.page.send({ cmd: PageEvents.PageGet }, slug).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }
@@ -81,7 +99,13 @@ export class PageController {
     return this.page.send({ cmd: PageEvents.PageCreate }, body).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }
@@ -96,7 +120,13 @@ export class PageController {
       .pipe(
         timeout(1000),
         catchError((err) => {
-          return throwError(() => new HttpException(err.message, err.status));
+          return throwError(
+            () =>
+              new HttpException(
+                err.message || '未知错误，请联系管理员',
+                err.status || 500,
+              ),
+          );
         }),
       );
   }
@@ -108,7 +138,13 @@ export class PageController {
     return this.page.send({ cmd: PageEvents.PageDelete }, params.id).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }

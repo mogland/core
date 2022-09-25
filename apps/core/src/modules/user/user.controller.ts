@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nx-core/apps/core/src/modules/user/user.controller.ts
+ * @FilePath: /mog-core/apps/core/src/modules/user/user.controller.ts
  * @author: Wibus
  * @Date: 2022-09-03 22:26:41
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-12 21:51:38
+ * @LastEditTime: 2022-09-25 15:14:48
  * Coding With IU
  */
 
@@ -63,7 +63,13 @@ export class UserController {
       .pipe(
         timeout(1000),
         catchError((err) => {
-          return throwError(() => new HttpException(err.message, err.status));
+          return throwError(
+            () =>
+              new HttpException(
+                err.message || '未知错误，请联系管理员',
+                err.status || 500,
+              ),
+          );
         }),
       );
     return data;
@@ -92,7 +98,13 @@ export class UserController {
       .pipe(
         timeout(1000),
         catchError((err) => {
-          return throwError(() => new HttpException(err.message, err.status));
+          return throwError(
+            () =>
+              new HttpException(
+                err.message || '未知错误，请联系管理员',
+                err.status || 500,
+              ),
+          );
         }),
       );
   }
@@ -113,7 +125,13 @@ export class UserController {
       .pipe(
         timeout(1000),
         catchError((err) => {
-          return throwError(() => new HttpException(err.message, err.status));
+          return throwError(
+            () =>
+              new HttpException(
+                err.message || '未知错误，请联系管理员',
+                err.status || 500,
+              ),
+          );
         }),
       );
   }
@@ -124,7 +142,13 @@ export class UserController {
     return this.user.send({ cmd: UserEvents.UserLogout }, token).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }
@@ -135,7 +159,13 @@ export class UserController {
     return this.user.send({ cmd: UserEvents.UserLogoutAll }, null).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }
@@ -147,7 +177,13 @@ export class UserController {
     return this.user.send({ cmd: UserEvents.UserGetAllSession }, token).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }
@@ -159,7 +195,13 @@ export class UserController {
     return this.user.send({ cmd: UserEvents.UserLogout }, tokenId).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }
@@ -171,7 +213,13 @@ export class UserController {
     return this.user.send({ cmd: UserEvents.UserLogoutAll }, null).pipe(
       timeout(1000),
       catchError((err) => {
-        return throwError(() => new HttpException(err.message, err.status));
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
       }),
     );
   }
