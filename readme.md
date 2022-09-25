@@ -1,15 +1,15 @@
 # Mog Core V2
 
-**目前我们正在开发下一个突破级版本，此版本尚处于开发阶段，不建议您使用。**
+**目前我们正在开发突破级版本，尚处于开发阶段，不建议您使用。**
 
-> 🎆 Next, 下一个博客. 一款永向未来的 CMS 博客系统
+> 🏝 /mɑːɡ/ 一款弹性的模块化 CMS 博客系统
 > 
 > **_无限进步！_**
 >
 > `v2` 使用 `nestjs` 重构，突破性地采用了微服务架构，之前的版本[在此处](https://github.com/nx-space/core/branches)可以找到.
 
 
-<img src="https://img.shields.io/github/package-json/v/nx-space/core?style=flat-square" referrerpolicy="no-referrer" alt="version"><a href="https://wakatime.com/badge/github/nx-space/core"><img src="https://wakatime.com/badge/github/nx-space/core.svg?style=flat-square" alt="wakatime"></a>
+<img src="https://img.shields.io/github/package-json/v/nx-space/core?style=flat-square" referrerpolicy="no-referrer" alt="version"><a href="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95"><img src="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95.svg?style=flat-square" alt="wakatime"></a>
 <a href="https://github.com/nx-space/core/actions/workflows/build.yml"><img src="https://github.com/nx-space/core/actions/workflows/build.yml/badge.svg?style=flat-square"></a>
 
 ## Features 项目特性
@@ -38,6 +38,6 @@ This project referred to:
 
 ## Author
 
-MogLand © Wibus, Released under the AGPL-3.0 License. Created on 2021-09-25.
+Mog © Wibus, Released under the AGPL-3.0 License. Created on 2021-09-25.
 
 > [Personal Website](http://iucky.cn/) · [Blog](https://blog.iucky.cn/) · GitHub [@wibus-wee](https://github.com/wibus-wee/) · Telegram [@wibus✪](https://t.me/wibus_wee)
