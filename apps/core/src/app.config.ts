@@ -1,7 +1,7 @@
 import cluster from 'cluster';
 import { argv } from 'zx-cjs';
 import { isDev } from '~/shared/utils/environment.util';
-import { cwd } from './global/env.global';
+import { cwd } from '../../../shared/global/env.global';
 
 console.log(argv);
 export const PORT = argv.port || 2330;

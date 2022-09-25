@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
-import { registerStdLogger } from '~/apps/core/src/global/consola.global';
-import { registerGlobal } from '~/apps/core/src/global/index.global';
+import { registerStdLogger } from '~/shared/global/consola.global';
+import { registerGlobal } from '~/shared/global/index.global';
 import { PageServiceModule } from './page-service.module';
 
 async function bootstrap() {

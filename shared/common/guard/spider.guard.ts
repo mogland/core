@@ -12,7 +12,7 @@ import {
   Injectable,
 } from '@nestjs/common';
 
-import { isDev } from '~/apps/core/src/global/env.global';
+import { isDev } from '~/shared/global/env.global';
 import { getNestExecutionContextRequest } from '~/shared/transformers/get-req.transformer';
 
 @Injectable()
