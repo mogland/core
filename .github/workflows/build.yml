@@ -38,6 +38,8 @@ jobs:
       - name: Build project
         run: |
           npm run build
+          npm run build:user-service
+          npm run build:page-service
           npx ncc build dist/apps/core/main.js -o out/core
           npx ncc build dist/apps/user-service/main.js -o out/user-service
           npx ncc build dist/apps/page-service/main.js -o out/page-service
