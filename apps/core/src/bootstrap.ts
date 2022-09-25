@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nx-core/apps/core/src/bootstrap.ts
+ * @FilePath: /mog-core/apps/core/src/bootstrap.ts
  * @author: Wibus
  * @Date: 2022-09-03 14:19:53
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-03 22:11:56
+ * @LastEditTime: 2022-09-25 15:33:26
  * Coding With IU
  */
 
@@ -12,15 +12,20 @@ import { NestFactory } from '@nestjs/core';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
 import { fastifyApp } from './common/adapt/fastify.adapt';
-import { CROSS_DOMAIN, PORT } from "./app.config";
+import { CROSS_DOMAIN, PORT } from './app.config';
+import { LoggingInterceptor } from '~/shared/common/interceptors/logging.interceptor';
 
 const Origin = CROSS_DOMAIN.allowedOrigins;
 
 declare const module: any;
 
 export async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(AppModule, fastifyApp, { logger: ["error", "debug"] });
-  const hosts = Origin.map((host) => new RegExp(host, "i"));
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    fastifyApp,
+    { logger: ['error', 'debug'] },
+  );
+  const hosts = Origin.map((host) => new RegExp(host, 'i'));
 
   app.enableCors({
     origin: (origin, callback) => {
@@ -41,7 +46,7 @@ export async function bootstrap() {
       // @ts-ignore
       enableDebugMessages: isDev, // 开启调试模式
       stopAtFirstError: true, // 在第一个错误后立即停止
-    })
+    }),
   );
 
   // @ts-ignore
@@ -49,41 +54,46 @@ export async function bootstrap() {
 
   // @ts-ignore
   if (isDev) {
-    const { DocumentBuilder, SwaggerModule } = await import("@nestjs/swagger");
+    app.useGlobalInterceptors(new LoggingInterceptor());
+  }
+
+  // @ts-ignore
+  if (isDev) {
+    const { DocumentBuilder, SwaggerModule } = await import('@nestjs/swagger');
     const options = new DocumentBuilder()
-      .setTitle("API")
-      .setDescription("The blog API description")
+      .setTitle('API')
+      .setDescription('The blog API description')
       // .setVersion(`${APIVersion}`)
-      .addSecurity("bearer", {
-        type: "http",
-        scheme: "bearer",
+      .addSecurity('bearer', {
+        type: 'http',
+        scheme: 'bearer',
       })
       .addBearerAuth()
       .build();
     const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup("api-docs", app, document);
+    SwaggerModule.setup('api-docs', app, document);
   }
 
-  await app.listen(+PORT, "0.0.0.0", async (err) => {
+  await app.listen(+PORT, '0.0.0.0', async (err) => {
     if (err) {
       Logger.error(err);
       process.exit(1);
     }
     // @ts-ignore
-    consola.info("ENV:", process.env.NODE_ENV);
+    consola.info('ENV:', process.env.NODE_ENV);
     const url = await app.getUrl();
     const pid = process.pid;
 
-    const prefix = "P";
+    const prefix = 'P';
     // @ts-ignore
-    if (isDev || argv.dev_online == "true") {
+    if (isDev || argv.dev_online == 'true') {
       // @ts-ignore
       consola.debug(`[${prefix + pid}] OpenApi: ${url}/api-docs`);
     }
     // @ts-ignore
     consola.success(`[${prefix + pid}] 服务器正在监听: ${url}`);
     Logger.log(
-      `NxServer 已启动. ${chalk.yellow(`+${performance.now() | 0}ms`)}`
+      `NxServer 已启动. ${chalk.yellow(`+${performance.now() | 0}ms`)}`,
     );
   });
   if (module.hot) {
