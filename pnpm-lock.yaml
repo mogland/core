@@ -27,6 +27,7 @@ specifiers:
   '@types/supertest': 2.0.12
   '@typescript-eslint/eslint-plugin': 5.38.0
   '@typescript-eslint/parser': 5.38.0
+  '@vercel/ncc': 0.34.0
   axios: 0.27.2
   axios-retry: 3.3.1
   bcrypt: 5.0.1
@@ -88,6 +89,7 @@ dependencies:
   '@nestjs/platform-fastify': 9.1.2_i4tp3onqu6wvmxq7vnpjzu2i3e
   '@nestjs/schedule': 2.1.0_yzammjd3rtddjrgcr4enkpfvhm
   '@typegoose/typegoose': 9.12.0_mongoose@6.6.1
+  '@vercel/ncc': 0.34.0
   axios: 0.27.2
   axios-retry: 3.3.1
   bcrypt: 5.0.1
@@ -1891,6 +1893,11 @@ packages:
       '@typescript-eslint/types': 5.38.0
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@vercel/ncc/0.34.0:
+    resolution: {integrity: sha512-G9h5ZLBJ/V57Ou9vz5hI8pda/YQX5HQszCs3AmIus3XzsmRn/0Ptic5otD3xVST8QLKk7AMk7AqpsyQGN7MZ9A==}
+    hasBin: true
+    dev: false
 
   /@webassemblyjs/ast/1.11.1:
     resolution: {integrity: sha512-ukBh14qFLjxTQNTXocdyksN5QdM28S1CxHt2rdskFyL+xFV7VremuBLVbmCePj+URalXBENx/9Lm7lnhihtCSw==}
