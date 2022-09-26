@@ -30,7 +30,7 @@
     "build:user-service": "nest build user-service",
     "build:page-service": "nest build page-service",
     "dev": "npm run start",
-    "bundle": "TODO:",
+    "bundle": "echo 'TODO: bundle the project.'",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "cross-env NODE_ENV=development concurrently --kill-others \"npm run start:core\" \"npm run start:user-service\" \"npm run start:page-service\"",
     "start:core": "cross-env NODE_ENV=development cross-env NODE_ENV=development nest start -w core",
