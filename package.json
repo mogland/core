@@ -1,7 +1,7 @@
 {
   "name": "@mogland/core",
   "version": "1.7.0",
-  "description": "The RESTful API service for mogland, more features, powered by @nestjs.",
+  "description": "The RESTful API service for mog, more features, powered by @nestjs.",
   "author": "Wibus <https://iucky.cn>",
   "license": "AGPLv3",
   "repository": {

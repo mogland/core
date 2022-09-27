@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-09 21:02:37
  * @LastEditors: ttimochan
- * @LastEditTime: 2022-09-27 23:38:15
+ * @LastEditTime: 2022-09-27 23:53:26
  * Coding With IU
  */
 
@@ -13,6 +13,6 @@ export const DefaultConfigs: () => ConfigsInterface = () => ({
   seo: {
     title: 'N-x',
     description: 'A Next generation blog system',
-    keyword: ['blog', 'mogland'],
+    keyword: ['blog', 'mog'],
   },
 });
