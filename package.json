@@ -1,15 +1,15 @@
 {
-  "name": "@nx-space/core",
+  "name": "@mogland/core",
   "version": "1.7.0",
-  "description": "The RESTful API service for NEXT Space, more features, powered by @nestjs.",
+  "description": "The RESTful API service for mogland, more features, powered by @nestjs.",
   "author": "Wibus <https://iucky.cn>",
   "license": "AGPLv3",
   "repository": {
-    "directory": "nx-space/core",
-    "url": "https://github.com/nx-space/core"
+    "directory": "mogland/core",
+    "url": "https://github.com/mogland/core"
   },
-  "homepage": "https://github.com/nx-space/core#readme",
-  "issues": "https://github.com/nx-space/core/issues",
+  "homepage": "https://github.com/mogland/core#readme",
+  "issues": "https://github.com/mogland/core/issues",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -43,7 +43,7 @@
     "prod:stop": "pm2 stop ecosystem.config.js",
     "prod:debug": "cross-env NODE_ENV=production nest start --debug --watch",
     "test": "vitest",
-    "test:e2e": "viapps/nx-space-core/test -c ./vitest-e2e.config.ts",
+    "test:e2e": "viapps/mogland-core/test -c ./vitest-e2e.config.ts",
     "test:all": "npm run test && npm run test:e2e",
     "test:watch": "vitest --watch",
     "test:cov": "vitest --coverage",
