@@ -11,7 +11,7 @@ import { ConfigsInterface } from './config.interface';
 
 export const DefaultConfigs: () => ConfigsInterface = () => ({
   seo: {
-    title: 'N-x',
+    title: 'Mog',
     description: 'A Next generation blog system',
     keyword: ['blog', 'mog'],
   },
