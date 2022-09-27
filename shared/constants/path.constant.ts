@@ -1,7 +1,7 @@
 import { homedir } from 'os';
 import { join } from 'path';
 import { isDev } from '~/shared/global/env.global';
-const appName = 'mogland';
+const appName = 'mog';
 export const HOME = homedir();
 export const DATA_DIR = isDev
   ? join(process.cwd(), './tmp')
