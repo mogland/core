@@ -1,10 +1,10 @@
 /**
  * @copy https://github.com/surmon-china/nodepress/blob/main/src/processors/database/database.provider.ts
  */
-import { mongoose } from "@typegoose/typegoose";
-import { DB_CONNECTION_TOKEN } from "~/shared/constants/system.constant";
-import { chalk } from "zx-cjs";
-import { MONGO_DB } from "@core/app.config";
+import mongoose from 'mongoose';
+import { DB_CONNECTION_TOKEN } from '~/shared/constants/system.constant';
+import { chalk } from 'zx-cjs';
+import { MONGO_DB } from '@core/app.config';
 
 export const databaseProvider = {
   provide: DB_CONNECTION_TOKEN,
@@ -15,17 +15,17 @@ export const databaseProvider = {
     const connection = () => {
       return mongoose.connect(MONGO_DB.uri, {});
     };
-    const Badge = `[${chalk.yellow("MongoDB")}]`;
+    const Badge = `[${chalk.yellow('MongoDB')}]`;
 
     const color = (str: TemplateStringsArray) => {
-      return str.map((s) => chalk.green(s)).join("");
+      return str.map((s) => chalk.green(s)).join('');
     };
-    mongoose.connection.on("connecting", () => {
+    mongoose.connection.on('connecting', () => {
       // @ts-ignore
       consola.info(Badge, color`connecting...`);
     });
 
-    mongoose.connection.on("open", () => {
+    mongoose.connection.on('open', () => {
       // @ts-ignore
       consola.info(Badge, color`readied!`);
       if (reconnectionTask) {
@@ -34,20 +34,20 @@ export const databaseProvider = {
       }
     });
 
-    mongoose.connection.on("disconnected", () => {
+    mongoose.connection.on('disconnected', () => {
       // @ts-ignore
       consola.error(
         Badge,
         chalk.red(
-          `disconnected! retry when after ${RECONNECT_INTERVAL / 1000}s`
-        )
+          `disconnected! retry when after ${RECONNECT_INTERVAL / 1000}s`,
+        ),
       );
       reconnectionTask = setTimeout(connection, RECONNECT_INTERVAL);
     });
 
-    mongoose.connection.on("error", (error) => {
+    mongoose.connection.on('error', (error) => {
       // @ts-ignore
-      consola.error(Badge, "error!", error);
+      consola.error(Badge, 'error!', error);
       mongoose.disconnect();
     });
 
