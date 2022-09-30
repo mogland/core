@@ -31,7 +31,7 @@ specifiers:
   axios: 0.27.2
   axios-retry: 3.3.1
   bcrypt: 5.0.1
-  cache-manager: 4.1.0
+  cache-manager: 5.0.0
   cache-manager-ioredis: 2.1.0
   camelcase-keys: 7.0.2
   chalk: 5.0.1
@@ -82,10 +82,10 @@ specifiers:
 dependencies:
   '@fastify/multipart': 7.2.0
   '@fastify/static': 6.5.0
-  '@nestjs/common': 9.1.2_mpbqhbv3qeq77ujihdpg6d4hsy
+  '@nestjs/common': 9.1.2_sgm2gzj7to5sdywk7jhyczf4bq
   '@nestjs/core': 9.1.2_hau4knnrdwycqsd7n2f5wuciea
   '@nestjs/event-emitter': 1.3.1_yzammjd3rtddjrgcr4enkpfvhm
-  '@nestjs/microservices': 9.1.2_lfvgzavdfng6nsnqkn7vrrvei4
+  '@nestjs/microservices': 9.1.2_hf6smn4o6kdutty32epamftvua
   '@nestjs/platform-fastify': 9.1.2_i4tp3onqu6wvmxq7vnpjzu2i3e
   '@nestjs/schedule': 2.1.0_yzammjd3rtddjrgcr4enkpfvhm
   '@typegoose/typegoose': 9.12.0_mongoose@6.6.2
@@ -93,7 +93,7 @@ dependencies:
   axios: 0.27.2
   axios-retry: 3.3.1
   bcrypt: 5.0.1
-  cache-manager: 4.1.0
+  cache-manager: 5.0.0
   cache-manager-ioredis: 2.1.0
   camelcase-keys: 7.0.2
   chalk: 5.0.1
@@ -1160,7 +1160,7 @@ packages:
       - webpack-cli
     dev: true
 
-  /@nestjs/common/9.1.2_mpbqhbv3qeq77ujihdpg6d4hsy:
+  /@nestjs/common/9.1.2_sgm2gzj7to5sdywk7jhyczf4bq:
     resolution: {integrity: sha512-zpF4DaLvvsCVqfrf9LJfSeYP+SBCWCFbOCTOmEZ5Gs6Hralia6s2kS+CSicJKx8IpnyC6ZReuqdTbjcPl4yunA==}
     peerDependencies:
       cache-manager: '*'
@@ -1176,7 +1176,7 @@ packages:
       class-validator:
         optional: true
     dependencies:
-      cache-manager: 4.1.0
+      cache-manager: 5.0.0
       class-transformer: 0.5.1
       class-validator: 0.13.2
       iterare: 1.2.1
@@ -1203,8 +1203,8 @@ packages:
       '@nestjs/websockets':
         optional: true
     dependencies:
-      '@nestjs/common': 9.1.2_mpbqhbv3qeq77ujihdpg6d4hsy
-      '@nestjs/microservices': 9.1.2_lfvgzavdfng6nsnqkn7vrrvei4
+      '@nestjs/common': 9.1.2_sgm2gzj7to5sdywk7jhyczf4bq
+      '@nestjs/microservices': 9.1.2_hf6smn4o6kdutty32epamftvua
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.1.1
       iterare: 1.2.1
@@ -1224,7 +1224,7 @@ packages:
       '@nestjs/core': ^7.0.0 || ^8.0.0 || ^9.0.0
       reflect-metadata: ^0.1.12
     dependencies:
-      '@nestjs/common': 9.1.2_mpbqhbv3qeq77ujihdpg6d4hsy
+      '@nestjs/common': 9.1.2_sgm2gzj7to5sdywk7jhyczf4bq
       '@nestjs/core': 9.1.2_hau4knnrdwycqsd7n2f5wuciea
       eventemitter2: 6.4.6
       reflect-metadata: 0.1.13
@@ -1243,13 +1243,13 @@ packages:
       class-validator:
         optional: true
     dependencies:
-      '@nestjs/common': 9.1.2_mpbqhbv3qeq77ujihdpg6d4hsy
+      '@nestjs/common': 9.1.2_sgm2gzj7to5sdywk7jhyczf4bq
       class-transformer: 0.5.1
       class-validator: 0.13.2
       reflect-metadata: 0.1.13
     dev: true
 
-  /@nestjs/microservices/9.1.2_lfvgzavdfng6nsnqkn7vrrvei4:
+  /@nestjs/microservices/9.1.2_hf6smn4o6kdutty32epamftvua:
     resolution: {integrity: sha512-i/Vgw7CXHFBe1qNZdhJ2smf0MmluFK1P8TGV4HdT8yMdwqT6hc8Elm7Fb1ZIdm0R3Sn30CnsCpvFNm7cXTQ07A==}
     peerDependencies:
       '@grpc/grpc-js': '*'
@@ -1285,9 +1285,9 @@ packages:
       nats:
         optional: true
     dependencies:
-      '@nestjs/common': 9.1.2_mpbqhbv3qeq77ujihdpg6d4hsy
+      '@nestjs/common': 9.1.2_sgm2gzj7to5sdywk7jhyczf4bq
       '@nestjs/core': 9.1.2_hau4knnrdwycqsd7n2f5wuciea
-      cache-manager: 4.1.0
+      cache-manager: 5.0.0
       ioredis: 5.2.3
       iterare: 1.2.1
       reflect-metadata: 0.1.13
@@ -1311,7 +1311,7 @@ packages:
       '@fastify/formbody': 7.3.0
       '@fastify/middie': 8.0.0
       '@fastify/static': 6.5.0
-      '@nestjs/common': 9.1.2_mpbqhbv3qeq77ujihdpg6d4hsy
+      '@nestjs/common': 9.1.2_sgm2gzj7to5sdywk7jhyczf4bq
       '@nestjs/core': 9.1.2_hau4knnrdwycqsd7n2f5wuciea
       fastify: 4.6.0
       light-my-request: 5.6.1
@@ -1328,7 +1328,7 @@ packages:
       '@nestjs/core': ^7.0.0 || ^8.0.0 || ^9.0.0
       reflect-metadata: ^0.1.12
     dependencies:
-      '@nestjs/common': 9.1.2_mpbqhbv3qeq77ujihdpg6d4hsy
+      '@nestjs/common': 9.1.2_sgm2gzj7to5sdywk7jhyczf4bq
       '@nestjs/core': 9.1.2_hau4knnrdwycqsd7n2f5wuciea
       cron: 2.0.0
       reflect-metadata: 0.1.13
@@ -1377,7 +1377,7 @@ packages:
         optional: true
     dependencies:
       '@fastify/static': 6.5.0
-      '@nestjs/common': 9.1.2_mpbqhbv3qeq77ujihdpg6d4hsy
+      '@nestjs/common': 9.1.2_sgm2gzj7to5sdywk7jhyczf4bq
       '@nestjs/core': 9.1.2_hau4knnrdwycqsd7n2f5wuciea
       '@nestjs/mapped-types': 1.1.0_zeb4gyhc74qs6lqbathv6jdp3i
       js-yaml: 4.1.0
@@ -1403,9 +1403,9 @@ packages:
       '@nestjs/platform-express':
         optional: true
     dependencies:
-      '@nestjs/common': 9.1.2_mpbqhbv3qeq77ujihdpg6d4hsy
+      '@nestjs/common': 9.1.2_sgm2gzj7to5sdywk7jhyczf4bq
       '@nestjs/core': 9.1.2_hau4knnrdwycqsd7n2f5wuciea
-      '@nestjs/microservices': 9.1.2_lfvgzavdfng6nsnqkn7vrrvei4
+      '@nestjs/microservices': 9.1.2_hf6smn4o6kdutty32epamftvua
       tslib: 2.4.0
     dev: true
 
@@ -2234,9 +2234,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /async/3.2.3:
-    resolution: {integrity: sha512-spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g==}
-
   /asynckit/0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
 
@@ -2465,10 +2462,9 @@ packages:
       - supports-color
     dev: false
 
-  /cache-manager/4.1.0:
-    resolution: {integrity: sha512-ZGM6dLxrP65bfOZmcviWMadUOCICqpLs92+P/S5tj8onz+k+tB7Gr+SAgOUHCQtfm2gYEQDHiKeul4+tYPOJ8A==}
+  /cache-manager/5.0.0:
+    resolution: {integrity: sha512-1qKdoeoJKmrf95Zvhr3NpBVAgBESt4TuZomBzn4N2gCFZvHjuUXBK1H8EDVsJdba6/grIgi6WGYb/ncJj+wjtg==}
     dependencies:
-      async: 3.2.3
       lodash.clonedeep: 4.5.0
       lru-cache: 7.14.0
 
@@ -4177,7 +4173,7 @@ packages:
       mute-stream: 0.0.8
       ora: 6.1.2
       run-async: 2.4.1
-      rxjs: 7.5.6
+      rxjs: 7.5.7
       string-width: 5.1.2
       strip-ansi: 7.0.1
       through: 2.3.8
