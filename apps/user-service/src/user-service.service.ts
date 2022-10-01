@@ -214,5 +214,14 @@ export class UserService {
     return PrevFootstep as any;
   }
 
-  async getMaster() {}
+  async getMaster() {
+    const master = await this.userModel.findOne({ role: UserRole.root });
+    if (!master) {
+      throw new RpcException({
+        status: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.UserNotFound,
+      });
+    }
+    return master;
+  }
 }
