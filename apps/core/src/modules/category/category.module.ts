@@ -8,7 +8,10 @@
  */
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ServicesEnum } from '~/shared/constants/services.constant';
+import {
+  ServicePorts,
+  ServicesEnum,
+} from '~/shared/constants/services.constant';
 import { CategoryController } from './category.controller';
 
 @Module({
@@ -17,6 +20,9 @@ import { CategoryController } from './category.controller';
       {
         name: ServicesEnum.category,
         transport: Transport.TCP,
+        options: {
+          port: ServicePorts.category,
+        },
       },
     ]),
   ],
