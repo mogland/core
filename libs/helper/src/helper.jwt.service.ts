@@ -31,7 +31,6 @@ export class JWTService {
     const getMachineId = () => {
       const id = machineIdSync();
 
-      // @ts-ignore
       if (isDev && cluster.isPrimary) {
         console.log(id);
       }
@@ -42,7 +41,6 @@ export class JWTService {
       Buffer.from(getMachineId()).toString('base64').slice(0, 15) ||
       'asjhczxiucipoiopiqm2376';
 
-    // @ts-ignore
     if (isDev && cluster.isPrimary) {
       console.log(secret);
     }
