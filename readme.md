@@ -28,7 +28,7 @@
 | 项目 | 描述 | 状态 |
 | --- | --- | --- |
 | [mogland/core](https://github.com/mogland/core) | Mog 博客系统核心 |  ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/core?style=flat-square) |
-| [mogland/mog-admin](https://github.com/mogland/mog-admin) | Mog 管理后台 | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/mog-admin?style=flat-square) |
+| [mogland/console](https://github.com/mogland/console) | Mog 管理后台 | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/console?style=flat-square) |
 | [mogland/mog-docs](https://github.com/mogland/mog-docs) | Mog 文档 | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/mog-docs?style=flat-square) |
 | [mogland/awesome-mog](https://github.com/mogland/awesome-mog) | Mog 生态资源 | ![GitHub Top languages](https://img.shields.io/github/languages/top/mogland/awesome-mog?style=flat-square) |
 
