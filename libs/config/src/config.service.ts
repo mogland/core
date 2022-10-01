@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nx-core/libs/config/src/config.service.ts
+ * @FilePath: /mog-core/libs/config/src/config.service.ts
  * @author: Wibus
  * @Date: 2022-09-08 21:11:49
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-09 21:50:46
+ * @LastEditTime: 2022-10-01 20:47:13
  * Coding With IU
  */
 
@@ -186,6 +186,13 @@ export class ConfigService {
     await this.setConfig(defaultConfigs);
 
     this.configInit = true;
+  }
+
+  async get<T extends keyof ConfigsInterface>(
+    key: T,
+  ): Promise<ConfigsInterface[T]> {
+    const config = await this.getConfig();
+    return config[key];
   }
 
   /**
