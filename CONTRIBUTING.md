@@ -4,6 +4,63 @@
 
 下面是一些为 mogland/core 做出贡献的指南.
 
+## 代码贡献步骤
+
+**0. 提交 issue**
+
+任何新功能或者功能改进建议都先提交 issue 讨论一下再进行开发，bug 修复可以直接提交 PR. 如果涉及到大的改动，建议先提交 RFC 讨论.
+
+**1. Fork 仓库**
+
+点击右上角的 Fork 按钮，将 mogland/core fork 到自己的仓库.
+
+**2. 克隆仓库**
+
+```bash
+git clone https://github.com/{USERNAME}/core.git
+```
+
+**3. 安装依赖**
+
+```bash
+pnpm install
+```
+
+**4. 创建分支**
+
+```bash
+git checkout -b {BRANCH_NAME}
+```
+
+**5. 开发**
+
+**6. 提交代码**
+
+```bash
+git add .
+git commit -m "<type>(<scope>): <subject>"
+git push origin {BRANCH_NAME}
+```
+
+> **注意:** 你需要安装了依赖后才可以提交代码，我们使用了 husky 来做 git commit 内容的格式化，对代码的格式化和 lint 检查，所以你需要安装依赖后才可以提交代码.
+
+**7. 提交 PR**
+
+在 GitHub 上提交 PR. 点击 `Compare & pull request` 按钮，填写 PR 信息，然后点击 `Create pull request` 按钮.
+
+PR 的标题需要遵循 [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) 规范. 例如: `feat: add new feature`. 你也可以查看下方的 [Pull Request 规范](#Pull Request 规范) 部分.
+
+然后等待 CI 通过，等待 review. 如果 review 提出了修改意见（Change Request），可以在本地修改后再次提交，然后再次 push 到远程仓库，PR 会自动更新.
+
+**more. 更新主仓库代码到自己的仓库**
+
+```bash
+git remote add upstream git@github.com:mogland/core.git
+git fetch upstream
+git pull upstream main
+git push
+```
+
 ## Mog 的目录结构
 
 ```
@@ -26,8 +83,6 @@
 ```
 
 ## 如何命名一个新的分支
-
-你需要知道你想干什么，功能优化？性能提升？代码风格规范？新功能？它们都对应着它们自己的命名规范。我在这里列举几个常用的
 
 你需要知道你想干什么，功能优化？性能提升？代码风格规范？新功能？它们都对应着它们自己的命名规范。我在这里列举几个常用的
 
