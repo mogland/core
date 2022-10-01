@@ -11,6 +11,7 @@ import { JSONSerializeInterceptor } from '~/shared/common/interceptors/json-seri
 import { ResponseInterceptor } from '~/shared/common/interceptors/response.interceptor';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AggregateModule } from './modules/aggregate/aggregate.module';
 import { CategoryModule } from './modules/category/category.module';
 import { PageModule } from './modules/page/page.module';
 import { PostModule } from './modules/post/post.module';
@@ -26,6 +27,7 @@ import { UserModule } from './modules/user/user.module';
     PostModule,
     PageModule,
     CategoryModule,
+    AggregateModule,
   ],
   controllers: [AppController],
   providers: [
