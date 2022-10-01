@@ -75,7 +75,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
         `IP: ${ip} 错误信息: (${status}) ${message} Path: ${decodeURI(url)}`,
       );
     }
-    // @ts-ignore
+
     const prevRequestTs = this.reflector.get(HTTP_REQUEST_TIME, request as any);
 
     if (prevRequestTs) {

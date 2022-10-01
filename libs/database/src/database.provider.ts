@@ -21,12 +21,10 @@ export const databaseProvider = {
       return str.map((s) => chalk.green(s)).join('');
     };
     mongoose.connection.on('connecting', () => {
-      // @ts-ignore
       consola.info(Badge, color`connecting...`);
     });
 
     mongoose.connection.on('open', () => {
-      // @ts-ignore
       consola.info(Badge, color`readied!`);
       if (reconnectionTask) {
         clearTimeout(reconnectionTask);
@@ -35,7 +33,6 @@ export const databaseProvider = {
     });
 
     mongoose.connection.on('disconnected', () => {
-      // @ts-ignore
       consola.error(
         Badge,
         chalk.red(
@@ -46,7 +43,6 @@ export const databaseProvider = {
     });
 
     mongoose.connection.on('error', (error) => {
-      // @ts-ignore
       consola.error(Badge, 'error!', error);
       mongoose.disconnect();
     });
