@@ -15,6 +15,17 @@ import { consola, registerStdLogger } from './consola.global';
 import './dayjs.global';
 import { isDev } from './env.global';
 import { join } from 'path';
+import { Consola } from 'consola';
+import { ModelType } from '@typegoose/typegoose/lib/types';
+import { Document, PaginateModel } from 'mongoose';
+
+declare global {
+  export const isDev: boolean;
+
+  export const consola: Consola;
+
+  export type MongooseModel<T> = ModelType<T> & PaginateModel<T & Document>;
+}
 
 function consoleMog() {
   console.log(`
