@@ -9,7 +9,10 @@
 
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ServicesEnum } from '~/shared/constants/services.constant';
+import {
+  ServicePorts,
+  ServicesEnum,
+} from '~/shared/constants/services.constant';
 import { PostController } from './post.controller';
 
 @Module({
@@ -18,6 +21,9 @@ import { PostController } from './post.controller';
       {
         name: ServicesEnum.post,
         transport: Transport.TCP,
+        options: {
+          port: ServicePorts.post,
+        },
       },
     ]),
   ],

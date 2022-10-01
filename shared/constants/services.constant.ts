@@ -21,3 +21,11 @@ export enum ServicesEnum {
   admin = 'ADMIN_SERVICE',
   mail = 'MAIL_SERVICE',
 }
+
+export enum ServicePorts {
+  core = 2330,
+  page = 2331,
+  category = page,
+  post = page,
+  user = 2332,
+}
