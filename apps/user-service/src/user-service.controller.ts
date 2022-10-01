@@ -15,6 +15,11 @@ export class UserServiceController {
     return this.userService.getUserByUsername(data.username, data.getLoginIp);
   }
 
+  @MessagePattern({ cmd: UserEvents.UserGetMaster })
+  handleUserGetMaster() {
+    return this.userService.getMaster();
+  }
+
   // @EventPattern(UserEvents.UserCheck)
   // handleUserCheckLogged() {}
 
