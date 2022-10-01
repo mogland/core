@@ -4,6 +4,27 @@
 
 下面是一些为 mogland/core 做出贡献的指南.
 
+## Mog 的目录结构
+
+```
+.
+├── .github # github 相关的配置
+├── .husky # husky 相关的配置
+├── scripts # 脚本
+├── apps # 服务端
+  ├── core # 核心服务( Gateway )
+  ├── user-service # 用户服务
+  ├── page-service # 文章、页面、分类服务
+  ├── ...
+├── libs # 公共库
+├── shared # 公共代码
+├── nest-cli.json # nest-cli 配置
+├── package.json # 项目配置
+├── README.md # 项目说明
+├── pnpm-lock.yaml # pnpm 锁文件
+└── tsconfig.json # ts 配置
+```
+
 ## 如何命名一个新的分支
 
 你需要知道你想干什么，功能优化？性能提升？代码风格规范？新功能？它们都对应着它们自己的命名规范。我在这里列举几个常用的
