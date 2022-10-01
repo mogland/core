@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:26:41
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-25 15:14:48
+ * @LastEditTime: 2022-10-01 15:12:42
  * Coding With IU
  */
 
@@ -73,6 +73,23 @@ export class UserController {
         }),
       );
     return data;
+  }
+
+  @Get('/master/info')
+  @ApiOperation({ summary: '获取主人信息' })
+  async getMaster() {
+    return this.user.send({ cmd: UserEvents.UserGetMaster }, null).pipe(
+      timeout(1000),
+      catchError((err) => {
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
+      }),
+    );
   }
 
   @Post('/register')

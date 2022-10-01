@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nx-core/shared/constants/event.constant.ts
+ * @FilePath: /mog-core/shared/constants/event.constant.ts
  * @author: Wibus
  * @Date: 2022-09-03 22:18:46
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 15:55:26
+ * @LastEditTime: 2022-10-01 11:10:16
  * Coding With IU
  */
 
@@ -16,6 +16,7 @@ export enum UserEvents {
   UserRegister = 'user.register',
   UserCheck = 'user.check',
   UserGet = 'user.get',
+  UserGetMaster = 'user.get.master',
   UserGetAllSession = 'user.get.session.all',
 }
 
