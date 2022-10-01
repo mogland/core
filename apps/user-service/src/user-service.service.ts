@@ -9,7 +9,7 @@ import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { getAvatar } from '~/shared/utils';
 import { LoginDto } from './user.dto';
-import { UserDocument, UserModel } from './user.model';
+import { UserDocument, UserModel, UserRole } from './user.model';
 
 @Injectable()
 export class UserService {
@@ -43,8 +43,10 @@ export class UserService {
         message: ExceptionMessage.UserNameIsExist,
       });
 
+    const userCount = await this.userModel.countDocuments();
+
     // 角色控制若完成后，应删除此行下方的代码
-    const hasMaster = !!(await this.userModel.countDocuments());
+    const hasMaster = !!userCount;
     // 禁止注册两个以上账户
     if (hasMaster) {
       throw new RpcException({
@@ -53,7 +55,10 @@ export class UserService {
       });
     }
 
-    const res = await this.userModel.create({ ...model });
+    const res = await this.userModel.create({
+      ...model,
+      role: userCount ? UserRole.visitor : UserRole.root,
+    });
     const token = await this.authService.jwtServicePublic.sign(res.id);
     return {
       username: res.username,
