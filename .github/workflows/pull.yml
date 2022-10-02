@@ -46,7 +46,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         path: ./mog-core-bundle-${{ runner.os }}.zip
-        name: PR-${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}.zip
+        name: PR-#${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
 
   test:
     needs: build
@@ -61,10 +61,10 @@ jobs:
     - name: Download 
       uses: actions/download-artifact@v3
       with:
-        name: PR-${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}.zip
-        path: ./mog-core-bundle-${{ runner.os }}.zip
+        name: PR-#${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
+        path: ./mog-core-bundle-${{ runner.os }}
     - name: Unzip
-      run: unzip mog-core-bundle-${{ runner.os }}.zip
+      run: unzip PR-#${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.8.0
       with:
