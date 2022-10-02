@@ -62,7 +62,7 @@ jobs:
         run: |
           bash scripts/workflow/test-server.sh
           
-      - name: Upload ${{ runner.os }} bundle
+      - name: Upload 
         uses: actions/upload-artifact@v3
         with:
           path: ./mog-core-bundle-${{ runner.os }}.zip

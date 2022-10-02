@@ -41,25 +41,38 @@ jobs:
         npm run build:page-service
         npm run bundle
         zip -r mog-core-bundle-${{ runner.os }}.zip out/
-        
-    - name: Start MongoDB
-      if: matrix.os == 'ubuntu-latest'
-      uses: supercharge/mongodb-github-action@1.8.0
-      with:
-        mongodb-version: 4.4
-    - name: Start Redis
-      if: matrix.os == 'ubuntu-latest'
-      uses: supercharge/redis-github-action@1.4.0
-      with:
-        redis-version: 6
-    - name: Test Bundle Server
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        bash scripts/workflow/test-server.sh
 
-    - name: Upload ${{ runner.os }} bundle
+    - name: Upload 
       uses: actions/upload-artifact@v3
       with:
         path: ./mog-core-bundle-${{ runner.os }}.zip
         name: \[PR \#${{ github.event.pull_request.number }}\] mog-core-bundle-${{ runner.os }}.zip
 
+  test:
+    needs: build
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+        os: ['ubuntu-latest']
+    
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Download 
+      uses: actions/download-artifact@v3
+      with:
+        name: \[PR \#${{ github.event.pull_request.number }}\] mog-core-bundle-${{ runner.os }}.zip
+        path: ./mog-core-bundle-${{ runner.os }}.zip
+    - name: Unzip
+      run: unzip mog-core-bundle-${{ runner.os }}.zip
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.8.0
+      with:
+        mongodb-version: 4.4
+    - name: Start Redis
+      uses: supercharge/redis-github-action@1.4.0
+      with:
+        redis-version: 6
+    - name: Test Bundle Server
+      run: |
+        bash scripts/workflow/test-server.sh
