@@ -46,7 +46,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         path: ./mog-core-bundle-${{ runner.os }}.zip
-        name: \[PR \#${{ github.event.pull_request.number }}\] mog-core-bundle-${{ runner.os }}.zip
+        name: PR-${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}.zip
 
   test:
     needs: build
@@ -61,7 +61,7 @@ jobs:
     - name: Download 
       uses: actions/download-artifact@v3
       with:
-        name: \[PR \#${{ github.event.pull_request.number }}\] mog-core-bundle-${{ runner.os }}.zip
+        name: PR-${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}.zip
         path: ./mog-core-bundle-${{ runner.os }}.zip
     - name: Unzip
       run: unzip mog-core-bundle-${{ runner.os }}.zip
