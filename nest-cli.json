@@ -4,8 +4,8 @@
   "monorepo": true,
   "root": "apps/core",
   "compilerOptions": {
-    "webpack": true,
-    "tsConfigPath": "apps/core/tsconfig.app.json",
+    "webpack": false,
+    "tsConfigPath": "tsconfig.build.json",
     "plugins": [
       {
         "name": "@nestjs/swagger",
