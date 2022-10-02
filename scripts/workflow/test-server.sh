@@ -9,7 +9,8 @@ if [[ $? -ne 0 ]]; then
   exit 1
 fi
 
-nohup node dist/apps/core/main.js 1>/dev/null &
+nohup node out/core 1>/dev/null &
+
 p=$!
 echo "started server with pid $p"
 

@@ -27,7 +27,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/core/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/core/tsconfig.app.json"
+        "tsConfigPath": "tsconfig.build.json"
       }
     },
     "database": {
@@ -36,7 +36,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/database/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/database/tsconfig.lib.json"
+        "tsConfigPath": "tsconfig.build.json"
       }
     },
     "user-service": {
@@ -45,7 +45,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/user-service/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/user-service/tsconfig.app.json"
+        "tsConfigPath": "tsconfig.build.json"
       }
     },
     "cache": {
@@ -54,7 +54,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/cache/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/cache/tsconfig.lib.json"
+        "tsConfigPath": "tsconfig.build.json"
       }
     },
     "helper": {
@@ -63,7 +63,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/helper/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/helper/tsconfig.lib.json"
+        "tsConfigPath": "tsconfig.build.json"
       }
     },
     "auth": {
@@ -72,7 +72,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/auth/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/auth/tsconfig.lib.json"
+        "tsConfigPath": "tsconfig.build.json"
       }
     },
     "config": {
@@ -81,7 +81,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/config/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/config/tsconfig.lib.json"
+        "tsConfigPath": "tsconfig.build.json"
       }
     },
     "page-service": {
@@ -90,7 +90,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/page-service/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/page-service/tsconfig.app.json"
+        "tsConfigPath": "tsconfig.build.json"
       }
     }
   }
