@@ -4,23 +4,23 @@ import {
   ServicePorts,
   ServicesEnum,
 } from '~/shared/constants/services.constant';
+import { CommentsBasicService } from './comments.basic.service';
 import { CommentsController } from './comments.controller';
-import { CommentsService } from './comments.service';
 
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name: ServicesEnum.category,
+        name: ServicesEnum.comments,
         transport: Transport.TCP,
         options: {
-          port: ServicePorts.category,
+          port: ServicePorts.comments,
         },
       },
     ]),
   ],
   controllers: [CommentsController],
-  providers: [CommentsService],
-  exports: [CommentsService],
+  providers: [CommentsBasicService],
+  exports: [CommentsBasicService],
 })
 export class CommentsModule {}

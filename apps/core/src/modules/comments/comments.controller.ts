@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
-import { CommentsService } from './comments.service';
+import { CommentsService } from './comments.basic.service';
 
 @Controller('comments')
 @ApiName
