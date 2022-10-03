@@ -108,7 +108,7 @@ jobs:
           - Commit: ${{ github.event.pull_request.head.sha }}
     - name: Add ci-passed label
       if: ${{ success() }}
-      uses: actions/github-script@v5
+      uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
@@ -120,7 +120,7 @@ jobs:
           })
     - name: Remove ci-failed label
       if: ${{ success() }}
-      uses: actions/github-script@v5
+      uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
@@ -140,7 +140,7 @@ jobs:
           }
     - name: Add ci-failed label
       if: ${{ failure() }}
-      uses: actions/github-script@v5
+      uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
@@ -160,7 +160,7 @@ jobs:
           }
     - name: Remove ci-passed label
       if: ${{ failure() }}
-      uses: actions/github-script@v5
+      uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
