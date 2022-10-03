@@ -73,5 +73,6 @@ jobs:
         redis-version: 6
     - name: Test Bundle Server
       run: |
+        cp /home/runner/work/core/core/out/* ./out/
         wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
         bash test-server.sh
