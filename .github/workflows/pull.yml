@@ -1,20 +1,17 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Pull Request Checker
 
 on:
   pull_request:
-    branches: [ main ]
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [16.x, 18.x]
+        os: [ubuntu-latest, macos-latest]
+    
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
@@ -35,10 +32,149 @@ jobs:
       with:
         version: latest
         run_install: true
-
-    - name: Build Server
+    - name: Install dependencies
+      run: pnpm i --no-optional
+    - name: Build project
       run: |
-        pnpm build
-    # - name: Test Server
-    #   run: |
-    #     sh ./scripts/workflow/test-server.sh
+        npm run build:core
+        npm run build:user-service
+        npm run build:page-service
+        npm run bundle
+        zip -r mog-core-bundle-${{ runner.os }}.zip out/
+
+    - name: Upload 
+      uses: actions/upload-artifact@v3
+      with:
+        path: ./mog-core-bundle-${{ runner.os }}.zip
+        name: PR-#${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
+
+  test:
+    needs: build
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+        os: ['ubuntu-latest']
+    
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: PR-#${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
+        path: ./build
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.8.0
+      with:
+        mongodb-version: 4.4
+    - name: Start Redis
+      uses: supercharge/redis-github-action@1.4.0
+      with:
+        redis-version: 6
+    - name: Test Bundle Server
+      id: test_bundle
+      # continue-on-error: true
+      run: |
+        unzip ./build/mog-core-bundle-Linux.zip -d ./
+        wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
+        bash test-server.sh
+    - name: Reply PR Failed
+      if: ${{ failure() }}
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          Hi, @${{ github.event.pull_request.user.login }}. Test **failed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
+          
+          - OS: ${{ matrix.os }}
+          - Node.js: ${{ matrix.node-version }}
+          - MongoDB: 4.4
+          - Redis: 6
+          - Test Result: ${{ steps.test_bundle.outcome }}
+          - Commit: ${{ github.event.pull_request.head.sha }}
+
+    - name: Reply PR Success
+      if: ${{ success() }}
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          Hi, @${{ github.event.pull_request.user.login }}. Test **passed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
+
+          - OS: ${{ matrix.os }}
+          - Node.js: ${{ matrix.node-version }}
+          - MongoDB: 4.4
+          - Redis: 6
+          - Commit: ${{ github.event.pull_request.head.sha }}
+    - name: Add ci-passed label
+      if: ${{ success() }}
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.rest.issues.addLabels({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            labels: ['ci-passed']
+          })
+    - name: Remove ci-failed label
+      if: ${{ success() }}
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const labels = await github.rest.issues.listLabelsOnIssue({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo
+          })
+          const label = labels.data.find(label => label.name === 'ci-failed')
+          if (label) {
+            github.rest.issues.removeLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: label.name
+            })
+          }
+    - name: Add ci-failed label
+      if: ${{ failure() }}
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const labels = await github.rest.issues.listLabelsOnIssue({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo
+          })
+          const label = labels.data.find(label => label.name === 'ci-failed')
+          if (!label) {
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['ci-failed']
+            })
+          }
+    - name: Remove ci-passed label
+      if: ${{ failure() }}
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const labels = await github.rest.issues.listLabelsOnIssue({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo
+          })
+          const hasPassedLabel = labels.data.some(label => label.name === 'ci-passed')
+          if (hasPassedLabel) {
+            github.rest.issues.removeLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'ci-passed'
+            })
+          }

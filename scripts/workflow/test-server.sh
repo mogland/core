@@ -9,7 +9,14 @@ if [[ $? -ne 0 ]]; then
   exit 1
 fi
 
-nohup node dist/apps/core/main.js 1>/dev/null &
+# 检查 out/core文件夹和里面的文件是否存在
+if [[ ! -d out/core ]]; then
+  echo "ERROR: out/core folder not found"
+  exit 1
+fi
+
+nohup node out/core/index.js 1>/dev/null &
+
 p=$!
 echo "started server with pid $p"
 
