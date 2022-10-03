@@ -36,7 +36,7 @@ jobs:
       run: pnpm i --no-optional
     - name: Build project
       run: |
-        npm run build
+        npm run build:core
         npm run build:user-service
         npm run build:page-service
         npm run bundle
@@ -72,7 +72,89 @@ jobs:
       with:
         redis-version: 6
     - name: Test Bundle Server
+      id: test_bundle
+      continue-on-error: true
       run: |
         unzip ./build/mog-core-bundle-Linux.zip -d ./
         wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
         bash test-server.sh
+    # 如果 test_bundle 步骤失败，就回复 PR
+    - name: Reply PR Failed
+      if: ${{ failure() }}
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          Test failed on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
+          ```
+          ${{ steps.test_bundle.outputs.stdout }}
+          ```
+
+          <details>
+          <summary>Click to see more details</summary>
+          <pre>
+          ${{ steps.test_bundle.outputs.stderr }}
+          </pre>
+          </details>
+    - name: Reply PR Success
+      if: ${{ success() }}
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          Test success on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
+
+          <details>
+          <summary>Click to see more details</summary>
+          <pre>
+          ${{ steps.test_bundle.outputs.stdout }}
+          </pre>
+          </details>
+    - name: Add ci-passed label
+      if: ${{ success() }}
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.issues.addLabels({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            labels: ['ci-passed']
+          })
+    - name: Remove ci-failed label
+      if: ${{ success() }}
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.issues.removeLabel({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            name: 'ci-failed'
+          })
+    - name: Add ci-failed label
+      if: ${{ failure() }}
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.issues.addLabels({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            labels: ['ci-failed']
+          })
+    - name: Remove ci-passed label
+      if: ${{ failure() }}
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.issues.removeLabel({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            name: 'ci-passed'
+          })
