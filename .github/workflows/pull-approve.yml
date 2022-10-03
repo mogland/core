@@ -17,25 +17,20 @@ jobs:
             const commentBody = context.payload.comment.body;
             const repoOwner = context.payload.repository.owner.login;
             if ( commentBody.includes('/approve') ){
-              if (commentUser === repoOwner) {
+              if (commentUser === repoOwner || commentUser === 'Wibus' || commentUser === 'wibus-wee' ) {
                 github.rest.pulls.createReview({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   pull_number: context.issue.number,
                   event: 'APPROVE'
+                  body: '## ✅ Pull Request Approved <br><br> This pull request has been approved by @' + commentUser + ' ',
                 });
               } else {
                 github.rest.issues.createComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: context.issue.number,
-                  body: `
-                  ## ⚠️ Permission denied
-
-                  Only the **owner** of the project can approve the pull request.
-
-                  只有**项目的所有者**才能发送命令自动批准拉取请求。若你继续发送此命令，你将会被社区禁言。
-                  `
+                  body: `## ⚠️ Permission denied <br><br> Only the **owner** of the project can approve the pull request. <br> 只有**项目的所有者**才能发送命令自动批准拉取请求。若你继续发送此命令，你将会被社区禁言。`
                 });
               }
             }
