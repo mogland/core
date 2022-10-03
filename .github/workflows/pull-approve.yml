@@ -22,8 +22,8 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   pull_number: context.issue.number,
-                  event: 'APPROVE'
-                  body: '## ✅ Pull Request Approved <br><br> This pull request has been approved by @' + commentUser + ' ',
+                  event: 'APPROVE',
+                  body: `## ✅ Pull Request Auto Approved <br><br> Now you can merge this pull request. <br><br> Thanks for your contribution.`,
                 });
               } else {
                 github.rest.issues.createComment({
