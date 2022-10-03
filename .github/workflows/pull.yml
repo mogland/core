@@ -58,13 +58,11 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - name: Download 
+    - name: Download Artifact
       uses: actions/download-artifact@v3
       with:
         name: PR-#${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
-        path: ./mog-core-bundle-${{ runner.os }}
-    - name: Unzip
-      run: unzip PR-#${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
+        path: ./out/core
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.8.0
       with:
@@ -75,4 +73,5 @@ jobs:
         redis-version: 6
     - name: Test Bundle Server
       run: |
-        bash scripts/workflow/test-server.sh
+        wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
+        bash test-server.sh
