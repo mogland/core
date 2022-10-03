@@ -73,19 +73,18 @@ jobs:
         redis-version: 6
     - name: Test Bundle Server
       id: test_bundle
-      continue-on-error: true
+      # continue-on-error: true
       run: |
         unzip ./build/mog-core-bundle-Linux.zip -d ./
         wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
         bash test-server.sh
-    # 如果 test_bundle 步骤失败，就回复 PR
     - name: Reply PR Failed
       if: ${{ failure() }}
       uses: peter-evans/create-or-update-comment@v1
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: |
-          Test failed on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
+          Hi, @${{ github.event.pull_request.user.login }}. Commit `${{ github.sha }}` test **failed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
           ```
           ${{ steps.test_bundle.outputs.stdout }}
           ```
@@ -102,7 +101,7 @@ jobs:
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: |
-          Test success on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
+          Hi, @${{ github.event.pull_request.user.login }}. Commit `${{ github.sha }}` test **passed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
 
           <details>
           <summary>Click to see more details</summary>
