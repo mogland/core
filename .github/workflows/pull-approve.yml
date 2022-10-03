@@ -30,12 +30,13 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: pullRequest.number,
-                  body: |
+                  body: `
                   ## ⚠️ Permission denied
 
                   Only the **owner** of the project can approve the pull request.
 
                   只有**项目的所有者**才能发送如 `/approve` 的命令自动批准拉取请求。若你继续发送此命令，你将会被社区禁言。
+                  `
                 });
               }
             }
