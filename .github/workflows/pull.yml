@@ -62,7 +62,7 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: PR-#${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
-        path: ./out
+        path: ./build
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.8.0
       with:
@@ -73,6 +73,6 @@ jobs:
         redis-version: 6
     - name: Test Bundle Server
       run: |
-        cp /home/runner/work/core/core/out/* ./out/
+        unzip ./build/mog-core-bundle-Linux.zip -d ./
         wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
         bash test-server.sh
