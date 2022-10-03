@@ -24,8 +24,8 @@ jobs:
                   pull_number: context.issue.number,
                   event: 'APPROVE',
                   body: `## ✅ Pull Request Auto Approved 
-                  
-                  Now you can merge this pull request. <br><br> Thanks for your contribution.`,
+
+            Now you can merge this pull request. Thanks for your contribution.`,
                 });
               } else {
                 github.rest.issues.createComment({
@@ -34,9 +34,9 @@ jobs:
                   issue_number: context.issue.number,
                   body: `## ⚠️ Permission denied 
                   
-                  Only the **owner** of the project can approve the pull request. 
+            Only the **owner** of the project can approve the pull request. 
                   
-                  只有**项目的所有者**才能发送命令自动批准拉取请求。若你继续发送此命令，你将会被社区禁言。`
+            只有**项目的所有者**才能发送命令自动批准拉取请求。若你继续发送此命令，你将会被社区禁言。`
                 });
               }
             }
