@@ -84,38 +84,35 @@ jobs:
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: |
-          Hi, @${{ github.event.pull_request.user.login }}. Commit `${{ github.sha }}` test **failed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
-          ```
-          ${{ steps.test_bundle.outputs.stdout }}
-          ```
+          Hi, @${{ github.event.pull_request.user.login }}. Test **failed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
+          
+          - OS: ${{ matrix.os }}
+          - Node.js: ${{ matrix.node-version }}
+          - MongoDB: 4.4
+          - Redis: 6
+          - Test Result: ${{ steps.test_bundle.outcome }}
+          - Commit: ${{ github.event.pull_request.head.sha }}
 
-          <details>
-          <summary>Click to see more details</summary>
-          <pre>
-          ${{ steps.test_bundle.outputs.stderr }}
-          </pre>
-          </details>
     - name: Reply PR Success
       if: ${{ success() }}
       uses: peter-evans/create-or-update-comment@v1
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: |
-          Hi, @${{ github.event.pull_request.user.login }}. Commit `${{ github.sha }}` test **passed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
+          Hi, @${{ github.event.pull_request.user.login }}. Test **passed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
 
-          <details>
-          <summary>Click to see more details</summary>
-          <pre>
-          ${{ steps.test_bundle.outputs.stdout }}
-          </pre>
-          </details>
+          - OS: ${{ matrix.os }}
+          - Node.js: ${{ matrix.node-version }}
+          - MongoDB: 4.4
+          - Redis: 6
+          - Commit: ${{ github.event.pull_request.head.sha }}
     - name: Add ci-passed label
       if: ${{ success() }}
       uses: actions/github-script@v5
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          github.issues.addLabels({
+          github.rest.issues.addLabels({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
@@ -127,7 +124,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const labels = await github.issues.listLabelsOnIssue({
+          const labels = await github.rest.issues.listLabelsOnIssue({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo
@@ -147,26 +144,34 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          github.issues.addLabels({
+          const labels = await github.rest.issues.listLabelsOnIssue({
             issue_number: context.issue.number,
             owner: context.repo.owner,
-            repo: context.repo.repo,
-            labels: ['ci-failed']
+            repo: context.repo.repo
           })
+          const label = labels.data.find(label => label.name === 'ci-failed')
+          if (!label) {
+            github.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['ci-failed']
+            })
+          }
     - name: Remove ci-passed label
       if: ${{ failure() }}
       uses: actions/github-script@v5
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const labels = await github.issues.listLabelsOnIssue({
+          const labels = await github.rest.issues.listLabelsOnIssue({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo
           })
           const hasPassedLabel = labels.data.some(label => label.name === 'ci-passed')
           if (hasPassedLabel) {
-            github.issues.removeLabel({
+            github.rest.issues.removeLabel({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
