@@ -11,7 +11,7 @@ jobs:
       - name: Pull Request Auto Approve
         uses: actions/github-script@v3
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.BOT_REVIEW_TOKEN }}
           script: |
             const pullRequest = context.payload.issue.pull_request;
             const commentUser = context.payload.comment.user.login;
