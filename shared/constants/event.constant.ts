@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:18:46
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-03 16:22:04
+ * @LastEditTime: 2022-10-03 21:53:01
  * Coding With IU
  */
 
@@ -50,8 +50,9 @@ export enum PageEvents {
 
 export enum CommentEvents {
   CommentsGetAll = 'comments.get.all',
-  CommentsGetByPostId = 'comments.get.by.postid',
-  CommentsGetByPostIdWithMaster = 'comments.get.by.postid.auth',
+  CommentsGetAllByMaster = 'comments.get.all.auth',
+  CommentsGetById = 'comments.get.by.id',
+  CommentsGetByIdWithMaster = 'comments.get.by.id.auth',
   CommentCreate = 'comment.create',
   CommentCreateByMaster = 'comment.create.auth',
   CommentPatch = 'comment.patch',
