@@ -10,18 +10,10 @@
   ],
   "packageRules": [
     {
-      "updateTypes": [
-        "major"
-      ],
-      "labels": [
-        "dependencies",
-        "UPDATE-MAJOR"
-      ]
+      "updateTypes": ["major"],
+      "labels": ["dependencies", "UPDATE-MAJOR"]
     }
   ],
-  "ignoreDeps": [
-    "nanoid",
-    "camelcase-keys"
-  ],
+  "ignoreDeps": ["nanoid", "camelcase-keys"],
   "enabled": true
 }

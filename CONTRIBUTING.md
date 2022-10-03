@@ -87,16 +87,16 @@ git push
 你需要知道你想干什么，功能优化？性能提升？代码风格规范？新功能？它们都对应着它们自己的命名规范。我在这里列举几个常用的
 
 - feat：新功能（feature）
-- fix：修复bug，可以是QA发现的BUG，也可以是研发自己发现的BUG。
+- fix：修复 bug，可以是 QA 发现的 BUG，也可以是研发自己发现的 BUG。
 - docs：文档（documentation）
 - style：格式（不影响代码运行的变动）
-- refactor：重构（即不是新增功能，也不是修改bug的代码变动）
+- refactor：重构（即不是新增功能，也不是修改 bug 的代码变动）
 - perf：优化相关，比如提升性能、体验
 - test：增加测试
 - chore：构建过程或辅助工具的变动
 - revert：回滚到上一个版本
 - merge：代码合并
-- sync：同步主线或分支的Bug
+- sync：同步主线或分支的 Bug
 
 比如我想加一个新功能，那么这个分支取名应该为：`feat/a-new-feature`
 

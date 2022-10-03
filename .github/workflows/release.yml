@@ -62,11 +62,10 @@ jobs:
         run: |
           pnpm run bundle
           zip -r release.zip out/
-          
+
       - name: Test Bundle Server
         run: |
           bash scripts/workflow/test-server.sh
-
 
       - name: Get release
         id: get_release

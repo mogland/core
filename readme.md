@@ -1,6 +1,6 @@
 # Mog Core V2
 
-***🏝 /mɑːɡ/ 一款弹性的模块化 CMS 博客系统***
+**_🏝 /mɑːɡ/ 一款弹性的模块化 CMS 博客系统_**
 
 > `v2` 使用 `nestjs` 进行了重构，突破性采用微服务架构，可以在[here](https://github.com/mogland/core/branches)找到曾经的版本.
 
@@ -21,33 +21,32 @@
 
 ## 🚀 Usage
 
-> ***Mog v2目前还在开发中，我们还没有提供使用文档。当我们有一个alpha版本准备测试时，我们将在这里发布一个文档链接。在此之前，我们欢迎贡献者帮助实现这个项目。***
+> **_Mog v2 目前还在开发中，我们还没有提供使用文档。当我们有一个 alpha 版本准备测试时，我们将在这里发布一个文档链接。在此之前，我们欢迎贡献者帮助实现这个项目。_**
 
 ## 📦 Ecosystem
 
-| 项目 | 描述 | 状态 |
-| --- | --- | --- |
-| [mogland/core](https://github.com/mogland/core) | Mog 博客系统核心 |  ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/core?style=flat-square) |
-| [mogland/console](https://github.com/mogland/console) | Mog 管理后台 | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/console?style=flat-square) |
-| [mogland/mog-docs](https://github.com/mogland/mog-docs) | Mog 文档 | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/mog-docs?style=flat-square) |
-| [mogland/awesome-mog](https://github.com/mogland/awesome-mog) | Mog 生态资源 | ![GitHub Top languages](https://img.shields.io/github/languages/top/mogland/awesome-mog?style=flat-square) |
+| 项目                                                          | 描述             | 状态                                                                                                            |
+| ------------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- |
+| [mogland/core](https://github.com/mogland/core)               | Mog 博客系统核心 | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/core?style=flat-square)     |
+| [mogland/console](https://github.com/mogland/console)         | Mog 管理后台     | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/console?style=flat-square)  |
+| [mogland/mog-docs](https://github.com/mogland/mog-docs)       | Mog 文档         | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/mog-docs?style=flat-square) |
+| [mogland/awesome-mog](https://github.com/mogland/awesome-mog) | Mog 生态资源     | ![GitHub Top languages](https://img.shields.io/github/languages/top/mogland/awesome-mog?style=flat-square)      |
 
 ## 📈 Activity
 
-![Alt](https://repobeats.axiom.co/api/embed/78247003f5d123971c1f1830175bec934e80a48c.svg "Repobeats analytics image")
-
+![Alt](https://repobeats.axiom.co/api/embed/78247003f5d123971c1f1830175bec934e80a48c.svg 'Repobeats analytics image')
 
 ## 📚 Reference
- 
+
 该项目参考了以下项目：
 
 - [mx-space/core](https://github.com/mx-space/core)
 
 ## 📄 License
 
-该项目是AGPLv3授权的开源项目。任何使用此项目的二次开发或衍生项目也必须是开源的。
+该项目是 AGPLv3 授权的开源项目。任何使用此项目的二次开发或衍生项目也必须是开源的。
 
-## ✍️ Author 作者 
+## ✍️ Author 作者
 
 Mog © Wibus, Released under the AGPL-3.0 License. Created on 2021-09-25.
 

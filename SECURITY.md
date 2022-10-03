@@ -9,8 +9,8 @@ Mog 目前支持以下版本：
 
 | Version | Supported          |
 | ------- | ------------------ |
-| v0.x   | :x:                 |
-| v2.x   | :white_check_mark:                |
+| v0.x    | :x:                |
+| v2.x    | :white_check_mark: |
 
 ## 如何报告漏洞
 
@@ -22,16 +22,16 @@ Mog 目前支持以下版本：
 
 ```
 漏洞在...被观察到？
-  - Docker? [n/y]: 
+  - Docker? [n/y]:
     如果是，请回答下列问题,
-    - `docker -v`: 
-  
-  - 不使用 Docker 运行？ [n/y]: 
+    - `docker -v`:
+
+  - 不使用 Docker 运行？ [n/y]:
     如果是，请回答下列问题,
-    - `uname -a`: 
-    - `node -version`: 
- 
-- 受到影响的 Mog 版本 [e.g. v1.1.0]: 
-- 漏洞危害性等级 [1-10]: 
-- 你是否同意我们将你的名字放在下一个补丁版本的 CHANGELOG 中以此来感谢你的报告呢？ [n/y]: 
+    - `uname -a`:
+    - `node -version`:
+
+- 受到影响的 Mog 版本 [e.g. v1.1.0]:
+- 漏洞危害性等级 [1-10]:
+- 你是否同意我们将你的名字放在下一个补丁版本的 CHANGELOG 中以此来感谢你的报告呢？ [n/y]:
 ```

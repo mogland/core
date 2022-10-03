@@ -13,7 +13,7 @@ import {
   ValidatorConstraintInterface,
   ValidatorConstraint,
   registerDecorator,
-} from "class-validator";
+} from 'class-validator';
 
 export function validatorFactory(validator: (value: any) => boolean) {
   @ValidatorConstraint({ async: true })

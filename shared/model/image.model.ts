@@ -13,9 +13,9 @@ import {
   IsOptional,
   IsString,
   IsUrl,
-} from "class-validator";
+} from 'class-validator';
 
-import { modelOptions, prop } from "@typegoose/typegoose";
+import { modelOptions, prop } from '@typegoose/typegoose';
 
 @modelOptions({
   schemaOptions: { _id: false },

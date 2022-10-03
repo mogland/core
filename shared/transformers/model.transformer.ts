@@ -7,13 +7,13 @@
  * @author Surmon <https://github.com/surmon-china>
  */
 
-import { Connection } from "mongoose";
-import { Inject, Provider } from "@nestjs/common";
-import { getModelForClass } from "@typegoose/typegoose";
+import { Connection } from 'mongoose';
+import { Inject, Provider } from '@nestjs/common';
+import { getModelForClass } from '@typegoose/typegoose';
 import {
   DB_CONNECTION_TOKEN,
   DB_MODEL_TOKEN_SUFFIX,
-} from "../constants/system.constant";
+} from '../constants/system.constant';
 
 export interface TypegooseClass {
   new (...args: any[]);
@@ -25,7 +25,7 @@ export function getModelToken(modelName: string): string {
 
 // Get Provider by Class
 export function getProviderByTypegooseClass(
-  typegooseClass: TypegooseClass
+  typegooseClass: TypegooseClass,
 ): Provider {
   return {
     provide: getModelToken(typegooseClass.name),

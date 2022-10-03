@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-08-31 20:46:31
  * Coding With IU
  */
-import vm2 from "vm2";
+import vm2 from 'vm2';
 
 export function safeEval(code: string, context = {}, options?: vm2.VMOptions) {
   const sandbox = {
