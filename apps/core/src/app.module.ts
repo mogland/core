@@ -16,6 +16,7 @@ import { CategoryModule } from './modules/category/category.module';
 import { PageModule } from './modules/page/page.module';
 import { PostModule } from './modules/post/post.module';
 import { UserModule } from './modules/user/user.module';
+import { CommentsModule } from './modules/comments/comments.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { UserModule } from './modules/user/user.module';
     PageModule,
     CategoryModule,
     AggregateModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [
