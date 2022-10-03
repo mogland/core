@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-10-03 16:56:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-03 17:19:18
+ * @LastEditTime: 2022-10-03 21:49:58
  * Coding With IU
  */
 
@@ -49,24 +49,6 @@ export class CommentsBasicModel extends BaseModel {
   @IsString()
   @ApiProperty({ description: '评论者网址' })
   url?: string;
-
-  @prop({ select: false })
-  @IsString()
-  @IsOptional()
-  @ApiProperty({ description: '评论者IP' })
-  ip?: string;
-
-  @prop()
-  @ApiProperty({ description: '评论地点, 根据IP获取归属地' })
-  @IsString()
-  @IsOptional()
-  public location?: string;
-
-  @prop({ select: false })
-  @IsString()
-  @IsOptional()
-  @ApiProperty({ description: '评论者UA' })
-  agent?: string;
 
   @prop({ required: true, enum: CommentStatus })
   @ApiProperty({ description: '评论状态' })
