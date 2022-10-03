@@ -131,7 +131,7 @@ jobs:
           })
           const label = labels.data.find(label => label.name === 'ci-failed')
           if (label) {
-            github.issues.removeLabel({
+            github.rest.issues.removeLabel({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -151,7 +151,7 @@ jobs:
           })
           const label = labels.data.find(label => label.name === 'ci-failed')
           if (!label) {
-            github.issues.addLabels({
+            github.rest.issues.addLabels({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
