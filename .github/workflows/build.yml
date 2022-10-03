@@ -1,4 +1,3 @@
-
 name: Node.js Test Builder CI
 
 on:
@@ -7,51 +6,49 @@ on:
       - main
   workflow_dispatch:
 
-
 jobs:
   build:
-
     strategy:
       matrix:
         node-version: [16.x, 18.x]
         os: [ubuntu-latest, macos-latest]
-    
+
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Cache pnpm modules
-      uses: actions/cache@v3
-      env:
-        cache-name: cache-pnpm-modules
-      with:
-        path: ~/.pnpm-store
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
-    - uses: pnpm/action-setup@v2.2.2
-      with:
-        version: latest
-        run_install: true
-    - name: Install dependencies
-      run: pnpm i --no-optional
-    - name: Build project
-      run: |
-        npm run build:core
-        npm run build:user-service
-        npm run build:page-service
-        npm run bundle
-        zip -r mog-core-bundle-${{ runner.os }}.zip out/
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Cache pnpm modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-pnpm-modules
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: latest
+          run_install: true
+      - name: Install dependencies
+        run: pnpm i --no-optional
+      - name: Build project
+        run: |
+          npm run build:core
+          npm run build:user-service
+          npm run build:page-service
+          npm run bundle
+          zip -r mog-core-bundle-${{ runner.os }}.zip out/
 
-    - name: Upload 
-      uses: actions/upload-artifact@v3
-      with:
-        path: ./mog-core-bundle-${{ runner.os }}.zip
-        name: commit-${{ github.sha }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          path: ./mog-core-bundle-${{ runner.os }}.zip
+          name: commit-${{ github.sha }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
 
   test:
     needs: build
@@ -59,25 +56,25 @@ jobs:
       matrix:
         node-version: [16.x, 18.x]
         os: ['ubuntu-latest']
-    
+
     runs-on: ${{ matrix.os }}
 
     steps:
-    - name: Download Artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: commit-${{ github.sha }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
-        path: ./build
-    - name: Start MongoDB
-      uses: supercharge/mongodb-github-action@1.8.0
-      with:
-        mongodb-version: 4.4
-    - name: Start Redis
-      uses: supercharge/redis-github-action@1.4.0
-      with:
-        redis-version: 6
-    - name: Test Bundle Server
-      run: |
-        unzip ./build/mog-core-bundle-Linux.zip -d ./
-        wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
-        bash test-server.sh
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: commit-${{ github.sha }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
+          path: ./build
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-version: 4.4
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.4.0
+        with:
+          redis-version: 6
+      - name: Test Bundle Server
+        run: |
+          unzip ./build/mog-core-bundle-Linux.zip -d ./
+          wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
+          bash test-server.sh

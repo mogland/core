@@ -1,11 +1,11 @@
-import { UnprocessableEntityException } from "@nestjs/common";
-import { ApiProperty } from "@nestjs/swagger";
-import { Transform } from "class-transformer";
-import { IsDefined, IsMongoId, isMongoId } from "class-validator";
+import { UnprocessableEntityException } from '@nestjs/common';
+import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
+import { IsDefined, IsMongoId, isMongoId } from 'class-validator';
 
 export class MongoIdDto {
   @IsMongoId()
-  @ApiProperty({ example: "5e6f67e75b303781d2807278" })
+  @ApiProperty({ example: '5e6f67e75b303781d2807278' })
   id: string;
 }
 
@@ -19,8 +19,8 @@ export class IntIdOrMongoIdDto {
     if (!isNaN(nid)) {
       return nid;
     }
-    throw new UnprocessableEntityException("Invalid id");
+    throw new UnprocessableEntityException('Invalid id');
   })
-  @ApiProperty({ example: [12, "5e6f67e75b303781d2807278"] })
+  @ApiProperty({ example: [12, '5e6f67e75b303781d2807278'] })
   id: string | number;
 }

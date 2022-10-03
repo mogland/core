@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Expose, Transform } from "class-transformer";
+import { ApiProperty } from '@nestjs/swagger';
+import { Expose, Transform } from 'class-transformer';
 import {
   IsEnum,
   IsInt,
@@ -8,7 +8,7 @@ import {
   IsString,
   Max,
   Min,
-} from "class-validator";
+} from 'class-validator';
 
 class DbQueryBasicDto {
   @IsOptional()
@@ -49,7 +49,7 @@ export class PagerDto extends DbQueryBasicDto {
   @IsEnum([1, -1])
   @Transform(({ value: val }) => {
     // @ts-ignore
-    const isStringNumber = typeof val === "string" && !isNaN(val);
+    const isStringNumber = typeof val === 'string' && !isNaN(val);
 
     if (isStringNumber) {
       return parseInt(val);

@@ -1,6 +1,6 @@
-import { CACHE_MANAGER, Inject, Injectable, Logger } from "@nestjs/common";
-import { Cache } from "cache-manager";
-import { Redis } from "ioredis";
+import { CACHE_MANAGER, Inject, Injectable, Logger } from '@nestjs/common';
+import { Cache } from 'cache-manager';
+import { Redis } from 'ioredis';
 
 // Cache 客户端管理器
 
@@ -21,8 +21,8 @@ export class CacheService {
 
   constructor(@Inject(CACHE_MANAGER) cache: Cache) {
     this.cache = cache;
-    this.redisClient.on("ready", () => {
-      this.logger.log("Redis 已准备好!");
+    this.redisClient.on('ready', () => {
+      this.logger.log('Redis 已准备好!');
     });
   }
 
@@ -37,7 +37,7 @@ export class CacheService {
   public set<T>(
     key: TCacheKey,
     value: any,
-    options?: { ttl: number }
+    options?: { ttl: number },
   ): TCacheResult<T> {
     return this.cache.set(key, value, options);
   }
