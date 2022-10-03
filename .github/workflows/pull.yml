@@ -127,12 +127,20 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          github.issues.removeLabel({
+          const labels = await github.issues.listLabelsOnIssue({
             issue_number: context.issue.number,
             owner: context.repo.owner,
-            repo: context.repo.repo,
-            name: 'ci-failed'
+            repo: context.repo.repo
           })
+          const label = labels.data.find(label => label.name === 'ci-failed')
+          if (label) {
+            github.issues.removeLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: label.name
+            })
+          }
     - name: Add ci-failed label
       if: ${{ failure() }}
       uses: actions/github-script@v5
@@ -151,9 +159,17 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          github.issues.removeLabel({
+          const labels = await github.issues.listLabelsOnIssue({
             issue_number: context.issue.number,
             owner: context.repo.owner,
-            repo: context.repo.repo,
-            name: 'ci-passed'
+            repo: context.repo.repo
           })
+          const hasPassedLabel = labels.data.some(label => label.name === 'ci-passed')
+          if (hasPassedLabel) {
+            github.issues.removeLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'ci-passed'
+            })
+          }
