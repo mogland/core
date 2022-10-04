@@ -19,10 +19,28 @@ export class CommentsBasicService {
     return data;
   }
 
-  async getAllComments(status: CommentStatus) {
-    return this.commentsBasicModel.find({
-      status,
-    });
+  async getAllComments(
+    { page, size, status } = {
+      page: 1,
+      size: 10,
+      status: CommentStatus.Approved,
+    },
+  ) {
+    const queryList = await this.commentsBasicModel.paginate(
+      { status }, // 查询条件
+      {
+        page, // 当前页
+        limit: size, // 每页显示条数
+        select: '+ip +agent -children', // 查询字段
+        sort: { created: -1 }, // 排序
+        populate: [
+          // 关联查询
+          { path: 'parent', select: '-children' }, // 关联父评论
+          { path: 'ref', select: 'title _id slug categoryId' }, // 关联引用对象
+        ],
+      },
+    );
+    return queryList;
   }
 
   async getApprovedComments() {

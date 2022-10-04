@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-10-03 16:56:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-04 12:59:19
+ * @LastEditTime: 2022-10-04 13:12:50
  * Coding With IU
  */
 
@@ -13,10 +13,10 @@ import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { BaseModel } from '~/shared/model/base.model';
 
 export enum CommentStatus {
-  Pending = 'pending', // 待审核
-  Approved = 'approved', // 已通过
-  Spam = 'spam', // 垃圾评论
-  Trash = 'trash', // 回收站
+  Pending, // 待审核
+  Approved, // 已通过
+  Spam, // 垃圾评论
+  Trash, // 回收站
 }
 
 export enum CommentType {
