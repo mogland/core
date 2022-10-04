@@ -99,5 +99,7 @@ jobs:
               Only the **owner** of the project can approve the pull request. 
                     
               只有**项目的所有者**才能发送命令。若你继续发送此命令，你将会被社区禁言。`
+              })
             }
+
             
