@@ -3,13 +3,13 @@
  * @author: Wibus
  * @Date: 2022-10-03 16:56:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-04 10:27:51
+ * @LastEditTime: 2022-10-04 12:59:19
  * Coding With IU
  */
 
 import { ApiProperty } from '@nestjs/swagger';
 import { modelOptions, prop } from '@typegoose/typegoose';
-import { IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { BaseModel } from '~/shared/model/base.model';
 
 export enum CommentStatus {
@@ -27,21 +27,27 @@ export enum CommentType {
 // 因为要兼容其他的博客系统，所以这里的字段并不做关联
 @modelOptions({ options: { customName: 'Comment' } })
 export class CommentsBasicModel extends BaseModel {
-  @prop({ index: true })
-  @ApiProperty({ description: '评论 ID' })
+  @prop({ index: true, unique: true, required: true })
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({ description: '评论 ID，需要后端方法中实现自增' })
   coid: number;
 
   @prop({ required: true })
   @ApiProperty({ description: '评论关联文章或页面的 pid ' })
+  @IsNumber()
   pid: number;
 
   @prop({ type: Number })
+  @IsNumber()
+  @IsOptional()
   @ApiProperty({ description: '父评论' })
-  parent: number[];
+  parent?: number;
 
   @prop({ type: Number })
   @ApiProperty({ description: '子评论' })
-  children?: number[];
+  @IsOptional()
+  children: number[] | any[];
 
   @prop({ required: true })
   @IsString()
