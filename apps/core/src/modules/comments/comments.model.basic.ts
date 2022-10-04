@@ -3,19 +3,16 @@
  * @author: Wibus
  * @Date: 2022-10-03 16:56:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-03 21:49:58
+ * @LastEditTime: 2022-10-04 10:27:51
  * Coding With IU
  */
 
 import { ApiProperty } from '@nestjs/swagger';
-import { modelOptions, prop, Ref } from '@typegoose/typegoose';
+import { modelOptions, prop } from '@typegoose/typegoose';
 import { IsOptional, IsString } from 'class-validator';
-import { Types } from 'mongoose';
-import { PageModel } from '~/apps/page-service/src/model/page.model';
-import { PostModel } from '~/apps/page-service/src/model/post.model';
 import { BaseModel } from '~/shared/model/base.model';
 
-enum CommentStatus {
+export enum CommentStatus {
   Pending = 'pending', // 待审核
   Approved = 'approved', // 已通过
   Spam = 'spam', // 垃圾评论
@@ -27,8 +24,25 @@ export enum CommentType {
   Page = 'page',
 }
 
+// 因为要兼容其他的博客系统，所以这里的字段并不做关联
 @modelOptions({ options: { customName: 'Comment' } })
 export class CommentsBasicModel extends BaseModel {
+  @prop({ index: true })
+  @ApiProperty({ description: '评论 ID' })
+  coid: number;
+
+  @prop({ required: true })
+  @ApiProperty({ description: '评论关联文章或页面的 pid ' })
+  pid: number;
+
+  @prop({ type: Number })
+  @ApiProperty({ description: '父评论' })
+  parent: number[];
+
+  @prop({ type: Number })
+  @ApiProperty({ description: '子评论' })
+  children?: number[];
+
   @prop({ required: true })
   @IsString()
   @ApiProperty({ description: '评论内容' })
@@ -55,40 +69,13 @@ export class CommentsBasicModel extends BaseModel {
   @IsString()
   status: CommentStatus;
 
-  @prop({ required: true })
-  @IsString()
-  @ApiProperty({ description: '评论所属文章或页面' })
-  parent: string;
-
   @prop({ required: true, enum: CommentType, default: CommentType.Post })
   @ApiProperty({ description: '评论类型' })
   type: CommentType;
-
-  @prop({ ref: () => CommentsBasicModel, type: Types.ObjectId })
-  children?: Ref<CommentsBasicModel>[]; // 子评论
 
   @prop({ default: 1 })
   commentsIndex?: number; // 评论顺序
 
   @prop()
   key?: string; // 评论key
-
-  @prop({ refPath: 'type' })
-  ref: Ref<PostModel | PageModel>; // 引用的文章或页面
-
-  @prop({
-    ref: () => PostModel, // 评论的文章
-    foreignField: '_id', // 指定外键字段
-    localField: 'ref', // 指定当前字段
-    justOne: true, // 只查询一条
-  })
-  public post: Ref<PostModel>;
-
-  @prop({
-    ref: () => PageModel,
-    foreignField: '_id',
-    localField: 'ref',
-    justOne: true,
-  })
-  public page: Ref<PageModel>;
 }

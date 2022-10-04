@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '~/libs/database/src/model.transformer';
-import { CommentsBasicModel } from './comments.model.basic';
+import { CommentsBasicModel, CommentStatus } from './comments.model.basic';
 
 @Injectable()
 export class CommentsBasicService {
@@ -9,7 +9,26 @@ export class CommentsBasicService {
     private readonly commentsBasicModel: MongooseModel<CommentsBasicModel>,
   ) {}
 
-  async getAllComments() {
-    return this.commentsBasicModel.find();
+  async getAllComments(status: CommentStatus) {
+    return this.commentsBasicModel.find({
+      status,
+    });
+  }
+
+  async getApprovedComments() {
+    return this.commentsBasicModel.find({ status: CommentStatus.Approved });
+  }
+
+  async getCommentsByPostId(pid: number) {
+    return {
+      count: await this.commentsBasicModel.countDocuments({
+        status: CommentStatus.Approved,
+        pid,
+      }),
+      data: await this.commentsBasicModel.find({
+        pid,
+        status: CommentStatus.Approved,
+      }),
+    };
   }
 }
