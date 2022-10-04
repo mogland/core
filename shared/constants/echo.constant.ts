@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nx-core/shared/constants/echo.constant.ts
+ * @FilePath: /mog-core/shared/constants/echo.constant.ts
  * @author: Wibus
  * @Date: 2022-09-12 15:08:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 15:35:57
+ * @LastEditTime: 2022-10-04 12:57:32
  * Coding With IU
  */
 
@@ -28,4 +28,6 @@ export enum ExceptionMessage {
 
   PageIsNotExist = '页面不存在o(╯□╰)o',
   PageIsProtected = '页面受保护了哦，需要密码才能查看',
+
+  CommentNotFound = '评论不存在o(╯□╰)o',
 }

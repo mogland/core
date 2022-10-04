@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '~/libs/database/src/model.transformer';
+import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { CommentsBasicModel, CommentStatus } from './comments.model.basic';
 
 @Injectable()
@@ -39,5 +40,59 @@ export class CommentsBasicService {
         status: CommentStatus.Approved,
       }),
     };
+  }
+
+  async createComment(data: CommentsBasicModel) {
+    data = await this.increateCid(data);
+    return this.commentsBasicModel.create(data);
+  }
+
+  async updateComment(data: CommentsBasicModel) {
+    return this.commentsBasicModel.updateOne(
+      { coid: data.coid },
+      { $set: data },
+    );
+  }
+
+  async deleteComment(coid: number) {
+    const comment = await this.commentsBasicModel.findOne({ coid });
+    if (!comment) {
+      throw new NotFoundException(ExceptionMessage.CommentNotFound);
+    }
+    if (comment.parent) {
+      await this.commentsBasicModel.updateOne(
+        { coid: comment.parent },
+        { $pull: { children: coid } },
+      );
+    }
+    if (comment.children.length > 0) {
+      await this.commentsBasicModel.deleteMany({
+        coid: { $in: comment.children },
+      });
+    }
+    return this.commentsBasicModel.deleteOne({ coid });
+  }
+
+  async deleteCommentsByPostId(pid: number) {
+    return this.commentsBasicModel.deleteMany({ pid });
+  }
+
+  async deleteCommentsByPostIds(pids: number[]) {
+    return this.commentsBasicModel.deleteMany({ pid: { $in: pids } });
+  }
+
+  async replyComment(data: CommentsBasicModel) {
+    data = await this.increateCid(data);
+    const parentComment = await this.commentsBasicModel.findOne({
+      coid: data.parent,
+    });
+    if (parentComment) {
+      parentComment.children.push(data.coid);
+      await this.commentsBasicModel.updateOne(
+        { coid: data.parent },
+        { $set: parentComment },
+      );
+    }
+    return this.commentsBasicModel.create(data);
   }
 }
