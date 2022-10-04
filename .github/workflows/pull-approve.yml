@@ -16,8 +16,11 @@ jobs:
             const commentUser = context.payload.comment.user.login;
             const commentBody = context.payload.comment.body;
             const repoOwner = context.payload.repository.owner.login;
-            if ( commentBody.includes('/approve') ){
-              if (commentUser === repoOwner || commentUser === 'Wibus' || commentUser === 'wibus-wee' ) {
+            console.log(`Comment user: ${commentUser}`);
+            console.log(`Comment body: ${commentBody}`);
+            console.log(`Repo owner: ${repoOwner}`);
+            if (commentUser === repoOwner || commentUser === 'Wibus' || commentUser === 'wibus-wee' ) {
+              if ( commentBody.includes('/approve') ){
                 github.rest.pulls.createReview({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
@@ -27,17 +30,74 @@ jobs:
 
             Now you can merge this pull request. Thanks for your contribution.`,
                 });
-              } else {
-                github.rest.issues.createComment({
+                github.rest.pulls.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.issue.number,
+                  name: 'ci-approved',
+                });
+              }
+              if ( commentBody.includes('/change') ){
+                github.rest.pulls.createReview({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.issue.number,
+                  body: `## 🔴 Request Changes,
+                  event: 'REQUEST_CHANGES',
+
+            Please make the requested changes and then re-request a review.`,
+                });
+              }
+              if ( commentBody.includes('/lgtm') ){
+                github.rest.pulls.createReview({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.issue.number,
+                  event: 'APPROVE',
+                  body: `## ✅ Pull Request Is Ready To Be Merged
+
+            Now Admin can merge this pull request. Thanks for your contribution.`,
+                });
+                github.rest.pulls.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.issue.number,
+                  name: 'lgtm',
+                });
+              }
+              if ( commentBody.includes('/merge') ){
+                github.rest.pulls.merge({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.issue.number,
+                  merge_method: 'squash',
+                });
+              }
+              if ( commentBody.includes('/ci-ignore') ){
+                github.rest.pulls.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.issue.number,
+                  name: 'ci-ignore',
+                });
+              }
+              if ( commentBody.includes('/ci-no-ignore') ){
+                github.rest.issues.removeLabel({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: context.issue.number,
-                  body: `## ⚠️ Permission denied 
-                  
-            Only the **owner** of the project can approve the pull request. 
-                  
-            只有**项目的所有者**才能发送命令自动批准拉取请求。若你继续发送此命令，你将会被社区禁言。`
+                  name: 'ci-ignore',
                 });
               }
+            } else {
+              github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: context.issue.number,
+                    body: `## ⚠️ Permission denied 
+                    
+              Only the **owner** of the project can approve the pull request. 
+                    
+              只有**项目的所有者**才能发送命令。若你继续发送此命令，你将会被社区禁言。`
             }
             
