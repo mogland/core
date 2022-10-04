@@ -30,10 +30,10 @@ jobs:
 
             Now you can merge this pull request. Thanks for your contribution.`,
                 });
-                github.rest.pulls.createLabel({
+                github.rest.issues.createLabel({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  pull_number: context.issue.number,
+                  issue_number: context.issue.number,
                   name: 'ci-approved',
                 });
               }
@@ -58,10 +58,10 @@ jobs:
 
             Now Admin can merge this pull request. Thanks for your contribution.`,
                 });
-                github.rest.pulls.createLabel({
+                github.rest.issues.createLabel({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  pull_number: context.issue.number,
+                  issue_number: context.issue.number,
                   name: 'lgtm',
                 });
               }
@@ -74,10 +74,10 @@ jobs:
                 });
               }
               if ( commentBody.includes('/ci-ignore') ){
-                github.rest.pulls.createLabel({
+                github.rest.issues.createLabel({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  pull_number: context.issue.number,
+                  issue_number: context.issue.number,
                   name: 'ci-ignore',
                 });
               }
