@@ -28,7 +28,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': 5.40.0
   '@typescript-eslint/parser': 5.40.0
   '@vercel/ncc': 0.34.0
-  axios: 0.27.2
+  axios: 1.1.2
   axios-retry: 3.3.1
   bcrypt: 5.1.0
   cache-manager: 4.1.0
@@ -90,7 +90,7 @@ dependencies:
   '@nestjs/schedule': 2.1.0_6evwnopmg7pp6j7oqhprlukxha
   '@typegoose/typegoose': 9.12.1_mongoose@6.6.3
   '@vercel/ncc': 0.34.0
-  axios: 0.27.2
+  axios: 1.1.2
   axios-retry: 3.3.1
   bcrypt: 5.1.0
   cache-manager: 4.1.0
@@ -2264,11 +2264,12 @@ packages:
       is-retry-allowed: 2.2.0
     dev: false
 
-  /axios/0.27.2:
-    resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
+  /axios/1.1.2:
+    resolution: {integrity: sha512-bznQyETwElsXl2RK7HLLwb5GPpOLlycxHCtrpDR/4RqqBzjARaOTo3jz4IgtntWUYee7Ne4S8UHd92VCuzPaWA==}
     dependencies:
       follow-redirects: 1.15.1
       form-data: 4.0.0
+      proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -5840,6 +5841,10 @@ packages:
     dependencies:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
+    dev: false
+
+  /proxy-from-env/1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
     dev: false
 
   /pump/3.0.0:
