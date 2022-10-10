@@ -68,7 +68,7 @@ specifiers:
   slugify: 1.6.5
   snakecase-keys: 5.4.4
   source-map-support: 0.5.21
-  supertest: 6.2.4
+  supertest: 6.3.0
   ts-jest: 29.0.3
   ts-loader: 9.4.1
   ts-node: 10.9.1
@@ -148,7 +148,7 @@ devDependencies:
   lint-staged: 13.0.3
   prettier: 2.7.1
   source-map-support: 0.5.21
-  supertest: 6.2.4
+  supertest: 6.3.0
   ts-jest: 29.0.3_2gcdg7c5hzdfd67o3khlosdlhu
   ts-loader: 9.4.1_pfhymta45wkqia6xzv764wgtky
   ts-node: 10.9.1_32pi7snzzbarjvfhwlvtgaxef4
@@ -6461,8 +6461,8 @@ packages:
       - supports-color
     dev: true
 
-  /supertest/6.2.4:
-    resolution: {integrity: sha512-M8xVnCNv+q2T2WXVzxDECvL2695Uv2uUj2O0utxsld/HRyJvOU8W9f1gvsYxSNU4wmIe0/L/ItnpU4iKq0emDA==}
+  /supertest/6.3.0:
+    resolution: {integrity: sha512-QgWju1cNoacP81Rv88NKkQ4oXTzGg0eNZtOoxp1ROpbS4OHY/eK5b8meShuFtdni161o5X0VQvgo7ErVyKK+Ow==}
     engines: {node: '>=6.4.0'}
     dependencies:
       methods: 1.1.2
