@@ -39,7 +39,7 @@ specifiers:
   class-validator: 0.13.2
   class-validator-jsonschema: 3.1.1
   commitizen: 4.2.5
-  concurrently: 7.4.0
+  concurrently: 7.5.0
   consola: 2.15.3
   cron: 2.1.0
   cross-env: 7.0.3
@@ -136,7 +136,7 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 5.40.1_ukgdydjtebaxmxfqp5v5ulh64y
   '@typescript-eslint/parser': 5.40.1_z4bbprzjrhnsfa24uvmcbu7f5q
   commitizen: 4.2.5
-  concurrently: 7.4.0
+  concurrently: 7.5.0
   cross-env: 7.0.3
   eslint: 8.25.0
   eslint-config-prettier: 8.5.0_eslint@8.25.0
@@ -2778,8 +2778,8 @@ packages:
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  /concurrently/7.4.0:
-    resolution: {integrity: sha512-M6AfrueDt/GEna/Vg9BqQ+93yuvzkSKmoTixnwEJkH0LlcGrRC2eCmjeG1tLLHIYfpYJABokqSGyMcXjm96AFA==}
+  /concurrently/7.5.0:
+    resolution: {integrity: sha512-5E3mwiS+i2JYBzr5BpXkFxOnleZTMsG+WnE/dCG4/P+oiVXrbmrBwJ2ozn4SxwB2EZDrKR568X+puVohxz3/Mg==}
     engines: {node: ^12.20.0 || ^14.13.0 || >=16.0.0}
     hasBin: true
     dependencies:
