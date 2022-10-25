@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://avatars.githubusercontent.com/u/106414194?s=200&v=4" height="128">
-  <h1 align="center">Mog</h1>
-  <p align="center"><b align="center">🏝 /mɑːɡ/ 一款弹性的模块化 CMS 博客系统</b></p>
+  <h1 align="center">Mog 🏝 /mɑːɡ/ </h1>
+  <p align="center"><b align="center">A flexible, modular Blog System. Open source. Free forever.</b></p>
 </p>
 
 <p align="center">
@@ -14,12 +14,12 @@
   </a>
  </p>
 
-Mog 是一个易于扩展的现代博客系统。它突破地采用了微服务架构，在结构设计是模块化、灵活的。 您可以轻松地将其自定义以满足您的需求。 更可以通过接口来开发自己的前/中后台，也可以通过插件来开发自己的功能。
+Mog is a modern blogging system that is easy to extend. It breaks through the use of microservice architecture, in the structure design is modular and flexible. You can easily customize it to meet your needs. More can be through the interface to develop their own front/middle background, can also be through the plug-in to develop their own functions.
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/mogland/core?style=flat-square)
 ![GitHub forks](https://img.shields.io/github/forks/mogland/core?style=flat-square)
 
-| :warning: | Mog v2 目前还在开发中，我们还没有提供使用文档。当我们有一个 alpha 版本准备测试时，我们将在这里发布一个文档链接。在此之前，我们欢迎贡献者帮助实现这个项目。 | &nbsp;&nbsp;&nbsp;&nbsp;[CONTRIBUTE](https://github.com/mogland/core/blob/main/CONTRIBUTING.md)&nbsp;&nbsp;&nbsp;&nbsp; |
+| :warning: | Mog v2 is currently under development and we have not provided documentation for its use. When we have an alpha version ready for testing, we will post a link to the documentation here. Until then, contributors are welcome to help implement this project. | &nbsp;&nbsp;&nbsp;&nbsp;[CONTRIBUTE](https://github.com/mogland/core/blob/main/CONTRIBUTING.md)&nbsp;&nbsp;&nbsp;&nbsp; |
 | - |:-| - |
 
 ## Table of Contents
@@ -34,32 +34,30 @@ Mog 是一个易于扩展的现代博客系统。它突破地采用了微服务�
 
 ## Features
 
-- [X] 我们突破性地采用了微服务架构，提高原有 v1 版本服务的可扩展性和服务稳定性。
-- [X] 增强了社区规范，提高开发人员和使用者的友好度.
-- [X] 感谢社区的贡献，项目核心将始终开源。
-- [X] 通过插件系统，在原有的基础上扩展了可移植性功能。
-- [X] 使用模板引擎，以此便与快速开发前端, 感谢 Fastify 的 point-of-view
+- [X] Microservices architecture to improve the scalability and stability of the v1 version of the service.
+- [X] Enhances community norms for developer and user friendliness.
+- [X] Project will always be open source.
+- [X] Extended portability with a plug-in system.
+- [X] Use a templating engine, which allows fast front-end development.
 
 ## Missions
 
-受到大佬 [@innei](https://github.com/Innei) 的博客系统 [Mix Space](https://github.com/mx-space/) 影响，我们也很想自己做一个，于是 Mog 就出现了。
+There are a lot of blogging systems for users on the market, but it seems that they all follow the same route, and we want to break through this limitation. For this reason, we used a microservice architecture, which was the first time our team had used it for a blogging system, and it brought stability and flexibility to the services that we didn't have on the market.
 
-还有一个原因其实是看到一些收费的博客系统项目，但是那些项目似乎不太值得被作为收费项目，我们并不希望这么多人为了一个不太好的项目而去付费，很不值得。并且据我们目前所知 有某些收费项目所使用的底层框架是有反序列漏洞的，并不安全。
+![module+blog=mog](https://user-images.githubusercontent.com/62133302/197695513-f00fc858-be06-4fce-8a28-c22838a76a2b.png)
 
-我们也并非是说哪个好哪个不好，而是认为有某些收费的博客项目是不稳定的，对于用户来说需要慎重选择，一旦就买了个bug blog那就不好了，但选择开源的博客系统的话，首先你可以保证社区的永久驱动，这是收费项目所不敢保证的事情，承诺永久更新是不可能的。第二你可以享受开源的好处，不收费、多维护成员、统一规范等等。
+Another reason is actually to see some paid blogging system projects, but those projects don't seem to be worth it as a paid project, we don't want so many people to pay for a project that is not very good, it's not worth it. And as far as we know, the underlying framework used by some charging projects is not secure because of anti-sequence vulnerabilities.
 
-![module+blog=mog](https://user-images.githubusercontent.com/62133302/197693758-c22fb7fb-58bc-4b7e-9884-a1608e5ba8da.png)
-
-在市面上，目前为用户而生的博客系统有很多，但是似乎他们都在走一条基本一致的路线，我们希望突破这个限制。因此我们使用了微服务架构，这是我们团队第一次在博客系统中使用这种设计，他可以带来服务的稳定保证，以及弹性部署等优点特性，这是市面上的系统所不拥有的。
+We also is not say which good or bad, but don't think there's a certain charge blog project is stable, for users need to choose carefully, once bought a bug is a blog that is not good, but open source blog system, first of all, you can guarantee the community driven permanent charging items have no promises, It is not possible to commit to permanent updates. Second, you can enjoy the benefits of open source, such as no fees, more maintenance members, uniform specifications, etc.
 
 ## Ecosystem
 
-| 项目                                                          | 描述             | 状态                                                                                                            |
+| Project                                                          | Description             | Status                                                                                                            |
 | ------------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- |
-| [mogland/core](https://github.com/mogland/core)               | Mog 博客系统核心 | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/core?style=flat-square)     |
-| [mogland/console](https://github.com/mogland/console)         | Mog 管理后台     | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/console?style=flat-square)  |
-| [mogland/mog-docs](https://github.com/mogland/mog-docs)       | Mog 文档         | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/mog-docs?style=flat-square) |
-| [mogland/awesome-mog](https://github.com/mogland/awesome-mog) | Mog 生态资源     | ![GitHub Top languages](https://img.shields.io/github/languages/top/mogland/awesome-mog?style=flat-square)      |
+| [mogland/core](https://github.com/mogland/core)               | Mog Core | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/core?style=flat-square)     |
+| [mogland/console](https://github.com/mogland/console)         | Mog Console     | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/console?style=flat-square)  |
+| [mogland/mog-docs](https://github.com/mogland/mog-docs)       | Mog Documentation         | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/mog-docs?style=flat-square) |
+| [mogland/awesome-mog](https://github.com/mogland/awesome-mog) | Mog Ecosystems List     | ![GitHub Top languages](https://img.shields.io/github/languages/top/mogland/awesome-mog?style=flat-square)      |
 
 ## Activity
 
@@ -67,13 +65,13 @@ Mog 是一个易于扩展的现代博客系统。它突破地采用了微服务�
 
 ## References
 
-该项目参考了以下项目：
+The project makes reference to the following projects:
 
 - [mx-space/core](https://github.com/mx-space/core)
 
 ## License
 
-该项目是 AGPLv3 授权的开源项目。任何使用此项目的二次开发或衍生项目也必须是开源的。
+The project is an open source project licensed by AGPLv3. Any secondary development or derivative projects that use this project must also be open source.
 
 ## Author
 
