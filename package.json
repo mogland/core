@@ -99,7 +99,7 @@
     "@nestjs/swagger": "6.1.2",
     "@nestjs/testing": "9.1.6",
     "@types/bcrypt": "5.0.0",
-    "@types/cache-manager-ioredis": "2.0.2",
+    "@types/cache-manager-ioredis": "2.0.3",
     "@types/jest": "29.2.0",
     "@types/lodash": "4.14.186",
     "@types/mongoose-aggregate-paginate-v2": "1.0.5",
