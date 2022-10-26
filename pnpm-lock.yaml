@@ -4,7 +4,7 @@ overrides:
   typescript: 4.8.4
 
 specifiers:
-  '@fastify/multipart': 7.2.0
+  '@fastify/multipart': 7.3.0
   '@fastify/static': 6.5.0
   '@innei/eslint-config-ts': 0.9.5
   '@nestjs/cli': 9.1.4
@@ -80,7 +80,7 @@ specifiers:
   zx-cjs: 7.0.7-0
 
 dependencies:
-  '@fastify/multipart': 7.2.0
+  '@fastify/multipart': 7.3.0
   '@fastify/static': 6.5.0
   '@nestjs/common': 9.1.6_mpbqhbv3qeq77ujihdpg6d4hsy
   '@nestjs/core': 9.1.6_chrjhvo72slcybvlgaz2t656fi
@@ -1443,8 +1443,8 @@ packages:
       reusify: 1.0.4
     dev: false
 
-  /@fastify/multipart/7.2.0:
-    resolution: {integrity: sha512-LwfwbCLy30Be1pa5q7F8xCTygxJdEWkfkQhD4OWZ13+vMH4tP/6Bu3OkSTlFatxLAmbEl2UpHLf7CU7w7csRIw==}
+  /@fastify/multipart/7.3.0:
+    resolution: {integrity: sha512-tbzQiRFxoADCn0G10CqiQ/nDWWcfegtwg826Pfz2h7+XvuqJhGnko0TbafrWIY7hnGD+sNCGMdiTVsxxs6zigA==}
     dependencies:
       '@fastify/busboy': 1.1.0
       '@fastify/deepmerge': 1.1.0
