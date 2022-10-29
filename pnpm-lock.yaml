@@ -19,7 +19,7 @@ specifiers:
   '@nestjs/testing': 9.1.6
   '@typegoose/typegoose': 9.12.1
   '@types/bcrypt': 5.0.0
-  '@types/cache-manager-ioredis': 2.0.2
+  '@types/cache-manager-ioredis': 2.0.3
   '@types/jest': 29.2.0
   '@types/lodash': 4.14.186
   '@types/mongoose-aggregate-paginate-v2': 1.0.5
@@ -127,7 +127,7 @@ devDependencies:
   '@nestjs/swagger': 6.1.2_tqdhayurpyu2ctyxryvrqn3rla
   '@nestjs/testing': 9.1.6_q3lrbztbkausmdaohe4swxeidi
   '@types/bcrypt': 5.0.0
-  '@types/cache-manager-ioredis': 2.0.2
+  '@types/cache-manager-ioredis': 2.0.3
   '@types/jest': 29.2.0
   '@types/lodash': 4.14.186
   '@types/mongoose-aggregate-paginate-v2': 1.0.5
@@ -2213,8 +2213,8 @@ packages:
       '@types/node': 18.11.5
     dev: true
 
-  /@types/cache-manager-ioredis/2.0.2:
-    resolution: {integrity: sha512-mcn1k5bCJ/iAIymLRq4d6KSvEdrdspuo8KEIIPkPEl5WP+2CC7NWtRJmgFBoNqCgNxr++B62kOmIH1HYXAiBdA==}
+  /@types/cache-manager-ioredis/2.0.3:
+    resolution: {integrity: sha512-IIwKdlUSztH0TMk1ikRes2CDr2vV4UrSMKhdZ6fBN1++PdgAl/JsxHKRzaSThGqjDUb0UzcWo7dZF4RPPMInMA==}
     dependencies:
       '@types/cache-manager': 4.0.1
       '@types/ioredis': 4.28.10
