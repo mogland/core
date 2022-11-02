@@ -19,6 +19,8 @@ Mog is a modern blogging system that is easy to extend. It breaks through the us
 ![GitHub Repo stars](https://img.shields.io/github/stars/mogland/core?style=flat-square)
 ![GitHub forks](https://img.shields.io/github/forks/mogland/core?style=flat-square)
 
+English | [简体中文](https://github.com/mogland/core/blob/main/readme.zh.md)
+
 | :warning: | Mog v2 is currently under development and we have not provided documentation for its use. When we have an alpha version ready for testing, we will post a link to the documentation here. Until then, contributors are welcome to help implement this project. | &nbsp;&nbsp;&nbsp;&nbsp;[CONTRIBUTE](https://github.com/mogland/core/blob/main/CONTRIBUTING.md)&nbsp;&nbsp;&nbsp;&nbsp; |
 | - |:-| - |
 
@@ -48,7 +50,7 @@ There are a lot of blogging systems for users on the market, but it seems that t
 
 Another reason is actually to see some paid blogging system projects, but those projects don't seem to be worth it as a paid project, we don't want so many people to pay for a project that is not very good, it's not worth it. And as far as we know, the underlying framework used by some charging projects is not secure because of anti-sequence vulnerabilities.
 
-We also is not say which good or bad, but don't think there's a certain charge blog project is stable, for users need to choose carefully, once bought a bug is a blog that is not good, but open source blog system, first of all, you can guarantee the community driven permanent charging items have no promises, It is not possible to commit to permanent updates. Second, you can enjoy the benefits of open source, such as no fees, more maintenance members, uniform specifications, etc.
+We also is not say which good or bad, but don't think there's a certain charge blog project is stable, for users need to choose carefully, once bought a bug is a blog that is not good, but open source blog system, first of all, you can guarantee the community driven. Second, you can enjoy the benefits of open source, such as no fees, more maintenance members, uniform specifications, etc.
 
 ## Ecosystem
 
