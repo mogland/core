@@ -20,7 +20,7 @@ specifiers:
   '@typegoose/typegoose': 9.12.1
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.3
-  '@types/jest': 29.2.1
+  '@types/jest': 29.2.2
   '@types/lodash': 4.14.188
   '@types/mongoose-aggregate-paginate-v2': 1.0.5
   '@types/node': 18.11.9
@@ -128,7 +128,7 @@ devDependencies:
   '@nestjs/testing': 9.1.6_q3lrbztbkausmdaohe4swxeidi
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.3
-  '@types/jest': 29.2.1
+  '@types/jest': 29.2.2
   '@types/lodash': 4.14.188
   '@types/mongoose-aggregate-paginate-v2': 1.0.5
   '@types/node': 18.11.9
@@ -2267,8 +2267,8 @@ packages:
       '@types/istanbul-lib-report': 3.0.0
     dev: true
 
-  /@types/jest/29.2.1:
-    resolution: {integrity: sha512-nKixEdnGDqFOZkMTF74avFNr3yRqB1ZJ6sRZv5/28D5x2oLN14KApv7F9mfDT/vUic0L3tRCsh3XWpWjtJisUQ==}
+  /@types/jest/29.2.2:
+    resolution: {integrity: sha512-og1wAmdxKoS71K2ZwSVqWPX6OVn3ihZ6ZT2qvZvZQm90lJVDyXIjYcu4Khx2CNIeaFv12rOU/YObOsI3VOkzog==}
     dependencies:
       expect: 29.2.2
       pretty-format: 29.2.1
