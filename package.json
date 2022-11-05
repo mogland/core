@@ -100,7 +100,7 @@
     "@nestjs/testing": "9.1.6",
     "@types/bcrypt": "5.0.0",
     "@types/cache-manager-ioredis": "2.0.3",
-    "@types/jest": "29.2.1",
+    "@types/jest": "29.2.2",
     "@types/lodash": "4.14.188",
     "@types/mongoose-aggregate-paginate-v2": "1.0.5",
     "@types/node": "18.11.9",
