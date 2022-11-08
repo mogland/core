@@ -7,18 +7,6 @@
   "commitConvention": "angular",
   "contributors": [
     {
-      "login": "MYXXTS",
-      "name": "沐云湘夕",
-      "avatar_url": "https://avatars.githubusercontent.com/u/51087760?v=4",
-      "profile": "https://www.myxxts.com",
-      "contributions": [
-        "ideas",
-        "review",
-        "doc",
-        "example"
-      ]
-    },
-    {
       "login": "wibus-wee",
       "name": "Wibus",
       "avatar_url": "https://avatars.githubusercontent.com/u/62133302?v=4",
@@ -28,6 +16,18 @@
         "doc",
         "maintenance",
         "review"
+      ]
+    },
+    {
+      "login": "MYXXTS",
+      "name": "沐云湘夕",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51087760?v=4",
+      "profile": "https://www.myxxts.com",
+      "contributions": [
+        "ideas",
+        "review",
+        "doc",
+        "example"
       ]
     },
     {
