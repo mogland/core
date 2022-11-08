@@ -1,7 +1,4 @@
 <p align="center">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
   <img src="https://avatars.githubusercontent.com/u/106414194?s=200&v=4" height="128">
   <h1 align="center">Mog 🏝 /mɑːɡ/ </h1>
   <p align="center"><b align="center">A flexible, modular Blog System. Open source. Free forever.</b></p>
@@ -12,20 +9,16 @@
     <img alt="" src="https://img.shields.io/github/issues/mogland/core/need-discuss?color=%237c7fff&style=for-the-badge">
   </a>
   <img src="https://img.shields.io/github/package-json/v/mogland/core?style=for-the-badge" referrerpolicy="no-referrer" alt="version">
-
-  <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-  [![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors)
-  <!-- ALL-CONTRIBUTORS-BADGE:END -->
+  <a href="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95">
+    <img src="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95.svg?style=for-the-badge" alt="wakatime">
+</a>
 
  </p>
 
 
 Mog is a modern blogging system that is easy to extend. It breaks through the use of microservice architecture, in the structure design is modular and flexible. You can easily customize it to meet your needs. More can be through the interface to develop their own front/middle background, can also be through the plug-in to develop their own functions.
 
-<!-- <a href="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95">
-    <img src="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95.svg?style=for-the-badge" alt="wakatime">
-</a>  -->
-![wakatime](https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95.svg)
+
 ![GitHub Repo stars](https://img.shields.io/github/stars/mogland/core?style=flat-square)
 ![GitHub forks](https://img.shields.io/github/forks/mogland/core?style=flat-square)
 
@@ -72,6 +65,10 @@ We also is not say which good or bad, but don't think there's a certain charge b
 | [mogland/awesome-mog](https://github.com/mogland/awesome-mog) | Mog Ecosystems List     | ![GitHub Top languages](https://img.shields.io/github/languages/top/mogland/awesome-mog?style=flat-square)      |
 
 ## Contributors
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
