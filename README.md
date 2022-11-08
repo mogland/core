@@ -12,20 +12,16 @@
     <img alt="" src="https://img.shields.io/github/issues/mogland/core/need-discuss?color=%237c7fff&style=for-the-badge">
   </a>
   <img src="https://img.shields.io/github/package-json/v/mogland/core?style=for-the-badge" referrerpolicy="no-referrer" alt="version">
-
-  <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-  [![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors)
-  <!-- ALL-CONTRIBUTORS-BADGE:END -->
+  <a href="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95">
+    <img src="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95.svg?style=for-the-badge" alt="wakatime">
+</a>
 
  </p>
 
 
 Mog is a modern blogging system that is easy to extend. It breaks through the use of microservice architecture, in the structure design is modular and flexible. You can easily customize it to meet your needs. More can be through the interface to develop their own front/middle background, can also be through the plug-in to develop their own functions.
 
-<!-- <a href="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95">
-    <img src="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95.svg?style=for-the-badge" alt="wakatime">
-</a>  -->
-![wakatime](https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95.svg?style=for-the-badge)
+
 ![GitHub Repo stars](https://img.shields.io/github/stars/mogland/core?style=flat-square)
 ![GitHub forks](https://img.shields.io/github/forks/mogland/core?style=flat-square)
 
@@ -73,6 +69,10 @@ We also is not say which good or bad, but don't think there's a certain charge b
 
 ## Contributors
 
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -80,6 +80,7 @@ We also is not say which good or bad, but don't think there's a certain charge b
   <tbody>
     <tr>
       <td align="center"><a href="https://www.myxxts.com"><img src="https://avatars.githubusercontent.com/u/51087760?v=4?s=100" width="100px;" alt="沐云湘夕"/><br /><sub><b>沐云湘夕</b></sub></a><br /><a href="#ideas-MYXXTS" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/mogland/core/pulls?q=is%3Apr+reviewed-by%3AMYXXTS" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/mogland/core/commits?author=MYXXTS" title="Documentation">📖</a> <a href="#example-MYXXTS" title="Examples">💡</a></td>
+      <td align="center"><a href="https://iucky.cn"><img src="https://avatars.githubusercontent.com/u/62133302?v=4?s=100" width="100px;" alt="Wibus"/><br /><sub><b>Wibus</b></sub></a><br /><a href="https://github.com/mogland/core/commits?author=wibus-wee" title="Code">💻</a> <a href="https://github.com/mogland/core/issues?q=author%3Awibus-wee" title="Bug reports">🐛</a> <a href="#blog-wibus-wee" title="Blogposts">📝</a> <a href="https://github.com/mogland/core/commits?author=wibus-wee" title="Documentation">📖</a> <a href="#example-wibus-wee" title="Examples">💡</a> <a href="#ideas-wibus-wee" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-wibus-wee" title="Maintenance">🚧</a> <a href="https://github.com/mogland/core/pulls?q=is%3Apr+reviewed-by%3Awibus-wee" title="Reviewed Pull Requests">👀</a></td>
     </tr>
   </tbody>
 </table>

@@ -16,6 +16,19 @@
         "review",
         "doc",
         "example"
+      "login": "wibus-wee",
+      "name": "Wibus",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62133302?v=4",
+      "profile": "https://iucky.cn",
+      "contributions": [
+        "code",
+        "bug",
+        "blog",
+        "doc",
+        "example",
+        "ideas",
+        "maintenance",
+        "review"
       ]
     }
   ],
