@@ -21,6 +21,15 @@
         "maintenance",
         "review"
       ]
+    },
+    {
+      "login": "origami-tech",
+      "name": "origami",
+      "avatar_url": "https://avatars.githubusercontent.com/u/63109390?v=4",
+      "profile": "https://github.com/origami-tech",
+      "contributions": [
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
