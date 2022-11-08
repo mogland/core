@@ -1,0 +1,32 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "wibus-wee",
+      "name": "Wibus",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62133302?v=4",
+      "profile": "https://iucky.cn",
+      "contributions": [
+        "code",
+        "bug",
+        "blog",
+        "doc",
+        "example",
+        "ideas",
+        "maintenance",
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "core",
+  "projectOwner": "mogland"
+}
