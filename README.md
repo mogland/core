@@ -1,4 +1,7 @@
 <p align="center">
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
   <img src="https://avatars.githubusercontent.com/u/106414194?s=200&v=4" height="128">
   <h1 align="center">Mog 🏝 /mɑːɡ/ </h1>
   <p align="center"><b align="center">A flexible, modular Blog System. Open source. Free forever.</b></p>
@@ -71,6 +74,20 @@ We also is not say which good or bad, but don't think there's a certain charge b
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://www.myxxts.com"><img src="https://avatars.githubusercontent.com/u/51087760?v=4?s=100" width="100px;" alt="沐云湘夕"/><br /><sub><b>沐云湘夕</b></sub></a><br /><a href="#ideas-MYXXTS" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/mogland/core/pulls?q=is%3Apr+reviewed-by%3AMYXXTS" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/mogland/core/commits?author=MYXXTS" title="Documentation">📖</a> <a href="#example-MYXXTS" title="Examples">💡</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
