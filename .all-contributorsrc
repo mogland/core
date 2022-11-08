@@ -7,6 +7,18 @@
   "commitConvention": "angular",
   "contributors": [
     {
+      "login": "wibus-wee",
+      "name": "Wibus",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62133302?v=4",
+      "profile": "https://iucky.cn",
+      "contributions": [
+        "code",
+        "doc",
+        "maintenance",
+        "review"
+      ]
+    },
+    {
       "login": "MYXXTS",
       "name": "沐云湘夕",
       "avatar_url": "https://avatars.githubusercontent.com/u/51087760?v=4",
@@ -19,14 +31,11 @@
       ]
     },
     {
-      "login": "wibus-wee",
-      "name": "Wibus",
-      "avatar_url": "https://avatars.githubusercontent.com/u/62133302?v=4",
-      "profile": "https://iucky.cn",
+      "login": "origami-tech",
+      "name": "origami",
+      "avatar_url": "https://avatars.githubusercontent.com/u/63109390?v=4",
+      "profile": "https://github.com/origami-tech",
       "contributions": [
-        "code",
-        "doc",
-        "maintenance",
         "review"
       ]
     }
