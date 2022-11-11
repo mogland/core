@@ -3,14 +3,16 @@
  * @author: Wibus
  * @Date: 2022-09-24 08:01:39
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-01 10:40:32
+ * @LastEditTime: 2022-11-11 13:38:08
  * Coding With IU
  */
 
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
+import { ModelType } from '@typegoose/typegoose/lib/types';
 import { isDefined } from 'class-validator';
 import { omit } from 'lodash';
+import { PaginateModel } from 'mongoose';
 import slugify from 'slugify';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { PagerDto } from '~/shared/dto/pager.dto';
@@ -21,7 +23,8 @@ import { PageModel } from './model/page.model';
 export class PageService {
   constructor(
     @InjectModel(PageModel)
-    private readonly pageModel: MongooseModel<PageModel>,
+    private readonly pageModel: ModelType<PageModel> &
+      PaginateModel<PageModel & Document>,
   ) {}
 
   public get model() {
