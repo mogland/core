@@ -6,7 +6,7 @@
 import cluster from 'cluster';
 import { sign, verify } from 'jsonwebtoken';
 import { machineIdSync } from 'node-machine-id';
-
+import { isDev } from '@shared/global/env.global';
 import { Injectable, Logger } from '@nestjs/common';
 import { CLUSTER, SECURITY } from '~/apps/core/src/app.config';
 import { CacheService } from '~/libs/cache/src';

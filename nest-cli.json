@@ -4,7 +4,7 @@
   "monorepo": true,
   "root": "apps/core",
   "compilerOptions": {
-    "webpack": true,
+    "webpack": false,
     "tsConfigPath": "tsconfig.build.json",
     "plugins": [
       {
@@ -12,7 +12,10 @@
         "options": {
           "classValidatorShim": false,
           "introspectComments": true,
-          "dtoFileNameSuffix": [".dto.ts", ".model.ts"]
+          "dtoFileNameSuffix": [
+            ".dto.ts",
+            ".model.ts"
+          ]
         }
       }
     ]
@@ -24,7 +27,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/core/src",
       "compilerOptions": {
-        "tsConfigPath": "tsconfig.build.json"
+        "tsConfigPath": "apps/core/tsconfig.app.json"
       }
     },
     "database": {
@@ -33,7 +36,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/database/src",
       "compilerOptions": {
-        "tsConfigPath": "tsconfig.build.json"
+        "tsConfigPath": "libs/database/tsconfig.lib.json"
       }
     },
     "user-service": {
@@ -42,7 +45,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/user-service/src",
       "compilerOptions": {
-        "tsConfigPath": "tsconfig.build.json"
+        "tsConfigPath": "apps/user-service/tsconfig.app.json"
       }
     },
     "cache": {
@@ -51,7 +54,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/cache/src",
       "compilerOptions": {
-        "tsConfigPath": "tsconfig.build.json"
+        "tsConfigPath": "libs/cache/tsconfig.lib.json"
       }
     },
     "helper": {
@@ -60,7 +63,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/helper/src",
       "compilerOptions": {
-        "tsConfigPath": "tsconfig.build.json"
+        "tsConfigPath": "libs/helper/tsconfig.lib.json"
       }
     },
     "auth": {
@@ -69,7 +72,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/auth/src",
       "compilerOptions": {
-        "tsConfigPath": "tsconfig.build.json"
+        "tsConfigPath": "libs/auth/tsconfig.lib.json"
       }
     },
     "config": {
@@ -78,7 +81,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/config/src",
       "compilerOptions": {
-        "tsConfigPath": "tsconfig.build.json"
+        "tsConfigPath": "libs/config/tsconfig.lib.json"
       }
     },
     "page-service": {
@@ -87,7 +90,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/page-service/src",
       "compilerOptions": {
-        "tsConfigPath": "tsconfig.build.json"
+        "tsConfigPath": "apps/page-service/tsconfig.app.json"
       }
     }
   }

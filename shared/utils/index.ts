@@ -1,14 +1,13 @@
 /*
- * @FilePath: /nx-core/shared/utils/index.ts
+ * @FilePath: /mog-core/shared/utils/index.ts
  * @author: Wibus
  * @Date: 2022-08-31 19:59:37
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-31 20:47:36
+ * @LastEditTime: 2022-11-11 13:46:10
  * Coding With IU
  */
 
 export * from './redis.util';
-export * from './environment.util';
 export * from './rss-parser.util';
 export * from './safe-eval.util';
 export * from './time.util';

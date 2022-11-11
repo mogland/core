@@ -1,0 +1,77 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "wibus-wee",
+      "name": "Wibus",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62133302?v=4",
+      "profile": "https://iucky.cn",
+      "contributions": [
+        "code",
+        "doc",
+        "maintenance",
+        "review"
+      ]
+    },
+    {
+      "login": "MYXXTS",
+      "name": "沐云湘夕",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51087760?v=4",
+      "profile": "https://www.myxxts.com",
+      "contributions": [
+        "ideas",
+        "review",
+        "doc",
+        "example"
+      ]
+    },
+    {
+      "login": "origami-tech",
+      "name": "origami",
+      "avatar_url": "https://avatars.githubusercontent.com/u/63109390?v=4",
+      "profile": "https://github.com/origami-tech",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "ttimochan",
+      "name": "ttimochan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/91021824?v=4",
+      "profile": "https://www.timochan.cn",
+      "contributions": [
+        "review",
+        "ideas"
+      ]
+    },
+    {
+      "login": "reborn1028",
+      "name": "Guaguamiao",
+      "avatar_url": "https://avatars.githubusercontent.com/u/45393329?v=4",
+      "profile": "https://github.com/reborn1028",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "Innei",
+      "name": "寻",
+      "avatar_url": "https://avatars.githubusercontent.com/u/41265413?v=4",
+      "profile": "http://innei.ren",
+      "contributions": [
+        "bug"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "core",
+  "projectOwner": "mogland"
+}
