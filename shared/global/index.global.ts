@@ -13,7 +13,7 @@ import {
 } from '@shared/constants/path.constant';
 import { consola, registerStdLogger } from './consola.global';
 import './dayjs.global';
-import { isDev } from './env.global';
+import { isDev } from '@shared/global/env.global';
 import { join } from 'path';
 
 function consoleMog() {
@@ -51,10 +51,10 @@ function mkdirs() {
 
 export function registerGlobal() {
   $.verbose = isDev;
-  Object.assign(globalThis, {
-    isDev,
-    consola,
-  });
+  // Object.assign(globalThis, {
+  //   isDev,
+  //   consola,
+  // });
   console.debug = (...rest) => {
     if (isDev) {
       consola.log.call(console, ...rest);

@@ -1,6 +1,6 @@
 import cluster from 'cluster';
 import { argv } from 'zx-cjs';
-import { isDev } from '~/shared/utils/environment.util';
+import { isDev } from '@shared/global/env.global';
 import { cwd } from '../../../shared/global/env.global';
 
 console.log(argv);

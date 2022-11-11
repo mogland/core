@@ -1,6 +1,11 @@
 import slugify from 'slugify';
 import { forwardRef, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { AggregatePaginateModel, Document, PipelineStage } from 'mongoose';
+import {
+  AggregatePaginateModel,
+  Document,
+  PaginateModel,
+  PipelineStage,
+} from 'mongoose';
 import { InjectModel } from '~/libs/database/src/model.transformer';
 import { PagerDto } from '~/shared/dto/pager.dto';
 import { addYearCondition } from '~/shared/transformers/db-query.transformer';
@@ -10,12 +15,14 @@ import { isDefined } from 'class-validator';
 import { omit } from 'lodash';
 import { RpcException } from '@nestjs/microservices';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
+import { ModelType } from '@typegoose/typegoose/lib/types';
 
 @Injectable()
 export class PostService {
   constructor(
     @InjectModel(PostModel)
-    private readonly postModel: MongooseModel<PostModel> &
+    private readonly postModel: ModelType<PostModel> &
+      PaginateModel<PostModel & Document> &
       AggregatePaginateModel<PostModel & Document>,
     @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,

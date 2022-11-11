@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 14:19:53
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-01 20:02:53
+ * @LastEditTime: 2022-11-11 13:45:25
  * Coding With IU
  */
 
@@ -14,6 +14,8 @@ import { AppModule } from './app.module';
 import { fastifyApp } from './common/adapt/fastify.adapt';
 import { CROSS_DOMAIN, PORT } from './app.config';
 import { LoggingInterceptor } from '~/shared/common/interceptors/logging.interceptor';
+import { isDev } from '@shared/global/env.global';
+import { consola } from '~/shared/global/consola.global';
 
 const Origin = CROSS_DOMAIN.allowedOrigins;
 
