@@ -67,7 +67,7 @@ We also is not say which good or bad, but don't think there's a certain charge b
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -82,6 +82,7 @@ We also is not say which good or bad, but don't think there's a certain charge b
       <td align="center"><a href="https://www.timochan.cn"><img src="https://avatars.githubusercontent.com/u/91021824?v=4?s=100" width="100px;" alt="ttimochan"/><br /><sub><b>ttimochan</b></sub></a><br /><a href="https://github.com/mogland/core/pulls?q=is%3Apr+reviewed-by%3Attimochan" title="Reviewed Pull Requests">👀</a> <a href="#ideas-ttimochan" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center"><a href="https://github.com/reborn1028"><img src="https://avatars.githubusercontent.com/u/45393329?v=4?s=100" width="100px;" alt="Guaguamiao"/><br /><sub><b>Guaguamiao</b></sub></a><br /><a href="https://github.com/mogland/core/pulls?q=is%3Apr+reviewed-by%3Areborn1028" title="Reviewed Pull Requests">👀</a></td>
       <td align="center"><a href="http://innei.ren"><img src="https://avatars.githubusercontent.com/u/41265413?v=4?s=100" width="100px;" alt="寻"/><br /><sub><b>寻</b></sub></a><br /><a href="https://github.com/mogland/core/issues?q=author%3AInnei" title="Bug reports">🐛</a></td>
+      <td align="center"><a href="https://akr.moe"><img src="https://avatars.githubusercontent.com/u/85140972?v=4?s=100" width="100px;" alt="AkaraChen"/><br /><sub><b>AkaraChen</b></sub></a><br /><a href="https://github.com/mogland/core/pulls?q=is%3Apr+reviewed-by%3AAkaraChen" title="Reviewed Pull Requests">👀</a></td>
     </tr>
   </tbody>
 </table>
