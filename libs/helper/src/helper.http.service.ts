@@ -1,10 +1,10 @@
 /*
  * @copy Innei <innei.nre>
- * @FilePath: /nx-core/libs/helper/src/helper.http.service.ts
+ * @FilePath: /mog-core/libs/helper/src/helper.http.service.ts
  * @author: Innei
  * @Date: 2022-07-03 20:55:46
  * @LastEditors: Wibus
- * @LastEditTime: 2022-08-31 19:56:43
+ * @LastEditTime: 2022-11-15 14:08:40
  * Coding With IU
  */
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
@@ -19,6 +19,7 @@ import { DEBUG_MODE } from '@core/app.config';
 import { CacheService } from '~/libs/cache/src';
 import { RedisKeys } from '~/shared/constants/cache.constant';
 import { getRedisKey } from '~/shared/utils/redis.util';
+import { chalk } from 'zx-cjs';
 
 const AXIOS_CONFIG: AxiosRequestConfig = {
   timeout: 10000,

@@ -16,6 +16,9 @@
     "incremental": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
+    "plugins": [
+      { "transform": "nestia-helper/lib/transform" } 
+    ],
     "paths": {
       "~": ["."],
       "~/*": ["./*"],

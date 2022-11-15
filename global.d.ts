@@ -3,8 +3,6 @@
  * @author: Wibus
  * @Date: 2022-10-02 23:42:03
  * @LastEditors: Wibus
- * @LastEditTime: 2022-11-11 13:45:42
+ * @LastEditTime: 2022-11-15 14:07:40
  * Coding With IU
  */
-
-import 'zx-cjs/globals';

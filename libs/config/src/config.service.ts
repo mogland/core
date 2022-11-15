@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-08 21:11:49
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-01 20:47:13
+ * @LastEditTime: 2022-11-15 14:09:02
  * Coding With IU
  */
 
@@ -26,6 +26,7 @@ import { DefaultConfigs } from './config.default';
 import { ConfigsInterface, ConfigsInterfaceKeys } from './config.interface';
 import { ConfigModel } from './config.model';
 import * as configDto from './config.dto';
+import { sleep } from 'zx-cjs';
 
 const allOptionKeys: Set<ConfigsInterfaceKeys> = new Set();
 const map: Record<string, any> = Object.entries(configDto).reduce(

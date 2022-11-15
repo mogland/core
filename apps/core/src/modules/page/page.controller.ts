@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nx-core/apps/core/src/modules/page/page.controller.ts
+ * @FilePath: /mog-core/apps/core/src/modules/page/page.controller.ts
  * @author: Wibus
  * @Date: 2022-09-24 16:01:23
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 16:06:08
+ * @LastEditTime: 2022-11-15 14:18:16
  * Coding With IU
  */
 
@@ -29,7 +29,6 @@ import { Paginator } from '~/shared/common/decorator/http.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
 import { PageEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
-import { MongoIdDto } from '~/shared/dto/id.dto';
 import { PagerDto } from '~/shared/dto/pager.dto';
 
 @Controller('page')
@@ -58,21 +57,19 @@ export class PageController {
   @Get('/:id')
   @ApiOperation({ summary: '通过id获取页面详情' })
   @Auth()
-  async getPage(@Param() params) {
-    return this.page
-      .send({ cmd: PageEvents.PageGetByIdWithMaster }, params.id)
-      .pipe(
-        timeout(1000),
-        catchError((err) => {
-          return throwError(
-            () =>
-              new HttpException(
-                err.message || '未知错误，请联系管理员',
-                err.status || 500,
-              ),
-          );
-        }),
-      );
+  async getPage(@Param('id') id: string) {
+    return this.page.send({ cmd: PageEvents.PageGetByIdWithMaster }, id).pipe(
+      timeout(1000),
+      catchError((err) => {
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
+      }),
+    );
   }
 
   @Get('/slug/:slug')
@@ -114,28 +111,26 @@ export class PageController {
   @Patch('/:id')
   @ApiOperation({ summary: '更新页面' })
   @Auth()
-  async modify(@Body() body: PageModel, @Param() params: MongoIdDto) {
-    return this.page
-      .send({ cmd: PageEvents.PagePatch }, { id: params.id, body })
-      .pipe(
-        timeout(1000),
-        catchError((err) => {
-          return throwError(
-            () =>
-              new HttpException(
-                err.message || '未知错误，请联系管理员',
-                err.status || 500,
-              ),
-          );
-        }),
-      );
+  async modify(@Body() body: PageModel, @Param('id') id: string) {
+    return this.page.send({ cmd: PageEvents.PagePatch }, { id, body }).pipe(
+      timeout(1000),
+      catchError((err) => {
+        return throwError(
+          () =>
+            new HttpException(
+              err.message || '未知错误，请联系管理员',
+              err.status || 500,
+            ),
+        );
+      }),
+    );
   }
 
   @Delete('/:id')
   @ApiOperation({ summary: '删除页面' })
   @Auth()
-  async deletePage(@Param() params: MongoIdDto) {
-    return this.page.send({ cmd: PageEvents.PageDelete }, params.id).pipe(
+  async deletePage(@Param('id') id: string) {
+    return this.page.send({ cmd: PageEvents.PageDelete }, id).pipe(
       timeout(1000),
       catchError((err) => {
         return throwError(

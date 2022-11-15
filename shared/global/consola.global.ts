@@ -3,7 +3,7 @@ import consola_, { FancyReporter, LogLevel } from 'consola';
 import { CronJob } from 'cron';
 import { createWriteStream } from 'fs';
 import { resolve } from 'path';
-import { argv } from 'zx-cjs';
+import { argv, chalk } from 'zx-cjs';
 
 import { CronExpression } from '@nestjs/schedule';
 
