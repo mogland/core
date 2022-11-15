@@ -21,7 +21,7 @@ specifiers:
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.3
   '@types/jest': 29.2.2
-  '@types/lodash': 4.14.188
+  '@types/lodash': 4.14.189
   '@types/mongoose-aggregate-paginate-v2': 1.0.5
   '@types/node': 18.11.9
   '@types/supertest': 2.0.12
@@ -129,7 +129,7 @@ devDependencies:
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.3
   '@types/jest': 29.2.2
-  '@types/lodash': 4.14.188
+  '@types/lodash': 4.14.189
   '@types/mongoose-aggregate-paginate-v2': 1.0.5
   '@types/node': 18.11.9
   '@types/supertest': 2.0.12
@@ -2289,8 +2289,8 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
-  /@types/lodash/4.14.188:
-    resolution: {integrity: sha512-zmEmF5OIM3rb7SbLCFYoQhO4dGt2FRM9AMkxvA3LaADOF1n8in/zGJlWji9fmafLoNyz+FoL6FE0SLtGIArD7w==}
+  /@types/lodash/4.14.189:
+    resolution: {integrity: sha512-kb9/98N6X8gyME9Cf7YaqIMvYGnBSWqEci6tiettE6iJWH1XdJz/PO8LB0GtLCG7x8dU3KWhZT+lA1a35127tA==}
     dev: true
 
   /@types/mongoose-aggregate-paginate-v2/1.0.5:
