@@ -1,13 +1,14 @@
 /*
- * @FilePath: /nx-core/shared/constants/services.constant.ts
+ * @FilePath: /mog-core/shared/constants/services.constant.ts
  * @author: Wibus
  * @Date: 2022-09-03 22:28:40
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 15:42:58
+ * @LastEditTime: 2022-11-17 13:58:36
  * Coding With IU
  */
 
 export enum ServicesEnum {
+  core = 'CORE',
   user = 'USER_SERVICE',
   auth = 'AUTH_SERVICE',
   backup = 'BACKUP_SERVICE',
