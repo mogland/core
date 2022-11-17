@@ -72,6 +72,7 @@
     "class-transformer": "0.5.1",
     "class-validator": "0.13.2",
     "class-validator-jsonschema": "3.1.1",
+    "commander": "^9.4.1",
     "consola": "2.15.3",
     "cron": "2.1.0",
     "dayjs": "1.11.6",
