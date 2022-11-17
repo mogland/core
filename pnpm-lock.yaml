@@ -21,6 +21,7 @@ specifiers:
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.3
   '@types/jest': 29.2.2
+  '@types/js-yaml': ^4.0.5
   '@types/lodash': 4.14.188
   '@types/mongoose-aggregate-paginate-v2': 1.0.5
   '@types/node': 18.11.9
@@ -51,6 +52,7 @@ specifiers:
   inquirer: 9.1.4
   ioredis: 5.2.4
   jest: 29.3.1
+  js-yaml: ^4.1.0
   jsonwebtoken: 8.5.1
   lint-staged: 13.0.3
   lodash: 4.17.21
@@ -103,6 +105,7 @@ dependencies:
   consola: 2.15.3
   cron: 2.1.0
   dayjs: 1.11.6
+  js-yaml: 4.1.0
   jsonwebtoken: 8.5.1
   lodash: 4.17.21
   mongoose: 6.7.2
@@ -129,6 +132,7 @@ devDependencies:
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.3
   '@types/jest': 29.2.2
+  '@types/js-yaml': 4.0.5
   '@types/lodash': 4.14.188
   '@types/mongoose-aggregate-paginate-v2': 1.0.5
   '@types/node': 18.11.9
@@ -2281,6 +2285,10 @@ packages:
       pretty-format: 29.2.1
     dev: true
 
+  /@types/js-yaml/4.0.5:
+    resolution: {integrity: sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==}
+    dev: true
+
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: true
@@ -2888,7 +2896,6 @@ packages:
 
   /argparse/2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
-    dev: true
 
   /array-includes/3.1.5:
     resolution: {integrity: sha512-iSDYZMMyTPkiFasVqfuAQnWAYcvO/SeBSCGKePoEthjp4LEMTe4uLc7b025o4jAZpHhihh8xPo99TNWUWWkGDQ==}
@@ -5679,7 +5686,6 @@ packages:
     hasBin: true
     dependencies:
       argparse: 2.0.1
-    dev: true
 
   /jsesc/2.5.2:
     resolution: {integrity: sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==}

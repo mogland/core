@@ -2,8 +2,11 @@ import cluster from 'cluster';
 import { argv } from 'zx-cjs';
 import { isDev } from '@shared/global/env.global';
 import { cwd } from '../../../shared/global/env.global';
+import { readEnv } from '~/shared/utils/read-env';
 
 console.log(argv);
+export const CONFIG = readEnv(argv, argv.config);
+
 export const PORT = argv.port || 2330;
 export const CROSS_DOMAIN = {
   allowedOrigins: argv.allowed_origins
