@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-11-17 13:43:30
  * @LastEditors: Wibus
- * @LastEditTime: 2022-11-18 11:50:56
+ * @LastEditTime: 2022-11-18 17:26:52
  * Coding With IU
  */
 
@@ -23,7 +23,7 @@ export const BasicCommer = program
   .option('-RPW, --redis_user <user>', 'user of redis redis用户名')
   .option('--disable_cache', 'disable cache 禁用缓存')
 
-  .option('--jwtSecret <secret>', 'jwt secret jwt密钥')
+  .option('--jwt_secret <secret>', 'jwt secret jwt密钥')
   .option(
     '--jwt_expire <number>',
     'custom jwt expire time(d) 自定义jwt过期时间(天)',
