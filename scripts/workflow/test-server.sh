@@ -15,6 +15,8 @@ if [[ ! -d out/core ]]; then
   exit 1
 fi
 
+touch env.yaml
+
 nohup node out/core/index.js 1>/dev/null &
 
 p=$!
