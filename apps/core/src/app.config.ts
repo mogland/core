@@ -3,10 +3,7 @@ import cluster from 'cluster';
 import { isDev, cwd } from '@shared/global/env.global';
 import { readEnv } from '~/shared/utils/rag-env';
 import { BasicCommer } from '@shared/commander';
-import {
-  ServicePorts,
-  ServicesEnum,
-} from '~/shared/constants/services.constant';
+import { ServicePorts } from '~/shared/constants/services.constant';
 
 const argv = BasicCommer.option(
   '-a, --allow_origins <origins>',
@@ -16,7 +13,8 @@ const argv = BasicCommer.option(
   .opts();
 console.log(argv, 'argv');
 
-export const CONFIG = readEnv(ServicesEnum.core, argv, argv.config);
+export const CONFIG = readEnv(argv, argv.config);
+console.log(CONFIG, 'CONFIG');
 export const PORT = CONFIG.port || ServicePorts.core;
 export const CROSS_DOMAIN = {
   allowedOrigins: CONFIG.core.allow_origins

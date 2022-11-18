@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-11-15 22:57:49
  * @LastEditors: Wibus
- * @LastEditTime: 2022-11-18 11:39:17
+ * @LastEditTime: 2022-11-18 11:56:14
  * Coding With IU
  */
 
@@ -14,6 +14,7 @@ import yaml from 'js-yaml';
 import { camelToUnderline } from './name';
 import { ServicesEnum } from '../constants/services.constant';
 import { readFileSync } from 'fs';
+import { merge } from 'lodash';
 
 // node dist/apps/core/main.js \
 // 	--userService_host=192.168.101.2 \
@@ -27,28 +28,22 @@ import { readFileSync } from 'fs';
 //   --config=core.yml
 
 export const readEnv: (
-  service: ServicesEnum,
   argv: typeof zxArev,
   path?: string,
 ) => {
   [key: string]: any;
-} = (service, argv, path) => {
-  const config = {};
+} = (argv, path) => {
+  let config = {};
   delete argv._; // 删除无用的参数
   delete argv.config; // 删除 config 参数，这是用来指定配置文件的
-  if (!(Object.keys(argv).length === 0 && argv.constructor === Object)) {
-    for (const key in argv) {
-      if (!config[service.toLocaleLowerCase()])
-        config[service.toLocaleLowerCase()] = {};
-      config[service.toLocaleLowerCase()][key] = argv[key];
-    }
-  } else {
-    const envPath = path || join(cwd, 'env.yaml');
-    const env = readFileSync(envPath, 'utf-8');
-    if (!env) return config;
-    const envObj = yaml.load(env);
-    Object.assign(config, camelToUnderline(envObj));
-  }
+  config = merge(config, argv);
+
+  const envPath = path || join(cwd, 'env.yaml');
+  const env = readFileSync(envPath, 'utf-8');
+  if (!env) return config;
+  const envObj = yaml.load(env);
+  // 与 config 合并
+  config = merge(config, envObj);
 
   if (!process.env.MOG_PRIVATE_ENV)
     process.env.MOG_PRIVATE_ENV = JSON.stringify(config);

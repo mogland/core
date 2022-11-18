@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-11-17 13:43:30
  * @LastEditors: Wibus
- * @LastEditTime: 2022-11-17 14:20:26
+ * @LastEditTime: 2022-11-18 11:50:56
  * Coding With IU
  */
 
@@ -11,7 +11,6 @@ import { program } from 'commander';
 
 export const BasicCommer = program
   .option('-c, --config <path>', 'config file path 配置文件路径')
-  .option('-p, --port <port>', 'port to listen on 启动端口')
 
   .option('-N, --collection_name <name>', 'collection name 数据库集合名')
   .option('-H, --db_host <host>', 'host of database 数据库地址')
@@ -29,6 +28,6 @@ export const BasicCommer = program
     '--jwt_expire <number>',
     'custom jwt expire time(d) 自定义jwt过期时间(天)',
   );
-
+// .option('-p, --port <port>', 'port to listen on 启动端口')
+// .option('--host <host>', 'host of core 核心Core服务地址 ( 其他服务使用 )');
 // .option('-a, --allow_origins <origins>', 'allow origins 允许的域名')
-// .option('--host <host>', 'host of core 核心Core服务地址 ( 其他服务使用 )')
