@@ -1,9 +1,9 @@
 /*
- * @FilePath: /nx-core/apps/core/src/modules/post/post.module.ts
+ * @FilePath: /mog-core/apps/core/src/modules/post/post.module.ts
  * @author: Wibus
  * @Date: 2022-09-24 15:41:22
  * @LastEditors: Wibus
- * @LastEditTime: 2022-09-24 15:43:12
+ * @LastEditTime: 2022-11-18 11:41:20
  * Coding With IU
  */
 
@@ -13,6 +13,7 @@ import {
   ServicePorts,
   ServicesEnum,
 } from '~/shared/constants/services.constant';
+import { getEnv } from '~/shared/utils/rag-env';
 import { PostController } from './post.controller';
 
 @Module({
@@ -22,7 +23,8 @@ import { PostController } from './post.controller';
         name: ServicesEnum.post,
         transport: Transport.TCP,
         options: {
-          port: ServicePorts.post,
+          port: getEnv(ServicesEnum.page)?.port || ServicePorts.post,
+          host: getEnv(ServicesEnum.page)?.host || undefined,
         },
       },
     ]),
