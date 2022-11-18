@@ -20,9 +20,9 @@ export const CONFIG = readEnv(ServicesEnum.core, argv, argv.config);
 export const PORT = CONFIG.port || ServicePorts.core;
 export const CROSS_DOMAIN = {
   allowedOrigins: CONFIG.core.allow_origins
-    ? typeof CONFIG.core.allowed_origins === 'string'
-      ? CONFIG.core.allowed_origins.split(',')
-      : CONFIG.core.allowed_origins
+    ? typeof CONFIG.core.allow_origins === 'string'
+      ? CONFIG.core.allow_origins.split(',')
+      : CONFIG.core.allow_origins
     : [
         'iucky.cn',
         'blog.iucky.cn',
