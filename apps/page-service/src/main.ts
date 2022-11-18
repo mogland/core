@@ -15,7 +15,7 @@ async function bootstrap() {
   registerStdLogger();
 
   const argv = BasicCommer.parse().opts();
-  readEnv(ServicesEnum.core, argv, argv.config);
+  readEnv(argv, argv.config);
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     PageServiceModule,
