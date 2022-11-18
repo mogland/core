@@ -15,9 +15,10 @@ if [[ ! -d out/core ]]; then
   exit 1
 fi
 
-touch env.yaml
-
-nohup node out/core/index.js 1>/dev/null &
+pwd
+cp -r env.yaml out/core
+cd out/core
+nohup node index.js 1>/dev/null &
 
 p=$!
 echo "started server with pid $p"
