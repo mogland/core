@@ -1,9 +1,9 @@
 /*
- * @FilePath: /mog-core/shared/utils/read-env.ts
+ * @FilePath: /mog-core/shared/utils/rag-env.ts
  * @author: Wibus
  * @Date: 2022-11-15 22:57:49
  * @LastEditors: Wibus
- * @LastEditTime: 2022-11-17 14:23:31
+ * @LastEditTime: 2022-11-18 11:39:17
  * Coding With IU
  */
 
@@ -43,12 +43,22 @@ export const readEnv: (
       config[service.toLocaleLowerCase()][key] = argv[key];
     }
   } else {
-    const envPath = path || join(cwd, '.env.yaml');
+    const envPath = path || join(cwd, 'env.yaml');
     const env = readFileSync(envPath, 'utf-8');
     if (!env) return config;
     const envObj = yaml.load(env);
     Object.assign(config, camelToUnderline(envObj));
   }
-  console.log(config);
+
+  if (!process.env.MOG_PRIVATE_ENV)
+    process.env.MOG_PRIVATE_ENV = JSON.stringify(config);
+
   return config;
+};
+
+export const getEnv = (service?: ServicesEnum) => {
+  if (!process.env.MOG_PRIVATE_ENV) return {};
+  const env = JSON.parse(process.env.MOG_PRIVATE_ENV);
+  if (!service) return env;
+  return env[camelToUnderline(service.toLocaleLowerCase())];
 };

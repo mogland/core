@@ -1,7 +1,7 @@
 import cluster from 'cluster';
 // import { argv } from 'zx-cjs';
 import { isDev, cwd } from '@shared/global/env.global';
-import { readEnv } from '~/shared/utils/read-env';
+import { readEnv } from '~/shared/utils/rag-env';
 import { BasicCommer } from '@shared/commander';
 import {
   ServicePorts,
