@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:26:35
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-01 10:34:42
+ * @LastEditTime: 2022-11-18 11:43:33
  * Coding With IU
  */
 
@@ -14,6 +14,7 @@ import {
   ServicePorts,
   ServicesEnum,
 } from '~/shared/constants/services.constant';
+import { getEnv } from '~/shared/utils/rag-env';
 import { UserController } from './user.controller';
 
 @Module({
@@ -23,7 +24,8 @@ import { UserController } from './user.controller';
         name: ServicesEnum.user,
         transport: Transport.TCP,
         options: {
-          port: ServicePorts.user,
+          port: getEnv(ServicesEnum.user)?.port || ServicePorts.user,
+          host: getEnv(ServicesEnum.user)?.host || undefined,
         },
       },
     ]),
