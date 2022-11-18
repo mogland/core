@@ -15,19 +15,10 @@ import { consola, registerStdLogger } from './consola.global';
 import './dayjs.global';
 import { isDev } from '@shared/global/env.global';
 import { join } from 'path';
+import { MOG_NAME_ASCIIS_MAP } from '../constants/asciis.constants';
 
 function consoleMog() {
-  console.log(`
-  
-  __  __             
-  |  \/  | ___   __ _ 
-  | |\/| |/ _ \ / _ \ |
-  | |  | | (_) | (_| |
-  |_|  |_|\___/ \__, |
-                |___/ 
-                          
-
-  `);
+  console.log(MOG_NAME_ASCIIS_MAP['3d']);
 }
 
 // 建立目录
