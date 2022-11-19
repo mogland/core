@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-11-17 13:43:30
  * @LastEditors: Wibus
- * @LastEditTime: 2022-11-18 17:26:52
+ * @LastEditTime: 2022-11-19 20:34:44
  * Coding With IU
  */
 
@@ -14,8 +14,9 @@ export const BasicCommer = program
 
   .option('-N, --collection_name <name>', 'collection name 数据库集合名')
   .option('-H, --db_host <host>', 'host of database 数据库地址')
+  .option('-P, --db_port <port>', 'port of database 数据库端口')
   .option('-U, --db_user <user>', 'user of database 数据库用户名')
-  .option('-P, --db_password <password>', 'password of database 数据库密码')
+  .option('-PAS, --db_password <password>', 'password of database 数据库密码')
 
   .option('-RH, --redis_host <host>', 'host of redis redis地址')
   .option('-RP, --redis_port <port>', 'port of redis redis端口')
