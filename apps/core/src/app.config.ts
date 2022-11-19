@@ -17,7 +17,7 @@ export const CONFIG = readEnv(argv, argv.config);
 console.log(CONFIG, 'CONFIG');
 export const PORT = CONFIG.port || ServicePorts.core;
 export const CROSS_DOMAIN = {
-  allowedOrigins: CONFIG.core.allow_origins
+  allowedOrigins: CONFIG.core?.allow_origins
     ? typeof CONFIG.core.allow_origins === 'string'
       ? CONFIG.core.allow_origins.split(',')
       : CONFIG.core.allow_origins
