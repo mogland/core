@@ -57,7 +57,7 @@ specifiers:
   jsonwebtoken: 8.5.1
   lint-staged: 13.0.3
   lodash: 4.17.21
-  mongoose: 6.7.2
+  mongoose: 6.7.3
   mongoose-aggregate-paginate-v2: 1.0.6
   mongoose-lean-id: 0.3.0
   mongoose-lean-virtuals: 0.9.1
@@ -91,7 +91,7 @@ dependencies:
   '@nestjs/microservices': 9.2.0_jl6teaplysojgkbnz2qzwrtwmq
   '@nestjs/platform-fastify': 9.2.0_bi3ifqp7shshde2azqjcb5swce
   '@nestjs/schedule': 2.1.0_v5qdouhazba6t4koo63x35nolu
-  '@typegoose/typegoose': 9.12.1_mongoose@6.7.2
+  '@typegoose/typegoose': 9.12.1_mongoose@6.7.3
   '@vercel/ncc': 0.34.0
   axios: 1.1.3
   axios-retry: 3.3.1
@@ -110,10 +110,10 @@ dependencies:
   js-yaml: 4.1.0
   jsonwebtoken: 8.5.1
   lodash: 4.17.21
-  mongoose: 6.7.2
+  mongoose: 6.7.3
   mongoose-aggregate-paginate-v2: 1.0.6
-  mongoose-lean-id: 0.3.0_mongoose@6.7.2
-  mongoose-lean-virtuals: 0.9.1_mongoose@6.7.2
+  mongoose-lean-id: 0.3.0_mongoose@6.7.3
+  mongoose-lean-virtuals: 0.9.1_mongoose@6.7.3
   mongoose-paginate-v2: 1.7.1
   nanoid: 3.3.3
   node-machine-id: 1.1.12
@@ -832,6 +832,7 @@ packages:
 
   /@aws-sdk/util-base64-browser/3.188.0:
     resolution: {integrity: sha512-qlH+5NZBLiyKziL335BEPedYxX6j+p7KFRWXvDQox9S+s+gLCayednpK+fteOhBenCcR9fUZOVuAPScy1I8qCg==}
+    deprecated: The package @aws-sdk/util-base64-browser has been renamed to @aws-sdk/util-base64. Please install the renamed package.
     dependencies:
       tslib: 2.4.1
     optional: true
@@ -839,6 +840,7 @@ packages:
   /@aws-sdk/util-base64-node/3.188.0:
     resolution: {integrity: sha512-r1dccRsRjKq+OhVRUfqFiW3sGgZBjHbMeHLbrAs9jrOjU2PTQ8PSzAXLvX/9lmp7YjmX17Qvlsg0NCr1tbB9OA==}
     engines: {node: '>= 12.0.0'}
+    deprecated: The package @aws-sdk/util-base64-node has been renamed to @aws-sdk/util-base64. Please install the renamed package.
     dependencies:
       '@aws-sdk/util-buffer-from': 3.188.0
       tslib: 2.4.1
@@ -2163,7 +2165,7 @@ packages:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: true
 
-  /@typegoose/typegoose/9.12.1_mongoose@6.7.2:
+  /@typegoose/typegoose/9.12.1_mongoose@6.7.3:
     resolution: {integrity: sha512-whS0vIMf+xRzw6G2YgBni9LCSGnrHVY/q+KivFeg/1Oqtz0ViOLx4jCRoSwYhqJIu0UGHxOliFhJrVSrc8rrqw==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
@@ -2171,7 +2173,7 @@ packages:
     dependencies:
       lodash: 4.17.21
       loglevel: 1.8.0
-      mongoose: 6.7.2
+      mongoose: 6.7.3
       reflect-metadata: 0.1.13
       semver: 7.3.7
       tslib: 2.4.0
@@ -2299,7 +2301,7 @@ packages:
   /@types/mongoose-aggregate-paginate-v2/1.0.5:
     resolution: {integrity: sha512-c3KXTwzW6+BZw2g2TgNgGUyMbotTcI2Ip+NSZWoJjG2UO+8BRjmy+kJUNu64rfdIqWJ1+8h5NLm9w+aVis93Hw==}
     dependencies:
-      mongoose: 6.7.2
+      mongoose: 6.7.3
     transitivePeerDependencies:
       - aws-crt
       - supports-color
@@ -6084,21 +6086,21 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: false
 
-  /mongoose-lean-id/0.3.0_mongoose@6.7.2:
+  /mongoose-lean-id/0.3.0_mongoose@6.7.3:
     resolution: {integrity: sha512-/eONPzg+tA7/VR4uv0uKxKwH4OCseZShqwbMW572QvlSU0g48zDFTiDuCjZmNykfZgK3ZOwjfLVbXBAAAbXI4Q==}
     peerDependencies:
       mongoose: 4.x || 5.x || 6.x
     dependencies:
-      mongoose: 6.7.2
+      mongoose: 6.7.3
     dev: false
 
-  /mongoose-lean-virtuals/0.9.1_mongoose@6.7.2:
+  /mongoose-lean-virtuals/0.9.1_mongoose@6.7.3:
     resolution: {integrity: sha512-jx4rhXuaQPam/lwef3z/FfYHlKdbFkDr9Qb7JEMeoa7y4pOuyJ83RkcNL25HRaoi4Bt71zKmV1cuJdv243t9aA==}
     peerDependencies:
       mongoose: '>=5.11.10'
     dependencies:
       array.prototype.flat: 1.2.3
-      mongoose: 6.7.2
+      mongoose: 6.7.3
       mpath: 0.8.4
     dev: false
 
@@ -6107,8 +6109,8 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: false
 
-  /mongoose/6.7.2:
-    resolution: {integrity: sha512-lrP2V5U1qhaf+z33fiIn7aYAZZ1fVDly+TkFRjTujNBF/FIHESATj2RbgAOSlWqv32fsZXkXejXzeVfjbv35Ow==}
+  /mongoose/6.7.3:
+    resolution: {integrity: sha512-bLC2Pt6Vpoov+1kBYvQgJXG/2DWXbfIvfK4Gh68kCdYGh6CVO31YxYuIGz70hyGwX2g4DmSzbs5IA8Px2neMCQ==}
     engines: {node: '>=12.0.0'}
     dependencies:
       bson: 4.7.0
