@@ -34,12 +34,12 @@ export class CommentsBasicService {
       {
         page, // 当前页
         limit: size, // 每页显示条数
-        select: '+ip +agent -children', // 查询字段
+        select: '-children', // 查询字段
         sort: { created: -1 }, // 排序
         populate: [
           // 关联查询
           { path: 'parent', select: '-children' }, // 关联父评论
-          { path: 'ref', select: 'title _id slug categoryId' }, // 关联引用对象
+          // { path: 'ref', select: 'title _id slug categoryId' }, // 关联引用对象
         ],
       },
     );
@@ -50,7 +50,7 @@ export class CommentsBasicService {
     return this.commentsBasicModel.find({ status: CommentStatus.Approved });
   }
 
-  async getCommentsByPostId(pid: number) {
+  async getCommentsByPostId(pid: string) {
     return {
       count: await this.commentsBasicModel.countDocuments({
         status: CommentStatus.Approved,
@@ -94,11 +94,11 @@ export class CommentsBasicService {
     return this.commentsBasicModel.deleteOne({ coid });
   }
 
-  async deleteCommentsByPostId(pid: number) {
+  async deleteCommentsByPostId(pid: string) {
     return this.commentsBasicModel.deleteMany({ pid });
   }
 
-  async deleteCommentsByPostIds(pids: number[]) {
+  async deleteCommentsByPostIds(pids: string[]) {
     return this.commentsBasicModel.deleteMany({ pid: { $in: pids } });
   }
 

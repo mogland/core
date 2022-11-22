@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-10-03 16:56:56
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-04 13:12:50
+ * @LastEditTime: 2022-11-22 14:23:26
  * Coding With IU
  */
 
@@ -24,7 +24,6 @@ export enum CommentType {
   Page = 'page',
 }
 
-// 因为要兼容其他的博客系统，所以这里的字段并不做关联
 @modelOptions({ options: { customName: 'Comment' } })
 export class CommentsBasicModel extends BaseModel {
   @prop({ index: true, unique: true, required: true })
@@ -34,15 +33,15 @@ export class CommentsBasicModel extends BaseModel {
   coid: number;
 
   @prop({ required: true })
-  @ApiProperty({ description: '评论关联文章或页面的 pid ' })
-  @IsNumber()
-  pid: number;
+  @ApiProperty({ description: '评论关联文章或页面的 path ' })
+  @IsString()
+  path: string;
 
   @prop({ type: Number })
   @IsNumber()
   @IsOptional()
   @ApiProperty({ description: '父评论' })
-  parent?: number;
+  parent?: number | string;
 
   @prop({ type: Number })
   @ApiProperty({ description: '子评论' })
@@ -79,8 +78,8 @@ export class CommentsBasicModel extends BaseModel {
   @ApiProperty({ description: '评论类型' })
   type: CommentType;
 
-  @prop({ default: 1 })
-  commentsIndex?: number; // 评论顺序
+  @prop({ default: 0 })
+  commentsIndex?: number; // 评论数量
 
   @prop()
   key?: string; // 评论key
