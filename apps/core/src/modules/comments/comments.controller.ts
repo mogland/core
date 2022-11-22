@@ -1,9 +1,7 @@
-import { Controller, Get, Inject, Query } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
-import { ServicesEnum } from '~/shared/constants/services.constant';
 import { PagerDto } from '~/shared/dto/pager.dto';
 import { transformDataToPaginate } from '~/shared/transformers/paginate.transformer';
 import { CommentsBasicService } from './comments.basic.service';
@@ -12,10 +10,7 @@ import { CommentStatus } from './comments.model.basic';
 @Controller('comments')
 @ApiName
 export class CommentsController {
-  constructor(
-    private readonly commentsBasicService: CommentsBasicService,
-    @Inject(ServicesEnum.category) private readonly category: ClientProxy,
-  ) {}
+  constructor(private readonly commentsBasicService: CommentsBasicService) {}
 
   @Get('/all')
   @Auth()
@@ -34,7 +29,7 @@ export class CommentsController {
     );
   }
 
-  @Get('/')
+  @Get('/approved')
   async getApprovedComments() {
     return this.commentsBasicService.getApprovedComments();
   }
