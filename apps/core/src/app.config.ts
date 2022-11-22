@@ -1,13 +1,26 @@
 import cluster from 'cluster';
-import { argv } from 'zx-cjs';
-import { isDev } from '~/shared/utils/environment.util';
-import { cwd } from '../../../shared/global/env.global';
+// import { argv } from 'zx-cjs';
+import { isDev, cwd } from '@shared/global/env.global';
+import { readEnv } from '~/shared/utils/rag-env';
+import { BasicCommer } from '@shared/commander';
+import { ServicePorts } from '~/shared/constants/services.constant';
 
-console.log(argv);
-export const PORT = argv.port || 2330;
+const argv = BasicCommer.option(
+  '-a, --allow_origins <origins>',
+  'allow origins 允许的域名',
+)
+  .parse()
+  .opts();
+console.log(argv, 'argv');
+
+export const CONFIG = readEnv(argv, argv.config);
+console.log(CONFIG, 'CONFIG');
+export const PORT = CONFIG.port || ServicePorts.core;
 export const CROSS_DOMAIN = {
-  allowedOrigins: argv.allowed_origins
-    ? argv.allowed_origins?.split?.(',')
+  allowedOrigins: CONFIG.core?.allow_origins
+    ? typeof CONFIG.core.allow_origins === 'string'
+      ? CONFIG.core.allow_origins.split(',')
+      : CONFIG.core.allow_origins
     : [
         'iucky.cn',
         'blog.iucky.cn',
@@ -22,46 +35,46 @@ export const CROSS_DOMAIN = {
 };
 
 export const MONGO_DB = {
-  dbName: argv.collection_name || 'mog',
-  host: argv.db_host || '127.0.0.1',
-  port: argv.db_port || 27017,
-  user: argv.db_user || '',
-  password: argv.db_password || '',
+  dbName: CONFIG.collection_name || 'mog',
+  host: CONFIG.db_host || '127.0.0.1',
+  port: CONFIG.db_port || 27017,
+  user: CONFIG.db_user || '',
+  password: CONFIG.db_password || '',
   userAndPassword:
-    argv.db_user && argv.db_password
-      ? `${argv.db_user}:${argv.db_password}@`
+    CONFIG.db_user && CONFIG.db_password
+      ? `${CONFIG.db_user}:${CONFIG.db_password}@`
       : '',
   get uri() {
     return `mongodb://${this.userAndPassword}${this.host}:${this.port}${
-      argv.railway ? '' : `/${this.dbName}`
+      CONFIG.railway ? '' : `/${this.dbName}`
     }`;
   },
 };
 
 export const REDIS = {
-  host: argv.redis_host || '127.0.0.1',
-  port: argv.redis_port || 6379,
-  password: argv.redis_password || null,
-  user: argv.redis_user || null,
+  host: CONFIG.redis_host || '127.0.0.1',
+  port: CONFIG.redis_port || 6379,
+  password: CONFIG.redis_password || null,
+  user: CONFIG.redis_user || null,
   ttl: null,
   httpCacheTTL: 5,
   max: 5,
   disableApiCache:
-    (isDev || argv.disable_cache) && !process.env['ENABLE_CACHE_DEBUG'],
+    (isDev || CONFIG.disable_cache) && !process.env['ENABLE_CACHE_DEBUG'],
 };
 export const SECURITY = {
-  jwtSecret: argv.jwtSecret || 'asjhczxiucipoiopiqm2376',
-  jwtExpire: '7d',
+  jwtSecret: CONFIG.jwt_secret || 'asjhczxiucipoiopiqm2376',
+  jwtExpire: `${CONFIG.jwt_expire || 7}d`,
 };
 
 export const DEBUG_MODE = {
   httpRequestVerbose:
-    argv.httpRequestVerbose ?? argv.http_request_verbose ?? true,
+    CONFIG.httpRequestVerbose ?? CONFIG.http_request_verbose ?? true,
 };
 
 export const CLUSTER = {
-  enable: argv.cluster ?? false,
-  workers: argv.cluster_workers,
+  enable: CONFIG.cluster ?? false,
+  workers: CONFIG.cluster_workers,
 };
 
 /** Is main cluster in PM2 */

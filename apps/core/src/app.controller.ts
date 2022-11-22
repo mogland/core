@@ -2,6 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import PKG from '../../../package.json';
 import { ApiOperation } from '@nestjs/swagger';
+import { isDev } from '@shared/global/env.global';
 
 @Controller()
 export class AppController {

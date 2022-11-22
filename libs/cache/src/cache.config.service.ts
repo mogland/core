@@ -5,16 +5,14 @@
  * @author Surmon <https://github.com/surmon-china>
  */
 
- import { REDIS } from "@core/app.config";
+import { REDIS } from '@core/app.config';
 import {
   CacheModuleOptions,
   CacheOptionsFactory,
   Injectable,
-} from "@nestjs/common";
+} from '@nestjs/common';
 // import redisStore from 'cache-manager-redis-store'
-import redisStore from "cache-manager-ioredis";
-
-
+import redisStore from 'cache-manager-ioredis';
 
 @Injectable()
 export class CacheConfigService implements CacheOptionsFactory {

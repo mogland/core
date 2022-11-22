@@ -1,5 +1,5 @@
-import { BadRequestException } from "@nestjs/common";
-import xml2js from "xml2js";
+import { BadRequestException } from '@nestjs/common';
+import xml2js from 'xml2js';
 
 class RssResult {
   title: string;
@@ -14,15 +14,15 @@ class RssItem {
 }
 
 enum RssParserType {
-  RSS = "rss",
-  ATOM = "atom",
+  RSS = 'rss',
+  ATOM = 'atom',
 }
 
 const parser = new xml2js.Parser();
 
 const atomParser = (
   xml: string,
-  callback: (result: RssResult) => void
+  callback: (result: RssResult) => void,
 ): void => {
   parser.parseString(xml, (err, result) => {
     if (err) {
@@ -35,7 +35,7 @@ const atomParser = (
         ? result.feed.title[0]._
         : result.feed.title[0];
     // console.log("网站标题解析成功")
-    rssResult.link = result.feed.$["xml:base"];
+    rssResult.link = result.feed.$['xml:base'];
     // console.log("网站链接解析成功")
 
     rssResult.items = result.feed.entry.map((item) => {
@@ -44,9 +44,9 @@ const atomParser = (
         item.title[0]._ !== undefined ? item.title[0]._ : item.title[0];
       // console.log("文章标题解析成功")
       rssItem.link =
-        item.link[0].$.href !== undefined ? item.link[0].$.href : "";
+        item.link[0].$.href !== undefined ? item.link[0].$.href : '';
       // console.log("文章链接解析成功")
-      rssItem.upDate = item.updated[0] !== undefined ? item.updated[0] : "";
+      rssItem.upDate = item.updated[0] !== undefined ? item.updated[0] : '';
       // console.log("文章发布日期解析成功")
       return rssItem;
     });
@@ -55,7 +55,7 @@ const atomParser = (
 };
 const rssParser = (
   xml: string,
-  callback: (result: RssResult) => void // 回调函数
+  callback: (result: RssResult) => void, // 回调函数
 ): void => {
   parser.parseString(xml, (err, result) => {
     if (err) {
@@ -80,7 +80,7 @@ const rssParser = (
       rssItem.link =
         item.link[0]._ !== undefined ? item.link[0]._ : item.link[0];
       // console.log("文章链接解析成功")
-      rssItem.upDate = item.pubDate[0] !== undefined ? item.pubDate[0] : "";
+      rssItem.upDate = item.pubDate[0] !== undefined ? item.pubDate[0] : '';
       // console.log("文章发布日期解析成功")
       return rssItem;
     });

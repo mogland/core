@@ -28,7 +28,7 @@ jobs:
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
           ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
-    - uses: pnpm/action-setup@v2.2.2
+    - uses: pnpm/action-setup@v2.2.4
       with:
         version: latest
         run_install: true
@@ -99,13 +99,16 @@ jobs:
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: |
-          Hi, @${{ github.event.pull_request.user.login }}. Test **passed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
+          Hi, ${{ github.event.pull_request.user.login }}. Test **passed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
 
           - OS: ${{ matrix.os }}
           - Node.js: ${{ matrix.node-version }}
           - MongoDB: 4.4
           - Redis: 6
+          - Test Result: ${{ steps.test_bundle.outcome }}
           - Commit: ${{ github.event.pull_request.head.sha }}
+
+          You can request a review from @mogland/developers. **Thanks for your contribution!**
     - name: Add ci-passed label
       if: ${{ success() }}
       uses: actions/github-script@v6

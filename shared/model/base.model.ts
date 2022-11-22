@@ -1,5 +1,11 @@
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
-import { index, modelOptions, plugin, prop } from '@typegoose/typegoose';
+import {
+  index,
+  modelOptions,
+  plugin,
+  prop,
+  Severity,
+} from '@typegoose/typegoose';
 import { BeAnObject } from '@typegoose/typegoose/lib/types';
 import { Type } from 'class-transformer';
 import {
@@ -57,6 +63,10 @@ export abstract class BaseCommentIndexModel extends BaseModel {
     return ['commentsIndex'].concat(super.protectedKeys);
   }
 }
+
+@modelOptions({
+  options: { allowMixed: Severity.ALLOW },
+})
 export class WriteBaseModel extends BaseCommentIndexModel {
   @prop({ trim: true, index: true, required: true })
   @IsString()
