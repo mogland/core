@@ -1,4 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { ModelType } from '@typegoose/typegoose/lib/types';
+import { PaginateModel } from 'mongoose';
 import { InjectModel } from '~/libs/database/src/model.transformer';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { CommentsBasicModel, CommentStatus } from './comments.model.basic';
@@ -7,7 +9,8 @@ import { CommentsBasicModel, CommentStatus } from './comments.model.basic';
 export class CommentsBasicService {
   constructor(
     @InjectModel(CommentsBasicModel)
-    private readonly commentsBasicModel: MongooseModel<CommentsBasicModel>,
+    private readonly commentsBasicModel: ModelType<CommentsBasicModel> &
+      PaginateModel<CommentsBasicModel & Document>,
   ) {}
 
   private async increateCid(data: CommentsBasicModel) {
