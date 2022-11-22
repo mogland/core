@@ -1,4 +1,5 @@
 import { Global, Module, Provider } from '@nestjs/common';
+import { CommentsBasicModel } from '~/apps/core/src/modules/comments/comments.model.basic';
 import { CategoryModel } from '~/apps/page-service/src/model/category.model';
 import { PageModel } from '~/apps/page-service/src/model/page.model';
 import { PostModel } from '~/apps/page-service/src/model/post.model';
@@ -14,6 +15,7 @@ const models = [
   PostModel,
   PageModel,
   CategoryModel,
+  CommentsBasicModel,
 ].map((model) => getProviderByTypegooseClass(model));
 
 const providers: Provider[] = [DatabaseService, databaseProvider, ...models];
