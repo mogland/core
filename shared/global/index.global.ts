@@ -18,7 +18,7 @@ import { join } from 'path';
 import { MOG_NAME_ASCIIS_MAP } from '../constants/asciis.constants';
 
 function consoleMog() {
-  console.log(MOG_NAME_ASCIIS_MAP['3d']);
+  console.log(MOG_NAME_ASCIIS_MAP['shadow']);
 }
 
 // 建立目录
