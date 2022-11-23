@@ -60,7 +60,7 @@
     "@nestjs/microservices": "9.2.0",
     "@nestjs/platform-fastify": "9.2.0",
     "@nestjs/schedule": "2.1.0",
-    "@typegoose/typegoose": "9.12.1",
+    "@typegoose/typegoose": "9.13.0",
     "@vercel/ncc": "0.34.0",
     "axios": "1.2.0",
     "axios-retry": "3.3.1",
