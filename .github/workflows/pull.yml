@@ -78,8 +78,8 @@ jobs:
         unzip ./build/mog-core-bundle-Linux.zip -d ./
         wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
         bash test-server.sh
-    - name: Reply PR Failed
-      if: ${{ failure() }}
+    - name: Reply PR Failed (if not draft PR)
+      if: ${{ failure() && github.event.pull_request.draft == false }}
       uses: peter-evans/create-or-update-comment@v2
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -110,7 +110,7 @@ jobs:
 
           You can request a review from @mogland/developers. **Thanks for your contribution!**
     - name: Add ci-passed label
-      if: ${{ success() }}
+      if: ${{ success() && github.event.pull_request.draft == false }}
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
