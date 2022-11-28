@@ -79,7 +79,7 @@
     "js-yaml": "^4.1.0",
     "jsonwebtoken": "8.5.1",
     "lodash": "4.17.21",
-    "mongoose": "6.7.3",
+    "mongoose": "6.7.4",
     "mongoose-aggregate-paginate-v2": "1.0.6",
     "mongoose-lean-id": "0.3.0",
     "mongoose-lean-virtuals": "0.9.1",
