@@ -94,7 +94,7 @@ jobs:
           - Commit: ${{ github.event.pull_request.head.sha }}
 
     - name: Reply PR Success
-      if: ${{ success() }}
+      if: ${{ success() && github.event.pull_request.draft == false }}
       uses: peter-evans/create-or-update-comment@v2
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -122,7 +122,7 @@ jobs:
             labels: ['ci-passed']
           })
     - name: Remove ci-failed label
-      if: ${{ success() }}
+      if: ${{ success() && github.event.pull_request.draft == false }}
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -142,7 +142,7 @@ jobs:
             })
           }
     - name: Add ci-failed label
-      if: ${{ failure() }}
+      if: ${{ failure() && github.event.pull_request.draft == false }}
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -162,7 +162,7 @@ jobs:
             })
           }
     - name: Remove ci-passed label
-      if: ${{ failure() }}
+      if: ${{ failure() && github.event.pull_request.draft == false }}
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
