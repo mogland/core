@@ -22,7 +22,7 @@ specifiers:
   '@types/cache-manager-ioredis': 2.0.3
   '@types/jest': 29.2.3
   '@types/js-yaml': 4.0.5
-  '@types/lodash': 4.14.190
+  '@types/lodash': 4.14.191
   '@types/mongoose-aggregate-paginate-v2': 1.0.5
   '@types/node': 18.11.9
   '@types/supertest': 2.0.12
@@ -135,7 +135,7 @@ devDependencies:
   '@types/cache-manager-ioredis': 2.0.3
   '@types/jest': 29.2.3
   '@types/js-yaml': 4.0.5
-  '@types/lodash': 4.14.190
+  '@types/lodash': 4.14.191
   '@types/mongoose-aggregate-paginate-v2': 1.0.5
   '@types/node': 18.11.9
   '@types/supertest': 2.0.12
@@ -2294,8 +2294,8 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
-  /@types/lodash/4.14.190:
-    resolution: {integrity: sha512-5iJ3FBJBvQHQ8sFhEhJfjUP+G+LalhavTkYyrAYqz5MEJG+erSv0k9KJLb6q7++17Lafk1scaTIFXcMJlwK8Mw==}
+  /@types/lodash/4.14.191:
+    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
     dev: true
 
   /@types/mongoose-aggregate-paginate-v2/1.0.5:
