@@ -13,6 +13,10 @@ export class CommentsBasicService {
       PaginateModel<CommentsBasicModel & Document>,
   ) {}
 
+  get model() {
+    return this.commentsBasicModel;
+  }
+
   private async increateCid(data: CommentsBasicModel) {
     // HACK: MongoDB 不支持自增，所以这里需要手动实现
     const latestComment = await this.commentsBasicModel
