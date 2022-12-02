@@ -46,10 +46,6 @@ export class CommentsBasicService {
     return queryList;
   }
 
-  async getApprovedComments() {
-    return this.commentsBasicModel.find({ status: CommentStatus.Approved });
-  }
-
   async getCommentsByPostId(pid: string) {
     return {
       count: await this.commentsBasicModel.countDocuments({

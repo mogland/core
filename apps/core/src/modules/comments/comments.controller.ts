@@ -27,9 +27,4 @@ export class CommentsController {
       }),
     );
   }
-
-  @Get('/approved')
-  async getApprovedComments() {
-    return this.commentsBasicService.getApprovedComments();
-  }
 }
