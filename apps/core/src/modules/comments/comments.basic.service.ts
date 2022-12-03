@@ -50,14 +50,14 @@ export class CommentsBasicService {
     return queryList;
   }
 
-  async getCommentsByPostId(pid: string) {
+  async getCommentsByPath(path: string) {
     return {
       count: await this.commentsBasicModel.countDocuments({
         status: CommentStatus.Approved,
-        pid,
+        path,
       }),
       data: await this.commentsBasicModel.find({
-        pid,
+        path,
         status: CommentStatus.Approved,
       }),
     };

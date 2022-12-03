@@ -40,13 +40,13 @@ export class CommentsBasicModel extends BaseModel {
   @prop({ type: Number })
   @IsNumber()
   @IsOptional()
-  @ApiProperty({ description: '父评论' })
+  @ApiProperty({ description: '父评论(coid)' })
   parent?: number | string;
 
   @prop({ type: Number })
-  @ApiProperty({ description: '子评论' })
+  @ApiProperty({ description: '子评论(coid)' })
   @IsOptional()
-  children: number[] | any[];
+  children: number[];
 
   @prop({ required: true })
   @IsString()

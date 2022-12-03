@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Patch, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
@@ -29,10 +38,10 @@ export class CommentsController {
     );
   }
 
-  @Get('/post/:pid')
-  @ApiOperation({ summary: '获取文章评论列表' })
-  async getCommentsByPostId(@Query('pid') pid: string) {
-    return await this.commentsBasicService.getCommentsByPostId(pid);
+  @Get('/:path')
+  @ApiOperation({ summary: '获取某一页面的评论列表' })
+  async getCommentsByPostId(@Param('path') path: string) {
+    return await this.commentsBasicService.getCommentsByPath(path);
   }
 
   @Post('/')
@@ -70,8 +79,8 @@ export class CommentsController {
   @Auth()
   @ApiOperation({ summary: '修改评论状态' })
   async updateCommentStatus(
-    @Body('coid') coid: string | number,
-    @Body('status') status: CommentStatus,
+    @Query('coid') coid: string | number,
+    @Query('status') status: CommentStatus,
   ) {
     return await this.commentsBasicService.model.updateOne(
       { coid },
