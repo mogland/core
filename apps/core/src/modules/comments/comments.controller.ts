@@ -40,7 +40,7 @@ export class CommentsController {
 
   @Get('/:path')
   @ApiOperation({ summary: '获取某一页面的评论列表' })
-  async getCommentsByPostId(@Param('path') path: string) {
+  async getCommentsByPath(@Param('path') path: string) {
     return await this.commentsBasicService.getCommentsByPath(path);
   }
 
@@ -56,34 +56,35 @@ export class CommentsController {
     return await this.commentsBasicService.createComment(data);
   }
 
-  @Post('/reply')
+  @Post('/reply/:id')
   @ApiOperation({ summary: '回复评论' })
   async replyComment(
+    @Param('id') id: string,
     @Body() data: CommentsBasicModel,
     @IsMaster() master: boolean,
   ) {
     if (!master) {
       data.status = CommentStatus.Pending;
     }
-    return await this.commentsBasicService.replyComment(data);
+    return await this.commentsBasicService.replyComment(id, data);
   }
 
   @Post('/delete')
   @Auth()
   @ApiOperation({ summary: '删除评论' })
-  async deleteComment(@Body('coid') coid: string | number) {
-    return await this.commentsBasicService.deleteComment(Number(coid));
+  async deleteComment(@Body('id') id: string) {
+    return await this.commentsBasicService.deleteComment(id);
   }
 
   @Patch('/status')
   @Auth()
   @ApiOperation({ summary: '修改评论状态' })
   async updateCommentStatus(
-    @Query('coid') coid: string | number,
+    @Query('id') id: string,
     @Query('status') status: CommentStatus,
   ) {
     return await this.commentsBasicService.model.updateOne(
-      { coid },
+      { _id: id },
       { status },
     );
   }

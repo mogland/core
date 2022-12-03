@@ -17,15 +17,6 @@ export class CommentsBasicService {
     return this.commentsBasicModel;
   }
 
-  private async increateCid(data: CommentsBasicModel) {
-    // HACK: MongoDB 不支持自增，所以这里需要手动实现
-    const latestComment = await this.commentsBasicModel
-      .find()
-      .sort({ coid: -1 });
-    data.coid = latestComment[0].coid + 1;
-    return data;
-  }
-
   async getAllComments(
     { page, size, status } = {
       page: 1,
@@ -64,56 +55,72 @@ export class CommentsBasicService {
   }
 
   async createComment(data: CommentsBasicModel) {
-    data = await this.increateCid(data);
     return this.commentsBasicModel.create(data);
   }
 
   async updateComment(data: CommentsBasicModel) {
-    return this.commentsBasicModel.updateOne(
-      { coid: data.coid },
-      { $set: data },
-    );
+    return this.commentsBasicModel.updateOne({ _id: data.id }, { $set: data });
   }
 
-  async deleteComment(coid: number) {
-    const comment = await this.commentsBasicModel.findOne({ coid });
+  async deleteComment(id: string) {
+    const comment = await this.commentsBasicModel.findOneAndDelete({ _id: id });
     if (!comment) {
       throw new NotFoundException(ExceptionMessage.CommentNotFound);
     }
-    if (comment.parent) {
-      await this.commentsBasicModel.updateOne(
-        { coid: comment.parent },
-        { $pull: { children: coid } },
+    const { parent, children } = comment;
+    if (children && children.length) {
+      await Promise.all(
+        children.map(async (child) => {
+          if (child) {
+            await this.commentsBasicModel.findByIdAndDelete(child);
+          }
+        }),
       );
     }
-    if (comment.children.length > 0) {
-      await this.commentsBasicModel.deleteMany({
-        coid: { $in: comment.children },
-      });
+
+    if (parent) {
+      // 更新父评论的评论索引
+      const parent = await this.commentsBasicModel.findById(comment.parent);
+      if (parent) {
+        await parent.updateOne({
+          $pull: {
+            children: comment._id,
+          },
+          $inc: {
+            commentsIndex: -1,
+          },
+        });
+      }
     }
-    return this.commentsBasicModel.deleteOne({ coid });
   }
 
-  async deleteCommentsByPostId(pid: string) {
-    return this.commentsBasicModel.deleteMany({ pid });
+  async deleteCommentsByPath(path: string) {
+    return this.commentsBasicModel.deleteMany({ path });
   }
 
-  async deleteCommentsByPostIds(pids: string[]) {
-    return this.commentsBasicModel.deleteMany({ pid: { $in: pids } });
+  async deleteCommentsByPaths(paths: string[]) {
+    return this.commentsBasicModel.deleteMany({ path: { $in: paths } });
   }
 
-  async replyComment(data: CommentsBasicModel) {
-    data = await this.increateCid(data);
-    const parentComment = await this.commentsBasicModel.findOne({
-      coid: data.parent,
+  async replyComment(parent: string, data: CommentsBasicModel) {
+    const parentComment = await this.commentsBasicModel.findById(parent);
+    if (!parentComment) {
+      throw new NotFoundException(ExceptionMessage.CommentNotFound);
+    }
+    const commentsIndex = parentComment.commentsIndex;
+    const key = `${parentComment.key}#${commentsIndex}`;
+    const comment = await this.commentsBasicModel.create({
+      ...data,
+      key,
     });
-    if (parentComment) {
-      parentComment.children.push(data.coid);
-      await this.commentsBasicModel.updateOne(
-        { coid: data.parent },
-        { $set: parentComment },
-      );
-    }
-    return this.commentsBasicModel.create(data);
+    await parentComment.updateOne({
+      $push: {
+        children: comment._id,
+      },
+      $inc: {
+        commentsIndex: 1,
+      },
+    });
+    return comment;
   }
 }

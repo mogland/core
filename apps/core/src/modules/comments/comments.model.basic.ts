@@ -8,9 +8,33 @@
  */
 
 import { ApiProperty } from '@nestjs/swagger';
-import { modelOptions, prop } from '@typegoose/typegoose';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  DocumentType,
+  modelOptions,
+  pre,
+  prop,
+  Ref,
+} from '@typegoose/typegoose';
+import { BeAnObject } from '@typegoose/typegoose/lib/types';
+import { IsOptional, IsString } from 'class-validator';
+import { Query, Types } from 'mongoose';
 import { BaseModel } from '~/shared/model/base.model';
+
+function autoPopulateSubComments(
+  this: Query<
+    any,
+    DocumentType<CommentsBasicModel, BeAnObject>,
+    {},
+    DocumentType<CommentsBasicModel, BeAnObject>
+  >,
+  next: () => void,
+) {
+  this.populate({
+    options: { sort: { created: -1 } },
+    path: 'children',
+  });
+  next();
+}
 
 export enum CommentStatus {
   Pending, // 待审核
@@ -24,29 +48,20 @@ export enum CommentType {
   Page = 'page',
 }
 
+@pre<CommentsBasicModel>('findOne', autoPopulateSubComments)
+@pre<CommentsBasicModel>('find', autoPopulateSubComments)
 @modelOptions({ options: { customName: 'Comment' } })
 export class CommentsBasicModel extends BaseModel {
-  @prop({ index: true, unique: true, required: true })
-  @IsOptional()
-  @IsNumber()
-  @ApiProperty({ description: '评论 ID，需要后端方法中实现自增' })
-  coid: number;
-
   @prop({ required: true })
   @ApiProperty({ description: '评论关联文章或页面的 path ' })
   @IsString()
   path: string;
 
-  @prop({ type: Number })
-  @IsNumber()
-  @IsOptional()
-  @ApiProperty({ description: '父评论(coid)' })
-  parent?: number | string;
+  @prop({ ref: () => CommentsBasicModel })
+  parent?: Ref<CommentsBasicModel>; // 父评论
 
-  @prop({ type: Number })
-  @ApiProperty({ description: '子评论(coid)' })
-  @IsOptional()
-  children: number[];
+  @prop({ ref: () => CommentsBasicModel, type: Types.ObjectId })
+  children?: Ref<CommentsBasicModel>[]; // 子评论
 
   @prop({ required: true })
   @IsString()
@@ -74,9 +89,9 @@ export class CommentsBasicModel extends BaseModel {
   @IsString()
   status: CommentStatus;
 
-  @prop({ required: true, enum: CommentType, default: CommentType.Post })
-  @ApiProperty({ description: '评论类型' })
-  type: CommentType;
+  // @prop({ required: true, enum: CommentType, default: CommentType.Post })
+  // @ApiProperty({ description: '评论类型' })
+  // type: CommentType;
 
   @prop({ default: 0 })
   commentsIndex?: number; // 评论数量
