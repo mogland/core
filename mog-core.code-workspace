@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"path": "apps/core",
+			"name": "core-service"
+		},
+		{
+			"path": "apps/page-service"
+		},
+		{
+			"path": "apps/user-service"
+		},
+		{
+			"path": "libs"
+		},
+		{
+			"path": "shared"
+		},
+		{
+			"path": ".",
+			"name": "mog-core-root"
+		}
+	]
+}
