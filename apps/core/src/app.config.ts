@@ -64,7 +64,7 @@ export const REDIS = {
 };
 export const SECURITY = {
   jwtSecret: CONFIG.jwt_secret || 'asjhczxiucipoiopiqm2376',
-  jwtExpire: `${CONFIG.jwt_expire || 7}d`,
+  jwtExpire: `${CONFIG.jwt_expire || `7d`}`,
 };
 
 export const DEBUG_MODE = {

@@ -115,7 +115,7 @@ export class JWTService {
 
   sign(id: string, info?: { user: UserModel; ip: string; ua: string }) {
     const token = sign({ id }, this.secret, {
-      expiresIn: `${JWTService.expiresDay}d`,
+      expiresIn: `${JWTService.expiresDay}`,
     });
     this.storeTokenInRedis(token, info || {});
     return token;
