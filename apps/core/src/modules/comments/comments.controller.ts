@@ -76,6 +76,16 @@ export class CommentsController {
     return await this.commentsBasicService.deleteComment(id);
   }
 
+  @Delete('/path')
+  @Auth()
+  @ApiOperation({ summary: '使用 Path(s) 删除评论' })
+  async deleteCommentByPath(@Query('path') path: string) {
+    const slice = path.split(',');
+    if (slice.length > 1)
+      return await this.commentsBasicService.deleteCommentsByPaths(slice);
+    return await this.commentsBasicService.deleteCommentsByPath(path);
+  }
+
   @Patch('/status')
   @Auth()
   @ApiOperation({ summary: '修改评论状态' })
