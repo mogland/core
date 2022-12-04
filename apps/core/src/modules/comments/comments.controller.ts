@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -38,10 +39,13 @@ export class CommentsController {
     );
   }
 
-  @Get('/:path')
+  @Get('/page')
   @ApiOperation({ summary: '获取某一页面的评论列表' })
-  async getCommentsByPath(@Param('path') path: string) {
-    return await this.commentsBasicService.getCommentsByPath(path);
+  async getCommentsByPath(
+    @Query('path') path: string,
+    @IsMaster() isMaster: boolean,
+  ) {
+    return await this.commentsBasicService.getCommentsByPath(path, isMaster);
   }
 
   @Post('/')
@@ -69,10 +73,10 @@ export class CommentsController {
     return await this.commentsBasicService.replyComment(id, data);
   }
 
-  @Post('/delete')
+  @Delete('/')
   @Auth()
   @ApiOperation({ summary: '删除评论' })
-  async deleteComment(@Body('id') id: string) {
+  async deleteComment(@Query('id') id: string) {
     return await this.commentsBasicService.deleteComment(id);
   }
 
@@ -90,8 +94,9 @@ export class CommentsController {
   @Auth()
   @ApiOperation({ summary: '修改评论状态' })
   async updateCommentStatus(
-    @Query('id') id: string,
-    @Query('status') status: CommentStatus,
+    @Body('id') id: string,
+    @Body('status') status: number,
+    // TODO: 检测 status 是否合法
   ) {
     return await this.commentsBasicService.model.updateOne(
       { _id: id },
@@ -99,10 +104,13 @@ export class CommentsController {
     );
   }
 
-  @Put('/update')
+  @Put('/')
   @Auth()
   @ApiOperation({ summary: '修改评论' })
-  async updateComment(@Body() data: CommentsBasicModel) {
-    return await this.commentsBasicService.updateComment(data);
+  async updateComment(
+    @Body('id') id: string,
+    @Body() data: CommentsBasicModel,
+  ) {
+    return await this.commentsBasicService.updateComment(id, data);
   }
 }

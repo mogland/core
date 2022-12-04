@@ -17,17 +17,19 @@ export enum ExceptionMessage {
   UserNotFound = '用户不存在',
   UserPasswordIsSame = '密码可不能和原来的一样哦',
 
-  CategoryIsNotExist = '分类不存在o(╯□╰)o',
-  CantFindCategory = '找不到分类o(╯□╰)o',
+  CategoryIsNotExist = '分类不存在 o(╯□╰)o',
+  CantFindCategory = '找不到分类 o(╯□╰)o',
   CategoryHasPost = '分类下有文章，不能删除哦',
 
   SlugIsExist = '文章路径已经存在了哦',
-  PostIsNotExist = '文章不存在o(╯□╰)o',
+  PostIsNotExist = '文章不存在 o(╯□╰)o',
   PostIsProtected = '文章受保护了哦，需要密码才能查看',
-  PostPasswordIsWrong = '文章密码错误了o(╯□╰)o',
+  PostPasswordIsWrong = '文章密码错误了 o(╯□╰)o',
 
-  PageIsNotExist = '页面不存在o(╯□╰)o',
+  PageIsNotExist = '页面不存在 o(╯□╰)o',
   PageIsProtected = '页面受保护了哦，需要密码才能查看',
 
-  CommentNotFound = '评论不存在o(╯□╰)o',
+  CommentNotFound = '评论不存在 o(╯□╰)o',
+
+  StatusIsNotRight = '状态不正确啊 o(╯□╰)o',
 }

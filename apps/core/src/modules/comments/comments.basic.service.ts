@@ -29,11 +29,11 @@ export class CommentsBasicService {
       {
         page, // 当前页
         limit: size, // 每页显示条数
-        select: '-children', // 查询字段
+        // select: '-children', // 查询字段
         sort: { created: -1 }, // 排序
         populate: [
           // 关联查询
-          { path: 'parent', select: '-children' }, // 关联父评论
+          // { path: 'parent', select: '-children' }, // 关联父评论
           // { path: 'ref', select: 'title _id slug categoryId' }, // 关联引用对象
         ],
       },
@@ -41,15 +41,19 @@ export class CommentsBasicService {
     return queryList;
   }
 
-  async getCommentsByPath(path: string) {
+  async getCommentsByPath(path: string, isMaster: boolean) {
     return {
       count: await this.commentsBasicModel.countDocuments({
-        status: CommentStatus.Approved,
+        status: isMaster
+          ? { $in: [CommentStatus.Approved, CommentStatus.Pending] }
+          : CommentStatus.Approved,
         path,
       }),
       data: await this.commentsBasicModel.find({
         path,
-        status: CommentStatus.Approved,
+        status: isMaster
+          ? { $in: [CommentStatus.Approved, CommentStatus.Pending] }
+          : CommentStatus.Approved,
       }),
     };
   }
@@ -58,12 +62,13 @@ export class CommentsBasicService {
     return this.commentsBasicModel.create(data);
   }
 
-  async updateComment(data: CommentsBasicModel) {
-    return this.commentsBasicModel.updateOne({ _id: data.id }, { $set: data });
+  async updateComment(id: string, data: CommentsBasicModel) {
+    delete data.commentsIndex; // 评论索引不允许修改
+    return this.commentsBasicModel.updateOne({ _id: id }, { $set: data });
   }
 
   async deleteComment(id: string) {
-    const comment = await this.commentsBasicModel.findOneAndDelete({ _id: id });
+    const comment = await this.commentsBasicModel.findOneAndDelete({ id });
     if (!comment) {
       throw new NotFoundException(ExceptionMessage.CommentNotFound);
     }
@@ -107,8 +112,9 @@ export class CommentsBasicService {
     if (!parentComment) {
       throw new NotFoundException(ExceptionMessage.CommentNotFound);
     }
+    data.path = parentComment.path; // 防止恶意修改，强制使用父评论的path
     const commentsIndex = parentComment.commentsIndex;
-    const key = `${parentComment.key}#${commentsIndex}`;
+    const key = `${parentComment.key || 0}#${commentsIndex}`;
     const comment = await this.commentsBasicModel.create({
       ...data,
       key,
