@@ -29,4 +29,7 @@ export enum ServicePorts {
   category = page,
   post = page,
   user = 2332,
+  comments = 2333,
+  links = 2334,
+  admin = 2335,
 }

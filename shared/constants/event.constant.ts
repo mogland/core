@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-09-03 22:18:46
  * @LastEditors: Wibus
- * @LastEditTime: 2022-10-01 11:10:16
+ * @LastEditTime: 2022-10-03 21:53:01
  * Coding With IU
  */
 
@@ -46,4 +46,19 @@ export enum PageEvents {
   PageCreate = 'page.create',
   PagePatch = 'page.patch',
   PageDelete = 'page.delete',
+}
+
+export enum CommentEvents {
+  CommentsGetAll = 'comments.get.all',
+  CommentsGetAllByMaster = 'comments.get.all.auth',
+  CommentsGetById = 'comments.get.by.id',
+  CommentsGetByIdWithMaster = 'comments.get.by.id.auth',
+  CommentCreate = 'comment.create',
+  CommentCreateByMaster = 'comment.create.auth',
+  CommentPatch = 'comment.patch',
+  CommentDelete = 'comment.delete',
+  CommentReply = 'comment.reply',
+  CommentAddRecaction = 'comment.add.reaction',
+  CommentRemoveRecaction = 'comment.remove.reaction',
+  CommentRecactionGetList = 'comment.reaction.get.list',
 }

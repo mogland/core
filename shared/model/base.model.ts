@@ -15,6 +15,7 @@ import {
   IsNotEmpty,
   ValidateNested,
   IsObject,
+  IsNumber,
 } from 'class-validator';
 import LeanId from 'mongoose-lean-id';
 import { default as mongooseLeanVirtuals } from 'mongoose-lean-virtuals';
@@ -72,6 +73,11 @@ export class WriteBaseModel extends BaseCommentIndexModel {
   @IsNotEmpty()
   @ApiProperty({ description: '标题' })
   title: string;
+
+  @prop({ index: true })
+  @IsNumber()
+  @ApiProperty({ description: '文章或页面的 pid' })
+  pid: number;
 
   @prop({ trim: true })
   @IsString()
