@@ -62,7 +62,7 @@ export class CommentsBasicService {
     const pathCount = await this.commentsBasicModel.countDocuments({
       path: data.path,
     });
-    const key = `${pathCount}#${0}`;
+    const key = `${data.path}#${pathCount}`;
     return this.commentsBasicModel.create({
       ...data,
       key,
