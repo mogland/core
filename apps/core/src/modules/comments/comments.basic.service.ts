@@ -59,7 +59,14 @@ export class CommentsBasicService {
   }
 
   async createComment(data: CommentsBasicModel) {
-    return this.commentsBasicModel.create(data);
+    const pathCount = await this.commentsBasicModel.countDocuments({
+      path: data.path,
+    });
+    const key = `${pathCount}#${0}`;
+    return this.commentsBasicModel.create({
+      ...data,
+      key,
+    });
   }
 
   async updateComment(id: string, data: CommentsBasicModel) {
