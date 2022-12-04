@@ -16,7 +16,7 @@ import {
   Ref,
 } from '@typegoose/typegoose';
 import { BeAnObject } from '@typegoose/typegoose/lib/types';
-import { IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Query, Types } from 'mongoose';
 import { BaseModel } from '~/shared/model/base.model';
 
@@ -76,6 +76,7 @@ export class CommentsBasicModel extends BaseModel {
   @prop({ required: true })
   @IsString()
   @ApiProperty({ description: '评论者邮箱' })
+  @IsEmail()
   email: string;
 
   @prop({ required: false })
@@ -86,8 +87,9 @@ export class CommentsBasicModel extends BaseModel {
 
   @prop({ required: true, enum: CommentStatus })
   @ApiProperty({ description: '评论状态' })
-  @IsString()
-  status: CommentStatus;
+  @IsNumber()
+  @IsOptional()
+  status?: CommentStatus;
 
   // @prop({ required: true, enum: CommentType, default: CommentType.Post })
   // @ApiProperty({ description: '评论类型' })
