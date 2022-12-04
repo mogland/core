@@ -4,6 +4,7 @@ import {
   ServicePorts,
   ServicesEnum,
 } from '~/shared/constants/services.constant';
+import { getEnv } from '~/shared/utils/rag-env';
 import { CommentsBasicService } from './comments.basic.service';
 import { CommentsController } from './comments.controller';
 
@@ -14,7 +15,8 @@ import { CommentsController } from './comments.controller';
         name: ServicesEnum.comments,
         transport: Transport.TCP,
         options: {
-          port: ServicePorts.comments,
+          port: getEnv(ServicesEnum.comments)?.port || ServicePorts.comments,
+          host: getEnv(ServicesEnum.comments)?.host || undefined,
         },
       },
     ]),
