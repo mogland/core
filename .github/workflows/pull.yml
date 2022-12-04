@@ -78,39 +78,39 @@ jobs:
         unzip ./build/mog-core-bundle-Linux.zip -d ./
         wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
         bash test-server.sh
-    - name: Reply PR Failed
-      if: ${{ failure() }}
-      uses: peter-evans/create-or-update-comment@v2
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        body: |
-          Hi, @${{ github.event.pull_request.user.login }}. Test **failed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
+    # - name: Reply PR Failed (if not draft PR)
+    #   if: ${{ failure() && github.event.pull_request.draft == false }}
+    #   uses: peter-evans/create-or-update-comment@v2
+    #   with:
+    #     issue-number: ${{ github.event.pull_request.number }}
+    #     body: |
+    #       Hi, @${{ github.event.pull_request.user.login }}. Test **failed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
           
-          - OS: ${{ matrix.os }}
-          - Node.js: ${{ matrix.node-version }}
-          - MongoDB: 4.4
-          - Redis: 6
-          - Test Result: ${{ steps.test_bundle.outcome }}
-          - Commit: ${{ github.event.pull_request.head.sha }}
+    #       - OS: ${{ matrix.os }}
+    #       - Node.js: ${{ matrix.node-version }}
+    #       - MongoDB: 4.4
+    #       - Redis: 6
+    #       - Test Result: ${{ steps.test_bundle.outcome }}
+    #       - Commit: ${{ github.event.pull_request.head.sha }}
 
-    - name: Reply PR Success
-      if: ${{ success() }}
-      uses: peter-evans/create-or-update-comment@v2
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        body: |
-          Hi, ${{ github.event.pull_request.user.login }}. Test **passed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
+    # - name: Reply PR Success
+    #   if: ${{ success() && github.event.pull_request.draft == false }}
+    #   uses: peter-evans/create-or-update-comment@v2
+    #   with:
+    #     issue-number: ${{ github.event.pull_request.number }}
+    #     body: |
+    #       Hi, ${{ github.event.pull_request.user.login }}. Test **passed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
 
-          - OS: ${{ matrix.os }}
-          - Node.js: ${{ matrix.node-version }}
-          - MongoDB: 4.4
-          - Redis: 6
-          - Test Result: ${{ steps.test_bundle.outcome }}
-          - Commit: ${{ github.event.pull_request.head.sha }}
+    #       - OS: ${{ matrix.os }}
+    #       - Node.js: ${{ matrix.node-version }}
+    #       - MongoDB: 4.4
+    #       - Redis: 6
+    #       - Test Result: ${{ steps.test_bundle.outcome }}
+    #       - Commit: ${{ github.event.pull_request.head.sha }}
 
-          You can request a review from @mogland/developers. **Thanks for your contribution!**
+    #       You can request a review from @mogland/developers. **Thanks for your contribution!**
     - name: Add ci-passed label
-      if: ${{ success() }}
+      if: ${{ success() && github.event.pull_request.draft == false }}
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -122,7 +122,7 @@ jobs:
             labels: ['ci-passed']
           })
     - name: Remove ci-failed label
-      if: ${{ success() }}
+      if: ${{ success() && github.event.pull_request.draft == false }}
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -142,7 +142,7 @@ jobs:
             })
           }
     - name: Add ci-failed label
-      if: ${{ failure() }}
+      if: ${{ failure() && github.event.pull_request.draft == false }}
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -162,7 +162,7 @@ jobs:
             })
           }
     - name: Remove ci-passed label
-      if: ${{ failure() }}
+      if: ${{ failure() && github.event.pull_request.draft == false }}
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}

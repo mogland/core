@@ -3,7 +3,7 @@
  * @author: Wibus
  * @Date: 2022-11-17 13:43:30
  * @LastEditors: Wibus
- * @LastEditTime: 2022-11-19 20:34:44
+ * @LastEditTime: 2022-11-19 20:37:26
  * Coding With IU
  */
 
@@ -16,12 +16,12 @@ export const BasicCommer = program
   .option('-H, --db_host <host>', 'host of database 数据库地址')
   .option('-P, --db_port <port>', 'port of database 数据库端口')
   .option('-U, --db_user <user>', 'user of database 数据库用户名')
-  .option('-PAS, --db_password <password>', 'password of database 数据库密码')
+  .option('-W, --db_password <password>', 'password of database 数据库密码')
 
   .option('-RH, --redis_host <host>', 'host of redis redis地址')
   .option('-RP, --redis_port <port>', 'port of redis redis端口')
-  .option('-RPW, --redis_password <password>', 'password of redis redis密码')
-  .option('-RPW, --redis_user <user>', 'user of redis redis用户名')
+  .option('-RW, --redis_password <password>', 'password of redis redis密码')
+  .option('-RU, --redis_user <user>', 'user of redis redis用户名')
   .option('--disable_cache', 'disable cache 禁用缓存')
 
   .option('--jwt_secret <secret>', 'jwt secret jwt密钥')
