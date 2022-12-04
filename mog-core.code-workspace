@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": ".",
+			"name": "mog-core-root"
+		},
+		{
 			"path": "apps/core",
 			"name": "core-service"
 		},
@@ -15,10 +19,6 @@
 		},
 		{
 			"path": "shared"
-		},
-		{
-			"path": ".",
-			"name": "mog-core-root"
 		}
 	]
 }
