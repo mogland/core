@@ -25,7 +25,7 @@ export enum FriendType {
 }
 
 @modelOptions({ options: { customName: 'Friends' } })
-export class FriendsModel extends BaseModel {
+export class FriendsBasicModel extends BaseModel {
   @prop({ required: true, trim: true })
   @IsString()
   name: string;
@@ -71,4 +71,8 @@ export class FriendsModel extends BaseModel {
   // @IsNumber()
   // @IsOptional()
   // feedType?: FeedType;
+
+  // @prop()
+  // @IsString()
+  // secret: string; // Friend can use this secret to update the friend information.
 }
