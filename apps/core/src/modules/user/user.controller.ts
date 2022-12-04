@@ -78,7 +78,7 @@ export class UserController {
   @Get('/master/info')
   @ApiOperation({ summary: '获取主人信息' })
   async getMaster() {
-    return this.user.send({ cmd: UserEvents.UserGetMaster }, null).pipe(
+    return this.user.send({ cmd: UserEvents.UserGetMaster }, {}).pipe(
       timeout(1000),
       catchError((err) => {
         return throwError(
