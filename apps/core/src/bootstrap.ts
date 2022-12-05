@@ -75,9 +75,9 @@ export async function bootstrap() {
     SwaggerModule.setup('api-docs', app, document);
   }
 
-  const listen_ip = getEnv(ServicesEnum.core)['listen_ip'] || '0.0.0.0';
+  const listening_ip = getEnv(ServicesEnum.core)['listening_ip'] || '0.0.0.0';
 
-  await app.listen(+PORT, listen_ip, async (err) => {
+  await app.listen(+PORT, listening_ip, async (err) => {
     if (err) {
       Logger.error(err);
       process.exit(1);
@@ -93,7 +93,9 @@ export async function bootstrap() {
       consola.debug(`[${prefix + pid}] OpenApi: ${url}/api-docs`);
     }
 
-    consola.success(`[${prefix + pid}] 服务器正在监听: ${listen_ip}:${PORT}`);
+    consola.success(
+      `[${prefix + pid}] 服务器正在监听: ${listening_ip}:${PORT}`,
+    );
     Logger.log(
       `NxServer 已启动. ${chalk.yellow(`+${performance.now() | 0}ms`)}`,
     );
