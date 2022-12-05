@@ -16,6 +16,7 @@ import { CROSS_DOMAIN, PORT } from './app.config';
 import { LoggingInterceptor } from '~/shared/common/interceptors/logging.interceptor';
 import { isDev } from '@shared/global/env.global';
 import { consola } from '~/shared/global/consola.global';
+import { getEnv } from '~/shared/utils/rag-env';
 
 const Origin = CROSS_DOMAIN.allowedOrigins;
 
@@ -73,7 +74,7 @@ export async function bootstrap() {
     SwaggerModule.setup('api-docs', app, document);
   }
 
-  await app.listen(+PORT, '0.0.0.0', async (err) => {
+  await app.listen(+PORT, getEnv()['listen_ip'], async (err) => {
     if (err) {
       Logger.error(err);
       process.exit(1);
@@ -89,7 +90,9 @@ export async function bootstrap() {
       consola.debug(`[${prefix + pid}] OpenApi: ${url}/api-docs`);
     }
 
-    consola.success(`[${prefix + pid}] 服务器正在监听: ${url}`);
+    consola.success(
+      `[${prefix + pid}] 服务器正在监听: ${getEnv()['listen_ip']}:${PORT}`,
+    );
     Logger.log(
       `NxServer 已启动. ${chalk.yellow(`+${performance.now() | 0}ms`)}`,
     );

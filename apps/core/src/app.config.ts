@@ -11,7 +11,6 @@ const argv = BasicCommer.option(
 )
   .parse()
   .opts();
-console.log(argv, 'argv');
 
 export const CONFIG = readEnv(argv, argv.config);
 console.log(CONFIG, 'CONFIG');
