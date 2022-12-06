@@ -45,7 +45,7 @@ specifiers:
   consola: 2.15.3
   cron: 2.1.0
   cross-env: 7.0.3
-  dayjs: 1.11.6
+  dayjs: 1.11.7
   eslint: 8.29.0
   eslint-config-prettier: 8.5.0
   eslint-plugin-prettier: 4.2.1
@@ -106,7 +106,7 @@ dependencies:
   commander: 9.4.1
   consola: 2.15.3
   cron: 2.1.0
-  dayjs: 1.11.6
+  dayjs: 1.11.7
   js-yaml: 4.1.0
   jsonwebtoken: 8.5.1
   lodash: 4.17.21
@@ -3509,8 +3509,8 @@ packages:
     engines: {node: '>=0.11'}
     dev: true
 
-  /dayjs/1.11.6:
-    resolution: {integrity: sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==}
+  /dayjs/1.11.7:
+    resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
     dev: false
 
   /debug/2.6.9:
