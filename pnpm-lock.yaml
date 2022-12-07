@@ -15,7 +15,7 @@ specifiers:
   '@nestjs/platform-fastify': 9.2.1
   '@nestjs/schedule': 2.1.0
   '@nestjs/schematics': 9.0.3
-  '@nestjs/swagger': 6.1.3
+  '@nestjs/swagger': 6.1.4
   '@nestjs/testing': 9.2.1
   '@typegoose/typegoose': 9.13.2
   '@types/bcrypt': 5.0.0
@@ -129,7 +129,7 @@ devDependencies:
   '@innei/eslint-config-ts': 0.9.6_typescript@4.9.3
   '@nestjs/cli': 9.1.5
   '@nestjs/schematics': 9.0.3_typescript@4.9.3
-  '@nestjs/swagger': 6.1.3_3ad6e4keca24au37uk3aw7bkcy
+  '@nestjs/swagger': 6.1.4_3ad6e4keca24au37uk3aw7bkcy
   '@nestjs/testing': 9.2.1_t6j6bmv6lsxnofi6ilydr2n3ma
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.3
@@ -2057,29 +2057,34 @@ packages:
       - chokidar
     dev: true
 
-  /@nestjs/swagger/6.1.3_3ad6e4keca24au37uk3aw7bkcy:
-    resolution: {integrity: sha512-H9C/yRgLFb5QrAt6iGrYmIX9X7Q0zXkgZaTNUATljUBra+RCWrEUbLHBcGjTAOtcIyGV/vmyCLv68YSVcZoE0Q==}
+  /@nestjs/swagger/6.1.4_3ad6e4keca24au37uk3aw7bkcy:
+    resolution: {integrity: sha512-kE8VjR+NaoKqxg8XqM/YYfALScPh4AcoR8Wywga8/OxHsTHY+MKxqvTpWp7IhCUWSA6xT8nQUpcC9Rt7C+r7Hw==}
     peerDependencies:
       '@fastify/static': ^6.0.0
       '@nestjs/common': ^9.0.0
       '@nestjs/core': ^9.0.0
+      class-transformer: '*'
+      class-validator: '*'
       reflect-metadata: ^0.1.12
     peerDependenciesMeta:
       '@fastify/static':
+        optional: true
+      class-transformer:
+        optional: true
+      class-validator:
         optional: true
     dependencies:
       '@fastify/static': 6.6.0
       '@nestjs/common': 9.2.1_wfccvjmrxsdt24lpjkvzmt5igm
       '@nestjs/core': 9.2.1_sgbfwoadz3slpr6hje3bjxwiye
       '@nestjs/mapped-types': 1.2.0_uooigj5zjqahwxoh46ti3f33my
+      class-transformer: 0.5.1
+      class-validator: 0.13.2
       js-yaml: 4.1.0
       lodash: 4.17.21
       path-to-regexp: 3.2.0
       reflect-metadata: 0.1.13
-      swagger-ui-dist: 4.15.1
-    transitivePeerDependencies:
-      - class-transformer
-      - class-validator
+      swagger-ui-dist: 4.15.5
     dev: true
 
   /@nestjs/testing/9.2.1_t6j6bmv6lsxnofi6ilydr2n3ma:
@@ -7152,8 +7157,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /swagger-ui-dist/4.15.1:
-    resolution: {integrity: sha512-DlZARu6ckUFqDe0j5IPayO4k0gQvYQw9Un02MhxAgaMtVnTH2vmyyDe+yKeV0r1LiiPx3JbasdS/5Yyb/AV3iw==}
+  /swagger-ui-dist/4.15.5:
+    resolution: {integrity: sha512-V3eIa28lwB6gg7/wfNvAbjwJYmDXy1Jo1POjyTzlB6wPcHiGlRxq39TSjYGVjQrUSAzpv+a7nzp7mDxgNy57xA==}
     dev: true
 
   /symbol-observable/4.0.0:
