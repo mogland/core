@@ -75,7 +75,7 @@
     "commander": "^9.4.1",
     "consola": "2.15.3",
     "cron": "2.1.0",
-    "dayjs": "1.11.6",
+    "dayjs": "1.11.7",
     "js-yaml": "^4.1.0",
     "jsonwebtoken": "8.5.1",
     "lodash": "4.17.21",
