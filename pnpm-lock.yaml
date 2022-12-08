@@ -77,7 +77,7 @@ specifiers:
   ts-node: 10.9.1
   tsconfig-paths: 4.1.1
   typescript: 4.9.4
-  vm2: 3.9.12
+  vm2: 3.9.13
   webpack: 5.75.0
   xml2js: 0.4.23
   zx-cjs: 7.0.7-0
@@ -122,7 +122,7 @@ dependencies:
   rxjs: 7.6.0
   slugify: 1.6.5
   snakecase-keys: 5.4.4
-  vm2: 3.9.12
+  vm2: 3.9.13
   zx-cjs: 7.0.7-0
 
 devDependencies:
@@ -7686,8 +7686,8 @@ packages:
     resolution: {integrity: sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw==}
     engines: {node: '>= 0.10'}
 
-  /vm2/3.9.12:
-    resolution: {integrity: sha512-OMmRsKh1gmdosFzuqmj6O43hqIStqXA24YbwjtUTO0TkOBP8yLNHLplbr4odnAzEcMnm9lt2r3R8kTivn8urMg==}
+  /vm2/3.9.13:
+    resolution: {integrity: sha512-0rvxpB8P8Shm4wX2EKOiMp7H2zq+HUE/UwodY0pCZXs9IffIKZq6vUti5OgkVCTakKo9e/fgO4X1fkwfjWxE3Q==}
     engines: {node: '>=6.0'}
     hasBin: true
     dependencies:
