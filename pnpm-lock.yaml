@@ -67,7 +67,7 @@ specifiers:
   prettier: 2.8.1
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
-  rxjs: 7.6.0
+  rxjs: 7.8.0
   slugify: 1.6.5
   snakecase-keys: 5.4.4
   source-map-support: 0.5.21
@@ -85,10 +85,10 @@ specifiers:
 dependencies:
   '@fastify/multipart': 7.3.0
   '@fastify/static': 6.6.0
-  '@nestjs/common': 9.2.1_ypfeug4d5dyqijriw2rdd44oey
-  '@nestjs/core': 9.2.1_sgbfwoadz3slpr6hje3bjxwiye
+  '@nestjs/common': 9.2.1_uisgqpdqsnlcxoqiidaahrhoi4
+  '@nestjs/core': 9.2.1_pwdo3q3a7waqiisplezqjzetmq
   '@nestjs/event-emitter': 1.3.1_dntc3uqqknzoduyjojusds5kla
-  '@nestjs/microservices': 9.2.1_464x7jgq2d75ricnoxe4geygse
+  '@nestjs/microservices': 9.2.1_hagips7wdp2x5w4ubypwtszwai
   '@nestjs/platform-fastify': 9.2.1_ikxpgcebo3djgwayhrp6upsvza
   '@nestjs/schedule': 2.1.0_dntc3uqqknzoduyjojusds5kla
   '@typegoose/typegoose': 10.0.0_mongoose@6.8.1
@@ -119,7 +119,7 @@ dependencies:
   node-machine-id: 1.1.12
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
-  rxjs: 7.6.0
+  rxjs: 7.8.0
   slugify: 1.6.5
   snakecase-keys: 5.4.4
   vm2: 3.9.13
@@ -1852,7 +1852,7 @@ packages:
       - webpack-cli
     dev: true
 
-  /@nestjs/common/9.2.1_ypfeug4d5dyqijriw2rdd44oey:
+  /@nestjs/common/9.2.1_uisgqpdqsnlcxoqiidaahrhoi4:
     resolution: {integrity: sha512-nZuo3oDsSSlC5mti/M2aCWTEIfHPGDXmBwWgPeCpRbrNz3IWd109rkajll+yxgidVjznAdBS9y00JkAVJblNYw==}
     peerDependencies:
       cache-manager: <=5
@@ -1873,11 +1873,11 @@ packages:
       class-validator: 0.14.0
       iterare: 1.2.1
       reflect-metadata: 0.1.13
-      rxjs: 7.6.0
+      rxjs: 7.8.0
       tslib: 2.4.1
       uuid: 9.0.0
 
-  /@nestjs/core/9.2.1_sgbfwoadz3slpr6hje3bjxwiye:
+  /@nestjs/core/9.2.1_pwdo3q3a7waqiisplezqjzetmq:
     resolution: {integrity: sha512-a9GkXuu8uXgNgCVW+17iI8kLCltO+HwHpU2IhR+32JKnN2WEQ1YEWU4t3GJ2MNq44YkjIw9zrKvFkjJBlYrNbQ==}
     requiresBuild: true
     peerDependencies:
@@ -1895,15 +1895,15 @@ packages:
       '@nestjs/websockets':
         optional: true
     dependencies:
-      '@nestjs/common': 9.2.1_ypfeug4d5dyqijriw2rdd44oey
-      '@nestjs/microservices': 9.2.1_464x7jgq2d75ricnoxe4geygse
+      '@nestjs/common': 9.2.1_uisgqpdqsnlcxoqiidaahrhoi4
+      '@nestjs/microservices': 9.2.1_hagips7wdp2x5w4ubypwtszwai
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.1.1
       iterare: 1.2.1
       object-hash: 3.0.0
       path-to-regexp: 3.2.0
       reflect-metadata: 0.1.13
-      rxjs: 7.6.0
+      rxjs: 7.8.0
       tslib: 2.4.1
       uuid: 9.0.0
     transitivePeerDependencies:
@@ -1916,8 +1916,8 @@ packages:
       '@nestjs/core': ^7.0.0 || ^8.0.0 || ^9.0.0
       reflect-metadata: ^0.1.12
     dependencies:
-      '@nestjs/common': 9.2.1_ypfeug4d5dyqijriw2rdd44oey
-      '@nestjs/core': 9.2.1_sgbfwoadz3slpr6hje3bjxwiye
+      '@nestjs/common': 9.2.1_uisgqpdqsnlcxoqiidaahrhoi4
+      '@nestjs/core': 9.2.1_pwdo3q3a7waqiisplezqjzetmq
       eventemitter2: 6.4.6
       reflect-metadata: 0.1.13
     dev: false
@@ -1935,13 +1935,13 @@ packages:
       class-validator:
         optional: true
     dependencies:
-      '@nestjs/common': 9.2.1_ypfeug4d5dyqijriw2rdd44oey
+      '@nestjs/common': 9.2.1_uisgqpdqsnlcxoqiidaahrhoi4
       class-transformer: 0.5.1
       class-validator: 0.14.0
       reflect-metadata: 0.1.13
     dev: true
 
-  /@nestjs/microservices/9.2.1_464x7jgq2d75ricnoxe4geygse:
+  /@nestjs/microservices/9.2.1_hagips7wdp2x5w4ubypwtszwai:
     resolution: {integrity: sha512-ve4dqgoIaUG9VtinHHGCvf6SvtPjd3I44Mj8z8mSkcB8BEPfJnf4FNOShFBgsedtxLaiZyjpv8NCLcNVv5KKGg==}
     peerDependencies:
       '@grpc/grpc-js': '*'
@@ -1977,13 +1977,13 @@ packages:
       nats:
         optional: true
     dependencies:
-      '@nestjs/common': 9.2.1_ypfeug4d5dyqijriw2rdd44oey
-      '@nestjs/core': 9.2.1_sgbfwoadz3slpr6hje3bjxwiye
+      '@nestjs/common': 9.2.1_uisgqpdqsnlcxoqiidaahrhoi4
+      '@nestjs/core': 9.2.1_pwdo3q3a7waqiisplezqjzetmq
       cache-manager: 4.1.0
       ioredis: 5.2.4
       iterare: 1.2.1
       reflect-metadata: 0.1.13
-      rxjs: 7.6.0
+      rxjs: 7.8.0
       tslib: 2.4.1
 
   /@nestjs/platform-fastify/9.2.1_ikxpgcebo3djgwayhrp6upsvza:
@@ -2003,8 +2003,8 @@ packages:
       '@fastify/formbody': 7.3.0
       '@fastify/middie': 8.0.0
       '@fastify/static': 6.6.0
-      '@nestjs/common': 9.2.1_ypfeug4d5dyqijriw2rdd44oey
-      '@nestjs/core': 9.2.1_sgbfwoadz3slpr6hje3bjxwiye
+      '@nestjs/common': 9.2.1_uisgqpdqsnlcxoqiidaahrhoi4
+      '@nestjs/core': 9.2.1_pwdo3q3a7waqiisplezqjzetmq
       fastify: 4.10.2
       light-my-request: 5.6.1
       path-to-regexp: 3.2.0
@@ -2020,8 +2020,8 @@ packages:
       '@nestjs/core': ^7.0.0 || ^8.0.0 || ^9.0.0
       reflect-metadata: ^0.1.12
     dependencies:
-      '@nestjs/common': 9.2.1_ypfeug4d5dyqijriw2rdd44oey
-      '@nestjs/core': 9.2.1_sgbfwoadz3slpr6hje3bjxwiye
+      '@nestjs/common': 9.2.1_uisgqpdqsnlcxoqiidaahrhoi4
+      '@nestjs/core': 9.2.1_pwdo3q3a7waqiisplezqjzetmq
       cron: 2.0.0
       reflect-metadata: 0.1.13
       uuid: 8.3.2
@@ -2075,8 +2075,8 @@ packages:
         optional: true
     dependencies:
       '@fastify/static': 6.6.0
-      '@nestjs/common': 9.2.1_ypfeug4d5dyqijriw2rdd44oey
-      '@nestjs/core': 9.2.1_sgbfwoadz3slpr6hje3bjxwiye
+      '@nestjs/common': 9.2.1_uisgqpdqsnlcxoqiidaahrhoi4
+      '@nestjs/core': 9.2.1_pwdo3q3a7waqiisplezqjzetmq
       '@nestjs/mapped-types': 1.2.0_ejjx6q7ue32bc24a7sespjpcyu
       class-transformer: 0.5.1
       class-validator: 0.14.0
@@ -2100,9 +2100,9 @@ packages:
       '@nestjs/platform-express':
         optional: true
     dependencies:
-      '@nestjs/common': 9.2.1_ypfeug4d5dyqijriw2rdd44oey
-      '@nestjs/core': 9.2.1_sgbfwoadz3slpr6hje3bjxwiye
-      '@nestjs/microservices': 9.2.1_464x7jgq2d75ricnoxe4geygse
+      '@nestjs/common': 9.2.1_uisgqpdqsnlcxoqiidaahrhoi4
+      '@nestjs/core': 9.2.1_pwdo3q3a7waqiisplezqjzetmq
+      '@nestjs/microservices': 9.2.1_hagips7wdp2x5w4ubypwtszwai
       tslib: 2.4.1
     dev: true
 
@@ -3496,7 +3496,7 @@ packages:
       chalk: 4.1.2
       date-fns: 2.29.2
       lodash: 4.17.21
-      rxjs: 7.6.0
+      rxjs: 7.8.0
       shell-quote: 1.7.3
       spawn-command: 0.0.2-1
       supports-color: 8.1.1
@@ -4889,7 +4889,7 @@ packages:
       mute-stream: 0.0.8
       ora: 5.4.1
       run-async: 2.4.1
-      rxjs: 7.6.0
+      rxjs: 7.8.0
       string-width: 4.2.3
       strip-ansi: 6.0.1
       through: 2.3.8
@@ -4910,7 +4910,7 @@ packages:
       mute-stream: 0.0.8
       ora: 6.1.2
       run-async: 2.4.1
-      rxjs: 7.6.0
+      rxjs: 7.8.0
       string-width: 5.1.2
       strip-ansi: 7.0.1
       through: 2.3.8
@@ -5798,7 +5798,7 @@ packages:
       log-update: 4.0.0
       p-map: 4.0.0
       rfdc: 1.3.0
-      rxjs: 7.6.0
+      rxjs: 7.8.0
       through: 2.3.8
       wrap-ansi: 7.0.0
     dev: true
@@ -6830,8 +6830,8 @@ packages:
       tslib: 1.14.1
     dev: true
 
-  /rxjs/7.6.0:
-    resolution: {integrity: sha512-DDa7d8TFNUalGC9VqXvQ1euWNN7sc63TrUCuM9J998+ViviahMIjKSOU7rfcgFOF+FCD71BhDRv4hrFz+ImDLQ==}
+  /rxjs/7.8.0:
+    resolution: {integrity: sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==}
     dependencies:
       tslib: 2.4.1
 
