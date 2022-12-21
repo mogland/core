@@ -77,7 +77,7 @@
     "cron": "2.1.0",
     "dayjs": "1.11.7",
     "js-yaml": "^4.1.0",
-    "jsonwebtoken": "8.5.1",
+    "jsonwebtoken": "9.0.0",
     "lodash": "4.17.21",
     "mongoose": "6.8.1",
     "mongoose-aggregate-paginate-v2": "1.0.6",
