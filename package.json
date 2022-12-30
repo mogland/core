@@ -96,7 +96,7 @@
   },
   "devDependencies": {
     "@innei/eslint-config-ts": "0.9.6",
-    "@nestjs/cli": "9.1.5",
+    "@nestjs/cli": "9.1.8",
     "@nestjs/schematics": "9.0.4",
     "@nestjs/swagger": "6.1.4",
     "@nestjs/testing": "9.2.1",
