@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://avatars.githubusercontent.com/u/106414194?s=200&v=4" height="128">
   <h1 align="center">Mog 🏝 /mɑːɡ/ </h1>
-  <p align="center"><b align="center">一个灵活、模块化的微服务博客系统。开源、永远免费。</b></p>
+  <p align="center"><b align="center">A flexible, modular microservice Blog System. Open source. Free forever.</b></p>
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@ Mog 是一个易于扩展的现代博客系统。它突破地采用了微服务�
 ## Table of Contents
 
 - [Features｜特性](#features)
-- [Missions｜动机](#missions)
+- [Motivation｜动机](#motivation)
 - [Ecosystem｜生态](#ecosystem)
 - [Contributors｜贡献者](#contributors)
 - [Activity｜活动](#activity)
@@ -44,22 +44,13 @@ Mog 是一个易于扩展的现代博客系统。它突破地采用了微服务�
 - [X] 使用模板引擎的前端快速开发。
 
 
-## Missions
+## Motivation
 
-市场上有很多针对用户的博客系统，但它们似乎都遵循相同的路线，我们想要突破这个限制。
-
-出于这个原因，我们使用了微服务架构，这是我们的团队第一次将其用于博客系统，它为我们的服务带来了市场上难得的稳定性和灵活性。
-
-
-另一个原因实际上是看到一些付费博客系统项目，但这些项目似乎不值得作为付费项目，我们不希望有那么多人为一个不太好的项目付费，它不值得。
-
-而且据我们所知，一些收费项目使用的底层框架存在漏洞，并不安全。
-
-开源的博客系统，首先可以保证社区驱动, 其次，你可以享受开源带来的好处，比如免费、开放的源代码、更多的充满爱心的维护成员、统一的社区规范等。
+市场上有很多针对用户的博客系统，但它们似乎都遵循相同的架构路线，我们想要突破这个长久以来的程序结构，做一些小创新，为此我们使用了**微服务架构**，这是我们第一次将其用于博客系统，它为我们的程序带来了比以往的博客系统更多的**稳定性与灵活性**。
 
 ![module+blog=mog](https://user-images.githubusercontent.com/62133302/197695513-f00fc858-be06-4fce-8a28-c22838a76a2b.png)
 
-
+而另一个原因实际上是看到一些付费博客系统项目，但这些项目似乎不值得作为付费项目，据我们所知，一些收费项目使用的底层框架存在漏洞，且漏洞频繁出现，并不安全，我们不希望有那么多人为一个不太好的项目去付费，它不值得。
 
 ## Ecosystem
 
