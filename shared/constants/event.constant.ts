@@ -49,15 +49,17 @@ export enum PageEvents {
 }
 
 export enum CommentEvents {
-  CommentsGetAll = 'comments.get.all',
   CommentsGetAllByMaster = 'comments.get.all.auth',
-  CommentsGetById = 'comments.get.by.id',
-  CommentsGetByIdWithMaster = 'comments.get.by.id.auth',
+  CommentsGetWithQuery = 'comments.get.query',
+  CommentsGetJustMaster = 'comments.get.master.only',
+  CommentsGetWithPostId = 'comments.get.with.postid',
+  CommentsGetWithPostIdByMaster = 'comments.get.with.postid.auth',
   CommentCreate = 'comment.create',
   CommentCreateByMaster = 'comment.create.auth',
   CommentPatch = 'comment.patch',
   CommentDelete = 'comment.delete',
   CommentReply = 'comment.reply',
+  CommentGet = 'comment.get',
   CommentAddRecaction = 'comment.add.reaction',
   CommentRemoveRecaction = 'comment.remove.reaction',
   CommentRecactionGetList = 'comment.reaction.get.list',
