@@ -25,7 +25,7 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "prebuild": "rimraf dist",
-    "build": "nest build",
+    "build": "pnpm run build:core && pnpm run build:user-service && pnpm run build:page-service",
     "build:core": "nest build",
     "build:user-service": "nest build user-service",
     "build:page-service": "nest build page-service",
