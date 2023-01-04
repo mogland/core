@@ -83,7 +83,7 @@ export class CommentsService {
       throw new NotFoundException(ExceptionMessage.CommentNotFound);
     }
     return this.CommentsModel.updateOne(
-      { id },
+      { _id: id },
       {
         $inc: {
           [reaction]: 1,
