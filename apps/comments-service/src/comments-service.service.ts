@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { PaginateModel } from 'mongoose';
 import { InjectModel } from '~/libs/database/src/model.transformer';
@@ -80,7 +81,10 @@ export class CommentsService {
   async deleteComment(id: string) {
     const comment = await this.CommentsModel.findOneAndDelete({ id });
     if (!comment) {
-      throw new NotFoundException(ExceptionMessage.CommentNotFound);
+      throw new RpcException({
+        code: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.CommentNotFound,
+      });
     }
     const { parent, children } = comment;
     if (children && children.length) {
@@ -120,7 +124,10 @@ export class CommentsService {
   async replyComment(parent: string, data: CommentsModel) {
     const parentComment = await this.CommentsModel.findById(parent);
     if (!parentComment) {
-      throw new NotFoundException(ExceptionMessage.CommentNotFound);
+      throw new RpcException({
+        code: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.CommentNotFound,
+      });
     }
     data.pid = parentComment.pid; // 防止恶意修改，强制使用父评论的pid
     const commentsIndex = parentComment.commentsIndex;
@@ -147,11 +154,17 @@ export class CommentsService {
   ) {
     const comment = this.CommentsModel.findById(id);
     if (!comment) {
-      throw new NotFoundException(ExceptionMessage.CommentNotFound);
+      throw new RpcException({
+        code: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.CommentNotFound,
+      });
     }
     // 验证 reaction 是否合法
     if (!Object.values(CommentReactions).includes(reaction)) {
-      throw new NotFoundException(ExceptionMessage.CommentReactionNotFound);
+      throw new RpcException({
+        code: HttpStatus.BAD_REQUEST,
+        message: ExceptionMessage.InvalidCommentReaction,
+      });
     }
     return this.CommentsModel.updateOne(
       { _id: id },
