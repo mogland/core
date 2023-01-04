@@ -28,10 +28,11 @@ function autoPopulateSubComments(
 }
 
 export enum CommentStatus {
-  Pending, // 待审核
-  Approved, // 已通过
-  Spam, // 垃圾评论
-  Trash, // 回收站
+  Pending = 'pending', // 待审核
+  Approved = 'approved', // 已通过
+  Spam = 'spam', // 垃圾评论
+  Trash = 'trash', // 回收站
+  Private = 'private', // 私密评论
 }
 
 export enum CommentType {
@@ -39,14 +40,30 @@ export enum CommentType {
   Page = 'page',
 }
 
+export enum CommentReactions {
+  Like = 'like',
+  Dislike = 'dislike',
+  Smile = 'smile',
+  Angry = 'angry',
+  Laugh = 'laugh',
+  Confused = 'confused',
+  Heart = 'heart',
+  Haha = 'haha',
+  Cry = 'cry',
+  Wow = 'wow',
+}
+
+export interface CommentReaction {
+  [key: CommentReactions]: number;
+}
 @pre<CommentsModel>('findOne', autoPopulateSubComments)
 @pre<CommentsModel>('find', autoPopulateSubComments)
 @modelOptions({ options: { customName: 'Comment' } })
 export class CommentsModel extends BaseModel {
   @prop({ required: true })
-  @ApiProperty({ description: '评论关联文章或页面的 path ' })
+  @ApiProperty({ description: '评论关联的 pid ' })
   @IsString()
-  path: string;
+  pid!: string; // 关联的 pid
 
   @prop({ ref: () => CommentsModel })
   parent?: Ref<CommentsModel>; // 父评论
@@ -76,19 +93,36 @@ export class CommentsModel extends BaseModel {
   @ApiProperty({ description: '评论者网址' })
   url?: string;
 
-  @prop({ required: true, enum: CommentStatus })
+  @prop({ required: true, enum: CommentStatus, default: CommentStatus.Pending })
   @ApiProperty({ description: '评论状态' })
   @IsNumber()
   @IsOptional()
   status?: CommentStatus;
 
-  // @prop({ required: true, enum: CommentType, default: CommentType.Post })
-  // @ApiProperty({ description: '评论类型' })
-  // type: CommentType;
+  @prop({ required: true, enum: CommentType, default: CommentType.Post })
+  @ApiProperty({ description: '评论类型' })
+  type: CommentType;
 
   @prop({ default: 0 })
   commentsIndex?: number; // 评论数量
 
   @prop()
   key?: string; // 评论key
+
+  @prop({
+    default: {
+      [CommentReactions.Like]: 0,
+      [CommentReactions.Dislike]: 0,
+      [CommentReactions.Smile]: 0,
+      [CommentReactions.Angry]: 0,
+      [CommentReactions.Laugh]: 0,
+      [CommentReactions.Confused]: 0,
+      [CommentReactions.Heart]: 0,
+      [CommentReactions.Haha]: 0,
+      [CommentReactions.Cry]: 0,
+      [CommentReactions.Wow]: 0,
+    },
+  })
+  @ApiProperty({ description: '评论表情组' })
+  reaction?: CommentReaction;
 }
