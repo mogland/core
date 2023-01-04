@@ -54,7 +54,7 @@ export enum CommentReactions {
 }
 
 export interface CommentReaction {
-  [key: CommentReactions]: number;
+  [key: string]: number;
 }
 @pre<CommentsModel>('findOne', autoPopulateSubComments)
 @pre<CommentsModel>('find', autoPopulateSubComments)
