@@ -5,6 +5,7 @@ import {
   pre,
   prop,
   Ref,
+  Severity,
 } from '@typegoose/typegoose';
 import { BeAnObject } from '@typegoose/typegoose/lib/types';
 import { IsEmail, IsNumber, IsOptional, IsString } from 'class-validator';
@@ -28,11 +29,11 @@ function autoPopulateSubComments(
 }
 
 export enum CommentStatus {
-  Pending = 'pending', // 待审核
-  Approved = 'approved', // 已通过
-  Spam = 'spam', // 垃圾评论
-  Trash = 'trash', // 回收站
-  Private = 'private', // 私密评论
+  Pending = 0, // 待审核
+  Approved = 1, // 已通过
+  Spam = 2, // 垃圾评论
+  Trash = 3, // 回收站
+  Private = 4, // 私密评论
 }
 
 export enum CommentType {
@@ -58,7 +59,9 @@ export interface CommentReaction {
 }
 @pre<CommentsModel>('findOne', autoPopulateSubComments)
 @pre<CommentsModel>('find', autoPopulateSubComments)
-@modelOptions({ options: { customName: 'Comment' } })
+@modelOptions({
+  options: { customName: 'Comment', allowMixed: Severity.ALLOW },
+})
 export class CommentsModel extends BaseModel {
   @prop({ required: true })
   @ApiProperty({ description: '评论关联的 pid ' })
