@@ -77,21 +77,6 @@ export class CommentsService {
     return this.CommentsModel.updateOne({ _id: id }, { $set: data });
   }
 
-  async addCommentReaction(id: string, reaction: CommentReactions) {
-    const comment = this.CommentsModel.findById(id);
-    if (!comment) {
-      throw new NotFoundException(ExceptionMessage.CommentNotFound);
-    }
-    return this.CommentsModel.updateOne(
-      { _id: id },
-      {
-        $inc: {
-          [reaction]: 1,
-        },
-      },
-    );
-  }
-
   async deleteComment(id: string) {
     const comment = await this.CommentsModel.findOneAndDelete({ id });
     if (!comment) {
@@ -153,5 +138,24 @@ export class CommentsService {
       },
     });
     return comment;
+  }
+
+  async handleCommentReaction(
+    id: string,
+    reaction: CommentReactions,
+    isAdd: boolean,
+  ) {
+    const comment = this.CommentsModel.findById(id);
+    if (!comment) {
+      throw new NotFoundException(ExceptionMessage.CommentNotFound);
+    }
+    return this.CommentsModel.updateOne(
+      { _id: id },
+      {
+        $inc: {
+          [reaction]: isAdd ? 1 : -1,
+        },
+      },
+    );
   }
 }
