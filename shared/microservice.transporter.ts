@@ -11,11 +11,7 @@ export function transportReqToMicroservice(
     timeout(1000),
     catchError((err) => {
       return throwError(
-        () =>
-          new HttpException(
-            err.message || '未知错误，请联系管理员',
-            err.status || 500,
-          ),
+        () => new HttpException(err.message || '未知错误', err.code || 500),
       );
     }),
   );
