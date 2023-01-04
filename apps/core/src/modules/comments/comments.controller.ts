@@ -46,7 +46,7 @@ export class CommentsController {
 
   @Get('/:id')
   @ApiOperation({ summary: '根据 PID 获取评论列表' })
-  async getCommentsByPath(
+  async getCommentsByPid(
     @Param('id') pid: string,
     @IsMaster() isMaster: boolean,
   ) {
@@ -95,7 +95,7 @@ export class CommentsController {
     );
   }
 
-  @Delete('/path')
+  @Delete('/pids')
   @Auth()
   @ApiOperation({ summary: '使用 Pid(s) 删除评论, 使用,分割' })
   async deleteCommentByPath(@Query('pids') pids: string) {
