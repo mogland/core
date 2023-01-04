@@ -48,19 +48,19 @@ export enum PageEvents {
   PageDelete = 'page.delete',
 }
 
-export enum CommentEvents {
-  CommentsGetAllByMaster = 'comments.get.all.auth',
-  CommentsGetWithQuery = 'comments.get.query',
-  CommentsGetJustMaster = 'comments.get.master.only',
+export enum CommentsEvents {
+  CommentsGetList = 'comments.get.list',
   CommentsGetWithPostId = 'comments.get.with.postid',
-  CommentsGetWithPostIdByMaster = 'comments.get.with.postid.auth',
+  CommentsDeleteWithPostId = 'comments.delete.with.postid',
+
   CommentCreate = 'comment.create',
-  CommentCreateByMaster = 'comment.create.auth',
-  CommentPatch = 'comment.patch',
-  CommentDelete = 'comment.delete',
+  // CommentCreateByMaster = 'comment.create.auth',
+  CommentPatchByMaster = 'comment.patch.auth',
+  CommentUpdateStatusByMaster = 'comment.update.status.auth',
+  CommentDeleteByMaster = 'comment.delete.auth',
   CommentReply = 'comment.reply',
-  CommentGet = 'comment.get',
+  // CommentGet = 'comment.get',
+
   CommentAddRecaction = 'comment.add.reaction',
   CommentRemoveRecaction = 'comment.remove.reaction',
-  CommentRecactionGetList = 'comment.reaction.get.list',
 }
