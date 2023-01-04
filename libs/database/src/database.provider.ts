@@ -7,6 +7,8 @@ import { chalk } from 'zx-cjs';
 import { MONGO_DB } from '@core/app.config';
 import { consola } from '~/shared/global/consola.global';
 
+mongoose.set('strictQuery', true);
+
 export const databaseProvider = {
   provide: DB_CONNECTION_TOKEN,
   useFactory: async () => {

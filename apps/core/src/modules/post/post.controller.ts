@@ -12,7 +12,6 @@ import {
   Controller,
   Delete,
   Get,
-  HttpException,
   Inject,
   Param,
   Patch,
@@ -22,7 +21,6 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiOperation } from '@nestjs/swagger';
-import { timeout, catchError, throwError } from 'rxjs';
 import { CategoryAndSlugDto } from '~/apps/page-service/src/dto/post.dto';
 import { PostModel } from '~/apps/page-service/src/model/post.model';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
@@ -33,6 +31,7 @@ import { PostEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { MongoIdDto } from '~/shared/dto/id.dto';
 import { PagerDto } from '~/shared/dto/pager.dto';
+import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 
 @Controller('post')
 @ApiName
@@ -43,38 +42,17 @@ export class PostController {
   @Paginator
   @ApiOperation({ summary: '获取文章列表(附带分页器)' })
   async getPaginate(@Query() query: PagerDto, @IsMaster() isMaster: boolean) {
-    return this.post
-      .send({ cmd: PostEvents.PostsListGet }, { query, isMaster })
-      .pipe(
-        timeout(1000),
-        catchError((err) => {
-          return throwError(
-            () =>
-              new HttpException(
-                err.message || '未知错误，请联系管理员',
-                err.status || 500,
-              ),
-          );
-        }),
-      );
+    return transportReqToMicroservice(this.post, PostEvents.PostsListGet, {
+      query,
+      isMaster,
+    });
   }
 
   @Get('/:id')
   @ApiOperation({ summary: '通过id获取文章详情' })
   @Auth()
   async getPost(@Param() params) {
-    return this.post.send({ cmd: PostEvents.PostGet }, params).pipe(
-      timeout(1000),
-      catchError((err) => {
-        return throwError(
-          () =>
-            new HttpException(
-              err.message || '未知错误，请联系管理员',
-              err.status || 500,
-            ),
-        );
-      }),
-    );
+    return transportReqToMicroservice(this.post, PostEvents.PostGet, params);
   }
 
   @Get('/:category/:slug')
@@ -84,41 +62,19 @@ export class PostController {
     @IsMaster() isMaster: boolean,
     @Query('password') password: any,
   ) {
-    return this.post
-      .send(
-        { cmd: PostEvents.PostGet },
-        { category: params.category, slug: params.slug, isMaster, password },
-      )
-      .pipe(
-        timeout(1000),
-        catchError((err) => {
-          return throwError(
-            () =>
-              new HttpException(
-                err.message || '未知错误，请联系管理员',
-                err.status || 500,
-              ),
-          );
-        }),
-      );
+    return transportReqToMicroservice(this.post, PostEvents.PostGet, {
+      category: params.category,
+      slug: params.slug,
+      isMaster,
+      password,
+    });
   }
 
   @Post('/')
   @Auth()
   @ApiOperation({ summary: '创建文章' })
   async create(@Body() body: PostModel) {
-    return this.post.send({ cmd: PostEvents.PostCreate }, body).pipe(
-      timeout(1000),
-      catchError((err) => {
-        return throwError(
-          () =>
-            new HttpException(
-              err.message || '未知错误，请联系管理员',
-              err.status || 500,
-            ),
-        );
-      }),
-    );
+    return transportReqToMicroservice(this.post, PostEvents.PostCreate, body);
   }
 
   @Put('/:id')
@@ -126,37 +82,20 @@ export class PostController {
   @Auth()
   @ApiOperation({ summary: '更新文章' })
   async update(@Param() params: MongoIdDto, @Body() body: PostModel) {
-    return this.post
-      .send({ cmd: PostEvents.PostPatch }, { id: params.id, body })
-      .pipe(
-        timeout(1000),
-        catchError((err) => {
-          return throwError(
-            () =>
-              new HttpException(
-                err.message || '未知错误，请联系管理员',
-                err.status || 500,
-              ),
-          );
-        }),
-      );
+    return transportReqToMicroservice(this.post, PostEvents.PostPatch, {
+      id: params.id,
+      body,
+    });
   }
 
   @Delete('/:id')
   @Auth()
   @ApiOperation({ summary: '删除文章' })
   async delete(@Param() params: MongoIdDto) {
-    return this.post.send({ cmd: PostEvents.PostDelete }, params.id).pipe(
-      timeout(1000),
-      catchError((err) => {
-        return throwError(
-          () =>
-            new HttpException(
-              err.message || '未知错误，请联系管理员',
-              err.status || 500,
-            ),
-        );
-      }),
+    return transportReqToMicroservice(
+      this.post,
+      PostEvents.PostDelete,
+      params.id,
     );
   }
 }
