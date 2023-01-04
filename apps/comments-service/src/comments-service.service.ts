@@ -3,7 +3,11 @@ import { ModelType } from '@typegoose/typegoose/lib/types';
 import { PaginateModel } from 'mongoose';
 import { InjectModel } from '~/libs/database/src/model.transformer';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
-import { CommentsModel, CommentStatus } from './comments.model';
+import {
+  CommentReactions,
+  CommentsModel,
+  CommentStatus,
+} from './comments.model';
 
 @Injectable()
 export class CommentsService {
@@ -21,7 +25,7 @@ export class CommentsService {
     { page, size, status } = {
       page: 1,
       size: 10,
-      status: CommentStatus.Approved,
+      status: CommentStatus.Approved as CommentStatus | number,
     },
   ) {
     const queryList = await this.CommentsModel.paginate(
@@ -40,16 +44,16 @@ export class CommentsService {
     return queryList;
   }
 
-  async getCommentsByPath(path: string, isMaster: boolean) {
+  async getCommentsByPid(pid: string, isMaster: boolean) {
     return {
       count: await this.CommentsModel.countDocuments({
         status: isMaster
           ? { $in: [CommentStatus.Approved, CommentStatus.Pending] }
           : CommentStatus.Approved,
-        path,
+        pid,
       }),
       data: await this.CommentsModel.find({
-        path,
+        pid,
         status: isMaster
           ? { $in: [CommentStatus.Approved, CommentStatus.Pending] }
           : CommentStatus.Approved,
@@ -58,10 +62,10 @@ export class CommentsService {
   }
 
   async createComment(data: CommentsModel) {
-    const pathCount = await this.CommentsModel.countDocuments({
-      path: data.path,
+    const pidCount = await this.CommentsModel.countDocuments({
+      pid: data.pid,
     });
-    const key = `${data.path}#${pathCount}`;
+    const key = `${data.pid}#${pidCount}`;
     return this.CommentsModel.create({
       ...data,
       key,
@@ -120,12 +124,12 @@ export class CommentsService {
     }
   }
 
-  async deleteCommentsByPath(path: string) {
-    return this.CommentsModel.deleteMany({ path });
+  async deleteCommentsByPid(pid: string) {
+    return this.CommentsModel.deleteMany({ pid });
   }
 
-  async deleteCommentsByPaths(paths: string[]) {
-    return this.CommentsModel.deleteMany({ path: { $in: paths } });
+  async deleteCommentsByPids(pids: string[]) {
+    return this.CommentsModel.deleteMany({ pid: { $in: pids } });
   }
 
   async replyComment(parent: string, data: CommentsModel) {
@@ -133,7 +137,7 @@ export class CommentsService {
     if (!parentComment) {
       throw new NotFoundException(ExceptionMessage.CommentNotFound);
     }
-    data.path = parentComment.path; // 防止恶意修改，强制使用父评论的path
+    data.pid = parentComment.pid; // 防止恶意修改，强制使用父评论的pid
     const commentsIndex = parentComment.commentsIndex;
     const key = `${parentComment.key || 0}#${commentsIndex}`;
     const comment = await this.CommentsModel.create({
