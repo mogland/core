@@ -22,8 +22,8 @@ async function bootstrap() {
     {
       transport: Transport.TCP,
       options: {
-        port: getEnv(ServicesEnum.comments).port || ServicePorts.comments,
-        host: getEnv(ServicesEnum.comments).host || undefined,
+        port: getEnv(ServicesEnum.comments)?.port || ServicePorts.comments,
+        host: getEnv(ServicesEnum.comments)?.host || undefined,
       },
     },
   );
