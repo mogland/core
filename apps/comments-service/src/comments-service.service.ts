@@ -149,6 +149,10 @@ export class CommentsService {
     if (!comment) {
       throw new NotFoundException(ExceptionMessage.CommentNotFound);
     }
+    // 验证 reaction 是否合法
+    if (!Object.values(CommentReactions).includes(reaction)) {
+      throw new NotFoundException(ExceptionMessage.CommentReactionNotFound);
+    }
     return this.CommentsModel.updateOne(
       { _id: id },
       {
