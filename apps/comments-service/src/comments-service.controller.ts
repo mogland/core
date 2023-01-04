@@ -61,8 +61,8 @@ export class CommentsController {
   }
 
   @MessagePattern({ cmd: CommentsEvents.CommentsDeleteWithPostId })
-  async deleteCommentsByPid(pid: string[]) {
-    return await this.commentsService.deleteCommentsByPids(pid);
+  async deleteCommentsByPid(pids: string[]) {
+    return await this.commentsService.deleteCommentsByPids(pids);
   }
 
   @MessagePattern({ cmd: CommentsEvents.CommentUpdateStatusByMaster })
