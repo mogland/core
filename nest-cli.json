@@ -92,6 +92,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/page-service/tsconfig.app.json"
       }
+    },
+    "comments-service": {
+      "type": "application",
+      "root": "apps/comments-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/comments-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/comments-service/tsconfig.app.json"
+      }
     }
   }
 }

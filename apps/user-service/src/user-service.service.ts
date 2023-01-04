@@ -39,7 +39,7 @@ export class UserService {
     const exist = await this.userModel.findOne({ username: model.username });
     if (exist)
       throw new RpcException({
-        status: HttpStatus.BAD_REQUEST,
+        code: HttpStatus.BAD_REQUEST,
         message: ExceptionMessage.UserNameIsExist,
       });
 
@@ -50,7 +50,7 @@ export class UserService {
     // 禁止注册两个以上账户
     if (hasMaster) {
       throw new RpcException({
-        status: HttpStatus.BAD_REQUEST,
+        code: HttpStatus.BAD_REQUEST,
         message: ExceptionMessage.UserIsExist,
       });
     }
@@ -75,13 +75,13 @@ export class UserService {
     const user = await this.userModel.findOne({ username }).select('+password');
     if (!user) {
       throw new RpcException({
-        status: HttpStatus.FORBIDDEN,
+        code: HttpStatus.FORBIDDEN,
         message: ExceptionMessage.UserNameError,
       });
     }
     if (!compareSync(password, user.password)) {
       throw new RpcException({
-        status: HttpStatus.FORBIDDEN,
+        code: HttpStatus.FORBIDDEN,
         message: ExceptionMessage.UserPasswordError,
       });
     }
@@ -140,7 +140,7 @@ export class UserService {
       .lean({ virtuals: true });
     if (!user) {
       throw new RpcException({
-        status: HttpStatus.NOT_FOUND,
+        code: HttpStatus.NOT_FOUND,
         message: ExceptionMessage.UserNotFound,
       });
     }
@@ -163,7 +163,7 @@ export class UserService {
 
       if (!currentUser) {
         throw new RpcException({
-          status: HttpStatus.NOT_FOUND,
+          code: HttpStatus.NOT_FOUND,
           message: ExceptionMessage.UserNotFound,
         });
       }
@@ -171,7 +171,7 @@ export class UserService {
       const isSamePassword = compareSync(password, currentUser.password);
       if (isSamePassword) {
         throw new RpcException({
-          status: HttpStatus.BAD_REQUEST,
+          code: HttpStatus.BAD_REQUEST,
           message: ExceptionMessage.UserPasswordIsSame,
         });
       }
@@ -202,7 +202,7 @@ export class UserService {
     const master = await this.userModel.findOne({ username });
     if (!master) {
       throw new RpcException({
-        status: HttpStatus.NOT_FOUND,
+        code: HttpStatus.NOT_FOUND,
         message: ExceptionMessage.UserNotFound,
       });
     }
@@ -223,7 +223,7 @@ export class UserService {
     const master = await this.userModel.findOne({ role: UserRole.root });
     if (!master) {
       throw new RpcException({
-        status: HttpStatus.NOT_FOUND,
+        code: HttpStatus.NOT_FOUND,
         message: ExceptionMessage.UserNotFound,
       });
     }

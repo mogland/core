@@ -29,7 +29,8 @@ export enum ExceptionMessage {
   PageIsNotExist = '页面不存在 o(╯□╰)o',
   PageIsProtected = '页面受保护了哦，需要密码才能查看',
 
-  CommentNotFound = '评论不存在 o(╯□╰)o',
+  CommentNotFound = '评论不存在 (｡ì _ í｡)',
+  InvalidCommentReaction = '无效的评论反应 (｡ì _ í｡)',
 
-  StatusIsNotRight = '状态不正确啊 o(╯□╰)o',
+  StatusIsNotRight = '状态不正确啊 (ﾟoﾟ;;',
 }

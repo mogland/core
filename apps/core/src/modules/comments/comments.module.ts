@@ -5,7 +5,6 @@ import {
   ServicesEnum,
 } from '~/shared/constants/services.constant';
 import { getEnv } from '~/shared/utils/rag-env';
-import { CommentsBasicService } from './comments.basic.service';
 import { CommentsController } from './comments.controller';
 
 @Module({
@@ -22,7 +21,5 @@ import { CommentsController } from './comments.controller';
     ]),
   ],
   controllers: [CommentsController],
-  providers: [CommentsBasicService],
-  exports: [CommentsBasicService],
 })
 export class CommentsModule {}
