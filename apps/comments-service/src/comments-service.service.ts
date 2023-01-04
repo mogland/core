@@ -166,13 +166,9 @@ export class CommentsService {
         message: ExceptionMessage.InvalidCommentReaction,
       });
     }
-    return this.CommentsModel.updateOne(
-      { _id: id },
-      {
-        $inc: {
-          [reaction]: isAdd ? 1 : -1,
-        },
-      },
-    );
+    const update = isAdd
+      ? { $inc: { [`reaction.${reaction}`]: 1 } }
+      : { $inc: { [`reaction.${reaction}`]: -1 } };
+    return this.CommentsModel.updateOne({ _id: id }, update);
   }
 }
