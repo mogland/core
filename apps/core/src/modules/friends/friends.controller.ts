@@ -64,13 +64,13 @@ export class FriendsController {
   @Post('/')
   @ApiOperation({ summary: '创建友链' })
   async createFriend(
-    @Body() friend: FriendsModel,
+    @Body() data: FriendsModel,
     @IsMaster() isMaster: boolean,
   ) {
     return transportReqToMicroservice(
       this.friends,
       FriendsEvents.FriendCreate,
-      { friend, isMaster },
+      { data, isMaster },
     );
   }
 
@@ -108,7 +108,7 @@ export class FriendsController {
     return transportReqToMicroservice(
       this.friends,
       FriendsEvents.FriendsCheckAlive,
-      null,
+      {},
     );
   }
 
@@ -118,7 +118,8 @@ export class FriendsController {
     return transportReqToMicroservice(
       this.friends,
       FriendsEvents.FriendsAnalyseFeed,
-      null,
+      {},
+      10000,
     );
   }
 

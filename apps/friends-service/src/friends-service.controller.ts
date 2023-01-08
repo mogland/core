@@ -25,8 +25,8 @@ export class FriendsServiceController {
   }
 
   @MessagePattern({ cmd: FriendsEvents.FriendCreate })
-  async createFriend(data: FriendsModel, isMaster: boolean) {
-    return await this.friendsService.create(data, isMaster);
+  async createFriend(data: { data: FriendsModel; isMaster: boolean }) {
+    return await this.friendsService.create(data);
   }
 
   @MessagePattern({ cmd: FriendsEvents.FriendUpdateByMasterOrToken })

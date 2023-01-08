@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { v4 } from 'uuid';
 import { HttpService } from '~/libs/helper/src/helper.http.service';
@@ -102,19 +102,30 @@ export class FriendsService {
    */
   async getAllByMaster(status: FriendStatus) {
     return this.friendsModel.find({
-      status,
+      status: status || FriendStatus.Approved,
     });
   }
 
   /**
    * Event: friend.create
    */
-  async create(data: FriendsModel, isMaster: boolean) {
-    if (!isMaster) {
-      data.status = FriendStatus.Pending;
+  async create(input: { data: FriendsModel; isMaster: boolean }) {
+    if (!input.isMaster) {
+      input.data.status = FriendStatus.Pending;
     }
-    data.token = this.generateToken();
-    return this.friendsModel.create(data);
+    input.data.token = this.generateToken();
+    const friend = await this.friendsModel.create(input.data);
+    nextTick(async () => {
+      friend.autoCheck = await this.autoCheck(input.data.link);
+      await friend.save();
+      Logger.warn(
+        `${friend.name} 申请友链 - 互链检测: ${
+          friend.autoCheck ? '通过' : '未通过'
+        }`,
+        FriendsService.name,
+      );
+    });
+    return friend;
   }
 
   /**
@@ -146,14 +157,14 @@ export class FriendsService {
     }
     if (!isMaster) {
       if (!token) {
-        return;
+        this.throwInvalidTokenException();
       }
       if (token !== friend.token) {
         this.throwInvalidTokenException();
       }
-      data.status = FriendStatus.Pending;
+      data.status = FriendStatus.Pending; // 友链方修改后, 状态必须变为待审核，防止下毒
     }
-    return this.friendsModel.findByIdAndUpdate(id, data);
+    return this.friendsModel.updateOne({ _id: id }, data);
   }
 
   /**
@@ -210,8 +221,10 @@ export class FriendsService {
     const isAutoCheck = await this.autoCheck(friend.verifyLink);
     if (!isAutoCheck) {
       await this.friendsModel.findByIdAndUpdate(id, { autoCheck: false });
+      Logger.warn(`${friend.name} 互链检测: 未通过`, FriendsService.name);
     }
-    return this.friendsModel.findByIdAndUpdate(id, { autoCheck: true });
+    await this.friendsModel.findByIdAndUpdate(id, { autoCheck: true });
+    return isAutoCheck;
   }
 
   /**
@@ -223,9 +236,14 @@ export class FriendsService {
     nextTick(async () => {
       for (const friend of friends) {
         if (!this.checkAlive(friend.link)) {
+          Logger.warn(`${friend.name} 无法访问，跳过解析`, FriendsService.name);
           continue;
         }
         if (!friend.feed) {
+          Logger.warn(
+            `${friend.name} 未提供 feed 地址，跳过解析`,
+            FriendsService.name,
+          );
           continue;
         }
         const xml = await this.https.axiosRef
@@ -235,6 +253,7 @@ export class FriendsService {
         await this.friendsModel.findByIdAndUpdate(friend._id, {
           feedContent: feed,
         });
+        Logger.log(`解析 ${friend.name} 订阅成功`, FriendsService.name);
       }
     });
   }
