@@ -101,6 +101,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/comments-service/tsconfig.app.json"
       }
+    },
+    "friends-service": {
+      "type": "application",
+      "root": "apps/friends-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/friends-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/friends-service/tsconfig.app.json"
+      }
     }
   }
 }

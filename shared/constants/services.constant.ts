@@ -15,7 +15,7 @@ export enum ServicesEnum {
   post = 'PAGE_SERVICE',
   page = 'PAGE_SERVICE',
   category = 'PAGE_SERVICE',
-  links = 'LINKS_SERVICE',
+  friends = 'FRIENDS_SERVICE',
   comments = 'COMMENTS_SERVICE',
   config = 'CONFIG_SERVICE',
   theme = 'THEME_SERVICE',
@@ -30,6 +30,6 @@ export enum ServicePorts {
   post = page,
   user = 2332,
   comments = 2333,
-  links = 2334,
+  friends = 2334,
   admin = 2335,
 }

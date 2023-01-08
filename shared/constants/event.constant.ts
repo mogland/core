@@ -64,3 +64,19 @@ export enum CommentsEvents {
   CommentAddRecaction = 'comment.add.reaction',
   CommentRemoveRecaction = 'comment.remove.reaction',
 }
+
+export enum FriendsEvents {
+  FriendsGetList = 'friends.get.list',
+  FriendsGetAllByMaster = 'friends.get.all.auth',
+  FriendsCheckAlive = 'friends.check.alive',
+  FriendsAnalyseFeed = 'friends.analyse.feed',
+
+  FriendCreate = 'friend.create',
+  FriendGet = 'friend.get',
+
+  FriendUpdateByMasterOrToken = 'friend.put.auth.token',
+
+  FriendDeleteByMasterOrToken = 'friend.delete.auth.token',
+
+  FriendAnalyseAutoCheck = 'friend.analyse.autoCheck',
+}
