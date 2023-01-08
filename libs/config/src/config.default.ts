@@ -15,4 +15,8 @@ export const DefaultConfigs: () => ConfigsInterface = () => ({
     description: 'A Next generation blog system',
     keyword: ['blog', 'mog'],
   },
+  site: {
+    frontUrl: 'http://localhost:2330',
+    serverUrl: 'http://localhost:2000',
+  },
 });
