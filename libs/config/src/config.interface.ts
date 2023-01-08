@@ -9,12 +9,16 @@
 
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
-import { SEODto } from './config.dto';
+import { SEODto, SiteDto } from './config.dto';
 
 export abstract class ConfigsInterface {
   @Type(() => SEODto)
   @ValidateNested()
   seo: SEODto;
+
+  @Type(() => SiteDto)
+  @ValidateNested()
+  site: SiteDto;
 }
 
 export type ConfigsInterfaceKeys = keyof ConfigsInterface;

@@ -26,3 +26,13 @@ export class SEODto {
   @IsOptional()
   avatar?: string;
 }
+
+export class SiteDto {
+  @IsString()
+  @IsNotEmpty()
+  frontUrl: string;
+
+  @IsString()
+  @IsNotEmpty()
+  serverUrl: string;
+}
