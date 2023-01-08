@@ -99,7 +99,7 @@ export class FriendsService {
   /**
    * friends.get.all.auth
    */
-  async getAllByMater(status: FriendStatus) {
+  async getAllByMaster(status: FriendStatus) {
     return this.friendsModel.find({
       status,
     });
@@ -209,7 +209,7 @@ export class FriendsService {
   /**
    * friend.analyse.feed
    */
-  async feedAnalyse() {
+  async analyseFeed() {
     const friends = await this.friendsModel.find();
     // use nextTick to avoid blocking the event loop
     nextTick(async () => {

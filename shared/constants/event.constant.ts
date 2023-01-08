@@ -68,15 +68,15 @@ export enum CommentsEvents {
 export enum FriendsEvents {
   FriendsGetList = 'friends.get.list',
   FriendsGetAllByMaster = 'friends.get.all.auth',
+  FriendsCheckAlive = 'friends.check.alive',
 
   FriendCreate = 'friend.create',
   FriendGet = 'friend.get',
 
-  FriendPutByMasterOrToken = 'friend.put.auth.token',
+  FriendUpdateByMasterOrToken = 'friend.put.auth.token',
 
   FriendDeleteByMasterOrToken = 'friend.delete.auth.token',
 
   FriendAnalyseFeed = 'friend.analyse.feed',
   FriendAnalyseAutoCheck = 'friend.analyse.autoCheck',
-  FriendCheckAlive = 'friend.check.alive',
 }
