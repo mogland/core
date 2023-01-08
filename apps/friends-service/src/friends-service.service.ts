@@ -89,7 +89,7 @@ export class FriendsService {
   /**
    * friends.get.list
    */
-  async getList(group: string) {
+  async getList(group: string | undefined) {
     return this.friendsModel.find({
       group,
       status: FriendStatus.Approved,
@@ -171,8 +171,8 @@ export class FriendsService {
   /**
    * friend.check.alive
    */
-  async checkAliveByIds(id: string[]) {
-    const friends = await this.friendsModel.find({ _id: { $in: id } });
+  async checkAliver() {
+    const friends = await this.friendsModel.find();
     const result: {
       id: string;
       isAlive: boolean;

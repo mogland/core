@@ -9,7 +9,7 @@ export class FriendsServiceController {
   constructor(private readonly friendsService: FriendsService) {}
 
   @MessagePattern({ cmd: FriendsEvents.FriendsGetList })
-  async getFriendsList(group: string) {
+  async getFriendsList(group: string | undefined) {
     return await this.friendsService.getList(group);
   }
 
@@ -52,7 +52,7 @@ export class FriendsServiceController {
     );
   }
 
-  @MessagePattern({ cmd: FriendsEvents.FriendAnalyseFeed })
+  @MessagePattern({ cmd: FriendsEvents.FriendsAnalyseFeed })
   async analyseFeed() {
     await this.friendsService.analyseFeed();
     return true;
@@ -64,7 +64,7 @@ export class FriendsServiceController {
   }
 
   @MessagePattern({ cmd: FriendsEvents.FriendsCheckAlive })
-  async checkAlive(ids: string[]) {
-    return await this.friendsService.checkAliveByIds(ids);
+  async checkAlive() {
+    return await this.friendsService.checkAliver();
   }
 }
