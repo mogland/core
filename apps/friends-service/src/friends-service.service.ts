@@ -187,7 +187,7 @@ export class FriendsService {
   /**
    * friend.analyse.autoCheck
    */
-  async autoChecker(id: string) {
+  async analyseAutoCheck(id: string) {
     const friend = await this.friendsModel.findById(id);
     if (!friend) {
       throw new RpcException({
