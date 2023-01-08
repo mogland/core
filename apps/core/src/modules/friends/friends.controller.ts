@@ -29,13 +29,14 @@ export class FriendsController {
     @Inject(ServicesEnum.friends) private readonly friends: ClientProxy,
   ) {}
 
-  @Get('/:group')
+  @Get('/')
   @ApiOperation({ summary: '获取所有友链(By group)' })
-  async getAllFriends(@Param('group') group: string | undefined) {
+  async getAllFriends(@Query('group') group?: string | undefined) {
+    console.log('group', group);
     return transportReqToMicroservice(
       this.friends,
       FriendsEvents.FriendsGetList,
-      group,
+      group ? group : {},
     );
   }
 

@@ -17,6 +17,7 @@ import { PageModule } from './modules/page/page.module';
 import { PostModule } from './modules/post/post.module';
 import { UserModule } from './modules/user/user.module';
 import { CommentsModule } from './modules/comments/comments.module';
+import { FriendsModule } from './modules/friends/friends.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { CommentsModule } from './modules/comments/comments.module';
     CategoryModule,
     AggregateModule,
     CommentsModule,
+    FriendsModule,
   ],
   controllers: [AppController],
   providers: [

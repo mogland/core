@@ -9,8 +9,9 @@ export class FriendsServiceController {
   constructor(private readonly friendsService: FriendsService) {}
 
   @MessagePattern({ cmd: FriendsEvents.FriendsGetList })
-  async getFriendsList(group: string | undefined) {
-    return await this.friendsService.getList(group);
+  async getFriendsList(group: string | undefined | Object) {
+    const theGroup = group ? (group === Object ? undefined : group) : undefined;
+    return await this.friendsService.getList(String(theGroup));
   }
 
   @MessagePattern({ cmd: FriendsEvents.FriendsGetAllByMaster })

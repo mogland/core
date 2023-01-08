@@ -10,6 +10,7 @@ import { RpcException } from '@nestjs/microservices';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { nextTick } from 'process';
 import { FeedParser } from '~/shared/utils';
+import { isValidObjectId } from 'mongoose';
 @Injectable()
 export class FriendsService {
   constructor(
@@ -120,7 +121,14 @@ export class FriendsService {
    * Event: friend.get
    */
   async get(id: string) {
-    return this.friendsModel.findById(id);
+    if (!isValidObjectId(id)) {
+      this.throwNotFoundException();
+    }
+    const friend = await this.friendsModel.findById(id);
+    if (!friend) {
+      this.throwNotFoundException();
+    }
+    return friend;
   }
 
   /**
