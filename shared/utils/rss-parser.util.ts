@@ -88,7 +88,7 @@ const rssParser = (
   });
 };
 
-const Parser = (xml: string, type: RssParserType = RssParserType.RSS) => {
+const FeedParser = (xml: string, type: RssParserType = RssParserType.RSS) => {
   let res;
   if (type === RssParserType.RSS) {
     rssParser(xml, (result) => {
@@ -102,4 +102,4 @@ const Parser = (xml: string, type: RssParserType = RssParserType.RSS) => {
   return res ? res : null;
 };
 
-export { Parser, RssParserType };
+export { FeedParser, RssParserType };
