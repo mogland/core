@@ -33,4 +33,7 @@ export enum ExceptionMessage {
   InvalidCommentReaction = '无效的评论反应 (｡ì _ í｡)',
 
   StatusIsNotRight = '状态不正确啊 (ﾟoﾟ;;',
+
+  FriendLinkIsNotExist = '友链不存在 o(╯□╰)o',
+  FriendLinkTokenIsInvalid = '友链Token无效，可能找错了哦',
 }
