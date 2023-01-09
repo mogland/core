@@ -6,13 +6,19 @@
 		},
 		{
 			"path": "apps/core",
-			"name": "core-service"
+			"name": "core-gateway"
 		},
 		{
 			"path": "apps/page-service"
 		},
 		{
 			"path": "apps/user-service"
+		},
+		{
+			"path": "apps/friends-service",
+		},
+		{
+			"path": "apps/comments-service",
 		},
 		{
 			"path": "libs"
