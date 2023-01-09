@@ -46,7 +46,7 @@ specifiers:
   commitizen: 4.2.6
   concurrently: 7.6.0
   consola: 2.15.3
-  cron: 2.1.0
+  cron: 2.2.0
   cross-env: 7.0.3
   dayjs: 1.11.7
   eslint: 8.31.0
@@ -110,7 +110,7 @@ dependencies:
   class-validator-jsonschema: 4.0.0_p4ywi7fdcrugq6nsanv77hac4q
   commander: 9.4.1
   consola: 2.15.3
-  cron: 2.1.0
+  cron: 2.2.0
   dayjs: 1.11.7
   js-yaml: 4.1.0
   jsdom: 21.0.0
@@ -3496,10 +3496,10 @@ packages:
       luxon: 1.28.0
     dev: false
 
-  /cron/2.1.0:
-    resolution: {integrity: sha512-Hq7u3P8y7UWYvsZbSKHHJDVG0VO9O7tp2qljxzTScelcTODBfCme8AIhnZsFwmQ9NchZ3hr2uNr+s3DSms7q6w==}
+  /cron/2.2.0:
+    resolution: {integrity: sha512-GPiI3OgMv83XRtEUc2gUdaLvJhO3XbLN288layOBkDTupg0RK5IECNGpkykIMHg+muVR2bxt29b0xvCAcBrjYQ==}
     dependencies:
-      luxon: 1.28.0
+      luxon: 3.2.1
     dev: false
 
   /cross-env/7.0.3:
@@ -5951,6 +5951,11 @@ packages:
 
   /luxon/1.28.0:
     resolution: {integrity: sha512-TfTiyvZhwBYM/7QdAVDh+7dBTBA29v4ik0Ce9zda3Mnf8on1S5KJI8P2jKFZ8+5C0jhmr0KwJEO/Wdpm0VeWJQ==}
+    dev: false
+
+  /luxon/3.2.1:
+    resolution: {integrity: sha512-QrwPArQCNLAKGO/C+ZIilgIuDnEnKx5QYODdDtbFaxzsbZcc/a7WFq7MhsVYgRlwawLtvOUESTlfJ+hc/USqPg==}
+    engines: {node: '>=12'}
     dev: false
 
   /macos-release/2.5.0:
