@@ -12,10 +12,12 @@ import { FriendsController } from './friends.controller';
     ClientsModule.register([
       {
         name: ServicesEnum.friends,
-        transport: Transport.TCP,
+        transport: Transport.REDIS,
         options: {
-          port: getEnv(ServicesEnum.friends)?.port || ServicePorts.friends,
-          host: getEnv(ServicesEnum.friends)?.host || undefined,
+          port: REDIS.port,
+          host: REDIS.host,
+          password: REDIS.password,
+          username: REDIS.user,
         },
       },
     ]),
@@ -24,4 +26,4 @@ import { FriendsController } from './friends.controller';
   providers: [],
   exports: [],
 })
-export class FriendsModule {}
+export class FriendsModule { }

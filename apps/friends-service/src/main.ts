@@ -20,10 +20,12 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     FriendsServiceModule,
     {
-      transport: Transport.TCP,
+      transport: Transport.REDIS,
       options: {
-        port: getEnv(ServicesEnum.friends)?.port || ServicePorts.friends,
-        host: getEnv(ServicesEnum.friends)?.host || undefined,
+        port: REDIS.port,
+        host: REDIS.host,
+        password: REDIS.password,
+        username: REDIS.user,
       },
     },
   );
