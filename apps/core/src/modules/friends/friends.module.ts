@@ -5,6 +5,7 @@ import {
   ServicePorts,
 } from '~/shared/constants/services.constant';
 import { getEnv } from '~/shared/utils/rag-env';
+import { REDIS } from '../../app.config';
 import { FriendsController } from './friends.controller';
 
 @Module({
