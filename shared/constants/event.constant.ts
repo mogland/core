@@ -21,7 +21,8 @@ export enum UserEvents {
 }
 
 export enum PostEvents {
-  PostsListGet = 'posts.get.all',
+  PostsListGet = 'posts.get.list',
+  PostsListGetAll = 'sudo.posts.get.all',
   PostGet = 'post.get',
   PostGetByMaster = 'post.get.auth',
   PostCreate = 'post.create',
@@ -42,6 +43,7 @@ export enum CategoryEvents {
 export enum PageEvents {
   PageGet = 'page.get',
   PageGetAll = 'page.get.all',
+  PagesGetAll = 'sudo.pages.get.all',
   PageGetByIdWithMaster = 'page.get.byid.auth',
   PageCreate = 'page.create',
   PagePatch = 'page.patch',
@@ -49,6 +51,7 @@ export enum PageEvents {
 }
 
 export enum CommentsEvents {
+  CommentsGetAll = 'sudo.comments.get.all',
   CommentsGetList = 'comments.get.list',
   CommentsGetWithPostId = 'comments.get.with.postid',
   CommentsDeleteWithPostId = 'comments.delete.with.postid',
@@ -66,6 +69,7 @@ export enum CommentsEvents {
 }
 
 export enum FriendsEvents {
+  FriendsGetAll = 'sudo.friends.get.all',
   FriendsGetList = 'friends.get.list',
   FriendsGetAllByMaster = 'friends.get.all.auth',
   FriendsCheckAlive = 'friends.check.alive',

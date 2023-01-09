@@ -14,6 +14,11 @@ import {
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
+  @MessagePattern({ cmd: CommentsEvents.CommentsGetAll })
+  async getAllComments() {
+    return await this.commentsService.model.find().sort({ createdAt: -1 });
+  }
+
   @MessagePattern({ cmd: CommentsEvents.CommentsGetList })
   async getRecentlyComments(input: { query: PagerDto; master: boolean }) {
     const {

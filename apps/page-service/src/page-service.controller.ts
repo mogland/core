@@ -150,6 +150,12 @@ export class PageServiceController {
     return this.pageService.getPaginate(query);
   }
 
+  @MessagePattern({ cmd: PageEvents.PagesGetAll })
+  @ApiOperation({ summary: '获取页面列表' })
+  async getPages() {
+    return this.pageService.model.find().sort({ created: -1 });
+  }
+
   @MessagePattern({ cmd: PageEvents.PageGetByIdWithMaster })
   @ApiOperation({ summary: '通过 id 获取页面' })
   async getPage(params: { id: string }) {
@@ -190,6 +196,11 @@ export class PageServiceController {
   @ApiOperation({ summary: '获取文章列表(附带分页器)' })
   async getPaginate(input: { query: PagerDto; isMaster: boolean }) {
     return this.postService.aggregatePaginate(input.query, input.isMaster);
+  }
+
+  @MessagePattern({ cmd: PostEvents.PostsListGetAll })
+  async getPostsList() {
+    return this.postService.model.find().sort({ created: -1 });
   }
 
   @MessagePattern({ cmd: PostEvents.PostGetByMaster })
