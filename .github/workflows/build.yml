@@ -38,9 +38,7 @@ jobs:
         run: pnpm i --no-optional
       - name: Build project
         run: |
-          npm run build:core
-          npm run build:user-service
-          npm run build:page-service
+          npm run build
           npm run bundle
           zip -r mog-core-bundle-${{ runner.os }}.zip out/
 
