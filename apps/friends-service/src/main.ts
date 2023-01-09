@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { REDIS } from '~/apps/core/src/app.config';
 import { BasicCommer } from '~/shared/commander';
 import {
   ServicesEnum,

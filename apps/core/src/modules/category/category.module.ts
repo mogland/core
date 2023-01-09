@@ -13,6 +13,7 @@ import {
   ServicesEnum,
 } from '~/shared/constants/services.constant';
 import { getEnv } from '~/shared/utils/rag-env';
+import { REDIS } from '../../app.config';
 import { CategoryController } from './category.controller';
 
 @Module({
