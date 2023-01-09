@@ -24,7 +24,9 @@ export class NotificationService {
   }
 
   async sendWebhook(url: string, data: any) {
-    return await this.http.axiosRef.post(url, data);
+    return await this.http.axiosRef.post(url, {
+      data,
+    });
   }
 
   async sendEvent(event: string, data: any) {
