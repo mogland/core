@@ -10,11 +10,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AuthModule } from '~/libs/auth/src';
-import {
-  ServicePorts,
-  ServicesEnum,
-} from '~/shared/constants/services.constant';
-import { getEnv } from '~/shared/utils/rag-env';
+import { ServicesEnum } from '~/shared/constants/services.constant';
 import { REDIS } from '../../app.config';
 import { UserController } from './user.controller';
 
@@ -37,4 +33,4 @@ import { UserController } from './user.controller';
   controllers: [UserController],
   providers: [],
 })
-export class UserModule { }
+export class UserModule {}

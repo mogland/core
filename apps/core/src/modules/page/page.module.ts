@@ -8,11 +8,7 @@
  */
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import {
-  ServicePorts,
-  ServicesEnum,
-} from '~/shared/constants/services.constant';
-import { getEnv } from '~/shared/utils/rag-env';
+import { ServicesEnum } from '~/shared/constants/services.constant';
 import { REDIS } from '../../app.config';
 import { PageController } from './page.controller';
 
@@ -33,4 +29,4 @@ import { PageController } from './page.controller';
   ],
   controllers: [PageController],
 })
-export class PageModule { }
+export class PageModule {}

@@ -1,10 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import {
-  ServicesEnum,
-  ServicePorts,
-} from '~/shared/constants/services.constant';
-import { getEnv } from '~/shared/utils/rag-env';
+import { ServicesEnum } from '~/shared/constants/services.constant';
 import { REDIS } from '../../app.config';
 import { FriendsController } from './friends.controller';
 
@@ -27,4 +23,4 @@ import { FriendsController } from './friends.controller';
   providers: [],
   exports: [],
 })
-export class FriendsModule { }
+export class FriendsModule {}
