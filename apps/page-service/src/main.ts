@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { REDIS } from '~/apps/core/src/app.config';
 import { BasicCommer } from '~/shared/commander';
 import {
   ServicePorts,
@@ -20,10 +21,12 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     PageServiceModule,
     {
-      transport: Transport.TCP,
+      transport: Transport.REDIS,
       options: {
-        port: getEnv(ServicesEnum.page)?.port || ServicePorts.page,
-        host: getEnv(ServicesEnum.page)?.host || undefined,
+        port: REDIS.port,
+        host: REDIS.host,
+        password: REDIS.password,
+        username: REDIS.user, 
       },
     },
   );

@@ -13,6 +13,7 @@ import {
   ServicesEnum,
 } from '~/shared/constants/services.constant';
 import { getEnv } from '~/shared/utils/rag-env';
+import { REDIS } from '../../app.config';
 import { CategoryController } from './category.controller';
 
 @Module({
@@ -20,14 +21,16 @@ import { CategoryController } from './category.controller';
     ClientsModule.register([
       {
         name: ServicesEnum.category,
-        transport: Transport.TCP,
+        transport: Transport.REDIS,
         options: {
-          port: getEnv(ServicesEnum.page)?.port || ServicePorts.category,
-          host: getEnv(ServicesEnum.page)?.host || undefined,
+          port: REDIS.port,
+          host: REDIS.host,
+          password: REDIS.password,
+          username: REDIS.user,
         },
       },
     ]),
   ],
   controllers: [CategoryController],
 })
-export class CategoryModule {}
+export class CategoryModule { }

@@ -15,6 +15,7 @@ import {
   ServicesEnum,
 } from '~/shared/constants/services.constant';
 import { getEnv } from '~/shared/utils/rag-env';
+import { REDIS } from '../../app.config';
 import { UserController } from './user.controller';
 
 @Module({
@@ -22,10 +23,12 @@ import { UserController } from './user.controller';
     ClientsModule.register([
       {
         name: ServicesEnum.user,
-        transport: Transport.TCP,
+        transport: Transport.REDIS,
         options: {
-          port: getEnv(ServicesEnum.user)?.port || ServicePorts.user,
-          host: getEnv(ServicesEnum.user)?.host || undefined,
+          port: REDIS.port,
+          host: REDIS.host,
+          password: REDIS.password,
+          username: REDIS.user,
         },
       },
     ]),
@@ -34,4 +37,4 @@ import { UserController } from './user.controller';
   controllers: [UserController],
   providers: [],
 })
-export class UserModule {}
+export class UserModule { }

@@ -14,6 +14,7 @@ import {
   ServicesEnum,
 } from '~/shared/constants/services.constant';
 import { getEnv } from '~/shared/utils/rag-env';
+import { REDIS } from '../../app.config';
 import { PostController } from './post.controller';
 
 @Module({
@@ -21,14 +22,16 @@ import { PostController } from './post.controller';
     ClientsModule.register([
       {
         name: ServicesEnum.post,
-        transport: Transport.TCP,
+        transport: Transport.REDIS,
         options: {
-          port: getEnv(ServicesEnum.page)?.port || ServicePorts.post,
-          host: getEnv(ServicesEnum.page)?.host || undefined,
+          port: REDIS.port,
+          host: REDIS.host,
+          password: REDIS.password,
+          username: REDIS.user,
         },
       },
     ]),
   ],
   controllers: [PostController],
 })
-export class PostModule {}
+export class PostModule { }

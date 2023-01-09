@@ -5,6 +5,7 @@ import {
   ServicesEnum,
 } from '~/shared/constants/services.constant';
 import { getEnv } from '~/shared/utils/rag-env';
+import { REDIS } from '../../app.config';
 import { CommentsController } from './comments.controller';
 
 @Module({
@@ -12,14 +13,16 @@ import { CommentsController } from './comments.controller';
     ClientsModule.register([
       {
         name: ServicesEnum.comments,
-        transport: Transport.TCP,
+        transport: Transport.REDIS,
         options: {
-          port: getEnv(ServicesEnum.comments)?.port || ServicePorts.comments,
-          host: getEnv(ServicesEnum.comments)?.host || undefined,
+          port: REDIS.port,
+          host: REDIS.host,
+          password: REDIS.password,
+          username: REDIS.user,
         },
       },
     ]),
   ],
   controllers: [CommentsController],
 })
-export class CommentsModule {}
+export class CommentsModule { }

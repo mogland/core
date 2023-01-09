@@ -13,6 +13,7 @@ import {
   ServicesEnum,
 } from '~/shared/constants/services.constant';
 import { getEnv } from '~/shared/utils/rag-env';
+import { REDIS } from '../../app.config';
 import { PageController } from './page.controller';
 
 @Module({
@@ -20,14 +21,16 @@ import { PageController } from './page.controller';
     ClientsModule.register([
       {
         name: ServicesEnum.page,
-        transport: Transport.TCP,
+        transport: Transport.REDIS,
         options: {
-          port: getEnv(ServicesEnum.page)?.port || ServicePorts.page,
-          host: getEnv(ServicesEnum.page)?.host || undefined,
+          port: REDIS.port,
+          host: REDIS.host,
+          password: REDIS.password,
+          username: REDIS.user,
         },
       },
     ]),
   ],
   controllers: [PageController],
 })
-export class PageModule {}
+export class PageModule { }
