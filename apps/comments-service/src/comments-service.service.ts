@@ -111,6 +111,8 @@ export class CommentsService {
         });
       }
     }
+
+    return comment;
   }
 
   async deleteCommentsByPid(pid: string) {
