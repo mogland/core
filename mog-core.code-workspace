@@ -1,10 +1,6 @@
 {
 	"folders": [
 		{
-			"path": ".",
-			"name": "mog-core-root"
-		},
-		{
 			"path": "apps/core",
 			"name": "core-gateway"
 		},
@@ -15,6 +11,12 @@
 			"path": "apps/user-service"
 		},
 		{
+			"path": "apps/friends-service",
+		},
+		{
+			"path": "apps/comments-service",
+		},
+		{
 			"path": "apps/notification-service"
 		},
 		{
@@ -22,6 +24,10 @@
 		},
 		{
 			"path": "shared"
-		}
+		},
+		{
+			"path": ".",
+			"name": "mog-core-root"
+		},
 	]
 }
