@@ -15,6 +15,9 @@
 			"path": "apps/user-service"
 		},
 		{
+			"path": "apps/notification-service"
+		},
+		{
 			"path": "libs"
 		},
 		{
