@@ -75,8 +75,11 @@ export class FriendsService {
     }
     const dom = await this.parseDom(url);
     const document = dom.window.document;
-    const myUrl = (await this.configService.get('site')).frontUrl;
-    const siteName = (await this.configService.get('seo')).title;
+    const myUrl = (await this.configService.get('site'))?.frontUrl;
+    const siteName = (await this.configService.get('seo'))?.title;
+    if (!myUrl || !siteName) {
+      return false;
+    }
     const link = document.querySelector(`a[href="${myUrl}"]`);
     if (!link) {
       return false;
@@ -182,13 +185,13 @@ export class FriendsService {
         }`,
         FriendsService.name,
       );
-      if (token && token == friend.token) {
-        this.notification.emit(NotificationEvents.SystemFriendUpdateByToken, {
-          data: friend,
-          autoCheck: friend.autoCheck,
-        });
-      }
     });
+    if (token && token == friend.token) {
+      this.notification.emit(NotificationEvents.SystemFriendUpdateByToken, {
+        data: friend,
+        autoCheck: friend.autoCheck,
+      });
+    }
     return this.friendsModel.updateOne({ _id: id }, data);
   }
 
