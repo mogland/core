@@ -84,3 +84,7 @@ export enum FriendsEvents {
 
   FriendAnalyseAutoCheck = 'friend.analyse.autoCheck',
 }
+
+export enum NotificationEvents {
+  SystemCatchError = 'system.catch.error',
+}
