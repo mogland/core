@@ -60,12 +60,12 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const url = request.raw.url!;
     if (status === HttpStatus.INTERNAL_SERVER_ERROR) {
       Logger.error(exception, undefined, 'Catch');
-      this.notification.emit(NotificationEvents.SystemCatchError, {
-        exception,
-        url,
-        message,
-      });
       if (!isDev) {
+        this.notification.emit(NotificationEvents.SystemCatchError, {
+          exception,
+          url,
+          message,
+        });
         this.errorLogPipe =
           this.errorLogPipe ??
           fs.createWriteStream(resolve(LOG_DIR, 'error.log'), {

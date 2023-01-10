@@ -34,7 +34,7 @@ export class NotificationService {
   }
 
   async sendEvent(event: string, data: any) {
-    console.warn('[Error Notification]', event, data);
+    console.log('sendEvent', event);
     const webhooks = await this.getWebhookInEvent(event);
     if (!webhooks) return;
     for (const webhook of webhooks) {

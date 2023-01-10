@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
+import { EventPattern } from '@nestjs/microservices';
 import { LoginDto } from '~/apps/user-service/src/user.dto';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import {
@@ -12,12 +12,13 @@ import { NotificationService } from './notification-service.service';
 export class NotificationServiceController {
   constructor(private readonly notificationService: NotificationService) {}
 
-  @MessagePattern({ cmd: UserEvents.UserLogin })
+  @EventPattern(NotificationEvents.SystemUserLogin)
   async userLogin(input: { dto: LoginDto; ipLocation: IpRecord }) {
+    console.log('用户尝试登陆', input.dto.username);
     this.notificationService.sendEvent(UserEvents.UserLogin, input);
   }
 
-  @MessagePattern(NotificationEvents.SystemCatchError)
+  @EventPattern(NotificationEvents.SystemCatchError)
   async systemCatchError(input: {
     exception: unknown;
     url: string;

@@ -1,14 +1,22 @@
-import { Controller } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
+import { Controller, Inject } from '@nestjs/common';
+import { ClientProxy, MessagePattern } from '@nestjs/microservices';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
-import { UserEvents } from '~/shared/constants/event.constant';
+import {
+  NotificationEvents,
+  UserEvents,
+} from '~/shared/constants/event.constant';
+import { ServicesEnum } from '~/shared/constants/services.constant';
 import { UserService } from './user-service.service';
 import { LoginDto, UserDto, UserPatchDto } from './user.dto';
 import { UserDocument, UserModel } from './user.model';
 
 @Controller()
 export class UserServiceController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    @Inject(ServicesEnum.notification)
+    private readonly notification: ClientProxy,
+  ) {}
 
   @MessagePattern({ cmd: UserEvents.UserGet })
   handleUserGet(data: { username: string; getLoginIp: boolean }) {
@@ -24,19 +32,20 @@ export class UserServiceController {
   // handleUserCheckLogged() {}
 
   @MessagePattern({ cmd: UserEvents.UserRegister })
-  handleUserRegister(user: UserDto) {
+  async handleUserRegister(user: UserDto) {
     user.nickname = user.nickname ?? user.username;
-    return this.userService.register(user as UserModel);
+    return await this.userService.register(user as UserModel);
   }
 
   @MessagePattern({ cmd: UserEvents.UserPatch })
-  handleUserPatch(input: { user: UserDocument; data: UserPatchDto }) {
-    return this.userService.patchUserData(input.user, input.data);
+  async handleUserPatch(input: { user: UserDocument; data: UserPatchDto }) {
+    return await this.userService.patchUserData(input.user, input.data);
   }
 
   @MessagePattern({ cmd: UserEvents.UserLogin })
   async handleUserLogin(input: { dto: LoginDto; ipLocation: IpRecord }) {
-    return this.userService.login(input.dto, input.ipLocation);
+    this.notification.emit(NotificationEvents.SystemUserLogin, input);
+    return await this.userService.login(input.dto, input.ipLocation);
   }
 
   @MessagePattern({ cmd: UserEvents.UserLogout })

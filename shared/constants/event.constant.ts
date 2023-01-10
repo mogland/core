@@ -87,4 +87,5 @@ export enum FriendsEvents {
 
 export enum NotificationEvents {
   SystemCatchError = 'system.catch.error',
+  SystemUserLogin = 'system.user.login',
 }
