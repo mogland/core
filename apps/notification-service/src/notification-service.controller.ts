@@ -1,7 +1,10 @@
 import { Controller } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
 import { CommentsModel } from '~/apps/comments-service/src/comments.model';
-import { FriendsModel } from '~/apps/friends-service/src/friends.model';
+import {
+  FriendsModel,
+  FriendStatus,
+} from '~/apps/friends-service/src/friends.model';
 import { PageModel } from '~/apps/page-service/src/model/page.model';
 import { PostModel } from '~/apps/page-service/src/model/post.model';
 import { LoginDto } from '~/apps/user-service/src/user.dto';
@@ -74,6 +77,14 @@ export class NotificationServiceController {
       '自动审核: ',
       input.autoCheck,
     );
+  }
+
+  @EventPattern(NotificationEvents.SystemFriendPatchStatus)
+  async systemFriendPatchStatus(input: {
+    data: FriendsModel;
+    status: FriendStatus;
+  }) {
+    console.log('好友更新状态', input.data.name, '状态: ', input.status);
   }
 
   @EventPattern(NotificationEvents.SystemFriendDeleteByMasterOrToken)

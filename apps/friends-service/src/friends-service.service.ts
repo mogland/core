@@ -185,13 +185,13 @@ export class FriendsService {
         }`,
         FriendsService.name,
       );
+      if (token && token == friend.token) {
+        this.notification.emit(NotificationEvents.SystemFriendUpdateByToken, {
+          data: friend,
+          autoCheck: friend.autoCheck,
+        });
+      }
     });
-    if (token && token == friend.token) {
-      this.notification.emit(NotificationEvents.SystemFriendUpdateByToken, {
-        data: friend,
-        autoCheck: friend.autoCheck,
-      });
-    }
     return this.friendsModel.updateOne({ _id: id }, data);
   }
 
@@ -212,6 +212,14 @@ export class FriendsService {
         this.throwInvalidTokenException();
       }
     }
+    this.notification.emit(
+      NotificationEvents.SystemFriendDeleteByMasterOrToken,
+      {
+        id,
+        isMaster,
+        token,
+      },
+    );
     return this.friendsModel.findByIdAndDelete(id);
   }
 
@@ -263,6 +271,10 @@ export class FriendsService {
     if (!friend) {
       this.throwNotFoundException();
     }
+    this.notification.emit(NotificationEvents.SystemFriendPatchStatus, {
+      data: friend,
+      status,
+    });
     return this.friendsModel.updateOne({ _id: id }, { status });
   }
 
