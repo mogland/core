@@ -6,7 +6,7 @@
 		},
 		{
 			"path": "apps/core",
-			"name": "core-service"
+			"name": "core-gateway"
 		},
 		{
 			"path": "apps/page-service"

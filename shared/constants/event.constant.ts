@@ -79,9 +79,9 @@ export enum FriendsEvents {
   FriendGet = 'friend.get',
 
   FriendUpdateByMasterOrToken = 'friend.put.auth.token',
-
   FriendDeleteByMasterOrToken = 'friend.delete.auth.token',
 
+  FriendPatchStatusByMaster = 'friend.patch.status.auth',
   FriendAnalyseAutoCheck = 'friend.analyse.autoCheck',
 }
 

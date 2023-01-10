@@ -2,13 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { REDIS } from '~/apps/core/src/app.config';
 import { BasicCommer } from '~/shared/commander';
-import {
-  ServicesEnum,
-  ServicePorts,
-} from '~/shared/constants/services.constant';
+
 import { registerStdLogger } from '~/shared/global/consola.global';
 import { registerGlobal } from '~/shared/global/index.global';
-import { readEnv, getEnv } from '~/shared/utils/rag-env';
+import { readEnv } from '~/shared/utils/rag-env';
 import { FriendsServiceModule } from './friends-service.module';
 
 async function bootstrap() {

@@ -9,11 +9,7 @@
 
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import {
-  ServicePorts,
-  ServicesEnum,
-} from '~/shared/constants/services.constant';
-import { getEnv } from '~/shared/utils/rag-env';
+import { ServicesEnum } from '~/shared/constants/services.constant';
 import { REDIS } from '../../app.config';
 import { PostController } from './post.controller';
 
@@ -34,4 +30,4 @@ import { PostController } from './post.controller';
   ],
   controllers: [PostController],
 })
-export class PostModule { }
+export class PostModule {}
