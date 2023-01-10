@@ -18,6 +18,9 @@ import { PostModule } from './modules/post/post.module';
 import { UserModule } from './modules/user/user.module';
 import { CommentsModule } from './modules/comments/comments.module';
 import { FriendsModule } from './modules/friends/friends.module';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ServicesEnum } from '~/shared/constants/services.constant';
+import { REDIS } from './app.config';
 
 @Module({
   imports: [
@@ -32,6 +35,18 @@ import { FriendsModule } from './modules/friends/friends.module';
     AggregateModule,
     CommentsModule,
     FriendsModule,
+    ClientsModule.register([
+      {
+        name: ServicesEnum.notification,
+        transport: Transport.REDIS,
+        options: {
+          port: REDIS.port,
+          host: REDIS.host,
+          password: REDIS.password,
+          username: REDIS.user,
+        },
+      },
+    ]),
   ],
   controllers: [AppController],
   providers: [

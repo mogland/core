@@ -99,11 +99,7 @@ export class UserController {
   @Post('/logoutAll')
   @Auth()
   async logoutAll() {
-    return transportReqToMicroservice(
-      this.user,
-      UserEvents.UserLogoutAll,
-      null,
-    );
+    return transportReqToMicroservice(this.user, UserEvents.UserLogoutAll, {});
   }
 
   @Get(['/sessions'])
@@ -132,10 +128,6 @@ export class UserController {
   @Auth()
   @ApiOperation({ summary: '获取所有session' })
   async deleteAllSession() {
-    return transportReqToMicroservice(
-      this.user,
-      UserEvents.UserLogoutAll,
-      null,
-    );
+    return transportReqToMicroservice(this.user, UserEvents.UserLogoutAll, {});
   }
 }

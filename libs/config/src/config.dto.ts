@@ -7,7 +7,13 @@
  * Coding With IU
  */
 
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class SEODto {
   @IsString()
@@ -35,4 +41,44 @@ export class SiteDto {
   @IsString()
   @IsNotEmpty()
   serverUrl: string;
+}
+
+export class WebhookDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  url: string;
+
+  @IsArray({ each: true })
+  @IsNotEmpty()
+  events: string[]; // 还有一种 `*` 事件，表示所有事件都会触发
+}
+
+export class EmailDto {
+  @IsString()
+  @IsNotEmpty()
+  host: string;
+
+  @IsString()
+  @IsNotEmpty()
+  port: string;
+
+  @IsString()
+  @IsNotEmpty()
+  user: string;
+
+  @IsString()
+  @IsNotEmpty()
+  pass: string;
+
+  @IsBoolean()
+  @IsOptional()
+  secure?: boolean;
 }

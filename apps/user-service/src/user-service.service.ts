@@ -1,11 +1,13 @@
-import { HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { RpcException } from '@nestjs/microservices';
+import { HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { compareSync } from 'bcrypt';
 // import { nanoid } from 'nanoid';
 import { AuthService } from '~/libs/auth/src';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
+import { NotificationEvents } from '~/shared/constants/event.constant';
+import { ServicesEnum } from '~/shared/constants/services.constant';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { getAvatar } from '~/shared/utils';
 import { LoginDto } from './user.dto';
@@ -20,6 +22,9 @@ export class UserService {
     private readonly userModel: ReturnModelType<typeof UserModel>,
 
     private readonly authService: AuthService,
+
+    @Inject(ServicesEnum.notification)
+    private readonly notification: ClientProxy,
   ) {}
   public get model() {
     return this.userModel;
@@ -103,6 +108,10 @@ export class UserService {
       user,
       ip: ipLocation.ip,
       ua: ipLocation.agent,
+    });
+    this.notification.emit(NotificationEvents.SystemUserLogin, {
+      dto,
+      ipLocation,
     });
     return {
       token,

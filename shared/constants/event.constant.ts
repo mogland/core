@@ -84,3 +84,21 @@ export enum FriendsEvents {
   FriendPatchStatusByMaster = 'friend.patch.status.auth',
   FriendAnalyseAutoCheck = 'friend.analyse.autoCheck',
 }
+
+export enum NotificationEvents {
+  SystemCatchError = 'system.catch.error',
+  SystemUserLogin = 'system.user.login',
+
+  SystemCommentCreate = 'system.comment.create',
+  SystemCommentReply = 'system.comment.reply',
+
+  SystemFriendCreate = 'system.friend.create',
+  SystemFriendPatchStatus = 'system.friend.patch.status',
+  SystemFriendUpdateByToken = 'system.friend.update.token',
+  SystemFriendDeleteByMasterOrToken = 'system.friend.delete.auth.token',
+
+  SystemPostCreate = 'system.post.create',
+  SystemPostUpdate = 'system.post.update',
+  SystemPageCreate = 'system.page.create',
+  SystemPageUpdate = 'system.page.update',
+}

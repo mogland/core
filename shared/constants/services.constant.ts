@@ -21,6 +21,7 @@ export enum ServicesEnum {
   theme = 'THEME_SERVICE',
   admin = 'ADMIN_SERVICE',
   mail = 'MAIL_SERVICE',
+  notification = 'NOTIFICATION_SERVICE',
 }
 
 export enum ServicePorts {
@@ -32,4 +33,5 @@ export enum ServicePorts {
   comments = 2333,
   friends = 2334,
   admin = 2335,
+  notification = 2336,
 }

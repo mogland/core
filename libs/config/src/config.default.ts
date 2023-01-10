@@ -19,4 +19,12 @@ export const DefaultConfigs: () => ConfigsInterface = () => ({
     frontUrl: 'http://localhost:2330',
     serverUrl: 'http://localhost:2000',
   },
+  webhooks: [],
+  email: {
+    host: '',
+    user: '',
+    pass: '',
+    port: '465',
+    secure: true,
+  },
 });

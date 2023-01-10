@@ -18,6 +18,9 @@ import { HTTP_REQUEST_TIME } from '@shared/constants/meta.constant';
 import { LOG_DIR } from '@shared/constants/path.constant';
 import { REFLECTOR } from '@shared/constants/system.constant';
 import { isDev } from '@shared/global/env.global';
+import { ServicesEnum } from '~/shared/constants/services.constant';
+import { ClientProxy } from '@nestjs/microservices';
+import { NotificationEvents } from '~/shared/constants/event.constant';
 
 type myError = {
   readonly status: number;
@@ -31,7 +34,11 @@ export class AllExceptionsFilter implements ExceptionFilter {
   private readonly logger = new Logger(AllExceptionsFilter.name);
   private errorLogPipe: WriteStream;
 
-  constructor(@Inject(REFLECTOR) private reflector: Reflector) {}
+  constructor(
+    @Inject(REFLECTOR) private reflector: Reflector,
+    @Inject(ServicesEnum.notification)
+    private readonly notification: ClientProxy,
+  ) {}
 
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
@@ -53,8 +60,12 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const url = request.raw.url!;
     if (status === HttpStatus.INTERNAL_SERVER_ERROR) {
       Logger.error(exception, undefined, 'Catch');
-
       if (!isDev) {
+        this.notification.emit(NotificationEvents.SystemCatchError, {
+          exception,
+          url,
+          message,
+        });
         this.errorLogPipe =
           this.errorLogPipe ??
           fs.createWriteStream(resolve(LOG_DIR, 'error.log'), {

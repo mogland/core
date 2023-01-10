@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { v4 } from 'uuid';
 import { HttpService } from '~/libs/helper/src/helper.http.service';
@@ -6,11 +6,13 @@ import { InjectModel } from '~/shared/transformers/model.transformer';
 import { FriendsModel, FriendStatus } from './friends.model';
 import { JSDOM } from 'jsdom';
 import { ConfigService } from '~/libs/config/src';
-import { RpcException } from '@nestjs/microservices';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { nextTick } from 'process';
 import { FeedParser } from '~/shared/utils';
 import { isValidObjectId } from 'mongoose';
+import { ServicesEnum } from '~/shared/constants/services.constant';
+import { NotificationEvents } from '~/shared/constants/event.constant';
 @Injectable()
 export class FriendsService {
   constructor(
@@ -18,6 +20,9 @@ export class FriendsService {
     private readonly friendsModel: ReturnModelType<typeof FriendsModel>,
     private readonly configService: ConfigService,
     private readonly https: HttpService,
+
+    @Inject(ServicesEnum.notification)
+    private readonly notification: ClientProxy,
   ) {}
 
   public get model() {
@@ -70,8 +75,11 @@ export class FriendsService {
     }
     const dom = await this.parseDom(url);
     const document = dom.window.document;
-    const myUrl = (await this.configService.get('site')).frontUrl;
-    const siteName = (await this.configService.get('seo')).title;
+    const myUrl = (await this.configService.get('site'))?.frontUrl;
+    const siteName = (await this.configService.get('seo'))?.title;
+    if (!myUrl || !siteName) {
+      return false;
+    }
     const link = document.querySelector(`a[href="${myUrl}"]`);
     if (!link) {
       return false;
@@ -124,6 +132,10 @@ export class FriendsService {
         }`,
         FriendsService.name,
       );
+      this.notification.emit(NotificationEvents.SystemFriendCreate, {
+        data: friend,
+        autoCheck: friend.autoCheck,
+      });
     });
     return friend;
   }
@@ -164,6 +176,22 @@ export class FriendsService {
       }
       data.status = FriendStatus.Pending; // 友链方修改后, 状态必须变为待审核，防止下毒
     }
+    nextTick(async () => {
+      friend.autoCheck = await this.autoCheck(data.link); // 重新检测
+      await friend.save();
+      Logger.warn(
+        `${friend.name} 申请友链 - 互链检测: ${
+          friend.autoCheck ? '通过' : '未通过'
+        }`,
+        FriendsService.name,
+      );
+      if (token && token == friend.token) {
+        this.notification.emit(NotificationEvents.SystemFriendUpdateByToken, {
+          data: friend,
+          autoCheck: friend.autoCheck,
+        });
+      }
+    });
     return this.friendsModel.updateOne({ _id: id }, data);
   }
 
@@ -184,6 +212,14 @@ export class FriendsService {
         this.throwInvalidTokenException();
       }
     }
+    this.notification.emit(
+      NotificationEvents.SystemFriendDeleteByMasterOrToken,
+      {
+        id,
+        isMaster,
+        token,
+      },
+    );
     return this.friendsModel.findByIdAndDelete(id);
   }
 
@@ -235,6 +271,10 @@ export class FriendsService {
     if (!friend) {
       this.throwNotFoundException();
     }
+    this.notification.emit(NotificationEvents.SystemFriendPatchStatus, {
+      data: friend,
+      status,
+    });
     return this.friendsModel.updateOne({ _id: id }, { status });
   }
 
