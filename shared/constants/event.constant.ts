@@ -94,6 +94,8 @@ export enum NotificationEvents {
 
   SystemFriendCreate = 'system.friend.create',
   SystemFriendPatchStatus = 'system.friend.patch.status',
+  SystemFriendUpdateByToken = 'system.friend.update.token',
+  SystemFriendDeleteByMasterOrToken = 'system.friend.delete.auth.token',
 
   SystemPostCreate = 'system.post.create',
   SystemPostUpdate = 'system.post.update',
