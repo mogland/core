@@ -88,4 +88,15 @@ export enum FriendsEvents {
 export enum NotificationEvents {
   SystemCatchError = 'system.catch.error',
   SystemUserLogin = 'system.user.login',
+
+  SystemCommentCreate = 'system.comment.create',
+  SystemCommentReply = 'system.comment.reply',
+
+  SystemFriendCreate = 'system.friend.create',
+  SystemFriendPatchStatus = 'system.friend.patch.status',
+
+  SystemPostCreate = 'system.post.create',
+  SystemPostUpdate = 'system.post.update',
+  SystemPageCreate = 'system.page.create',
+  SystemPageUpdate = 'system.page.update',
 }
