@@ -21,7 +21,6 @@ import { isDev } from '@shared/global/env.global';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { ClientProxy } from '@nestjs/microservices';
 import { NotificationEvents } from '~/shared/constants/event.constant';
-import { nextTick } from 'process';
 
 type myError = {
   readonly status: number;
@@ -62,12 +61,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
     if (status === HttpStatus.INTERNAL_SERVER_ERROR) {
       Logger.error(exception, undefined, 'Catch');
       if (!isDev) {
-        nextTick(() => {
-          this.notification.emit(NotificationEvents.SystemCatchError, {
-            exception,
-            url,
-            message,
-          });
+        this.notification.emit(NotificationEvents.SystemCatchError, {
+          exception,
+          url,
+          message,
         });
         this.errorLogPipe =
           this.errorLogPipe ??

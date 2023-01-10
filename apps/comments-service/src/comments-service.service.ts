@@ -1,9 +1,12 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
-import { RpcException } from '@nestjs/microservices';
+import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { PaginateModel } from 'mongoose';
+import { nextTick } from 'process';
 import { InjectModel } from '~/libs/database/src/model.transformer';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
+import { NotificationEvents } from '~/shared/constants/event.constant';
+import { ServicesEnum } from '~/shared/constants/services.constant';
 import {
   CommentReactions,
   CommentsModel,
@@ -16,6 +19,9 @@ export class CommentsService {
     @InjectModel(CommentsModel)
     private readonly CommentsModel: ModelType<CommentsModel> &
       PaginateModel<CommentsModel & Document>,
+
+    @Inject(ServicesEnum.notification)
+    private readonly notification: ClientProxy,
   ) {}
 
   get model() {
@@ -62,15 +68,25 @@ export class CommentsService {
     };
   }
 
-  async createComment(data: CommentsModel) {
+  async createComment(data: CommentsModel, isMaster: boolean) {
+    if (isMaster) {
+      data.status = CommentStatus.Approved; // 默认审核通过主人的评论
+    }
     const pidCount = await this.CommentsModel.countDocuments({
       pid: data.pid,
     });
     const key = `${data.pid}#${pidCount}`;
-    return this.CommentsModel.create({
+    const res = this.CommentsModel.create({
       ...data,
       key,
     });
+    nextTick(() => {
+      this.notification.emit(NotificationEvents.SystemCommentCreate, {
+        data: res,
+        isMaster,
+      });
+    });
+    return res;
   }
 
   async updateComment(id: string, data: CommentsModel) {
@@ -121,7 +137,7 @@ export class CommentsService {
     return this.CommentsModel.deleteMany({ pid: { $in: pids } });
   }
 
-  async replyComment(parent: string, data: CommentsModel) {
+  async replyComment(parent: string, data: CommentsModel, isMaster: boolean) {
     const parentComment = await this.CommentsModel.findById(parent);
     if (!parentComment) {
       throw new RpcException({
@@ -130,6 +146,9 @@ export class CommentsService {
       });
     }
     data.pid = parentComment.pid; // 防止恶意修改，强制使用父评论的pid
+    if (isMaster) {
+      data.status = CommentStatus.Approved; // 默认审核通过主人的评论
+    }
     const commentsIndex = parentComment.commentsIndex;
     const key = `${parentComment.key || 0}#${commentsIndex}`;
     const comment = await this.CommentsModel.create({
@@ -143,6 +162,13 @@ export class CommentsService {
       $inc: {
         commentsIndex: 1,
       },
+    });
+    nextTick(() => {
+      this.notification.emit(NotificationEvents.SystemCommentReply, {
+        origin: parentComment,
+        data: comment,
+        isMaster,
+      });
     });
     return comment;
   }

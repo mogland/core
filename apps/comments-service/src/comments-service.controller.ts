@@ -45,7 +45,7 @@ export class CommentsController {
     if (!input.master) {
       input.data.status = CommentStatus.Pending;
     }
-    return await this.commentsService.createComment(input.data);
+    return await this.commentsService.createComment(input.data, input.master);
   }
 
   @MessagePattern({ cmd: CommentsEvents.CommentReply })
@@ -57,7 +57,11 @@ export class CommentsController {
     if (!input.master) {
       input.data.status = CommentStatus.Pending;
     }
-    return await this.commentsService.replyComment(input.id, input.data);
+    return await this.commentsService.replyComment(
+      input.id,
+      input.data,
+      input.master,
+    );
   }
 
   @MessagePattern({ cmd: CommentsEvents.CommentDeleteByMaster })

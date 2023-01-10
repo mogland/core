@@ -7,14 +7,16 @@
  * Coding With IU
  */
 
-import { HttpStatus, Injectable } from '@nestjs/common';
-import { RpcException } from '@nestjs/microservices';
+import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { isDefined } from 'class-validator';
 import { omit } from 'lodash';
 import { PaginateModel } from 'mongoose';
 import slugify from 'slugify';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
+import { NotificationEvents } from '~/shared/constants/event.constant';
+import { ServicesEnum } from '~/shared/constants/services.constant';
 import { PagerDto } from '~/shared/dto/pager.dto';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { PageModel } from './model/page.model';
@@ -25,6 +27,9 @@ export class PageService {
     @InjectModel(PageModel)
     private readonly pageModel: ModelType<PageModel> &
       PaginateModel<PageModel & Document>,
+
+    @Inject(ServicesEnum.notification)
+    private readonly notification: ClientProxy,
   ) {}
 
   public get model() {
@@ -83,12 +88,12 @@ export class PageService {
   }
 
   public async create(data: PageModel) {
-    // data.text = await this.pluginService.usePlugins("page", "create", data.text)
     const res = await this.model.create({
       ...data,
       slug: slugify(data.slug!),
       created: new Date(),
     });
+    this.notification.emit(NotificationEvents.SystemPageCreate, res);
     return res;
   }
 
@@ -112,6 +117,7 @@ export class PageService {
         message: ExceptionMessage.PageIsNotExist,
       });
     }
+    this.notification.emit(NotificationEvents.SystemPageUpdate, res);
     return res;
   }
 }

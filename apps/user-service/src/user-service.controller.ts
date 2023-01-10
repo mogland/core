@@ -1,22 +1,16 @@
-import { Controller, Inject } from '@nestjs/common';
-import { ClientProxy, MessagePattern } from '@nestjs/microservices';
+import { Controller } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import {
-  NotificationEvents,
   UserEvents,
 } from '~/shared/constants/event.constant';
-import { ServicesEnum } from '~/shared/constants/services.constant';
 import { UserService } from './user-service.service';
 import { LoginDto, UserDto, UserPatchDto } from './user.dto';
 import { UserDocument, UserModel } from './user.model';
 
 @Controller()
 export class UserServiceController {
-  constructor(
-    private readonly userService: UserService,
-    @Inject(ServicesEnum.notification)
-    private readonly notification: ClientProxy,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   @MessagePattern({ cmd: UserEvents.UserGet })
   handleUserGet(data: { username: string; getLoginIp: boolean }) {
@@ -44,7 +38,6 @@ export class UserServiceController {
 
   @MessagePattern({ cmd: UserEvents.UserLogin })
   async handleUserLogin(input: { dto: LoginDto; ipLocation: IpRecord }) {
-    this.notification.emit(NotificationEvents.SystemUserLogin, input);
     return await this.userService.login(input.dto, input.ipLocation);
   }
 

@@ -36,8 +36,8 @@ export class NotificationServiceController {
   }
 
   @EventPattern(NotificationEvents.SystemCommentCreate)
-  async systemCommentCreate(input: { data: CommentsModel; master: boolean }) {
-    console.log('评论创建 isMaster: ', input.master);
+  async systemCommentCreate(input: { data: CommentsModel; isMaster: boolean }) {
+    console.log('评论创建 isMaster: ', input.isMaster);
   }
 
   @EventPattern(NotificationEvents.SystemCommentReply)
@@ -50,13 +50,30 @@ export class NotificationServiceController {
   }
 
   @EventPattern(NotificationEvents.SystemFriendCreate)
-  async systemFriendCreate(input: { data: FriendsModel; isMaster: boolean }) {
-    console.log('好友创建 name: ', input.data.name);
+  async systemFriendCreate(input: {
+    data: FriendsModel;
+    isMaster: boolean;
+    autoCheck: boolean;
+  }) {
+    console.log(
+      '好友创建 name: ',
+      input.data.name,
+      '自动审核: ',
+      input.autoCheck,
+    );
   }
 
   @EventPattern(NotificationEvents.SystemFriendUpdateByToken)
-  async systemFriendUpdateByToken(data: FriendsModel) {
-    console.log('好友使用 token 更新了', data.name);
+  async systemFriendUpdateByToken(input: {
+    data: FriendsModel;
+    autoCheck: boolean;
+  }) {
+    console.log(
+      '好友使用 token 更新了',
+      input.data.name,
+      '自动审核: ',
+      input.autoCheck,
+    );
   }
 
   @EventPattern(NotificationEvents.SystemFriendDeleteByMasterOrToken)
