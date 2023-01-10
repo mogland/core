@@ -228,6 +228,17 @@ export class FriendsService {
   }
 
   /**
+   * FriendPatchStatusByMaster
+   */
+  async patchStatusByMaster(id: string, status: FriendStatus) {
+    const friend = await this.friendsModel.findById(id);
+    if (!friend) {
+      this.throwNotFoundException();
+    }
+    return this.friendsModel.updateOne({ _id: id }, { status });
+  }
+
+  /**
    * friend.analyse.feed
    */
   async analyseFeed() {

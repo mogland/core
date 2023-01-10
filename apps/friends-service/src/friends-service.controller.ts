@@ -54,6 +54,14 @@ export class FriendsServiceController {
     );
   }
 
+  @MessagePattern({ cmd: FriendsEvents.FriendPatchStatusByMaster })
+  async patchFriendStatusByMaster(input: { id: string; status: FriendStatus }) {
+    return await this.friendsService.patchStatusByMaster(
+      input.id,
+      input.status,
+    );
+  }
+
   @MessagePattern({ cmd: FriendsEvents.FriendsAnalyseFeed })
   async analyseFeed() {
     await this.friendsService.analyseFeed();
