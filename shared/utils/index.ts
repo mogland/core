@@ -23,3 +23,5 @@ export function getAvatar(mail: string | undefined) {
   }
   return `https://sdn.geekzu.org/avatar/${md5(mail)}?d=retro`;
 }
+
+export const isDev = process.env.NODE_ENV === 'development';

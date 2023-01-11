@@ -31,14 +31,18 @@ export async function bootstrap() {
   );
   const hosts = Origin.map((host) => new RegExp(host, 'i'));
 
-  app.enableCors({
-    origin: (origin, callback) => {
-      const allow = hosts.some((host) => host.test(origin));
+  app.enableCors(
+    isDev
+      ? undefined
+      : {
+          origin: (origin, callback) => {
+            const allow = hosts.some((host) => host.test(origin));
 
-      callback(null, allow);
-    },
-    credentials: true,
-  });
+            callback(null, allow);
+          },
+          credentials: true,
+        },
+  );
 
   app.useGlobalPipes(
     new ValidationPipe({
