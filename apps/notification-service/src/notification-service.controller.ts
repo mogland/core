@@ -47,9 +47,9 @@ export class NotificationServiceController {
   async systemCommentReply(input: {
     origin: CommentsModel;
     data: CommentsModel;
-    master: boolean;
+    isMaster: boolean;
   }) {
-    console.log('评论回复 isMaster: ', input.master);
+    console.log('评论回复 isMaster: ', input.isMaster);
   }
 
   @EventPattern(NotificationEvents.SystemFriendCreate)
