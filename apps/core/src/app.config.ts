@@ -13,7 +13,7 @@ const argv = BasicCommer.option(
   .opts();
 
 export const CONFIG = readEnv(argv, argv.config);
-console.log(CONFIG, 'CONFIG');
+// console.log(CONFIG, 'CONFIG');
 export const PORT = CONFIG.port || ServicePorts.core;
 export const CROSS_DOMAIN = {
   allowedOrigins: CONFIG.core?.allow_origins
