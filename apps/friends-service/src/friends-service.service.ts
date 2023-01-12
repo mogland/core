@@ -354,10 +354,9 @@ export class FriendsService {
       }
     }
     return feeds.sort((a, b) => {
-      // @ts-ignore
       return (
-        new Date(b.publishedDate).getTime() -
-        new Date(a.publishedDate).getTime()
+        new Date((b as any).publishedDate).getTime() -
+        new Date((a as any).publishedDate).getTime()
       );
     });
   }
