@@ -51,8 +51,12 @@ export class PostController {
   @Get('/:id')
   @ApiOperation({ summary: '通过id获取文章详情' })
   @Auth()
-  async getPost(@Param() params) {
-    return transportReqToMicroservice(this.post, PostEvents.PostGet, params);
+  async getPost(@Param('id') id: string) {
+    return transportReqToMicroservice(
+      this.post,
+      PostEvents.PostGetByMaster,
+      id,
+    );
   }
 
   @Get('/:category/:slug')

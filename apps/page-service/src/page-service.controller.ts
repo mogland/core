@@ -205,8 +205,8 @@ export class PageServiceController {
 
   @MessagePattern({ cmd: PostEvents.PostGetByMaster })
   @ApiOperation({ summary: '通过id获取文章详情(带权限)' })
-  async getPost(params: { id: string }) {
-    return this.postService.getPostBySlug(params.id);
+  async getPost(id: string) {
+    return this.postService.getPostBySlug(id);
   }
 
   @MessagePattern({ cmd: PostEvents.PostGet })
