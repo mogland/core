@@ -121,6 +121,28 @@ export class FriendsService {
     if (!input.isMaster) {
       input.data.status = FriendStatus.Pending;
     }
+    // 分析数据是否与现有友链重复
+    await Promise.all([
+      this.friendsModel.findOne({
+        name: input.data.name,
+      }),
+      this.friendsModel.findOne({
+        link: input.data.link,
+      }),
+      this.friendsModel.findOne({
+        email: input.data.email,
+      }),
+      this.friendsModel.findOne({
+        verifyLink: input.data.verifyLink,
+      }),
+    ]).then((res) => {
+      if (res.some((item) => !!item)) {
+        throw new RpcException({
+          code: HttpStatus.BAD_REQUEST,
+          message: ExceptionMessage.FriendLinkIsExist,
+        });
+      }
+    });
     input.data.token = this.generateToken();
     const friend = await this.friendsModel.create(input.data);
     nextTick(async () => {

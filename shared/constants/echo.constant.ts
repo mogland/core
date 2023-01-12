@@ -36,4 +36,5 @@ export enum ExceptionMessage {
 
   FriendLinkIsNotExist = '友链不存在 o(╯□╰)o',
   FriendLinkTokenIsInvalid = '友链Token无效，可能找错了哦',
+  FriendLinkIsExist = '友链已存在 o(╯□╰)o',
 }
