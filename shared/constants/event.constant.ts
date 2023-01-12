@@ -83,6 +83,8 @@ export enum FriendsEvents {
 
   FriendPatchStatusByMaster = 'friend.patch.status.auth',
   FriendAnalyseAutoCheck = 'friend.analyse.autoCheck',
+
+  FriendsGetFeeds = 'friends.get.feeds',
 }
 
 export enum NotificationEvents {
