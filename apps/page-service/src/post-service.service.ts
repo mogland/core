@@ -159,7 +159,25 @@ export class PostService {
    * @param slug 文章slug
    */
   async getPostBySlug(slug: string) {
-    return await this.model.findOne({ slug });
+    const model = await this.model.findOne({ slug });
+    if (!model) {
+      throw new RpcException({
+        code: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.PostIsNotExist,
+      });
+    }
+    return model;
+  }
+
+  async getPostByID(id: string) {
+    const model = await this.model.findById(id);
+    if (!model) {
+      throw new RpcException({
+        code: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.PostIsNotExist,
+      });
+    }
+    return model;
   }
 
   /**
