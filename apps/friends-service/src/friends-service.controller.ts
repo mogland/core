@@ -30,6 +30,11 @@ export class FriendsServiceController {
     return await this.friendsService.create(data);
   }
 
+  @MessagePattern({ cmd: FriendsEvents.FriendsGetFeeds })
+  async getFeeds() {
+    return await this.friendsService.getFeeds();
+  }
+
   @MessagePattern({ cmd: FriendsEvents.FriendUpdateByMasterOrToken })
   async updateFriend(input: {
     id: string;

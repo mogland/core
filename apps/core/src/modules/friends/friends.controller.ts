@@ -132,4 +132,14 @@ export class FriendsController {
       id,
     );
   }
+
+  @Get('/feeds/contents')
+  @ApiOperation({ summary: '获取所有友链的 Feed 内容' })
+  async getFeedContents() {
+    return transportReqToMicroservice(
+      this.friends,
+      FriendsEvents.FriendsGetFeeds,
+      {},
+    );
+  }
 }

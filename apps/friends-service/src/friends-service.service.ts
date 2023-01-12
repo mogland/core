@@ -145,6 +145,7 @@ export class FriendsService {
     });
     input.data.token = this.generateToken();
     const friend = await this.friendsModel.create(input.data);
+    console.log(input.data);
     nextTick(async () => {
       friend.autoCheck = await this.autoCheck(input.data.link);
       await friend.save();
@@ -323,11 +324,41 @@ export class FriendsService {
           .get(friend.feed)
           .then((res) => res.data);
         const feed = FeedParser(xml, friend.feedType);
-        await this.friendsModel.findByIdAndUpdate(friend._id, {
-          feedContent: feed,
-        });
+        if (!feed) {
+          Logger.warn(
+            `${friend.name} feed 解析失败，跳过解析`,
+            FriendsService.name,
+          );
+        }
+        friend.feedContents = feed;
+        await friend.save();
         Logger.log(`解析 ${friend.name} 订阅成功`, FriendsService.name);
       }
+    });
+  }
+
+  /**
+   * FriendsGetFeeds 按照时间排序把好友的 feedContent 拼接起来
+   */
+  async getFeeds() {
+    const friends = await this.friendsModel.find();
+    const feeds: string[] = [];
+    for (const friend of friends) {
+      if (friend.feedContents && friend.feedContents.length > 0) {
+        feeds.push(
+          ...JSON.parse(friend.feedContents).items.map((item: any) => {
+            item.author = friend.name;
+            return item;
+          }),
+        );
+      }
+    }
+    return feeds.sort((a, b) => {
+      // @ts-ignore
+      return (
+        new Date(b.publishedDate).getTime() -
+        new Date(a.publishedDate).getTime()
+      );
     });
   }
 }
