@@ -56,6 +56,13 @@ export class UserController {
     });
   }
 
+  @Get('check')
+  @ApiOperation({ summary: '检查 Token 是否有效' })
+  @Auth()
+  checkToken() {
+    return true;
+  }
+
   @Get('/master/info')
   @ApiOperation({ summary: '获取主人信息' })
   async getMaster() {
