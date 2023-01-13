@@ -18,7 +18,7 @@ export enum UserEvents {
   UserGet = 'user.get',
   UserGetMaster = 'user.get.master',
   UserGetAllSession = 'user.get.session.all',
-  Ping = 'ping',
+  Ping = 'user.ping',
 }
 
 export enum PostEvents {
@@ -40,7 +40,7 @@ export enum CategoryEvents {
   CategoryPatch = 'category.patch',
   CategoryDelete = 'category.delete',
   CategoryMerge = 'category.merge',
-  Ping = 'ping',
+  Ping = 'category.ping',
 }
 
 export enum PageEvents {
@@ -51,7 +51,7 @@ export enum PageEvents {
   PageCreate = 'page.create',
   PagePatch = 'page.patch',
   PageDelete = 'page.delete',
-  Ping = 'ping',
+  Ping = 'page.ping',
 }
 
 export enum CommentsEvents {
@@ -70,7 +70,7 @@ export enum CommentsEvents {
 
   CommentAddRecaction = 'comment.add.reaction',
   CommentRemoveRecaction = 'comment.remove.reaction',
-  Ping = 'ping',
+  Ping = 'comments.ping',
 }
 
 export enum FriendsEvents {
@@ -90,7 +90,7 @@ export enum FriendsEvents {
   FriendAnalyseAutoCheck = 'friend.analyse.autoCheck',
 
   FriendsGetFeeds = 'friends.get.feeds',
-  Ping = 'ping',
+  Ping = 'friends.ping',
 }
 
 export enum NotificationEvents {
@@ -110,5 +110,5 @@ export enum NotificationEvents {
   SystemPageCreate = 'system.page.create',
   SystemPageUpdate = 'system.page.update',
 
-  Ping = 'ping',
+  Ping = 'notification.ping',
 }
