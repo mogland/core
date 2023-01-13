@@ -44,7 +44,7 @@ export enum CategoryEvents {
 }
 
 export enum PageEvents {
-  PageGet = 'page.get',
+  PageGet = 'page.get.slug',
   PageGetAll = 'page.get.all',
   PagesGetAll = 'sudo.pages.get.all',
   PageGetByIdWithMaster = 'page.get.byid.auth',

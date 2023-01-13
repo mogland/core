@@ -190,6 +190,12 @@ export class PageServiceController {
     );
   }
 
+  @MessagePattern({ cmd: PageEvents.PageGetByIdWithMaster })
+  @ApiOperation({ summary: '通过 id 获取页面' })
+  async getPageByID(id: string) {
+    return this.pageService.getPageById(id);
+  }
+
   @MessagePattern({ cmd: PageEvents.PageCreate })
   @ApiOperation({ summary: '创建页面' })
   async createPage(page: PageModel) {
