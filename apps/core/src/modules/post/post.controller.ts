@@ -85,10 +85,10 @@ export class PostController {
   @Patch('/:id')
   @Auth()
   @ApiOperation({ summary: '更新文章' })
-  async update(@Param() params: MongoIdDto, @Body() body: PostModel) {
+  async update(@Param('id') id: string, @Body() body: PostModel) {
     return transportReqToMicroservice(this.post, PostEvents.PostPatch, {
-      id: params.id,
-      body,
+      id,
+      post: body,
     });
   }
 
