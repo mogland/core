@@ -32,6 +32,20 @@ export class PageServiceController {
     private readonly categoryService: CategoryService,
   ) {}
 
+  // ==================== Ping ====================
+  @MessagePattern({ cmd: PageEvents.Ping })
+  pingPage() {
+    return 'pong';
+  }
+  @MessagePattern({ cmd: PostEvents.Ping })
+  pingPost() {
+    return 'pong';
+  }
+  @MessagePattern({ cmd: CategoryEvents.Ping })
+  pingCategory() {
+    return 'pong';
+  }
+
   // ==================== Category ====================
 
   @MessagePattern({ cmd: CategoryEvents.CategoryGetAll })

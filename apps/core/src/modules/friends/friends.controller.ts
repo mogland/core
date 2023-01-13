@@ -29,6 +29,12 @@ export class FriendsController {
     @Inject(ServicesEnum.friends) private readonly friends: ClientProxy,
   ) {}
 
+  @Get('/ping')
+  @ApiOperation({ summary: '检测服务是否在线' })
+  ping() {
+    return transportReqToMicroservice(this.friends, FriendsEvents.Ping, {});
+  }
+
   @Get('/')
   @ApiOperation({ summary: '获取所有友链(By group)' })
   async getAllFriends(@Query('group') group?: string | undefined) {

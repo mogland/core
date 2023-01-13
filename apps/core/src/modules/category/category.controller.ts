@@ -46,6 +46,12 @@ export class CategoryController {
     @Inject(ServicesEnum.category) private readonly category: ClientProxy,
   ) {}
 
+  @Get('/ping')
+  @ApiOperation({ summary: '检测服务是否在线' })
+  ping() {
+    return transportReqToMicroservice(this.category, CategoryEvents.Ping, {});
+  }
+
   @Get('/')
   @ApiOperation({ summary: '多分类查询、分类列表' })
   async getCategories(@Query() query: MultiCategoriesQueryDto) {

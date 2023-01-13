@@ -36,6 +36,12 @@ import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 export class PageController {
   constructor(@Inject(ServicesEnum.page) private readonly page: ClientProxy) {}
 
+  @Get('/ping')
+  @ApiOperation({ summary: '检测服务是否在线' })
+  ping() {
+    return transportReqToMicroservice(this.page, PageEvents.Ping, {});
+  }
+
   @Get('/')
   @Paginator
   @ApiOperation({ summary: '获取页面列表' })

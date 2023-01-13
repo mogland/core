@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { EventPattern } from '@nestjs/microservices';
+import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { CommentsModel } from '~/apps/comments-service/src/comments.model';
 import {
   FriendsModel,
@@ -18,6 +18,11 @@ import { NotificationService } from './notification-service.service';
 @Controller()
 export class NotificationServiceController {
   constructor(private readonly notificationService: NotificationService) {}
+
+  @MessagePattern({ cmd: NotificationEvents.Ping })
+  ping() {
+    return 'pong';
+  }
 
   @EventPattern(NotificationEvents.SystemUserLogin)
   async userLogin(input: { dto: LoginDto; ipLocation: IpRecord }) {

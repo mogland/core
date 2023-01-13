@@ -1,9 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
-import {
-  UserEvents,
-} from '~/shared/constants/event.constant';
+import { UserEvents } from '~/shared/constants/event.constant';
 import { UserService } from './user-service.service';
 import { LoginDto, UserDto, UserPatchDto } from './user.dto';
 import { UserDocument, UserModel } from './user.model';
@@ -11,6 +9,11 @@ import { UserDocument, UserModel } from './user.model';
 @Controller()
 export class UserServiceController {
   constructor(private readonly userService: UserService) {}
+
+  @MessagePattern({ cmd: UserEvents.Ping })
+  ping() {
+    return 'pong';
+  }
 
   @MessagePattern({ cmd: UserEvents.UserGet })
   handleUserGet(data: { username: string; getLoginIp: boolean }) {

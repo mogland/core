@@ -8,6 +8,11 @@ import { FriendsModel, FriendStatus } from './friends.model';
 export class FriendsServiceController {
   constructor(private readonly friendsService: FriendsService) {}
 
+  @MessagePattern({ cmd: FriendsEvents.Ping })
+  ping() {
+    return 'pong';
+  }
+
   @MessagePattern({ cmd: FriendsEvents.FriendsGetList })
   @MessagePattern({ cmd: FriendsEvents.FriendsGetAll })
   async getFriendsList(group: string | undefined | Object) {

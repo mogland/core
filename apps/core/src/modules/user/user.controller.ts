@@ -44,6 +44,12 @@ import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 export class UserController {
   constructor(@Inject(ServicesEnum.user) private readonly user: ClientProxy) {}
 
+  @Get('/ping')
+  @ApiOperation({ summary: '检测服务是否在线' })
+  ping() {
+    return transportReqToMicroservice(this.user, UserEvents.Ping, {});
+  }
+
   @Get('info')
   @ApiOperation({ summary: '获取用户信息' })
   getUser(

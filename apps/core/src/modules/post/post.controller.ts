@@ -38,6 +38,12 @@ import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 export class PostController {
   constructor(@Inject(ServicesEnum.post) private readonly post: ClientProxy) {}
 
+  @Get('/ping')
+  @ApiOperation({ summary: '检测服务是否在线' })
+  ping() {
+    return transportReqToMicroservice(this.post, PostEvents.Ping, {});
+  }
+
   @Get('/')
   @Paginator
   @ApiOperation({ summary: '获取文章列表(附带分页器)' })

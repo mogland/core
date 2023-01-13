@@ -31,6 +31,12 @@ export class CommentsController {
     @Inject(ServicesEnum.comments) private readonly comments: ClientProxy,
   ) {}
 
+  @Get('/ping')
+  @ApiOperation({ summary: '检测服务是否在线' })
+  ping() {
+    return transportReqToMicroservice(this.comments, CommentsEvents.Ping, {});
+  }
+
   @Get('/')
   @ApiOperation({ summary: '获取评论列表' })
   async getRecentlyComments(

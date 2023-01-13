@@ -14,6 +14,11 @@ import {
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
+  @MessagePattern({ cmd: CommentsEvents.Ping })
+  ping() {
+    return 'pong';
+  }
+
   @MessagePattern({ cmd: CommentsEvents.CommentsGetAll })
   async getAllComments() {
     return await this.commentsService.model.find().sort({ createdAt: -1 });
