@@ -62,7 +62,7 @@ export class PageController {
     return transportReqToMicroservice(this.page, PageEvents.PageGet, slug);
   }
 
-  @Post('/create')
+  @Post('/')
   @ApiOperation({ summary: '创建页面' })
   @Auth()
   async create(@Body() body: PageModel) {
