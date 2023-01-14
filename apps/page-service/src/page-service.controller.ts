@@ -15,9 +15,7 @@ import { PostService } from './post-service.service';
 import { PageService } from './page-service.service';
 import { PageModel, PartialPageModel } from './model/page.model';
 import { MongoIdDto } from '~/shared/dto/id.dto';
-import {
-  MultiCategoriesQueryDto,
-} from './dto/category.dto';
+import { MultiCategoriesQueryDto } from './dto/category.dto';
 import { isValidObjectId } from 'mongoose';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { CategoryModel, CategoryType } from './model/category.model';
@@ -142,10 +140,9 @@ export class PageServiceController {
 
   @MessagePattern({ cmd: CategoryEvents.CategoryPatch })
   @ApiOperation({ summary: '更新分类' })
-  async update(_: { _id: MongoIdDto; _data: CategoryModel }) {
-    const id = _._id.id;
-    const { type, name, slug } = _._data;
-    return this.categoryService.updateCategory(id, { type, name, slug });
+  async update(_: { _id: string; _data: CategoryModel }) {
+    const id = _._id;
+    return this.categoryService.updateCategory(id, _._data);
   }
 
   @MessagePattern({ cmd: CategoryEvents.CategoryDelete })
