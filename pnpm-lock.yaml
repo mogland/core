@@ -42,7 +42,7 @@ specifiers:
   class-transformer: 0.5.1
   class-validator: 0.14.0
   class-validator-jsonschema: 4.0.0
-  commander: ^9.4.1
+  commander: ^10.0.0
   commitizen: 4.2.6
   concurrently: 7.6.0
   consola: 2.15.3
@@ -108,7 +108,7 @@ dependencies:
   class-transformer: 0.5.1
   class-validator: 0.14.0
   class-validator-jsonschema: 4.0.0_p4ywi7fdcrugq6nsanv77hac4q
-  commander: 9.4.1
+  commander: 10.0.0
   consola: 2.15.3
   cron: 2.2.0
   dayjs: 1.11.7
@@ -3487,6 +3487,11 @@ packages:
     dependencies:
       delayed-stream: 1.0.0
 
+  /commander/10.0.0:
+    resolution: {integrity: sha512-zS5PnTI22FIRM6ylNW8G4Ap0IEOyk62fhLSD0+uHRT9McRCLGpkVNvao4bjimpK/GShynyQkFFxHhwMcETmduA==}
+    engines: {node: '>=14'}
+    dev: false
+
   /commander/2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
     dev: true
@@ -3499,6 +3504,7 @@ packages:
   /commander/9.4.1:
     resolution: {integrity: sha512-5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==}
     engines: {node: ^12.20.0 || >=14}
+    dev: true
 
   /commitizen/4.2.6:
     resolution: {integrity: sha512-RyTM+EiD9GO01DJUn9MRRAet3XUHGfoUZoksLfr+1ym1Xt2q5EYJs9Fg2BtKSb5Mo53i0BtMBmWMHQXVlZ/L9w==}
