@@ -206,6 +206,10 @@ export class CategoryService {
     const posts = await this.postService.model.find({ tags: from }); // 查找所有包含 from 标签的文章
     for (const post of posts) {
       const tags = post.tags?.filter((tag) => tag !== from); // 删除 from 标签
+      if (tags?.includes(to)) {
+        await post.updateOne({ tags });
+        continue;
+      } // 如果 tags 中已经包含 to 标签, 则跳过
       tags?.push(to); // 将 to 标签添加到 tags 数组中
       await post.updateOne({ tags }); // 更新文章的 tags 字段
     }
