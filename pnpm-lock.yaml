@@ -70,7 +70,7 @@ specifiers:
   node-machine-id: 1.1.12
   prettier: 2.8.2
   reflect-metadata: 0.1.13
-  rimraf: 3.0.2
+  rimraf: 4.0.4
   rxjs: 7.8.0
   slugify: 1.6.5
   snakecase-keys: 5.4.4
@@ -124,7 +124,7 @@ dependencies:
   nanoid: 3.3.3
   node-machine-id: 1.1.12
   reflect-metadata: 0.1.13
-  rimraf: 3.0.2
+  rimraf: 4.0.4
   rxjs: 7.8.0
   slugify: 1.6.5
   snakecase-keys: 5.4.4
@@ -7007,6 +7007,12 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
+
+  /rimraf/4.0.4:
+    resolution: {integrity: sha512-R0hoVr9xTwemarQjoWlNt/nb5dEGVTBhVdkRmEX2zEkT8T6onH0XKiGjuaC7rNNj/gYzY2p4NVRJ3sjO1ascHQ==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: false
 
   /run-async/2.4.1:
     resolution: {integrity: sha512-tvVnVv01b8c1RrA6Ep7JkStj85Guv/YrMcwqYQnwjsAS2cTmmPGBBjAjpCW7RrSodNSoE2/qg9O4bceNvUuDgQ==}
