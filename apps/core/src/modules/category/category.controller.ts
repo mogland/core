@@ -86,7 +86,7 @@ export class CategoryController {
     return transportReqToMicroservice(
       this.category,
       CategoryEvents.CategoryGet,
-      { query, tag },
+      { _query: query, _tag: tag },
     );
   }
 

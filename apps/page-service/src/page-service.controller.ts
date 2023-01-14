@@ -17,8 +17,6 @@ import { PageModel, PartialPageModel } from './model/page.model';
 import { MongoIdDto } from '~/shared/dto/id.dto';
 import {
   MultiCategoriesQueryDto,
-  MultiQueryTagAndCategoryDto,
-  SlugorIdDto,
 } from './dto/category.dto';
 import { isValidObjectId } from 'mongoose';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
@@ -70,11 +68,11 @@ export class PageServiceController {
     required: false, // 是否必填
   })
   async getCategoryByCategoryIdOrTag(input: {
-    _query: SlugorIdDto;
-    _tag: MultiQueryTagAndCategoryDto; // 如果这个是标签，则tag为true，如果是分类，则tag为分类id
+    _query: string;
+    _tag: boolean; // 如果这个是标签，则tag为true，如果是分类，则tag为分类id
   }) {
-    const query = input._query.query;
-    const tag = input._tag.tag;
+    const query = input._query;
+    const tag = input._tag;
     // 判断必要Query参数是否存在
     if (!query) {
       // 如果没有query 禁止通行
