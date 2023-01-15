@@ -99,7 +99,7 @@ export class FriendsController {
   @ApiOperation({ summary: '更新友链' })
   async updateFriendStatus(
     @Param('id') id: string,
-    @Query('status') status: FriendStatus,
+    @Body('status') status: FriendStatus,
   ) {
     return transportReqToMicroservice(
       this.friends,

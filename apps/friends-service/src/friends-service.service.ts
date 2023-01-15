@@ -304,9 +304,12 @@ export class FriendsService {
     }
     this.notification.emit(NotificationEvents.SystemFriendPatchStatus, {
       data: friend,
-      status,
+      status: status ? status : FriendStatus.Approved,
     });
-    return this.friendsModel.updateOne({ _id: id }, { status });
+    return this.friendsModel.updateOne(
+      { _id: id },
+      { status: status ? status : FriendStatus.Approved },
+    );
   }
 
   /**
