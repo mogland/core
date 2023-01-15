@@ -29,6 +29,7 @@ export class FriendsModel extends BaseModel {
 
   @prop({ required: true })
   @IsString()
+  @IsUrl()
   @ApiProperty({ required: true, description: '友链地址' })
   link: string;
 
@@ -37,6 +38,12 @@ export class FriendsModel extends BaseModel {
   @IsOptional()
   @ApiProperty({ required: false, description: '友链描述' })
   desc?: string;
+
+  @prop({ required: false })
+  @IsString()
+  @IsUrl()
+  @ApiProperty({ required: false, description: '友链圖標' })
+  logo?: string;
 
   @prop()
   @IsString()
