@@ -278,11 +278,17 @@ export class FriendsService {
     const isAlive = await this.checkAlive(friend.link);
     if (!isAlive) {
       await this.friendsModel.findByIdAndUpdate(id, { autoCheck: false });
+      Logger.warn(
+        `${friend.name} 互链检测: 未通过 & 无法访问`,
+        FriendsService.name,
+      );
+      return isAlive;
     }
     const isAutoCheck = await this.autoCheck(friend.verifyLink);
     if (!isAutoCheck) {
       await this.friendsModel.findByIdAndUpdate(id, { autoCheck: false });
       Logger.warn(`${friend.name} 互链检测: 未通过`, FriendsService.name);
+      return isAutoCheck;
     }
     await this.friendsModel.findByIdAndUpdate(id, { autoCheck: true });
     return isAutoCheck;
