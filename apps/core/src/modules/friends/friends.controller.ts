@@ -49,7 +49,7 @@ export class FriendsController {
   @Get('/all')
   @ApiOperation({ summary: '获取所有友链(Master)' })
   @Auth()
-  async getAllFriendsMaster(@Query('status') status: FriendStatus) {
+  async getAllFriendsMaster(@Query('status') status?: FriendStatus) {
     return transportReqToMicroservice(
       this.friends,
       FriendsEvents.FriendsGetAllByMaster,
@@ -110,11 +110,12 @@ export class FriendsController {
 
   @Get('/alive')
   @ApiOperation({ summary: '检查友链是否存活' })
-  async checkAliver() {
+  async checkAliver(@Query('status') status?: FriendStatus) {
     return transportReqToMicroservice(
       this.friends,
       FriendsEvents.FriendsCheckAlive,
-      {},
+      status,
+      50000,
     );
   }
 

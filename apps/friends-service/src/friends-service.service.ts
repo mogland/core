@@ -110,7 +110,7 @@ export class FriendsService {
    */
   async getAllByMaster(status?: FriendStatus) {
     return this.friendsModel.find({
-      status: status || status === 0 ? status : undefined,
+      status: status || status === 0 ? status : FriendStatus.Approved,
     });
   }
 
@@ -249,8 +249,10 @@ export class FriendsService {
   /**
    * friend.check.alive
    */
-  async checkAliver() {
-    const friends = await this.friendsModel.find();
+  async checkAliver(status?: FriendStatus) {
+    const friends = await this.friendsModel.find({
+      status: status || status === 0 ? status : FriendStatus.Approved,
+    });
     const result: {
       id: string;
       isAlive: boolean;

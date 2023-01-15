@@ -5,8 +5,8 @@ import { BaseModel } from '~/shared/model/base.model';
 import { RssParserType } from '~/shared/utils';
 
 export enum FriendStatus {
-  Pending = 0, // 待审核
-  Approved = 1, // 已通过
+  Approved = 0, // 已通过
+  Pending = 1, // 待审核
   Spam = 2, // 垃圾友链
   Trash = 3, // 回收站友链
 }
