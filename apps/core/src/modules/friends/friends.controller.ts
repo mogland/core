@@ -140,7 +140,7 @@ export class FriendsController {
       this.friends,
       FriendsEvents.FriendsAnalyseFeed,
       {},
-      10000,
+      50000,
     );
   }
 
@@ -151,6 +151,7 @@ export class FriendsController {
       this.friends,
       FriendsEvents.FriendAnalyseAutoCheck,
       id,
+      50000,
     );
   }
 
