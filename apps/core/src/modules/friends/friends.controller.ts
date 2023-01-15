@@ -5,6 +5,7 @@ import {
   Get,
   Inject,
   Param,
+  Patch,
   Post,
   Put,
   Query,
@@ -91,6 +92,19 @@ export class FriendsController {
       this.friends,
       FriendsEvents.FriendUpdateByMasterOrToken,
       { id, data: friend, isMaster, token: friend.token },
+    );
+  }
+
+  @Patch('/status/:id')
+  @ApiOperation({ summary: '更新友链' })
+  async updateFriendStatus(
+    @Param('id') id: string,
+    @Query('status') status: FriendStatus,
+  ) {
+    return transportReqToMicroservice(
+      this.friends,
+      FriendsEvents.FriendPatchStatusByMaster,
+      { id, status },
     );
   }
 
