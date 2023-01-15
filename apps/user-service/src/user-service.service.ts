@@ -11,7 +11,7 @@ import { ServicesEnum } from '~/shared/constants/services.constant';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { getAvatar } from '~/shared/utils';
 import { LoginDto } from './user.dto';
-import { UserDocument, UserModel, UserRole } from './user.model';
+import { UserModel, UserRole } from './user.model';
 
 @Injectable()
 export class UserService {
@@ -161,13 +161,13 @@ export class UserService {
    * @param user 用户信息
    * @param data 更新的数据
    */
-  async patchUserData(user: UserDocument, data: Partial<UserModel>) {
+  async patchUserData(data: Partial<UserModel>) {
     const { password } = data;
     const doc = { ...data };
     if (password !== undefined) {
-      const { _id } = user;
+      const { id } = data;
       const currentUser = await this.userModel
-        .findById(_id)
+        .findById(id)
         .select('+password +apiToken');
 
       if (!currentUser) {
@@ -193,7 +193,7 @@ export class UserService {
       await this.signoutAll();
     }
     return await this.userModel
-      .updateOne({ _id: user._id }, doc)
+      .updateOne({ _id: data.id }, doc)
       .setOptions({ omitUndefined: true });
   }
 

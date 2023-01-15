@@ -3,8 +3,8 @@ import { MessagePattern } from '@nestjs/microservices';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { UserEvents } from '~/shared/constants/event.constant';
 import { UserService } from './user-service.service';
-import { LoginDto, UserDto, UserPatchDto } from './user.dto';
-import { UserDocument, UserModel } from './user.model';
+import { LoginDto, UserDto } from './user.dto';
+import { UserModel } from './user.model';
 
 @Controller()
 export class UserServiceController {
@@ -35,8 +35,8 @@ export class UserServiceController {
   }
 
   @MessagePattern({ cmd: UserEvents.UserPatch })
-  async handleUserPatch(input: { user: UserDocument; data: UserPatchDto }) {
-    return await this.userService.patchUserData(input.user, input.data);
+  async handleUserPatch(data: Partial<UserModel>) {
+    return await this.userService.patchUserData(data);
   }
 
   @MessagePattern({ cmd: UserEvents.UserLogin })

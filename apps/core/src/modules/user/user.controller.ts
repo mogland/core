@@ -15,8 +15,8 @@ import {
   HttpCode,
   Inject,
   Param,
-  Patch,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
@@ -24,17 +24,13 @@ import { ApiOperation } from '@nestjs/swagger';
 import {
   LoginDto,
   UserDto,
-  UserPatchDto,
 } from '~/apps/user-service/src/user.dto';
-import { UserDocument } from '~/apps/user-service/src/user.model';
+import { UserModel } from '~/apps/user-service/src/user.model';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { HttpCache } from '~/shared/common/decorator/cache.decorator';
 import { IpLocation, IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
-import {
-  RequestUser,
-  RequestUserToken,
-} from '~/shared/common/decorator/request-user.decorator';
+import { RequestUserToken } from '~/shared/common/decorator/request-user.decorator';
 import { UserEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
@@ -82,14 +78,11 @@ export class UserController {
     return transportReqToMicroservice(this.user, UserEvents.UserRegister, user);
   }
 
-  @Patch('/info')
+  @Put('/info')
   @HttpCache.disable
   @ApiOperation({ summary: '修改用户信息' })
-  patch(@RequestUser() user: UserDocument, data: UserPatchDto) {
-    return transportReqToMicroservice(this.user, UserEvents.UserPatch, {
-      user,
-      data,
-    });
+  patch(@Body() data: Partial<UserModel>) {
+    return transportReqToMicroservice(this.user, UserEvents.UserPatch, data);
   }
 
   @Post('/login')
