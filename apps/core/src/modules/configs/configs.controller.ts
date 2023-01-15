@@ -8,13 +8,15 @@ import { ApiName } from '~/shared/common/decorator/openapi.decorator';
 @Controller('configs')
 @ApiName
 export class ConfigsController {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {
+    configService.initConfig();
+  }
 
   @Get('/')
   @Auth()
   @ApiOperation({ summary: '获取所有配置' })
   async getConfigs() {
-    return await this.configService.getAllConfigs();
+    return await this.configService.getConfig();
   }
 
   @Get('/:key')

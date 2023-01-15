@@ -6,4 +6,4 @@ import { ConfigsController } from './configs.controller';
   imports: [ConfigModule],
   controllers: [ConfigsController],
 })
-export class FriendsModule {}
+export class ConfigPublicModule {}

@@ -21,6 +21,7 @@ import { FriendsModule } from './modules/friends/friends.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { REDIS } from './app.config';
+import { ConfigPublicModule } from './modules/configs/configs.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { REDIS } from './app.config';
     AggregateModule,
     CommentsModule,
     FriendsModule,
+    ConfigPublicModule,
     ClientsModule.register([
       {
         name: ServicesEnum.notification,
