@@ -10,12 +10,13 @@
 import {
   IsArray,
   IsBoolean,
+  IsEmail,
   IsNotEmpty,
   IsOptional,
   IsString,
 } from 'class-validator';
 
-export class SEODto {
+export class SeoDto {
   @IsString()
   @IsNotEmpty()
   title: string;
@@ -70,7 +71,7 @@ export class EmailDto {
   @IsNotEmpty()
   port: string;
 
-  @IsString()
+  @IsEmail()
   @IsNotEmpty()
   user: string;
 
