@@ -202,4 +202,14 @@ export class ConfigService {
     const config = await this.configModel.find().lean();
     return config;
   }
+
+  /**
+   * 删除配置（即恢复默认配置）
+   */
+  async deleteConfig(key: keyof ConfigsInterface) {
+    const config = await this.configModel.findOne({ name: key });
+    config!.value = this.defaultConfig()[key];
+    await config!.save();
+    return config;
+  }
 }
