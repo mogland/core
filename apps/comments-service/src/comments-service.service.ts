@@ -90,6 +90,7 @@ export class CommentsService {
 
   async updateComment(id: string, data: CommentsModel) {
     delete data.commentsIndex; // 评论索引不允许修改
+    data.status ??= CommentStatus.Pending; // 评论状态默认为待审核
     return this.CommentsModel.updateOne({ _id: id }, { $set: data });
   }
 
