@@ -45,13 +45,23 @@ export class UserServiceController {
   }
 
   @MessagePattern({ cmd: UserEvents.UserLogout })
-  handleUserLogout(token: string) {
-    return this.userService.signout(token);
+  async handleUserLogout(token: string) {
+    try {
+      await this.userService.signout(token);
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   @MessagePattern({ cmd: UserEvents.UserLogoutAll })
-  handleUserLogoutAll() {
-    return this.userService.signoutAll();
+  async handleUserLogoutAll() {
+    try {
+      await this.userService.signoutAll();
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   @MessagePattern({ cmd: UserEvents.UserGetAllSession })
