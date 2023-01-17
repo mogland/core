@@ -40,7 +40,6 @@ export class CommentsService {
       {
         page, // 当前页
         limit: size, // 每页显示条数
-        select: '-children', // 查询字段
         sort: { created: -1 }, // 排序
         populate: [
           // 关联查询
@@ -156,6 +155,7 @@ export class CommentsService {
     const comment = await this.CommentsModel.create({
       ...data,
       key,
+      parent: parentComment._id,
     });
     await parentComment.updateOne({
       $push: {
