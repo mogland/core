@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://avatars.githubusercontent.com/u/106414194?s=200&v=4" height="128">
+  <img src="https://avatars.githubusercontent.com/u/106414194" height="128">
   <h1 align="center">Mog 🏝 /mɑːɡ/ </h1>
   <p align="center"><b align="center">A flexible, modular microservice Blog System. Open source. Free forever.</b></p>
 </p>
@@ -9,9 +9,6 @@
     <img alt="" src="https://img.shields.io/github/issues/mogland/core/need-discuss?color=%237c7fff&style=for-the-badge">
   </a>
   <img src="https://img.shields.io/github/package-json/v/mogland/core?style=for-the-badge" referrerpolicy="no-referrer" alt="version">
-  <a href="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95">
-    <img src="https://wakatime.com/badge/user/5c293fcd-9bec-4609-946b-c06b5fbf192c/project/a948796d-4bc0-4fd1-8f47-03f1dc168c95.svg?style=for-the-badge" alt="wakatime">
-</a>
 
  </p>
 
