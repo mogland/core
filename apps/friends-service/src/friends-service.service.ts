@@ -122,7 +122,7 @@ export class FriendsService {
       input.data.status = FriendStatus.Pending;
     }
     // 分析数据是否与现有友链重复
-    await Promise.all([
+    const checker = await Promise.all([
       this.friendsModel.findOne({
         name: input.data.name,
       }),
@@ -135,14 +135,36 @@ export class FriendsService {
       this.friendsModel.findOne({
         verifyLink: input.data.verifyLink,
       }),
+      this.friendsModel.findOne({
+        nickname: input.data.nickname,
+      }),
     ]).then((res) => {
-      if (res.some((item) => !!item)) {
+      if (
+        res.some((item) => !!item) &&
+        res.some(
+          (item) =>
+            item?.status !== FriendStatus.Approved &&
+            item?.status !== FriendStatus.Pending &&
+            item?.status !== FriendStatus.Trash,
+        )
+      ) {
         throw new RpcException({
           code: HttpStatus.BAD_REQUEST,
           message: ExceptionMessage.FriendLinkIsExist,
         });
       }
+      if (res.some((item) => item?.status === FriendStatus.Trash)) {
+        const friend = res.find((item) => item?.status === FriendStatus.Trash);
+        if (friend) {
+          friend.status = FriendStatus.Pending;
+          friend.save();
+          return friend;
+        }
+      }
     });
+    if (checker) {
+      return checker;
+    }
     input.data.token = this.generateToken();
     const friend = await this.friendsModel.create(input.data);
     console.log(input.data);
