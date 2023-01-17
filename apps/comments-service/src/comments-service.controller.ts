@@ -14,6 +14,11 @@ import {
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
+  @MessagePattern({ cmd: CommentsEvents.Ping })
+  ping() {
+    return 'pong';
+  }
+
   @MessagePattern({ cmd: CommentsEvents.CommentsGetAll })
   async getAllComments() {
     return await this.commentsService.model.find().sort({ createdAt: -1 });
@@ -45,7 +50,7 @@ export class CommentsController {
     if (!input.master) {
       input.data.status = CommentStatus.Pending;
     }
-    return await this.commentsService.createComment(input.data);
+    return await this.commentsService.createComment(input.data, input.master);
   }
 
   @MessagePattern({ cmd: CommentsEvents.CommentReply })
@@ -57,7 +62,11 @@ export class CommentsController {
     if (!input.master) {
       input.data.status = CommentStatus.Pending;
     }
-    return await this.commentsService.replyComment(input.id, input.data);
+    return await this.commentsService.replyComment(
+      input.id,
+      input.data,
+      input.master,
+    );
   }
 
   @MessagePattern({ cmd: CommentsEvents.CommentDeleteByMaster })

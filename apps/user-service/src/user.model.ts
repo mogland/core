@@ -110,7 +110,7 @@ export class UserModel extends BaseModel {
   // @ApiProperty({ description: 'OAUTH 授权' })
   // oauth2?: OAuthModel[];
 
-  @prop({ enum: UserRole, default: UserRole.visitor })
-  @ApiProperty({ description: '用户角色' })
-  role?: UserRole;
+  // @prop({ enum: UserRole, default: UserRole.visitor })
+  // @ApiProperty({ description: '用户角色' })
+  // role?: UserRole;
 }

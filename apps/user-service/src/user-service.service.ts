@@ -1,15 +1,17 @@
-import { HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { RpcException } from '@nestjs/microservices';
+import { HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { compareSync } from 'bcrypt';
 // import { nanoid } from 'nanoid';
 import { AuthService } from '~/libs/auth/src';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
+import { NotificationEvents } from '~/shared/constants/event.constant';
+import { ServicesEnum } from '~/shared/constants/services.constant';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { getAvatar } from '~/shared/utils';
 import { LoginDto } from './user.dto';
-import { UserDocument, UserModel, UserRole } from './user.model';
+import { UserModel, UserRole } from './user.model';
 
 @Injectable()
 export class UserService {
@@ -20,6 +22,9 @@ export class UserService {
     private readonly userModel: ReturnModelType<typeof UserModel>,
 
     private readonly authService: AuthService,
+
+    @Inject(ServicesEnum.notification)
+    private readonly notification: ClientProxy,
   ) {}
   public get model() {
     return this.userModel;
@@ -104,6 +109,10 @@ export class UserService {
       ip: ipLocation.ip,
       ua: ipLocation.agent,
     });
+    this.notification.emit(NotificationEvents.SystemUserLogin, {
+      dto,
+      ipLocation,
+    });
     return {
       token,
       ...footstep,
@@ -152,13 +161,13 @@ export class UserService {
    * @param user 用户信息
    * @param data 更新的数据
    */
-  async patchUserData(user: UserDocument, data: Partial<UserModel>) {
+  async patchUserData(data: Partial<UserModel>) {
     const { password } = data;
     const doc = { ...data };
     if (password !== undefined) {
-      const { _id } = user;
+      const { id } = data;
       const currentUser = await this.userModel
-        .findById(_id)
+        .findById(id)
         .select('+password +apiToken');
 
       if (!currentUser) {
@@ -184,7 +193,7 @@ export class UserService {
       await this.signoutAll();
     }
     return await this.userModel
-      .updateOne({ _id: user._id }, doc)
+      .updateOne({ _id: data.id }, doc)
       .setOptions({ omitUndefined: true });
   }
 

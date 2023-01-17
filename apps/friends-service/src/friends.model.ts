@@ -5,8 +5,8 @@ import { BaseModel } from '~/shared/model/base.model';
 import { RssParserType } from '~/shared/utils';
 
 export enum FriendStatus {
-  Pending = 0, // 待审核
-  Approved = 1, // 已通过
+  Approved = 0, // 已通过
+  Pending = 1, // 待审核
   Spam = 2, // 垃圾友链
   Trash = 3, // 回收站友链
 }
@@ -29,6 +29,7 @@ export class FriendsModel extends BaseModel {
 
   @prop({ required: true })
   @IsString()
+  @IsUrl()
   @ApiProperty({ required: true, description: '友链地址' })
   link: string;
 
@@ -37,6 +38,12 @@ export class FriendsModel extends BaseModel {
   @IsOptional()
   @ApiProperty({ required: false, description: '友链描述' })
   desc?: string;
+
+  @prop({ required: false })
+  @IsString()
+  @IsUrl()
+  @ApiProperty({ required: false, description: '友链圖標' })
+  logo?: string;
 
   @prop()
   @IsString()

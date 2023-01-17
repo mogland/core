@@ -18,6 +18,7 @@ export enum UserEvents {
   UserGet = 'user.get',
   UserGetMaster = 'user.get.master',
   UserGetAllSession = 'user.get.session.all',
+  Ping = 'user.ping',
 }
 
 export enum PostEvents {
@@ -29,6 +30,7 @@ export enum PostEvents {
   PostPatch = 'post.patch',
   PostDelete = 'post.delete',
   PostThumbUp = 'post.thumbup',
+  Ping = 'post.ping',
 }
 
 export enum CategoryEvents {
@@ -38,16 +40,18 @@ export enum CategoryEvents {
   CategoryPatch = 'category.patch',
   CategoryDelete = 'category.delete',
   CategoryMerge = 'category.merge',
+  Ping = 'category.ping',
 }
 
 export enum PageEvents {
-  PageGet = 'page.get',
+  PageGet = 'page.get.slug',
   PageGetAll = 'page.get.all',
   PagesGetAll = 'sudo.pages.get.all',
   PageGetByIdWithMaster = 'page.get.byid.auth',
   PageCreate = 'page.create',
   PagePatch = 'page.patch',
   PageDelete = 'page.delete',
+  Ping = 'page.ping',
 }
 
 export enum CommentsEvents {
@@ -66,6 +70,7 @@ export enum CommentsEvents {
 
   CommentAddRecaction = 'comment.add.reaction',
   CommentRemoveRecaction = 'comment.remove.reaction',
+  Ping = 'comments.ping',
 }
 
 export enum FriendsEvents {
@@ -79,8 +84,31 @@ export enum FriendsEvents {
   FriendGet = 'friend.get',
 
   FriendUpdateByMasterOrToken = 'friend.put.auth.token',
-
   FriendDeleteByMasterOrToken = 'friend.delete.auth.token',
 
+  FriendPatchStatusByMaster = 'friend.patch.status.auth',
   FriendAnalyseAutoCheck = 'friend.analyse.autoCheck',
+
+  FriendsGetFeeds = 'friends.get.feeds',
+  Ping = 'friends.ping',
+}
+
+export enum NotificationEvents {
+  SystemCatchError = 'system.catch.error',
+  SystemUserLogin = 'system.user.login',
+
+  SystemCommentCreate = 'system.comment.create',
+  SystemCommentReply = 'system.comment.reply',
+
+  SystemFriendCreate = 'system.friend.create',
+  SystemFriendPatchStatus = 'system.friend.patch.status',
+  SystemFriendUpdateByToken = 'system.friend.update.token',
+  SystemFriendDeleteByMasterOrToken = 'system.friend.delete.auth.token',
+
+  SystemPostCreate = 'system.post.create',
+  SystemPostUpdate = 'system.post.update',
+  SystemPageCreate = 'system.page.create',
+  SystemPageUpdate = 'system.page.update',
+
+  Ping = 'notification.ping',
 }

@@ -18,13 +18,19 @@ import {
   Post,
   Put,
   Query,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiOperation } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiQuery,
+} from '@nestjs/swagger';
+import { isValidObjectId } from 'mongoose';
 import { PageModel } from '~/apps/page-service/src/model/page.model';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { Paginator } from '~/shared/common/decorator/http.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
+import { IsMaster } from '~/shared/common/decorator/role.decorator';
 import { PageEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { MongoIdDto } from '~/shared/dto/id.dto';
@@ -36,6 +42,12 @@ import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 export class PageController {
   constructor(@Inject(ServicesEnum.page) private readonly page: ClientProxy) {}
 
+  @Get('/ping')
+  @ApiOperation({ summary: '检测服务是否在线' })
+  ping() {
+    return transportReqToMicroservice(this.page, PageEvents.Ping, {});
+  }
+
   @Get('/')
   @Paginator
   @ApiOperation({ summary: '获取页面列表' })
@@ -43,20 +55,30 @@ export class PageController {
     return transportReqToMicroservice(this.page, PageEvents.PageGetAll, query);
   }
 
-  @Get('/:id')
-  @ApiOperation({ summary: '通过id获取页面详情' })
-  @Auth()
-  async getPage(@Param('id') id: string) {
-    return transportReqToMicroservice(this.page, PageEvents.PageGet, id);
+  @Get('/:slug')
+  @ApiOperation({ summary: '使用slug / id获取页面详情' })
+  @ApiQuery({ name: 'password', required: false })
+  async getPageBySlugOrID(
+    @Param('slug') slug: string,
+    @IsMaster() isMaster: boolean,
+    @Query('password') password?: string,
+  ) {
+    if (isValidObjectId(slug)) {
+      if (!isMaster) throw new UnauthorizedException();
+      return transportReqToMicroservice(
+        this.page,
+        PageEvents.PageGetByIdWithMaster,
+        slug,
+      );
+    }
+    return transportReqToMicroservice(this.page, PageEvents.PageGet, {
+      slug,
+      password,
+      isMaster,
+    });
   }
 
-  @Get('/slug/:slug')
-  @ApiOperation({ summary: '使用slug获取页面详情' })
-  async getPageBySlug(@Param('slug') slug: string) {
-    return transportReqToMicroservice(this.page, PageEvents.PageGet, slug);
-  }
-
-  @Post('/create')
+  @Post('/')
   @ApiOperation({ summary: '创建页面' })
   @Auth()
   async create(@Body() body: PageModel) {

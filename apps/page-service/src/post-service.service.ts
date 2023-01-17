@@ -13,9 +13,11 @@ import { CategoryService } from './category.service';
 import { PostModel } from './model/post.model';
 import { isDefined } from 'class-validator';
 import { omit } from 'lodash';
-import { RpcException } from '@nestjs/microservices';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { ModelType } from '@typegoose/typegoose/lib/types';
+import { ServicesEnum } from '~/shared/constants/services.constant';
+import { NotificationEvents } from '~/shared/constants/event.constant';
 
 @Injectable()
 export class PostService {
@@ -26,6 +28,9 @@ export class PostService {
       AggregatePaginateModel<PostModel & Document>,
     @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
+
+    @Inject(ServicesEnum.notification)
+    private readonly notification: ClientProxy,
   ) {}
 
   get model() {
@@ -154,7 +159,25 @@ export class PostService {
    * @param slug 文章slug
    */
   async getPostBySlug(slug: string) {
-    return await this.model.findOne({ slug });
+    const model = await this.model.findOne({ slug });
+    if (!model) {
+      throw new RpcException({
+        code: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.PostIsNotExist,
+      });
+    }
+    return model;
+  }
+
+  async getPostByID(id: string) {
+    const model = await this.model.findById(id);
+    if (!model) {
+      throw new RpcException({
+        code: HttpStatus.NOT_FOUND,
+        message: ExceptionMessage.PostIsNotExist,
+      });
+    }
+    return model;
   }
 
   /**
@@ -246,6 +269,7 @@ export class PostService {
       created: new Date(),
       modified: null,
     });
+    this.notification.emit(NotificationEvents.SystemPostCreate, res);
     process.nextTick(async () => {
       await Promise.all([]);
     });
@@ -302,6 +326,7 @@ export class PostService {
     Object.assign(originDocument, omit(data, PostModel.protectedKeys));
     await originDocument.save();
 
+    this.notification.emit(NotificationEvents.SystemPostUpdate, originDocument);
     process.nextTick(async () => {
       await Promise.all([]);
     });

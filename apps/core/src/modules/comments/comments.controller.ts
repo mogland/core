@@ -31,6 +31,12 @@ export class CommentsController {
     @Inject(ServicesEnum.comments) private readonly comments: ClientProxy,
   ) {}
 
+  @Get('/ping')
+  @ApiOperation({ summary: '检测服务是否在线' })
+  ping() {
+    return transportReqToMicroservice(this.comments, CommentsEvents.Ping, {});
+  }
+
   @Get('/')
   @ApiOperation({ summary: '获取评论列表' })
   async getRecentlyComments(
@@ -84,10 +90,10 @@ export class CommentsController {
     );
   }
 
-  @Delete('/')
+  @Delete('/:id')
   @Auth()
   @ApiOperation({ summary: '删除评论' })
-  async deleteComment(@Query('id') id: string) {
+  async deleteComment(@Param('id') id: string) {
     return transportReqToMicroservice(
       this.comments,
       CommentsEvents.CommentDeleteByMaster,
@@ -106,12 +112,12 @@ export class CommentsController {
     );
   }
 
-  @Patch('/status')
+  @Patch('/:id')
   @Auth()
   @ApiOperation({ summary: '修改评论状态' })
   async updateCommentStatus(
-    @Body('id') id: string,
-    @Body('status') status: number,
+    @Param('id') id: string,
+    @Query('status') status: number,
   ) {
     return transportReqToMicroservice(
       this.comments,
@@ -120,10 +126,10 @@ export class CommentsController {
     );
   }
 
-  @Put('/')
+  @Put('/:id')
   @Auth()
   @ApiOperation({ summary: '修改评论' })
-  async updateComment(@Body('id') id: string, @Body() data: CommentsModel) {
+  async updateComment(@Param('id') id: string, @Body() data: CommentsModel) {
     return transportReqToMicroservice(
       this.comments,
       CommentsEvents.CommentPatchByMaster,

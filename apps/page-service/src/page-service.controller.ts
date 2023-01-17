@@ -15,11 +15,7 @@ import { PostService } from './post-service.service';
 import { PageService } from './page-service.service';
 import { PageModel, PartialPageModel } from './model/page.model';
 import { MongoIdDto } from '~/shared/dto/id.dto';
-import {
-  MultiCategoriesQueryDto,
-  MultiQueryTagAndCategoryDto,
-  SlugorIdDto,
-} from './dto/category.dto';
+import { MultiCategoriesQueryDto } from './dto/category.dto';
 import { isValidObjectId } from 'mongoose';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { CategoryModel, CategoryType } from './model/category.model';
@@ -31,6 +27,20 @@ export class PageServiceController {
     private readonly postService: PostService,
     private readonly categoryService: CategoryService,
   ) {}
+
+  // ==================== Ping ====================
+  @MessagePattern({ cmd: PageEvents.Ping })
+  pingPage() {
+    return 'pong';
+  }
+  @MessagePattern({ cmd: PostEvents.Ping })
+  pingPost() {
+    return 'pong';
+  }
+  @MessagePattern({ cmd: CategoryEvents.Ping })
+  pingCategory() {
+    return 'pong';
+  }
 
   // ==================== Category ====================
 
@@ -56,11 +66,11 @@ export class PageServiceController {
     required: false, // 是否必填
   })
   async getCategoryByCategoryIdOrTag(input: {
-    _query: SlugorIdDto;
-    _tag: MultiQueryTagAndCategoryDto; // 如果这个是标签，则tag为true，如果是分类，则tag为分类id
+    _query: string;
+    _tag: boolean; // 如果这个是标签，则tag为true，如果是分类，则tag为分类id
   }) {
-    const query = input._query.query;
-    const tag = input._tag.tag;
+    const query = input._query;
+    const tag = input._tag;
     // 判断必要Query参数是否存在
     if (!query) {
       // 如果没有query 禁止通行
@@ -130,10 +140,9 @@ export class PageServiceController {
 
   @MessagePattern({ cmd: CategoryEvents.CategoryPatch })
   @ApiOperation({ summary: '更新分类' })
-  async update(_: { _id: MongoIdDto; _data: CategoryModel }) {
-    const id = _._id.id;
-    const { type, name, slug } = _._data;
-    return this.categoryService.updateCategory(id, { type, name, slug });
+  async update(_: { _id: string; _data: CategoryModel }) {
+    const id = _._id;
+    return this.categoryService.updateCategory(id, _._data);
   }
 
   @MessagePattern({ cmd: CategoryEvents.CategoryDelete })
@@ -176,6 +185,12 @@ export class PageServiceController {
     );
   }
 
+  @MessagePattern({ cmd: PageEvents.PageGetByIdWithMaster })
+  @ApiOperation({ summary: '通过 id 获取页面' })
+  async getPageByID(id: string) {
+    return this.pageService.getPageById(id);
+  }
+
   @MessagePattern({ cmd: PageEvents.PageCreate })
   @ApiOperation({ summary: '创建页面' })
   async createPage(page: PageModel) {
@@ -205,8 +220,8 @@ export class PageServiceController {
 
   @MessagePattern({ cmd: PostEvents.PostGetByMaster })
   @ApiOperation({ summary: '通过id获取文章详情(带权限)' })
-  async getPost(params: { slug: string }) {
-    return this.postService.getPostBySlug(params.slug);
+  async getPost(id: string) {
+    return this.postService.getPostByID(id);
   }
 
   @MessagePattern({ cmd: PostEvents.PostGet })

@@ -3,12 +3,17 @@ import { MessagePattern } from '@nestjs/microservices';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { UserEvents } from '~/shared/constants/event.constant';
 import { UserService } from './user-service.service';
-import { LoginDto, UserDto, UserPatchDto } from './user.dto';
-import { UserDocument, UserModel } from './user.model';
+import { LoginDto, UserDto } from './user.dto';
+import { UserModel } from './user.model';
 
 @Controller()
 export class UserServiceController {
   constructor(private readonly userService: UserService) {}
+
+  @MessagePattern({ cmd: UserEvents.Ping })
+  ping() {
+    return 'pong';
+  }
 
   @MessagePattern({ cmd: UserEvents.UserGet })
   handleUserGet(data: { username: string; getLoginIp: boolean }) {
@@ -24,29 +29,39 @@ export class UserServiceController {
   // handleUserCheckLogged() {}
 
   @MessagePattern({ cmd: UserEvents.UserRegister })
-  handleUserRegister(user: UserDto) {
+  async handleUserRegister(user: UserDto) {
     user.nickname = user.nickname ?? user.username;
-    return this.userService.register(user as UserModel);
+    return await this.userService.register(user as UserModel);
   }
 
   @MessagePattern({ cmd: UserEvents.UserPatch })
-  handleUserPatch(input: { user: UserDocument; data: UserPatchDto }) {
-    return this.userService.patchUserData(input.user, input.data);
+  async handleUserPatch(data: Partial<UserModel>) {
+    return await this.userService.patchUserData(data);
   }
 
   @MessagePattern({ cmd: UserEvents.UserLogin })
   async handleUserLogin(input: { dto: LoginDto; ipLocation: IpRecord }) {
-    return this.userService.login(input.dto, input.ipLocation);
+    return await this.userService.login(input.dto, input.ipLocation);
   }
 
   @MessagePattern({ cmd: UserEvents.UserLogout })
-  handleUserLogout(token: string) {
-    return this.userService.signout(token);
+  async handleUserLogout(token: string) {
+    try {
+      await this.userService.signout(token);
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   @MessagePattern({ cmd: UserEvents.UserLogoutAll })
-  handleUserLogoutAll() {
-    return this.userService.signoutAll();
+  async handleUserLogoutAll() {
+    try {
+      await this.userService.signoutAll();
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   @MessagePattern({ cmd: UserEvents.UserGetAllSession })

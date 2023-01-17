@@ -5,6 +5,7 @@ import {
   Get,
   Inject,
   Param,
+  Patch,
   Post,
   Put,
   Query,
@@ -29,6 +30,12 @@ export class FriendsController {
     @Inject(ServicesEnum.friends) private readonly friends: ClientProxy,
   ) {}
 
+  @Get('/ping')
+  @ApiOperation({ summary: '检测服务是否在线' })
+  ping() {
+    return transportReqToMicroservice(this.friends, FriendsEvents.Ping, {});
+  }
+
   @Get('/')
   @ApiOperation({ summary: '获取所有友链(By group)' })
   async getAllFriends(@Query('group') group?: string | undefined) {
@@ -43,7 +50,7 @@ export class FriendsController {
   @Get('/all')
   @ApiOperation({ summary: '获取所有友链(Master)' })
   @Auth()
-  async getAllFriendsMaster(@Query('status') status: FriendStatus) {
+  async getAllFriendsMaster(@Query('status') status?: FriendStatus) {
     return transportReqToMicroservice(
       this.friends,
       FriendsEvents.FriendsGetAllByMaster,
@@ -88,6 +95,19 @@ export class FriendsController {
     );
   }
 
+  @Patch('/status/:id')
+  @ApiOperation({ summary: '更新友链' })
+  async updateFriendStatus(
+    @Param('id') id: string,
+    @Body('status') status: FriendStatus,
+  ) {
+    return transportReqToMicroservice(
+      this.friends,
+      FriendsEvents.FriendPatchStatusByMaster,
+      { id, status },
+    );
+  }
+
   @Delete('/:id')
   @ApiOperation({ summary: '删除友链' })
   async deleteFriend(
@@ -104,11 +124,12 @@ export class FriendsController {
 
   @Get('/alive')
   @ApiOperation({ summary: '检查友链是否存活' })
-  async checkAliver() {
+  async checkAliver(@Query('status') status?: FriendStatus) {
     return transportReqToMicroservice(
       this.friends,
       FriendsEvents.FriendsCheckAlive,
-      {},
+      status,
+      50000,
     );
   }
 
@@ -119,7 +140,7 @@ export class FriendsController {
       this.friends,
       FriendsEvents.FriendsAnalyseFeed,
       {},
-      10000,
+      50000,
     );
   }
 
@@ -130,6 +151,17 @@ export class FriendsController {
       this.friends,
       FriendsEvents.FriendAnalyseAutoCheck,
       id,
+      50000,
+    );
+  }
+
+  @Get('/feeds/contents')
+  @ApiOperation({ summary: '获取所有友链的 Feed 内容' })
+  async getFeedContents() {
+    return transportReqToMicroservice(
+      this.friends,
+      FriendsEvents.FriendsGetFeeds,
+      {},
     );
   }
 }

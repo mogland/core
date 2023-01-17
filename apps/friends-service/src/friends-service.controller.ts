@@ -8,6 +8,11 @@ import { FriendsModel, FriendStatus } from './friends.model';
 export class FriendsServiceController {
   constructor(private readonly friendsService: FriendsService) {}
 
+  @MessagePattern({ cmd: FriendsEvents.Ping })
+  ping() {
+    return 'pong';
+  }
+
   @MessagePattern({ cmd: FriendsEvents.FriendsGetList })
   @MessagePattern({ cmd: FriendsEvents.FriendsGetAll })
   async getFriendsList(group: string | undefined | Object) {
@@ -16,7 +21,7 @@ export class FriendsServiceController {
   }
 
   @MessagePattern({ cmd: FriendsEvents.FriendsGetAllByMaster })
-  async getAllFriends(status: FriendStatus) {
+  async getAllFriends(status?: FriendStatus) {
     return await this.friendsService.getAllByMaster(status);
   }
 
@@ -28,6 +33,11 @@ export class FriendsServiceController {
   @MessagePattern({ cmd: FriendsEvents.FriendCreate })
   async createFriend(data: { data: FriendsModel; isMaster: boolean }) {
     return await this.friendsService.create(data);
+  }
+
+  @MessagePattern({ cmd: FriendsEvents.FriendsGetFeeds })
+  async getFeeds() {
+    return await this.friendsService.getFeeds();
   }
 
   @MessagePattern({ cmd: FriendsEvents.FriendUpdateByMasterOrToken })
@@ -54,6 +64,14 @@ export class FriendsServiceController {
     );
   }
 
+  @MessagePattern({ cmd: FriendsEvents.FriendPatchStatusByMaster })
+  async patchFriendStatusByMaster(input: { id: string; status: FriendStatus }) {
+    return await this.friendsService.patchStatusByMaster(
+      input.id,
+      input.status,
+    );
+  }
+
   @MessagePattern({ cmd: FriendsEvents.FriendsAnalyseFeed })
   async analyseFeed() {
     await this.friendsService.analyseFeed();
@@ -66,7 +84,7 @@ export class FriendsServiceController {
   }
 
   @MessagePattern({ cmd: FriendsEvents.FriendsCheckAlive })
-  async checkAlive() {
-    return await this.friendsService.checkAliver();
+  async checkAlive(status?: FriendStatus) {
+    return await this.friendsService.checkAliver(status);
   }
 }

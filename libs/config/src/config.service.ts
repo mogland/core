@@ -170,21 +170,37 @@ export class ConfigService {
   private async setConfig(config: ConfigsInterface) {
     const redis = this.redis.getClient(); // 获取 redis 客户端
     await redis.set(getRedisKey(RedisKeys.ConfigCache), JSON.stringify(config)); // 将配置写入 redis
+    const configs = Object.keys(config).map((key) => ({
+      // 将配置转换为数组
+      name: key,
+      value: config[key],
+    }));
+    for (let i = 0; i < configs.length; i++) {
+      await this.configModel.updateOne(
+        { name: configs[i].name },
+        { $set: { value: configs[i].value } },
+        { upsert: true },
+      );
+    }
   }
 
-  protected async initConfig() {
+  /**
+   * 注意⚠️： 这里只能够给 Gateway 初始化！否则数据库等着被炸！
+   */
+  async initConfig() {
     const configs = await this.configModel.find().lean();
     const defaultConfigs = this.defaultConfig();
 
     // 合并新的配置
-    configs.forEach((config) => {
-      const name = config.name as keyof ConfigsInterface;
-      const value = config.value;
-      defaultConfigs[name] = { ...defaultConfigs[name], ...value };
+    Object.keys(defaultConfigs).forEach((key) => {
+      const config = configs.find((c) => c.name === key);
+      if (config) {
+        defaultConfigs[key] = config.value;
+      }
     });
 
     await this.setConfig(defaultConfigs);
-
+    this.logger.log('ConfigsService 初始化完成');
     this.configInit = true;
   }
 
@@ -200,6 +216,16 @@ export class ConfigService {
    */
   async getAllConfigs() {
     const config = await this.configModel.find().lean();
+    return config;
+  }
+
+  /**
+   * 删除配置（即恢复默认配置）
+   */
+  async deleteConfig(key: keyof ConfigsInterface) {
+    const config = await this.configModel.findOne({ name: key });
+    config!.value = this.defaultConfig()[key];
+    await config!.save();
     return config;
   }
 }

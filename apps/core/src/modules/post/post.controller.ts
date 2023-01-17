@@ -38,6 +38,12 @@ import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 export class PostController {
   constructor(@Inject(ServicesEnum.post) private readonly post: ClientProxy) {}
 
+  @Get('/ping')
+  @ApiOperation({ summary: '检测服务是否在线' })
+  ping() {
+    return transportReqToMicroservice(this.post, PostEvents.Ping, {});
+  }
+
   @Get('/')
   @Paginator
   @ApiOperation({ summary: '获取文章列表(附带分页器)' })
@@ -51,8 +57,12 @@ export class PostController {
   @Get('/:id')
   @ApiOperation({ summary: '通过id获取文章详情' })
   @Auth()
-  async getPost(@Param() params) {
-    return transportReqToMicroservice(this.post, PostEvents.PostGet, params);
+  async getPost(@Param('id') id: string) {
+    return transportReqToMicroservice(
+      this.post,
+      PostEvents.PostGetByMaster,
+      id,
+    );
   }
 
   @Get('/:category/:slug')
@@ -81,10 +91,10 @@ export class PostController {
   @Patch('/:id')
   @Auth()
   @ApiOperation({ summary: '更新文章' })
-  async update(@Param() params: MongoIdDto, @Body() body: PostModel) {
+  async update(@Param('id') id: string, @Body() body: PostModel) {
     return transportReqToMicroservice(this.post, PostEvents.PostPatch, {
-      id: params.id,
-      body,
+      id,
+      post: body,
     });
   }
 

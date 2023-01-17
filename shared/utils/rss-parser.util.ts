@@ -10,7 +10,7 @@ class RssResult {
 class RssItem {
   title: string; // 标题
   link: string; // 链接
-  upDate?: string; // 发布日期
+  publishedDate?: string; // 发布日期
 }
 
 enum RssParserType {
@@ -46,7 +46,8 @@ const atomParser = (
       rssItem.link =
         item.link[0].$.href !== undefined ? item.link[0].$.href : '';
       // console.log("文章链接解析成功")
-      rssItem.upDate = item.updated[0] !== undefined ? item.updated[0] : '';
+      rssItem.publishedDate =
+        item.published[0] !== undefined ? item.published[0] : '';
       // console.log("文章发布日期解析成功")
       return rssItem;
     });
@@ -80,7 +81,8 @@ const rssParser = (
       rssItem.link =
         item.link[0]._ !== undefined ? item.link[0]._ : item.link[0];
       // console.log("文章链接解析成功")
-      rssItem.upDate = item.pubDate[0] !== undefined ? item.pubDate[0] : '';
+      rssItem.publishedDate =
+        item.pubDate[0] !== undefined ? item.pubDate[0] : '';
       // console.log("文章发布日期解析成功")
       return rssItem;
     });
@@ -89,7 +91,7 @@ const rssParser = (
 };
 
 const FeedParser = (xml: string, type: RssParserType = RssParserType.RSS) => {
-  let res;
+  let res: RssResult;
   if (type === RssParserType.RSS) {
     rssParser(xml, (result) => {
       res = result;
@@ -99,7 +101,8 @@ const FeedParser = (xml: string, type: RssParserType = RssParserType.RSS) => {
       res = result;
     });
   }
-  return res ? res : null;
+  // stringify
+  return JSON.stringify(res!);
 };
 
 export { FeedParser, RssParserType };
