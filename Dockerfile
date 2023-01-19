@@ -6,6 +6,7 @@ COPY . .
 RUN apk add make g++ alpine-sdk python3 py3-pip && \
     npm i -g pnpm && \
     pnpm install && \
+    pnpm build && \
     pnpm bundle
 
 
