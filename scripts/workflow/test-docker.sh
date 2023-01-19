@@ -27,7 +27,7 @@ fi
 
 curl https://raw.githubusercontent.com/mogland/core/main/docker-compose.yml > docker-compose.yml
 
-curl https://raw.githubusercontent.com/mogland/core/main/env.yaml > env.yaml
+touch env.yaml
 
 
 docker-compose up -d
