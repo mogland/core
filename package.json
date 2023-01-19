@@ -96,7 +96,7 @@
     "nanoid": "3.3.3",
     "node-machine-id": "1.1.12",
     "reflect-metadata": "0.1.13",
-    "rimraf": "4.1.0",
+    "rimraf": "4.1.1",
     "rxjs": "7.8.0",
     "slugify": "1.6.5",
     "snakecase-keys": "5.4.4",
