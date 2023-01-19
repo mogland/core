@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  core:
+    container_name: mog-core
+    image: wibuswee/mog-core:latest
+    command: node /app/core/index.js --redis_host=redis --db_host=db --config=/app/env.yaml 
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./data/mog:/root/.mog
+      # 挂载配置文件
+      - type: bind
+        source: ./env.yaml # 挂载的文件
+        target: /app/env.yaml
+    ports:
+      - '2330:2330'
+    depends_on:
+      - db
+      - redis
+    links:
+      - db
+      - redis
+    networks:
+      - mog-network
+    restart: always
+    healthcheck:
+      test: [ 'CMD', 'curl', '-f', 'http://127.0.0.1:2330/api/ping' ]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+  db:
+    container_name: mog-db
+    image: mongo
+    volumes:
+      - ./data/db:/data/db
+    networks:
+      - mog-network
+    restart: always
+
+  redis:
+    image: redis
+    container_name: redis
+    networks:
+      - mog-network
+    restart: always
+
+networks:
+  mog-network:
+    driver: bridge
