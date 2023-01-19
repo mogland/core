@@ -20,6 +20,8 @@ fi
 
 curl https://cdn.jsdelivr.net/gh/mogland/core@main/docker-compose.yml > docker-compose.yml
 
+curl https://cdn.jsdelivr.net/gh/mogland/core@main/env.yaml > env.yaml
+
 docker-compose up -d
 
 if [[ $? -ne 0 ]]; then
