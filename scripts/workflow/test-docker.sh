@@ -1,4 +1,11 @@
 #!/bin/bash
+###
+ # @Author: ttimochan
+ # @Date: 2023-01-19 13:28:49
+ # @LastEditors: ttimochan
+ # @LastEditTime: 2023-01-19 17:29:54
+ # @FilePath: /mog-core/scripts/workflow/test-docker.sh
+### 
 
 MAX_RETRIES=20
 # Try running the docker and get the output
@@ -19,6 +26,8 @@ if [[ $? -ne 0 ]]; then
 fi
 
 curl https://cdn.jsdelivr.net/gh/mogland/core@main/docker-compose.yml > docker-compose.yml
+
+curl https://cdn.jsdelivr.net/gh/mogland/core@main/env.yaml > env.yaml
 
 docker-compose up -d
 
