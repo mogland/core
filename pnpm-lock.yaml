@@ -31,7 +31,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': 5.48.2
   '@typescript-eslint/parser': 5.48.2
   '@vercel/ncc': 0.36.0
-  axios: 1.2.3
+  axios: 1.2.2
   axios-retry: 3.3.1
   bcrypt: 5.1.0
   cache-manager: 4.1.0
@@ -97,7 +97,7 @@ dependencies:
   '@nestjs/schedule': 2.1.0_dntc3uqqknzoduyjojusds5kla
   '@typegoose/typegoose': 10.0.0_mongoose@6.8.4
   '@vercel/ncc': 0.36.0
-  axios: 1.2.3
+  axios: 1.2.2
   axios-retry: 3.3.1
   bcrypt: 5.1.0
   cache-manager: 4.1.0
@@ -2572,8 +2572,8 @@ packages:
       is-retry-allowed: 2.2.0
     dev: false
 
-  /axios/1.2.3:
-    resolution: {integrity: sha512-pdDkMYJeuXLZ6Xj/Q5J3Phpe+jbGdsSzlQaFVkMQzRUL05+6+tetX8TV3p4HrU4kzuO9bt+io/yGQxuyxA/xcw==}
+  /axios/1.2.2:
+    resolution: {integrity: sha512-bz/J4gS2S3I7mpN/YZfGFTqhXTYzRho8Ay38w2otuuDR322KzFIWm/4W2K6gIwvWaws5n+mnb7D1lN9uD+QH6Q==}
     dependencies:
       follow-redirects: 1.15.1
       form-data: 4.0.0
