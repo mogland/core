@@ -32,7 +32,7 @@ specifiers:
   '@typescript-eslint/parser': 5.48.2
   '@vercel/ncc': 0.36.0
   axios: 1.2.2
-  axios-retry: 3.3.1
+  axios-retry: 3.4.0
   bcrypt: 5.1.0
   cache-manager: 4.1.0
   cache-manager-ioredis: 2.1.0
@@ -98,7 +98,7 @@ dependencies:
   '@typegoose/typegoose': 10.0.0_mongoose@6.8.4
   '@vercel/ncc': 0.36.0
   axios: 1.2.2
-  axios-retry: 3.3.1
+  axios-retry: 3.4.0
   bcrypt: 5.1.0
   cache-manager: 4.1.0
   cache-manager-ioredis: 2.1.0
@@ -2565,8 +2565,8 @@ packages:
       - supports-color
     dev: false
 
-  /axios-retry/3.3.1:
-    resolution: {integrity: sha512-RohAUQTDxBSWLFEnoIG/6bvmy8l3TfpkclgStjl5MDCMBDgapAWCmr1r/9harQfWC8bzLC8job6UcL1A1Yc+/Q==}
+  /axios-retry/3.4.0:
+    resolution: {integrity: sha512-VdgaP+gHH4iQYCCNUWF2pcqeciVOdGrBBAYUfTY+wPcO5Ltvp/37MLFNCmJKo7Gj3SHvCSdL8ouI1qLYJN3liA==}
     dependencies:
       '@babel/runtime': 7.18.9
       is-retry-allowed: 2.2.0
