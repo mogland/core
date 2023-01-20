@@ -8,10 +8,10 @@
  */
 
 import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ClientsModule } from '@nestjs/microservices';
 import { AuthModule } from '~/libs/auth/src';
 import { ServicesEnum } from '~/shared/constants/services.constant';
-import { REDIS } from '../../app.config';
+import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
 import { UserController } from './user.controller';
 
 @Module({
@@ -19,13 +19,7 @@ import { UserController } from './user.controller';
     ClientsModule.register([
       {
         name: ServicesEnum.user,
-        transport: Transport.REDIS,
-        options: {
-          port: REDIS.port,
-          host: REDIS.host,
-          password: REDIS.password,
-          username: REDIS.user,
-        },
+        ...REDIS_TRANSPORTER,
       },
     ]),
     AuthModule,

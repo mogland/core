@@ -7,9 +7,9 @@
  * Coding With IU
  */
 import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ClientsModule } from '@nestjs/microservices';
 import { ServicesEnum } from '~/shared/constants/services.constant';
-import { REDIS } from '../../app.config';
+import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
 import { CategoryController } from './category.controller';
 
 @Module({
@@ -17,13 +17,7 @@ import { CategoryController } from './category.controller';
     ClientsModule.register([
       {
         name: ServicesEnum.category,
-        transport: Transport.REDIS,
-        options: {
-          port: REDIS.port,
-          host: REDIS.host,
-          password: REDIS.password,
-          username: REDIS.user,
-        },
+        ...REDIS_TRANSPORTER,
       },
     ]),
   ],
