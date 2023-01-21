@@ -17,7 +17,7 @@ import {
 import { ReturnModelType } from '@typegoose/typegoose';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { validateSync, ValidatorOptions } from 'class-validator';
-import { cloneDeep, mergeWith } from 'lodash';
+import { mergeWith } from 'lodash';
 import { CacheService } from '~/libs/cache/src';
 import { InjectModel } from '~/libs/database/src/model.transformer';
 import { RedisKeys } from '~/shared/constants/cache.constant';
@@ -142,7 +142,9 @@ export class ConfigService {
         // 更新配置
         { name: key as string }, // 查询条件, 只更新 name 为 key 的配置
         {
-          value: mergeWith(cloneDeep(config[key]), data, (old, newer) => {
+          // Prototype-polluting assignment
+          // value: mergeWith(cloneDeep(config[key]), data, (old, newer) => {
+          value: mergeWith(config[key], data, (old, newer) => {
             // 合并配置。如果有新的配置，就覆盖旧的配置
             // 数组不合并
             if (Array.isArray(old)) {
