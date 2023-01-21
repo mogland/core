@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { REDIS } from '~/apps/core/src/app.config';
+import { ClientsModule } from '@nestjs/microservices';
 import { ConfigModule } from '~/libs/config/src';
 import { HelperModule } from '~/libs/helper/src';
 import { ServicesEnum } from '~/shared/constants/services.constant';
+import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
 import { FriendsServiceController } from './friends-service.controller';
 import { FriendsService } from './friends-service.service';
 
@@ -14,13 +14,7 @@ import { FriendsService } from './friends-service.service';
     ClientsModule.register([
       {
         name: ServicesEnum.notification,
-        transport: Transport.REDIS,
-        options: {
-          port: REDIS.port,
-          host: REDIS.host,
-          password: REDIS.password,
-          username: REDIS.user,
-        },
+        ...REDIS_TRANSPORTER,
       },
     ]),
   ],

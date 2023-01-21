@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { REDIS } from '~/apps/core/src/app.config';
+import { ClientsModule } from '@nestjs/microservices';
 import { DatabaseModule } from '~/libs/database/src';
 import { ServicesEnum } from '~/shared/constants/services.constant';
+import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
 import { CommentsController } from './comments-service.controller';
 import { CommentsService } from './comments-service.service';
 
@@ -12,13 +12,7 @@ import { CommentsService } from './comments-service.service';
     ClientsModule.register([
       {
         name: ServicesEnum.notification,
-        transport: Transport.REDIS,
-        options: {
-          port: REDIS.port,
-          host: REDIS.host,
-          password: REDIS.password,
-          username: REDIS.user,
-        },
+        ...REDIS_TRANSPORTER,
       },
     ]),
   ],
