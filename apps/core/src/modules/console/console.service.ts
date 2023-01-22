@@ -18,7 +18,7 @@ export class ConsoleService {
   private files: getPackageIntoFiles[] = [];
   constructor(private readonly http: HttpService) {
     this.logger = new Logger(ConsoleService.name);
-    this.env = JSON.parse(process.env.MOG_PRIVATE_ENV!).console as {
+    this.env = JSON.parse(process.env.MOG_PRIVATE_ENV || '{}')?.console as {
       [key: string]: any;
     };
     try {

@@ -79,7 +79,7 @@ export async function bootstrap() {
     SwaggerModule.setup('api-docs', app, document);
   }
 
-  const listening_ip = getEnv(ServicesEnum.core)['listening_ip'] || '0.0.0.0';
+  const listening_ip = getEnv(ServicesEnum.core)?.['listening_ip'] || '0.0.0.0';
 
   await app.listen(+PORT, listening_ip, async (err) => {
     if (err) {
