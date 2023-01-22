@@ -119,6 +119,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/notification-service/tsconfig.app.json"
       }
+    },
+    "themes-service": {
+      "type": "application",
+      "root": "apps/themes-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/themes-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/themes-service/tsconfig.app.json"
+      }
     }
   }
 }
