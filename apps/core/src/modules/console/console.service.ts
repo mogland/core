@@ -74,6 +74,7 @@ export class ConsoleService {
       };
     }
     const json = type !== 'pre-relese' ? res : res[0];
+    const proxy = this.env?.proxy?.gh || 'https://ghproxy.com';
     return {
       version: json.tag_name,
       packages: json.assets.map((asset: any) => {
@@ -81,7 +82,7 @@ export class ConsoleService {
         const name = url.split('/').pop();
         return {
           name,
-          url: `https://ghproxy.com/${url}`,
+          url: `${proxy}/${url}`,
           type: name.split('.')?.pop() || 'unknown',
         };
       }),
@@ -92,36 +93,37 @@ export class ConsoleService {
    * 从 NPM 获取最新版本的信息
    */
   async getLatestVersionInfoFromNpm(): Promise<getPackageIntoInterface> {
-    const versionInfo = JSON.parse(
-      await this.http.axiosRef
-        .get('https://registry.npmjs.org/@mogland/console')
-        .then((res) => res.data)
-        .catch(() => {
-          this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
-          return '{}';
-        }),
-    )['dist-tags'];
-    const version =
+    const versionInfo = await this.http.axiosRef
+      .get('https://registry.npmjs.org/@mogland/console')
+      .then((res) => res.data?.['dist-tags'])
+      .catch(() => {
+        this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
+        return {};
+      });
+    let version =
       this.env?.versionType === 'pre-relese'
         ? versionInfo?.['next']
         : versionInfo?.['latest'];
+    if (!version && this.env?.versionType === 'pre-relese') {
+      version = versionInfo?.['latest']; // 如果没有 next 版本，则使用 latest 版本
+    }
     let files: NPMFiles;
     try {
-      files = JSON.parse(
-        await this.http.axiosRef
-          .get(
-            `https://www.npmjs.com/package/@mogland/console/v/${version}/index`,
-          )
-          .then((res) => res.data)
-          .catch(() => {
-            this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
-            return '{}';
-          }),
-      );
+      files = await this.http.axiosRef
+        .get(
+          `https://www.npmjs.com/package/@mogland/console/v/${version}/index`,
+        )
+        .then((res) => res.data)
+        .catch(() => {
+          this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
+          return {};
+        });
     } catch {
       // 此处的 JSON.parse 可能会抛出异常（如直接访问一个不存在的版本），因此需要 try catch
-      // 安全起见，如果获取失败，直接返回空数组
       this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
+      this.logger.error(
+        '无法获取到 NPM 的文件列表，因此 Mog 无法初始化 Console。',
+      );
       return {
         version: 'NaN',
         packages: [],
