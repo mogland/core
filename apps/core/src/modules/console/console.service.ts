@@ -1,8 +1,5 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-} from '@nestjs/common';
+import { JSDOM } from 'jsdom';
+import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '~/libs/helper/src/helper.http.service';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { consola } from '~/shared/global/consola.global';
@@ -58,11 +55,11 @@ export class ConsoleService {
   async getLatestVersionInfoFromGitHub(): Promise<getPackageIntoInterface> {
     const type = this.env?.versionType;
     const url = `https://api.github.com/repos/mogland/console/releases${
-      type === 'pre-relese' ? '' : '/latest'
+      type === 'pre-release' ? '' : '/latest'
     }`;
-    const res = await this.http.axiosRef
-      .get(url)
-      .then((res) => res.data)
+    const res = await this.http
+      .getAndCacheRequest(url)
+      .then((res) => JSON.parse(res))
       .catch(() => {
         this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
         return {};
@@ -73,8 +70,9 @@ export class ConsoleService {
         packages: [],
       };
     }
-    const json = type !== 'pre-relese' ? res : res[0];
+    const json = type !== 'pre-release' ? res : res[0];
     const proxy = this.env?.proxy?.gh || 'https://ghproxy.com';
+    consola.info(`[ConsoleService] Mog Console Version: ${json.tag_name}`);
     return {
       version: json.tag_name,
       packages: json.assets.map((asset: any) => {
@@ -101,20 +99,22 @@ export class ConsoleService {
         return {};
       });
     let version =
-      this.env?.versionType === 'pre-relese'
+      this.env?.versionType === 'pre-release'
         ? versionInfo?.['next']
         : versionInfo?.['latest'];
-    if (!version && this.env?.versionType === 'pre-relese') {
+    if (!version && this.env?.versionType === 'pre-release') {
       version = versionInfo?.['latest']; // 如果没有 next 版本，则使用 latest 版本
     }
+    consola.info(`[ConsoleService] Mog Console Version: ${version}`);
     let files: NPMFiles;
     try {
-      files = await this.http.axiosRef
-        .get(
+      files = await this.http
+        .getAndCacheRequest(
           `https://www.npmjs.com/package/@mogland/console/v/${version}/index`,
         )
-        .then((res) => res.data)
-        .catch(() => {
+        .then((res) => JSON.parse(res))
+        .catch((err) => {
+          console.log(err);
           this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
           return {};
         });
@@ -148,20 +148,45 @@ export class ConsoleService {
    * 把路径转换为文件
    * @param path 路径
    */
-  async transformPathToFile(path: string): Promise<string> {
-    const file = this.files.find((file) => file.name === path);
-    if (file) {
-      return await this.http.axiosRef
-        .get(file.url)
-        .then((res) => res.data)
-        .catch(() => {
-          this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
-        });
-    } else {
-      this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
-      throw new InternalServerErrorException(
-        ExceptionMessage.CONSOLE_INIT_FAILED,
-      );
+  async transformPathToFile(
+    path?: string,
+    requestURL?: string,
+  ): Promise<{
+    data: string;
+    type: string;
+  }> {
+    if (!path) {
+      path = 'index.html';
     }
+    const index = this.files.find((file) => file.name === 'index.html');
+    const file = this.files.find((file) => file.name === path);
+    return {
+      data: await (file?.type === 'html' ||
+      file?.type === 'js' ||
+      file?.type === 'css'
+        ? this.http.getAndCacheRequest(file?.url || index!.url)
+        : this.http.axiosRef.get(file?.url || index!.url)
+      )
+        .then((res) => {
+          const data =
+            file?.type === 'html' || file?.type === 'js' || file?.type === 'css'
+              ? res
+              : res.data;
+          if (file?.type ? file.type === 'html' : true) {
+            const dom = new JSDOM(data);
+            const document = dom.window.document;
+            document.head.innerHTML += `
+              <!-- Injected by Mog Core, DO NOT REMOVE -->
+              <script>window.MOG_BASE = "/console";window.MOG_API = "http://${requestURL}";</script>
+            `;
+            return dom.serialize();
+          }
+          return data;
+        })
+        .catch(() => {
+          this.logger.error(ExceptionMessage.CONSOLE_REQUEST_FAILED);
+        }),
+      type: file?.type || 'html',
+    };
   }
 }
