@@ -1,26 +1,78 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { HttpService } from '~/libs/helper/src/helper.http.service';
+import { ExceptionMessage } from '~/shared/constants/echo.constant';
+import { consola } from '~/shared/global/consola.global';
 import { NPMFiles } from '~/shared/types/npm';
-import { getPackageIntoInterface } from './console.interface';
+import {
+  getPackageIntoFiles,
+  getPackageIntoInterface,
+} from './console.interface';
 
 @Injectable()
 export class ConsoleService {
-  private readonly env;
+  private logger: Logger;
+  private readonly env: {
+    [key: string]: any;
+  };
+  private files: getPackageIntoFiles[] = [];
   constructor(private readonly http: HttpService) {
-    this.env = process.env.MOG_PRIVATE_ENV as unknown as object as {
+    this.logger = new Logger(ConsoleService.name);
+    this.env = JSON.parse(process.env.MOG_PRIVATE_ENV!).console as {
       [key: string]: any;
     };
+    try {
+      if (this.env?.enable) {
+        if (this.env?.source === 'gh') {
+          this.getLatestVersionInfoFromGitHub().then((res) => {
+            this.files = res.packages;
+            consola.success(
+              `[ConsoleService] ${ExceptionMessage.ConsoleInitSuccess}`,
+            );
+          });
+        } else {
+          this.getLatestVersionInfoFromNpm().then((res) => {
+            this.files = res.packages;
+            if (res.version === 'NaN') {
+              return;
+            }
+            consola.success(
+              `[ConsoleService] ${ExceptionMessage.ConsoleInitSuccess}`,
+            );
+          });
+        }
+      } else {
+        consola.info(`[ConsoleService] ${ExceptionMessage.ConsoleIsDisabled}`);
+      }
+    } catch {
+      this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
+    }
   }
 
   /**
    * 从 GitHub Release 获取最新版本信息
    */
   async getLatestVersionInfoFromGitHub(): Promise<getPackageIntoInterface> {
-    const type = this.env.console?.versionType;
-    const url = `https://api.github.com/repos/mogland/console/releases/${
-      type !== 'pre-relese' ? '' : 'latest'
+    const type = this.env?.versionType;
+    const url = `https://api.github.com/repos/mogland/console/releases${
+      type === 'pre-relese' ? '' : '/latest'
     }`;
-    const res = JSON.parse(await this.http.axiosRef.get(url));
+    const res = await this.http.axiosRef
+      .get(url)
+      .then((res) => res.data)
+      .catch(() => {
+        this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
+        return {};
+      });
+    if (!Object.keys(res).length) {
+      return {
+        version: 'NaN',
+        packages: [],
+      };
+    }
     const json = type !== 'pre-relese' ? res : res[0];
     return {
       version: json.tag_name,
@@ -41,19 +93,40 @@ export class ConsoleService {
    */
   async getLatestVersionInfoFromNpm(): Promise<getPackageIntoInterface> {
     const versionInfo = JSON.parse(
-      await this.http.axiosRef.get(
-        'https://registry.npmjs.org/@mogland/console',
-      ),
+      await this.http.axiosRef
+        .get('https://registry.npmjs.org/@mogland/console')
+        .then((res) => res.data)
+        .catch(() => {
+          this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
+          return '{}';
+        }),
     )['dist-tags'];
     const version =
-      this.env.console?.versionType === 'pre-relese'
-        ? versionInfo['next']
-        : versionInfo['latest'];
-    const files: NPMFiles = JSON.parse(
-      await this.http.axiosRef.get(
-        `https://www.npmjs.com/package/@mogland/console/v/${version}/index`,
-      ),
-    );
+      this.env?.versionType === 'pre-relese'
+        ? versionInfo?.['next']
+        : versionInfo?.['latest'];
+    let files: NPMFiles;
+    try {
+      files = JSON.parse(
+        await this.http.axiosRef
+          .get(
+            `https://www.npmjs.com/package/@mogland/console/v/${version}/index`,
+          )
+          .then((res) => res.data)
+          .catch(() => {
+            this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
+            return '{}';
+          }),
+      );
+    } catch {
+      // 此处的 JSON.parse 可能会抛出异常（如直接访问一个不存在的版本），因此需要 try catch
+      // 安全起见，如果获取失败，直接返回空数组
+      this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
+      return {
+        version: 'NaN',
+        packages: [],
+      };
+    }
     const returns: getPackageIntoInterface = {
       version,
       packages: [],
