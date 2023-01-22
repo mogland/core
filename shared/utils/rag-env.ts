@@ -39,8 +39,13 @@ export const readEnv: (
   config = merge(config, argv);
 
   const envPath = path || join(cwd, 'env.yaml');
-  const env = readFileSync(envPath, 'utf-8');
-  if (!env) return config;
+  let env: string;
+  try {
+    readFileSync(envPath, 'utf-8');
+  } catch (error) {
+    return config;
+  }
+  if (!env!) return config;
   const envObj = yaml.load(env);
   // 与 config 合并
   config = merge(config, envObj);
