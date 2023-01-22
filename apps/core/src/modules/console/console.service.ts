@@ -5,16 +5,18 @@ import { getPackageIntoInterface } from './console.interface';
 
 @Injectable()
 export class ConsoleService {
-  constructor(private readonly http: HttpService) {}
+  private readonly env;
+  constructor(private readonly http: HttpService) {
+    this.env = process.env.MOG_PRIVATE_ENV as unknown as object as {
+      [key: string]: any;
+    };
+  }
 
   /**
    * 从 GitHub Release 获取最新版本信息
    */
   async getLatestVersionInfoFromGitHub(): Promise<getPackageIntoInterface> {
-    const env = process.env.MOG_PRIVATE_ENV as unknown as object as {
-      [key: string]: any;
-    };
-    const type = env.console?.versionType;
+    const type = this.env.console?.versionType;
     const url = `https://api.github.com/repos/mogland/console/releases/${
       type !== 'pre-relese' ? '' : 'latest'
     }`;
@@ -38,11 +40,15 @@ export class ConsoleService {
    * 从 NPM 获取最新版本的信息
    */
   async getLatestVersionInfoFromNpm(): Promise<getPackageIntoInterface> {
-    const version = JSON.parse(
+    const versionInfo = JSON.parse(
       await this.http.axiosRef.get(
         'https://registry.npmjs.org/@mogland/console',
       ),
-    )['dist-tags'].latest;
+    )['dist-tags'];
+    const version =
+      this.env.console?.versionType === 'pre-relese'
+        ? versionInfo['next']
+        : versionInfo['latest'];
     const files: NPMFiles = JSON.parse(
       await this.http.axiosRef.get(
         `https://www.npmjs.com/package/@mogland/console/v/${version}/index`,
