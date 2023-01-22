@@ -42,4 +42,5 @@ export enum ExceptionMessage {
   CONSOLE_INIT_FAILED = '@mogland/console 文件初始化失败，请提交 issues 至 mogland/console',
   ConsoleInitSuccess = '控制台服务初始化成功',
   ConsoleIsDisabled = '控制台服务已被禁用',
+  CONSOLE_REQUEST_FAILED = '控制台资源请求失败！',
 }

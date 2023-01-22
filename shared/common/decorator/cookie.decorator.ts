@@ -13,7 +13,6 @@ export const Cookies = createParamDecorator(
     const request = ctx.switchToHttp().getRequest();
     // 获取 header 中的 cookie
     const cookies = request.headers.cookie;
-    console.log(cookies);
     // 解析 cookie
     const cookie = cookies ? cookies.split('; ') : [];
     const cookieObj = {};
