@@ -23,7 +23,7 @@ export class ConsoleService {
     };
     try {
       if (this.env?.enable) {
-        if (this.env?.source === 'gh') {
+        if (this.env?.source !== 'npm') {
           this.getLatestVersionInfoFromGitHub().then((res) => {
             this.files = res.packages;
             consola.success(

@@ -1,6 +1,5 @@
 import { Controller, Get, Inject, Req, Res } from '@nestjs/common';
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { Cookies } from '~/shared/common/decorator/cookie.decorator';
 import { ConsoleService } from './console.service';
 
 @Controller('console')
@@ -11,11 +10,7 @@ export class ConsoleController {
   ) {}
 
   @Get(['/*', '/'])
-  async console(
-    @Cookies() cookies: { [key: string]: string },
-    @Res() res: FastifyReply,
-    @Req() req: FastifyRequest,
-  ) {
+  async console(@Res() res: FastifyReply, @Req() req: FastifyRequest) {
     const path = req.url
       .replace('/console', '')
       .split('/')
