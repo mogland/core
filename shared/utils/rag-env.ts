@@ -41,7 +41,7 @@ export const readEnv: (
   const envPath = path || join(cwd, 'env.yaml');
   let env: string;
   try {
-    readFileSync(envPath, 'utf-8');
+    env = readFileSync(envPath, 'utf-8');
   } catch (error) {
     return config;
   }
