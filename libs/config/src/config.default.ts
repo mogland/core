@@ -27,4 +27,5 @@ export const DefaultConfigs: () => ConfigsInterface = () => ({
     port: '465',
     secure: true,
   },
+  themes: [],
 });
