@@ -37,4 +37,9 @@ export enum ExceptionMessage {
   FriendLinkIsNotExist = '友链不存在 o(╯□╰)o',
   FriendLinkTokenIsInvalid = '友链Token无效，可能找错了哦',
   FriendLinkIsExist = '友链已存在 o(╯□╰)o',
+
+  ConsoleFileIsNotExist = '@mogland/console 所期望请求的文件不存在，请提交 issues 至 mogland/console',
+  CONSOLE_INIT_FAILED = '@mogland/console 文件初始化失败，请提交 issues 至 mogland/console',
+  ConsoleInitSuccess = '控制台服务初始化成功',
+  ConsoleIsDisabled = '控制台服务已被禁用',
 }
