@@ -68,4 +68,25 @@ export class ConsoleService {
     });
     return returns;
   }
+
+  /**
+   * 把路径转换为文件
+   * @param path 路径
+   */
+  async transformPathToFile(path: string): Promise<string> {
+    const file = this.files.find((file) => file.name === path);
+    if (file) {
+      return await this.http.axiosRef
+        .get(file.url)
+        .then((res) => res.data)
+        .catch(() => {
+          this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
+        });
+    } else {
+      this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
+      throw new InternalServerErrorException(
+        ExceptionMessage.CONSOLE_INIT_FAILED,
+      );
+    }
+  }
 }
