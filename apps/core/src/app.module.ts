@@ -22,6 +22,7 @@ import { ClientsModule } from '@nestjs/microservices';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { ConfigPublicModule } from './modules/configs/configs.module';
 import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
+import { ConsoleModule } from './modules/console/console.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
     CommentsModule,
     FriendsModule,
     ConfigPublicModule,
+    ConsoleModule,
     ClientsModule.register([
       {
         name: ServicesEnum.notification,

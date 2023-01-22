@@ -5,5 +5,6 @@ export class ConsoleController {
   constructor() {}
 
   @Get('/*')
+  @Get()
   console() {}
 }
