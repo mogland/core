@@ -9,7 +9,7 @@
 
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
-import { EmailDto, SeoDto, SiteDto, ThemeDto, WebhookDto } from './config.dto';
+import { EmailDto, SeoDto, SiteDto, ThemesDto, WebhookDto } from './config.dto';
 
 export abstract class ConfigsInterface {
   @Type(() => SeoDto)
@@ -20,7 +20,7 @@ export abstract class ConfigsInterface {
   @ValidateNested()
   site: SiteDto;
 
-  @Type(() => WebhookDto)
+  @Type(() => Array<WebhookDto>)
   @ValidateNested()
   webhook: WebhookDto[];
 
@@ -28,9 +28,9 @@ export abstract class ConfigsInterface {
   @ValidateNested()
   email: EmailDto;
 
-  @Type(() => ThemeDto)
+  @Type(() => ThemesDto)
   @ValidateNested()
-  themes: ThemeDto[];
+  themes: ThemesDto[];
 }
 
 export type ConfigsInterfaceKeys = keyof ConfigsInterface;

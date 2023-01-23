@@ -84,7 +84,7 @@ export class EmailDto {
   secure?: boolean;
 }
 
-export class ThemeDto {
+export class ThemesDto {
   @IsString()
   @IsNotEmpty()
   id: string;
@@ -106,5 +106,10 @@ export class ThemeDto {
   version?: string;
 
   @IsOptional()
-  config?: any;
+  @IsString()
+  config?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  path: string;
 }
