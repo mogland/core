@@ -26,12 +26,5 @@ export enum ServicesEnum {
 
 export enum ServicePorts {
   core = 2330,
-  page = 2331,
-  category = page,
-  post = page,
-  user = 2332,
-  comments = 2333,
-  friends = 2334,
-  admin = 2335,
-  notification = 2336,
+  themes = 2331,
 }

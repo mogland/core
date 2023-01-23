@@ -1,10 +1,14 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { Transport } from '@nestjs/microservices';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
-import { PORT } from '~/apps/core/src/app.config';
 import { BasicCommer } from '~/shared/commander';
 import { LoggingInterceptor } from '~/shared/common/interceptors/logging.interceptor';
-import { ServicesEnum } from '~/shared/constants/services.constant';
+import {
+  ServicePorts,
+  ServicesEnum,
+} from '~/shared/constants/services.constant';
+import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
 import { consola, registerStdLogger } from '~/shared/global/consola.global';
 import { mkdirs, registerGlobal } from '~/shared/global/index.global';
 import { isDev } from '~/shared/utils';
@@ -30,8 +34,14 @@ async function bootstrap() {
     app.useGlobalInterceptors(new LoggingInterceptor());
   }
 
-  const listening_ip = getEnv(ServicesEnum.core)?.['listening_ip'] || '0.0.0.0';
-
+  app.connectMicroservice({
+    transport: Transport.REDIS,
+    ...REDIS_TRANSPORTER,
+  });
+  await app.startAllMicroservices();
+  const listening_ip =
+    getEnv(ServicesEnum.theme)?.['listening_ip'] || '0.0.0.0';
+  const PORT = getEnv(ServicesEnum.theme)?.['port'] || ServicePorts.themes;
   await app.listen(+PORT, listening_ip, async (err) => {
     if (err) {
       Logger.error(err);
@@ -43,6 +53,7 @@ async function bootstrap() {
 
     const prefix = 'P';
 
+    consola.success(`[${prefix + pid}] 微服务已连接 REDIS 并启动`);
     consola.success(
       `[${prefix + pid}] 服务器正在监听: ${listening_ip}:${PORT}`,
     );
