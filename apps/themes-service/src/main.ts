@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
@@ -33,6 +33,18 @@ async function bootstrap() {
   if (isDev) {
     app.useGlobalInterceptors(new LoggingInterceptor());
   }
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      // 校验请求参数
+      transform: true,
+      whitelist: true,
+      errorHttpStatusCode: 422,
+      forbidUnknownValues: true,
+      enableDebugMessages: isDev,
+      stopAtFirstError: true,
+    }),
+  );
 
   app.connectMicroservice({
     transport: Transport.REDIS,
