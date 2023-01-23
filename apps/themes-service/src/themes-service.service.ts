@@ -164,10 +164,14 @@ export class ThemesServiceService {
   }
 
   /**
-   * 获取主题配置
-   * @param theme 主题名
+   * 获取主题大致信息
+   * @param theme 主题 ID
    */
-  async getThemeConfig(theme: string): Promise<ThemeDto> {
+  async getTheme(id: string): Promise<ThemeDto> {
+    const theme = this.dir.find((t) => t === id);
+    if (!theme) {
+      throw new InternalServerErrorException(`主题不存在或不合法`);
+    }
     const config = fs.readFileSync(
       join(THEME_DIR, theme, 'config.yaml'),
       'utf-8',
@@ -189,6 +193,16 @@ export class ThemesServiceService {
   }
 
   /**
+   * 获取主题配置
+   */
+  async getThemeConfig(id: string): Promise<string> {
+    return (
+      (await this.configService.get('themes'))?.find((t) => t.id === id)
+        ?.config || []
+    );
+  }
+
+  /**
    * 获取所有主题 (private)
    */
   private async _getAllThemes(): Promise<ThemeDto[]> {
@@ -196,7 +210,7 @@ export class ThemesServiceService {
     const dirs = fs.readdirSync(THEME_DIR);
     for (const dir of dirs) {
       if (this.validateTheme(dir, false)) {
-        themes.push(await this.getThemeConfig(dir));
+        themes.push(await this.getTheme(dir));
       }
     }
     return themes;
