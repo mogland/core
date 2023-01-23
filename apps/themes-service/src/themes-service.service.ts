@@ -15,13 +15,22 @@ import fs from 'fs';
 
 @Injectable()
 export class ThemesServiceService {
+  private env: {
+    theme: string | undefined;
+    [key: string]: any;
+  };
+  private themesConfig: ThemeDto[];
   private themes: ThemeDto[];
   private dir: any[] = [];
   constructor(private readonly configService: ConfigService) {
+    this.env = JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme || {
+      theme: undefined,
+    };
+
     this.configService
       .get('themes')
       .then((themes) => {
-        this.themes = themes;
+        this.themesConfig = themes;
         consola.info(`共加载了${themes?.length || 0}个主题配置`);
       })
       .then(() => {
@@ -38,8 +47,32 @@ export class ThemesServiceService {
         );
       });
 
-    this.getAllThemes().then((themes) => {
+    this._getAllThemes().then((themes) => {
       this.themes = themes;
+    });
+
+    this.trackThemeChange();
+  }
+
+  /**
+   * 追踪活动主题修改
+   */
+  async trackThemeChange() {
+    if (this.env.theme) {
+      fs.watchFile(join(THEME_DIR, this.env.theme, 'config.yaml'), () => {
+        this.validateTheme(this.env.theme!);
+      });
+    }
+  }
+
+  /**
+   * 修改活动主题
+   */
+  async setENV(theme: string) {
+    this.env.theme = theme;
+    process.env.MOG_PRIVATE_INNER_ENV = JSON.stringify({
+      ...this.env,
+      theme,
     });
   }
 
@@ -125,8 +158,8 @@ export class ThemesServiceService {
         return false;
       }
     }
-
     this.dir.push(theme);
+    this.dir = Array.from(new Set(this.dir)); // 去重
     return true;
   }
 
@@ -156,9 +189,9 @@ export class ThemesServiceService {
   }
 
   /**
-   * 获取所有主题
+   * 获取所有主题 (private)
    */
-  async getAllThemes(): Promise<ThemeDto[]> {
+  private async _getAllThemes(): Promise<ThemeDto[]> {
     const themes: ThemeDto[] = [];
     const dirs = fs.readdirSync(THEME_DIR);
     for (const dir of dirs) {
@@ -167,5 +200,42 @@ export class ThemesServiceService {
       }
     }
     return themes;
+  }
+
+  /**
+   * 获取所有主题
+   */
+  getAllThemes() {
+    return this.themes;
+  }
+
+  /**
+   * 启动主题
+   */
+  async activeTheme(id: string): Promise<boolean> {
+    try {
+      const themes = await this.configService.get('themes');
+      const theme = themes.find((t) => t.id === id);
+      const _theme = this.themes.find((t) => t.id === id);
+      if (!_theme) {
+        throw new InternalServerErrorException(`主题不存在`);
+      }
+      if (!theme) {
+        await this.configService.patchAndValidate('themes', [
+          ...themes,
+          _theme,
+        ]);
+        return true;
+      }
+      theme.active = true;
+      await this.configService.patchAndValidate('themes', [
+        ...themes.filter((t) => t.id !== id),
+        _theme, // 重新获取一次, 防止配置文件被修改而无更新
+      ]);
+      this.setENV(_theme.name);
+      return true;
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
   }
 }
