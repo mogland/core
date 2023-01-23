@@ -65,7 +65,12 @@ export class ConfigService {
     data: any,
   ): T {
     const model = plainToInstance(dto, data);
-    const errors = validateSync(model, this.validateOptions);
+    const errors = Array.isArray(model)
+      ? (model as Array<any>).reduce(
+          (acc, item) => acc.concat(validateSync(item, this.validateOptions)),
+          [],
+        )
+      : validateSync(model, this.validateOptions);
     if (errors.length) {
       throw this.validate.createExceptionFactory()(errors as any);
     }
@@ -149,8 +154,8 @@ export class ConfigService {
             cloneDeep(configMap.get(key)),
             data,
             (old, newer) => {
-              if (Array.isArray(old)) {
-                return newer;
+              if (Array.isArray(old) && Array.isArray(newer)) {
+                return [...old, ...newer];
               }
               if (typeof old === 'object' && typeof newer === 'object') {
                 return { ...old, ...newer };
