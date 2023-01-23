@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { join } from 'path';
 import { ConfigService } from '~/libs/config/src';
-import { ThemeDto } from '~/libs/config/src/config.dto';
+import { ThemesDto } from '~/libs/config/src/config.dto';
 import { THEME_DIR } from '~/shared/constants/path.constant';
 import { consola } from '~/shared/global/consola.global';
 import yaml from 'js-yaml';
@@ -19,8 +19,7 @@ export class ThemesServiceService {
     theme: string | undefined;
     [key: string]: any;
   };
-  private themesConfig: ThemeDto[];
-  private themes: ThemeDto[];
+  private themes: ThemesDto[];
   private dir: any[] = [];
   constructor(private readonly configService: ConfigService) {
     this.env = JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme || {
@@ -30,8 +29,15 @@ export class ThemesServiceService {
     this.configService
       .get('themes')
       .then((themes) => {
-        this.themesConfig = themes;
         consola.info(`共加载了${themes?.length || 0}个主题配置`);
+        themes.find((theme) => {
+          if (theme.active) {
+            this.setENV(theme.path);
+            this.trackThemeChange();
+            return true;
+          }
+          return false;
+        });
       })
       .then(() => {
         consola.info(`共检测到 ${fs.readdirSync(THEME_DIR).length} 个主题`);
@@ -45,13 +51,12 @@ export class ThemesServiceService {
         consola.success(
           `合法主题检测完毕，共检测到 ${this.dir.length} 个合法主题`,
         );
+        this.activeTheme('theme.tiny.wibus-wee');
       });
 
     this._getAllThemes().then((themes) => {
       this.themes = themes;
     });
-
-    this.trackThemeChange();
   }
 
   /**
@@ -59,9 +64,32 @@ export class ThemesServiceService {
    */
   async trackThemeChange() {
     if (this.env.theme) {
+      const name = JSON.parse(
+        fs.readFileSync(
+          join(THEME_DIR, this.env.theme, 'package.json'),
+          'utf-8',
+        ),
+      ).name;
+      consola.info(`正在追踪主题 ${name} 配置文件的修改`);
       fs.watchFile(join(THEME_DIR, this.env.theme, 'config.yaml'), () => {
-        this.validateTheme(this.env.theme!);
+        this.validateTheme(this.env.theme!, false); // 重新验证主题
       });
+    }
+  }
+
+  /**
+   * 取消追踪主题修改
+   */
+  async untrackThemeChange() {
+    if (this.env.theme) {
+      const name = JSON.parse(
+        fs.readFileSync(
+          join(THEME_DIR, this.env.theme, 'package.json'),
+          'utf-8',
+        ),
+      ).name;
+      consola.info(`正在取消追踪主题 ${name} 配置文件的修改`);
+      fs.unwatchFile(join(THEME_DIR, this.env.theme, 'config.yaml'));
     }
   }
 
@@ -167,7 +195,7 @@ export class ThemesServiceService {
    * 获取主题大致信息
    * @param theme 主题 ID
    */
-  async getTheme(id: string): Promise<ThemeDto> {
+  async getTheme(id: string): Promise<ThemesDto> {
     const theme = this.dir.find((t) => t === id);
     if (!theme) {
       throw new InternalServerErrorException(`主题不存在或不合法`);
@@ -186,9 +214,10 @@ export class ThemesServiceService {
       active:
         (await this.configService.get('themes'))?.find((t) => t.id === _yaml.id)
           ?.active || false,
-      package: _package,
+      package: JSON.stringify(_package),
       version: _package.version,
       config: JSON.stringify(_yaml.configs),
+      path: theme,
     };
   }
 
@@ -197,16 +226,18 @@ export class ThemesServiceService {
    */
   async getThemeConfig(id: string): Promise<string> {
     return (
-      (await this.configService.get('themes'))?.find((t) => t.id === id)
-        ?.config || []
+      JSON.parse(
+        (await this.configService.get('themes'))?.find((t) => t.id === id)
+          ?.config || '[]',
+      ) || []
     );
   }
 
   /**
    * 获取所有主题 (private)
    */
-  private async _getAllThemes(): Promise<ThemeDto[]> {
-    const themes: ThemeDto[] = [];
+  private async _getAllThemes(): Promise<ThemesDto[]> {
+    const themes: ThemesDto[] = [];
     const dirs = fs.readdirSync(THEME_DIR);
     for (const dir of dirs) {
       if (this.validateTheme(dir, false)) {
@@ -227,29 +258,40 @@ export class ThemesServiceService {
    * 启动主题
    */
   async activeTheme(id: string): Promise<boolean> {
-    try {
-      const themes = await this.configService.get('themes');
-      const theme = themes.find((t) => t.id === id);
-      const _theme = this.themes.find((t) => t.id === id);
-      if (!_theme) {
-        throw new InternalServerErrorException(`主题不存在`);
-      }
-      if (!theme) {
-        await this.configService.patchAndValidate('themes', [
-          ...themes,
-          _theme,
-        ]);
-        return true;
-      }
-      theme.active = true;
-      await this.configService.patchAndValidate('themes', [
-        ...themes.filter((t) => t.id !== id),
-        _theme, // 重新获取一次, 防止配置文件被修改而无更新
-      ]);
-      this.setENV(_theme.name);
-      return true;
-    } catch (e) {
-      throw new InternalServerErrorException(e.message);
+    const themes = (await this.configService.get('themes')) || [];
+
+    const activeTheme = themes?.find((t) => t.active);
+    activeTheme?.active && (activeTheme.active = false);
+
+    const theme = themes?.find((t) => t.id === id);
+    const _theme = this.themes?.find((t) => t.id === id);
+    if (!_theme) {
+      consola.error(`主题不存在或不合法`);
+      return false;
     }
+    _theme.active = true;
+    if (!theme) {
+      await this.configService.patchAndValidate('seo', {
+        ...(await this.configService.get('seo')),
+      });
+
+      await this.configService.patchAndValidate('themes', [
+        ...themes.filter((t) => t.id !== activeTheme?.id),
+        ...(activeTheme ? [activeTheme] : []),
+        _theme,
+      ]);
+      return true;
+    }
+    theme.active = true;
+    await this.configService.patchAndValidate('themes', [
+      ...themes
+        .filter((t) => t.id !== id)
+        .filter((t) => t.id !== activeTheme?.id),
+      _theme, // 重新获取一次, 防止配置文件被修改而无更新
+    ]);
+    this.setENV(_theme.path);
+    this.untrackThemeChange(); // 取消旧主题的监听
+    this.trackThemeChange(); // 监听新主题的变化
+    return true;
   }
 }
