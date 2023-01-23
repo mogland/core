@@ -10,6 +10,7 @@ export enum ThemeConfigType {
 export interface ThemeConfig {
   id: string;
   language: string;
+  name: string;
   configs: ThemeConfigItemAll[];
 }
 

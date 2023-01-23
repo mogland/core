@@ -37,6 +37,10 @@ export class ThemesServiceService {
           `合法主题检测完毕，共检测到 ${this.dir.length} 个合法主题`,
         );
       });
+
+    this.getAllThemes().then((themes) => {
+      this.themes = themes;
+    });
   }
 
   /**
@@ -109,6 +113,9 @@ export class ThemesServiceService {
             }
           });
         }
+        if (!fs.existsSync(join(THEME_DIR, theme, 'package.json'))) {
+          throw new InternalServerErrorException(`主题缺少 package.json 文件`);
+        }
       });
     } catch (e) {
       if (error) {
@@ -121,5 +128,44 @@ export class ThemesServiceService {
 
     this.dir.push(theme);
     return true;
+  }
+
+  /**
+   * 获取主题配置
+   * @param theme 主题名
+   */
+  async getThemeConfig(theme: string): Promise<ThemeDto> {
+    const config = fs.readFileSync(
+      join(THEME_DIR, theme, 'config.yaml'),
+      'utf-8',
+    );
+    const _package = JSON.parse(
+      fs.readFileSync(join(THEME_DIR, theme, 'package.json'), 'utf-8'),
+    );
+    const _yaml = yaml.load(config) as ThemeConfig;
+    return {
+      id: _yaml.id,
+      name: _package.name,
+      active:
+        (await this.configService.get('themes'))?.find((t) => t.id === _yaml.id)
+          ?.active || false,
+      package: _package,
+      version: _package.version,
+      config: JSON.stringify(_yaml.configs),
+    };
+  }
+
+  /**
+   * 获取所有主题
+   */
+  async getAllThemes(): Promise<ThemeDto[]> {
+    const themes: ThemeDto[] = [];
+    const dirs = fs.readdirSync(THEME_DIR);
+    for (const dir of dirs) {
+      if (this.validateTheme(dir, false)) {
+        themes.push(await this.getThemeConfig(dir));
+      }
+    }
+    return themes;
   }
 }
