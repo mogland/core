@@ -105,7 +105,6 @@ export class ThemeDto {
   @IsOptional()
   version?: string;
 
-  @IsString()
   @IsOptional()
-  config?: string;
+  config?: any;
 }

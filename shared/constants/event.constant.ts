@@ -112,3 +112,14 @@ export enum NotificationEvents {
 
   Ping = 'notification.ping',
 }
+
+export enum ThemesEvents {
+  ThemesGetAll = 'themes.get.all',
+
+  ThemeGetInfo = 'theme.get.info',
+  ThemeGetConfig = 'theme.get.config',
+  ThemeActive = 'theme.active.auth',
+  ThemeDeactive = 'theme.deactive.auth',
+  ThemeDelete = 'theme.delete.auth',
+  ThemeUpdateConfig = 'theme.update.config.auth',
+}
