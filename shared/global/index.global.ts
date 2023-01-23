@@ -7,7 +7,6 @@ import 'zx-cjs/globals';
 import {
   DATA_DIR,
   LOG_DIR,
-  PLUGIN_DIR,
   PUBLIC_DIR,
   THEME_DIR,
 } from '@shared/constants/path.constant';
@@ -22,18 +21,18 @@ function consoleMog() {
 }
 
 // 建立目录
-function mkdirs() {
+export function mkdirs() {
   mkdirSync(DATA_DIR, { recursive: true });
   Logger.log(chalk.blue(`数据文件夹 已准备好: ${DATA_DIR}`));
 
   mkdirSync(LOG_DIR, { recursive: true });
   Logger.log(chalk.blue(`日志文件夹 已准备好: ${LOG_DIR}`));
 
-  mkdirSync(PLUGIN_DIR, { recursive: true });
-  Logger.log(chalk.blue(`插件文件夹 已准备好: ${PLUGIN_DIR}`));
+  // mkdirSync(PLUGIN_DIR, { recursive: true });
+  // Logger.log(chalk.blue(`插件文件夹 已准备好: ${PLUGIN_DIR}`));
 
   mkdirSync(THEME_DIR, { recursive: true });
-  mkdirSync(join(THEME_DIR, 'tmp'), { recursive: true });
+  mkdirSync(join(THEME_DIR), { recursive: true });
   Logger.log(chalk.blue(`主题文件夹 已准备好: ${THEME_DIR}`));
 
   mkdirSync(PUBLIC_DIR, { recursive: true });
