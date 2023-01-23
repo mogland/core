@@ -1,6 +1,6 @@
 #!env node
 // register global
-import { register } from '../../../shared/global/index.global';
+import { register } from '@shared/global/index.global';
 
 async function main() {
   register();
