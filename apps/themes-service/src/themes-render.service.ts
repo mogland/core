@@ -212,7 +212,11 @@ export class ThemesRenderService {
     }
   }
   async getConfigVariables() {}
-  async getThemeVariables() {}
+  async getThemeVariables() {
+    return (await this.configService.get('themes')).filter(
+      (item) => item.id === this.activeTheme.id,
+    )[0];
+  }
   async getPathVariables(request: FastifyRequest) {
     return request.url.split('?')[0].replace(/http[s]?:\/\/[^/]+/, '');
   }
