@@ -262,8 +262,7 @@ export class ThemesServiceService {
     const theme = themes?.find((t) => t.id === id);
     const _theme = this.themes?.find((t) => t.id === id);
     if (!_theme) {
-      consola.error(`主题不存在或不合法`);
-      return false;
+      throw new InternalServerErrorException(`主题不存在或不合法`);
     }
     _theme.active = true;
     if (!theme) {
@@ -288,6 +287,26 @@ export class ThemesServiceService {
     this.setENV(_theme.path);
     this.untrackThemeChange(); // 取消旧主题的监听
     this.trackThemeChange(); // 监听新主题的变化
+    return true;
+  }
+
+  /**
+   * 删除主题
+   */
+  async deleteTheme(id: string): Promise<boolean> {
+    const themes = (await this.configService.get('themes')) || [];
+    const theme = themes?.find((t) => t.id === id);
+    if (theme?.active) {
+      throw new InternalServerErrorException(`无法删除正在使用的主题`);
+    }
+    const _theme = this.dir.find((t) => t === id);
+    if (!_theme) {
+      throw new InternalServerErrorException(`主题目录不存在`);
+    }
+    fs.rmdirSync(join(THEME_DIR, _theme), { recursive: true });
+    this.dir = this.dir.filter((t) => t !== id);
+    this.themes = this.themes.filter((t) => t.id !== id);
+    consola.info(`主题 ${chalk.green(id)} 已删除`);
     return true;
   }
 }
