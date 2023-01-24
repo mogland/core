@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { join } from 'path';
 import { ConfigService } from '~/libs/config/src';
 import { ThemesDto } from '~/libs/config/src/config.dto';
@@ -12,6 +16,9 @@ import {
   ThemeConfigType,
 } from './theme.interface';
 import fs from 'fs';
+import { ServicesEnum } from '~/shared/constants/services.constant';
+import { ClientProxy } from '@nestjs/microservices';
+import { ThemesEvents } from '~/shared/constants/event.constant';
 
 @Injectable()
 export class ThemesServiceService {
@@ -21,7 +28,11 @@ export class ThemesServiceService {
   };
   private themes: ThemesDto[];
   private dir: any[] = [];
-  constructor(private readonly configService: ConfigService) {
+  constructor(
+    private readonly configService: ConfigService,
+    @Inject(ServicesEnum.notification)
+    private readonly notificationService: ClientProxy,
+  ) {
     this.env = JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme || {
       theme: undefined,
     };
@@ -242,10 +253,16 @@ export class ThemesServiceService {
    * 启动主题
    */
   async activeTheme(id: string): Promise<boolean> {
+    this.notificationService.emit(ThemesEvents.ThemeBeforeActivate, { id });
     const themes = (await this.configService.get('themes')) || [];
 
     const activeTheme = themes?.find((t) => t.active);
     activeTheme?.active && (activeTheme.active = false);
+
+    activeTheme &&
+      this.notificationService.emit(ThemesEvents.ThemeBeforeDeactivate, {
+        id: activeTheme.id,
+      });
 
     const theme = themes?.find((t) => t.id === id);
     const _theme = this.themes?.find((t) => t.id === id);
@@ -275,6 +292,12 @@ export class ThemesServiceService {
     this.setENV(_theme.path);
     this.untrackThemeChange(); // 取消旧主题的监听
     this.trackThemeChange(); // 监听新主题的变化
+
+    activeTheme &&
+      this.notificationService.emit(ThemesEvents.ThemeAfterDeactivate, {
+        id: activeTheme.id,
+      });
+    this.notificationService.emit(ThemesEvents.ThemeAfterActivate, { id });
     return true;
   }
 
@@ -282,6 +305,7 @@ export class ThemesServiceService {
    * 删除主题
    */
   async deleteTheme(id: string): Promise<boolean> {
+    this.notificationService.emit(ThemesEvents.ThemeBeforeUninstall, { id });
     const themes = (await this.configService.get('themes')) || [];
     const theme = themes?.find((t) => t.id === id);
     if (theme?.active) {
@@ -295,6 +319,7 @@ export class ThemesServiceService {
     this.dir = this.dir.filter((t) => t !== id);
     this.themes = this.themes.filter((t) => t.id !== id);
     consola.info(`主题 ${chalk.green(id)} 已删除`);
+    this.notificationService.emit(ThemesEvents.ThemeAfterUninstall, { id });
     return true;
   }
 

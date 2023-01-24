@@ -114,6 +114,8 @@ export enum NotificationEvents {
 }
 
 export enum ThemesEvents {
+  Ping = 'themes.ping',
+
   ThemesGetAll = 'themes.get.all',
   ThemeGetInfo = 'theme.get.info',
   ThemeActiveByMaster = 'theme.active.auth',
@@ -122,4 +124,16 @@ export enum ThemesEvents {
   ThemeGetConfigItem = 'theme.get.config.item',
   ThemeUpdateConfig = 'theme.update.config.auth',
   ThemeUpdateConfigItem = 'theme.update.config.item.auth',
+  // spread theme install hook
+  ThemeBeforeInstall = 'theme.beforeInstall',
+  ThemeAfterInstall = 'theme.afterInstall',
+
+  ThemeBeforeActivate = 'theme.beforeActivate',
+  ThemeAfterActivate = 'theme.afterActivate',
+
+  ThemeBeforeDeactivate = 'theme.beforeDeactivate',
+  ThemeAfterDeactivate = 'theme.afterDeactivate',
+
+  ThemeBeforeUninstall = 'theme.beforeUninstall',
+  ThemeAfterUninstall = 'theme.afterUninstall',
 }
