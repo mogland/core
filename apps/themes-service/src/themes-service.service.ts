@@ -43,12 +43,24 @@ export class ThemesServiceService {
         consola.info(`共加载了${themes?.length || 0}个主题配置`);
       })
       .then(() => {
-        consola.info(`共检测到 ${fs.readdirSync(THEME_DIR).length} 个主题`);
+        consola.info(
+          `共检测到 ${
+            fs
+              .readdirSync(THEME_DIR, {
+                withFileTypes: true,
+              })
+              .filter((dirent) => dirent.isDirectory()).length
+          } 个主题`,
+        );
       })
       .then(() => {
-        fs.readdirSync(THEME_DIR).forEach((theme) => {
-          this.validateTheme(theme, false);
-        });
+        fs.readdirSync(THEME_DIR, {
+          withFileTypes: true,
+        })
+          .filter((dirent) => dirent.isDirectory())
+          .forEach((theme) => {
+            this.validateTheme(theme.name, false);
+          });
       })
       .then(() => {
         consola.success(
@@ -115,6 +127,9 @@ export class ThemesServiceService {
    * 验证主题合法性
    */
   validateTheme(theme: string, error = true) {
+    if (fs.statSync(join(THEME_DIR, theme)).isFile()) {
+      return;
+    }
     try {
       if (!fs.existsSync(join(THEME_DIR, theme))) {
         throw new InternalServerErrorException(`主题不存在`);

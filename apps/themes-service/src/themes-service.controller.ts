@@ -1,8 +1,11 @@
 import { Controller, Get, Param, Query, Req, Res } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
+import ejs from 'ejs';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { ThemesEvents } from '~/shared/constants/event.constant';
-import { ThemesRenderService } from './themes-render.service';
+import { THEME_DIR } from '~/shared/constants/path.constant';
+import { consola } from '~/shared/global/consola.global';
+import { ThemeEnum, ThemesRenderService } from './themes-render.service';
 import { ThemesServiceService } from './themes-service.service';
 
 @Controller()
@@ -69,10 +72,46 @@ export class ThemesServiceController {
 
   // ===Web===：输出主题
   @Get('/')
-  home(
+  async home(
     @Res() reply: FastifyReply,
     @Req() req: FastifyRequest,
-    @Query() query: [string, string][],
-    @Param() params: string[],
-  ) {}
+    @Query() query: { [key: string]: string },
+    @Param() params: { [key: string]: string },
+  ) {
+    try {
+      const theme =
+        JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme ||
+        undefined;
+      if (!theme) {
+        consola.info('Theme not found.');
+        reply.code(500);
+        reply.send('Theme not found.');
+        return;
+      }
+      const variables = await this.render
+        .getAllVariables(ThemeEnum.index, query, params, req)
+        .catch((err) => {
+          reply.code(500);
+          reply.send({
+            statusCode: 500,
+            message: `获取变量时出错: ${err}`,
+          });
+          return {};
+        });
+      const themePath = path.join(THEME_DIR, theme, `${ThemeEnum.index}.ejs`);
+      const themeFile = fs.readFileSync(themePath, 'utf-8');
+      const themeRender = ejs.compile(themeFile, {
+        root: path.join(THEME_DIR, theme),
+      });
+      const html = themeRender(variables);
+      reply.header('Content-Type', 'text/html; charset=utf-8');
+      reply.send(html);
+    } catch (err) {
+      reply.code(500);
+      reply.send({
+        statusCode: 500,
+        message: `渲染主题时出错: ${err}`,
+      });
+    }
+  }
 }

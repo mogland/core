@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { plainToInstance } from 'class-transformer';
 import { FastifyRequest } from 'fastify';
 import { CategoryType } from '~/apps/page-service/src/model/category.model';
 import { ConfigService } from '~/libs/config/src';
@@ -11,10 +12,11 @@ import {
 } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { PagerDto } from '~/shared/dto/pager.dto';
+import { consola } from '~/shared/global/consola.global';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 import { getValueFromQuery } from '~/shared/utils/query-param';
 
-enum ThemeEnum {
+export enum ThemeEnum {
   page = 'page',
   post = 'post',
   category = 'category',
@@ -25,7 +27,6 @@ enum ThemeEnum {
 
 @Injectable()
 export class ThemesRenderService {
-  private activeTheme;
   constructor(
     @Inject(ServicesEnum.page) private readonly pageService: ClientProxy,
     @Inject(ServicesEnum.user) private readonly userService: ClientProxy,
@@ -33,10 +34,7 @@ export class ThemesRenderService {
     @Inject(ServicesEnum.comments)
     private readonly commentsService: ClientProxy,
     private readonly configService: ConfigService,
-  ) {
-    this.activeTheme =
-      JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme || undefined;
-  }
+  ) {}
 
   /**
    * 网站变量，包含全部文章、页面、分类、标签
@@ -102,7 +100,7 @@ export class ThemesRenderService {
       sortBy: getValueFromQuery(query, 'sortBy', ''),
       sortOrder:
         (Number(getValueFromQuery(query, 'sortOrder', undefined)) as 1 | -1) ||
-        undefined,
+        1,
       year: Number(getValueFromQuery(query, 'year', undefined)) || undefined,
       status:
         Number(getValueFromQuery(query, 'status', undefined)) || undefined,
@@ -111,7 +109,7 @@ export class ThemesRenderService {
       this.pageService,
       PostEvents.PostsListGet,
       {
-        pager,
+        query: plainToInstance(PagerDto, pager),
         isMaster: false,
       },
       true,
@@ -125,6 +123,9 @@ export class ThemesRenderService {
     req: FastifyRequest,
   ) {
     const slug = getValueFromQuery(params, 'slug', undefined);
+    if (!slug) {
+      return {};
+    }
     const password = (req.body as { password?: string })?.password;
     const page = await transportReqToMicroservice(
       this.pageService,
@@ -151,6 +152,9 @@ export class ThemesRenderService {
   ) {
     const category = getValueFromQuery(params, 'category', undefined);
     const slug = getValueFromQuery(params, 'slug', undefined);
+    if (!slug || !category) {
+      return {};
+    }
     const password = (req.body as { password?: string })?.password;
     const post = await transportReqToMicroservice(
       this.pageService,
@@ -212,12 +216,14 @@ export class ThemesRenderService {
     }
   }
   async getConfigVariables() {
-    return this.configService.getAllConfigs();
+    return await this.configService.getAllConfigs();
   }
   async getThemeVariables() {
     return (await this.configService.get('themes')).filter(
-      (item) => item.id === this.activeTheme.id,
-    )[0];
+      (item) =>
+        item.id ===
+        JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme,
+    )?.[0];
   }
   async getPathVariables(request: FastifyRequest) {
     return request.url.split('?')[0].replace(/http[s]?:\/\/[^/]+/, '');
@@ -244,22 +250,44 @@ export class ThemesRenderService {
   }
 
   async getAllVariables(
-    request: FastifyRequest,
+    layout: ThemeEnum,
     query: { [key: string]: string },
     params: { [key: string]: string },
-    layout: ThemeEnum,
+    request: FastifyRequest,
   ) {
-    const siteVariables = await this.getSiteVariables();
+    const siteVariables = await this.getSiteVariables().catch((e) => {
+      consola.error(e);
+      return {};
+    });
     const pageVariables = await this.getAnyPageVariables(
       query,
       params,
       layout,
       request,
-    );
-    const configVariables = await this.getConfigVariables();
-    const themeVariables = await this.getThemeVariables();
-    const pathVariables = await this.getPathVariables(request);
-    const urlVariables = await this.getURLVariables(request, query, params);
+    ).catch((e) => {
+      consola.error(e);
+      return {};
+    });
+    const configVariables = await this.getConfigVariables().catch((e) => {
+      consola.error(e);
+      return {};
+    });
+    const themeVariables = await this.getThemeVariables().catch((e) => {
+      consola.error(e);
+      return {};
+    });
+    const pathVariables = await this.getPathVariables(request).catch((e) => {
+      consola.error(e);
+      return {};
+    });
+    const urlVariables = await this.getURLVariables(
+      request,
+      query,
+      params,
+    ).catch((e) => {
+      consola.error(e);
+      return {};
+    });
     return {
       site: siteVariables,
       page: pageVariables,
@@ -269,4 +297,20 @@ export class ThemesRenderService {
       url: urlVariables,
     };
   }
+  // async render(layout: ThemeEnum, query: any, params: any, request: FastifyRequest, reply: FastifyReply) {
+  //   console.log('render', layout, query, params);
+  //   // const variables = await this.getAllVariables(request, query, params, layout);
+  //   const theme = JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme as ThemesDto || undefined;
+  //   if (!theme) {
+  //     reply.code(500);
+  //     reply.send('Theme not found.');
+  //     return;
+  //   }
+  // const themePath = path.join(THEME_DIR, theme.path, `${layout}.ejs`);
+  // const themeFile = fs.readFileSync(themePath, 'utf-8');
+  // const themeRender = ejs.compile(themeFile, { filename: themePath });
+  // const html = themeRender(variables);
+  // reply.header('Content-Type', 'text/html; charset=utf-8');
+  // reply.send(html);
+  // }
 }
