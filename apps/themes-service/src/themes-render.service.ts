@@ -213,7 +213,9 @@ export class ThemesRenderService {
   }
   async getConfigVariables() {}
   async getThemeVariables() {}
-  async getPathVariables() {}
+  async getPathVariables(request: FastifyRequest) {
+    return request.url.split('?')[0].replace(/http[s]?:\/\/[^/]+/, '');
+  }
   async getURLVariables(
     request: FastifyRequest,
     query: { [key: string]: string },
@@ -251,7 +253,7 @@ export class ThemesRenderService {
     );
     const configVariables = await this.getConfigVariables();
     const themeVariables = await this.getThemeVariables();
-    const pathVariables = await this.getPathVariables();
+    const pathVariables = await this.getPathVariables(request);
     const urlVariables = await this.getURLVariables(request, query, params);
     const envVariables = await this.getEnvVariables();
     return {
