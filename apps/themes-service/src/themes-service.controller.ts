@@ -202,6 +202,16 @@ export class ThemesServiceController {
     await this._render(reply, req, query, params, ThemeEnum.page);
   }
 
+  @Get('/friends')
+  async friends(
+    @Res() reply: FastifyReply,
+    @Req() req: FastifyRequest,
+    @Query() query,
+    @Param() params,
+  ) {
+    await this._render(reply, req, query, params, ThemeEnum.friends);
+  }
+
   @Get(['/raw/*'])
   async assets(@Req() req: FastifyRequest, @Res() reply: FastifyReply) {
     // @ts-ignore

@@ -7,6 +7,7 @@ import { ConfigService } from '~/libs/config/src';
 import {
   CategoryEvents,
   CommentsEvents,
+  FriendsEvents,
   PageEvents,
   PostEvents,
 } from '~/shared/constants/event.constant';
@@ -23,6 +24,7 @@ export enum ThemeEnum {
   tag = 'tag',
   archives = 'archives',
   index = 'index',
+  friends = 'friends',
   custom = 'custom',
 }
 
@@ -69,11 +71,13 @@ export class ThemesRenderService {
       },
       true,
     );
+    const friends = await this.getFriendsVariables();
     return {
       pages,
       posts,
       categories,
       tags,
+      friends,
     };
   }
   /**
@@ -194,6 +198,17 @@ export class ThemesRenderService {
     );
   }
   /**
+   * 获取友链变量
+   */
+  async getFriendsVariables() {
+    return await transportReqToMicroservice(
+      this.friendsService,
+      FriendsEvents.FriendsGetAll,
+      {},
+      true,
+    );
+  }
+  /**
    * 页面变量，包含页面标题等 (Like Hexo)
    */
   async getAnyPageVariables(
@@ -209,6 +224,8 @@ export class ThemesRenderService {
         return await this.getPageVariables(params, req);
       case ThemeEnum.post:
         return await this.getPostVariables(params, req);
+      case ThemeEnum.friends:
+        return await this.getFriendsVariables();
       case ThemeEnum.category:
       case ThemeEnum.tag:
         return await this.getCategoryOrTagVariables(params, layout);
