@@ -44,7 +44,7 @@ export class SiteDto {
   serverUrl: string;
 }
 
-export class WebhookDto {
+export class WebhooksDto {
   @IsString()
   @IsNotEmpty()
   name: string;
