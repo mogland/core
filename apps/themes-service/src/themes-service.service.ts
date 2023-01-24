@@ -30,14 +30,6 @@ export class ThemesServiceService {
       .get('themes')
       .then((themes) => {
         consola.info(`共加载了${themes?.length || 0}个主题配置`);
-        themes.find((theme) => {
-          if (theme.active) {
-            this.setENV(theme.path);
-            this.trackThemeChange();
-            return true;
-          }
-          return false;
-        });
       })
       .then(() => {
         consola.info(`共检测到 ${fs.readdirSync(THEME_DIR).length} 个主题`);
@@ -51,11 +43,15 @@ export class ThemesServiceService {
         consola.success(
           `合法主题检测完毕，共检测到 ${this.dir.length} 个合法主题`,
         );
-        this.activeTheme('theme.tiny.wibus-wee');
       });
 
     this._getAllThemes().then((themes) => {
       this.themes = themes;
+      this.setENV(
+        this.themes.filter((theme) => theme.active)[0]?.path ||
+          this.dir?.[0]?.path,
+      );
+      this.trackThemeChange();
     });
   }
 
