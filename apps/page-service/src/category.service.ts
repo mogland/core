@@ -9,7 +9,6 @@
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 import { ReturnModelType, DocumentType } from '@typegoose/typegoose';
-import { omit } from 'lodash';
 import { FilterQuery } from 'mongoose';
 import { nextTick } from 'process';
 import { InjectModel } from '~/libs/database/src/model.transformer';
@@ -163,13 +162,7 @@ export class CategoryService {
         message: ExceptionMessage.PageIsNotExist,
       });
 
-    return posts.map(({ _id, title, slug, category, created }) => ({
-      _id,
-      title,
-      slug,
-      category: omit(category, ['count', '__v', 'created', 'modified']),
-      created,
-    }));
+    return posts;
   }
 
   /**
