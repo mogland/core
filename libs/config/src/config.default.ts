@@ -19,7 +19,7 @@ export const DefaultConfigs: () => ConfigsInterface = () => ({
     frontUrl: 'http://localhost:2330',
     serverUrl: 'http://localhost:2000',
   },
-  webhook: [],
+  webhooks: [],
   email: {
     host: '',
     user: '',
