@@ -5,6 +5,7 @@ import { CategoryType } from '~/apps/page-service/src/model/category.model';
 import { ConfigService } from '~/libs/config/src';
 import {
   CategoryEvents,
+  CommentsEvents,
   PageEvents,
   PostEvents,
 } from '~/shared/constants/event.constant';
@@ -76,7 +77,20 @@ export class ThemesRenderService {
       tags,
     };
   }
-
+  /**
+   * 评论变量，需要传入pid
+   */
+  async getCommentsVariables(pid: string) {
+    return await transportReqToMicroservice(
+      this.commentsService,
+      CommentsEvents.CommentsGetWithPostId,
+      {
+        pid,
+        isMaster: false,
+      },
+      true,
+    );
+  }
   /**
    * 适用范围：首页、归档页
    */
@@ -103,13 +117,16 @@ export class ThemesRenderService {
       true,
     );
   }
+  /**
+   * 页面变量，包含评论内容
+   */
   async getPageVariables(
     params: { [key: string]: string },
     req: FastifyRequest,
   ) {
     const slug = getValueFromQuery(params, 'slug', undefined);
     const password = (req.body as { password?: string })?.password;
-    return await transportReqToMicroservice(
+    const page = await transportReqToMicroservice(
       this.pageService,
       PageEvents.PageGet,
       {
@@ -119,7 +136,15 @@ export class ThemesRenderService {
       },
       true,
     );
+    const comments = this.getCommentsVariables(page._id);
+    return {
+      ...page,
+      comments,
+    };
   }
+  /**
+   * 文章变量，包含评论内容
+   */
   async getPostVariables(
     params: { [key: string]: string },
     req: FastifyRequest,
@@ -127,7 +152,7 @@ export class ThemesRenderService {
     const category = getValueFromQuery(params, 'category', undefined);
     const slug = getValueFromQuery(params, 'slug', undefined);
     const password = (req.body as { password?: string })?.password;
-    return await transportReqToMicroservice(
+    const post = await transportReqToMicroservice(
       this.pageService,
       PostEvents.PostGet,
       {
@@ -138,7 +163,15 @@ export class ThemesRenderService {
       },
       true,
     );
+    const comments = this.getCommentsVariables(post._id);
+    return {
+      ...post,
+      comments,
+    };
   }
+  /**
+   * 分类或标签变量，包含分类或标签下的文章列表
+   */
   async getCategoryOrTagVariables(
     params: { [key: string]: string },
     layout: ThemeEnum,
