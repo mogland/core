@@ -7,7 +7,7 @@
  * Coding With IU
  */
 
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, RequestMethod, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
@@ -57,7 +57,10 @@ export async function bootstrap() {
     }),
   );
 
-  !isDev && app.setGlobalPrefix(`api`);
+  !isDev &&
+    app.setGlobalPrefix(`api`, {
+      exclude: [{ path: '/console/*', method: RequestMethod.ALL }],
+    });
 
   if (isDev) {
     app.useGlobalInterceptors(new LoggingInterceptor());
