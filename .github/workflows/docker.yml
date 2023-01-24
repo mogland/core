@@ -2,8 +2,7 @@ name: Docker Build
 
 on:
   push:
-    branches:
-      - '**'
+    branches: [main]
     tags:
       - 'v*'
     paths-ignore:
