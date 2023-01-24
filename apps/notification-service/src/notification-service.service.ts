@@ -14,7 +14,7 @@ export class NotificationService {
 
   async getWebhookInEvent(event: string) {
     const res: string[] = [];
-    const webhooks = await this.config.get('webhook');
+    const webhooks = await this.config.get('webhooks');
     if (!webhooks) return;
     for (const webhook of webhooks) {
       if (webhook.events.includes(event)) {

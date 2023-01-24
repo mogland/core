@@ -9,7 +9,7 @@
 
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
-import { EmailDto, SeoDto, SiteDto, WebhookDto } from './config.dto';
+import { EmailDto, SeoDto, SiteDto, WebhooksDto } from './config.dto';
 
 export abstract class ConfigsInterface {
   @Type(() => SeoDto)
@@ -20,9 +20,9 @@ export abstract class ConfigsInterface {
   @ValidateNested()
   site: SiteDto;
 
-  @Type(() => WebhookDto)
+  @Type(() => WebhooksDto)
   @ValidateNested()
-  webhook: WebhookDto[];
+  webhooks: WebhooksDto[];
 
   @Type(() => EmailDto)
   @ValidateNested()
