@@ -225,7 +225,11 @@ export class ConfigService {
    */
   async getAllConfigs() {
     const config = await this.configModel.find().lean();
-    return config;
+    const configMap = new Map();
+    config.forEach((c) => {
+      configMap.set(c.name, c.value);
+    });
+    return Object.fromEntries(configMap);
   }
 
   /**
