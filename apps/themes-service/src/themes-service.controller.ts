@@ -1,13 +1,18 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Param, Query, Req, Res } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import { ThemesEvents } from '~/shared/constants/event.constant';
+import { ThemesRenderService } from './themes-render.service';
 import { ThemesServiceService } from './themes-service.service';
 
 @Controller()
 export class ThemesServiceController {
-  constructor(private readonly themesServiceService: ThemesServiceService) {}
+  constructor(
+    private readonly themesServiceService: ThemesServiceService,
+    private readonly render: ThemesRenderService,
+  ) {}
 
-  // ===Microservice===
+  // ===Microservice=== : 用于主题服务与网关层等通信，将所有操作主题的方法都由网关层调用活动执行
   @MessagePattern({ cmd: ThemesEvents.ThemesGetAll })
   getAllThemes() {
     return this.themesServiceService.getAllThemes();
@@ -61,4 +66,13 @@ export class ThemesServiceController {
       data.value,
     );
   }
+
+  // ===Web===：输出主题
+  @Get('/')
+  home(
+    @Res() reply: FastifyReply,
+    @Req() req: FastifyRequest,
+    @Query() query: [string, string][],
+    @Param() params: string[],
+  ) {}
 }
