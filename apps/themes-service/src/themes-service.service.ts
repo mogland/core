@@ -218,18 +218,6 @@ export class ThemesServiceService {
   }
 
   /**
-   * 获取主题配置
-   */
-  async getThemeConfig(id: string): Promise<string> {
-    return (
-      JSON.parse(
-        (await this.configService.get('themes'))?.find((t) => t.id === id)
-          ?.config || '[]',
-      ) || []
-    );
-  }
-
-  /**
    * 获取所有主题 (private)
    */
   private async _getAllThemes(): Promise<ThemesDto[]> {
@@ -315,7 +303,7 @@ export class ThemesServiceService {
    * @param id 主题 ID
    * @param config 主题配置
    */
-  async setThemeConfig(id: string, config: string): Promise<boolean> {
+  async updateThemeConfig(id: string, config: string): Promise<boolean> {
     try {
       const _c = JSON.parse(config);
       if (!Array.isArray(_c)) {
@@ -350,11 +338,23 @@ export class ThemesServiceService {
   }
 
   /**
+   * 获取主题配置
+   */
+  async getThemeConfig(id: string): Promise<string> {
+    return (
+      JSON.parse(
+        (await this.configService.get('themes'))?.find((t) => t.id === id)
+          ?.config || '[]',
+      ) || []
+    );
+  }
+
+  /**
    * 获取主题某一配置
    * @param id 主题 ID
    * @param key 配置 key
    */
-  async getAThemeConfig(id: string, key: string): Promise<string> {
+  async getThemeConfigItem(id: string, key: string): Promise<string> {
     const themes = (await this.configService.get('themes')) || [];
     const theme = themes?.find((t) => t.id === id);
     if (!theme) {
@@ -375,7 +375,7 @@ export class ThemesServiceService {
    * @param key 配置 key
    * @param value 配置 value
    */
-  async setAThemeConfig(
+  async updateThemeConfigItem(
     id: string,
     key: string,
     value: string,

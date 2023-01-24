@@ -115,10 +115,11 @@ export enum NotificationEvents {
 
 export enum ThemesEvents {
   ThemesGetAll = 'themes.get.all',
-
   ThemeGetInfo = 'theme.get.info',
-  ThemeGetConfig = 'theme.get.config',
   ThemeActiveByMaster = 'theme.active.auth',
   ThemeDeleteByMaster = 'theme.delete.auth',
+  ThemeGetConfig = 'theme.get.config',
+  ThemeGetConfigItem = 'theme.get.config.item',
   ThemeUpdateConfig = 'theme.update.config.auth',
+  ThemeUpdateConfigItem = 'theme.update.config.item.auth',
 }

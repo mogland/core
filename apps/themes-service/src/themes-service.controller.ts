@@ -18,11 +18,6 @@ export class ThemesServiceController {
     return await this.themesServiceService.getTheme(data.id);
   }
 
-  @MessagePattern({ cmd: ThemesEvents.ThemeGetConfig })
-  async getThemeConfig(data: { id: string }) {
-    return await this.themesServiceService.getThemeConfig(data.id);
-  }
-
   @MessagePattern({ cmd: ThemesEvents.ThemeActiveByMaster })
   async activeTheme(data: { id: string }) {
     return await this.themesServiceService.activeTheme(data.id);
@@ -31,5 +26,39 @@ export class ThemesServiceController {
   @MessagePattern({ cmd: ThemesEvents.ThemeDeleteByMaster })
   async deleteTheme(data: { id: string }) {
     return await this.themesServiceService.deleteTheme(data.id);
+  }
+
+  @MessagePattern({ cmd: ThemesEvents.ThemeGetConfig })
+  async getThemeConfig(data: { id: string }) {
+    return await this.themesServiceService.getThemeConfig(data.id);
+  }
+
+  @MessagePattern({ cmd: ThemesEvents.ThemeGetConfigItem })
+  async getThemeConfigItem(data: { id: string; key: string }) {
+    return await this.themesServiceService.getThemeConfigItem(
+      data.id,
+      data.key,
+    );
+  }
+
+  @MessagePattern({ cmd: ThemesEvents.ThemeUpdateConfig })
+  async updateThemeConfig(data: { id: string; config: string }) {
+    return await this.themesServiceService.updateThemeConfig(
+      data.id,
+      data.config,
+    );
+  }
+
+  @MessagePattern({ cmd: ThemesEvents.ThemeUpdateConfigItem })
+  async updateThemeConfigItem(data: {
+    id: string;
+    key: string;
+    value: string;
+  }) {
+    return await this.themesServiceService.updateThemeConfigItem(
+      data.id,
+      data.key,
+      data.value,
+    );
   }
 }
