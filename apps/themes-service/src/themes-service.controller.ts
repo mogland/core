@@ -1,7 +1,17 @@
-import { Controller, Get, Param, Query, Req, Res } from '@nestjs/common';
+import {
+  Controller,
+  ForbiddenException,
+  Get,
+  InternalServerErrorException,
+  Param,
+  Query,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import ejs from 'ejs';
 import { FastifyReply, FastifyRequest } from 'fastify';
+import mime from 'mime';
 import { ThemesEvents } from '~/shared/constants/event.constant';
 import { THEME_DIR } from '~/shared/constants/path.constant';
 import { consola } from '~/shared/global/consola.global';
@@ -70,13 +80,12 @@ export class ThemesServiceController {
     );
   }
 
-  // ===Web===：输出主题
-  @Get('/')
-  async home(
-    @Res() reply: FastifyReply,
-    @Req() req: FastifyRequest,
-    @Query() query: { [key: string]: string },
-    @Param() params: { [key: string]: string },
+  private async _render(
+    reply: FastifyReply,
+    req: FastifyRequest,
+    query: { [key: string]: string },
+    params: { [key: string]: string },
+    layout: ThemeEnum,
   ) {
     try {
       const theme =
@@ -89,18 +98,35 @@ export class ThemesServiceController {
         return;
       }
       const variables = await this.render
-        .getAllVariables(ThemeEnum.index, query, params, req)
+        .getAllVariables(layout, query, params, req)
         .catch((err) => {
           reply.code(500);
           reply.send({
             statusCode: 500,
             message: `获取变量时出错: ${err}`,
           });
-          return {};
+          throw new InternalServerErrorException();
         });
-      const themePath = path.join(THEME_DIR, theme, `${ThemeEnum.index}.ejs`);
-      const themeFile = fs.readFileSync(themePath, 'utf-8');
-      const themeRender = ejs.compile(themeFile, {
+      let themePath: string;
+      let themeFile: string;
+      if (layout === ThemeEnum.custom) {
+        const customPath = path.join(
+          THEME_DIR,
+          theme,
+          'custom',
+          `page-${variables.path.replace(/^\//, '')}.ejs`,
+        );
+        await fs.exists(customPath).then(async (exists) => {
+          if (exists) {
+            themePath = customPath;
+            themeFile = await fs.readFile(themePath, 'utf-8');
+          }
+        });
+      } else {
+        themePath = path.join(THEME_DIR, theme, `${layout}.ejs`);
+        themeFile = fs.readFileSync(themePath, 'utf-8');
+      }
+      const themeRender = ejs.compile(themeFile!, {
         root: path.join(THEME_DIR, theme),
       });
       const html = themeRender(variables);
@@ -113,5 +139,113 @@ export class ThemesServiceController {
         message: `渲染主题时出错: ${err}`,
       });
     }
+  }
+
+  // ===Web===：输出主题
+  @Get('/')
+  async home(
+    @Res() reply: FastifyReply,
+    @Req() req: FastifyRequest,
+    @Query() query: { [key: string]: string },
+    @Param() params: { [key: string]: string },
+  ) {
+    await this._render(reply, req, query, params, ThemeEnum.index);
+  }
+
+  @Get('/archives')
+  async archives(
+    @Res() reply: FastifyReply,
+    @Req() req: FastifyRequest,
+    @Query() query,
+    @Param() params,
+  ) {
+    await this._render(reply, req, query, params, ThemeEnum.archives);
+  }
+
+  @Get('/category')
+  async categories(
+    @Res() reply: FastifyReply,
+    @Req() req: FastifyRequest,
+    @Query() query,
+    @Param() params,
+  ) {
+    await this._render(reply, req, query, params, ThemeEnum.category);
+  }
+
+  @Get('/tag')
+  async tags(
+    @Res() reply: FastifyReply,
+    @Req() req: FastifyRequest,
+    @Query() query,
+    @Param() params,
+  ) {
+    await this._render(reply, req, query, params, ThemeEnum.tag);
+  }
+
+  @Get('/post')
+  async post(
+    @Res() reply: FastifyReply,
+    @Req() req: FastifyRequest,
+    @Query() query,
+    @Param() params,
+  ) {
+    await this._render(reply, req, query, params, ThemeEnum.post);
+  }
+
+  @Get('/page')
+  async page(
+    @Res() reply: FastifyReply,
+    @Req() req: FastifyRequest,
+    @Query() query,
+    @Param() params,
+  ) {
+    await this._render(reply, req, query, params, ThemeEnum.page);
+  }
+
+  @Get(['/raw/*'])
+  async assets(@Req() req: FastifyRequest, @Res() reply: FastifyReply) {
+    // @ts-ignore
+    const file = req.params['*'];
+    if (!file)
+      throw new ForbiddenException(
+        `Please don't access the root directory directly. Please use /raw/filename to access files.`,
+      );
+    const theme =
+      JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme || undefined;
+    if (!theme) {
+      consola.info('Theme not found.');
+      reply.code(500);
+      reply.send('Theme not found.');
+      return;
+    }
+    const themePath = path.join(THEME_DIR, theme, file);
+    const themeFile = await fs.readFile(themePath, 'utf-8').catch((err) => {
+      reply.code(500);
+      reply.send({
+        statusCode: 500,
+        message: `读取文件时出错: ${err}`,
+      });
+      return '';
+    });
+    const themeType = mime.getType(themePath) || 'text/plain';
+    reply.header('Content-Type', `${themeType}; charset=utf-8`);
+    reply.send(themeFile);
+  }
+
+  @Get(['/raw'])
+  async assetsRoot() {
+    throw new ForbiddenException(
+      `Please don't access the root directory directly. Please use /raw/filename to access files.`,
+    );
+  }
+
+  @Get(['/*'])
+  async renderCustomPage(
+    @Res() reply: FastifyReply,
+    @Req() req: FastifyRequest,
+    @Query() query,
+    @Param() params,
+  ) {
+    await this._render(reply, req, query, params, ThemeEnum.custom);
   }
 }

@@ -21,8 +21,9 @@ export enum ThemeEnum {
   post = 'post',
   category = 'category',
   tag = 'tag',
-  archive = 'archive',
+  archives = 'archives',
   index = 'index',
+  custom = 'custom',
 }
 
 @Injectable()
@@ -278,7 +279,7 @@ export class ThemesRenderService {
     });
     const pathVariables = await this.getPathVariables(request).catch((e) => {
       consola.error(e);
-      return {};
+      return '';
     });
     const urlVariables = await this.getURLVariables(
       request,
@@ -297,20 +298,4 @@ export class ThemesRenderService {
       url: urlVariables,
     };
   }
-  // async render(layout: ThemeEnum, query: any, params: any, request: FastifyRequest, reply: FastifyReply) {
-  //   console.log('render', layout, query, params);
-  //   // const variables = await this.getAllVariables(request, query, params, layout);
-  //   const theme = JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme as ThemesDto || undefined;
-  //   if (!theme) {
-  //     reply.code(500);
-  //     reply.send('Theme not found.');
-  //     return;
-  //   }
-  // const themePath = path.join(THEME_DIR, theme.path, `${layout}.ejs`);
-  // const themeFile = fs.readFileSync(themePath, 'utf-8');
-  // const themeRender = ejs.compile(themeFile, { filename: themePath });
-  // const html = themeRender(variables);
-  // reply.header('Content-Type', 'text/html; charset=utf-8');
-  // reply.send(html);
-  // }
 }
