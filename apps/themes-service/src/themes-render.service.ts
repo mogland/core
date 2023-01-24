@@ -211,7 +211,9 @@ export class ThemesRenderService {
         return {};
     }
   }
-  async getConfigVariables() {}
+  async getConfigVariables() {
+    return this.configService.getAllConfigs();
+  }
   async getThemeVariables() {
     return (await this.configService.get('themes')).filter(
       (item) => item.id === this.activeTheme.id,
@@ -240,7 +242,6 @@ export class ThemesRenderService {
       protocol,
     };
   }
-  async getEnvVariables() {}
 
   async getAllVariables(
     request: FastifyRequest,
@@ -259,7 +260,6 @@ export class ThemesRenderService {
     const themeVariables = await this.getThemeVariables();
     const pathVariables = await this.getPathVariables(request);
     const urlVariables = await this.getURLVariables(request, query, params);
-    const envVariables = await this.getEnvVariables();
     return {
       site: siteVariables,
       page: pageVariables,
@@ -267,7 +267,6 @@ export class ThemesRenderService {
       theme: themeVariables,
       path: pathVariables,
       url: urlVariables,
-      env: envVariables,
     };
   }
 }

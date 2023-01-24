@@ -5,7 +5,7 @@ import { ServicesEnum } from '~/shared/constants/services.constant';
 import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
 import { ThemesRenderService } from './themes-render.service';
 import { ThemesServiceController } from './themes-service.controller';
-import { ThemesServiceService } from '../../../themes-service.service';
+import { ThemesServiceService } from './themes-service.service';
 
 const services = {
   [ServicesEnum.page]: ServicesEnum.page,
