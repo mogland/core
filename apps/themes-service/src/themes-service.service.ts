@@ -309,4 +309,94 @@ export class ThemesServiceService {
     consola.info(`主题 ${chalk.green(id)} 已删除`);
     return true;
   }
+
+  /**
+   * 设置主题配置
+   * @param id 主题 ID
+   * @param config 主题配置
+   */
+  async setThemeConfig(id: string, config: string): Promise<boolean> {
+    try {
+      const _c = JSON.parse(config);
+      if (!Array.isArray(_c)) {
+        throw new InternalServerErrorException(`主题配置不合法`);
+      }
+      _c.forEach((c) => {
+        if (!c.name || !c.value) {
+          throw new InternalServerErrorException(
+            `主题配置不合法, 缺少 name 或 value`,
+          );
+        }
+        if (c.name.match(/[\u4e00-\u9fa5]/) && !c.key) {
+          throw new InternalServerErrorException(
+            `主题配置不合法, 缺少 key, 但 name 中包含中文`,
+          );
+        }
+      });
+    } catch {
+      throw new InternalServerErrorException(`主题配置不合法`);
+    }
+    const themes = (await this.configService.get('themes')) || [];
+    const theme = themes?.find((t) => t.id === id);
+    if (!theme) {
+      throw new InternalServerErrorException(`主题不存在或不合法`);
+    }
+    theme.config = config;
+    await this.configService.patchAndValidate('themes', [
+      ...themes.filter((t) => t.id !== id),
+      theme,
+    ]);
+    return true;
+  }
+
+  /**
+   * 获取主题某一配置
+   * @param id 主题 ID
+   * @param key 配置 key
+   */
+  async getAThemeConfig(id: string, key: string): Promise<string> {
+    const themes = (await this.configService.get('themes')) || [];
+    const theme = themes?.find((t) => t.id === id);
+    if (!theme) {
+      throw new InternalServerErrorException(`主题配置不存在`);
+    }
+    const config = JSON.parse(theme.config || '[]') as ThemeConfigItemAll[];
+    let c = config.find((c) => c.key === key);
+    if (!c) {
+      c = config.find((c) => c.name === key);
+      if (!c) throw new InternalServerErrorException(`主题配置名不存在`);
+    }
+    return String(c?.value) || '';
+  }
+
+  /**
+   * 设置主题某一配置
+   * @param id 主题 ID
+   * @param key 配置 key
+   * @param value 配置 value
+   */
+  async setAThemeConfig(
+    id: string,
+    key: string,
+    value: string,
+  ): Promise<boolean> {
+    const themes = (await this.configService.get('themes')) || [];
+    const theme = themes?.find((t) => t.id === id);
+    if (!theme) {
+      throw new InternalServerErrorException(`主题配置不存在`);
+    }
+    const config = JSON.parse(theme.config || '[]') as ThemeConfigItemAll[];
+    let c = config.find((c) => c.key === key);
+    if (!c) {
+      c = config.find((c) => c.name === key);
+      if (!c) throw new InternalServerErrorException(`主题配置名不存在`);
+    }
+    c.value = value;
+    theme.config = JSON.stringify(config);
+    await this.configService.patchAndValidate('themes', [
+      ...themes.filter((t) => t.id !== id),
+      theme,
+    ]);
+    return true;
+  }
 }

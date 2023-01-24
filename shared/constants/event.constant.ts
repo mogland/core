@@ -118,8 +118,7 @@ export enum ThemesEvents {
 
   ThemeGetInfo = 'theme.get.info',
   ThemeGetConfig = 'theme.get.config',
-  ThemeActive = 'theme.active.auth',
-  ThemeDeactive = 'theme.deactive.auth',
-  ThemeDelete = 'theme.delete.auth',
+  ThemeActiveByMaster = 'theme.active.auth',
+  ThemeDeleteByMaster = 'theme.delete.auth',
   ThemeUpdateConfig = 'theme.update.config.auth',
 }

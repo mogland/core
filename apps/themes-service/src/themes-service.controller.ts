@@ -23,8 +23,13 @@ export class ThemesServiceController {
     return await this.themesServiceService.getThemeConfig(data.id);
   }
 
-  @MessagePattern({ cmd: ThemesEvents.ThemeActive })
+  @MessagePattern({ cmd: ThemesEvents.ThemeActiveByMaster })
   async activeTheme(data: { id: string }) {
     return await this.themesServiceService.activeTheme(data.id);
+  }
+
+  @MessagePattern({ cmd: ThemesEvents.ThemeDeleteByMaster })
+  async deleteTheme(data: { id: string }) {
+    return await this.themesServiceService.deleteTheme(data.id);
   }
 }
