@@ -18,6 +18,7 @@ specifiers:
   '@nestjs/swagger': 6.1.4
   '@nestjs/testing': 9.2.1
   '@typegoose/typegoose': 10.0.0
+  '@types/adm-zip': ^0.5.0
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.3
   '@types/ejs': ^3.1.1
@@ -33,6 +34,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': 5.49.0
   '@typescript-eslint/parser': 5.49.0
   '@vercel/ncc': 0.36.0
+  adm-zip: ^0.5.10
   axios: 1.2.2
   axios-retry: 3.4.0
   bcrypt: 5.1.0
@@ -102,6 +104,7 @@ dependencies:
   '@nestjs/schedule': 2.1.0_dntc3uqqknzoduyjojusds5kla
   '@typegoose/typegoose': 10.0.0_mongoose@6.8.4
   '@vercel/ncc': 0.36.0
+  adm-zip: 0.5.10
   axios: 1.2.2
   axios-retry: 3.4.0
   bcrypt: 5.1.0
@@ -145,6 +148,7 @@ devDependencies:
   '@nestjs/schematics': 9.0.4_typescript@4.9.4
   '@nestjs/swagger': 6.1.4_amv64ql2st5iwe3zqfgkk2utnu
   '@nestjs/testing': 9.2.1_t6j6bmv6lsxnofi6ilydr2n3ma
+  '@types/adm-zip': 0.5.0
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.3
   '@types/ejs': 3.1.1
@@ -1823,6 +1827,12 @@ packages:
       tslib: 2.4.1
     dev: false
 
+  /@types/adm-zip/0.5.0:
+    resolution: {integrity: sha512-FCJBJq9ODsQZUNURo5ILAQueuA8WJhRvuihS3ke2iI25mJlfV2LK8jG2Qj2z2AWg8U0FtWWqBHVRetceLskSaw==}
+    dependencies:
+      '@types/node': 18.11.18
+    dev: true
+
   /@types/bcrypt/5.0.0:
     resolution: {integrity: sha512-agtcFKaruL8TmcvqbndlqHPSJgsolhf/qPWchFlgnW1gECTN/nKbFcoFnvKAQRFfKbh+BO6A3SWdJu9t+xF3Lw==}
     dependencies:
@@ -2415,6 +2425,11 @@ packages:
     resolution: {integrity: sha512-7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+
+  /adm-zip/0.5.10:
+    resolution: {integrity: sha512-x0HvcHqVJNTPk/Bw8JbLWlWoo6Wwnsug0fnYYro1HBrjxZ3G7/AZk7Ahv8JwDe1uIcz8eBqvu86FuF1POiG7vQ==}
+    engines: {node: '>=6.0'}
+    dev: false
 
   /agent-base/6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
