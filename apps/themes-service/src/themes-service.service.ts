@@ -70,10 +70,12 @@ export class ThemesServiceService {
 
     this._getAllThemes().then((themes) => {
       this.themes = themes;
-      this.setENV(
-        this.themes.filter((theme) => theme.active)[0]?.path ||
-          this.dir?.[0]?.path,
-      );
+      const theme = this.themes.filter((theme) => theme.active)[0];
+      if (theme) {
+        this.setENV(theme.path);
+      } else {
+        consola.info(`未检测到活动主题，请前往控制台启动某一主题`);
+      }
       this.trackThemeChange();
     });
   }
