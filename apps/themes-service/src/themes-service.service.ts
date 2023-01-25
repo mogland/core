@@ -83,6 +83,7 @@ export class ThemesServiceService {
   }
 
   async refreshThemes() {
+    this.untrackThemeChange();
     this.themes = await this._getAllThemes();
     this.trackThemeChange();
     return this.themes;
@@ -198,6 +199,8 @@ export class ThemesServiceService {
               throw new InternalServerErrorException(
                 `主题配置文件格式错误, "${config?.name}" 字段中的 data 字段中的 "${data.name}" 字段中的 key 字段不存在, 但是 name 字段是中文`,
               );
+            } else if (!data.key) {
+              data.key = data.name; // 如果没有 key 字段, 则使用 name 字段作为 key 字段
             }
             if (!data.value) {
               throw new InternalServerErrorException(
@@ -275,6 +278,38 @@ export class ThemesServiceService {
   }
 
   /**
+   * 重载配置
+   */
+  async reloadConfig(id: string) {
+    const theme = this.themes?.find((t) => t.id === id);
+    if (!theme) {
+      throw new InternalServerErrorException(`主题不存在或不合法`);
+    }
+    const config = fs.readFileSync(
+      join(THEME_DIR, theme.path, 'config.yaml'),
+      'utf-8',
+    );
+    const _yaml = yaml.load(config) as ThemeConfig;
+    // 去掉已经被设置了的配置（即 theme 里 value 字段与 config 里不一致的配置）
+    if (theme.config) {
+      const configs = _yaml.configs.filter((config) => {
+        const _config = JSON.parse(theme.config!)?.find(
+          (c) => c.key === config.key,
+        );
+        return !_config || _config.value === config.value;
+      });
+      theme.config = JSON.stringify(configs);
+    } else {
+      theme.config = JSON.stringify(_yaml.configs);
+    }
+    await this.configService.patchAndValidate('themes', [
+      ...this.themes.filter((t) => t.id !== id),
+      theme,
+    ]);
+    return theme;
+  }
+
+  /**
    * 启动主题
    */
   async activeTheme(id: string): Promise<boolean> {
@@ -329,7 +364,7 @@ export class ThemesServiceService {
   /**
    * 删除主题
    */
-  async deleteTheme(id: string): Promise<boolean> {
+  async deleteTheme(id: string, removeConfig?: boolean): Promise<boolean> {
     this.notificationService.emit(ThemesEvents.ThemeBeforeUninstall, { id });
     const themes = (await this.configService.get('themes')) || [];
     const theme = themes?.find((t) => t.id === id);
@@ -344,6 +379,12 @@ export class ThemesServiceService {
     this.dir = this.dir.filter((t) => t !== id);
     this.themes = this.themes.filter((t) => t.id !== id);
     consola.info(`主题 ${chalk.green(id)} 已删除`);
+    if (removeConfig) {
+      await this.configService.patchAndValidate('themes', [
+        ...themes.filter((t) => t.id !== id),
+      ]);
+      consola.info(`主题 ${chalk.green(id)} 配置已删除`);
+    }
     this.notificationService.emit(ThemesEvents.ThemeAfterUninstall, { id });
     return true;
   }
