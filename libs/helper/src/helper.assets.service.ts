@@ -4,6 +4,7 @@ import { DATA_DIR } from '~/shared/constants/path.constant';
 import { HttpService } from './helper.http.service';
 import fs from 'fs';
 import { isURL } from 'class-validator';
+import { tmpdir } from 'os';
 
 @Injectable()
 export class AssetsService {
@@ -23,7 +24,13 @@ export class AssetsService {
 
   async extractZIP(buffer: Buffer, _path: string) {
     const zip = new AdmZip(buffer);
-    zip.extractAllTo(path.join(DATA_DIR, _path), true);
+    const real = path.join(DATA_DIR, _path);
+    zip.extractAllTo(tmpdir(), true);
+    fs.renameSync(
+      path.join(tmpdir(), zip.getEntries()[0].entryName),
+      `${path.join(real, zip.getEntries()[0].entryName)}`,
+    );
+    return true;
   }
 
   async downloadFile(url: string, _path: string) {
