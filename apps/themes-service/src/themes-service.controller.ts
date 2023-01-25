@@ -134,6 +134,7 @@ export class ThemesServiceController {
           });
           throw new InternalServerErrorException();
         });
+      const plugins = await this.render.injectHelpers();
       let themePath: string;
       let themeFile: string;
       if (layout === ThemeEnum.custom) {
@@ -156,6 +157,10 @@ export class ThemesServiceController {
       const themeRender = ejs.compile(themeFile!, {
         root: path.join(THEME_DIR, theme),
       });
+      for (const key in plugins) {
+        // 注入插件
+        variables[key] = plugins[key];
+      }
       const html = themeRender(variables);
       reply.header('Content-Type', 'text/html; charset=utf-8');
       reply.send(html);

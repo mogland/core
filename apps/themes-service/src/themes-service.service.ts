@@ -35,9 +35,8 @@ export class ThemesServiceService {
     private readonly notificationService: ClientProxy,
     private readonly assetsService: AssetsService,
   ) {
-    this.env = JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme || {
-      theme: undefined,
-    };
+    this.env =
+      JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}') || undefined;
 
     this.configService
       .get('themes')

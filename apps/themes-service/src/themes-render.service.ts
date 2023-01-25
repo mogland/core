@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import fs from 'fs';
 import { ClientProxy } from '@nestjs/microservices';
 import { plainToInstance } from 'class-transformer';
 import { FastifyRequest } from 'fastify';
@@ -16,6 +17,7 @@ import { PagerDto } from '~/shared/dto/pager.dto';
 import { consola } from '~/shared/global/consola.global';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 import { getValueFromQuery } from '~/shared/utils/query-param';
+import { THEME_DIR } from '~/shared/constants/path.constant';
 
 export enum ThemeEnum {
   page = 'page',
@@ -48,6 +50,7 @@ export class ThemesRenderService {
       PageEvents.PagesGetAll,
       {},
       true,
+      // @ts-ignore
     );
     const posts = await transportReqToMicroservice(
       this.pageService,
@@ -71,7 +74,9 @@ export class ThemesRenderService {
       },
       true,
     );
-    const friends = await this.getFriendsVariables();
+    const friends = await this.getFriendsVariables().catch((e) => {
+      consola.error(`获取友链失败：${e}`);
+    });
     return {
       pages,
       posts,
@@ -203,7 +208,7 @@ export class ThemesRenderService {
   async getFriendsVariables() {
     return await transportReqToMicroservice(
       this.friendsService,
-      FriendsEvents.FriendsGetAll,
+      FriendsEvents.FriendsGetList,
       {},
       true,
     );
@@ -274,7 +279,7 @@ export class ThemesRenderService {
     request: FastifyRequest,
   ) {
     const siteVariables = await this.getSiteVariables().catch((e) => {
-      consola.error(e);
+      consola.error(`[Site] ${e.message}`);
       return {};
     });
     const pageVariables = await this.getAnyPageVariables(
@@ -283,19 +288,19 @@ export class ThemesRenderService {
       layout,
       request,
     ).catch((e) => {
-      consola.error(e);
+      consola.error(`[Page] ${e.message}`);
       return {};
     });
     const configVariables = await this.getConfigVariables().catch((e) => {
-      consola.error(e);
+      consola.error(`[Config] ${e.message}`);
       return {};
     });
     const themeVariables = await this.getThemeVariables().catch((e) => {
-      consola.error(e);
+      consola.error(`[Theme] ${e.message}`);
       return {};
     });
     const pathVariables = await this.getPathVariables(request).catch((e) => {
-      consola.error(e);
+      consola.error(`[Path] ${e.message}`);
       return '';
     });
     const urlVariables = await this.getURLVariables(
@@ -303,7 +308,7 @@ export class ThemesRenderService {
       query,
       params,
     ).catch((e) => {
-      consola.error(e);
+      consola.error(`[URL] ${e.message}`);
       return {};
     });
     return {
@@ -314,5 +319,53 @@ export class ThemesRenderService {
       path: pathVariables,
       url: urlVariables,
     };
+  }
+
+  /**
+   * 获取需要注入的辅助函数列表
+   */
+  async injectHelpers() {
+    const theme =
+      JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme || undefined;
+    if (!theme) {
+      return;
+    }
+    const plugins: string[] = [];
+    function readDir(_path: string) {
+      try {
+        fs.readdirSync(path.join(THEME_DIR, theme, _path), {
+          withFileTypes: true,
+        })
+          .filter((dirent) => dirent.isDirectory()) // 过滤文件夹
+          .forEach((theme) => {
+            const _theme = path.join(_path, theme.name);
+            readDir(_theme);
+          });
+        fs.readdirSync(path.join(THEME_DIR, theme, _path), {
+          withFileTypes: true,
+        })
+          .filter((dirent) => dirent.isFile())
+          .forEach((file) => {
+            const _file = path.join(_path, file.name);
+            if (file.name.endsWith('.js')) {
+              plugins.push(_file);
+            }
+          });
+      } catch (e) {
+        return [];
+      }
+    }
+    readDir('plugins');
+    for (let i = 0; i < plugins.length; i++) {
+      plugins[i] = path.join(THEME_DIR, theme, plugins[i]);
+    }
+    for (let i = 0; i < plugins.length; i++) {
+      const _item = require(plugins[i]);
+      plugins[_item.name] = Function(
+        `return ${_item[_item.name].toString().replace(/(\r\n|\n|\r)/gm, '')}`,
+      )(); // 转换为函数
+      delete plugins[i]; // 删除原来的
+    }
+    return plugins;
   }
 }
