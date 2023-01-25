@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
 import { ConfigModule } from '~/libs/config/src';
+import { HelperModule } from '~/libs/helper/src';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
 import { ThemesRenderService } from './themes-render.service';
@@ -21,7 +22,7 @@ const registers = Object.values(services).map((name) => ({
 }));
 
 @Module({
-  imports: [ConfigModule, ClientsModule.register(registers)],
+  imports: [ConfigModule, ClientsModule.register(registers), HelperModule],
   controllers: [ThemesServiceController],
   providers: [ThemesServiceService, ThemesRenderService],
 })
