@@ -8,7 +8,6 @@ import { ConfigService } from '~/libs/config/src';
 import { ThemesDto } from '~/libs/config/src/config.dto';
 import { THEME_DIR } from '~/shared/constants/path.constant';
 import { consola } from '~/shared/global/consola.global';
-import yaml from 'js-yaml';
 import {
   ThemeConfig,
   ThemeConfigItemAll,
@@ -20,6 +19,7 @@ import { ServicesEnum } from '~/shared/constants/services.constant';
 import { ClientProxy } from '@nestjs/microservices';
 import { ThemesEvents } from '~/shared/constants/event.constant';
 import { AssetsService } from '~/libs/helper/src/helper.assets.service';
+import { YAML } from 'zx-cjs';
 
 @Injectable()
 export class ThemesServiceService {
@@ -155,7 +155,7 @@ export class ThemesServiceService {
           join(THEME_DIR, theme, 'config.yaml'),
           'utf-8',
         );
-        config = yaml.load(configString) as ThemeConfig;
+        config = YAML.parse(configString) as ThemeConfig;
       } catch (e) {
         throw new InternalServerErrorException(
           `主题配置文件读取失败, 请检查文件是否存在`,
@@ -241,7 +241,7 @@ export class ThemesServiceService {
     const _package = JSON.parse(
       fs.readFileSync(join(THEME_DIR, theme, 'package.json'), 'utf-8'),
     );
-    const _yaml = yaml.load(config) as ThemeConfig;
+    const _yaml = YAML.parse(config) as ThemeConfig;
     return {
       id: _yaml.id,
       name: _package.name,
@@ -288,7 +288,7 @@ export class ThemesServiceService {
       join(THEME_DIR, theme.path, 'config.yaml'),
       'utf-8',
     );
-    const _yaml = yaml.load(config) as ThemeConfig;
+    const _yaml = YAML.parse(config) as ThemeConfig;
     // 去掉已经被设置了的配置（即 theme 里 value 字段与 config 里不一致的配置）
     if (theme.config) {
       const configs = _yaml.configs.filter((config) => {
