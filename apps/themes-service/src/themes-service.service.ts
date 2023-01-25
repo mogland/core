@@ -349,6 +349,43 @@ export class ThemesServiceService {
   }
 
   /**
+   * 更新主题
+   * @param id 主题 ID
+   */
+  async updateTheme(id: string): Promise<boolean> {
+    // const theme = this.themes.find((t) => t.id === id);
+    const _theme = this.dir.find((t) => t === id);
+    if (!_theme) {
+      throw new InternalServerErrorException(`主题目录不存在`);
+    }
+    const _path = join(THEME_DIR, _theme);
+    const _package = join(_path, 'package.json');
+    if (!fs.existsSync(_package)) {
+      throw new InternalServerErrorException(`主题目录不存在 package.json`);
+    }
+    const pkg = JSON.parse(fs.readFileSync(_package, 'utf-8'));
+    if (!pkg.version) {
+      throw new InternalServerErrorException(
+        `主题 package.json 缺少 version 字段`,
+      );
+    }
+    const url = pkg.repository?.url;
+    if (!url) {
+      throw new InternalServerErrorException(
+        `主题 package.json 缺少 repository.url 字段`,
+      );
+    }
+    const _url = url.replace(/\.git$/, '');
+    const _repo = _url.split('/').slice(-2).join('/');
+    const _branch = pkg.repository?.branch || 'master';
+    const _realUrl = `${_url}/archive/${_branch}.zip`;
+    await this.assetsService.downloadZIPAndExtract(_realUrl, _path);
+    this.refreshThemes();
+    this.reloadConfig(id);
+    return true;
+  }
+
+  /**
    * 设置主题配置
    * @param id 主题 ID
    * @param config 主题配置
