@@ -18,6 +18,7 @@ import { consola } from '~/shared/global/consola.global';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 import { getValueFromQuery } from '~/shared/utils/query-param';
 import { THEME_DIR } from '~/shared/constants/path.constant';
+import { isDev } from '~/shared/utils';
 
 export enum ThemeEnum {
   page = 'page',
@@ -366,6 +367,10 @@ export class ThemesRenderService {
       )(); // 转换为函数
       delete plugins[i]; // 删除原来的
     }
+    plugins['CONSTANTS'] = {
+      THEME_DIR,
+    };
+    plugins['isDev'] = isDev;
     return plugins;
   }
 }
