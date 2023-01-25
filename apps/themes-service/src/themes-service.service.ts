@@ -19,6 +19,7 @@ import fs from 'fs';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { ClientProxy } from '@nestjs/microservices';
 import { ThemesEvents } from '~/shared/constants/event.constant';
+import { AssetsService } from '~/libs/helper/src/helper.assets.service';
 
 @Injectable()
 export class ThemesServiceService {
@@ -32,6 +33,7 @@ export class ThemesServiceService {
     private readonly configService: ConfigService,
     @Inject(ServicesEnum.notification)
     private readonly notificationService: ClientProxy,
+    private readonly assetsService: AssetsService,
   ) {
     this.env = JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme || {
       theme: undefined,
@@ -78,6 +80,12 @@ export class ThemesServiceService {
       }
       this.trackThemeChange();
     });
+  }
+
+  async refreshThemes() {
+    this.themes = await this._getAllThemes();
+    this.trackThemeChange();
+    return this.themes;
   }
 
   /**
