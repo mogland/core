@@ -12,6 +12,7 @@ import { MessagePattern } from '@nestjs/microservices';
 import ejs from 'ejs';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import mime from 'mime';
+import { AssetsService } from '~/libs/helper/src/helper.assets.service';
 import { ThemesEvents } from '~/shared/constants/event.constant';
 import { THEME_DIR } from '~/shared/constants/path.constant';
 import { consola } from '~/shared/global/consola.global';
@@ -23,6 +24,7 @@ export class ThemesServiceController {
   constructor(
     private readonly themesServiceService: ThemesServiceService,
     private readonly render: ThemesRenderService,
+    private readonly assetsService: AssetsService,
   ) {}
 
   // ===Microservice=== : 用于主题服务与网关层等通信，将所有操作主题的方法都由网关层调用活动执行
@@ -78,6 +80,31 @@ export class ThemesServiceController {
       data.key,
       data.value,
     );
+  }
+
+  @MessagePattern({ cmd: ThemesEvents.ThemeDownloadByMaster })
+  async downloadTheme(data: { url: string }) {
+    await this.assetsService.downloadZIPAndExtract(
+      data.url,
+      path.join(THEME_DIR),
+    );
+    await this.themesServiceService.refreshThemes();
+    return true;
+  }
+
+  @MessagePattern({ cmd: ThemesEvents.ThemeUploadByMaster })
+  async uploadTheme(data: { file: Buffer }) {
+    await this.assetsService.uploadZIPAndExtract(
+      data.file,
+      path.join(THEME_DIR),
+    );
+    await this.themesServiceService.refreshThemes();
+    return true;
+  }
+
+  @MessagePattern({ cmd: ThemesEvents.ThemeUpdateByMaster })
+  async updateTheme(data: { id: string }) {
+    await this.themesServiceService.updateTheme(data.id);
   }
 
   private async _render(
