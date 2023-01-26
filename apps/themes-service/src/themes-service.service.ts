@@ -54,31 +54,23 @@ export class ThemesServiceService {
           } 个主题`,
         );
       })
-      .then(() => {
-        fs.readdirSync(THEME_DIR, {
-          withFileTypes: true,
-        })
-          .filter((dirent) => dirent.isDirectory())
-          .forEach((theme) => {
-            this.validateTheme(theme.name, false);
-          });
+      .then(async () => {
+        this._getAllThemes().then((themes) => {
+          this.themes = themes;
+          const theme = this.themes.filter((theme) => theme.active)[0];
+          if (theme) {
+            this.setENV(theme.path);
+          } else {
+            consola.info(`未检测到活动主题，请前往控制台启动某一主题`);
+          }
+          this.trackThemeChange();
+        });
       })
       .then(() => {
         consola.success(
           `合法主题检测完毕，共检测到 ${this.dir.length} 个合法主题`,
         );
       });
-
-    this._getAllThemes().then((themes) => {
-      this.themes = themes;
-      const theme = this.themes.filter((theme) => theme.active)[0];
-      if (theme) {
-        this.setENV(theme.path);
-      } else {
-        consola.info(`未检测到活动主题，请前往控制台启动某一主题`);
-      }
-      this.trackThemeChange();
-    });
   }
 
   async refreshThemes() {
@@ -160,6 +152,15 @@ export class ThemesServiceService {
         throw new InternalServerErrorException(
           `主题配置文件读取失败, 请检查文件是否存在`,
         );
+      }
+      if (theme !== config.id) {
+        // 要求文件夹名和 config.yaml 中的 id 字段一致
+        consola.info(
+          `${chalk.blue(
+            `${config.id} 主题文件夹名与 ID 不一致, 正在重命名为 ${config.id} ...`,
+          )}`,
+        );
+        fs.renameSync(join(THEME_DIR, theme), join(THEME_DIR, config.id));
       }
       if (!config?.configs) {
         throw new InternalServerErrorException(
@@ -393,13 +394,12 @@ export class ThemesServiceService {
    * @param id 主题 ID
    */
   async updateTheme(id: string): Promise<boolean> {
-    // const theme = this.themes.find((t) => t.id === id);
     const _theme = this.dir.find((t) => t === id);
     if (!_theme) {
       throw new InternalServerErrorException(`主题目录不存在`);
     }
-    const _path = join(THEME_DIR, _theme);
-    const _package = join(_path, 'package.json');
+    const _path = join(THEME_DIR);
+    const _package = join(_path, id, 'package.json');
     if (!fs.existsSync(_package)) {
       throw new InternalServerErrorException(`主题目录不存在 package.json`);
     }
@@ -416,12 +416,32 @@ export class ThemesServiceService {
       );
     }
     const _url = url.replace(/\.git$/, '');
-    const _repo = _url.split('/').slice(-2).join('/');
     const _branch = pkg.repository?.branch || 'master';
-    const _realUrl = `${_url}/archive/${_branch}.zip`;
-    await this.assetsService.downloadZIPAndExtract(_realUrl, _path);
+    const _realUrl = `https://ghproxy.com/${_url}/archive/${_branch}.zip`;
+    fs.renameSync(join(_path, _theme), join(_path, `${_theme}.bak`));
+    await this.assetsService
+      .downloadZIPAndExtract(_realUrl, _path, id)
+      .then(() => {
+        fs.rmSync(join(_path, `${_theme}.bak`), { recursive: true });
+      })
+      .catch((e) => {
+        try {
+          fs.rmSync(join(_path, _theme), { recursive: true }); // 删除新主题(如果有)
+        } catch {
+          /* empty */
+        }
+        fs.renameSync(join(_path, `${_theme}.bak`), join(_path, _theme));
+        consola.info(`主题 ${chalk.green(id)} 更新失败, 正在回滚`);
+        throw e;
+      });
     this.refreshThemes();
     this.reloadConfig(id);
+    return true;
+  }
+
+  async downloadTheme(url: string) {
+    await this.assetsService.downloadZIPAndExtract(url, path.join(THEME_DIR));
+    await this.refreshThemes();
     return true;
   }
 

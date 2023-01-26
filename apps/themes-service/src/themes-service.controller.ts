@@ -84,11 +84,7 @@ export class ThemesServiceController {
 
   @MessagePattern({ cmd: ThemesEvents.ThemeDownloadByMaster })
   async downloadTheme(data: { url: string }) {
-    await this.assetsService.downloadZIPAndExtract(
-      data.url,
-      path.join(THEME_DIR),
-    );
-    await this.themesServiceService.refreshThemes();
+    await this.themesServiceService.downloadTheme(data.url);
     return true;
   }
 

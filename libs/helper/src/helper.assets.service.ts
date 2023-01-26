@@ -29,8 +29,13 @@ export class AssetsService {
     const zip = new AdmZip(buffer);
     const real = path.join(_path, name || zip.getEntries()[0].entryName);
     zip.extractAllTo(tmpdir(), true);
-    fs.mkdirSync(real);
-    fs.renameSync(path.join(tmpdir(), zip.getEntries()[0].entryName), real);
+    try {
+      fs.mkdirSync(real);
+      fs.renameSync(path.join(tmpdir(), zip.getEntries()[0].entryName), real);
+    } catch {
+      // fs.renameSync(path.join(tmpdir(), zip.getEntries()[0].entryName), real);
+      throw new InternalServerErrorException('当前主题已存在，正在跳过');
+    }
     return true;
   }
 
