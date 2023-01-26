@@ -69,7 +69,7 @@
     "@nestjs/platform-fastify": "9.2.1",
     "@nestjs/schedule": "2.1.0",
     "@typegoose/typegoose": "10.0.0",
-    "@vercel/ncc": "0.36.0",
+    "@vercel/ncc": "0.36.1",
     "adm-zip": "^0.5.10",
     "axios": "1.2.4",
     "axios-retry": "3.4.0",
