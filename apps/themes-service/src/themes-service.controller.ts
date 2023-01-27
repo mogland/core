@@ -44,8 +44,11 @@ export class ThemesServiceController {
   }
 
   @MessagePattern({ cmd: ThemesEvents.ThemeDeleteByMaster })
-  async deleteTheme(data: { id: string }) {
-    return await this.themesServiceService.deleteTheme(data.id);
+  async deleteTheme(data: { id: string; removeConfig: boolean }) {
+    return await this.themesServiceService.deleteTheme(
+      data.id,
+      data.removeConfig,
+    );
   }
 
   @MessagePattern({ cmd: ThemesEvents.ThemeGetConfig })
