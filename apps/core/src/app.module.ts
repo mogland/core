@@ -23,6 +23,7 @@ import { ServicesEnum } from '~/shared/constants/services.constant';
 import { ConfigPublicModule } from './modules/configs/configs.module';
 import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
 import { ConsoleModule } from './modules/console/console.module';
+import { ThemesModule } from './modules/themes/themes.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { ConsoleModule } from './modules/console/console.module';
     FriendsModule,
     ConfigPublicModule,
     ConsoleModule,
+    ThemesModule,
     ClientsModule.register([
       {
         name: ServicesEnum.notification,
