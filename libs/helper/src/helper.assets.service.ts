@@ -15,9 +15,18 @@ export class AssetsService {
       throw new InternalServerErrorException('Invalid URL');
     }
     // 2. Download the ZIP file.
-    const res = await this.http.axiosRef(url, {
-      responseType: 'arraybuffer',
-    });
+    const res = await this.http
+      .axiosRef(url, {
+        responseType: 'arraybuffer',
+      })
+      .catch((e) => {
+        if (e.code === 'ECONNABORTED' && url.includes('github.com')) {
+          return this.http.axiosRef(`https://ghproxy.com/${url}`, {
+            responseType: 'arraybuffer',
+          });
+        }
+        throw e;
+      });
     // 3. Convert the downloaded data to a buffer.
     const buffer = Buffer.from(res.data, 'binary');
     // 4. Extract the ZIP file.
