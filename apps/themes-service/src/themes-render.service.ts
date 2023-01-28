@@ -178,7 +178,7 @@ export class ThemesRenderService {
       },
       true,
     );
-    const comments = this.getCommentsVariables(post._id);
+    const comments = await this.getCommentsVariables(post._id);
     return {
       ...post,
       comments,

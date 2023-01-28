@@ -143,7 +143,6 @@ export class ThemesServiceController {
         if (page) {
           themePath = path.join(THEME_DIR, theme, `${ThemeEnum.page}.ejs`);
           themeFile = fs.readFileSync(themePath, 'utf-8');
-          console.log(themeFile, themePath);
         } else {
           const customPath = path.join(
             THEME_DIR,
@@ -161,14 +160,6 @@ export class ThemesServiceController {
       } else {
         themePath = path.join(THEME_DIR, theme, `${layout}.ejs`);
         themeFile = fs.readFileSync(themePath, 'utf-8');
-      }
-      if (!themeFile! || !themePath!) {
-        reply.code(500);
-        reply.send({
-          statusCode: 500,
-          message: `主题文件不存在: ${themePath!}`,
-        });
-        return;
       }
       const themeRender = ejs.compile(themeFile!, {
         root: path.join(THEME_DIR, theme),
