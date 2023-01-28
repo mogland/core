@@ -200,7 +200,7 @@ export class ThemesServiceController {
     await this._render(reply, req, query, params, ThemeEnum.index);
   }
 
-  @Get('/archives')
+  @Get(['/archives', '/categories/:slug', '/tags/:name', '/posts'])
   async archives(
     @Res() reply: FastifyReply,
     @Req() req: FastifyRequest,
@@ -208,26 +208,6 @@ export class ThemesServiceController {
     @Param() params,
   ) {
     await this._render(reply, req, query, params, ThemeEnum.archives);
-  }
-
-  @Get('/category')
-  async categories(
-    @Res() reply: FastifyReply,
-    @Req() req: FastifyRequest,
-    @Query() query,
-    @Param() params,
-  ) {
-    await this._render(reply, req, query, params, ThemeEnum.category);
-  }
-
-  @Get('/tag')
-  async tags(
-    @Res() reply: FastifyReply,
-    @Req() req: FastifyRequest,
-    @Query() query,
-    @Param() params,
-  ) {
-    await this._render(reply, req, query, params, ThemeEnum.tag);
   }
 
   @Get('/posts/:category/:slug')
