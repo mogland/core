@@ -137,21 +137,38 @@ export class ThemesServiceController {
       let themePath: string;
       let themeFile: string;
       if (layout === ThemeEnum.custom) {
-        const customPath = path.join(
-          THEME_DIR,
-          theme,
-          'custom',
-          `page-${variables.path.replace(/^\//, '')}.ejs`,
+        const page = variables.site.pages.find(
+          (page) => page.slug === variables.path.replace(/^\//, ''),
         );
-        await fs.exists(customPath).then(async (exists) => {
-          if (exists) {
-            themePath = customPath;
-            themeFile = await fs.readFile(themePath, 'utf-8');
-          }
-        });
+        if (page) {
+          themePath = path.join(THEME_DIR, theme, `${ThemeEnum.page}.ejs`);
+          themeFile = fs.readFileSync(themePath, 'utf-8');
+          console.log(themeFile, themePath);
+        } else {
+          const customPath = path.join(
+            THEME_DIR,
+            theme,
+            'custom',
+            `page-${variables.path.replace(/^\//, '')}.ejs`,
+          );
+          await fs.exists(customPath).then(async (exists) => {
+            if (exists) {
+              themePath = customPath;
+              themeFile = await fs.readFile(themePath, 'utf-8');
+            }
+          });
+        }
       } else {
         themePath = path.join(THEME_DIR, theme, `${layout}.ejs`);
         themeFile = fs.readFileSync(themePath, 'utf-8');
+      }
+      if (!themeFile! || !themePath!) {
+        reply.code(500);
+        reply.send({
+          statusCode: 500,
+          message: `主题文件不存在: ${themePath!}`,
+        });
+        return;
       }
       const themeRender = ejs.compile(themeFile!, {
         root: path.join(THEME_DIR, theme),
@@ -213,7 +230,7 @@ export class ThemesServiceController {
     await this._render(reply, req, query, params, ThemeEnum.tag);
   }
 
-  @Get('/post')
+  @Get('/posts/:category/:slug')
   async post(
     @Res() reply: FastifyReply,
     @Req() req: FastifyRequest,
@@ -221,16 +238,6 @@ export class ThemesServiceController {
     @Param() params,
   ) {
     await this._render(reply, req, query, params, ThemeEnum.post);
-  }
-
-  @Get('/page')
-  async page(
-    @Res() reply: FastifyReply,
-    @Req() req: FastifyRequest,
-    @Query() query,
-    @Param() params,
-  ) {
-    await this._render(reply, req, query, params, ThemeEnum.page);
   }
 
   @Get('/friends')
@@ -279,6 +286,16 @@ export class ThemesServiceController {
       `Please don't access the root directory directly. Please use /raw/filename to access files.`,
     );
   }
+
+  // @Get('/page')
+  // async page(
+  //   @Res() reply: FastifyReply,
+  //   @Req() req: FastifyRequest,
+  //   @Query() query,
+  //   @Param() params,
+  // ) {
+  //   await this._render(reply, req, query, params, ThemeEnum.page);
+  // }
 
   @Get(['/*'])
   async renderCustomPage(

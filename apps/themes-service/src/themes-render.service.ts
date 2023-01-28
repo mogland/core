@@ -281,7 +281,7 @@ export class ThemesRenderService {
   ) {
     const siteVariables = await this.getSiteVariables().catch((e) => {
       consola.error(`[Site] ${e.message}`);
-      return {};
+      return {} as any;
     });
     const pageVariables = await this.getAnyPageVariables(
       query,
@@ -290,15 +290,15 @@ export class ThemesRenderService {
       request,
     ).catch((e) => {
       consola.error(`[Page] ${e.message}`);
-      return {};
+      return {} as any;
     });
     const configVariables = await this.getConfigVariables().catch((e) => {
       consola.error(`[Config] ${e.message}`);
-      return {};
+      return {} as any;
     });
     const themeVariables = await this.getThemeVariables().catch((e) => {
       consola.error(`[Theme] ${e.message}`);
-      return {};
+      return {} as any;
     });
     const pathVariables = await this.getPathVariables(request).catch((e) => {
       consola.error(`[Path] ${e.message}`);
@@ -310,7 +310,7 @@ export class ThemesRenderService {
       params,
     ).catch((e) => {
       consola.error(`[URL] ${e.message}`);
-      return {};
+      return {} as any;
     });
     return {
       site: siteVariables,
