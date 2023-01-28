@@ -123,7 +123,7 @@ export class ThemesServiceController {
         reply.send('Theme not found.');
         return;
       }
-      const variables = await this.render
+      let variables = await this.render
         .getAllVariables(layout, query, params, req)
         .catch((err) => {
           reply.code(500);
@@ -141,8 +141,19 @@ export class ThemesServiceController {
           (page) => page.slug === variables.path.replace(/^\//, ''),
         );
         if (page) {
-          themePath = path.join(THEME_DIR, theme, `${ThemeEnum.page}.ejs`);
+          layout = ThemeEnum.page;
+          themePath = path.join(THEME_DIR, theme, `${layout}.ejs`);
           themeFile = fs.readFileSync(themePath, 'utf-8');
+          variables = await this.render // 重新获取变量
+            .getAllVariables(ThemeEnum.page, query, params, req)
+            .catch((err) => {
+              reply.code(500);
+              reply.send({
+                statusCode: 500,
+                message: `获取变量时出错: ${err}`,
+              });
+              throw new InternalServerErrorException();
+            });
         } else {
           const customPath = path.join(
             THEME_DIR,

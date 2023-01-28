@@ -11,6 +11,7 @@ import {
   FriendsEvents,
   PageEvents,
   PostEvents,
+  UserEvents,
 } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { PagerDto } from '~/shared/dto/pager.dto';
@@ -133,7 +134,8 @@ export class ThemesRenderService {
     params: { [key: string]: string },
     req: FastifyRequest,
   ) {
-    const slug = getValueFromQuery(params, 'slug', undefined);
+    // const slug = getValueFromQuery(params, 'slug', undefined);
+    const slug = req.url.split('/')[1];
     if (!slug) {
       return {};
     }
@@ -240,7 +242,17 @@ export class ThemesRenderService {
     }
   }
   async getConfigVariables() {
-    return await this.configService.getAllConfigs();
+    const config = await this.configService.getAllConfigs();
+    const user = await transportReqToMicroservice(
+      this.userService,
+      UserEvents.UserGetMaster,
+      {},
+      true,
+    );
+    return {
+      ...config,
+      user,
+    };
   }
   async getThemeVariables() {
     return (await this.configService.get('themes')).filter(
