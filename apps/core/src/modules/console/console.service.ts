@@ -71,7 +71,7 @@ export class ConsoleService {
       };
     }
     const json = type !== 'pre-release' ? res : res[0];
-    const proxy = this.env?.proxy?.gh || 'https://ghproxy.com';
+    const proxy = this.env?.proxy?.gh || undefined;
     consola.info(`[ConsoleService] Mog Console Version: ${json.tag_name}`);
     return {
       version: json.tag_name,
@@ -80,7 +80,7 @@ export class ConsoleService {
         const name = url.split('/').pop();
         return {
           name,
-          url: `${proxy}/${url}`,
+          url: `${proxy ? `${proxy.replace(/\/$/, '')}/` : ''}${url}`,
           type: name.split('.')?.pop() || 'unknown',
         };
       }),
