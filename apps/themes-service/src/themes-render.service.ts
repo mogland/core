@@ -189,13 +189,10 @@ export class ThemesRenderService {
   /**
    * 分类或标签变量，包含分类或标签下的文章列表
    */
-  async getCategoryOrTagVariables(
-    params: { [key: string]: string },
-    layout: ThemeEnum,
-  ) {
-    const name = getValueFromQuery(params, 'name', undefined);
-    const _tag = layout === ThemeEnum.tag ? true : undefined;
-    return await transportReqToMicroservice(
+  async getCategoryOrTagVariables(req: FastifyRequest) {
+    const name = req.url.split('/')[2];
+    const _tag = req.url.split('/')[1] === 'tag';
+    const res = await transportReqToMicroservice(
       this.pageService,
       CategoryEvents.CategoryGet,
       {
@@ -204,6 +201,7 @@ export class ThemesRenderService {
       },
       true,
     );
+    return res;
   }
   /**
    * 获取友链变量
@@ -234,9 +232,16 @@ export class ThemesRenderService {
         return await this.getPostVariables(params, req);
       case ThemeEnum.friends:
         return await this.getFriendsVariables();
-      case ThemeEnum.category:
-      case ThemeEnum.tag:
-        return await this.getCategoryOrTagVariables(params, layout);
+      case ThemeEnum.archives:
+        // eslint-disable-next-line no-case-declarations
+        const type = req.url.split('/')[0];
+        if (type === 'archives') {
+          return await this.getIndexPageVariables(query);
+        } else if (type === 'posts') {
+          return await this.getIndexPageVariables(query);
+        } else {
+          return await this.getCategoryOrTagVariables(req);
+        }
       default:
         return {};
     }

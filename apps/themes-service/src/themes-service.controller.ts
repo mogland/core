@@ -192,7 +192,7 @@ export class ThemesServiceController {
   }
 
   // ===Web===：输出主题
-  @Get('/')
+  @Get(['/', '/posts'])
   async home(
     @Res() reply: FastifyReply,
     @Req() req: FastifyRequest,
@@ -202,7 +202,7 @@ export class ThemesServiceController {
     await this._render(reply, req, query, params, ThemeEnum.index);
   }
 
-  @Get(['/archives', '/categories/:slug', '/tags/:name', '/posts'])
+  @Get(['/archives', '/category/:slug', '/tag/:name'])
   async archives(
     @Res() reply: FastifyReply,
     @Req() req: FastifyRequest,

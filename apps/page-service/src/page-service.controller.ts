@@ -81,8 +81,11 @@ export class PageServiceController {
     }
     if (tag === true) {
       return {
-        tag: query, // 标签名
-        data: await this.categoryService.findPostWithTag(query), // 标签下的文章
+        isTag: true,
+        data: {
+          name: query,
+          children: await this.categoryService.findPostWithTag(query),
+        },
       };
     }
 
@@ -108,7 +111,7 @@ export class PageServiceController {
         $and: [tag ? { tags: tag } : {}], // 如果tag存在，则查询标签下的文章
       })) || [];
 
-    return { data: { ...data, children } };
+    return { data: { ...data, children }, isTag: false };
   }
 
   @MessagePattern({ cmd: CategoryEvents.CategoryCreate })
