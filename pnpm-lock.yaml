@@ -25,7 +25,7 @@ specifiers:
   '@types/jsdom': ^20.0.1
   '@types/jsonwebtoken': ^9.0.0
   '@types/lodash': 4.14.191
-  '@types/mongoose-aggregate-paginate-v2': 1.0.5
+  '@types/mongoose-aggregate-paginate-v2': 1.0.6
   '@types/node': 18.11.18
   '@types/supertest': 2.0.12
   '@types/uuid': ^9.0.0
@@ -149,7 +149,7 @@ devDependencies:
   '@types/jsdom': 20.0.1
   '@types/jsonwebtoken': 9.0.0
   '@types/lodash': 4.14.191
-  '@types/mongoose-aggregate-paginate-v2': 1.0.5
+  '@types/mongoose-aggregate-paginate-v2': 1.0.6
   '@types/node': 18.11.18
   '@types/supertest': 2.0.12
   '@types/uuid': 9.0.0
@@ -1908,8 +1908,8 @@ packages:
     resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
     dev: true
 
-  /@types/mongoose-aggregate-paginate-v2/1.0.5:
-    resolution: {integrity: sha512-c3KXTwzW6+BZw2g2TgNgGUyMbotTcI2Ip+NSZWoJjG2UO+8BRjmy+kJUNu64rfdIqWJ1+8h5NLm9w+aVis93Hw==}
+  /@types/mongoose-aggregate-paginate-v2/1.0.6:
+    resolution: {integrity: sha512-EXkgB/nJ1x3UcoEk1pD67+uXtijveHZtbg2H3wtZk2SnCFBB5cMw7MQRu9/GgyEP/KKXuWFt1JABv7m+Kls0ug==}
     dependencies:
       mongoose: 6.9.0
     transitivePeerDependencies:
