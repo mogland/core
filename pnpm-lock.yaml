@@ -74,7 +74,7 @@ specifiers:
   rimraf: 4.1.2
   rxjs: 7.8.0
   slugify: 1.6.5
-  snakecase-keys: 5.4.4
+  snakecase-keys: 5.4.5
   source-map-support: 0.5.21
   supertest: 6.3.3
   ts-loader: 9.4.2
@@ -131,7 +131,7 @@ dependencies:
   rimraf: 4.1.2
   rxjs: 7.8.0
   slugify: 1.6.5
-  snakecase-keys: 5.4.4
+  snakecase-keys: 5.4.5
   uuid: 9.0.0
   vm2: 3.9.13
   zx-cjs: 7.0.7-0
@@ -6152,8 +6152,8 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /snakecase-keys/5.4.4:
-    resolution: {integrity: sha512-YTywJG93yxwHLgrYLZjlC75moVEX04LZM4FHfihjHe1FCXm+QaLOFfSf535aXOAd0ArVQMWUAe8ZPm4VtWyXaA==}
+  /snakecase-keys/5.4.5:
+    resolution: {integrity: sha512-qSQVcgcWk8mQUN1miVGnRMAUye1dbj9+F9PVkR7wZUXNCidQwrl/kOKmoYf+WbH2ju6c9pXnlmbS2he7pb2/9A==}
     engines: {node: '>=12'}
     dependencies:
       map-obj: 4.3.0
