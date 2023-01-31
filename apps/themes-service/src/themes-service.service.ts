@@ -94,6 +94,7 @@ export class ThemesServiceService {
       consola.info(`正在追踪主题 ${name} 配置文件的修改`);
       fs.watchFile(join(THEME_DIR, this.env.theme, 'config.yaml'), () => {
         this.validateTheme(this.env.theme!, false); // 重新验证主题
+        this.reloadConfig(this.env.theme!); // 重新加载主题配置
       });
     }
   }
@@ -141,33 +142,33 @@ export class ThemesServiceService {
       } catch (e) {
         throw new InternalServerErrorException(`主题目录无读取权限`);
       }
-      let config: ThemeConfig;
+      let _config: ThemeConfig;
       try {
         const configString = fs.readFileSync(
           join(THEME_DIR, theme, 'config.yaml'),
           'utf-8',
         );
-        config = YAML.parse(configString) as ThemeConfig;
+        _config = YAML.parse(configString) as ThemeConfig;
       } catch (e) {
         throw new InternalServerErrorException(
           `主题配置文件读取失败, 请检查文件是否存在`,
         );
       }
-      if (theme !== config.id) {
+      if (theme !== _config.id) {
         // 要求文件夹名和 config.yaml 中的 id 字段一致
         consola.info(
           `${chalk.blue(
-            `${config.id} 主题文件夹名与 ID 不一致, 正在重命名为 ${config.id} ...`,
+            `${_config.id} 主题文件夹名与 ID 不一致, 正在重命名为 ${_config.id} ...`,
           )}`,
         );
-        fs.renameSync(join(THEME_DIR, theme), join(THEME_DIR, config.id));
+        fs.renameSync(join(THEME_DIR, theme), join(THEME_DIR, _config.id));
       }
-      if (!config?.configs) {
+      if (!_config?.configs) {
         throw new InternalServerErrorException(
           `主题配置文件格式错误, configs 字段不存在`,
         );
       }
-      config.configs.forEach((config) => {
+      _config.configs.forEach(async (config) => {
         if (!config?.name) {
           throw new InternalServerErrorException(
             `主题配置文件格式错误, "${config?.name}" 字段中的 name 字段不存在`,
@@ -209,10 +210,10 @@ export class ThemesServiceService {
             }
           });
         }
-        if (!fs.existsSync(join(THEME_DIR, theme, 'package.json'))) {
-          throw new InternalServerErrorException(`主题缺少 package.json 文件`);
-        }
       });
+      if (!fs.existsSync(join(THEME_DIR, theme, 'package.json'))) {
+        throw new InternalServerErrorException(`主题缺少 package.json 文件`);
+      }
     } catch (e) {
       if (error) {
         throw new InternalServerErrorException(`[${theme}] ${e.message}`);
