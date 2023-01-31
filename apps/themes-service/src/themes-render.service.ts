@@ -128,12 +128,17 @@ export class ThemesRenderService {
     );
   }
   async getArchivesPageVariables() {
-    return await transportReqToMicroservice(
+    const res = await transportReqToMicroservice(
       this.pageService,
       PostEvents.PostsListGetAll,
       {},
       true,
     );
+    return {
+      data: {
+        children: res,
+      },
+    };
   }
   /**
    * 页面变量，包含评论内容
@@ -242,7 +247,7 @@ export class ThemesRenderService {
         return await this.getFriendsVariables();
       case ThemeEnum.archives:
         // eslint-disable-next-line no-case-declarations
-        const type = req.url.split('/')[0];
+        const type = req.url.split('/')[1];
         if (type === 'archives') {
           return {
             ...(await this.getArchivesPageVariables()),
