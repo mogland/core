@@ -279,11 +279,13 @@ export class ThemesRenderService {
     };
   }
   async getThemeVariables() {
-    return (await this.configService.get('themes')).filter(
-      (item) =>
-        item.id ===
-        JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme,
-    )?.[0];
+    return JSON.parse(
+      (await this.configService.get('themes')).filter(
+        (item) =>
+          item.id ===
+          JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme,
+      )?.[0].config || '{}',
+    );
   }
   async getPathVariables(request: FastifyRequest) {
     return request.url.split('?')[0].replace(/http[s]?:\/\/[^/]+/, '');

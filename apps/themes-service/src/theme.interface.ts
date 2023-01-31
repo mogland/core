@@ -1,5 +1,6 @@
 export enum ThemeConfigType {
   input = 'input',
+  textarea = 'textarea',
   switch = 'switch',
   select = 'select',
   color = 'color',
