@@ -102,7 +102,7 @@ export class ThemesRenderService {
     );
   }
   /**
-   * 适用范围：首页、归档页
+   * 适用范围：首页
    */
   async getIndexPageVariables(query: { [key: string]: string }) {
     const pager: PagerDto = {
@@ -124,6 +124,14 @@ export class ThemesRenderService {
         query: plainToInstance(PagerDto, pager),
         isMaster: false,
       },
+      true,
+    );
+  }
+  async getArchivesPageVariables() {
+    return await transportReqToMicroservice(
+      this.pageService,
+      PostEvents.PostsListGetAll,
+      {},
       true,
     );
   }
@@ -236,11 +244,17 @@ export class ThemesRenderService {
         // eslint-disable-next-line no-case-declarations
         const type = req.url.split('/')[0];
         if (type === 'archives') {
-          return await this.getIndexPageVariables(query);
+          return {
+            ...(await this.getArchivesPageVariables()),
+            isCategory: false,
+          };
         } else if (type === 'posts') {
           return await this.getIndexPageVariables(query);
         } else {
-          return await this.getCategoryOrTagVariables(req);
+          return {
+            ...(await this.getCategoryOrTagVariables(req)),
+            isCategory: true,
+          };
         }
       default:
         return {};
