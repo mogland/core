@@ -131,9 +131,8 @@ export class ThemesServiceController {
             statusCode: 500,
             message: `获取变量时出错: ${err}`,
           });
-          throw new InternalServerErrorException();
+          throw new InternalServerErrorException(err);
         });
-      const plugins = await this.render.injectHelpers();
       let themePath: string;
       let themeFile: string;
       if (layout === ThemeEnum.custom) {
@@ -152,7 +151,7 @@ export class ThemesServiceController {
                 statusCode: 500,
                 message: `获取变量时出错: ${err}`,
               });
-              throw new InternalServerErrorException();
+              throw new InternalServerErrorException(err);
             });
         } else {
           const customPath = path.join(
@@ -175,6 +174,16 @@ export class ThemesServiceController {
       const themeRender = ejs.compile(themeFile!, {
         root: path.join(THEME_DIR, theme),
       });
+      const plugins = await this.render
+        .injectHelpers(variables)
+        .catch((err) => {
+          reply.code(500);
+          reply.send({
+            statusCode: 500,
+            message: `获取插件时出错: ${err}`,
+          });
+          throw new InternalServerErrorException(err);
+        });
       for (const key in plugins) {
         // 注入插件
         variables[key] = plugins[key];
@@ -188,6 +197,7 @@ export class ThemesServiceController {
         statusCode: 500,
         message: `渲染主题时出错: ${err}`,
       });
+      consola.error(err);
     }
   }
 
@@ -268,6 +278,9 @@ export class ThemesServiceController {
       `Please don't access the root directory directly. Please use /raw/filename to access files.`,
     );
   }
+
+  @Get(['/favicon.*'])
+  async rawAssets() {}
 
   // @Get('/page')
   // async page(

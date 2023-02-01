@@ -20,6 +20,7 @@ import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 import { getValueFromQuery } from '~/shared/utils/query-param';
 import { THEME_DIR } from '~/shared/constants/path.constant';
 import { isDev } from '~/shared/utils';
+import { YAML } from 'zx-cjs';
 
 export enum ThemeEnum {
   page = 'page',
@@ -42,7 +43,6 @@ export class ThemesRenderService {
     private readonly commentsService: ClientProxy,
     private readonly configService: ConfigService,
   ) {}
-
   /**
    * 网站变量，包含全部文章、页面、分类、标签
    */
@@ -296,7 +296,22 @@ export class ThemesRenderService {
         return [value.key, value.value];
       }),
     );
-    return theme;
+    const env = JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme;
+    let yaml: string | null;
+    try {
+      yaml = fs.readFileSync(path.join(THEME_DIR, env, 'i18n.yaml'), 'utf8');
+    } catch (error) {
+      yaml = null;
+    }
+    const i18n = yaml ? YAML.parse(yaml) : {};
+    const language = YAML.parse(
+      fs.readFileSync(path.join(THEME_DIR, env, 'config.yaml'), 'utf8'),
+    );
+    i18n.language = language.language;
+    return {
+      ...theme,
+      i18n,
+    };
   }
   async getPathVariables(request: FastifyRequest) {
     return request.url.split('?')[0].replace(/http[s]?:\/\/[^/]+/, '');
@@ -374,7 +389,7 @@ export class ThemesRenderService {
   /**
    * 获取需要注入的辅助函数列表
    */
-  async injectHelpers() {
+  async injectHelpers(vars: any) {
     const theme =
       JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme || undefined;
     if (!theme) {
@@ -420,6 +435,39 @@ export class ThemesRenderService {
       THEME_DIR,
     };
     plugins['isDev'] = isDev;
+    const i18n = {
+      name: '_i',
+      // eslint-disable-next-line object-shorthand
+      _i: function (key) {
+        const theme = vars.theme;
+        const i18nConfig = theme.i18n;
+        const nowLanguage = i18nConfig.language;
+        const nowLanguageI18nConfig = i18nConfig[nowLanguage];
+        const nowLanguageI18nConfigKeys = Object.keys(nowLanguageI18nConfig);
+        if (nowLanguageI18nConfigKeys.includes(key)) {
+          return nowLanguageI18nConfig[key];
+        } else {
+          return key;
+        }
+      },
+    };
+    const i18nConfig = JSON.stringify(vars.theme);
+    plugins[i18n.name] = Function(
+      `
+      return function(key) {
+        const theme = JSON.parse('${i18nConfig}');
+        const i18nConfig = theme.i18n;
+        const nowLanguage = i18nConfig.language;
+        const nowLanguageI18nConfig = i18nConfig[nowLanguage];
+        const nowLanguageI18nConfigKeys = Object.keys(nowLanguageI18nConfig);
+        if (nowLanguageI18nConfigKeys.includes(key)) {
+          return nowLanguageI18nConfig[key];
+        } else {
+          return key;
+        }
+      }
+      `,
+    )();
     return plugins;
   }
 }
