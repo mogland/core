@@ -327,7 +327,7 @@ export class ThemesRenderService {
     const host = request.headers.host;
     const protocol = request.protocol;
     return {
-      url,
+      url: `${protocol}://${host}${path}`,
       path,
       query,
       params,
@@ -427,7 +427,14 @@ export class ThemesRenderService {
     for (let i = 0; i < plugins.length; i++) {
       const _item = require(plugins[i]);
       plugins[_item.name] = Function(
-        `return ${_item[_item.name].toString().replace(/(\r\n|\n|\r)/gm, '')}`,
+        `
+        const theme = ${JSON.stringify(vars.theme)};
+        const site = ${JSON.stringify(vars.site)};
+        const page = ${JSON.stringify(vars.page)};
+        const config = ${JSON.stringify(vars.config)};
+        const path = ${JSON.stringify(vars.path)};
+        const url = ${JSON.stringify(vars.url)}; 
+        return ${_item[_item.name].toString().replace(/(\r\n|\n|\r)/gm, '')}`,
       )(); // 转换为函数
       delete plugins[i]; // 删除原来的
     }
@@ -435,27 +442,15 @@ export class ThemesRenderService {
       THEME_DIR,
     };
     plugins['isDev'] = isDev;
-    const i18n = {
-      name: '_i',
-      // eslint-disable-next-line object-shorthand
-      _i: function (key) {
-        const theme = vars.theme;
-        const i18nConfig = theme.i18n;
-        const nowLanguage = i18nConfig.language;
-        const nowLanguageI18nConfig = i18nConfig[nowLanguage];
-        const nowLanguageI18nConfigKeys = Object.keys(nowLanguageI18nConfig);
-        if (nowLanguageI18nConfigKeys.includes(key)) {
-          return nowLanguageI18nConfig[key];
-        } else {
-          return key;
-        }
-      },
-    };
-    const i18nConfig = JSON.stringify(vars.theme);
-    plugins[i18n.name] = Function(
+    plugins['_i'] = Function(
       `
+      const theme = ${JSON.stringify(vars.theme)};
+      const site = ${JSON.stringify(vars.site)};
+      const page = ${JSON.stringify(vars.page)};
+      const config = ${JSON.stringify(vars.config)};
+      const path = ${JSON.stringify(vars.path)};
+      const url = ${JSON.stringify(vars.url)};
       return function(key) {
-        const theme = JSON.parse('${i18nConfig}');
         const i18nConfig = theme.i18n;
         const nowLanguage = i18nConfig.language;
         const nowLanguageI18nConfig = i18nConfig[nowLanguage];
