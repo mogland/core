@@ -10,7 +10,7 @@ specifiers:
   '@nestjs/cli': 9.1.9
   '@nestjs/common': 9.3.1
   '@nestjs/core': 9.3.1
-  '@nestjs/event-emitter': 1.3.1
+  '@nestjs/event-emitter': 1.4.1
   '@nestjs/microservices': 9.3.1
   '@nestjs/platform-fastify': 9.3.1
   '@nestjs/schedule': 2.1.0
@@ -94,7 +94,7 @@ dependencies:
   '@fastify/static': 6.8.0
   '@nestjs/common': 9.3.1_uisgqpdqsnlcxoqiidaahrhoi4
   '@nestjs/core': 9.3.1_v4wphmbdqh7ylygpvgas2hxmhq
-  '@nestjs/event-emitter': 1.3.1_is44h33kwk6akmv6kgslbvdmwi
+  '@nestjs/event-emitter': 1.4.1_is44h33kwk6akmv6kgslbvdmwi
   '@nestjs/microservices': 9.3.1_yjaiuca3wbl67uayls6ib4qrwi
   '@nestjs/platform-fastify': 9.3.1_rfw2nmqf7xssuptu4kwct77rde
   '@nestjs/schedule': 2.1.0_is44h33kwk6akmv6kgslbvdmwi
@@ -1549,8 +1549,8 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@nestjs/event-emitter/1.3.1_is44h33kwk6akmv6kgslbvdmwi:
-    resolution: {integrity: sha512-AmHkPTe/cP1lbQEm15TIe9IDEAszl5VAR8HjMS2TDtNRuSzwyoJgZUVcRnH7Yk9/2DX5qMtmw6a1MHeR8DD+rw==}
+  /@nestjs/event-emitter/1.4.1_is44h33kwk6akmv6kgslbvdmwi:
+    resolution: {integrity: sha512-PmLpzMYgEKJNxOUrRjb6kNSm2PC6J+BeLTuF/bkYViGM/mVGvYOgU5jq8DQnXmiSmDmyWN+tO2cHSnR7odJJRA==}
     peerDependencies:
       '@nestjs/common': ^7.0.0 || ^8.0.0 || ^9.0.0
       '@nestjs/core': ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -1558,7 +1558,7 @@ packages:
     dependencies:
       '@nestjs/common': 9.3.1_uisgqpdqsnlcxoqiidaahrhoi4
       '@nestjs/core': 9.3.1_v4wphmbdqh7ylygpvgas2hxmhq
-      eventemitter2: 6.4.6
+      eventemitter2: 6.4.9
       reflect-metadata: 0.1.13
     dev: false
 
@@ -3746,8 +3746,8 @@ packages:
     resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
     engines: {node: '>=6'}
 
-  /eventemitter2/6.4.6:
-    resolution: {integrity: sha512-OHqo4wbHX5VbvlbB6o6eDwhYmiTjrpWACjF8Pmof/GTD6rdBNdZFNck3xlhqOiQFGCOoq3uzHvA0cQpFHIGVAQ==}
+  /eventemitter2/6.4.9:
+    resolution: {integrity: sha512-JEPTiaOt9f04oa6NOkc4aH+nVp5I3wEjpHbIPqfgCdD5v5bUzy7xQqwcVO2aDQgOWhI28da57HksMrzK9HlRxg==}
     dev: false
 
   /events/3.3.0:
