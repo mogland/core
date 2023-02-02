@@ -64,6 +64,7 @@ export class ThemesServiceService {
             consola.info(`未检测到活动主题，请前往控制台启动某一主题`);
           }
           this.trackThemeChange();
+          this.reloadConfig(this.env.theme!);
         });
       })
       .then(() => {
@@ -283,6 +284,7 @@ export class ThemesServiceService {
    */
   async reloadConfig(id: string) {
     const theme = this.themes?.find((t) => t.id === id);
+    let db_config = await this.getThemeConfig(id);
     if (!theme) {
       throw new InternalServerErrorException(`主题不存在或不合法`);
     }
@@ -291,18 +293,21 @@ export class ThemesServiceService {
       'utf-8',
     );
     const _yaml = YAML.parse(config) as ThemeConfig;
-    // 去掉已经被设置了的配置（即 theme 里 value 字段与 config 里不一致的配置）
-    if (theme.config) {
-      const configs = _yaml.configs.filter((config) => {
-        const _config = JSON.parse(theme.config!)?.find(
-          (c) => c.key === config.key,
-        );
-        return !_config || _config.value === config.value;
+    if (db_config) {
+      // 如果配置文件中的配置项的值和数据库中的配置项的值不一样, 则使用数据库中的配置项的值
+      const configs = db_config as any;
+      _yaml.configs.forEach((config) => {
+        const _config = configs.find((c) => c.key === config.key); // 数据库中的配置项
+        if (_config) {
+          console.log(_config);
+          config.value = _config.value; // 使用数据库中的配置项的值
+        }
       });
-      theme.config = JSON.stringify(configs);
+      db_config = JSON.stringify(_yaml.configs);
     } else {
-      theme.config = JSON.stringify(_yaml.configs);
+      db_config = JSON.stringify(_yaml.configs);
     }
+    theme.config = db_config;
     await this.configService.patchAndValidate('themes', [
       ...this.themes.filter((t) => t.id !== id),
       theme,
@@ -455,22 +460,23 @@ export class ThemesServiceService {
     try {
       const _c = JSON.parse(config);
       if (!Array.isArray(_c)) {
-        throw new InternalServerErrorException(`主题配置不合法`);
+        throw new InternalServerErrorException(
+          `主题配置不合法, 它似乎不是数组`,
+        );
       }
       _c.forEach((c) => {
-        if (!c.name || !c.value) {
-          throw new InternalServerErrorException(
-            `主题配置不合法, 缺少 name 或 value`,
-          );
+        if (!c.name) {
+          throw new InternalServerErrorException(`主题配置不合法, 缺少 name`);
         }
+        if (!c.value) c.value = '';
         if (c.name.match(/[\u4e00-\u9fa5]/) && !c.key) {
           throw new InternalServerErrorException(
             `主题配置不合法, 缺少 key, 但 name 中包含中文`,
           );
         }
       });
-    } catch {
-      throw new InternalServerErrorException(`主题配置不合法`);
+    } catch (e) {
+      throw new InternalServerErrorException(e);
     }
     const themes = (await this.configService.get('themes')) || [];
     const theme = themes?.find((t) => t.id === id);
