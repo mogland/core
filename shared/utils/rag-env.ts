@@ -9,8 +9,7 @@
 
 import { join } from 'path';
 import { cwd } from 'shared/global/env.global';
-import { argv as zxArev } from 'zx-cjs';
-import yaml from 'js-yaml';
+import { argv as zxArev, YAML } from 'zx-cjs';
 import { camelToUnderline } from './name';
 import { ServicesEnum } from '../constants/services.constant';
 import { readFileSync } from 'fs';
@@ -46,7 +45,7 @@ export const readEnv: (
     return config;
   }
   if (!env!) return config;
-  const envObj = yaml.load(env);
+  const envObj = YAML.parse(env);
   // 与 config 合并
   config = merge(config, envObj);
 

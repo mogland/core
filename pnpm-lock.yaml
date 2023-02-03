@@ -21,10 +21,12 @@ specifiers:
   '@types/adm-zip': ^0.5.0
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.3
+  '@types/ejs': ^3.1.1
   '@types/js-yaml': 4.0.5
   '@types/jsdom': ^20.0.1
   '@types/jsonwebtoken': ^9.0.0
   '@types/lodash': 4.14.191
+  '@types/mime': ^3.0.1
   '@types/mongoose-aggregate-paginate-v2': 1.0.6
   '@types/node': 18.11.18
   '@types/supertest': 2.0.12
@@ -50,6 +52,7 @@ specifiers:
   cron: 2.2.0
   cross-env: 7.0.3
   dayjs: 1.11.7
+  ejs: ^3.1.8
   eslint: 8.33.0
   eslint-config-prettier: 8.6.0
   eslint-plugin-prettier: 4.2.1
@@ -62,6 +65,7 @@ specifiers:
   jsonwebtoken: 9.0.0
   lint-staged: 13.1.0
   lodash: 4.17.21
+  mime: ^3.0.0
   mongoose: 6.9.0
   mongoose-aggregate-paginate-v2: 1.0.6
   mongoose-lean-id: 0.3.0
@@ -115,11 +119,13 @@ dependencies:
   consola: 2.15.3
   cron: 2.2.0
   dayjs: 1.11.7
+  ejs: 3.1.8
   fastify: 4.12.0
   js-yaml: 4.1.0
   jsdom: 21.0.0
   jsonwebtoken: 9.0.0
   lodash: 4.17.21
+  mime: 3.0.0
   mongoose: 6.9.0
   mongoose-aggregate-paginate-v2: 1.0.6
   mongoose-lean-id: 0.3.0_mongoose@6.9.0
@@ -145,10 +151,12 @@ devDependencies:
   '@types/adm-zip': 0.5.0
   '@types/bcrypt': 5.0.0
   '@types/cache-manager-ioredis': 2.0.3
+  '@types/ejs': 3.1.1
   '@types/js-yaml': 4.0.5
   '@types/jsdom': 20.0.1
   '@types/jsonwebtoken': 9.0.0
   '@types/lodash': 4.14.191
+  '@types/mime': 3.0.1
   '@types/mongoose-aggregate-paginate-v2': 1.0.6
   '@types/node': 18.11.18
   '@types/supertest': 2.0.12
@@ -1849,6 +1857,10 @@ packages:
     resolution: {integrity: sha512-t73xJJrvdTjXrn4jLS9VSGRbz0nUY3cl2DMGDU48lKl+HR9dbbjW2A9r3g40VA++mQpy6uuHg33gy7du2BKpog==}
     dev: true
 
+  /@types/ejs/3.1.1:
+    resolution: {integrity: sha512-RQul5wEfY7BjWm0sYY86cmUN/pcXWGyVxWX93DFFJvcrxax5zKlieLwA3T77xJGwNcZW0YW6CYG70p1m8xPFmA==}
+    dev: true
+
   /@types/eslint-scope/3.7.4:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
     dependencies:
@@ -1901,6 +1913,10 @@ packages:
 
   /@types/lodash/4.14.191:
     resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
+    dev: true
+
+  /@types/mime/3.0.1:
+    resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
     dev: true
 
   /@types/mongoose-aggregate-paginate-v2/1.0.6:
@@ -3357,6 +3373,17 @@ packages:
       safe-buffer: 5.2.1
     dev: false
 
+  /ee-first/1.1.1:
+    resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
+
+  /ejs/3.1.8:
+    resolution: {integrity: sha512-/sXZeMlhS0ArkfX2Aw780gJzXSMPnKjtspYZv+f3NiKLlubezAHDU5+9xz6gd3/NhG3txQCo6xlglmTS+oTGEQ==}
+    engines: {node: '>=0.10.0'}
+    hasBin: true
+    dependencies:
+      jake: 10.8.5
+    dev: false
+
   /electron-to-chromium/1.4.237:
     resolution: {integrity: sha512-vxVyGJcsgArNOVUJcXm+7iY3PJAfmSapEszQD1HbyPLl0qoCmNQ1o/EX3RI7Et5/88In9oLxX3SGF8J3orkUgA==}
     dev: true
@@ -3920,6 +3947,12 @@ packages:
     dependencies:
       flat-cache: 3.0.4
     dev: true
+
+  /filelist/1.0.4:
+    resolution: {integrity: sha512-w1cEuf3S+DrLCQL7ET6kz+gmlJdbq9J7yXCSjK/OZCPA+qEN1WyF4ZAf0YYJa4/shHJra2t/d/r8SV4Ji+x+8Q==}
+    dependencies:
+      minimatch: 5.1.0
+    dev: false
 
   /fill-range/7.0.1:
     resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==}
@@ -4677,6 +4710,17 @@ packages:
     resolution: {integrity: sha512-RKYVTCjAnRthyJes037NX/IiqeidgN1xc3j1RjFfECFp28A1GVwK9nA+i0rJPaHqSZwygLzRnFlzUuHFoWWy+Q==}
     engines: {node: '>=6'}
 
+  /jake/10.8.5:
+    resolution: {integrity: sha512-sVpxYeuAhWt0OTWITwT98oyV0GsXyMlXCF+3L1SuafBVUIr/uILGRB+NqwkzhgXKvoJpDIpQvqkUALgdmQsQxw==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      async: 3.2.3
+      chalk: 4.1.2
+      filelist: 1.0.4
+      minimatch: 3.1.2
+    dev: false
+
   /jest-worker/27.5.1:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
@@ -5090,6 +5134,7 @@ packages:
     resolution: {integrity: sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==}
     engines: {node: '>=10.0.0'}
     hasBin: true
+    dev: false
 
   /mimic-fn/2.1.0:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}

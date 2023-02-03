@@ -20,6 +20,9 @@
 			"path": "apps/notification-service"
 		},
 		{
+			"path": "apps/themes-service",
+		},
+		{
 			"path": "libs"
 		},
 		{

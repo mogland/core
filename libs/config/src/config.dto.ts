@@ -83,3 +83,33 @@ export class EmailDto {
   @IsOptional()
   secure?: boolean;
 }
+
+export class ThemesDto {
+  @IsString()
+  @IsNotEmpty()
+  id: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsBoolean()
+  @IsOptional()
+  active?: boolean;
+
+  @IsString()
+  @IsOptional()
+  package?: string;
+
+  @IsString()
+  @IsOptional()
+  version?: string;
+
+  @IsOptional()
+  @IsString()
+  config?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  path: string;
+}
