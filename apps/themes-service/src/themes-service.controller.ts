@@ -28,6 +28,10 @@ export class ThemesServiceController {
   ) {}
 
   // ===Microservice=== : 用于主题服务与网关层等通信，将所有操作主题的方法都由网关层调用活动执行
+  @MessagePattern({ cmd: ThemesEvents.Ping })
+  ping() {
+    return 'pong';
+  }
   @MessagePattern({ cmd: ThemesEvents.ThemesGetAll })
   getAllThemes() {
     return this.themesServiceService.getAllThemes();
