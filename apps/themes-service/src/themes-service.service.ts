@@ -299,7 +299,6 @@ export class ThemesServiceService {
       _yaml.configs.forEach((config) => {
         const _config = configs.find((c) => c.key === config.key); // 数据库中的配置项
         if (_config) {
-          console.log(_config);
           config.value = _config.value; // 使用数据库中的配置项的值
         }
       });

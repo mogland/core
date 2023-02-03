@@ -279,7 +279,7 @@ export class ThemesServiceController {
     );
   }
 
-  @Get(['/favicon.*'])
+  @Get(['/favicon.*', '/robot.txt'])
   async rawAssets() {}
 
   // @Get('/page')
