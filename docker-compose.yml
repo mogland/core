@@ -4,7 +4,7 @@ services:
   core:
     container_name: mog-core
     image: wibuswee/mog-core:latest
-    command: node /app/core/index.js --redis_host=redis --db_host=db --config=/app/env.yaml 
+    command: node /app/core/index.js --redis_host=redis --db_host=db --config=/app/env.yaml
     environment:
       - TZ=Asia/Shanghai
     volumes:
@@ -25,7 +25,7 @@ services:
       - mog-network
     restart: always
     healthcheck:
-      test: [ 'CMD', 'curl', '-f', 'http://127.0.0.1:2330/api/ping' ]
+      test: ['CMD', 'curl', '-f', 'http://127.0.0.1:2330/api/ping']
       interval: 1m30s
       timeout: 30s
       retries: 5
