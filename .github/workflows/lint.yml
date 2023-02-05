@@ -26,8 +26,8 @@ jobs:
           pnpm install
       - name: Run lint
         run: |
-          prettier --ignore-path ./.prettierignore --write
-          eslint --cache --fix
+          pnpm prettier --ignore-path ./.prettierignore --write
+          pnpm eslint --cache --fix
       - name: Commit files
         id: commit
         continue-on-error: true
