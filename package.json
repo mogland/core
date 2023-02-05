@@ -10,17 +10,6 @@
   },
   "homepage": "https://github.com/mogland/core#readme",
   "issues": "https://github.com/mogland/core/issues",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --ignore-path ./.prettierignore --write ",
-      "eslint --cache --fix"
-    ]
-  },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
@@ -138,10 +127,8 @@
     "eslint": "8.33.0",
     "eslint-config-prettier": "8.6.0",
     "eslint-plugin-prettier": "4.2.1",
-    "husky": "8.0.3",
     "inquirer": "9.1.4",
     "ioredis": "5.3.0",
-    "lint-staged": "13.1.0",
     "prettier": "2.8.3",
     "source-map-support": "0.5.21",
     "supertest": "6.3.3",
