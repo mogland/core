@@ -8,7 +8,7 @@ Mog is a _flexible, modular_ Blog System that uses **MicroService** and is built
 
 ### Features
 
-- Elastic services - Load the required services arbitrarily without worrying about other effects. 
+- Elastic services - Load the required services arbitrarily without worrying about other effects.
 - [Theme system](https://github.com/mogland/awesome-mog#%E5%89%8D%E7%AB%AF%E4%B8%BB%E9%A2%98). Make it eazy to build your site.
 - Extensible & customizable.
 - Standalone Comment system. Independently design to use it anywhere.
@@ -20,12 +20,11 @@ Please follow the documentation at [mog.js.org](https://mog.js.org/)!
 
 ### Ecosystem
 
-| 项目                                                          | 描述             | 状态                                                                                                            |
-| ------------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- |
-| [mogland/console](https://github.com/mogland/console)         | Mog Console     | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/console?style=flat-square)  |
-| [mogland/mog-docs](https://github.com/mogland/mog-docs)       | Mog Documentation         | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/mog-docs?style=flat-square) |
-| [mogland/awesome-mog](https://github.com/mogland/awesome-mog) | Mog ecosystem list     | ![GitHub Top languages](https://img.shields.io/github/languages/top/mogland/awesome-mog?style=flat-square)      |
-
+| 项目                                                          | 描述               | 状态                                                                                                            |
+| ------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------- |
+| [mogland/console](https://github.com/mogland/console)         | Mog Console        | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/console?style=flat-square)  |
+| [mogland/mog-docs](https://github.com/mogland/mog-docs)       | Mog Documentation  | ![GitHub package.json version](https://img.shields.io/github/package-json/v/mogland/mog-docs?style=flat-square) |
+| [mogland/awesome-mog](https://github.com/mogland/awesome-mog) | Mog ecosystem list | ![GitHub Top languages](https://img.shields.io/github/languages/top/mogland/awesome-mog?style=flat-square)      |
 
 ### References
 
