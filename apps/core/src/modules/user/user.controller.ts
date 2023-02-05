@@ -21,10 +21,7 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiOperation } from '@nestjs/swagger';
-import {
-  LoginDto,
-  UserDto,
-} from '~/apps/user-service/src/user.dto';
+import { LoginDto, UserDto } from '~/apps/user-service/src/user.dto';
 import { UserModel } from '~/apps/user-service/src/user.model';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { HttpCache } from '~/shared/common/decorator/cache.decorator';

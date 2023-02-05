@@ -21,10 +21,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import {
-  ApiOperation,
-  ApiQuery,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { isValidObjectId } from 'mongoose';
 import { PageModel } from '~/apps/page-service/src/model/page.model';
 import { Auth } from '~/shared/common/decorator/auth.decorator';

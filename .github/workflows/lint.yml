@@ -20,14 +20,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: "pnpm"
+          cache: 'pnpm'
       - name: Install dependencies
         run: |
           pnpm install
       - name: Run lint
         run: |
-          pnpm prettier --ignore-path ./.prettierignore --write
-          pnpm eslint --cache --fix
+          pnpm prettier --ignore-path ./.prettierignore --write **/*.{ts,yml,md}
+          pnpm eslint --cache --fix .
       - name: Commit files
         id: commit
         continue-on-error: true
