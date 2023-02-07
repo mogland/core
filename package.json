@@ -103,7 +103,7 @@
     "@innei/eslint-config-ts": "0.9.7",
     "@nestjs/cli": "9.2.0",
     "@nestjs/schematics": "9.0.4",
-    "@nestjs/swagger": "6.1.4",
+    "@nestjs/swagger": "6.2.1",
     "@nestjs/testing": "9.3.2",
     "@types/adm-zip": "^0.5.0",
     "@types/bcrypt": "5.0.0",
