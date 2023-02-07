@@ -86,7 +86,7 @@ specifiers:
   uuid: ^9.0.0
   vite: ^4.0.4
   vitest: ^0.28.0
-  vm2: 3.9.13
+  vm2: 3.9.14
   webpack: 5.75.0
   xml2js: 0.4.23
   zx-cjs: 7.0.7-0
@@ -137,7 +137,7 @@ dependencies:
   slugify: 1.6.5
   snakecase-keys: 5.4.5
   uuid: 9.0.0
-  vm2: 3.9.13
+  vm2: 3.9.14
   zx-cjs: 7.0.7-0
 
 devDependencies:
@@ -2440,6 +2440,7 @@ packages:
     resolution: {integrity: sha512-QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+    dev: true
 
   /acorn/8.8.1:
     resolution: {integrity: sha512-7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==}
@@ -6692,12 +6693,12 @@ packages:
       - terser
     dev: true
 
-  /vm2/3.9.13:
-    resolution: {integrity: sha512-0rvxpB8P8Shm4wX2EKOiMp7H2zq+HUE/UwodY0pCZXs9IffIKZq6vUti5OgkVCTakKo9e/fgO4X1fkwfjWxE3Q==}
+  /vm2/3.9.14:
+    resolution: {integrity: sha512-HgvPHYHeQy8+QhzlFryvSteA4uQLBCOub02mgqdR+0bN/akRZ48TGB1v0aCv7ksyc0HXx16AZtMHKS38alc6TA==}
     engines: {node: '>=6.0'}
     hasBin: true
     dependencies:
-      acorn: 8.8.0
+      acorn: 8.8.1
       acorn-walk: 8.2.0
     dev: false
 
