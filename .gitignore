@@ -52,3 +52,6 @@ tmp
 
 #eslint
 .eslintcache
+
+# api-client dist
+/api-client/dist

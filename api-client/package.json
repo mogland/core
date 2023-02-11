@@ -1,0 +1,41 @@
+{
+  "name": "@mogland/api-client",
+  "version": "0.0.0",
+  "description": "API client for Mog",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [
+    "api",
+    "client",
+    "mog"
+  ],
+  "author": "wibus-wee <wibus@qq.com>",
+  "license": "AGPLv3",
+  "dependencies": {
+    "unbuild": "^1.1.1"
+  }
+}

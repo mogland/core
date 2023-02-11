@@ -15,6 +15,7 @@
     "prebuild": "rimraf dist",
     "build": "concurrently \"npm:build:*\"",
     "build:core": "nest build",
+    "build:api-client": "pnpm --filter @mogland/api-client build",
     "build:user-service": "nest build user-service",
     "build:page-service": "nest build page-service",
     "build:comments-service": "nest build comments-service",

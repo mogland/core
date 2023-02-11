@@ -29,6 +29,9 @@
 			"path": "shared"
 		},
 		{
+			"path": "api-client"
+		},
+		{
 			"path": ".",
 			"name": "mog-core-root"
 		},
