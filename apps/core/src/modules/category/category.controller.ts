@@ -50,8 +50,8 @@ export class CategoryController {
 
   @Get('/ping')
   @ApiOperation({ summary: '检测服务是否在线' })
-  ping() {
-    return transportReqToMicroservice<string>(this.category, CategoryEvents.Ping, {});
+  async ping() {
+    return transportReqToMicroservice<"pong">(this.category, CategoryEvents.Ping, {});
   }
 
   @Get('/')
