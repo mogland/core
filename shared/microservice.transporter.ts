@@ -1,21 +1,14 @@
 import { HttpException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import {
-  timeout,
-  catchError,
-  throwError,
-  lastValueFrom,
-  Observable,
-} from 'rxjs';
+import { timeout, catchError, throwError, lastValueFrom } from 'rxjs';
 
-export function transportReqToMicroservice<T = boolean>(
+export function transportReqToMicroservice<T = any>(
   client: ClientProxy,
   cmd: string,
   data: any,
-  toPromise?: T,
   time = 3000,
-): T extends true ? Promise<any> : Observable<any> {
-  const send = client.send({ cmd }, data).pipe(
+): Promise<T> {
+  const send = client.send<T>({ cmd }, data).pipe(
     timeout(time),
     catchError((err) => {
       return throwError(
@@ -24,6 +17,5 @@ export function transportReqToMicroservice<T = boolean>(
     }),
   );
 
-  type R = T extends true ? Promise<any> : Observable<any>;
-  return toPromise ? (lastValueFrom(send) as R) : (send as R);
+  return lastValueFrom<T>(send);
 }

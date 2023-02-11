@@ -20,6 +20,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { DeleteResult } from 'mongodb';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
 import {
@@ -32,6 +33,7 @@ import {
   CategoryType,
   PartialCategoryModel,
 } from '~/apps/page-service/src/model/category.model';
+import { PostModel } from '~/apps/page-service/src/model/post.model';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
 import { CategoryEvents } from '~/shared/constants/event.constant';
@@ -44,18 +46,20 @@ import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 export class CategoryController {
   constructor(
     @Inject(ServicesEnum.category) private readonly category: ClientProxy,
-  ) {}
+  ) { }
 
   @Get('/ping')
   @ApiOperation({ summary: '检测服务是否在线' })
-  ping() {
-    return transportReqToMicroservice(this.category, CategoryEvents.Ping, {});
+  async ping() {
+    return transportReqToMicroservice<"pong">(this.category, CategoryEvents.Ping, {});
   }
 
   @Get('/')
   @ApiOperation({ summary: '多分类查询、分类列表' })
   async getCategories(@Query() query: MultiCategoriesQueryDto) {
-    return transportReqToMicroservice(
+    return transportReqToMicroservice<any[] | {
+      entries: Object;
+    }>(
       this.category,
       CategoryEvents.CategoryGetAll,
       query,
@@ -83,7 +87,18 @@ export class CategoryController {
     @Param() { query }: SlugorIdDto,
     @Query() { tag }: MultiQueryTagAndCategoryDto, // 如果这个是标签，则tag为true，如果是分类，则tag为分类id
   ) {
-    return transportReqToMicroservice(
+    return transportReqToMicroservice<{
+      isTag: boolean;
+      data: {
+        name: string;
+        children: PostModel[] | null;
+      };
+    } | {
+      data: {
+        children: PostModel[]
+      };
+      isTag: boolean;
+    }>(
       this.category,
       CategoryEvents.CategoryGet,
       { _query: query, _tag: tag },
@@ -95,7 +110,7 @@ export class CategoryController {
   @Auth()
   @ApiBody({ type: CategoryModel })
   async createCategory(@Body() query: CategoryModel) {
-    return transportReqToMicroservice(
+    return transportReqToMicroservice<CategoryModel>(
       this.category,
       CategoryEvents.CategoryCreate,
       query,
@@ -106,7 +121,9 @@ export class CategoryController {
   @ApiOperation({ summary: '合并分类或标签 (Beta)' })
   @Auth()
   async merge(@Body() body: { type: CategoryType; from: string; to: string }) {
-    return transportReqToMicroservice(
+    return transportReqToMicroservice<{
+      message: string;
+    }>(
       this.category,
       CategoryEvents.CategoryMerge,
       body,
@@ -126,7 +143,7 @@ export class CategoryController {
       _id: id,
       _data: { type, slug, name },
     };
-    return transportReqToMicroservice(
+    return transportReqToMicroservice<CategoryModel>(
       this.category,
       CategoryEvents.CategoryPatch,
       send,
@@ -138,7 +155,7 @@ export class CategoryController {
   @Auth()
   @HttpCode(204)
   async patch(@Param() params: MongoIdDto, @Body() body: PartialCategoryModel) {
-    return transportReqToMicroservice(
+    return transportReqToMicroservice<CategoryModel>(
       this.category,
       CategoryEvents.CategoryPatch,
       { _id: params.id, _data: body },
@@ -150,7 +167,7 @@ export class CategoryController {
   @Auth()
   @ApiParam({ name: 'id', description: '分类id' })
   async deleteCategory(@Param() { id }: MongoIdDto) {
-    return transportReqToMicroservice(
+    return transportReqToMicroservice<DeleteResult>(
       this.category,
       CategoryEvents.CategoryDelete,
       id,

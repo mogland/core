@@ -51,14 +51,11 @@ export class ThemesRenderService {
       this.pageService,
       PageEvents.PagesGetAll,
       {},
-      true,
-      // @ts-ignore
     );
     const posts = await transportReqToMicroservice(
       this.pageService,
       PostEvents.PostsListGetAll,
       {},
-      true,
     );
     const categories = await transportReqToMicroservice(
       this.pageService,
@@ -66,7 +63,6 @@ export class ThemesRenderService {
       {
         type: CategoryType.Category,
       },
-      true,
     );
     const tags = await transportReqToMicroservice(
       this.pageService,
@@ -74,7 +70,6 @@ export class ThemesRenderService {
       {
         type: CategoryType.Tag,
       },
-      true,
     );
     const friends = await this.getFriendsVariables().catch((e) => {
       consola.error(`获取友链失败：${e}`);
@@ -98,7 +93,6 @@ export class ThemesRenderService {
         pid,
         isMaster: false,
       },
-      true,
     );
   }
   /**
@@ -124,7 +118,6 @@ export class ThemesRenderService {
         query: plainToInstance(PagerDto, pager),
         isMaster: false,
       },
-      true,
     );
   }
   async getArchivesPageVariables() {
@@ -132,7 +125,6 @@ export class ThemesRenderService {
       this.pageService,
       PostEvents.PostsListGetAll,
       {},
-      true,
     );
     return {
       data: {
@@ -161,7 +153,6 @@ export class ThemesRenderService {
         password,
         isMaster: false,
       },
-      true,
     );
     const comments = this.getCommentsVariables(page._id);
     return {
@@ -191,7 +182,6 @@ export class ThemesRenderService {
         isMaster: false,
         password,
       },
-      true,
     );
     const comments = await this.getCommentsVariables(post._id);
     return {
@@ -212,7 +202,6 @@ export class ThemesRenderService {
         _query: name,
         _tag,
       },
-      true,
     );
     return res;
   }
@@ -224,7 +213,6 @@ export class ThemesRenderService {
       this.friendsService,
       FriendsEvents.FriendsGetList,
       {},
-      true,
     );
   }
   /**
@@ -271,7 +259,6 @@ export class ThemesRenderService {
       this.userService,
       UserEvents.UserGetMaster,
       {},
-      true,
     );
     return {
       ...config,
