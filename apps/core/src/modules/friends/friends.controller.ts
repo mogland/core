@@ -129,7 +129,6 @@ export class FriendsController {
       this.friends,
       FriendsEvents.FriendsCheckAlive,
       status,
-      false,
       50000,
     );
   }
@@ -141,7 +140,6 @@ export class FriendsController {
       this.friends,
       FriendsEvents.FriendsAnalyseFeed,
       {},
-      false,
       50000,
     );
   }
@@ -153,7 +151,6 @@ export class FriendsController {
       this.friends,
       FriendsEvents.FriendAnalyseAutoCheck,
       id,
-      false,
       50000,
     );
   }
