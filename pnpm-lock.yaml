@@ -58,7 +58,7 @@ specifiers:
   eslint-plugin-prettier: 4.2.1
   fastify: ^4.12.0
   inquirer: 9.1.4
-  ioredis: 5.3.0
+  ioredis: 5.3.1
   js-yaml: ^4.1.0
   jsdom: ^21.0.0
   jsonwebtoken: 9.0.0
@@ -97,7 +97,7 @@ dependencies:
   '@nestjs/common': 9.3.7_uisgqpdqsnlcxoqiidaahrhoi4
   '@nestjs/core': 9.3.7_zt2f7tapwmho7aha3n6o32evxy
   '@nestjs/event-emitter': 1.4.1_pwlerhfcldutg4bxlbqlfavbwi
-  '@nestjs/microservices': 9.3.7_ohnkkqba4twiop3jdxty3ljhti
+  '@nestjs/microservices': 9.3.7_ett7kk6mmhlv5zn34oyub6btke
   '@nestjs/platform-fastify': 9.3.7_ss5hfqgagxwgs6syz6uh4gcpqi
   '@nestjs/schedule': 2.2.0_pwlerhfcldutg4bxlbqlfavbwi
   '@typegoose/typegoose': 10.1.1_mongoose@6.9.1
@@ -168,7 +168,7 @@ devDependencies:
   eslint-config-prettier: 8.6.0_eslint@8.34.0
   eslint-plugin-prettier: 4.2.1_u5wnrdwibbfomslmnramz52buy
   inquirer: 9.1.4
-  ioredis: 5.3.0
+  ioredis: 5.3.1
   prettier: 2.8.4
   source-map-support: 0.5.21
   supertest: 6.3.3
@@ -1570,7 +1570,7 @@ packages:
         optional: true
     dependencies:
       '@nestjs/common': 9.3.7_uisgqpdqsnlcxoqiidaahrhoi4
-      '@nestjs/microservices': 9.3.7_ohnkkqba4twiop3jdxty3ljhti
+      '@nestjs/microservices': 9.3.7_ett7kk6mmhlv5zn34oyub6btke
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.1.1
       iterare: 1.2.1
@@ -1614,7 +1614,7 @@ packages:
       reflect-metadata: 0.1.13
     dev: true
 
-  /@nestjs/microservices/9.3.7_ohnkkqba4twiop3jdxty3ljhti:
+  /@nestjs/microservices/9.3.7_ett7kk6mmhlv5zn34oyub6btke:
     resolution: {integrity: sha512-y3C8fTvKgDWiw8s7p2nDSPcgm8RhW/BclBxW1rhQseR7wOlpWCtlHJRdJVB2XZp8fhMMOUkVoudU0m3fudzKow==}
     peerDependencies:
       '@grpc/grpc-js': '*'
@@ -1653,7 +1653,7 @@ packages:
       '@nestjs/common': 9.3.7_uisgqpdqsnlcxoqiidaahrhoi4
       '@nestjs/core': 9.3.7_zt2f7tapwmho7aha3n6o32evxy
       cache-manager: 4.1.0
-      ioredis: 5.3.0
+      ioredis: 5.3.1
       iterare: 1.2.1
       reflect-metadata: 0.1.13
       rxjs: 7.8.0
@@ -1775,7 +1775,7 @@ packages:
     dependencies:
       '@nestjs/common': 9.3.7_uisgqpdqsnlcxoqiidaahrhoi4
       '@nestjs/core': 9.3.7_zt2f7tapwmho7aha3n6o32evxy
-      '@nestjs/microservices': 9.3.7_ohnkkqba4twiop3jdxty3ljhti
+      '@nestjs/microservices': 9.3.7_ett7kk6mmhlv5zn34oyub6btke
       tslib: 2.5.0
     dev: true
 
@@ -4477,8 +4477,8 @@ packages:
       - supports-color
     dev: false
 
-  /ioredis/5.3.0:
-    resolution: {integrity: sha512-Id9jKHhsILuIZpHc61QkagfVdUj2Rag5GzG1TGEvRNeM7dtTOjICgjC+tvqYxi//PuX2wjQ+Xjva2ONBuf92Pw==}
+  /ioredis/5.3.1:
+    resolution: {integrity: sha512-C+IBcMysM6v52pTLItYMeV4Hz7uriGtoJdz7SSBDX6u+zwSYGirLdQh3L7t/OItWITcw3gTFMjJReYUwS4zihg==}
     engines: {node: '>=12.22.0'}
     dependencies:
       '@ioredis/commands': 1.2.0
