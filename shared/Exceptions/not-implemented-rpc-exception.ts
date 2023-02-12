@@ -1,5 +1,5 @@
 import { HttpStatus } from "@nestjs/common";
-import { RpcException } from "~/shared/Exceptions/rpc-exception";
+import { RpcException } from "~/shared/exceptions/rpc-exception";
 
 export class NotImplementedRpcExcption extends RpcException {
     constructor(readonly message: string) {

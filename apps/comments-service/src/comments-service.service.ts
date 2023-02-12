@@ -7,8 +7,8 @@ import { InjectModel } from '~/libs/database/src/model.transformer';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { NotificationEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
-import { BadRequestRpcExcption } from '~/shared/Exceptions/bad-request-rpc-exception';
-import { NotFoundRpcExcption } from '~/shared/Exceptions/not-found-rpc-exception';
+import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
+import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
 import {
   CommentReactions,
   CommentsModel,

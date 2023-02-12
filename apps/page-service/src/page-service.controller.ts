@@ -19,9 +19,9 @@ import { MultiCategoriesQueryDto } from './dto/category.dto';
 import { isValidObjectId } from 'mongoose';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { CategoryModel, CategoryType } from './model/category.model';
-import { NotImplementedRpcExcption } from '~/shared/Exceptions/not-implemented-rpc-exception';
-import { NotFoundRpcExcption } from '~/shared/Exceptions/not-found-rpc-exception';
-import { BadRequestRpcExcption } from '~/shared/Exceptions/bad-request-rpc-exception';
+import { NotImplementedRpcExcption } from '~/shared/exceptions/not-implemented-rpc-exception';
+import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
+import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
 
 @Controller()
 export class PageServiceController {

@@ -13,9 +13,9 @@ import { FeedParser } from '~/shared/utils';
 import { isValidObjectId } from 'mongoose';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { NotificationEvents } from '~/shared/constants/event.constant';
-import { NotFoundRpcExcption } from '~/shared/Exceptions/not-found-rpc-exception';
-import { BadRequestRpcExcption } from '~/shared/Exceptions/bad-request-rpc-exception';
-import { UnauthorizedRpcExcption } from '~/shared/Exceptions/unauthorized-rpc-exception';
+import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
+import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
+import { UnauthorizedRpcExcption } from '~/shared/exceptions/unauthorized-rpc-exception';
 @Injectable()
 export class FriendsService {
   constructor(
