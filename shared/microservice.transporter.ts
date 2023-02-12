@@ -7,7 +7,11 @@ export function transportReqToMicroservice<T = any>(
   cmd: string,
   data: any,
   time = 3000,
+  emit = false,
 ): Promise<T> {
+  if (emit) {
+    return lastValueFrom(client.emit<T>(cmd, data));
+  }
   const send = client.send<T>({ cmd }, data).pipe(
     timeout(time),
     catchError((err) => {

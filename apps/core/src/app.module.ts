@@ -46,6 +46,10 @@ import { ThemesModule } from './modules/themes/themes.module';
         name: ServicesEnum.notification,
         ...REDIS_TRANSPORTER,
       },
+      {
+        name: ServicesEnum.custom,
+        ...REDIS_TRANSPORTER,
+      }
     ]),
   ],
   controllers: [AppController],
