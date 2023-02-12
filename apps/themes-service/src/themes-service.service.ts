@@ -19,7 +19,7 @@ import { ServicesEnum } from '~/shared/constants/services.constant';
 import { ClientProxy } from '@nestjs/microservices';
 import { ThemesEvents } from '~/shared/constants/event.constant';
 import { AssetsService } from '~/libs/helper/src/helper.assets.service';
-import { YAML } from 'zx-cjs';
+import { chalk, path, YAML } from 'zx-cjs';
 
 @Injectable()
 export class ThemesServiceService {

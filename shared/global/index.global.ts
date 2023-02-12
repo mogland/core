@@ -3,7 +3,6 @@
 import { Logger } from '@nestjs/common';
 import { chalk, $ } from 'zx-cjs';
 import { mkdirSync } from 'fs';
-import 'zx-cjs/globals';
 import {
   DATA_DIR,
   LOG_DIR,

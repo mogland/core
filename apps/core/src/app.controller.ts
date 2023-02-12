@@ -1,5 +1,4 @@
 import { Controller, Get, Inject } from '@nestjs/common';
-import { AppService } from './app.service';
 import PKG from '../../../package.json';
 import { ApiOperation } from '@nestjs/swagger';
 import { isDev } from '@shared/global/env.global';
@@ -11,7 +10,6 @@ import { NotificationEvents } from '~/shared/constants/event.constant';
 @Controller()
 export class AppController {
   constructor(
-    private readonly appService: AppService,
     @Inject(ServicesEnum.notification)
     private readonly notification: ClientProxy,
   ) {}

@@ -12,6 +12,7 @@ import { MessagePattern } from '@nestjs/microservices';
 import ejs from 'ejs';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import mime from 'mime';
+import { fs, path } from 'zx-cjs';
 import { AssetsService } from '~/libs/helper/src/helper.assets.service';
 import { ThemesEvents } from '~/shared/constants/event.constant';
 import { THEME_DIR } from '~/shared/constants/path.constant';

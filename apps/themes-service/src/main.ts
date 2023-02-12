@@ -2,6 +2,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
+import { chalk } from 'zx-cjs';
 import { BasicCommer } from '~/shared/commander';
 import { LoggingInterceptor } from '~/shared/common/interceptors/logging.interceptor';
 import {

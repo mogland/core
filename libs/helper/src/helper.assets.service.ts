@@ -4,6 +4,7 @@ import { HttpService } from './helper.http.service';
 import fs from 'fs';
 import { isURL } from 'class-validator';
 import { tmpdir } from 'os';
+import { path } from 'zx-cjs';
 
 @Injectable()
 export class AssetsService {
