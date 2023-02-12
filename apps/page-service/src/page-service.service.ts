@@ -18,7 +18,7 @@ import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { NotificationEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { PagerDto } from '~/shared/dto/pager.dto';
-import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
+import { NotFoundRpcExcption } from '~/shared/Exceptions/not-found-rpc-exception';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { PageModel } from './model/page.model';
 
