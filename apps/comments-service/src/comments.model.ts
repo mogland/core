@@ -36,11 +36,6 @@ export enum CommentStatus {
   Private = 4, // 私密评论
 }
 
-export enum CommentType {
-  Post = 'post',
-  Page = 'page',
-}
-
 export enum CommentReactions {
   Like = 'like',
   Dislike = 'dislike',
@@ -101,10 +96,6 @@ export class CommentsModel extends BaseModel {
   @IsNumber()
   @IsOptional()
   status?: CommentStatus;
-
-  @prop({ required: true, enum: CommentType, default: CommentType.Post })
-  @ApiProperty({ description: '评论类型' })
-  type: CommentType;
 
   @prop({ default: 0 })
   commentsIndex?: number; // 评论数量
