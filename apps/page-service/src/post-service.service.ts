@@ -1,5 +1,5 @@
 import slugify from 'slugify';
-import { forwardRef, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import {
   AggregatePaginateModel,
   Document,
@@ -13,11 +13,13 @@ import { CategoryService } from './category.service';
 import { PostModel } from './model/post.model';
 import { isDefined } from 'class-validator';
 import { omit } from 'lodash';
-import { ClientProxy, RpcException } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { NotificationEvents } from '~/shared/constants/event.constant';
+import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
+import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
 
 @Injectable()
 export class PostService {
@@ -31,7 +33,7 @@ export class PostService {
 
     @Inject(ServicesEnum.notification)
     private readonly notification: ClientProxy,
-  ) {}
+  ) { }
 
   get model() {
     return this.postModel;
@@ -103,13 +105,13 @@ export class PostService {
           {
             $sort: sortBy
               ? {
-                  [sortBy]: sortOrder as any,
-                }
+                [sortBy]: sortOrder as any,
+              }
               : {
-                  sortField: -1, // sort by our computed field
-                  pin: -1,
-                  created: -1, // and then by the "created" field
-                },
+                sortField: -1, // sort by our computed field
+                pin: -1,
+                created: -1, // and then by the "created" field
+              },
           },
           {
             $project: {
@@ -161,10 +163,7 @@ export class PostService {
   async getPostBySlug(slug: string) {
     const model = await this.model.findOne({ slug });
     if (!model) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.PostIsNotExist,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.PostIsNotExist);
     }
     return model;
   }
@@ -172,10 +171,7 @@ export class PostService {
   async getPostByID(id: string) {
     const model = await this.model.findById(id);
     if (!model) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.PostIsNotExist,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.PostIsNotExist);
     }
     return model;
   }
@@ -193,10 +189,7 @@ export class PostService {
       category,
     );
     if (!categoryDocument) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.CategoryIsNotExist,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.CategoryIsNotExist);
     }
     const postDocument = await (
       await this.model
@@ -206,10 +199,7 @@ export class PostService {
         })
         .then((post) => {
           if (!post || (!isMaster && post.hide)) {
-            throw new RpcException({
-              code: HttpStatus.NOT_FOUND,
-              message: ExceptionMessage.PostIsNotExist,
-            });
+            throw new NotFoundRpcExcption(ExceptionMessage.PostIsNotExist);
           }
           if (!isMaster && post.password) {
             if (!password || password !== post.password) {
@@ -248,19 +238,13 @@ export class PostService {
       categoryId as any as string,
     );
     if (!category) {
-      throw new RpcException({
-        code: HttpStatus.BAD_REQUEST,
-        message: ExceptionMessage.CategoryIsNotExist,
-      });
+      throw new BadRequestRpcExcption(ExceptionMessage.CategoryIsNotExist);
     }
 
     const slug = post.slug ? slugify(post.slug) : slugify(post.title);
     const isAvailableSlug = await this.isAvailablePostSlug(slug);
     if (!isAvailableSlug) {
-      throw new RpcException({
-        code: HttpStatus.BAD_REQUEST,
-        message: ExceptionMessage.SlugIsExist,
-      });
+      throw new BadRequestRpcExcption(ExceptionMessage.SlugIsExist);
     }
     const res = await this.postModel.create({
       ...post,
@@ -283,10 +267,7 @@ export class PostService {
   async updatePostById(id: string, data: Partial<PostModel>) {
     const oldDocument = await this.postModel.findById(id).lean();
     if (!oldDocument) {
-      throw new RpcException({
-        code: HttpStatus.BAD_REQUEST,
-        message: ExceptionMessage.PostIsNotExist,
-      });
+      throw new BadRequestRpcExcption(ExceptionMessage.PostIsNotExist);
     }
     const { categoryId } = data;
     if (categoryId && categoryId !== oldDocument.categoryId) {
@@ -294,10 +275,7 @@ export class PostService {
         categoryId as any as string,
       );
       if (!category) {
-        throw new RpcException({
-          code: HttpStatus.BAD_REQUEST,
-          message: ExceptionMessage.CategoryIsNotExist,
-        });
+        throw new BadRequestRpcExcption(ExceptionMessage.CategoryIsNotExist);
       }
     }
     if ([data.text, data.title, data.slug].some((i) => isDefined(i))) {
@@ -307,20 +285,14 @@ export class PostService {
 
     const originDocument = await this.postModel.findById(id);
     if (!originDocument) {
-      throw new RpcException({
-        code: HttpStatus.BAD_REQUEST,
-        message: ExceptionMessage.PostIsNotExist,
-      });
+      throw new BadRequestRpcExcption(ExceptionMessage.PostIsNotExist);
     }
     if (data.slug && data.slug !== originDocument.slug) {
       data.slug = slugify(data.slug);
       // 检查slug是否已存在
       const isAvailableSlug = await this.isAvailablePostSlug(data.slug);
       if (!isAvailableSlug) {
-        throw new RpcException({
-          code: HttpStatus.BAD_REQUEST,
-          message: ExceptionMessage.SlugIsExist,
-        });
+        throw new BadRequestRpcExcption(ExceptionMessage.SlugIsExist);
       }
     }
     Object.assign(originDocument, omit(data, PostModel.protectedKeys));

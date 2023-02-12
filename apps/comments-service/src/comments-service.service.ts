@@ -1,5 +1,5 @@
-import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { ClientProxy, RpcException } from '@nestjs/microservices';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { PaginateModel } from 'mongoose';
 import { nextTick } from 'process';
@@ -7,6 +7,8 @@ import { InjectModel } from '~/libs/database/src/model.transformer';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { NotificationEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
+import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
+import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
 import {
   CommentReactions,
   CommentsModel,
@@ -22,7 +24,7 @@ export class CommentsService {
 
     @Inject(ServicesEnum.notification)
     private readonly notification: ClientProxy,
-  ) {}
+  ) { }
 
   get model() {
     return this.CommentsModel;
@@ -97,10 +99,7 @@ export class CommentsService {
   async deleteComment(id: string) {
     const comment = await this.CommentsModel.findOneAndDelete({ id });
     if (!comment) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.CommentNotFound,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.CommentNotFound);
     }
     const { parent, children } = comment;
     if (children && children.length) {
@@ -142,10 +141,7 @@ export class CommentsService {
   async replyComment(parent: string, data: CommentsModel, isMaster: boolean) {
     const parentComment = await this.CommentsModel.findById(parent);
     if (!parentComment) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.CommentNotFound,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.CommentNotFound);
     }
     data.pid = parentComment.pid; // 防止恶意修改，强制使用父评论的pid
     if (isMaster) {
@@ -183,17 +179,11 @@ export class CommentsService {
   ) {
     const comment = this.CommentsModel.findById(id);
     if (!comment) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.CommentNotFound,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.CommentNotFound);
     }
     // 验证 reaction 是否合法
     if (!Object.values(CommentReactions).includes(reaction)) {
-      throw new RpcException({
-        code: HttpStatus.BAD_REQUEST,
-        message: ExceptionMessage.InvalidCommentReaction,
-      });
+      throw new BadRequestRpcExcption(ExceptionMessage.InvalidCommentReaction);
     }
     const update = isAdd
       ? { $inc: { [`reaction.${reaction}`]: 1 } }

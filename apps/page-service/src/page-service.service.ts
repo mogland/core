@@ -7,8 +7,8 @@
  * Coding With IU
  */
 
-import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { ClientProxy, RpcException } from '@nestjs/microservices';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { isDefined } from 'class-validator';
 import { omit } from 'lodash';
@@ -18,6 +18,7 @@ import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { NotificationEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { PagerDto } from '~/shared/dto/pager.dto';
+import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { PageModel } from './model/page.model';
 
@@ -30,7 +31,7 @@ export class PageService {
 
     @Inject(ServicesEnum.notification)
     private readonly notification: ClientProxy,
-  ) {}
+  ) { }
 
   public get model() {
     return this.pageModel;
@@ -53,10 +54,7 @@ export class PageService {
   async getPageById(id: string) {
     const res = this.model.findById(id).lean({ getters: true });
     if (!res) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.PageIsNotExist,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.PageIsNotExist);
     }
     return res;
   }
@@ -67,10 +65,7 @@ export class PageService {
       .lean({ getters: true })
       .then((page) => {
         if (!page) {
-          throw new RpcException({
-            code: HttpStatus.NOT_FOUND,
-            message: ExceptionMessage.PageIsNotExist,
-          });
+          throw new NotFoundRpcExcption(ExceptionMessage.PageIsNotExist);
         }
         if (!isMaster && page.password) {
           if (!password || password !== page.password) {
@@ -112,10 +107,7 @@ export class PageService {
       )
       .lean({ getters: true });
     if (!res) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.PageIsNotExist,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.PageIsNotExist);
     }
     this.notification.emit(NotificationEvents.SystemPageUpdate, res);
     return res;
