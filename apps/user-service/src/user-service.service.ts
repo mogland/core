@@ -1,5 +1,5 @@
-import { HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
-import { ClientProxy, RpcException } from '@nestjs/microservices';
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { compareSync } from 'bcrypt';
 // import { nanoid } from 'nanoid';
@@ -8,6 +8,9 @@ import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { NotificationEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
+import { BadRequestRpcExcption } from '~/shared/Exceptions/bad-request-rpc-exception';
+import { ForbiddenRpcExcption } from '~/shared/Exceptions/forbidden-rpc-exception';
+import { NotFoundRpcExcption } from '~/shared/Exceptions/not-found-rpc-exception';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { getAvatar } from '~/shared/utils';
 import { LoginDto } from './user.dto';
@@ -25,7 +28,7 @@ export class UserService {
 
     @Inject(ServicesEnum.notification)
     private readonly notification: ClientProxy,
-  ) {}
+  ) { }
   public get model() {
     return this.userModel;
   }
@@ -43,10 +46,7 @@ export class UserService {
 
     const exist = await this.userModel.findOne({ username: model.username });
     if (exist)
-      throw new RpcException({
-        code: HttpStatus.BAD_REQUEST,
-        message: ExceptionMessage.UserNameIsExist,
-      });
+      throw new ForbiddenRpcExcption(ExceptionMessage.UserNameIsExist);
 
     const userCount = await this.userModel.countDocuments();
 
@@ -54,10 +54,7 @@ export class UserService {
     const hasMaster = !!userCount;
     // 禁止注册两个以上账户
     if (hasMaster) {
-      throw new RpcException({
-        code: HttpStatus.BAD_REQUEST,
-        message: ExceptionMessage.UserIsExist,
-      });
+      throw new BadRequestRpcExcption(ExceptionMessage.UserIsExist);
     }
 
     const res = await this.userModel.create({
@@ -79,16 +76,10 @@ export class UserService {
   async returnLoginData(username: string, password: string) {
     const user = await this.userModel.findOne({ username }).select('+password');
     if (!user) {
-      throw new RpcException({
-        code: HttpStatus.FORBIDDEN,
-        message: ExceptionMessage.UserNameError,
-      });
+      throw new ForbiddenRpcExcption(ExceptionMessage.UserNameError);
     }
     if (!compareSync(password, user.password)) {
-      throw new RpcException({
-        code: HttpStatus.FORBIDDEN,
-        message: ExceptionMessage.UserPasswordError,
-      });
+      throw new ForbiddenRpcExcption(ExceptionMessage.UserPasswordError);
     }
 
     return user;
@@ -148,10 +139,7 @@ export class UserService {
       .select(`${getLoginIp ? ' +lastLoginIp' : ''}`)
       .lean({ virtuals: true });
     if (!user) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.UserNotFound,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.UserNotFound);
     }
     return user;
   }
@@ -171,18 +159,12 @@ export class UserService {
         .select('+password +apiToken');
 
       if (!currentUser) {
-        throw new RpcException({
-          code: HttpStatus.NOT_FOUND,
-          message: ExceptionMessage.UserNotFound,
-        });
+        throw new NotFoundRpcExcption(ExceptionMessage.UserNotFound);
       }
       // 1. 验证新旧密码是否一致
       const isSamePassword = compareSync(password, currentUser.password);
       if (isSamePassword) {
-        throw new RpcException({
-          code: HttpStatus.BAD_REQUEST,
-          message: ExceptionMessage.UserPasswordIsSame,
-        });
+        throw new BadRequestRpcExcption(ExceptionMessage.UserPasswordIsSame);
       }
 
       // // 2. 认证码重新生成
@@ -210,10 +192,7 @@ export class UserService {
   ): Promise<Record<string, Date | string>> {
     const master = await this.userModel.findOne({ username });
     if (!master) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.UserNotFound,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.UserNotFound);
     }
     const PrevFootstep = {
       lastLoginTime: master.lastLoginTime || new Date(1586090559569),
@@ -231,10 +210,7 @@ export class UserService {
   async getMaster() {
     const master = await this.userModel.findOne({ role: UserRole.root });
     if (!master) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.UserNotFound,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.UserNotFound);
     }
     return master;
   }
