@@ -1,0 +1,10 @@
+render:
+  - path: /events
+    method: get
+    handler: events.get
+  - path: /events/{id}
+    method: get
+    handler: events.get.id
+  - path: /events
+    method: post
+    handler: events.post

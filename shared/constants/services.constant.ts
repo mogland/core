@@ -22,6 +22,7 @@ export enum ServicesEnum {
   admin = 'ADMIN_SERVICE',
   mail = 'MAIL_SERVICE',
   notification = 'NOTIFICATION_SERVICE',
+  custom = 'CUSTOM_SERVICE',
 }
 
 export enum ServicePorts {

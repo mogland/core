@@ -8,7 +8,7 @@
  */
 
 import { join } from 'path';
-import { cwd } from 'shared/global/env.global';
+import { cwd } from '@shared/global/env.global';
 import { argv as zxArev, YAML } from 'zx-cjs';
 import { camelToUnderline } from './name';
 import { ServicesEnum } from '../constants/services.constant';
