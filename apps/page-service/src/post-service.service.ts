@@ -18,8 +18,8 @@ import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { NotificationEvents } from '~/shared/constants/event.constant';
-import { BadRequestRpcExcption } from '~/shared/Exceptions/bad-request-rpc-exception';
-import { NotFoundRpcExcption } from '~/shared/Exceptions/not-found-rpc-exception';
+import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
+import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
 
 @Injectable()
 export class PostService {
