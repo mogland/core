@@ -11,6 +11,7 @@ interface IEventConfigItem {
   path: string;
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   handler: string;
+  emit?: boolean;
 }
 
 interface IEventConfig {
@@ -101,7 +102,8 @@ export class AppService {
     const pathParam = config.path // /user/{id}/info
       .split('/')
       .filter((item: string) => item.startsWith('{') && item.endsWith('}'));
-    const param = pathParam.reduce((acc, cur, index) => { // { id: '1' }
+    const param = pathParam.reduce((acc, cur, index) => {
+      // { id: '1' }
       acc[cur.replace(/{|}/g, '')] = _path[index + 2];
       return acc;
     }, {});
@@ -123,6 +125,12 @@ export class AppService {
     if (!config) throw new NotFoundException();
     const handler = config.handler;
     const data = this.transportData(config, query, param, body);
-    return transportReqToMicroservice(this.custom, handler, data);
+    return transportReqToMicroservice(
+      this.custom,
+      handler,
+      data,
+      3000,
+      config.emit,
+    );
   }
 }
