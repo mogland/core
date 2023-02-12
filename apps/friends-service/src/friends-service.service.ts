@@ -1,4 +1,4 @@
-import { HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { v4 } from 'uuid';
 import { HttpService } from '~/libs/helper/src/helper.http.service';
@@ -6,13 +6,16 @@ import { InjectModel } from '~/shared/transformers/model.transformer';
 import { FriendsModel, FriendStatus } from './friends.model';
 import { JSDOM } from 'jsdom';
 import { ConfigService } from '~/libs/config/src';
-import { ClientProxy, RpcException } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { nextTick } from 'process';
 import { FeedParser } from '~/shared/utils';
 import { isValidObjectId } from 'mongoose';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { NotificationEvents } from '~/shared/constants/event.constant';
+import { NotFoundRpcExcption } from '~/shared/Exceptions/not-found-rpc-exception';
+import { BadRequestRpcExcption } from '~/shared/Exceptions/bad-request-rpc-exception';
+import { UnauthorizedRpcExcption } from '~/shared/Exceptions/unauthorized-rpc-exception';
 @Injectable()
 export class FriendsService {
   constructor(
@@ -23,24 +26,18 @@ export class FriendsService {
 
     @Inject(ServicesEnum.notification)
     private readonly notification: ClientProxy,
-  ) {}
+  ) { }
 
   public get model() {
     return this.friendsModel;
   }
 
   private throwInvalidTokenException(): never {
-    throw new RpcException({
-      code: HttpStatus.UNAUTHORIZED,
-      message: ExceptionMessage.FriendLinkTokenIsInvalid,
-    });
+    throw new UnauthorizedRpcExcption(ExceptionMessage.FriendLinkTokenIsInvalid);
   }
 
   private throwNotFoundException(): never {
-    throw new RpcException({
-      code: HttpStatus.NOT_FOUND,
-      message: ExceptionMessage.FriendLinkIsNotExist,
-    });
+    throw new NotFoundRpcExcption(ExceptionMessage.FriendLinkIsNotExist);
   }
 
   private async checkAlive(url: string) {
@@ -148,10 +145,7 @@ export class FriendsService {
             item?.status !== FriendStatus.Trash,
         )
       ) {
-        throw new RpcException({
-          code: HttpStatus.BAD_REQUEST,
-          message: ExceptionMessage.FriendLinkIsExist,
-        });
+        throw new BadRequestRpcExcption(ExceptionMessage.FriendLinkIsExist);
       }
       if (res.some((item) => item?.status === FriendStatus.Trash)) {
         const friend = res.find((item) => item?.status === FriendStatus.Trash);
@@ -172,8 +166,7 @@ export class FriendsService {
       friend.autoCheck = await this.autoCheck(input.data.link);
       await friend.save();
       Logger.warn(
-        `${friend.name} 申请友链 - 互链检测: ${
-          friend.autoCheck ? '通过' : '未通过'
+        `${friend.name} 申请友链 - 互链检测: ${friend.autoCheck ? '通过' : '未通过'
         }`,
         FriendsService.name,
       );
@@ -225,8 +218,7 @@ export class FriendsService {
       friend.autoCheck = await this.autoCheck(data.link); // 重新检测
       await friend.save();
       Logger.warn(
-        `${friend.name} 申请友链 - 互链检测: ${
-          friend.autoCheck ? '通过' : '未通过'
+        `${friend.name} 申请友链 - 互链检测: ${friend.autoCheck ? '通过' : '未通过'
         }`,
         FriendsService.name,
       );
@@ -292,10 +284,7 @@ export class FriendsService {
   async analyseAutoCheck(id: string) {
     const friend = await this.friendsModel.findById(id);
     if (!friend) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.FriendLinkIsNotExist,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.FriendLinkIsNotExist);
     }
     const isAlive = await this.checkAlive(friend.link);
     if (!isAlive) {

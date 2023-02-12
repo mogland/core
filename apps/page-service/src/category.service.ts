@@ -6,13 +6,14 @@
  * @LastEditTime: 2022-09-24 15:36:36
  * Coding With IU
  */
-import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { RpcException } from '@nestjs/microservices';
+import { Inject, Injectable } from '@nestjs/common';
 import { ReturnModelType, DocumentType } from '@typegoose/typegoose';
 import { FilterQuery } from 'mongoose';
 import { nextTick } from 'process';
 import { InjectModel } from '~/libs/database/src/model.transformer';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
+import { BadRequestRpcExcption } from '~/shared/Exceptions/bad-request-rpc-exception';
+import { NotFoundRpcExcption } from '~/shared/Exceptions/not-found-rpc-exception';
 import { MultiCategoriesQueryDto } from './dto/category.dto';
 import { CategoryModel, CategoryType } from './model/category.model';
 import { PostModel } from './model/post.model';
@@ -157,10 +158,7 @@ export class CategoryService {
       .populate('category');
 
     if (!posts.length)
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.PageIsNotExist,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.PageIsNotExist);
 
     return posts;
   }
@@ -234,17 +232,11 @@ export class CategoryService {
   async deleteCategory(categoryId: string) {
     const category = await this.model.findById(categoryId);
     if (!category) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.CategoryIsNotExist,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.CategoryIsNotExist);
     }
     const postsInCategory = await this.findPostsInCategory(category.id);
     if (postsInCategory.length > 0) {
-      throw new RpcException({
-        code: HttpStatus.BAD_REQUEST,
-        message: ExceptionMessage.CategoryHasPost,
-      });
+      throw new BadRequestRpcExcption(ExceptionMessage.CategoryHasPost);
     }
     const action = this.categoryModel.deleteOne({
       _id: categoryId,

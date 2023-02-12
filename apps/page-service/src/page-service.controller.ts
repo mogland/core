@@ -1,6 +1,6 @@
 import slugify from 'slugify';
-import { BadRequestException, Controller, HttpStatus } from '@nestjs/common';
-import { MessagePattern, RpcException } from '@nestjs/microservices';
+import { BadRequestException, Controller } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
 import { ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
 import {
   CategoryEvents,
@@ -19,6 +19,9 @@ import { MultiCategoriesQueryDto } from './dto/category.dto';
 import { isValidObjectId } from 'mongoose';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { CategoryModel, CategoryType } from './model/category.model';
+import { NotImplementedRpcExcption } from '~/shared/Exceptions/not-implemented-rpc-exception';
+import { NotFoundRpcExcption } from '~/shared/Exceptions/not-found-rpc-exception';
+import { BadRequestRpcExcption } from '~/shared/Exceptions/bad-request-rpc-exception';
 
 @Controller()
 export class PageServiceController {
@@ -74,10 +77,7 @@ export class PageServiceController {
     // 判断必要Query参数是否存在
     if (!query) {
       // 如果没有query 禁止通行
-      throw new RpcException({
-        code: HttpStatus.BAD_REQUEST,
-        message: ExceptionMessage.QueryArgIsRequire,
-      });
+      throw new BadRequestRpcExcption(ExceptionMessage.QueryArgIsRequire);
     }
     if (tag === true) {
       return {
@@ -100,10 +100,7 @@ export class PageServiceController {
           .lean();
 
     if (!data) {
-      throw new RpcException({
-        code: HttpStatus.NOT_FOUND,
-        message: ExceptionMessage.CantFindCategory,
-      });
+      throw new NotFoundRpcExcption(ExceptionMessage.CantFindCategory);
     }
 
     const children =
@@ -270,9 +267,6 @@ export class PageServiceController {
   @MessagePattern({ cmd: PostEvents.PostThumbUp })
   @ApiOperation({ summary: '点赞文章' })
   async thumbUpPost(_id: string) {
-    throw new RpcException({
-      code: HttpStatus.NOT_IMPLEMENTED,
-      message: 'Not Implemented',
-    });
+    throw new NotImplementedRpcExcption('Not Implemented');
   }
 }
