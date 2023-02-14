@@ -51,7 +51,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
-    "@fastify/multipart": "7.4.0",
+    "@fastify/multipart": "7.4.1",
     "@fastify/static": "6.9.0",
     "@nestjs/common": "9.3.7",
     "@nestjs/core": "9.3.7",
