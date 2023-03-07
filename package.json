@@ -83,7 +83,7 @@
     "jsonwebtoken": "9.0.0",
     "lodash": "4.17.21",
     "mime": "^3.0.0",
-    "mongoose": "6.9.2",
+    "mongoose": "7.0.1",
     "mongoose-aggregate-paginate-v2": "1.0.6",
     "mongoose-lean-id": "0.3.0",
     "mongoose-lean-virtuals": "0.9.1",
