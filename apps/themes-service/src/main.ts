@@ -10,7 +10,7 @@ import {
 } from '~/shared/constants/services.constant';
 import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
 import { consola, registerStdLogger } from '~/shared/global/consola.global';
-import { mkdirs, registerGlobal } from '~/shared/global/index.global';
+import { registerGlobal } from '~/shared/global/index.global';
 import { isDev } from '~/shared/utils';
 import { getEnv, readEnv } from '~/shared/utils/rag-env';
 import { fastifyApp } from './fastify.adapt';
@@ -20,7 +20,6 @@ declare const module: any;
 
 async function bootstrap() {
   registerGlobal();
-  mkdirs();
   registerStdLogger();
 
   const argv = BasicCommer.parse().opts();
