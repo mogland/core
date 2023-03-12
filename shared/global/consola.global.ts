@@ -10,9 +10,10 @@ import { CronExpression } from '@nestjs/schedule';
 import { getShortDate, getShortTime } from '../utils/time.util';
 import { isDev, isTest } from './env.global';
 import { LOG_DIR } from '../constants/path.constant';
+import { mkLogDir } from './index.global';
 
 export const getTodayLogFilePath = (service: string) =>
-  resolve(LOG_DIR, `${service}_service`,`_stdout_${getShortDate(new Date())}.log`);
+  resolve(LOG_DIR, `${service}_service`,`stdout_${getShortDate(new Date())}.log`);
 
 class Reporter extends FancyReporter {
   isInVirtualTerminal = typeof process.stdout.columns === 'undefined'; // HACK: if got `undefined` that means in PM2 pty
@@ -33,6 +34,8 @@ export const consola = consola_.create({
   level: isDev || argv.verbose ? LogLevel.Trace : LogLevel.Info,
 });
 export function registerStdLogger(service: string) {
+  mkLogDir(service)
+
   let logStream = createWriteStream(getTodayLogFilePath(service), {
     encoding: 'utf-8',
     flags: 'a+',

@@ -25,9 +25,6 @@ export function mkdirs() {
   mkdirSync(DATA_DIR, { recursive: true });
   Logger.log(chalk.blue(`数据文件夹 已准备好: ${DATA_DIR}`));
 
-  mkdirSync(LOG_DIR, { recursive: true });
-  Logger.log(chalk.blue(`日志文件夹 已准备好: ${LOG_DIR}`));
-
   // mkdirSync(PLUGIN_DIR, { recursive: true });
   // Logger.log(chalk.blue(`插件文件夹 已准备好: ${PLUGIN_DIR}`));
 
@@ -37,6 +34,11 @@ export function mkdirs() {
 
   mkdirSync(PUBLIC_DIR, { recursive: true });
   Logger.log(chalk.blue(`公共文件夹 已准备好: ${PUBLIC_DIR}`));
+}
+
+export function mkLogDir(service: string) {
+  mkdirSync(join(LOG_DIR, `${service}_service`), { recursive: true });
+  Logger.log(chalk.blue(`日志文件夹 已准备好: ${LOG_DIR}`));
 }
 
 export function registerGlobal() {
