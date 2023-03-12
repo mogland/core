@@ -10,7 +10,7 @@ import {
   PUBLIC_DIR,
   THEME_DIR,
 } from '@shared/constants/path.constant';
-import { consola, registerStdLogger } from './consola.global';
+import { consola } from './consola.global';
 import './dayjs.global';
 import { isDev } from '@shared/global/env.global';
 import { join } from 'path';
