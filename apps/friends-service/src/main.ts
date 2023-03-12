@@ -10,7 +10,7 @@ import { FriendsServiceModule } from './friends-service.module';
 
 async function bootstrap() {
   registerGlobal();
-  registerStdLogger();
+  registerStdLogger("friends");
 
   const argv = BasicCommer.parse().opts();
   readEnv(argv, argv.config);
