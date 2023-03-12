@@ -11,8 +11,8 @@ import { getShortDate, getShortTime } from '../utils/time.util';
 import { isDev, isTest } from './env.global';
 import { LOG_DIR } from '../constants/path.constant';
 
-export const getTodayLogFilePath = () =>
-  resolve(LOG_DIR, `stdout_${getShortDate(new Date())}.log`);
+export const getTodayLogFilePath = (service: string) =>
+  resolve(LOG_DIR, `${service}_service`,`_stdout_${getShortDate(new Date())}.log`);
 
 class Reporter extends FancyReporter {
   isInVirtualTerminal = typeof process.stdout.columns === 'undefined'; // HACK: if got `undefined` that means in PM2 pty
@@ -32,8 +32,8 @@ export const consola = consola_.create({
   reporters: [new Reporter()],
   level: isDev || argv.verbose ? LogLevel.Trace : LogLevel.Info,
 });
-export function registerStdLogger() {
-  let logStream = createWriteStream(getTodayLogFilePath(), {
+export function registerStdLogger(service: string) {
+  let logStream = createWriteStream(getTodayLogFilePath(service), {
     encoding: 'utf-8',
     flags: 'a+',
   });
@@ -45,7 +45,7 @@ export function registerStdLogger() {
   const job = new CronJob(CronExpression.EVERY_DAY_AT_MIDNIGHT, () => {
     logStream.destroy();
 
-    logStream = createWriteStream(getTodayLogFilePath(), {
+    logStream = createWriteStream(getTodayLogFilePath(service), {
       encoding: 'utf-8',
       flags: 'a+',
     });

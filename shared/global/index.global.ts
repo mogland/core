@@ -53,8 +53,8 @@ export function registerGlobal() {
 }
 
 export function register() {
-  registerGlobal();
+  // registerGlobal();
   consoleMog();
   mkdirs();
-  registerStdLogger();
+  // registerStdLogger();
 }
