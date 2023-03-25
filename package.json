@@ -126,7 +126,7 @@
     "eslint": "8.35.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "4.2.1",
-    "inquirer": "9.1.4",
+    "inquirer": "9.1.5",
     "ioredis": "5.3.1",
     "prettier": "2.8.4",
     "source-map-support": "0.5.21",
