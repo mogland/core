@@ -162,7 +162,7 @@ export class AggregateService {
     ]);
     const postsRss: RSSProps['data'] = posts.map((post) => {
       return {
-        id: post._id,
+        id: String(post._id),
         title: post.title,
         text: post.text,
         created: post.created!,
