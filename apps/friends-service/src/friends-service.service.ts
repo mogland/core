@@ -273,7 +273,7 @@ export class FriendsService {
     }[] = [];
     for (const friend of friends) {
       const isAlive = await this.checkAlive(friend.link);
-      result.push({ id: friend._id, isAlive });
+      result.push({ id: String(friend._id), isAlive });
     }
     return result;
   }
