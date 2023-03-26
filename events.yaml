@@ -1,10 +1,10 @@
 render:
-  - path: /events
-    method: get
-    handler: events.get
-  - path: /events/{id}
-    method: get
-    handler: events.get.id
-  - path: /events
+  - path: /markdown
     method: post
-    handler: events.post
+    handler: render.markdown.to.html
+  - path: /djot
+    method: post
+    handler: render.djot.to.html
+  - path: /
+    method: post
+    handler: render.from.server
