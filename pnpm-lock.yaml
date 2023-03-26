@@ -66,7 +66,7 @@ specifiers:
   mime: ^3.0.0
   mongoose: 7.0.3
   mongoose-aggregate-paginate-v2: 1.0.6
-  mongoose-lean-id: 0.3.0
+  mongoose-lean-id: 0.5.0
   mongoose-lean-virtuals: 0.9.1
   mongoose-paginate-v2: 1.7.1
   nanoid: 3.3.3
@@ -126,7 +126,7 @@ dependencies:
   mime: 3.0.0
   mongoose: 7.0.3
   mongoose-aggregate-paginate-v2: 1.0.6
-  mongoose-lean-id: 0.3.0_mongoose@7.0.3
+  mongoose-lean-id: 0.5.0_mongoose@7.0.3
   mongoose-lean-virtuals: 0.9.1_mongoose@7.0.3
   mongoose-paginate-v2: 1.7.1
   nanoid: 3.3.3
@@ -4456,10 +4456,10 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: false
 
-  /mongoose-lean-id/0.3.0_mongoose@7.0.3:
-    resolution: {integrity: sha512-/eONPzg+tA7/VR4uv0uKxKwH4OCseZShqwbMW572QvlSU0g48zDFTiDuCjZmNykfZgK3ZOwjfLVbXBAAAbXI4Q==}
+  /mongoose-lean-id/0.5.0_mongoose@7.0.3:
+    resolution: {integrity: sha512-8nlGndNnHr0r+++uMRAyQ0ULLuo+ERVHaVMludl/ZmahKsASjLuOxbHZi1clm4pdnI+RyYRkJ+kLYcEo9ez6WA==}
     peerDependencies:
-      mongoose: 4.x || 5.x || 6.x
+      mongoose: 7.x
     dependencies:
       mongoose: 7.0.3
     dev: false
