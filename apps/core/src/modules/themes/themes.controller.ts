@@ -50,7 +50,7 @@ export class ThemesController {
     });
   }
 
-  @Patch('/:id')
+  @Get('/:id/active')
   @Auth()
   @ApiOperation({ summary: '激活主题' })
   async active(@Param('id') id: string) {

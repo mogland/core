@@ -336,13 +336,9 @@ export class ThemesServiceService {
     }
     _theme.active = true;
     if (!theme) {
-      await this.configService.patchAndValidate('seo', {
-        ...(await this.configService.get('seo')),
-      });
-
       await this.configService.patchAndValidate('themes', [
         ...themes.filter((t) => t.id !== activeTheme?.id),
-        ...(activeTheme ? [activeTheme] : []),
+        (activeTheme ? activeTheme : undefined),
         _theme,
       ]);
       return true;
@@ -352,11 +348,11 @@ export class ThemesServiceService {
       ...themes
         .filter((t) => t.id !== id)
         .filter((t) => t.id !== activeTheme?.id),
+      (activeTheme ? activeTheme : undefined),
       _theme, // 重新获取一次, 防止配置文件被修改而无更新
     ]);
     this.setENV(_theme.path);
-    this.untrackThemeChange(); // 取消旧主题的监听
-    this.trackThemeChange(); // 监听新主题的变化
+    this.refreshThemes();
 
     activeTheme &&
       this.notificationService.emit(ThemesEvents.ThemeAfterDeactivate, {
