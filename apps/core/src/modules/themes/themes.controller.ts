@@ -31,6 +31,7 @@ export class ThemesController {
   }
 
   @Get('/')
+  @Auth()
   @ApiOperation({ summary: '获取所有主题' })
   async getAll() {
     return transportReqToMicroservice(
@@ -41,6 +42,7 @@ export class ThemesController {
   }
 
   @Get('/:id')
+  @Auth()
   @ApiOperation({ summary: '获取主题信息' })
   async getInfo(@Param('id') id: string) {
     return transportReqToMicroservice(this.themes, ThemesEvents.ThemeGetInfo, {
@@ -49,6 +51,7 @@ export class ThemesController {
   }
 
   @Patch('/:id')
+  @Auth()
   @ApiOperation({ summary: '激活主题' })
   async active(@Param('id') id: string) {
     return transportReqToMicroservice(
@@ -59,6 +62,7 @@ export class ThemesController {
   }
 
   @Delete('/:id')
+  @Auth()
   @ApiOperation({ summary: '删除主题' })
   async delete(
     @Param('id') id: string,
@@ -74,6 +78,7 @@ export class ThemesController {
   }
 
   @Get('/:id/config')
+  @Auth()
   @ApiOperation({ summary: '获取主题配置' })
   async getConfig(@Param('id') id: string) {
     return transportReqToMicroservice(
@@ -84,6 +89,7 @@ export class ThemesController {
   }
 
   @Get('/:id/config/:key')
+  @Auth()
   @ApiOperation({ summary: '获取主题配置项' })
   async getConfigItem(@Param('id') id: string, @Param('key') key: string) {
     return transportReqToMicroservice(
@@ -94,6 +100,7 @@ export class ThemesController {
   }
 
   @Patch('/:id/config/:key/:value')
+  @Auth()
   @ApiOperation({ summary: '更新主题配置项' })
   async setConfigItem(
     @Param('id') id: string,
@@ -108,6 +115,7 @@ export class ThemesController {
   }
 
   @Patch('/:id/config')
+  @Auth()
   @ApiOperation({ summary: '更新主题配置' })
   async setConfig(@Param('id') id: string, @Body('config') config: any) {
     return transportReqToMicroservice(
