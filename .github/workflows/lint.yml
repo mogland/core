@@ -14,16 +14,17 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
-      - uses: pnpm/action-setup@v2
-        with:
-          version: latest
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'pnpm'
-      - name: Install dependencies
+      - uses: pnpm/action-setup@v2.2.4
+        with:
+          version: 8.x
+          run_install: false
+      - name: Install Dependencies
         run: |
-          pnpm install
+          pnpm i --no-optional
       - name: Run lint
         run: |
           pnpm prettier --ignore-path ./.prettierignore --write **/*.{ts,yml,md}

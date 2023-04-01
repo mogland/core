@@ -29,10 +29,11 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
       - uses: pnpm/action-setup@v2.2.4
         with:
-          version: latest
-          run_install: true
-      - name: Install dependencies
-        run: pnpm i --no-optional
+          version: 8.x
+          run_install: false
+      - name: Install Dependencies
+        run: |
+          pnpm i --no-optional
       - name: Build project
         run: |
           npm run build
