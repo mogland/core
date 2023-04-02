@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@fastify/multipart": "7.5.0",
-    "@fastify/static": "6.9.0",
+    "@fastify/static": "6.10.0",
     "@nestjs/common": "9.3.12",
     "@nestjs/core": "9.3.12",
     "@nestjs/event-emitter": "1.4.1",
