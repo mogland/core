@@ -14,14 +14,14 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'pnpm'
       - uses: pnpm/action-setup@v2.2.4
         with:
           version: 8.x
           run_install: false
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'pnpm'
       - name: Install Dependencies
         run: |
           pnpm i --no-optional
