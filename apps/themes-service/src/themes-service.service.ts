@@ -75,9 +75,9 @@ export class ThemesServiceService {
   }
 
   async refreshThemes() {
-    this.untrackThemeChange();
+    // this.untrackThemeChange();
     this.themes = await this._getAllThemes();
-    this.trackThemeChange();
+    // this.trackThemeChange();
     return this.themes;
   }
 
@@ -85,35 +85,24 @@ export class ThemesServiceService {
    * 追踪活动主题修改
    */
   async trackThemeChange() {
-    if (this.env.theme) {
-      const name = JSON.parse(
-        fs.readFileSync(
-          join(THEME_DIR, this.env.theme, 'package.json'),
-          'utf-8',
-        ),
-      ).name;
-      consola.info(`正在追踪主题 ${name} 配置文件的修改`);
-      fs.watchFile(join(THEME_DIR, this.env.theme, 'config.yaml'), () => {
-        this.validateTheme(this.env.theme!, false); // 重新验证主题
-        this.reloadConfig(this.env.theme!); // 重新加载主题配置
+    const theme = await this._getAllThemes()
+    theme.forEach((theme) => {
+      fs.watchFile(join(THEME_DIR, theme.path, 'config.yaml'), async () => {
+        consola.info(`主题 ${theme.name} 配置文件发生修改`);
+        this.reloadConfig(theme.path);
+        // this.notificationService.emit(ThemesEvents.themeConfigChange, {
+        //   theme: theme.path,
+        // });
       });
-    }
+    })
   }
 
   /**
    * 取消追踪主题修改
    */
   async untrackThemeChange() {
-    if (this.env.theme) {
-      const name = JSON.parse(
-        fs.readFileSync(
-          join(THEME_DIR, this.env.theme, 'package.json'),
-          'utf-8',
-        ),
-      ).name;
-      consola.info(`正在取消追踪主题 ${name} 配置文件的修改`);
-      fs.unwatchFile(join(THEME_DIR, this.env.theme, 'config.yaml'));
-    }
+    
+
   }
 
   /**
