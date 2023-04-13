@@ -96,7 +96,7 @@
     "slugify": "1.6.6",
     "snakecase-keys": "5.4.5",
     "uuid": "^9.0.0",
-    "vm2": "3.9.15",
+    "vm2": "3.9.16",
     "zx-cjs": "7.0.7-0"
   },
   "devDependencies": {

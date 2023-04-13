@@ -140,8 +140,8 @@ dependencies:
     specifier: ^9.0.0
     version: 9.0.0
   vm2:
-    specifier: 3.9.15
-    version: 3.9.15
+    specifier: 3.9.16
+    version: 3.9.16
   zx-cjs:
     specifier: 7.0.7-0
     version: 7.0.7-0
@@ -6062,8 +6062,8 @@ packages:
       - terser
     dev: true
 
-  /vm2@3.9.15:
-    resolution: {integrity: sha512-XqNqknHGw2avJo13gbIwLNZUumvrSHc9mLqoadFZTpo3KaNEJoe1I0lqTFhRXmXD7WkLyG01aaraXdXT0pa4ag==}
+  /vm2@3.9.16:
+    resolution: {integrity: sha512-3T9LscojNTxdOyG+e8gFeyBXkMlOBYDoF6dqZbj+MPVHi9x10UfiTAJIobuchRCp3QvC+inybTbMJIUrLsig0w==}
     engines: {node: '>=6.0'}
     hasBin: true
     dependencies:
