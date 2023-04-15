@@ -327,7 +327,9 @@ export class FriendsService {
    * friend.analyse.feed
    */
   async analyseFeed() {
-    const friends = await this.friendsModel.find();
+    const friends = await this.friendsModel.find({
+      status: FriendStatus.Approved,
+    });
     // use nextTick to avoid blocking the event loop
     nextTick(async () => {
       for (const friend of friends) {
@@ -344,7 +346,15 @@ export class FriendsService {
         }
         const xml = await this.https.axiosRef
           .get(friend.feed)
-          .then((res) => res.data);
+          .then((res) => res.data)
+          .catch(() => {
+            Logger.warn(
+              `${friend.name} feed 获取失败，跳过解析`,
+              FriendsService.name,
+            );
+            return '';
+          });
+        if (!xml) { continue; }
         const feed = FeedParser(xml, friend.feedType);
         if (!feed) {
           Logger.warn(
