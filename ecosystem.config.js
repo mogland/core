@@ -44,5 +44,10 @@ module.exports = {
       script: 'out/comments-service/index.js',
       ...args,
     },
+    {
+      name: 'Mog Themes',
+      script: 'out/themes-service/index.js',
+      ...args,
+    },
   ],
 }

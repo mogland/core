@@ -14,7 +14,7 @@
     "preinstall": "npx only-allow pnpm",
     "prebuild": "rimraf dist",
     "build": "concurrently \"npm:build:*\"",
-    "build:core": "nest build",
+    "build:core": "nest build core",
     "build:user-service": "nest build user-service",
     "build:page-service": "nest build page-service",
     "build:comments-service": "nest build comments-service",
