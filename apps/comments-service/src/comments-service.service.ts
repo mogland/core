@@ -69,6 +69,10 @@ export class CommentsService {
     };
   }
 
+  async getCommentById(id: string) {
+    return await this.CommentsModel.findById(id);
+  }
+
   async createComment(data: CommentsModel, isMaster: boolean) {
     if (isMaster) {
       data.status = CommentStatus.Approved; // 默认审核通过主人的评论
