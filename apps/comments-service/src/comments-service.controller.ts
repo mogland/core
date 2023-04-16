@@ -45,6 +45,11 @@ export class CommentsController {
     return await this.commentsService.getCommentsByPid(input.pid, input.master);
   }
 
+  @MessagePattern({ cmd: CommentsEvents.CommentGetById })
+  async getCommentById(id: string) {
+    return await this.commentsService.getCommentById(id);
+  }
+  
   @MessagePattern({ cmd: CommentsEvents.CommentCreate })
   async createComment(input: { data: CommentsModel; master: boolean }) {
     if (!input.master) {

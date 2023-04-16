@@ -57,6 +57,7 @@ export enum PageEvents {
 export enum CommentsEvents {
   CommentsGetAll = 'sudo.comments.get.all',
   CommentsGetList = 'comments.get.list',
+  CommentGetById = 'comment.get.with.id',
   CommentsGetWithPostId = 'comments.get.with.postid',
   CommentsDeleteWithPostId = 'comments.delete.with.postid',
 

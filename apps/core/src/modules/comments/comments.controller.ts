@@ -50,7 +50,17 @@ export class CommentsController {
     );
   }
 
-  @Get('/:id')
+  @Get("/:id")
+  @ApiOperation({ summary: "根据 ID 获取评论" })
+  async getCommentById(@Param("id") id: string) {
+    return transportReqToMicroservice(
+      this.comments,
+      CommentsEvents.CommentGetById,
+      id
+    );
+  }
+
+  @Get('/post/:id')
   @ApiOperation({ summary: '根据 PID 获取评论列表' })
   async getCommentsByPid(
     @Param('id') pid: string,
