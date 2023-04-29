@@ -11,3 +11,4 @@ export const LOG_DIR = join(DATA_DIR, 'log');
 export const BACKUP_DIR = join(DATA_DIR, 'backup');
 export const THEME_DIR = join(DATA_DIR, 'themes');
 export const PUBLIC_DIR = join(DATA_DIR, 'public');
+export const STORE_DIR = join(DATA_DIR, `store`);

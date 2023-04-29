@@ -12,7 +12,7 @@ export class AssetsService {
   async downloadZIPAndExtract(url: string, _path: string, name?: string) {
     // 1. Check if the URL is valid.
     if (!isURL(url)) {
-      throw new InternalServerErrorException('Invalid URL');
+      throw new Error('Invalid URL');
     }
     // 2. Download the ZIP file.
     const res = await this.http.axiosRef(url, {
@@ -34,14 +34,14 @@ export class AssetsService {
       fs.renameSync(path.join(tmpdir(), zip.getEntries()[0].entryName), real);
     } catch {
       // fs.renameSync(path.join(tmpdir(), zip.getEntries()[0].entryName), real);
-      throw new InternalServerErrorException('当前文件已存在，正在跳过');
+      throw new Error('当前文件已存在，正在跳过');
     }
     return true;
   }
 
   async downloadFile(url: string, _path: string, name?: string) {
     if (!isURL(url)) {
-      throw new InternalServerErrorException('Invalid URL');
+      throw new Error('Invalid URL');
     }
     const res = await this.http.axiosRef(url, {
       responseType: 'arraybuffer',
@@ -61,5 +61,21 @@ export class AssetsService {
   async uploadZIPAndExtract(buffer: Buffer, _path: string, name?: string) {
     await this.extractZIP(buffer, _path, name);
     return true;
+  }
+
+  async deleteFile(path: string) {
+    if (path === '/') {
+      throw new Error('Cannot delete root directory');
+    }
+    fs.rmSync(path, { recursive: true });
+    return true;
+  }
+
+  async getFile(path: string) {
+    return fs.readFileSync(path, { encoding: 'utf-8' });
+  }
+
+  async getFileList(path: string) {
+    return fs.readdirSync(path, { withFileTypes: true, encoding: 'utf-8' });
   }
 }

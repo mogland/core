@@ -144,3 +144,11 @@ export enum ThemesEvents {
   ThemeBeforeUninstall = 'theme.beforeUninstall',
   ThemeAfterUninstall = 'theme.afterUninstall',
 }
+
+export enum StoreEvents {
+  StoreFileUploadByMaster = 'store.file.upload.auth',
+  StoreFileDownloadFromRemote = 'store.file.download.remote.auth',
+  StoreFileGet = 'store.file.get',
+  StoreFileDeleteByMaster = 'store.file.delete.auth',
+  StoreFileGetList = 'store.file.get.list',
+}
