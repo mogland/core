@@ -59,7 +59,6 @@ export class AssetsService {
   async writeFile(buffer: Buffer, _path: string, name: string) {
     fs.writeFileSync(path.join(_path, name), buffer);
     return {
-      path: path.join(_path, name),
       name,
     }
   }
