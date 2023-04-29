@@ -39,8 +39,9 @@ export function mkThemeDir() {
 
 export function mkLogDir(service: string) {
   mkBasedirs();
-  mkdirSync(join(LOG_DIR, `${service}_service`), { recursive: true });
-  Logger.log(chalk.blue(`日志文件夹 已准备好: ${LOG_DIR}`));
+  const dir = join(LOG_DIR, `${service}_service`);
+  mkdirSync(dir, { recursive: true });
+  Logger.log(chalk.blue(`日志文件夹 已准备好: ${dir}`));
 }
 
 export function registerGlobal() {

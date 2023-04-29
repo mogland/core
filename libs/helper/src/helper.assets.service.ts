@@ -34,7 +34,7 @@ export class AssetsService {
       fs.renameSync(path.join(tmpdir(), zip.getEntries()[0].entryName), real);
     } catch {
       // fs.renameSync(path.join(tmpdir(), zip.getEntries()[0].entryName), real);
-      throw new InternalServerErrorException('当前主题已存在，正在跳过');
+      throw new InternalServerErrorException('当前文件已存在，正在跳过');
     }
     return true;
   }
