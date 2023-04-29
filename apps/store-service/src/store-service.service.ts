@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { join } from 'path';
-import { Readable } from 'stream';
 import { AssetsService } from '~/libs/helper/src/helper.assets.service';
 import { STORE_DIR } from '~/shared/constants/path.constant';
 import { InternalServerErrorRpcExcption } from '~/shared/exceptions/internal-server-error-rpc-exception';

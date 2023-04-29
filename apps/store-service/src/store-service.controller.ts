@@ -1,6 +1,5 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { Readable } from 'stream';
 import { StoreEvents } from '~/shared/constants/event.constant';
 import { StoreServiceService } from './store-service.service';
 
