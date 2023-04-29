@@ -49,5 +49,10 @@ module.exports = {
       script: 'out/themes-service/index.js',
       ...args,
     },
+    {
+      name: 'Mog Store',
+      script: 'out/store-service/index.js',
+      ...args,
+    }
   ],
 }
