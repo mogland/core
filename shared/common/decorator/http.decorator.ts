@@ -39,4 +39,5 @@ export declare interface FileDecoratorProps {
 export const HTTPDecorators = {
   Paginator,
   Bypass,
+  FileUpload,
 };

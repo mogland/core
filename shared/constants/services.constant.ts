@@ -23,6 +23,7 @@ export enum ServicesEnum {
   mail = 'MAIL_SERVICE',
   notification = 'NOTIFICATION_SERVICE',
   custom = 'CUSTOM_SERVICE',
+  store = 'STORE_SERVICE',
 }
 
 export enum ServicePorts {
