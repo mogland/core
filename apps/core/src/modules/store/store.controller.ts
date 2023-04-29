@@ -33,6 +33,7 @@ export class StoreController {
   }
 
   @Get(['/list/*', '/list'])
+  @Auth()
   @ApiOperation({ summary: '获取文件列表' })
   list(@Param('*') path?: string) {
     return transportReqToMicroservice(
