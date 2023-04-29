@@ -11,7 +11,6 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiOperation } from '@nestjs/swagger';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { ReadStream } from 'fs';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { HTTPDecorators } from '~/shared/common/decorator/http.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
