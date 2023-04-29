@@ -103,6 +103,9 @@ dependencies:
   mime:
     specifier: ^3.0.0
     version: 3.0.0
+  mime-types:
+    specifier: ^2.1.35
+    version: 2.1.35
   mongoose:
     specifier: 7.0.4
     version: 7.0.4
@@ -192,6 +195,9 @@ devDependencies:
   '@types/mime':
     specifier: ^3.0.1
     version: 3.0.1
+  '@types/mime-types':
+    specifier: ^2.1.1
+    version: 2.1.1
   '@types/mongoose-aggregate-paginate-v2':
     specifier: 1.0.7
     version: 1.0.7
@@ -1432,6 +1438,10 @@ packages:
 
   /@types/lodash@4.14.194:
     resolution: {integrity: sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==}
+    dev: true
+
+  /@types/mime-types@2.1.1:
+    resolution: {integrity: sha512-vXOTGVSLR2jMw440moWTC7H19iUyLtP3Z1YTj7cSsubOICinjMxFeb/V57v9QdyyPGbbWolUFSSmSiRSn94tFw==}
     dev: true
 
   /@types/mime@3.0.1:

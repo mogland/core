@@ -1,10 +1,22 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiOperation } from '@nestjs/swagger';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
+import { HTTPDecorators } from '~/shared/common/decorator/http.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
 import { StoreEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
+import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 
 @Controller('store')
@@ -32,8 +44,25 @@ export class StoreController {
 
   @Get('/raw/*')
   @ApiOperation({ summary: '获取文件' })
-  raw() {
-    return transportReqToMicroservice(this.store, StoreEvents.StoreFileGet, {});
+  async raw(@Param('*') path: string, @Res() res: FastifyReply) {
+    const data = await transportReqToMicroservice<{
+      file: Buffer;
+      name: string;
+      ext: string;
+      mimetype: string;
+    }>(this.store, StoreEvents.StoreFileGet, path);
+    if (data.mimetype) {
+      res.type(data.mimetype);
+      res.header('cache-control', 'public, max-age=31536000');
+      res.header(
+        'expires',
+        new Date(Date.now() + 31536000 * 1000).toUTCString(),
+      );
+
+      res.send(data.file);
+    } else {
+      res.send(`文件不存在！`);
+    }
   }
 
   @Post('/download')
@@ -50,20 +79,27 @@ export class StoreController {
   @Post('/upload')
   @ApiOperation({ summary: '上传文件' })
   // @Auth()
-  upload(
-    @Body() body: BinaryData,
-    @Body('name') name: string,
-    @Body('path') path?: string,
-  ) {
+  @HTTPDecorators.FileUpload({ description: 'upload file' })
+  async upload(@Req() req: FastifyRequest, @Body('path') _path?: string) {
+    const data = await req.file();
+
+    if (!data) {
+      throw new BadRequestRpcExcption('仅能上传文件！');
+    }
+    if (data.fieldname != 'file') {
+      throw new BadRequestRpcExcption('字段必须为 file');
+    }
+
+    const filename = data.filename;
     return transportReqToMicroservice(
       this.store,
       StoreEvents.StoreFileUploadByMaster,
       {
         file: {
-          filename: name,
-          // file,
+          filename,
+          file: await data.toBuffer(),
         },
-        path,
+        path: _path,
       },
     );
   }

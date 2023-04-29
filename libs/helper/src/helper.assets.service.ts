@@ -4,6 +4,8 @@ import { HttpService } from './helper.http.service';
 import fs from 'fs';
 import { isURL } from 'class-validator';
 import { tmpdir } from 'os';
+import { Readable } from 'stream';
+import { lookup } from 'mime-types';
 
 @Injectable()
 export class AssetsService {
@@ -56,6 +58,10 @@ export class AssetsService {
 
   async writeFile(buffer: Buffer, _path: string, name: string) {
     fs.writeFileSync(path.join(_path, name), buffer);
+    return {
+      path: path.join(_path, name),
+      name,
+    }
   }
 
   async uploadZIPAndExtract(buffer: Buffer, _path: string, name?: string) {
@@ -71,8 +77,17 @@ export class AssetsService {
     return true;
   }
 
-  async getFile(path: string) {
-    return fs.readFileSync(path, { encoding: 'utf-8' });
+  async getFile(_path: string) {
+    const file = fs.readFileSync(_path, { encoding: 'utf-8' });
+    const name = _path.split('/').pop()!;
+    const ext = path.extname(name)
+    const mimetype = lookup(ext)
+    return {
+      file,
+      name,
+      ext,
+      mimetype
+    };
   }
 
   async getFileList(path: string) {
@@ -82,5 +97,36 @@ export class AssetsService {
   async mkdir(path: string) {
     fs.mkdirSync(path);
     return true;
+  }
+
+  exists(path: string) {
+    return fs.existsSync(path);
+  }
+
+  async writeReadableFile(
+    readable: Readable,
+    _path: string,
+    name: string,
+  ): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const filePath = path.join(_path, name);
+      if (this.exists(filePath)) {
+        reject(new Error('File already exists'));
+        return;
+      }
+      fs.mkdirSync(path.dirname(filePath), { recursive: true });
+      const writable = fs.createWriteStream(filePath, {
+        encoding: 'utf-8',
+      });
+      readable.pipe(writable);
+      writable.on('close', () => {
+        resolve(true);
+      });
+      writable.on('error', () => reject(null));
+      readable.on('end', () => {
+        writable.end();
+      });
+      readable.on('error', () => reject(null));
+    });
   }
 }
