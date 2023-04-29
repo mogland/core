@@ -24,6 +24,7 @@ import { ConfigPublicModule } from './modules/configs/configs.module';
 import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
 import { ConsoleModule } from './modules/console/console.module';
 import { ThemesModule } from './modules/themes/themes.module';
+import { StoreModule } from './modules/store/store.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { ThemesModule } from './modules/themes/themes.module';
     ConfigPublicModule,
     ConsoleModule,
     ThemesModule,
+    StoreModule,
     ClientsModule.register([
       {
         name: ServicesEnum.notification,
