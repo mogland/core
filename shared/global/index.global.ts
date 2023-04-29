@@ -44,6 +44,12 @@ export function mkLogDir(service: string) {
   Logger.log(chalk.blue(`日志文件夹 已准备好: ${dir}`));
 }
 
+export function mkStoreDir() {
+  const dir = join(DATA_DIR, `store`);
+  mkdirSync(dir, { recursive: true });
+  Logger.log(chalk.blue(`储藏文件夹 已准备好: ${dir}`));
+}
+
 export function registerGlobal() {
   $.verbose = isDev;
   // Object.assign(globalThis, {
