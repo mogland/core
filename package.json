@@ -111,7 +111,7 @@
     "@types/mime": "^3.0.1",
     "@types/mime-types": "^2.1.1",
     "@types/mongoose-aggregate-paginate-v2": "1.0.7",
-    "@types/node": "18.15.11",
+    "@types/node": "18.15.13",
     "@types/supertest": "2.0.12",
     "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "5.59.0",
