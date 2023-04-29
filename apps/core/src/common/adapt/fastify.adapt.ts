@@ -14,8 +14,6 @@ const app: FastifyAdapter = new FastifyAdapter({
 });
 export { app as fastifyApp };
 
-// @ts-ignore
-// HACK: There is nothing wrong during runtime, but the type is wrong. I don't know why.
 app.register(FastifyMultipart, {
   limits: {
     fields: 10, // Max number of non-file fields

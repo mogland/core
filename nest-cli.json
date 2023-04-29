@@ -128,6 +128,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/themes-service/tsconfig.app.json"
       }
+    },
+    "store-service": {
+      "type": "application",
+      "root": "apps/store-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/store-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/store-service/tsconfig.app.json"
+      }
     }
   }
 }

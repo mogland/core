@@ -7,6 +7,7 @@ import 'zx-cjs/globals';
 import {
   DATA_DIR,
   LOG_DIR,
+  STORE_DIR,
   THEME_DIR,
 } from '@shared/constants/path.constant';
 import { consola } from './consola.global';
@@ -39,8 +40,14 @@ export function mkThemeDir() {
 
 export function mkLogDir(service: string) {
   mkBasedirs();
-  mkdirSync(join(LOG_DIR, `${service}_service`), { recursive: true });
-  Logger.log(chalk.blue(`日志文件夹 已准备好: ${LOG_DIR}`));
+  const dir = join(LOG_DIR, `${service}_service`);
+  mkdirSync(dir, { recursive: true });
+  Logger.log(chalk.blue(`日志文件夹 已准备好: ${dir}`));
+}
+
+export function mkStoreDir() {
+  mkdirSync(STORE_DIR, { recursive: true });
+  Logger.log(chalk.blue(`储藏文件夹 已准备好: ${STORE_DIR}`));
 }
 
 export function registerGlobal() {

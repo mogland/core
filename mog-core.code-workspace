@@ -23,6 +23,9 @@
 			"path": "apps/themes-service",
 		},
 		{
+			"path": "apps/store-service",
+		},
+		{
 			"path": "libs"
 		},
 		{

@@ -422,7 +422,7 @@ export class ThemesServiceService {
         }
         fs.renameSync(join(_path, `${_theme}.bak`), join(_path, _theme));
         consola.info(`主题 ${chalk.green(id)} 更新失败, 正在回滚`);
-        throw e;
+        throw new InternalServerErrorException(e);
       });
     this.refreshThemes();
     this.reloadConfig(id);
