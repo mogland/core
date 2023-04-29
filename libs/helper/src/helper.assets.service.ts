@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import AdmZip from 'adm-zip';
 import { HttpService } from './helper.http.service';
 import fs from 'fs';
