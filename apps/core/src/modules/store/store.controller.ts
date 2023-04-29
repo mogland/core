@@ -11,6 +11,7 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiOperation } from '@nestjs/swagger';
 import { FastifyReply, FastifyRequest } from 'fastify';
+import { ReadStream } from 'fs';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { HTTPDecorators } from '~/shared/common/decorator/http.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
@@ -32,13 +33,13 @@ export class StoreController {
     return transportReqToMicroservice(this.store, StoreEvents.Ping, {});
   }
 
-  @Get('/list')
+  @Get(['/list/*', '/list'])
   @ApiOperation({ summary: '获取文件列表' })
-  list() {
+  list(@Param('*') path?: string) {
     return transportReqToMicroservice(
       this.store,
       StoreEvents.StoreFileGetList,
-      {},
+      path || '',
     );
   }
 
@@ -58,11 +59,9 @@ export class StoreController {
         'expires',
         new Date(Date.now() + 31536000 * 1000).toUTCString(),
       );
-
-      res.send(data.file);
-    } else {
-      res.send(`文件不存在！`);
     }
+    const buffer = Buffer.from(data.file);
+    res.send(buffer);
   }
 
   @Post('/download')

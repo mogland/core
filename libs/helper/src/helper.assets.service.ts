@@ -78,7 +78,7 @@ export class AssetsService {
   }
 
   async getFile(_path: string) {
-    const file = fs.readFileSync(_path, { encoding: 'utf-8' });
+    const file = fs.readFileSync(_path);
     const name = _path.split('/').pop()!;
     const ext = path.extname(name)
     const mimetype = lookup(ext)
