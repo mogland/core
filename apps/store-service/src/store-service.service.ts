@@ -50,4 +50,11 @@ export class StoreServiceService {
       throw new InternalServerErrorException(e);
     });
   }
+
+  async mkdir(path: string) {
+    const _path = join(STORE_DIR, path || '');
+    return await this.assetHelper.mkdir(_path).catch((e) => {
+      throw new InternalServerErrorException(e);
+    });
+  }
 }

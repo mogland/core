@@ -146,9 +146,11 @@ export enum ThemesEvents {
 }
 
 export enum StoreEvents {
+  Ping = 'store.ping',
   StoreFileUploadByMaster = 'store.file.upload.auth',
   StoreFileDownloadFromRemote = 'store.file.download.remote.auth',
   StoreFileGet = 'store.file.get',
   StoreFileDeleteByMaster = 'store.file.delete.auth',
   StoreFileGetList = 'store.file.get.list',
+  StoreFileMkdirByMaster = 'store.file.mkdir.auth',
 }

@@ -78,4 +78,9 @@ export class AssetsService {
   async getFileList(path: string) {
     return fs.readdirSync(path, { withFileTypes: true, encoding: 'utf-8' });
   }
+
+  async mkdir(path: string) {
+    fs.mkdirSync(path);
+    return true;
+  }
 }
