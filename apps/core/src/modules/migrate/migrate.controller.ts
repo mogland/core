@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { MigrateService } from './migrate.service';
 import { MigrateData } from './migrate.interface';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
