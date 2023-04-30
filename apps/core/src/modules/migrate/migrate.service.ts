@@ -52,11 +52,16 @@ export class MigrateService {
         data,
       );
     } else {
-      return await transportReqToMicroservice(
+      await transportReqToMicroservice(
         this.userService,
         UserEvents.UserPatch,
         data,
       );
+      return await transportReqToMicroservice(
+        this.userService,
+        UserEvents.UserGetMaster,
+        {},
+      )
     }
   }
 
@@ -89,7 +94,7 @@ export class MigrateService {
       ).catch(() => {
         Logger.warn(`${page.title} 无法导入`, MigrateService.name);
         return null;
-      })
+      });
     }
     return await transportReqToMicroservice(
       this.pageService,
@@ -105,7 +110,9 @@ export class MigrateService {
         {
           _query: category.slug,
         },
-      );
+      ).catch(() => {
+        return false;
+      });
       if (exist) {
         continue;
       }
@@ -179,7 +186,7 @@ export class MigrateService {
     );
 
     for (const post of posts) {
-      postMap.set(post.id, post.id);
+      postMap.set(post.slug, post.id);
     }
     const _comments = data.map((comment) => {
       const postId = postMap.get(comment.pid);
@@ -259,13 +266,35 @@ export class MigrateService {
 
   async import(data: MigrateData) {
     const { user, friends, pages, categories, posts, comments } = data;
-    const categoriesData = await this.importCategories(categories);
-    const postsData = await this.importPosts(posts, categoriesData);
-    const commentsData = await this.importComments(comments);
+    const categoriesData = await this.importCategories(categories).catch(
+      (e) => {
+        Logger.error(`导入分类时出错 ${e}`, MigrateService.name);
+        return [];
+      },
+    );
+    const postsData = await this.importPosts(posts, categoriesData).catch(
+      (e) => {
+        Logger.error(`导入文章时出错 ${e}`, MigrateService.name);
+        return [];
+      },
+    );
+    const commentsData = await this.importComments(comments).catch((e) => {
+      Logger.error(`导入评论时出错 ${e}`, MigrateService.name);
+      return [];
+    });
     return {
-      user: await this.importUser(user),
-      friends: await this.importFriends(friends),
-      pages: await this.importPages(pages),
+      user: await this.importUser(user).catch((e) => {
+        Logger.error(`导入用户时出错 ${e}`, MigrateService.name);
+        return null;
+      }),
+      friends: await this.importFriends(friends).catch((e) => {
+        Logger.error(`导入好友时出错 ${e}`, MigrateService.name);
+        return [];
+      }),
+      pages: await this.importPages(pages).catch((e) => {
+        Logger.error(`导入页面时出错 ${e}`, MigrateService.name);
+        return [];
+      }),
       categories: categoriesData,
       posts: postsData,
       comments: commentsData,
@@ -325,11 +354,10 @@ export class MigrateService {
     }
     const data = posts.map((post) => {
       const category = post.category;
-      return {
-        ...post,
-        category: categoriesMap.get(category?.id),
-        categoryId: categoriesMap.get(post.categoryId as any),
-      };
+      (post.category = categoriesMap.get(category?.id) as any),
+        // @ts-ignore
+        (post.category_id = categoriesMap.get(post.categoryId as any) as any);
+      return post;
     });
     return data;
   }
@@ -340,7 +368,18 @@ export class MigrateService {
       CommentsEvents.CommentsGetAll,
       {},
     );
-    // 把 parent 和 children 都转成 id
+
+    const posts = await transportReqToMicroservice<PostModel[]>(
+      this.pageService,
+      PostEvents.PostsListGetAll,
+      {},
+    );
+
+    const postsMap = new Map<string, string>();
+    for (const post of posts) {
+      postsMap.set(post.id!, post.slug!);
+    }
+
     const data = req.map((comment) => {
       const parent = comment.parent;
       const children = comment.children;
@@ -348,6 +387,7 @@ export class MigrateService {
         ...comment,
         parent: parent?.id,
         children: children?.map((child) => child.id),
+        pid: postsMap.get(comment.pid),
       };
     });
     return data;
