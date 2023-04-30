@@ -3,6 +3,7 @@ import { PageModel } from '~/apps/page-service/src/model/page.model';
 import { FriendsModel } from '~/apps/friends-service/src/friends.model';
 import { CategoryModel } from '~/apps/page-service/src/model/category.model';
 import { CommentsModel } from '~/apps/comments-service/src/comments.model';
+import { UserModel } from '~/apps/user-service/src/user.model';
 
 export type MigratePost = Omit<
   PostModel,
@@ -11,14 +12,10 @@ export type MigratePost = Omit<
 
 export type MigratePage = Omit<PageModel, 'id' | 'images'>;
 
-export interface MigrateUser {
-  username: string;
-  nickname: string;
-  description: string;
-  avatar: string;
-  email: string;
-  url: string;
-}
+export type MigrateUser = Omit<
+  UserModel,
+  'password' | 'lastLoginTime' | 'lastLoginIp' | 'apiToken' | 'created' | 'id'
+>;
 
 export type MigrateFriend = Omit<
   FriendsModel,
@@ -27,8 +24,8 @@ export type MigrateFriend = Omit<
 
 export type MigrateComment = Omit<
   CommentsModel,
-  'commentsIndex' | 'key' | 'reaction' | 'parent'
->;
+  'commentsIndex' | 'key' | 'reaction' | 'parent' | 'children'
+> & { parent: string; children: string[] };
 
 export type MigrateCategory = Omit<CategoryModel, 'id' | 'type' | 'created'>;
 
