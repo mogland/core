@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import {
@@ -22,6 +22,7 @@ import {
 import { CategoryModel } from '~/apps/page-service/src/model/category.model';
 import { CommentsModel } from '~/apps/comments-service/src/comments.model';
 import { PostModel } from '~/apps/page-service/src/model/post.model';
+import { isValidObjectId } from 'mongoose';
 
 @Injectable()
 export class MigrateService {
@@ -85,7 +86,10 @@ export class MigrateService {
         this.pageService,
         PageEvents.PageCreate,
         page,
-      );
+      ).catch(() => {
+        Logger.warn(`${page.title} 无法导入`, MigrateService.name);
+        return null;
+      })
     }
     return await transportReqToMicroservice(
       this.pageService,
@@ -95,6 +99,16 @@ export class MigrateService {
   }
   async importCategories(data: MigrateCategory[]) {
     for (const category of data) {
+      const exist = await transportReqToMicroservice<CategoryModel[]>(
+        this.pageService,
+        CategoryEvents.CategoryGet,
+        {
+          _query: category.slug,
+        },
+      );
+      if (exist) {
+        continue;
+      }
       await transportReqToMicroservice<CategoryModel>(
         this.pageService,
         CategoryEvents.CategoryCreate,
@@ -111,18 +125,19 @@ export class MigrateService {
   async importPosts(data: MigratePost[], categoriesData: CategoryModel[]) {
     for (const post of data) {
       // transform category slug to id
-      const category = categoriesData.find(
-        (category) => category.slug === post.categoryId as any as string, // find category by slug
-      );
+      const category = isValidObjectId(post.category_id)
+        ? categoriesData.find((c) => c.id == post.category_id)
+        : categoriesData.find((c) => c.slug == post.category_id);
       let categoryId = category?.id;
+
       if (!categoryId) {
         // if not exist, create
         const create = await transportReqToMicroservice<CategoryModel>(
           this.pageService,
           CategoryEvents.CategoryCreate,
           {
-            name: post.categoryId,
-            slug: post.categoryId,
+            name: post.category_id,
+            slug: post.category_id,
           },
         );
         categoryId = create.id;
@@ -133,8 +148,12 @@ export class MigrateService {
         {
           ...post,
           categoryId,
+          category: undefined,
         },
-      );
+      ).catch((e) => {
+        Logger.warn(`${post.title} 无法导入`, MigrateService.name);
+        return null;
+      });
     }
     return await transportReqToMicroservice(
       this.pageService,
@@ -157,10 +176,10 @@ export class MigrateService {
       this.pageService,
       PostEvents.PostsListGetAll,
       {},
-    ).then((res) => res.data);
+    );
 
     for (const post of posts) {
-      postMap.set(post.slug, post.id);
+      postMap.set(post.id, post.id);
     }
     const _comments = data.map((comment) => {
       const postId = postMap.get(comment.pid);
@@ -175,17 +194,23 @@ export class MigrateService {
     });
 
     const comments = _comments.filter((comment) => comment) as MigrateComment[]; // filter null
+    async function sortAndImportComments(
+      comments: MigrateComment[],
+      commentsService: ClientProxy,
+    ) {
+      const parentComments = comments.filter((comment) => comment.children);
+      const childrenComments = comments.filter((comment) => comment.parent);
 
-    async function sortAndImportComments(comments: MigrateComment[]) {
-      const parentComments = comments.filter((comment) => !comment.children);
-      const childrenComments = comments.filter((comment) => comment.children);
       for (const comment of parentComments) {
         await transportReqToMicroservice(
-          this.commentsService,
+          commentsService,
           CommentsEvents.CommentCreate,
           {
-            ...comment,
-            id: undefined, // 重置 id，让 mog 自动生成
+            data: {
+              ...comment,
+              id: undefined, // 重置 id，让 mog 自动生成
+            },
+            master: true,
           },
         );
       }
@@ -193,7 +218,7 @@ export class MigrateService {
       // 2.1 Transform pid to parent comment ObjectId
       const parentCommentsData = await transportReqToMicroservice<
         CommentsModel[]
-      >(this.commentsService, CommentsEvents.CommentsGetAll, {});
+      >(commentsService, CommentsEvents.CommentsGetAll, {});
       for (const comment of parentCommentsData) {
         parentMap.set(comment.parent?.id, comment.id!); // parent comment id => comment id
       }
@@ -206,7 +231,7 @@ export class MigrateService {
           continue;
         }
         await transportReqToMicroservice(
-          this.commentsService,
+          commentsService,
           CommentsEvents.CommentCreate,
           {
             ...comment,
@@ -217,13 +242,13 @@ export class MigrateService {
         // Recursively sort and import child comments
         if (comment.children) {
           // the type of comment between MigrationComment and CommentsModel is different
-          await sortAndImportComments(comment.children as any);
+          await sortAndImportComments(comment.children as any, commentsService);
         }
       }
     }
 
     // 2. Sort comments, and import
-    await sortAndImportComments(comments);
+    await sortAndImportComments(comments, this.commentsService);
 
     // 3. Return error report
     return {
@@ -282,11 +307,31 @@ export class MigrateService {
   }
 
   async exportPosts() {
-    return await transportReqToMicroservice<PostModel[]>(
+    const posts = await transportReqToMicroservice<PostModel[]>(
       this.pageService,
       PostEvents.PostsListGetAll,
       {},
     );
+
+    // 把 category 和 categoryId 都转成 slug
+    const categories = await transportReqToMicroservice<CategoryModel[]>(
+      this.pageService,
+      CategoryEvents.CategoryGetAll,
+      {},
+    );
+    const categoriesMap = new Map<string, string>();
+    for (const category of categories) {
+      categoriesMap.set(category.id!, category.slug);
+    }
+    const data = posts.map((post) => {
+      const category = post.category;
+      return {
+        ...post,
+        category: categoriesMap.get(category?.id),
+        categoryId: categoriesMap.get(post.categoryId as any),
+      };
+    });
+    return data;
   }
 
   async exportComments() {
