@@ -2,6 +2,7 @@ import { PostModel } from '~/apps/page-service/src/model/post.model';
 import { PageModel } from '~/apps/page-service/src/model/page.model';
 import { FriendsModel } from '~/apps/friends-service/src/friends.model';
 import { CategoryModel } from '~/apps/page-service/src/model/category.model';
+import { CommentsModel } from '~/apps/comments-service/src/comments.model';
 
 export type MigratePost = Omit<
   PostModel,
@@ -24,24 +25,17 @@ export type MigrateFriend = Omit<
   'id' | 'token' | 'autoCheck' | 'feedContents'
 >;
 
-export interface MigrateComment {
-  postSlug: string;
-  id: string;
-  parent: string;
-  children: string[];
-  author: string;
-  email: string;
-  url: string;
-  text: string;
-  status: string;
-}
+export type MigrateComment = Omit<
+  CommentsModel,
+  'commentsIndex' | 'key' | 'reaction' | 'parent'
+>;
 
 export type MigrateCategory = Omit<CategoryModel, 'id' | 'type' | 'created'>;
 
 export interface MigrateData {
   posts: MigratePost[];
   pages: MigratePage[];
-  master: MigrateUser;
+  user: MigrateUser;
   friends: MigrateFriend[];
   comments: MigrateComment[];
   categories: MigrateCategory[];

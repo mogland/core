@@ -13,6 +13,7 @@ import {
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 import {
   CategoryEvents,
+  CommentsEvents,
   FriendsEvents,
   PageEvents,
   PostEvents,
@@ -139,8 +140,114 @@ export class MigrateService {
       {},
     );
   }
-  
-  async importComments(data: MigrateComment[]) {}
 
-  async import(data: MigrateData) {}
+  async importComments(data: MigrateComment[]) {
+    // 1. Transform pid to post ObjectId, 
+    // if post not exist, skip, but put it into an array, finally return error report
+    // 2. Sort comments, import parent comments first, then import children comments (Mog will auto bind parent comment)
+    const postMap = new Map<string, string>();
+    const postError = new Map<string, string>();
+    const parentMap = new Map<string, string>();
+    const parentError = new Map<string, string>();
+
+    // 1. Transform pid to post ObjectId
+    const posts = await transportReqToMicroservice(
+      this.pageService,
+      PostEvents.PostsListGetAll,
+      {},
+    ).then((res) => res.data);
+
+    for (const post of posts) {
+      postMap.set(post.slug, post.id);
+    }
+    const _comments = data.map((comment) => {
+      const postId = postMap.get(comment.pid);
+      if (!postId) {
+        postError.set(comment.pid, comment.pid);
+        return null;
+      }
+      return {
+        ...comment,
+        pid: postId,
+      };
+    });
+
+    const comments = _comments.filter((comment) => comment) as MigrateComment[]; // filter null
+
+    async function sortAndImportComments(comments: MigrateComment[]) {
+      const parentComments = comments.filter((comment) => !comment.children);
+      const childrenComments = comments.filter((comment) => comment.children);
+      for (const comment of parentComments) {
+        await transportReqToMicroservice(
+          this.commentsService,
+          CommentsEvents.CommentCreate,
+          {
+            ...comment,
+            id: undefined, // 重置 id，让 mog 自动生成
+          },
+        );
+      }
+  
+      // 2.1 Transform pid to parent comment ObjectId
+  
+      const parentCommentsData = await transportReqToMicroservice(
+        this.commentsService,
+        CommentsEvents.CommentsGetAll,
+        {},
+      ).then((res) => res.data);
+      for (const comment of parentCommentsData) {
+        parentMap.set(comment.pid, comment.id);
+      }
+  
+      // 2.2 Import children comments
+      for (const comment of childrenComments) {
+        const parentId = parentMap.get(comment.pid);
+        if (!parentId) {
+          parentError.set(comment.pid, comment.pid);
+        }
+        await transportReqToMicroservice(
+          this.commentsService,
+          CommentsEvents.CommentCreate,
+          {
+            ...comment,
+            id: undefined, // reset id, let mog auto generate
+            parent: parentId,
+          },
+        );
+        // Recursively sort and import child comments
+        await this.sortAndImportComments(comment.children, parentMap, parentError);
+      }
+    }
+
+    // 2. Sort comments, and import
+    await sortAndImportComments(comments);
+
+    // 3. Return error report
+    return {
+      postError: Array.from(postError.values()),
+      parentError: Array.from(parentError.values()),
+    };
+  }
+
+  async import(data: MigrateData) {
+    const {
+      user,
+      friends,
+      pages,
+      categories,
+      posts,
+      comments,
+    } = data;
+    const categoriesData = await this.importCategories(categories);
+    const postsData = await this.importPosts(posts, categoriesData);
+    const commentsData = await this.importComments(comments);
+    return {
+      user: await this.importUser(user),
+      friends: await this.importFriends(friends),
+      pages: await this.importPages(pages),
+      categories: categoriesData,
+      posts: postsData,
+      comments: commentsData,
+    };
+  }
 }
