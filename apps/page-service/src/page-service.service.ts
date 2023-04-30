@@ -21,6 +21,7 @@ import { PagerDto } from '~/shared/dto/pager.dto';
 import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { PageModel } from './model/page.model';
+import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
 
 @Injectable()
 export class PageService {
@@ -87,7 +88,9 @@ export class PageService {
       ...data,
       slug: slugify(data.slug!),
       created: new Date(),
-    });
+    }).catch((err) => {
+      throw new BadRequestRpcExcption(err.message)
+    })
     this.notification.emit(NotificationEvents.SystemPageCreate, res);
     return res;
   }

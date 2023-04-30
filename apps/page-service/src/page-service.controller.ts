@@ -154,7 +154,7 @@ export class PageServiceController {
   // ====================== Page ======================
 
   @MessagePattern({ cmd: PageEvents.PageGetAll })
-  @ApiOperation({ summary: '获取页面列表' })
+  @ApiOperation({ summary: '获取页面列表 (分页)' })
   async getPagesSummary(query: PagerDto) {
     return this.pageService.getPaginate(query);
   }

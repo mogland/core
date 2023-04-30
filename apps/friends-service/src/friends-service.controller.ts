@@ -21,8 +21,8 @@ export class FriendsServiceController {
   }
 
   @MessagePattern({ cmd: FriendsEvents.FriendsGetAllByMaster })
-  async getAllFriends(status?: FriendStatus) {
-    return await this.friendsService.getAllByMaster(status);
+  async getAllFriends(data: { status?: FriendStatus; all?: boolean }) {
+    return await this.friendsService.getAllByMaster(data.status, data.all);
   }
 
   @MessagePattern({ cmd: FriendsEvents.FriendGet })

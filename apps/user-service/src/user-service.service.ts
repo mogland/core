@@ -2,7 +2,6 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { compareSync } from 'bcrypt';
-// import { nanoid } from 'nanoid';
 import { AuthService } from '~/libs/auth/src';
 import { IpRecord } from '~/shared/common/decorator/ip.decorator';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
@@ -15,6 +14,7 @@ import { InjectModel } from '~/shared/transformers/model.transformer';
 import { getAvatar } from '~/shared/utils';
 import { LoginDto } from './user.dto';
 import { UserModel, UserRole } from './user.model';
+import { v4 } from 'uuid';
 
 @Injectable()
 export class UserService {
@@ -41,8 +41,13 @@ export class UserService {
       Partial<Pick<UserModel, 'description' | 'avatar' | 'url'>>,
   ) {
     // const authCode = nanoid(10);
-
+    let hasPassword = false
     // TODO：初始化当前用户的文章、页面、分类
+    if (!model.password) {
+      model.password = v4();
+    } else {
+      hasPassword = true
+    }
 
     const exist = await this.userModel.findOne({ username: model.username });
     if (exist)
@@ -65,6 +70,7 @@ export class UserService {
     return {
       username: res.username,
       token,
+      tempPassword: hasPassword ? undefined : model.password,
     };
   }
 

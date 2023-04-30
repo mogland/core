@@ -105,9 +105,9 @@ export class FriendsService {
   /**
    * friends.get.all.auth
    */
-  async getAllByMaster(status?: FriendStatus) {
+  async getAllByMaster(status?: FriendStatus, all?: boolean) {
     return this.friendsModel.find({
-      status: status || status === 0 ? status : FriendStatus.Approved,
+      status: all ? undefined : status || status === 0 ? status : FriendStatus.Approved,
     });
   }
 
