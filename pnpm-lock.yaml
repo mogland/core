@@ -32,8 +32,8 @@ dependencies:
     specifier: 2.2.1
     version: 2.2.1(@nestjs/common@9.4.0)(@nestjs/core@9.4.0)(reflect-metadata@0.1.13)
   '@typegoose/typegoose':
-    specifier: 11.0.3
-    version: 11.0.3(mongoose@7.1.0)
+    specifier: 11.1.0
+    version: 11.1.0(mongoose@7.1.0)
   '@vercel/ncc':
     specifier: 0.36.1
     version: 0.36.1
@@ -779,7 +779,7 @@ packages:
       nopt: 5.0.0
       npmlog: 5.0.1
       rimraf: 3.0.2
-      semver: 7.3.8
+      semver: 7.5.0
       tar: 6.1.11
     transitivePeerDependencies:
       - encoding
@@ -1212,17 +1212,17 @@ packages:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
 
-  /@typegoose/typegoose@11.0.3(mongoose@7.1.0):
-    resolution: {integrity: sha512-U3hhJzc2sVqdoTozqMiE8/aqBRXLgywLclacWyw0rXmjZQr2MUuVEtFIWTTCb9JAgmdjE8E53uPOXB3fjRNcKw==}
+  /@typegoose/typegoose@11.1.0(mongoose@7.1.0):
+    resolution: {integrity: sha512-lrqtPyhenjK2KsvAigKjaAs54JC7qqQh6p/mejhiZXd/+s+EoBvwkvMxB+3ZrvzBPl07H/SFJLmp21qLKNc+EA==}
     engines: {node: '>=14.17.0'}
     peerDependencies:
-      mongoose: ~7.0.3
+      mongoose: ~7.1.0
     dependencies:
       lodash: 4.17.21
       loglevel: 1.8.1
       mongoose: 7.1.0
       reflect-metadata: 0.1.13
-      semver: 7.3.8
+      semver: 7.5.0
       tslib: 2.5.0
     dev: false
 
@@ -1405,7 +1405,7 @@ packages:
       ignore: 5.2.0
       natural-compare-lite: 1.4.0
       regexpp: 3.2.0
-      semver: 7.3.8
+      semver: 7.5.0
       tsutils: 3.21.0(typescript@5.0.4)
       typescript: 5.0.4
     transitivePeerDependencies:
@@ -1540,7 +1540,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.3.8
+      semver: 7.5.0
       tsutils: 3.21.0(typescript@5.0.4)
       typescript: 5.0.4
     transitivePeerDependencies:
@@ -1561,7 +1561,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.3.8
+      semver: 7.5.0
       tsutils: 3.21.0(typescript@5.0.4)
       typescript: 5.0.4
     transitivePeerDependencies:
@@ -1582,7 +1582,7 @@ packages:
       eslint: 8.39.0
       eslint-scope: 5.1.1
       eslint-utils: 3.0.0(eslint@8.39.0)
-      semver: 7.3.8
+      semver: 7.5.0
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -1602,7 +1602,7 @@ packages:
       '@typescript-eslint/typescript-estree': 5.59.1(typescript@5.0.4)
       eslint: 8.39.0
       eslint-scope: 5.1.1
-      semver: 7.3.8
+      semver: 7.5.0
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -2415,7 +2415,7 @@ packages:
       js-string-escape: 1.0.1
       lodash: 4.17.21
       md5-hex: 3.0.1
-      semver: 7.3.8
+      semver: 7.5.0
       well-known-symbols: 2.0.0
     dev: true
 
@@ -3334,7 +3334,7 @@ packages:
       minimatch: 3.1.2
       node-abort-controller: 3.0.1
       schema-utils: 3.1.2
-      semver: 7.3.8
+      semver: 7.5.0
       tapable: 2.2.1
       typescript: 5.0.4
       webpack: 5.80.0
@@ -5419,6 +5419,13 @@ packages:
 
   /semver@7.3.8:
     resolution: {integrity: sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      lru-cache: 6.0.0
+
+  /semver@7.5.0:
+    resolution: {integrity: sha512-+XC0AD/R7Q2mPSRuy2Id0+CGTZ98+8f+KvwirxOKIEyid+XSx6HbC63p+O4IndTHuX5Z+JxQ0TghCkO5Cg/2HA==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
