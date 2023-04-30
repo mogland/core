@@ -13,14 +13,14 @@ export class MigrateController {
   ){}
 
   @Post("import")
-  @Auth()
+  // @Auth()
   @ApiOperation({ summary: "使用 JSON 导入数据"})
   async import(@Body() body: MigrateData) {
     return await this.migrateService.import(body);
   }
 
   @Get("export")
-  @Auth()
+  // @Auth()
   @ApiOperation({ summary: "导出数据为 JSON"})
   async export() {
     return await this.migrateService.export();

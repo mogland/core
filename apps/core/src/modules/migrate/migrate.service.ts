@@ -61,7 +61,7 @@ export class MigrateService {
         this.userService,
         UserEvents.UserGetMaster,
         {},
-      )
+      );
     }
   }
 
@@ -205,11 +205,16 @@ export class MigrateService {
       comments: MigrateComment[],
       commentsService: ClientProxy,
     ) {
-      const parentComments = comments.filter((comment) => comment.children);
-      const childrenComments = comments.filter((comment) => comment.parent);
+      const parentOriginMap = new Map<string, string>();
+      const parentComments = comments.filter(
+        (comment) => comment.children.length > 0,
+      );
+      const childrenComments = comments.filter(
+        (comment) => comment.children.length == 0,
+      );
 
       for (const comment of parentComments) {
-        await transportReqToMicroservice(
+        const create = await transportReqToMicroservice(
           commentsService,
           CommentsEvents.CommentCreate,
           {
@@ -217,33 +222,25 @@ export class MigrateService {
               ...comment,
               id: undefined, // 重置 id，让 mog 自动生成
             },
-            master: true,
+            importPattern: true,
           },
         );
+        parentOriginMap.set(comment.id!, create.id!); // old parent comment id => new comment id
       }
 
-      // 2.1 Transform pid to parent comment ObjectId
-      const parentCommentsData = await transportReqToMicroservice<
-        CommentsModel[]
-      >(commentsService, CommentsEvents.CommentsGetAll, {});
-      for (const comment of parentCommentsData) {
-        parentMap.set(comment.parent?.id, comment.id!); // parent comment id => comment id
-      }
-
-      // 2.2 Import children comments
+      // 2.1 Import children comments
       for (const comment of childrenComments) {
-        const parentId = parentMap.get(comment.parent);
-        if (!parentId) {
-          parentError.set(comment.parent, comment.parent);
-          continue;
-        }
+        const parentId = parentOriginMap.get(comment.parent);
         await transportReqToMicroservice(
           commentsService,
           CommentsEvents.CommentCreate,
           {
-            ...comment,
-            id: undefined, // reset id, let mog auto generate
-            parent: parentId,
+            data: {
+              ...comment,
+              id: undefined, // reset id, let mog auto generate
+              parent: parentId,
+            },
+            importPattern: true,
           },
         );
         // Recursively sort and import child comments
@@ -385,7 +382,7 @@ export class MigrateService {
       const children = comment.children;
       return {
         ...comment,
-        parent: parent?.id,
+        parent: parent || null,
         children: children?.map((child) => child.id),
         pid: postsMap.get(comment.pid),
       };

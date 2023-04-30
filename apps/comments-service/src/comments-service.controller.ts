@@ -51,11 +51,11 @@ export class CommentsController {
   }
   
   @MessagePattern({ cmd: CommentsEvents.CommentCreate })
-  async createComment(input: { data: CommentsModel; master: boolean }) {
-    if (!input.master) {
+  async createComment(input: { data: CommentsModel; master: boolean; importPattern: boolean }) {
+    if (!input.master && !input.importPattern) {
       input.data.status = CommentStatus.Pending;
     }
-    return await this.commentsService.createComment(input.data, input.master);
+    return await this.commentsService.createComment(input.data, input.master, input.importPattern);
   }
 
   @MessagePattern({ cmd: CommentsEvents.CommentReply })
