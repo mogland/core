@@ -7,8 +7,8 @@ import { UserModel } from '~/apps/user-service/src/user.model';
 
 export type MigratePost = Omit<
   PostModel,
-  'id' | 'categoryId' | 'category' | 'images'
-> & { category: string };
+  'id' | 'category' | 'images'
+>;
 
 export type MigratePage = Omit<PageModel, 'id' | 'images'>;
 

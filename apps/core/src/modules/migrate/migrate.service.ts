@@ -112,7 +112,7 @@ export class MigrateService {
     for (const post of data) {
       // transform category slug to id
       const category = categoriesData.find(
-        (category) => category.slug === post.category, // find category by slug
+        (category) => category.slug === post.categoryId as any as string, // find category by slug
       );
       let categoryId = category?.id;
       if (!categoryId) {
@@ -121,8 +121,8 @@ export class MigrateService {
           this.pageService,
           CategoryEvents.CategoryCreate,
           {
-            name: post.category,
-            slug: post.category,
+            name: post.categoryId,
+            slug: post.categoryId,
           },
         );
         categoryId = create.id;
