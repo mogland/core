@@ -1,10 +1,14 @@
 import { PostModel } from '~/apps/page-service/src/model/post.model';
 import { PageModel } from '~/apps/page-service/src/model/page.model';
 import { FriendsModel } from '~/apps/friends-service/src/friends.model';
+import { CategoryModel } from '~/apps/page-service/src/model/category.model';
 
-export type MigratePost = Omit<PostModel, 'id' | 'categoryId' | 'category' | 'images'>
+export type MigratePost = Omit<
+  PostModel,
+  'id' | 'categoryId' | 'category' | 'images'
+> & { category: string };
 
-export type MigratePage = Omit<PageModel, 'id' | 'images'>
+export type MigratePage = Omit<PageModel, 'id' | 'images'>;
 
 export interface MigrateUser {
   username: string;
@@ -15,7 +19,10 @@ export interface MigrateUser {
   url: string;
 }
 
-export type MigrateFriend = Omit<FriendsModel, 'id' | 'token' | 'autoCheck' | 'feedContents'>
+export type MigrateFriend = Omit<
+  FriendsModel,
+  'id' | 'token' | 'autoCheck' | 'feedContents'
+>;
 
 export interface MigrateComment {
   postSlug: string;
@@ -29,12 +36,7 @@ export interface MigrateComment {
   status: string;
 }
 
-export interface MigrateCategory {
-  name: string;
-  slug: string;
-  icon: string;
-  description: string;
-}
+export type MigrateCategory = Omit<CategoryModel, 'id' | 'type' | 'created'>;
 
 export interface MigrateData {
   posts: MigratePost[];

@@ -11,7 +11,14 @@ import {
   MigrateUser,
 } from './migrate.interface';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
-import { FriendsEvents, PageEvents, UserEvents } from '~/shared/constants/event.constant';
+import {
+  CategoryEvents,
+  FriendsEvents,
+  PageEvents,
+  PostEvents,
+  UserEvents,
+} from '~/shared/constants/event.constant';
+import { CategoryModel } from '~/apps/page-service/src/model/category.model';
 
 @Injectable()
 export class MigrateService {
@@ -22,7 +29,6 @@ export class MigrateService {
     @Inject(ServicesEnum.comments)
     private readonly commentsService: ClientProxy,
   ) {}
-
 
   async importUser(data: MigrateUser) {
     const exist = await transportReqToMicroservice(
@@ -84,8 +90,56 @@ export class MigrateService {
       {},
     );
   }
-  async importCategories(data: MigrateCategory[]) {}
-  async importPosts(data: MigratePost[]) {}
+  async importCategories(data: MigrateCategory[]) {
+    for (const category of data) {
+      await transportReqToMicroservice<CategoryModel>(
+        this.pageService,
+        CategoryEvents.CategoryCreate,
+        category,
+      );
+    }
+    return await transportReqToMicroservice<CategoryModel[]>(
+      this.pageService,
+      CategoryEvents.CategoryGetAll,
+      {},
+    );
+  }
+
+  async importPosts(data: MigratePost[], categoriesData: CategoryModel[]) {
+    for (const post of data) {
+      // transform category slug to id
+      const category = categoriesData.find(
+        (category) => category.slug === post.category, // find category by slug
+      );
+      let categoryId = category?.id;
+      if (!categoryId) {
+        // if not exist, create
+        const create = await transportReqToMicroservice<CategoryModel>(
+          this.pageService,
+          CategoryEvents.CategoryCreate,
+          {
+            name: post.category,
+            slug: post.category,
+          },
+        );
+        categoryId = create.id;
+      }
+      await transportReqToMicroservice(
+        this.pageService,
+        PostEvents.PostCreate,
+        {
+          ...post,
+          categoryId,
+        },
+      );
+    }
+    return await transportReqToMicroservice(
+      this.pageService,
+      PostEvents.PostsListGetAll,
+      {},
+    );
+  }
+  
   async importComments(data: MigrateComment[]) {}
 
   async import(data: MigrateData) {}
