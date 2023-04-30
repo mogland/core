@@ -11,4 +11,6 @@ export class MigrateService {
     @Inject(ServicesEnum.comments)
     private readonly commentsService: ClientProxy,
   ) {}
+
+  async import() {}
 }
