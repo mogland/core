@@ -11,7 +11,7 @@ import {
   MigrateUser,
 } from './migrate.interface';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
-import { UserEvents } from '~/shared/constants/event.constant';
+import { FriendsEvents, UserEvents } from '~/shared/constants/event.constant';
 
 @Injectable()
 export class MigrateService {
@@ -22,6 +22,7 @@ export class MigrateService {
     @Inject(ServicesEnum.comments)
     private readonly commentsService: ClientProxy,
   ) {}
+
 
   async importUser(data: MigrateUser) {
     const exist = await transportReqToMicroservice(
@@ -45,14 +46,34 @@ export class MigrateService {
         this.userService,
         UserEvents.UserPatch,
         data,
-      )
+      );
     }
   }
-  async importComments(data: MigrateComment[]) {}
-  async importCategories(data: MigrateCategory[]) {}
+
+  async importFriends(data: MigrateFriend[]) {
+    for (const friend of data) {
+      await transportReqToMicroservice(
+        this.friendsService,
+        FriendsEvents.FriendCreate,
+        {
+          data: friend,
+          isMaster: true, // prevent status change
+        },
+      );
+    }
+    return await transportReqToMicroservice(
+      this.friendsService,
+      FriendsEvents.FriendsGetAllByMaster,
+      {
+        all: true,
+      },
+    );
+  }
+  
   async importPages(data: MigratePage[]) {}
-  async importFriends(data: MigrateFriend[]) {}
+  async importCategories(data: MigrateCategory[]) {}
   async importPosts(data: MigratePost[]) {}
+  async importComments(data: MigrateComment[]) {}
 
   async import(data: MigrateData) {}
 }
