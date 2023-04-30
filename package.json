@@ -55,7 +55,7 @@
     "@nestjs/microservices": "9.4.0",
     "@nestjs/platform-fastify": "9.4.0",
     "@nestjs/schedule": "2.2.1",
-    "@typegoose/typegoose": "11.0.3",
+    "@typegoose/typegoose": "11.1.0",
     "@vercel/ncc": "0.36.1",
     "adm-zip": "^0.5.10",
     "axios": "1.4.0",
