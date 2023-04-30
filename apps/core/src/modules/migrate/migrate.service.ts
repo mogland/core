@@ -21,6 +21,7 @@ import {
 } from '~/shared/constants/event.constant';
 import { CategoryModel } from '~/apps/page-service/src/model/category.model';
 import { CommentsModel } from '~/apps/comments-service/src/comments.model';
+import { PostModel } from '~/apps/page-service/src/model/post.model';
 
 @Injectable()
 export class MigrateService {
@@ -243,6 +244,84 @@ export class MigrateService {
       categories: categoriesData,
       posts: postsData,
       comments: commentsData,
+    };
+  }
+
+  async exportUser() {
+    return await transportReqToMicroservice(
+      this.userService,
+      UserEvents.UserGetMaster,
+      {},
+    );
+  }
+
+  async exportFriends() {
+    return await transportReqToMicroservice(
+      this.friendsService,
+      FriendsEvents.FriendsGetAllByMaster,
+      {
+        all: true,
+      },
+    );
+  }
+
+  async exportPages() {
+    return await transportReqToMicroservice(
+      this.pageService,
+      PageEvents.PagesGetAll,
+      {},
+    );
+  }
+
+  async exportCategories() {
+    return await transportReqToMicroservice<CategoryModel[]>(
+      this.pageService,
+      CategoryEvents.CategoryGetAll,
+      {},
+    );
+  }
+
+  async exportPosts() {
+    return await transportReqToMicroservice<PostModel[]>(
+      this.pageService,
+      PostEvents.PostsListGetAll,
+      {},
+    );
+  }
+
+  async exportComments() {
+    const req = await transportReqToMicroservice<CommentsModel[]>(
+      this.commentsService,
+      CommentsEvents.CommentsGetAll,
+      {},
+    );
+    // 把 parent 和 children 都转成 id
+    const data = req.map((comment) => {
+      const parent = comment.parent;
+      const children = comment.children;
+      return {
+        ...comment,
+        parent: parent?.id,
+        children: children?.map((child) => child.id),
+      };
+    });
+    return data;
+  }
+
+  async export() {
+    const user = await this.exportUser();
+    const friends = await this.exportFriends();
+    const pages = await this.exportPages();
+    const categories = await this.exportCategories();
+    const posts = await this.exportPosts();
+    const comments = await this.exportComments();
+    return {
+      user,
+      friends,
+      pages,
+      categories,
+      posts,
+      comments,
     };
   }
 }
