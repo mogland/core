@@ -25,6 +25,7 @@ import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
 import { ConsoleModule } from './modules/console/console.module';
 import { ThemesModule } from './modules/themes/themes.module';
 import { StoreModule } from './modules/store/store.module';
+import { MigrateModule } from './modules/migrate/migrate.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { StoreModule } from './modules/store/store.module';
         ...REDIS_TRANSPORTER,
       }
     ]),
+    MigrateModule,
   ],
   controllers: [AppController],
   providers: [
