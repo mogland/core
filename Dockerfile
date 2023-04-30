@@ -1,4 +1,4 @@
-FROM node:19-alpine as builder
+FROM node:20-alpine as builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ RUN apk add make g++ alpine-sdk python3 py3-pip && \
     pnpm bundle
 
 
-FROM node:19-alpine as runner
+FROM node:20-alpine as runner
 
 RUN apk add zip unzip mongodb-tools rsync
 
