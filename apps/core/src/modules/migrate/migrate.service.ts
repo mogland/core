@@ -20,6 +20,7 @@ import {
   UserEvents,
 } from '~/shared/constants/event.constant';
 import { CategoryModel } from '~/apps/page-service/src/model/category.model';
+import { CommentsModel } from '~/apps/comments-service/src/comments.model';
 
 @Injectable()
 export class MigrateService {
@@ -142,7 +143,7 @@ export class MigrateService {
   }
 
   async importComments(data: MigrateComment[]) {
-    // 1. Transform pid to post ObjectId, 
+    // 1. Transform pid to post ObjectId,
     // if post not exist, skip, but put it into an array, finally return error report
     // 2. Sort comments, import parent comments first, then import children comments (Mog will auto bind parent comment)
     const postMap = new Map<string, string>();
@@ -187,23 +188,21 @@ export class MigrateService {
           },
         );
       }
-  
+
       // 2.1 Transform pid to parent comment ObjectId
-  
-      const parentCommentsData = await transportReqToMicroservice(
-        this.commentsService,
-        CommentsEvents.CommentsGetAll,
-        {},
-      ).then((res) => res.data);
+      const parentCommentsData = await transportReqToMicroservice<
+        CommentsModel[]
+      >(this.commentsService, CommentsEvents.CommentsGetAll, {});
       for (const comment of parentCommentsData) {
-        parentMap.set(comment.pid, comment.id);
+        parentMap.set(comment.parent?.id, comment.id!); // parent comment id => comment id
       }
-  
+
       // 2.2 Import children comments
       for (const comment of childrenComments) {
-        const parentId = parentMap.get(comment.pid);
+        const parentId = parentMap.get(comment.parent);
         if (!parentId) {
-          parentError.set(comment.pid, comment.pid);
+          parentError.set(comment.parent, comment.parent);
+          continue;
         }
         await transportReqToMicroservice(
           this.commentsService,
@@ -215,7 +214,10 @@ export class MigrateService {
           },
         );
         // Recursively sort and import child comments
-        await this.sortAndImportComments(comment.children, parentMap, parentError);
+        if (comment.children) {
+          // the type of comment between MigrationComment and CommentsModel is different
+          await sortAndImportComments(comment.children as any);
+        }
       }
     }
 
@@ -230,14 +232,7 @@ export class MigrateService {
   }
 
   async import(data: MigrateData) {
-    const {
-      user,
-      friends,
-      pages,
-      categories,
-      posts,
-      comments,
-    } = data;
+    const { user, friends, pages, categories, posts, comments } = data;
     const categoriesData = await this.importCategories(categories);
     const postsData = await this.importPosts(posts, categoriesData);
     const commentsData = await this.importComments(comments);
