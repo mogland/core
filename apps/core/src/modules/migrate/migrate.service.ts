@@ -11,7 +11,7 @@ import {
   MigrateUser,
 } from './migrate.interface';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
-import { FriendsEvents, UserEvents } from '~/shared/constants/event.constant';
+import { FriendsEvents, PageEvents, UserEvents } from '~/shared/constants/event.constant';
 
 @Injectable()
 export class MigrateService {
@@ -69,8 +69,21 @@ export class MigrateService {
       },
     );
   }
-  
-  async importPages(data: MigratePage[]) {}
+
+  async importPages(data: MigratePage[]) {
+    for (const page of data) {
+      await transportReqToMicroservice(
+        this.pageService,
+        PageEvents.PageCreate,
+        page,
+      );
+    }
+    return await transportReqToMicroservice(
+      this.pageService,
+      PageEvents.PagesGetAll,
+      {},
+    );
+  }
   async importCategories(data: MigrateCategory[]) {}
   async importPosts(data: MigratePost[]) {}
   async importComments(data: MigrateComment[]) {}
