@@ -32,8 +32,8 @@ dependencies:
     specifier: 2.2.1
     version: 2.2.1(@nestjs/common@9.4.0)(@nestjs/core@9.4.0)(reflect-metadata@0.1.13)
   '@typegoose/typegoose':
-    specifier: 11.0.1
-    version: 11.0.1(mongoose@7.0.5)
+    specifier: 11.0.3
+    version: 11.0.3(mongoose@7.0.5)
   '@vercel/ncc':
     specifier: 0.36.1
     version: 0.36.1
@@ -1212,8 +1212,8 @@ packages:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
 
-  /@typegoose/typegoose@11.0.1(mongoose@7.0.5):
-    resolution: {integrity: sha512-HxHskX6oxWmrcjwKYwKZNbOb9cSlP9tmqaRSd2MwjR9zEuCzgPIBGPv9o/TSab+IxrTUNgnK3dah+/KOhLDWMQ==}
+  /@typegoose/typegoose@11.0.3(mongoose@7.0.5):
+    resolution: {integrity: sha512-U3hhJzc2sVqdoTozqMiE8/aqBRXLgywLclacWyw0rXmjZQr2MUuVEtFIWTTCb9JAgmdjE8E53uPOXB3fjRNcKw==}
     engines: {node: '>=14.17.0'}
     peerDependencies:
       mongoose: ~7.0.3
