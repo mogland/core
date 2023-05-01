@@ -71,7 +71,7 @@ export class ConsoleService {
             );
           });
         } else {
-          await this.http.cleanCache();
+          await this.http.cleanCache(CONSOLE_NPM_VERSION_API);
           this.getLatestVersionInfoFromNpm().then((res) => {
             this.files = res.packages;
             if (res.version === 'NaN') {
