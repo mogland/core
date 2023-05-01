@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { HttpService } from '~/libs/helper/src/helper.http.service';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { consola } from '~/shared/global/consola.global';
@@ -25,11 +25,6 @@ export class ConsoleService {
     try {
       if (this.env?.enable) {
         if (this.env?.source !== 'npm') {
-          const type = this.env?.versionType;
-          const url = `https://api.github.com/repos/mogland/console/releases${
-            type === 'pre-release' ? '' : '/latest'
-          }`;
-          this.http.cleanCache(url);
           this.getLatestVersionInfoFromGitHub().then((res) => {
             this.files = res.packages;
             consola.success(
@@ -37,7 +32,6 @@ export class ConsoleService {
             );
           });
         } else {
-          this.http.cleanCache(CONSOLE_NPM_VERSION_API);
           this.getLatestVersionInfoFromNpm().then((res) => {
             this.files = res.packages;
             if (res.version === 'NaN') {
@@ -64,15 +58,33 @@ export class ConsoleService {
     try {
       if (this.env?.enable) {
         if (this.env?.source !== 'npm') {
-          this.getLatestVersionInfoFromGitHub().then((res) => {
+          const type = this.env?.versionType;
+          const url = `https://api.github.com/repos/mogland/console/releases${
+            type === 'pre-release' ? '' : '/latest'
+          }`;
+          await this.http.cleanCache(url);
+          return await this.getLatestVersionInfoFromGitHub().then((res) => {
+            if (this.files === res.packages) {
+              consola.info(
+                `[ConsoleService] ${ExceptionMessage.ConsoleRefreshIsnNeed}`,
+              );
+              return false;
+            }
             this.files = res.packages;
             consola.success(
               `[ConsoleService] ${ExceptionMessage.ConsoleRefreshSuccess}`,
             );
+            return true;
           });
         } else {
           await this.http.cleanCache(CONSOLE_NPM_VERSION_API);
-          this.getLatestVersionInfoFromNpm().then((res) => {
+          return await this.getLatestVersionInfoFromNpm().then((res) => {
+            if (this.files === res.packages) {
+              consola.info(
+                `[ConsoleService] ${ExceptionMessage.ConsoleRefreshIsnNeed}`,
+              );
+              return false;
+            }
             this.files = res.packages;
             if (res.version === 'NaN') {
               throw new Error(ExceptionMessage.ConsoleRefreshFailed);
@@ -80,13 +92,14 @@ export class ConsoleService {
             consola.success(
               `[ConsoleService] ${ExceptionMessage.ConsoleRefreshSuccess}`,
             );
+            return true;
           });
         }
       } else {
-        consola.info(`[ConsoleService] ${ExceptionMessage.ConsoleIsDisabled}`);
+        throw new InternalServerErrorException(ExceptionMessage.ConsoleIsDisabled);
       }
     } catch {
-      this.logger.error(ExceptionMessage.ConsoleRefreshFailed);
+      throw new InternalServerErrorException(ExceptionMessage.ConsoleRefreshFailed);
     }
   }
 

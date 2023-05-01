@@ -45,4 +45,5 @@ export enum ExceptionMessage {
   CONSOLE_REQUEST_FAILED = '控制台资源请求失败！',
   ConsoleRefreshFailed = '控制台资源刷新失败！',
   ConsoleRefreshSuccess = '控制台资源刷新成功！',
+  ConsoleRefreshIsnNeed = '控制台资源无需刷新',
 }

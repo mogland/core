@@ -118,6 +118,8 @@ export class HttpService {
     const has = await client.hget(getRedisKey(RedisKeys.HTTPCache), url);
     if (has) {
       await client.hdel(getRedisKey(RedisKeys.HTTPCache), url);
+    } else {
+      this.logger.debug(`--> Clear cache: ${url} not found`);
     }
     return true;
   }
