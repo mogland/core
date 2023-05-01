@@ -1,5 +1,9 @@
 import { JSDOM } from 'jsdom';
-import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { HttpService } from '~/libs/helper/src/helper.http.service';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { consola } from '~/shared/global/consola.global';
@@ -96,10 +100,14 @@ export class ConsoleService {
           });
         }
       } else {
-        throw new InternalServerErrorException(ExceptionMessage.ConsoleIsDisabled);
+        throw new InternalServerErrorException(
+          ExceptionMessage.ConsoleIsDisabled,
+        );
       }
     } catch {
-      throw new InternalServerErrorException(ExceptionMessage.ConsoleRefreshFailed);
+      throw new InternalServerErrorException(
+        ExceptionMessage.ConsoleRefreshFailed,
+      );
     }
   }
 
@@ -231,7 +239,7 @@ export class ConsoleService {
             const document = dom.window.document;
             document.head.innerHTML += `
               <!-- Injected by Mog Core, DO NOT REMOVE -->
-              <script>window.MOG_BASE = "/console";window.MOG_API = "http://${requestURL}";</script>
+              <script>window.MOG_BASE="/console";window.MOG_API="http://${requestURL}";window.PATTERN="CORE"</script>
             `;
             return dom.serialize();
           }
