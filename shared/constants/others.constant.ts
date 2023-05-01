@@ -7,3 +7,5 @@
  * Coding With IU
  */
 export const alphabet = `1234567890abcdefghijklmnopqrstuvwxyz`;
+export const CONSOLE_NPM_VERSION_API = 'https://registry.npmjs.org/@mogland/console';
+export const CONSOLE_GITHUB_VERSION_API = 'https://api.github.com/repos/mogland/console/releases';

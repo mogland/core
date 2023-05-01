@@ -108,6 +108,20 @@ export class HttpService {
     return data;
   }
 
+  /**
+   * 清除某个缓存
+   * @param url
+   */
+  public async cleanCache(url: string) {
+    this.logger.debug(`--> Clear cache: ${url}`);
+    const client = this.cacheService.getClient();
+    const has = await client.hget(getRedisKey(RedisKeys.HTTPCache), url);
+    if (has) {
+      await client.hdel(getRedisKey(RedisKeys.HTTPCache), url);
+    }
+    return true;
+  }
+
   public get axiosRef() {
     return this.http;
   }
