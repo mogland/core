@@ -43,4 +43,7 @@ export enum ExceptionMessage {
   ConsoleInitSuccess = '控制台服务初始化成功',
   ConsoleIsDisabled = '控制台服务已被禁用',
   CONSOLE_REQUEST_FAILED = '控制台资源请求失败！',
+  ConsoleRefreshFailed = '控制台资源刷新失败！',
+  ConsoleRefreshSuccess = '控制台资源刷新成功！',
+  ConsoleRefreshIsnNeed = '控制台资源无需刷新',
 }

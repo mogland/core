@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { HttpService } from '~/libs/helper/src/helper.http.service';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { consola } from '~/shared/global/consola.global';
@@ -8,6 +8,7 @@ import {
   getPackageIntoFiles,
   getPackageIntoInterface,
 } from './console.interface';
+import { CONSOLE_NPM_VERSION_API } from '~/shared/constants/others.constant';
 
 @Injectable()
 export class ConsoleService {
@@ -34,6 +35,7 @@ export class ConsoleService {
           this.getLatestVersionInfoFromNpm().then((res) => {
             this.files = res.packages;
             if (res.version === 'NaN') {
+              throw new Error(ExceptionMessage.CONSOLE_INIT_FAILED);
               return;
             }
             consola.success(
@@ -46,6 +48,58 @@ export class ConsoleService {
       }
     } catch {
       this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);
+    }
+  }
+
+  /**
+   * 刷新控制台版本缓存
+   */
+  async refreshConsoleVersionCache() {
+    try {
+      if (this.env?.enable) {
+        if (this.env?.source !== 'npm') {
+          const type = this.env?.versionType;
+          const url = `https://api.github.com/repos/mogland/console/releases${
+            type === 'pre-release' ? '' : '/latest'
+          }`;
+          await this.http.cleanCache(url);
+          return await this.getLatestVersionInfoFromGitHub().then((res) => {
+            if (this.files === res.packages) {
+              consola.info(
+                `[ConsoleService] ${ExceptionMessage.ConsoleRefreshIsnNeed}`,
+              );
+              return false;
+            }
+            this.files = res.packages;
+            consola.success(
+              `[ConsoleService] ${ExceptionMessage.ConsoleRefreshSuccess}`,
+            );
+            return true;
+          });
+        } else {
+          await this.http.cleanCache(CONSOLE_NPM_VERSION_API);
+          return await this.getLatestVersionInfoFromNpm().then((res) => {
+            if (this.files === res.packages) {
+              consola.info(
+                `[ConsoleService] ${ExceptionMessage.ConsoleRefreshIsnNeed}`,
+              );
+              return false;
+            }
+            this.files = res.packages;
+            if (res.version === 'NaN') {
+              throw new Error(ExceptionMessage.ConsoleRefreshFailed);
+            }
+            consola.success(
+              `[ConsoleService] ${ExceptionMessage.ConsoleRefreshSuccess}`,
+            );
+            return true;
+          });
+        }
+      } else {
+        throw new InternalServerErrorException(ExceptionMessage.ConsoleIsDisabled);
+      }
+    } catch {
+      throw new InternalServerErrorException(ExceptionMessage.ConsoleRefreshFailed);
     }
   }
 
@@ -92,7 +146,7 @@ export class ConsoleService {
    */
   async getLatestVersionInfoFromNpm(): Promise<getPackageIntoInterface> {
     const versionInfo = await this.http.axiosRef
-      .get('https://registry.npmjs.org/@mogland/console')
+      .get(CONSOLE_NPM_VERSION_API)
       .then((res) => res.data?.['dist-tags'])
       .catch(() => {
         this.logger.error(ExceptionMessage.CONSOLE_INIT_FAILED);

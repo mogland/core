@@ -9,6 +9,12 @@ export class ConsoleController {
     private readonly consoleService: ConsoleService,
   ) {}
 
+  @Get('/refresh')
+  async refresh() {
+    this.consoleService.refreshConsoleVersionCache();
+    return true;
+  }
+
   @Get(['/*', '/'])
   async console(@Res() res: FastifyReply, @Req() req: FastifyRequest) {
     const path = req.url
