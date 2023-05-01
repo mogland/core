@@ -6,6 +6,9 @@ import { isURL } from 'class-validator';
 import { tmpdir } from 'os';
 import { Readable } from 'stream';
 import { lookup } from 'mime-types';
+import { getFileInfo } from '~/shared/utils/files.util';
+import { STORE_DIR } from '~/shared/constants/path.constant';
+import { join } from 'path';
 
 @Injectable()
 export class AssetsService {
@@ -60,7 +63,7 @@ export class AssetsService {
     fs.writeFileSync(path.join(_path, name), buffer);
     return {
       name,
-    }
+    };
   }
 
   async uploadZIPAndExtract(buffer: Buffer, _path: string, name?: string) {
@@ -69,6 +72,7 @@ export class AssetsService {
   }
 
   async deleteFile(path: string) {
+    path = join(STORE_DIR, path);
     if (path === '/') {
       throw new Error('Cannot delete root directory');
     }
@@ -79,18 +83,25 @@ export class AssetsService {
   async getFile(_path: string) {
     const file = fs.readFileSync(_path);
     const name = _path.split('/').pop()!;
-    const ext = path.extname(name)
-    const mimetype = lookup(ext)
+    const ext = path.extname(name);
+    const mimetype = lookup(ext);
     return {
       file,
       name,
       ext,
-      mimetype
+      mimetype,
     };
   }
 
-  async getFileList(path: string) {
-    return fs.readdirSync(path, { withFileTypes: true, encoding: 'utf-8' });
+  async getFileList(_path: string) {
+
+
+    const files = fs.readdirSync(_path);
+    const fileList = files.map((file) => {
+      const filePath = path.join(_path, file);
+      return getFileInfo(filePath);
+    });
+    return fileList;
   }
 
   async mkdir(path: string) {
