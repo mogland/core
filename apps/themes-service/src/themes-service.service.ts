@@ -1,7 +1,4 @@
-import {
-  Inject,
-  Injectable,
-} from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { join } from 'path';
 import { ConfigService } from '~/libs/config/src';
 import { ThemesDto } from '~/libs/config/src/config.dto';
@@ -62,6 +59,7 @@ export class ThemesServiceService {
             this.setENV(theme.path);
           } else {
             consola.info(`未检测到活动主题，请前往控制台启动某一主题`);
+            return;
           }
           this.trackThemeChange();
           this.reloadConfig(this.env.theme!);
@@ -85,7 +83,7 @@ export class ThemesServiceService {
    * 追踪活动主题修改
    */
   async trackThemeChange() {
-    const theme = await this._getAllThemes()
+    const theme = await this._getAllThemes();
     theme.forEach((theme) => {
       fs.watchFile(join(THEME_DIR, theme.path, 'config.yaml'), async () => {
         consola.info(`主题 ${theme.name} 配置文件发生修改`);
@@ -94,21 +92,18 @@ export class ThemesServiceService {
         //   theme: theme.path,
         // });
       });
-    })
+    });
   }
 
   /**
    * 取消追踪主题修改
    */
-  async untrackThemeChange() {
-    
-
-  }
+  async untrackThemeChange() {}
 
   /**
    * 修改活动主题
    */
-  async setENV(theme: string) {
+  async setENV(theme?: string) {
     this.env.theme = theme;
     process.env.MOG_PRIVATE_INNER_ENV = JSON.stringify({
       ...this.env,
@@ -118,6 +113,8 @@ export class ThemesServiceService {
 
   /**
    * 验证主题合法性
+   *
+   * if there is no error, it will return the current theme dir
    */
   validateTheme(theme: string, error = true) {
     if (fs.statSync(join(THEME_DIR, theme)).isFile()) {
@@ -148,10 +145,13 @@ export class ThemesServiceService {
         // 要求文件夹名和 config.yaml 中的 id 字段一致
         consola.info(
           `${chalk.blue(
-            `${_config.id} 主题文件夹名与 ID 不一致, 正在重命名为 ${_config.id} ...`,
+            `${_config.id} 主题文件夹名与 ID 不一致 (${chalk.gray(
+              theme,
+            )}), 正在重命名为对应 ID 名 ...`,
           )}`,
         );
         fs.renameSync(join(THEME_DIR, theme), join(THEME_DIR, _config.id));
+        theme = _config.id; // 重命名后的主题名
       }
       if (!_config?.configs) {
         throw new InternalServerErrorRpcExcption(
@@ -214,7 +214,7 @@ export class ThemesServiceService {
     }
     this.dir.push(theme);
     this.dir = Array.from(new Set(this.dir)); // 去重
-    return true;
+    return theme;
   }
 
   /**
@@ -254,8 +254,9 @@ export class ThemesServiceService {
     const themes: ThemesDto[] = [];
     const dirs = fs.readdirSync(THEME_DIR);
     for (const dir of dirs) {
-      if (this.validateTheme(dir, false)) {
-        themes.push(await this.getTheme(dir));
+      const themeValidater = this.validateTheme(dir, false); // we can get theme id from dir name
+      if (themeValidater) {
+        themes.push(await this.getTheme(themeValidater));
       }
     }
     return themes;
@@ -277,10 +278,16 @@ export class ThemesServiceService {
     if (!theme) {
       throw new InternalServerErrorRpcExcption(`主题不存在或不合法`);
     }
-    const config = fs.readFileSync(
-      join(THEME_DIR, theme.path, 'config.yaml'),
-      'utf-8',
-    );
+    let config;
+    try {
+      config = fs.readFileSync(
+        join(THEME_DIR, theme.path, 'config.yaml'),
+        'utf-8',
+      );
+    } catch (e) {
+      this.setENV()
+      throw new InternalServerErrorRpcExcption(`主题配置文件已不存在，自动移除激活状态`);
+    }
     const _yaml = YAML.parse(config) as ThemeConfig;
     if (db_config) {
       // 如果配置文件中的配置项的值和数据库中的配置项的值不一样, 则使用数据库中的配置项的值
@@ -324,22 +331,16 @@ export class ThemesServiceService {
       throw new InternalServerErrorRpcExcption(`主题不存在或不合法`);
     }
     _theme.active = true;
-    if (!theme) {
-      await this.configService.patchAndValidate('themes', [
-        ...themes.filter((t) => t.id !== activeTheme?.id),
-        (activeTheme ? activeTheme : undefined),
-        _theme,
-      ]);
-      return true;
-    }
-    theme.active = true;
-    await this.configService.patchAndValidate('themes', [
+    theme ? (theme.active = true) : null;
+    const config = [
       ...themes
-        .filter((t) => t.id !== id)
-        .filter((t) => t.id !== activeTheme?.id),
-      (activeTheme ? activeTheme : undefined),
-      _theme, // 重新获取一次, 防止配置文件被修改而无更新
-    ]);
+        .filter((t) => t.id !== activeTheme?.id)
+        .filter((t) => t.id !== id),
+      ...(activeTheme ? [activeTheme] : []),
+      _theme,
+    ];
+    await this.configService.patchAndValidate('themes', config);
+
     this.setENV(_theme.path);
     this.refreshThemes();
 
@@ -365,7 +366,7 @@ export class ThemesServiceService {
     if (!_theme) {
       throw new InternalServerErrorRpcExcption(`主题目录不存在`);
     }
-    fs.rmdirSync(join(THEME_DIR, _theme), { recursive: true });
+    fs.rmSync(join(THEME_DIR, _theme), { recursive: true });
     this.dir = this.dir.filter((t) => t !== id);
     this.themes = this.themes.filter((t) => t.id !== id);
     consola.info(`主题 ${chalk.green(id)} 已删除`);
