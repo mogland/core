@@ -1,7 +1,6 @@
 import {
   Inject,
   Injectable,
-  InternalServerErrorException,
 } from '@nestjs/common';
 import { join } from 'path';
 import { ConfigService } from '~/libs/config/src';
@@ -20,6 +19,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { ThemesEvents } from '~/shared/constants/event.constant';
 import { AssetsService } from '~/libs/helper/src/helper.assets.service';
 import { YAML } from 'zx-cjs';
+import { InternalServerErrorRpcExcption } from '~/shared/exceptions/internal-server-error-rpc-exception';
 
 @Injectable()
 export class ThemesServiceService {
@@ -125,12 +125,12 @@ export class ThemesServiceService {
     }
     try {
       if (!fs.existsSync(join(THEME_DIR, theme))) {
-        throw new InternalServerErrorException(`主题不存在`);
+        throw new InternalServerErrorRpcExcption(`主题不存在`);
       }
       try {
         fs.accessSync(path.join(THEME_DIR, theme), fs.constants.R_OK);
       } catch (e) {
-        throw new InternalServerErrorException(`主题目录无读取权限`);
+        throw new InternalServerErrorRpcExcption(`主题目录无读取权限`);
       }
       let _config: ThemeConfig;
       try {
@@ -140,7 +140,7 @@ export class ThemesServiceService {
         );
         _config = YAML.parse(configString) as ThemeConfig;
       } catch (e) {
-        throw new InternalServerErrorException(
+        throw new InternalServerErrorRpcExcption(
           `主题配置文件读取失败, 请检查文件是否存在`,
         );
       }
@@ -154,30 +154,30 @@ export class ThemesServiceService {
         fs.renameSync(join(THEME_DIR, theme), join(THEME_DIR, _config.id));
       }
       if (!_config?.configs) {
-        throw new InternalServerErrorException(
+        throw new InternalServerErrorRpcExcption(
           `主题配置文件格式错误, configs 字段不存在`,
         );
       }
       _config.configs.forEach(async (config) => {
         if (!config?.name) {
-          throw new InternalServerErrorException(
+          throw new InternalServerErrorRpcExcption(
             `主题配置文件格式错误, "${config?.name}" 字段中的 name 字段不存在`,
           );
         }
         if (!config?.type) {
-          throw new InternalServerErrorException(
+          throw new InternalServerErrorRpcExcption(
             `主题配置文件格式错误, "${
               (config as ThemeConfigItemAll)?.name
             }" 字段中的 type 字段不存在`,
           );
         }
         if (!Object.values(ThemeConfigType).includes(config.type)) {
-          throw new InternalServerErrorException(
+          throw new InternalServerErrorRpcExcption(
             `主题配置文件格式错误, "${config?.name}" 字段中的 type 字段不合法`,
           );
         }
         if (config.name.match(/[\u4e00-\u9fa5]/) && !config.key) {
-          throw new InternalServerErrorException(
+          throw new InternalServerErrorRpcExcption(
             `主题配置文件格式错误, "${config?.name}" 字段中的 key 字段不存在, 但是 name 字段是中文`,
           );
         }
@@ -187,14 +187,14 @@ export class ThemesServiceService {
         ) {
           (config as ThemeConfigItemSelect).data.forEach((data) => {
             if (data.name.match(/[\u4e00-\u9fa5]/) && !data.key) {
-              throw new InternalServerErrorException(
+              throw new InternalServerErrorRpcExcption(
                 `主题配置文件格式错误, "${config?.name}" 字段中的 data 字段中的 "${data.name}" 字段中的 key 字段不存在, 但是 name 字段是中文`,
               );
             } else if (!data.key) {
               data.key = data.name; // 如果没有 key 字段, 则使用 name 字段作为 key 字段
             }
             if (!data.value) {
-              throw new InternalServerErrorException(
+              throw new InternalServerErrorRpcExcption(
                 `主题配置文件格式错误, "${config?.name}" 字段中的 data 字段中的 "${data.name}" 字段中的 value 字段不存在`,
               );
             }
@@ -202,11 +202,11 @@ export class ThemesServiceService {
         }
       });
       if (!fs.existsSync(join(THEME_DIR, theme, 'package.json'))) {
-        throw new InternalServerErrorException(`主题缺少 package.json 文件`);
+        throw new InternalServerErrorRpcExcption(`主题缺少 package.json 文件`);
       }
     } catch (e) {
       if (error) {
-        throw new InternalServerErrorException(`[${theme}] ${e.message}`);
+        throw new InternalServerErrorRpcExcption(`[${theme}] ${e.message}`);
       } else {
         consola.info(`${chalk.red(`[${theme}] ${e.message}`)}`);
         return false;
@@ -224,7 +224,7 @@ export class ThemesServiceService {
   async getTheme(id: string): Promise<ThemesDto> {
     const theme = this.dir.find((t) => t === id);
     if (!theme) {
-      throw new InternalServerErrorException(`主题不存在或不合法`);
+      throw new InternalServerErrorRpcExcption(`主题不存在或不合法`);
     }
     const config = fs.readFileSync(
       join(THEME_DIR, theme, 'config.yaml'),
@@ -275,7 +275,7 @@ export class ThemesServiceService {
     const theme = this.themes?.find((t) => t.id === id);
     let db_config = await this.getThemeConfig(id);
     if (!theme) {
-      throw new InternalServerErrorException(`主题不存在或不合法`);
+      throw new InternalServerErrorRpcExcption(`主题不存在或不合法`);
     }
     const config = fs.readFileSync(
       join(THEME_DIR, theme.path, 'config.yaml'),
@@ -321,7 +321,7 @@ export class ThemesServiceService {
     const theme = themes?.find((t) => t.id === id);
     const _theme = this.themes?.find((t) => t.id === id);
     if (!_theme) {
-      throw new InternalServerErrorException(`主题不存在或不合法`);
+      throw new InternalServerErrorRpcExcption(`主题不存在或不合法`);
     }
     _theme.active = true;
     if (!theme) {
@@ -359,11 +359,11 @@ export class ThemesServiceService {
     const themes = (await this.configService.get('themes')) || [];
     const theme = themes?.find((t) => t.id === id);
     if (theme?.active) {
-      throw new InternalServerErrorException(`无法删除正在使用的主题`);
+      throw new InternalServerErrorRpcExcption(`无法删除正在使用的主题`);
     }
     const _theme = this.dir.find((t) => t === id);
     if (!_theme) {
-      throw new InternalServerErrorException(`主题目录不存在`);
+      throw new InternalServerErrorRpcExcption(`主题目录不存在`);
     }
     fs.rmdirSync(join(THEME_DIR, _theme), { recursive: true });
     this.dir = this.dir.filter((t) => t !== id);
@@ -386,22 +386,22 @@ export class ThemesServiceService {
   async updateTheme(id: string): Promise<boolean> {
     const _theme = this.dir.find((t) => t === id);
     if (!_theme) {
-      throw new InternalServerErrorException(`主题目录不存在`);
+      throw new InternalServerErrorRpcExcption(`主题目录不存在`);
     }
     const _path = join(THEME_DIR);
     const _package = join(_path, id, 'package.json');
     if (!fs.existsSync(_package)) {
-      throw new InternalServerErrorException(`主题目录不存在 package.json`);
+      throw new InternalServerErrorRpcExcption(`主题目录不存在 package.json`);
     }
     const pkg = JSON.parse(fs.readFileSync(_package, 'utf-8'));
     if (!pkg.version) {
-      throw new InternalServerErrorException(
+      throw new InternalServerErrorRpcExcption(
         `主题 package.json 缺少 version 字段`,
       );
     }
     const url = pkg.repository?.url;
     if (!url) {
-      throw new InternalServerErrorException(
+      throw new InternalServerErrorRpcExcption(
         `主题 package.json 缺少 repository.url 字段`,
       );
     }
@@ -422,7 +422,7 @@ export class ThemesServiceService {
         }
         fs.renameSync(join(_path, `${_theme}.bak`), join(_path, _theme));
         consola.info(`主题 ${chalk.green(id)} 更新失败, 正在回滚`);
-        throw new InternalServerErrorException(e);
+        throw new InternalServerErrorRpcExcption(e);
       });
     this.refreshThemes();
     this.reloadConfig(id);
@@ -444,28 +444,28 @@ export class ThemesServiceService {
     try {
       const _c = JSON.parse(config);
       if (!Array.isArray(_c)) {
-        throw new InternalServerErrorException(
+        throw new InternalServerErrorRpcExcption(
           `主题配置不合法, 它似乎不是数组`,
         );
       }
       _c.forEach((c) => {
         if (!c.name) {
-          throw new InternalServerErrorException(`主题配置不合法, 缺少 name`);
+          throw new InternalServerErrorRpcExcption(`主题配置不合法, 缺少 name`);
         }
         if (!c.value) c.value = '';
         if (c.name.match(/[\u4e00-\u9fa5]/) && !c.key) {
-          throw new InternalServerErrorException(
+          throw new InternalServerErrorRpcExcption(
             `主题配置不合法, 缺少 key, 但 name 中包含中文`,
           );
         }
       });
     } catch (e) {
-      throw new InternalServerErrorException(e);
+      throw new InternalServerErrorRpcExcption(e);
     }
     const themes = (await this.configService.get('themes')) || [];
     const theme = themes?.find((t) => t.id === id);
     if (!theme) {
-      throw new InternalServerErrorException(`主题不存在或不合法`);
+      throw new InternalServerErrorRpcExcption(`主题不存在或不合法`);
     }
     theme.config = config;
     await this.configService.patchAndValidate('themes', [
@@ -496,13 +496,13 @@ export class ThemesServiceService {
     const themes = (await this.configService.get('themes')) || [];
     const theme = themes?.find((t) => t.id === id);
     if (!theme) {
-      throw new InternalServerErrorException(`主题配置不存在`);
+      throw new InternalServerErrorRpcExcption(`主题配置不存在`);
     }
     const config = JSON.parse(theme.config || '[]') as ThemeConfigItemAll[];
     let c = config.find((c) => c.key === key);
     if (!c) {
       c = config.find((c) => c.name === key);
-      if (!c) throw new InternalServerErrorException(`主题配置名不存在`);
+      if (!c) throw new InternalServerErrorRpcExcption(`主题配置名不存在`);
     }
     return String(c?.value) || '';
   }
@@ -521,13 +521,13 @@ export class ThemesServiceService {
     const themes = (await this.configService.get('themes')) || [];
     const theme = themes?.find((t) => t.id === id);
     if (!theme) {
-      throw new InternalServerErrorException(`主题配置不存在`);
+      throw new InternalServerErrorRpcExcption(`主题配置不存在`);
     }
     const config = JSON.parse(theme.config || '[]') as ThemeConfigItemAll[];
     let c = config.find((c) => c.key === key);
     if (!c) {
       c = config.find((c) => c.name === key);
-      if (!c) throw new InternalServerErrorException(`主题配置名不存在`);
+      if (!c) throw new InternalServerErrorRpcExcption(`主题配置名不存在`);
     }
     c.value = value;
     theme.config = JSON.stringify(config);
