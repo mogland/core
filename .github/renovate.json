@@ -14,6 +14,6 @@
       "labels": ["dependencies", "UPDATE-MAJOR"]
     }
   ],
-  "ignoreDeps": ["nanoid", "camelcase-keys", "cache-manager"],
+  "ignoreDeps": ["nanoid", "camelcase-keys", "cache-manager", "consola"],
   "enabled": true
 }
