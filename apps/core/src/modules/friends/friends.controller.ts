@@ -54,7 +54,9 @@ export class FriendsController {
     return transportReqToMicroservice(
       this.friends,
       FriendsEvents.FriendsGetAllByMaster,
-      status,
+      {
+        status
+      },
     );
   }
 
