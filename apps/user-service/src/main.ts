@@ -10,7 +10,7 @@ import { UserServiceModule } from './user-service.module';
 
 async function bootstrap() {
   registerGlobal();
-  registerStdLogger("user");
+  registerStdLogger('user');
 
   const argv = BasicCommer.parse().opts();
   readEnv(argv, argv.config);

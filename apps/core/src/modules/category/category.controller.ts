@@ -46,24 +46,27 @@ import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 export class CategoryController {
   constructor(
     @Inject(ServicesEnum.category) private readonly category: ClientProxy,
-  ) { }
+  ) {}
 
   @Get('/ping')
   @ApiOperation({ summary: '检测服务是否在线' })
   async ping() {
-    return transportReqToMicroservice<"pong">(this.category, CategoryEvents.Ping, {});
+    return transportReqToMicroservice<'pong'>(
+      this.category,
+      CategoryEvents.Ping,
+      {},
+    );
   }
 
   @Get('/')
   @ApiOperation({ summary: '多分类查询、分类列表' })
   async getCategories(@Query() query: MultiCategoriesQueryDto) {
-    return transportReqToMicroservice<any[] | {
-      entries: Object;
-    }>(
-      this.category,
-      CategoryEvents.CategoryGetAll,
-      query,
-    );
+    return transportReqToMicroservice<
+      | any[]
+      | {
+          entries: Object;
+        }
+    >(this.category, CategoryEvents.CategoryGetAll, query);
   }
 
   @Get('/:query')
@@ -87,22 +90,21 @@ export class CategoryController {
     @Param() { query }: SlugorIdDto,
     @Query() { tag }: MultiQueryTagAndCategoryDto, // 如果这个是标签，则tag为true，如果是分类，则tag为分类id
   ) {
-    return transportReqToMicroservice<{
-      isTag: boolean;
-      data: {
-        name: string;
-        children: PostModel[] | null;
-      };
-    } | {
-      data: {
-        children: PostModel[]
-      };
-      isTag: boolean;
-    }>(
-      this.category,
-      CategoryEvents.CategoryGet,
-      { _query: query, _tag: tag },
-    );
+    return transportReqToMicroservice<
+      | {
+          isTag: boolean;
+          data: {
+            name: string;
+            children: PostModel[] | null;
+          };
+        }
+      | {
+          data: {
+            children: PostModel[];
+          };
+          isTag: boolean;
+        }
+    >(this.category, CategoryEvents.CategoryGet, { _query: query, _tag: tag });
   }
 
   @Post('/')
@@ -123,11 +125,7 @@ export class CategoryController {
   async merge(@Body() body: { type: CategoryType; from: string; to: string }) {
     return transportReqToMicroservice<{
       message: string;
-    }>(
-      this.category,
-      CategoryEvents.CategoryMerge,
-      body,
-    );
+    }>(this.category, CategoryEvents.CategoryMerge, body);
   }
 
   @Put('/:id')

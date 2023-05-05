@@ -20,6 +20,6 @@ const registers = Object.values(services).map((name) => ({
 @Module({
   imports: [ClientsModule.register(registers)],
   controllers: [MigrateController],
-  providers: [MigrateService]
+  providers: [MigrateService],
 })
 export class MigrateModule {}

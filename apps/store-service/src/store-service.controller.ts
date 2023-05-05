@@ -48,5 +48,4 @@ export class StoreServiceController {
   async storeFileMkdir(path: string) {
     return await this.storeServiceService.mkdir(path);
   }
-
 }

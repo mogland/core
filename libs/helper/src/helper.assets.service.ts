@@ -60,7 +60,7 @@ export class AssetsService {
     fs.writeFileSync(path.join(_path, name), buffer);
     return {
       name,
-    }
+    };
   }
 
   async uploadZIPAndExtract(buffer: Buffer, _path: string, name?: string) {
@@ -79,13 +79,13 @@ export class AssetsService {
   async getFile(_path: string) {
     const file = fs.readFileSync(_path);
     const name = _path.split('/').pop()!;
-    const ext = path.extname(name)
-    const mimetype = lookup(ext)
+    const ext = path.extname(name);
+    const mimetype = lookup(ext);
     return {
       file,
       name,
       ext,
-      mimetype
+      mimetype,
     };
   }
 

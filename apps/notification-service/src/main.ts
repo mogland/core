@@ -9,7 +9,7 @@ import { NotificationServiceModule } from './notification-service.module';
 
 async function bootstrap() {
   registerGlobal();
-  registerStdLogger("notification");
+  registerStdLogger('notification');
 
   const argv = BasicCommer.parse().opts();
   readEnv(argv, argv.config);

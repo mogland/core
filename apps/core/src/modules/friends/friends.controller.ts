@@ -55,7 +55,7 @@ export class FriendsController {
       this.friends,
       FriendsEvents.FriendsGetAllByMaster,
       {
-        status
+        status,
       },
     );
   }

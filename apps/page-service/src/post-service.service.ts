@@ -33,7 +33,7 @@ export class PostService {
 
     @Inject(ServicesEnum.notification)
     private readonly notification: ClientProxy,
-  ) { }
+  ) {}
 
   get model() {
     return this.postModel;
@@ -105,13 +105,13 @@ export class PostService {
           {
             $sort: sortBy
               ? {
-                [sortBy]: sortOrder as any,
-              }
+                  [sortBy]: sortOrder as any,
+                }
               : {
-                sortField: -1, // sort by our computed field
-                pin: -1,
-                created: -1, // and then by the "created" field
-              },
+                  sortField: -1, // sort by our computed field
+                  pin: -1,
+                  created: -1, // and then by the "created" field
+                },
           },
           {
             $project: {

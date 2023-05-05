@@ -10,7 +10,7 @@ import { PageServiceModule } from './page-service.module';
 
 async function bootstrap() {
   registerGlobal();
-  registerStdLogger("page");
+  registerStdLogger('page');
 
   const argv = BasicCommer.parse().opts();
   readEnv(argv, argv.config);
