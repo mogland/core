@@ -241,8 +241,8 @@ devDependencies:
     specifier: ^0.30.1
     version: 0.30.1(jsdom@21.1.1)
   webpack:
-    specifier: 5.81.0
-    version: 5.81.0
+    specifier: 5.82.0
+    version: 5.82.0
   xml2js:
     specifier: 0.5.0
     version: 0.5.0
@@ -5760,7 +5760,7 @@ packages:
       webpack: 5.80.0
     dev: true
 
-  /terser-webpack-plugin@5.3.7(webpack@5.81.0):
+  /terser-webpack-plugin@5.3.7(webpack@5.82.0):
     resolution: {integrity: sha512-AfKwIktyP7Cu50xNjXF/6Qb5lBNzYaWpU6YfoX3uZicTx0zTy0stDDCsvjDapKsSDvOeWo5MEq4TmdBy2cNoHw==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -5781,7 +5781,7 @@ packages:
       schema-utils: 3.1.2
       serialize-javascript: 6.0.1
       terser: 5.17.0
-      webpack: 5.81.0
+      webpack: 5.82.0
     dev: true
 
   /terser@5.17.0:
@@ -6282,8 +6282,8 @@ packages:
       - uglify-js
     dev: true
 
-  /webpack@5.81.0:
-    resolution: {integrity: sha512-AAjaJ9S4hYCVODKLQTgG5p5e11hiMawBwV2v8MYLE0C/6UAGLuAF4n1qa9GOwdxnicaP+5k6M5HrLmD4+gIB8Q==}
+  /webpack@5.82.0:
+    resolution: {integrity: sha512-iGNA2fHhnDcV1bONdUu554eZx+XeldsaeQ8T67H6KKHl2nUSwX8Zm7cmzOA46ox/X1ARxf7Bjv8wQ/HsB5fxBg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -6313,7 +6313,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.2
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.7(webpack@5.81.0)
+      terser-webpack-plugin: 5.3.7(webpack@5.82.0)
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:
