@@ -193,8 +193,8 @@ devDependencies:
     specifier: ^2.1.1
     version: 2.1.1
   '@types/mongoose-aggregate-paginate-v2':
-    specifier: 1.0.7
-    version: 1.0.7
+    specifier: 1.0.8
+    version: 1.0.8
   '@types/node':
     specifier: 18.16.3
     version: 18.16.3
@@ -1329,8 +1329,8 @@ packages:
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
     dev: true
 
-  /@types/mongoose-aggregate-paginate-v2@1.0.7:
-    resolution: {integrity: sha512-lOfP5sS2xRXrK6qfteYMdZONLgr2IHdQiMNZGoe8FaCbH+nKn3ic645gN9e89xtHD5bwe+P+EZPevh/8rPDoxw==}
+  /@types/mongoose-aggregate-paginate-v2@1.0.8:
+    resolution: {integrity: sha512-vIUWdinh9Z4+eFVC78k6/NRCzc0paouwN/KK7Z9gx9DSEN6DMFhbDJQiumdRx2ZqU9W+U3RY7C0onkmgM6/9Zw==}
     dependencies:
       mongoose: 7.1.0
     transitivePeerDependencies:
