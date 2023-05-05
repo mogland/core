@@ -6,7 +6,7 @@ import { registerStdLogger } from '~/shared/global/consola.global';
 async function main() {
   register();
   mkBasedirs();
-  registerStdLogger("core")
+  registerStdLogger('core');
   const [{ bootstrap }] = await Promise.all([import('./bootstrap')]);
   bootstrap();
 }

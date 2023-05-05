@@ -10,7 +10,7 @@ import { StoreServiceModule } from './store-service.module';
 
 async function bootstrap() {
   registerGlobal();
-  registerStdLogger("store");
+  registerStdLogger('store');
   mkStoreDir();
 
   const argv = BasicCommer.parse().opts();
@@ -29,7 +29,7 @@ async function bootstrap() {
     },
   );
   app.listen().then(() => {
-    Logger.log(`>> StoreService 正在工作... <<`)
-  })
+    Logger.log(`>> StoreService 正在工作... <<`);
+  });
 }
 bootstrap();

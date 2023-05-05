@@ -32,7 +32,7 @@ export class PageService {
 
     @Inject(ServicesEnum.notification)
     private readonly notification: ClientProxy,
-  ) { }
+  ) {}
 
   public get model() {
     return this.pageModel;
@@ -84,13 +84,15 @@ export class PageService {
   }
 
   public async create(data: PageModel) {
-    const res = await this.model.create({
-      ...data,
-      slug: slugify(data.slug!),
-      created: new Date(),
-    }).catch((err) => {
-      throw new BadRequestRpcExcption(err.message)
-    })
+    const res = await this.model
+      .create({
+        ...data,
+        slug: slugify(data.slug!),
+        created: new Date(),
+      })
+      .catch((err) => {
+        throw new BadRequestRpcExcption(err.message);
+      });
     this.notification.emit(NotificationEvents.SystemPageCreate, res);
     return res;
   }

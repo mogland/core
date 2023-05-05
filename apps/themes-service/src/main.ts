@@ -20,7 +20,7 @@ declare const module: any;
 
 async function bootstrap() {
   registerGlobal();
-  registerStdLogger("themes");
+  registerStdLogger('themes');
   mkThemeDir();
   const argv = BasicCommer.parse().opts();
   readEnv(argv, argv.config);

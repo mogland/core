@@ -285,8 +285,10 @@ export class ThemesServiceService {
         'utf-8',
       );
     } catch (e) {
-      this.setENV()
-      throw new InternalServerErrorRpcExcption(`主题配置文件已不存在，自动移除激活状态`);
+      this.setENV();
+      throw new InternalServerErrorRpcExcption(
+        `主题配置文件已不存在，自动移除激活状态`,
+      );
     }
     const _yaml = YAML.parse(config) as ThemeConfig;
     if (db_config) {

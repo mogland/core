@@ -26,14 +26,16 @@ export class FriendsService {
 
     @Inject(ServicesEnum.notification)
     private readonly notification: ClientProxy,
-  ) { }
+  ) {}
 
   public get model() {
     return this.friendsModel;
   }
 
   private throwInvalidTokenException(): never {
-    throw new UnauthorizedRpcExcption(ExceptionMessage.FriendLinkTokenIsInvalid);
+    throw new UnauthorizedRpcExcption(
+      ExceptionMessage.FriendLinkTokenIsInvalid,
+    );
   }
 
   private throwNotFoundException(): never {
@@ -166,7 +168,8 @@ export class FriendsService {
       friend.autoCheck = await this.autoCheck(input.data.link);
       await friend.save();
       Logger.warn(
-        `${friend.name} 申请友链 - 互链检测: ${friend.autoCheck ? '通过' : '未通过'
+        `${friend.name} 申请友链 - 互链检测: ${
+          friend.autoCheck ? '通过' : '未通过'
         }`,
         FriendsService.name,
       );
@@ -218,7 +221,8 @@ export class FriendsService {
       friend.autoCheck = await this.autoCheck(data.link); // 重新检测
       await friend.save();
       Logger.warn(
-        `${friend.name} 申请友链 - 互链检测: ${friend.autoCheck ? '通过' : '未通过'
+        `${friend.name} 申请友链 - 互链检测: ${
+          friend.autoCheck ? '通过' : '未通过'
         }`,
         FriendsService.name,
       );
@@ -354,7 +358,9 @@ export class FriendsService {
             );
             return '';
           });
-        if (!xml) { continue; }
+        if (!xml) {
+          continue;
+        }
         const feed = FeedParser(xml, friend.feedType);
         if (!feed) {
           Logger.warn(

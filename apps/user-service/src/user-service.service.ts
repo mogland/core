@@ -28,7 +28,7 @@ export class UserService {
 
     @Inject(ServicesEnum.notification)
     private readonly notification: ClientProxy,
-  ) { }
+  ) {}
   public get model() {
     return this.userModel;
   }
@@ -41,17 +41,16 @@ export class UserService {
       Partial<Pick<UserModel, 'description' | 'avatar' | 'url'>>,
   ) {
     // const authCode = nanoid(10);
-    let hasPassword = false
+    let hasPassword = false;
     // TODO：初始化当前用户的文章、页面、分类
     if (!model.password) {
       model.password = v4();
     } else {
-      hasPassword = true
+      hasPassword = true;
     }
 
     const exist = await this.userModel.findOne({ username: model.username });
-    if (exist)
-      throw new ForbiddenRpcExcption(ExceptionMessage.UserNameIsExist);
+    if (exist) throw new ForbiddenRpcExcption(ExceptionMessage.UserNameIsExist);
 
     const userCount = await this.userModel.countDocuments();
 

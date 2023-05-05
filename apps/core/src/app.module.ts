@@ -52,7 +52,7 @@ import { MigrateModule } from './modules/migrate/migrate.module';
       {
         name: ServicesEnum.custom,
         ...REDIS_TRANSPORTER,
-      }
+      },
     ]),
     MigrateModule,
   ],

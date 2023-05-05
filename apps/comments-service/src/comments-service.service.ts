@@ -24,7 +24,7 @@ export class CommentsService {
 
     @Inject(ServicesEnum.notification)
     private readonly notification: ClientProxy,
-  ) { }
+  ) {}
 
   get model() {
     return this.CommentsModel;
@@ -73,7 +73,11 @@ export class CommentsService {
     return await this.CommentsModel.findById(id);
   }
 
-  async createComment(data: CommentsModel, isMaster: boolean, importPattern: boolean) {
+  async createComment(
+    data: CommentsModel,
+    isMaster: boolean,
+    importPattern: boolean,
+  ) {
     if (isMaster && !importPattern) {
       data.status = CommentStatus.Approved; // 默认审核通过主人的评论
     }

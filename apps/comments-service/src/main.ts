@@ -10,7 +10,7 @@ import { CommentsServiceModule } from './comments-service.module';
 
 async function bootstrap() {
   registerGlobal();
-  registerStdLogger("comments");
+  registerStdLogger('comments');
 
   const argv = BasicCommer.parse().opts();
   readEnv(argv, argv.config);
