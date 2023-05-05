@@ -28,5 +28,5 @@ export enum ServicesEnum {
 
 export enum ServicePorts {
   core = 2330,
-  themes = 2331,
+  themes = 2303,
 }
