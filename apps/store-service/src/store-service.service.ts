@@ -18,7 +18,7 @@ export class StoreServiceService {
     const _path = join(STORE_DIR, path || '');
     const name = data.filename;
     if (this.assetHelper.exists(join(_path, name))) {
-      throw new InternalServerErrorRpcExcption('文件夹已存在');
+      throw new InternalServerErrorRpcExcption('文件已存在');
     }
     return await this.assetHelper
       .writeFile(data.file, _path, name)

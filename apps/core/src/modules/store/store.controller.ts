@@ -79,9 +79,10 @@ export class StoreController {
   @ApiOperation({ summary: '上传文件' })
   // @Auth()
   @HTTPDecorators.FileUpload({ description: 'upload file' })
-  async upload(@Req() req: FastifyRequest, @Body('path') _path?: string) {
+  async upload(@Req() req: FastifyRequest) {
     const data = await req.file();
 
+    const _path = (req.query as any).path as string;
     if (!data) {
       throw new BadRequestRpcExcption('仅能上传文件！');
     }
@@ -110,7 +111,7 @@ export class StoreController {
     return transportReqToMicroservice(
       this.store,
       StoreEvents.StoreFileDeleteByMaster,
-      { path },
+      path,
     );
   }
 
