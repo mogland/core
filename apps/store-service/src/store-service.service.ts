@@ -37,8 +37,9 @@ export class StoreServiceService {
   }
 
   async deleteFile(path: string) {
+    path = decodeURIComponent(path);
     await this.assetHelper.deleteFile(path).catch((e) => {
-      throw new InternalServerErrorRpcExcption(e);
+      throw new InternalServerErrorRpcExcption(e.message);
     });
     return true;
   }
