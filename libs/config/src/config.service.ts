@@ -155,7 +155,7 @@ export class ConfigService {
             data,
             (old, newer) => {
               if (Array.isArray(old) && Array.isArray(newer)) {
-                return [...old, ...newer];
+                return [...new Set([...old, ...newer])];
               }
               if (typeof old === 'object' && typeof newer === 'object') {
                 return { ...old, ...newer };
