@@ -75,16 +75,11 @@ export class FriendsService {
     const dom = await this.parseDom(url);
     const document = dom.window.document;
     const myUrl = (await this.configService.get('site'))?.frontUrl;
-    const siteName = (await this.configService.get('seo'))?.title;
-    if (!myUrl || !siteName) {
+    if (!myUrl) {
       return false;
     }
     const link = document.querySelector(`a[href="${myUrl}"]`);
     if (!link) {
-      return false;
-    }
-    const title = link.textContent || link.getAttribute('title') === siteName;
-    if (!title) {
       return false;
     }
     return true;
