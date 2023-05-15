@@ -140,8 +140,8 @@ dependencies:
     specifier: ^9.0.0
     version: 9.0.0
   vm2:
-    specifier: 3.9.17
-    version: 3.9.17
+    specifier: 3.9.18
+    version: 3.9.18
   zx-cjs:
     specifier: 7.0.7-0
     version: 7.0.7-0
@@ -2615,7 +2615,7 @@ packages:
       ast-types: 0.13.4
       escodegen: 1.14.3
       esprima: 4.0.1
-      vm2: 3.9.17
+      vm2: 3.9.18
     dev: true
 
   /delayed-stream@1.0.0:
@@ -6210,8 +6210,8 @@ packages:
       js-git: 0.7.8
     dev: true
 
-  /vm2@3.9.17:
-    resolution: {integrity: sha512-AqwtCnZ/ERcX+AVj9vUsphY56YANXxRuqMb7GsDtAr0m0PcQX3u0Aj3KWiXM0YAHy7i6JEeHrwOnwXbGYgRpAw==}
+  /vm2@3.9.18:
+    resolution: {integrity: sha512-iM7PchOElv6Uv6Q+0Hq7dcgDtWWT6SizYqVcvol+1WQc+E9HlgTCnPozbQNSP3yDV9oXHQOEQu530w2q/BCVZg==}
     engines: {node: '>=6.0'}
     hasBin: true
     dependencies:
