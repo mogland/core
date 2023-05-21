@@ -1,10 +1,10 @@
-# Mog 🏝 /mɑːɡ/
+# Mog 🐱 /mɑːɡ/
 
 <img align="right" src="https://avatars.githubusercontent.com/u/106414194" height="200">
 
 <img src="https://img.shields.io/github/package-json/v/mogland/core\" referrerpolicy="no-referrer" alt="version">
 
-Mog is a _flexible, modular_ Blog System that uses **MicroService** and is built in **100% Typescript**.
+Mog is a _flexible, modular_ Blog System that uses **microservice** and is built in **100% Typescript**.
 
 ### Features
 
@@ -12,9 +12,11 @@ Mog is a _flexible, modular_ Blog System that uses **MicroService** and is built
 - [Theme system](https://github.com/mogland/awesome-mog#%E5%89%8D%E7%AB%AF%E4%B8%BB%E9%A2%98). Make it eazy to build your site.
 - Extensible & customizable.
 - Standalone Comment system. Independently design to use it anywhere.
-- [Built-in console](https://mog.js.org/usage/console.html).
+- [Built-in console](https://mog.js.org/docs/usages/console).
 
 ### Getting Started
+
+> _**Mog is currently in development and not yet ready for production use. We are currently at V2 Stage 5/10.**_
 
 Please follow the documentation at [mog.js.org](https://mog.js.org/)!
 
