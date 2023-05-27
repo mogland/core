@@ -55,11 +55,12 @@ export class NotificationScheduleService {
 
   private async runCallback(item: ScheduleDto) {
     switch (item.type) {
-      case ScheduleType.url:
+      case ScheduleType.url: {
         const { url, method, body } = item.action;
         const { data } = await this.http.axiosRef[method](url, body);
         return data;
-      case ScheduleType.event:
+      }
+      case ScheduleType.event: {
         const { event, data: eventData, time, emit } = item.action;
         return await transportReqToMicroservice(
           this.client,
@@ -68,6 +69,7 @@ export class NotificationScheduleService {
           time.length ? time : 3000,
           emit,
         );
+      }
       default:
         break;
     }
@@ -75,13 +77,14 @@ export class NotificationScheduleService {
 
   private async runAfter(item: ScheduleDto, data: any) {
     switch (item.after) {
-      case AfterSchedule.url:
+      case AfterSchedule.url: {
         const { url, method, body } = item.afterAction;
         const { data: httpData } = await this.http.axiosRef[method](url, {
           ...body,
           ...data,
         });
         return httpData;
+      }
       case AfterSchedule.store:
         return await transportReqToMicroservice(
           this.client,
