@@ -8,6 +8,8 @@ import { HttpService } from '~/libs/helper/src/helper.http.service';
 import { AfterSchedule, ScheduleType } from './schedule.enum';
 import { nextTick } from 'process';
 import { AssetsService } from '~/libs/helper/src/helper.assets.service';
+import { transportReqToMicroservice } from '~/shared/microservice.transporter';
+import { StoreEvents } from '~/shared/constants/event.constant';
 
 @Injectable()
 export class NotificationScheduleService {
@@ -18,7 +20,9 @@ export class NotificationScheduleService {
     @Inject('NOTIFICATION_SCHEDULE_SERVICE')
     private readonly client: ClientProxy,
     private schedulerRegistry: SchedulerRegistry,
-  ) {}
+  ) {
+    this.init();
+  }
 
   private async init() {
     const config = await this.config.get('schedule');
@@ -27,7 +31,17 @@ export class NotificationScheduleService {
         const job = this.schedulerRegistry.getCronJob(item.name);
         if (!job) {
           const newJob = new CronJob(item.cron, async () => {
-            return await this.runCallback(item);
+            try {
+              const data = await this.runCallback(item);
+              nextTick(async () => {
+                await this.runAfter(item, data).catch((e) => {
+                  this.recordError(item.name, e);
+                });
+              });
+              return data;
+            } catch (e) {
+              this.recordError(item.name, e);
+            }
           });
           this.schedulerRegistry.addCronJob(item.name, newJob);
           newJob.start();
@@ -41,12 +55,19 @@ export class NotificationScheduleService {
 
   private async runCallback(item: ScheduleDto) {
     switch (item.type) {
-      case Number(ScheduleType.url):
+      case ScheduleType.url:
         const { url, method, body } = item.action;
         const { data } = await this.http.axiosRef[method](url, body);
         return data;
       case ScheduleType.event:
-        break;
+        const { event, data: eventData, time, emit } = item.action;
+        return await transportReqToMicroservice(
+          this.client,
+          event,
+          eventData,
+          time.length ? time : 3000,
+          emit,
+        );
       default:
         break;
     }
@@ -54,17 +75,37 @@ export class NotificationScheduleService {
 
   private async runAfter(item: ScheduleDto, data: any) {
     switch (item.after) {
-      case Number(AfterSchedule.url):
+      case AfterSchedule.url:
         const { url, method, body } = item.afterAction;
-        const { data } = await this.http.axiosRef[method](url, body);
-        return data;
+        const { data: httpData } = await this.http.axiosRef[method](url, {
+          ...body,
+          ...data,
+        });
+        return httpData;
       case AfterSchedule.store:
-        // 如果是文件，直接保存，如果是文字，变成文件保存
-        if (typeof data === 'string') {
-          
-        }
+        return await transportReqToMicroservice(
+          this.client,
+          StoreEvents.StoreFileCreateByMaster,
+          {
+            name: item.name,
+            content: data,
+          },
+        );
       default:
         break;
     }
+  }
+
+  private async recordError(name: string, e: Error) {
+    let raw = await this.config.get('schedule');
+    const config = raw.find((item) => item.name === name);
+    config?.error?.push({
+      message: e.message,
+      time: new Date(),
+    });
+    return await this.config.patchAndValidate('schedule', [
+      ...raw.filter((item) => item.name !== name),
+      config,
+    ]);
   }
 }

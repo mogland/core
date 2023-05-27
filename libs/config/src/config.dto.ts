@@ -16,7 +16,10 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { ScheduleType, AfterSchedule } from '~/apps/notification-service/src/schedule.enum';
+import {
+  ScheduleType,
+  AfterSchedule,
+} from '~/apps/notification-service/src/schedule.enum';
 
 export class SeoDto {
   @IsString()
@@ -143,4 +146,11 @@ export class ScheduleDto {
 
   @IsNotEmpty()
   afterAction: any; // 这随着 after 的不同而不同
+
+  @IsArray({ each: true })
+  @IsOptional()
+  error?: {
+    message: string;
+    time: Date;
+  }[]; // 这里是错误日志，如果有错误，会发送到这里
 }
