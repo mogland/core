@@ -144,4 +144,13 @@ export class AssetsService {
     fs.renameSync(oldPath, newPath);
     return true;
   }
+
+  createFile(_path: string, name: string, content?: string | NodeJS.ArrayBufferView) {
+    const filePath = path.join(_path, name);
+    if (this.exists(filePath)) {
+      throw new Error('File already exists');
+    }
+    fs.writeFileSync(filePath, content || '');
+    return true;
+  }
 }

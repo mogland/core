@@ -11,10 +11,12 @@ import {
   IsArray,
   IsBoolean,
   IsEmail,
+  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
 } from 'class-validator';
+import { ScheduleType, AfterSchedule } from '~/apps/notification-service/src/schedule.enum';
 
 export class SeoDto {
   @IsString()
@@ -112,4 +114,33 @@ export class ThemesDto {
   @IsString()
   @IsNotEmpty()
   path: string;
+}
+
+export class ScheduleDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  cron: string;
+
+  @IsString()
+  description?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsEnum(ScheduleType)
+  type: ScheduleType;
+
+  @IsNotEmpty()
+  action: any; // 这随着 type 的不同而不同, 用于储存如：url,method,body的数据
+
+  @IsString()
+  @IsNotEmpty()
+  @IsEnum(AfterSchedule)
+  after: AfterSchedule;
+
+  @IsNotEmpty()
+  afterAction: any; // 这随着 after 的不同而不同
 }
