@@ -72,4 +72,14 @@ export class StoreServiceService {
       throw new InternalServerErrorRpcExcption(e);
     });
   }
+
+  async create(name: string, content: string | Buffer) {
+    if (!name) {
+      throw new InternalServerErrorRpcExcption('文件名不能为空');
+    }
+    const path = join(STORE_DIR, name);
+    return await this.assetHelper.createFile(path, name, content).catch((e) => {
+      throw new InternalServerErrorRpcExcption(e);
+    });
+  }
 }
