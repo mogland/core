@@ -48,4 +48,9 @@ export class StoreServiceController {
   async storeFileMkdir(path: string) {
     return await this.storeServiceService.mkdir(path);
   }
+
+  @MessagePattern({ cmd: StoreEvents.StoreFileMoveByMaster })
+  async storeFileRename(data: { oldPath: string; newPath: string }) {
+    return await this.storeServiceService.rename(data.oldPath, data.newPath);
+  }
 }

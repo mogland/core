@@ -4,6 +4,7 @@ import {
   Get,
   Inject,
   Param,
+  Patch,
   Post,
   Req,
   Res,
@@ -77,7 +78,7 @@ export class StoreController {
 
   @Post('/upload')
   @ApiOperation({ summary: '上传文件' })
-  // @Auth()
+  @Auth()
   @HTTPDecorators.FileUpload({ description: 'upload file' })
   async upload(@Req() req: FastifyRequest) {
     const data = await req.file();
@@ -123,6 +124,17 @@ export class StoreController {
       this.store,
       StoreEvents.StoreFileMkdirByMaster,
       { path },
+    );
+  }
+
+  @Patch(['/rename', '/move'])
+  @ApiOperation({ summary: '重命名/移动文件' })
+  @Auth()
+  rename(@Body('oldPath') oldPath: string, @Body('newPath') newPath: string) {
+    return transportReqToMicroservice(
+      this.store,
+      StoreEvents.StoreFileMoveByMaster,
+      { oldPath, newPath },
     );
   }
 }

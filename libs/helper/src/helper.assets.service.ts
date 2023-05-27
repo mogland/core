@@ -139,4 +139,9 @@ export class AssetsService {
       readable.on('error', () => reject(null));
     });
   }
+
+  async rename(oldPath: string, newPath: string) {
+    fs.renameSync(oldPath, newPath);
+    return true;
+  }
 }

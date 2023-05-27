@@ -64,4 +64,12 @@ export class StoreServiceService {
       throw new InternalServerErrorRpcExcption(e);
     });
   }
+
+  async rename(oldPath: string, newPath: string) {
+    oldPath = join(STORE_DIR, decodeURIComponent(oldPath) || '');
+    newPath = join(STORE_DIR, decodeURIComponent(newPath) || '');
+    return await this.assetHelper.rename(oldPath, newPath).catch((e) => {
+      throw new InternalServerErrorRpcExcption(e);
+    });
+  }
 }
