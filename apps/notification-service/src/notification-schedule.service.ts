@@ -186,7 +186,6 @@ export class NotificationScheduleService {
   }
 
   async runSchedule(name: string) {
-    const job = this.schedulerRegistry.getCronJob(name);
     const config = await this.config.get('schedule');
     const configItem = config.find((item) => item.name === name);
     if (!configItem) {
