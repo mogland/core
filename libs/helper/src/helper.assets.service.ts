@@ -144,4 +144,13 @@ export class AssetsService {
     fs.renameSync(oldPath, newPath);
     return true;
   }
+
+  async createFile(_path: string, name: string, content?: string | Buffer) {
+    const filePath = path.join(_path, name);
+    if (this.exists(filePath)) {
+      throw new Error('File already exists');
+    }
+    fs.writeFileSync(filePath, content || '');
+    return true;
+  }
 }
