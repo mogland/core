@@ -137,4 +137,15 @@ export class StoreController {
       { oldPath, newPath },
     );
   }
+
+  @Post("/create")
+  @ApiOperation({ summary: '创建文件' })
+  @Auth()
+  create(@Body('name') name: string, @Body('content') content: Buffer) {
+    return transportReqToMicroservice(
+      this.store,
+      StoreEvents.StoreFileCreateByMaster,
+      { name, content },
+    );
+  }
 }

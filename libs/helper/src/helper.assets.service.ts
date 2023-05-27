@@ -145,7 +145,7 @@ export class AssetsService {
     return true;
   }
 
-  createFile(_path: string, name: string, content?: string | NodeJS.ArrayBufferView) {
+  async createFile(_path: string, name: string, content?: string | Buffer) {
     const filePath = path.join(_path, name);
     if (this.exists(filePath)) {
       throw new Error('File already exists');

@@ -53,4 +53,9 @@ export class StoreServiceController {
   async storeFileRename(data: { oldPath: string; newPath: string }) {
     return await this.storeServiceService.rename(data.oldPath, data.newPath);
   }
+
+  @MessagePattern({ cmd: StoreEvents.StoreFileCreateByMaster })
+  async storeFileCreate(data: { name: string, content: string | Buffer }) {
+    return await this.storeServiceService.create(data.name, data.content);
+  }
 }
