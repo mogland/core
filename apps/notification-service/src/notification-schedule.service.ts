@@ -7,7 +7,6 @@ import { ScheduleDto } from '~/libs/config/src/config.dto';
 import { HttpService } from '~/libs/helper/src/helper.http.service';
 import { AfterSchedule, ScheduleType } from './schedule.enum';
 import { nextTick } from 'process';
-import { AssetsService } from '~/libs/helper/src/helper.assets.service';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 import { StoreEvents } from '~/shared/constants/event.constant';
 import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
@@ -100,7 +99,7 @@ export class NotificationScheduleService {
   }
 
   private async recordError(name: string, e: Error) {
-    let raw = await this.config.get('schedule');
+    const raw = await this.config.get('schedule');
     const config = raw.find((item) => item.name === name);
     config?.error?.push({
       message: e.message,
