@@ -38,6 +38,7 @@ jobs:
         run: |
           npm run build
           npm run bundle
+          cp ecosystem.bundle.config.js out/ecosystem.bundle.config.js
           zip -r mog-core-bundle-${{ runner.os }}.zip out/
 
       - name: Upload

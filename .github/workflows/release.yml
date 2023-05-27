@@ -64,6 +64,7 @@ jobs:
       - name: Build project
         run: |
           pnpm run bundle
+          cp ecosystem.bundle.config.js out/ecosystem.bundle.config.js
           zip -r release.zip out/
 
       - name: Test Bundle Server
