@@ -153,4 +153,5 @@ export enum StoreEvents {
   StoreFileDeleteByMaster = 'store.file.delete.auth',
   StoreFileGetList = 'store.file.get.list',
   StoreFileMkdirByMaster = 'store.file.mkdir.auth',
+  StoreFileMoveByMaster = 'store.file.move.auth',
 }
