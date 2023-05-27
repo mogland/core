@@ -10,13 +10,13 @@ import { nextTick } from 'process';
 import { AssetsService } from '~/libs/helper/src/helper.assets.service';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 import { StoreEvents } from '~/shared/constants/event.constant';
+import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
 
 @Injectable()
 export class NotificationScheduleService {
   constructor(
     private readonly config: ConfigService,
     private readonly http: HttpService,
-    private readonly assets: AssetsService,
     @Inject('NOTIFICATION_SCHEDULE_SERVICE')
     private readonly client: ClientProxy,
     private schedulerRegistry: SchedulerRegistry,
@@ -107,5 +107,95 @@ export class NotificationScheduleService {
       ...raw.filter((item) => item.name !== name),
       config,
     ]);
+  }
+
+  async getScheduleList() {
+    const jobs = this.schedulerRegistry.getCronJobs();
+    const config = await this.config.get('schedule');
+    const arrayJobs = Object.values(jobs).map((job) => {
+      const configItem = config.find((item) => item.name === job.name);
+      return {
+        name: job.name,
+        cron: job.cronTime.source,
+        next: job.nextDate().toDate(),
+        last: job.lastDate().toDate(),
+        type: configItem?.type,
+        after: configItem?.after,
+        error: configItem?.error,
+      };
+    });
+    return arrayJobs;
+  }
+
+  async getScheduleDetail(name: string) {
+    const job = this.schedulerRegistry.getCronJob(name);
+    const config = await this.config.get('schedule');
+    const configItem = config.find((item) => item.name === name);
+    return {
+      name: configItem?.name,
+      cron: configItem?.cron,
+      next: job.nextDate().toJSDate(),
+      last: job.lastDate(),
+      type: configItem?.type,
+      after: configItem?.after,
+      error: configItem?.error,
+      running: job.running,
+    };
+  }
+
+  async createSchedule(data: ScheduleDto) {
+    const config = await this.config.get('schedule');
+    const newConfig = [
+      ...config,
+      {
+        ...data,
+        error: [],
+      },
+    ];
+    await this.config.patchAndValidate('schedule', newConfig);
+    await this.init();
+    return await this.getScheduleDetail(data.name);
+  }
+
+  async updateSchedule(name: string, data: ScheduleDto) {
+    const config = await this.config.get('schedule');
+    const newConfig = [
+      ...config.filter((item) => item.name !== name),
+      {
+        ...data,
+        error: [],
+      },
+    ];
+    await this.config.patchAndValidate('schedule', newConfig);
+    const job = this.schedulerRegistry.getCronJob(name);
+    job.stop();
+    job.setTime(new CronTime(data.cron));
+    job.start();
+    return await this.getScheduleDetail(name);
+  }
+
+  async deleteSchedule(name: string) {
+    const config = await this.config.get('schedule');
+    const newConfig = config.filter((item) => item.name !== name);
+    await this.config.patchAndValidate('schedule', newConfig);
+    const job = this.schedulerRegistry.getCronJob(name);
+    job.stop();
+    return await this.getScheduleList();
+  }
+
+  async runSchedule(name: string) {
+    const job = this.schedulerRegistry.getCronJob(name);
+    const config = await this.config.get('schedule');
+    const configItem = config.find((item) => item.name === name);
+    if (!configItem) {
+      throw new NotFoundRpcExcption("Schedule doesn't exist");
+    }
+    const data = await this.runCallback(configItem);
+    nextTick(async () => {
+      await this.runAfter(configItem, data).catch((e) => {
+        this.recordError(name, e);
+      });
+    });
+    return await this.getScheduleDetail(name);
   }
 }
