@@ -12,7 +12,6 @@ import { StoreEvents } from '~/shared/constants/event.constant';
 import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
 import { InternalServerErrorRpcExcption } from '~/shared/exceptions/internal-server-error-rpc-exception';
 import { toBoolean } from '~/shared/utils/toboolean.util';
-import { isBoolean } from 'lodash';
 import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
 
 @Injectable()
