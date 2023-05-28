@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob, CronTime } from 'cron';
@@ -29,11 +29,11 @@ export class NotificationScheduleService {
     const config = await this.config.get('schedule');
     await Promise.all([
       config.forEach((item) => {
-        let job;
+        let job: CronJob | undefined;
         try {
           job = this.schedulerRegistry.getCronJob(item.name);
         } catch {
-          /* empty */
+          job = undefined;
         }
         if (!job) {
           const newJob = new CronJob(item.cron, async () => {
@@ -50,14 +50,20 @@ export class NotificationScheduleService {
             }
           });
           this.schedulerRegistry.addCronJob(item.name, newJob);
-          newJob.start();
+          if (item.active) newJob.start();
+          else newJob.stop();
         } else {
           job.setTime(new CronTime(item.cron));
-          job.start();
+          if (item.active) job.start();
+          else job.stop();
         }
       }),
     ]);
-    this.scheduleList = this.schedulerRegistry.getCronJobs(); 
+    try {
+      this.scheduleList = this.schedulerRegistry.getCronJobs();
+    } catch {
+      /* empty */
+    }
   }
 
   private async runCallback(item: ScheduleDto) {
@@ -115,6 +121,10 @@ export class NotificationScheduleService {
   }
 
   private async recordError(name: string, e: Error) {
+    Logger.warn(
+      `Schedule ${name} error: ${e.message}`,
+      NotificationScheduleService.name,
+    );
     const raw = await this.config.get('schedule');
     const config = raw.find((item) => item.name === name);
     config?.error?.push({
@@ -135,7 +145,6 @@ export class NotificationScheduleService {
     const jobs = this.scheduleList;
     const config = await this.config.get('schedule');
     const arrayJobs = Array.from(jobs).map((job) => {
-      console.log(job);
       const configItem = config.find((item) => item.name === job[0]);
       if (!configItem) {
         return null;
@@ -148,13 +157,19 @@ export class NotificationScheduleService {
         type: configItem.type,
         after: configItem.after,
         error: configItem.error,
+        running: job[1].running,
       };
     });
     return arrayJobs;
   }
 
   async getScheduleDetail(name: string) {
-    const job = this.schedulerRegistry.getCronJob(name);
+    let job: CronJob;
+    try {
+      job = this.schedulerRegistry.getCronJob(name);
+    } catch {
+      throw new NotFoundRpcExcption("Schedule doesn't exist");
+    }
     const config = await this.config.get('schedule');
     const configItem = config.find((item) => item.name === name);
     return {
@@ -193,10 +208,15 @@ export class NotificationScheduleService {
       },
     ];
     await this.config.patchAndValidate('schedule', newConfig);
-    const job = this.schedulerRegistry.getCronJob(name);
-    job.stop();
-    job.setTime(new CronTime(data.cron));
-    job.start();
+    let job: CronJob;
+    try {
+      job = this.schedulerRegistry.getCronJob(name);
+      job.stop();
+      job.setTime(new CronTime(data.cron));
+      job.start();
+    } catch {
+      throw new NotFoundRpcExcption("Schedule doesn't exist");
+    }
     return await this.getScheduleDetail(name);
   }
 
@@ -217,8 +237,6 @@ export class NotificationScheduleService {
     nextTick(async () => {
       const data = await this.runCallback(configItem);
       await this.runAfter(configItem, data).catch((e) => {
-        console.log(e);
-
         this.recordError(name, e);
       });
     });
