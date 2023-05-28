@@ -21,32 +21,32 @@ export class ScheduleController {
     return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleCreateByMaster, body)
   }
 
-  @Delete("/:id")
+  @Delete("/:token")
   @ApiOperation({ summary: "删除定时任务" })
   // @Auth()
-  async deleteSchedule(@Param("id") id: string) {
-    return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleDeleteByMaster, id)
+  async deleteSchedule(@Param("token") token: string) {
+    return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleDeleteByMaster, token)
   }
 
-  @Put("/:id")
+  @Put("/:token")
   @ApiOperation({ summary: "更新定时任务" })
   // @Auth()
-  async updateSchedule(@Param("id") id: string, @Body() body: ScheduleDto) {
-    return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleUpdateByMaster, { id, body })
+  async updateSchedule(@Param("token") token: string, @Body() body: ScheduleDto) {
+    return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleUpdateByMaster, { token, body })
   }
 
-  @Get("/:id/run")
+  @Get("/:token/run")
   @ApiOperation({ summary: "立即运行定时任务" })
   // @Auth()
-  async runSchedule(@Param("id") id: string) {
-    return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleRunByMaster, id)
+  async runSchedule(@Param("token") token: string) {
+    return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleRunByMaster, token)
   }
 
-  @Get("/:id")
+  @Get("/:token")
   @ApiOperation({ summary: "获取定时任务详情" })
   // @Auth()
-  async getSchedule(@Param("id") id: string) {
-    return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleGetByMaster, id)
+  async getSchedule(@Param("token") token: string) {
+    return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleGetByMaster, token)
   }
 
   @Get("")
@@ -56,11 +56,11 @@ export class ScheduleController {
     return transportReqToMicroservice(this.notification, NotificationEvents.SchedulesGetAllByMaster, {})
   }
 
-  @Patch("/:id")
+  @Patch("/:token")
   @ApiOperation({ summary: "切换定时任务状态" })
   // @Auth()
-  async toggleSchedule(@Param("id") id: string) {
-    return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleToggleByMaster, id)
+  async toggleSchedule(@Param("token") token: string) {
+    return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleToggleByMaster, token)
   }
 
 }

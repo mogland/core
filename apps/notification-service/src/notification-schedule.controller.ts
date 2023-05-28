@@ -14,18 +14,18 @@ export class NotificationScheduleServiceController {
   }
 
   @MessagePattern({ cmd: NotificationEvents.ScheduleDeleteByMaster })
-  async deleteSchedule(id: string) {
-    return this.scheduleService.deleteSchedule(id);
+  async deleteSchedule(token: string) {
+    return this.scheduleService.deleteSchedule(token);
   }
 
   @MessagePattern({ cmd: NotificationEvents.ScheduleUpdateByMaster })
-  async updateSchedule(input: { id: string; body: ScheduleDto }) {
-    return this.scheduleService.updateSchedule(input.id, input.body);
+  async updateSchedule(input: { token: string; body: ScheduleDto }) {
+    return this.scheduleService.updateSchedule(input.token, input.body);
   }
 
   @MessagePattern({ cmd: NotificationEvents.ScheduleGetByMaster })
-  async getSchedule(id: string) {
-    return this.scheduleService.getScheduleDetail(id);
+  async getSchedule(token: string) {
+    return this.scheduleService.getScheduleDetail(token);
   }
 
   @MessagePattern({ cmd: NotificationEvents.SchedulesGetAllByMaster })
@@ -34,12 +34,12 @@ export class NotificationScheduleServiceController {
   }
 
   @MessagePattern({ cmd: NotificationEvents.ScheduleRunByMaster })
-  async runSchedule(id: string) {
-    return this.scheduleService.runSchedule(id);
+  async runSchedule(token: string) {
+    return this.scheduleService.runSchedule(token);
   }
 
   @MessagePattern({ cmd: NotificationEvents.ScheduleToggleByMaster })
-  async toggleSchedule(id: string) {
-    return this.scheduleService.toggleSchedule(id);
+  async toggleSchedule(token: string) {
+    return this.scheduleService.toggleSchedule(token);
   }
 }

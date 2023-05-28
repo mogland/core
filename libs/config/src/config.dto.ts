@@ -15,7 +15,6 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsUUID,
 } from 'class-validator';
 import {
   ScheduleType,
@@ -122,8 +121,9 @@ export class ThemesDto {
 }
 
 export class ScheduleDto {
-  @IsUUID()
-  id: string;
+  @IsOptional()
+  @IsString()
+  token: string;
 
   @IsString()
   @IsNotEmpty()
@@ -149,10 +149,9 @@ export class ScheduleDto {
   @IsEnum(AfterSchedule)
   after: AfterSchedule;
 
-  @IsNotEmpty()
-  afterAction: any; // 这随着 after 的不同而不同
+  afterAction?: any; // 这随着 after 的不同而不同
 
-  @IsArray({ each: true })
+  @IsArray()
   @IsOptional()
   error?: {
     message: string;

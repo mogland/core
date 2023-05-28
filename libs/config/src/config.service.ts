@@ -72,6 +72,8 @@ export class ConfigService {
         )
       : validateSync(model, this.validateOptions);
     if (errors.length) {
+      console.log(errors);
+      
       throw this.validate.createExceptionFactory()(errors as any);
     }
     return model;
