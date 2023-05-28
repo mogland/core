@@ -16,7 +16,7 @@ Mog is a _flexible, modular_ Blog System that uses **microservice** and is built
 
 ### Getting Started
 
-> _**Mog is currently in development and not yet ready for production use. We are currently at V2 Stage 5/10.**_
+> _**Mog is currently in development and not yet ready for production use. We are currently at v2 [Stage 6](https://github.com/mogland/core/issues/747)!**_
 
 Please follow the documentation at [mog.js.org](https://mog.js.org/)!
 
