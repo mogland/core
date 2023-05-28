@@ -176,13 +176,9 @@ export class NotificationScheduleService {
     const config = await this.config.get('schedule');
     const configItem = config.find((item) => item.name === name);
     return {
-      name: configItem?.name,
-      cron: configItem?.cron,
+      ...configItem,
       next: job.nextDate().toJSDate(),
       last: job.lastDate(),
-      type: configItem?.type,
-      after: configItem?.after,
-      error: configItem?.error,
       running: job.running,
     };
   }
