@@ -125,6 +125,7 @@ export class NotificationScheduleService {
             content: data,
           },
         );
+      case AfterSchedule.none:
       default:
         break;
     }
@@ -246,7 +247,7 @@ export class NotificationScheduleService {
     nextTick(async () => {
       const data = await this.runCallback(configItem);
       await this.runAfter(configItem, data).catch((e) => {
-        this.recordError(id, e);
+        this.recordError(configItem.name, id, e);
       });
     });
     return await this.getScheduleDetail(id);
