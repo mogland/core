@@ -14,7 +14,7 @@ export class ScheduleController {
     @Inject(ServicesEnum.notification) private readonly notification: ClientProxy
   ){}
 
-  @Post("create")
+  @Post("")
   @ApiOperation({ summary: "创建定时任务" })
   // @Auth()
   async createSchedule(@Body() body: ScheduleDto) {
@@ -56,7 +56,7 @@ export class ScheduleController {
     return transportReqToMicroservice(this.notification, NotificationEvents.SchedulesGetAllByMaster, {})
   }
 
-  @Patch("/:name/toggle")
+  @Patch("/:name")
   @ApiOperation({ summary: "切换定时任务状态" })
   // @Auth()
   async toggleSchedule(@Param("name") name: string) {

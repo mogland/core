@@ -63,6 +63,13 @@ export class NotificationScheduleService {
     ]);
     try {
       this.scheduleList = this.schedulerRegistry.getCronJobs();
+      const scheduleNames = config.map((item) => item.name);
+      const scheduleListNames = Array.from(this.scheduleList.keys());
+      scheduleListNames.forEach((name) => {
+        if (!scheduleNames.includes(name)) {
+          this.schedulerRegistry.deleteCronJob(name);
+        }
+      });
     } catch {
       /* empty */
     }
@@ -154,6 +161,7 @@ export class NotificationScheduleService {
       return {
         name: configItem.name,
         cron: configItem.cron,
+        description: configItem.description,
         next: job[1].nextDate().toJSDate(),
         last: job[1].lastDate(),
         type: configItem.type,
@@ -215,23 +223,8 @@ export class NotificationScheduleService {
       },
     ];
     await this.config.patchAndValidate('schedule', newConfig);
-    let job: CronJob;
-    try {
-      job = this.schedulerRegistry.getCronJob(name);
-      job.stop();
-      job.setTime(new CronTime(data.cron));
-      job.start();
-      if (data.active !== config.find((item) => item.name === name)?.active) {
-        if (data.active) {
-          job.start();
-        } else {
-          job.stop();
-        }
-      }
-    } catch {
-      throw new NotFoundRpcExcption("Schedule doesn't exist");
-    }
-    return await this.getScheduleDetail(name);
+    await this.init();
+    return await this.getScheduleDetail(data.name);
   }
 
   async deleteSchedule(name: string) {
@@ -275,9 +268,9 @@ export class NotificationScheduleService {
       configItem,
     ]);
     if (job.running) {
-      job.start();
+      job.stop()
     } else {
-      job.stop();
+      job.start();
     }
     return await this.getScheduleDetail(name);
   }
