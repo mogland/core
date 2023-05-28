@@ -39,14 +39,19 @@ export const MONGO_DB = {
   port: CONFIG.db_port || 27017,
   user: CONFIG.db_user || '',
   password: CONFIG.db_password || '',
+  isAtlas: CONFIG.db_atlas || false,
   userAndPassword:
     CONFIG.db_user && CONFIG.db_password
       ? `${CONFIG.db_user}:${CONFIG.db_password}@`
       : '',
   get uri() {
-    return `mongodb://${this.userAndPassword}${this.host}:${this.port}${
+    if (this.isAtlas) {
+      return `mongodb+srv://${this.userAndPassword}${this.host}/${this.dbName}?retryWrites=true&w=majority`;
+    } else {
+      return `mongodb://${this.userAndPassword}${this.host}:${this.port}${
       CONFIG.railway ? '' : `/${this.dbName}`
     }`;
+    }
   },
 };
 
