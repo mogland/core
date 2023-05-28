@@ -11,6 +11,9 @@ import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 import { StoreEvents } from '~/shared/constants/event.constant';
 import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
 import { InternalServerErrorRpcExcption } from '~/shared/exceptions/internal-server-error-rpc-exception';
+import { toBoolean } from '~/shared/utils/toboolean.util';
+import { isBoolean } from 'lodash';
+import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
 
 @Injectable()
 export class NotificationScheduleService {
@@ -185,11 +188,20 @@ export class NotificationScheduleService {
   }
 
   async createSchedule(data: ScheduleDto) {
+    if (!data.active) {
+      data.active = true;
+    } else {
+      data.active = toBoolean(data.active);
+    }
     const config = await this.config.get('schedule');
+    if (config.find((item) => item.name === data.name)) {
+      throw new BadRequestRpcExcption('Schedule name already exists');
+    }
     const newConfig = [
-      ...config,
+      ...config.filter((item) => item.name !== data.name),
       {
         ...data,
+        active: data.active ? toBoolean(data.active) : true,
         error: [],
       },
     ];
