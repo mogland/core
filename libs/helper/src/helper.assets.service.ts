@@ -146,6 +146,9 @@ export class AssetsService {
   }
 
   async createFile(_path: string, name: string, content?: string | Buffer) {
+    if (typeof content === 'object') {
+      content = JSON.stringify(content);
+    }
     const filePath = path.join(_path, name);
     if (this.exists(filePath)) {
       throw new Error('File already exists');

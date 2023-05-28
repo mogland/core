@@ -1,7 +1,6 @@
 import { DatabaseModule } from '@libs/database';
 import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
-import { ScheduleModule } from '@nestjs/schedule';
 import { CacheModule } from '~/libs/cache/src';
 import { ConfigModule } from '~/libs/config/src';
 import { AllExceptionsFilter } from '~/shared/common/filters/any-exception.filter';
@@ -26,10 +25,10 @@ import { ConsoleModule } from './modules/console/console.module';
 import { ThemesModule } from './modules/themes/themes.module';
 import { StoreModule } from './modules/store/store.module';
 import { MigrateModule } from './modules/migrate/migrate.module';
+import { ScheduleModule } from './modules/schedule/schedule.module';
 
 @Module({
   imports: [
-    ScheduleModule.forRoot(),
     CacheModule,
     DatabaseModule,
     ConfigModule,
@@ -44,6 +43,7 @@ import { MigrateModule } from './modules/migrate/migrate.module';
     ConsoleModule,
     ThemesModule,
     StoreModule,
+    ScheduleModule,
     ClientsModule.register([
       {
         name: ServicesEnum.notification,

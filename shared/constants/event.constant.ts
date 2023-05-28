@@ -112,6 +112,14 @@ export enum NotificationEvents {
   SystemPageUpdate = 'system.page.update',
 
   Ping = 'notification.ping',
+
+  ScheduleCreateByMaster = 'schedule.create.auth',
+  ScheduleDeleteByMaster = 'schedule.delete.auth',
+  ScheduleUpdateByMaster = 'schedule.update.auth',
+  ScheduleGetByMaster = 'schedule.get.auth',
+  SchedulesGetAllByMaster = 'schedules.get.all.auth',
+  ScheduleRunByMaster = 'schedule.run.auth',
+  ScheduleToggleByMaster = 'schedule.toggle.auth',
 }
 
 export enum ThemesEvents {

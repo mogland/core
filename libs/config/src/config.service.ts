@@ -137,7 +137,7 @@ export class ConfigService {
    * @param data 配置项数据
    * @returns {Promise<ConfigsInterface[T]>}
    */
-  public async patch<T extends keyof ConfigsInterface>(
+  private async patch<T extends keyof ConfigsInterface>(
     key: T, // 配置项名称
     data: Partial<ConfigsInterface[T]>, // 配置项数据
   ): Promise<ConfigsInterface[T]> {
@@ -173,7 +173,7 @@ export class ConfigService {
   }
 
   /**
-   *  setConfigs 设置配置
+   * setConfigs 设置配置
    * @param config 配置项
    */
   private async setConfig(config: ConfigsInterface) {

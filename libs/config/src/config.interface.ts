@@ -11,6 +11,7 @@ import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 import {
   EmailDto,
+  ScheduleDto,
   SeoDto,
   SiteDto,
   ThemesDto,
@@ -37,6 +38,10 @@ export abstract class ConfigsInterface {
   @Type(() => ThemesDto)
   @ValidateNested()
   themes: ThemesDto[];
+
+  @Type(() => ScheduleDto)
+  @ValidateNested()
+  schedule: ScheduleDto[];
 }
 
 export type ConfigsInterfaceKeys = keyof ConfigsInterface;
