@@ -13,6 +13,7 @@ import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception
 import { InternalServerErrorRpcExcption } from '~/shared/exceptions/internal-server-error-rpc-exception';
 import { toBoolean } from '~/shared/utils/toboolean.util';
 import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
+import { v4 } from 'uuid';
 
 @Injectable()
 export class NotificationScheduleService {
@@ -33,7 +34,7 @@ export class NotificationScheduleService {
       config.forEach((item) => {
         let job: CronJob | undefined;
         try {
-          job = this.schedulerRegistry.getCronJob(item.name);
+          job = this.schedulerRegistry.getCronJob(item.id);
         } catch {
           job = undefined;
         }
@@ -43,15 +44,15 @@ export class NotificationScheduleService {
               const data = await this.runCallback(item);
               nextTick(async () => {
                 await this.runAfter(item, data).catch((e) => {
-                  this.recordError(item.name, e);
+                  this.recordError(item.name, item.id, e);
                 });
               });
               return data;
             } catch (e) {
-              this.recordError(item.name, e);
+              this.recordError(item.name, item.id, e);
             }
           });
-          this.schedulerRegistry.addCronJob(item.name, newJob);
+          this.schedulerRegistry.addCronJob(item.id, newJob);
           if (item.active) newJob.start();
           else newJob.stop();
         } else {
@@ -63,7 +64,7 @@ export class NotificationScheduleService {
     ]);
     try {
       this.scheduleList = this.schedulerRegistry.getCronJobs();
-      const scheduleNames = config.map((item) => item.name);
+      const scheduleNames = config.map((item) => item.id);
       const scheduleListNames = Array.from(this.scheduleList.keys());
       scheduleListNames.forEach((name) => {
         if (!scheduleNames.includes(name)) {
@@ -129,20 +130,20 @@ export class NotificationScheduleService {
     }
   }
 
-  private async recordError(name: string, e: Error) {
+  private async recordError(name: string, id: string, e: Error) {
     Logger.warn(
       `Schedule ${name} error: ${e.message}`,
       NotificationScheduleService.name,
     );
     const raw = await this.config.get('schedule');
-    const config = raw.find((item) => item.name === name);
+    const config = raw.find((item) => item.id === id);
     config?.error?.push({
       message: e.message,
       time: new Date(),
     });
     return await this.config
       .patchAndValidate('schedule', [
-        ...raw.filter((item) => item.name !== name),
+        ...raw.filter((item) => item.id !== id),
         config,
       ])
       .catch((e) => {
@@ -154,7 +155,7 @@ export class NotificationScheduleService {
     const jobs = this.scheduleList;
     const config = await this.config.get('schedule');
     const arrayJobs = Array.from(jobs).map((job) => {
-      const configItem = config.find((item) => item.name === job[0]);
+      const configItem = config.find((item) => item.id === job[0]);
       if (!configItem) {
         return null;
       }
@@ -173,15 +174,15 @@ export class NotificationScheduleService {
     return arrayJobs;
   }
 
-  async getScheduleDetail(name: string) {
+  async getScheduleDetail(id: string) {
     let job: CronJob;
     try {
-      job = this.schedulerRegistry.getCronJob(name);
+      job = this.schedulerRegistry.getCronJob(id);
     } catch {
       throw new NotFoundRpcExcption("Schedule doesn't exist");
     }
     const config = await this.config.get('schedule');
-    const configItem = config.find((item) => item.name === name);
+    const configItem = config.find((item) => item.id === id);
     return {
       ...configItem,
       next: job.nextDate().toJSDate(),
@@ -191,17 +192,18 @@ export class NotificationScheduleService {
   }
 
   async createSchedule(data: ScheduleDto) {
+    data.id = v4();
     if (!data.active) {
       data.active = true;
     } else {
       data.active = toBoolean(data.active);
     }
     const config = await this.config.get('schedule');
-    if (config.find((item) => item.name === data.name)) {
+    if (config.find((item) => item.id === data.id)) {
       throw new BadRequestRpcExcption('Schedule name already exists');
     }
     const newConfig = [
-      ...config.filter((item) => item.name !== data.name),
+      ...config.filter((item) => item.id !== data.id),
       {
         ...data,
         active: data.active ? toBoolean(data.active) : true,
@@ -213,10 +215,10 @@ export class NotificationScheduleService {
     return await this.getScheduleDetail(data.name);
   }
 
-  async updateSchedule(name: string, data: ScheduleDto) {
+  async updateSchedule(id: string, data: ScheduleDto) {
     const config = await this.config.get('schedule');
     const newConfig = [
-      ...config.filter((item) => item.name !== name),
+      ...config.filter((item) => item.id !== id),
       {
         ...data,
         error: [],
@@ -224,54 +226,54 @@ export class NotificationScheduleService {
     ];
     await this.config.patchAndValidate('schedule', newConfig);
     await this.init();
-    return await this.getScheduleDetail(data.name);
+    return await this.getScheduleDetail(data.id);
   }
 
-  async deleteSchedule(name: string) {
+  async deleteSchedule(id: string) {
     const config = await this.config.get('schedule');
-    const newConfig = config.filter((item) => item.name !== name);
+    const newConfig = config.filter((item) => item.id !== id);
     await this.config.patchAndValidate('schedule', newConfig);
-    this.schedulerRegistry.deleteCronJob(name);
+    this.schedulerRegistry.deleteCronJob(id);
     return await this.getScheduleList();
   }
 
-  async runSchedule(name: string) {
+  async runSchedule(id: string) {
     const config = await this.config.get('schedule');
-    const configItem = config.find((item) => item.name === name);
+    const configItem = config.find((item) => item.id === id);
     if (!configItem) {
       throw new NotFoundRpcExcption("Schedule doesn't exist");
     }
     nextTick(async () => {
       const data = await this.runCallback(configItem);
       await this.runAfter(configItem, data).catch((e) => {
-        this.recordError(name, e);
+        this.recordError(id, e);
       });
     });
-    return await this.getScheduleDetail(name);
+    return await this.getScheduleDetail(id);
   }
 
-  async toggleSchedule(name: string) {
+  async toggleSchedule(id: string) {
     let job: CronJob;
     try {
-      job = this.schedulerRegistry.getCronJob(name);
+      job = this.schedulerRegistry.getCronJob(id);
     } catch {
       throw new NotFoundRpcExcption("Schedule doesn't exist");
     }
     const config = await this.config.get('schedule');
-    const configItem = config.find((item) => item.name === name);
+    const configItem = config.find((item) => item.id === id);
     if (!configItem) {
       throw new NotFoundRpcExcption("Schedule doesn't exist");
     }
     configItem.active = !configItem.active;
     await this.config.patchAndValidate('schedule', [
-      ...config.filter((item) => item.name !== name),
+      ...config.filter((item) => item.id !== id),
       configItem,
     ]);
     if (job.running) {
-      job.stop()
+      job.stop();
     } else {
       job.start();
     }
-    return await this.getScheduleDetail(name);
+    return await this.getScheduleDetail(id);
   }
 }

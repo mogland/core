@@ -15,6 +15,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  IsUUID,
 } from 'class-validator';
 import {
   ScheduleType,
@@ -121,6 +122,9 @@ export class ThemesDto {
 }
 
 export class ScheduleDto {
+  @IsUUID()
+  id: string;
+
   @IsString()
   @IsNotEmpty()
   name: string;
