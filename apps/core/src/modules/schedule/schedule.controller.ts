@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Inject, Param, Patch, Post } from "@nest
 import { ClientProxy } from "@nestjs/microservices";
 import { ApiOperation } from "@nestjs/swagger";
 import { ScheduleDto } from "~/libs/config/src/config.dto";
-import { Auth } from "~/shared/common/decorator/auth.decorator";
 import { ApiName } from "~/shared/common/decorator/openapi.decorator";
 import { NotificationEvents } from "~/shared/constants/event.constant";
 import { ServicesEnum } from "~/shared/constants/services.constant";
