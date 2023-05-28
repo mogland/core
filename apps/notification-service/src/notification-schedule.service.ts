@@ -57,7 +57,7 @@ export class NotificationScheduleService {
         }
       }),
     ]);
-    this.scheduleList = this.schedulerRegistry.getCronJobs();
+    this.scheduleList = this.schedulerRegistry.getCronJobs(); 
   }
 
   private async runCallback(item: ScheduleDto) {
@@ -134,16 +134,20 @@ export class NotificationScheduleService {
   async getScheduleList() {
     const jobs = this.scheduleList;
     const config = await this.config.get('schedule');
-    const arrayJobs = Object.values(jobs).map((job) => {
-      const configItem = config.find((item) => item.name === job.name);
+    const arrayJobs = Array.from(jobs).map((job) => {
+      console.log(job);
+      const configItem = config.find((item) => item.name === job[0]);
+      if (!configItem) {
+        return null;
+      }
       return {
-        name: job.name,
-        cron: job.cronTime.source,
-        next: job.nextDate().toDate(),
-        last: job.lastDate().toDate(),
-        type: configItem?.type,
-        after: configItem?.after,
-        error: configItem?.error,
+        name: configItem.name,
+        cron: configItem.cron,
+        next: job[1].nextDate().toJSDate(),
+        last: job[1].lastDate(),
+        type: configItem.type,
+        after: configItem.after,
+        error: configItem.error,
       };
     });
     return arrayJobs;
@@ -214,7 +218,7 @@ export class NotificationScheduleService {
       const data = await this.runCallback(configItem);
       await this.runAfter(configItem, data).catch((e) => {
         console.log(e);
-        
+
         this.recordError(name, e);
       });
     });
