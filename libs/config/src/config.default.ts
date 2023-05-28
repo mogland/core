@@ -28,4 +28,5 @@ export const DefaultConfigs: () => ConfigsInterface = () => ({
     secure: true,
   },
   themes: [],
+  schedule: [],
 });
