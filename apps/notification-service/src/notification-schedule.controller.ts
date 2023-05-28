@@ -37,4 +37,9 @@ export class NotificationScheduleServiceController {
   async runSchedule(name: string) {
     return this.scheduleService.runSchedule(name);
   }
+
+  @MessagePattern({ cmd: NotificationEvents.ScheduleToggleByMaster })
+  async toggleSchedule(name: string) {
+    return this.scheduleService.toggleSchedule(name);
+  }
 }

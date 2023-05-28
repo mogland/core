@@ -119,6 +119,7 @@ export enum NotificationEvents {
   ScheduleGetByMaster = 'schedule.get.auth',
   SchedulesGetAllByMaster = 'schedules.get.all.auth',
   ScheduleRunByMaster = 'schedule.run.auth',
+  ScheduleToggleByMaster = 'schedule.toggle.auth',
 }
 
 export enum ThemesEvents {

@@ -56,4 +56,11 @@ export class ScheduleController {
     return transportReqToMicroservice(this.notification, NotificationEvents.SchedulesGetAllByMaster, {})
   }
 
+  @Patch("/:name/toggle")
+  @ApiOperation({ summary: "切换定时任务状态" })
+  // @Auth()
+  async toggleSchedule(@Param("name") name: string) {
+    return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleToggleByMaster, name)
+  }
+
 }

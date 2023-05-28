@@ -154,4 +154,8 @@ export class ScheduleDto {
     message: string;
     time: Date;
   }[]; // 这里是错误日志，如果有错误，会发送到这里
+
+  @IsBoolean()
+  @IsNotEmpty()
+  active: boolean;
 }

@@ -224,4 +224,29 @@ export class NotificationScheduleService {
     });
     return await this.getScheduleDetail(name);
   }
+
+  async toggleSchedule(name: string) {
+    let job: CronJob;
+    try {
+      job = this.schedulerRegistry.getCronJob(name);
+    } catch {
+      throw new NotFoundRpcExcption("Schedule doesn't exist");
+    }
+    const config = await this.config.get('schedule');
+    const configItem = config.find((item) => item.name === name);
+    if (!configItem) {
+      throw new NotFoundRpcExcption("Schedule doesn't exist");
+    }
+    configItem.active = !configItem.active;
+    await this.config.patchAndValidate('schedule', [
+      ...config.filter((item) => item.name !== name),
+      configItem,
+    ]);
+    if (job.running) {
+      job.start();
+    } else {
+      job.stop();
+    }
+    return await this.getScheduleDetail(name);
+  }
 }
