@@ -10,9 +10,11 @@ import { nextTick } from 'process';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 import { StoreEvents } from '~/shared/constants/event.constant';
 import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
+import { InternalServerErrorRpcExcption } from '~/shared/exceptions/internal-server-error-rpc-exception';
 
 @Injectable()
 export class NotificationScheduleService {
+  private scheduleList: Map<string, CronJob>;
   constructor(
     private readonly config: ConfigService,
     private readonly http: HttpService,
@@ -25,9 +27,14 @@ export class NotificationScheduleService {
 
   private async init() {
     const config = await this.config.get('schedule');
-    Promise.all([
+    await Promise.all([
       config.forEach((item) => {
-        const job = this.schedulerRegistry.getCronJob(item.name);
+        let job;
+        try {
+          job = this.schedulerRegistry.getCronJob(item.name);
+        } catch {
+          /* empty */
+        }
         if (!job) {
           const newJob = new CronJob(item.cron, async () => {
             try {
@@ -50,14 +57,20 @@ export class NotificationScheduleService {
         }
       }),
     ]);
+    this.scheduleList = this.schedulerRegistry.getCronJobs();
   }
 
   private async runCallback(item: ScheduleDto) {
     switch (item.type) {
       case ScheduleType.url: {
         const { url, method, body } = item.action;
-        const { data } = await this.http.axiosRef[method](url, body);
-        return data;
+        const { data: httpData } = await this.http.axiosRef[method || 'get'](
+          url,
+          {
+            ...(body || {}),
+          },
+        );
+        return httpData;
       }
       case ScheduleType.event: {
         const { event, data: eventData, time, emit } = item.action;
@@ -78,10 +91,13 @@ export class NotificationScheduleService {
     switch (item.after) {
       case AfterSchedule.url: {
         const { url, method, body } = item.afterAction;
-        const { data: httpData } = await this.http.axiosRef[method](url, {
-          ...body,
-          ...data,
-        });
+        const { data: httpData } = await this.http.axiosRef[method || 'get'](
+          url,
+          {
+            ...(body || {}),
+            ...data,
+          },
+        );
         return httpData;
       }
       case AfterSchedule.store:
@@ -89,7 +105,7 @@ export class NotificationScheduleService {
           this.client,
           StoreEvents.StoreFileCreateByMaster,
           {
-            name: item.name,
+            name: `${item.name}_${new Date().toISOString()}.json`,
             content: data,
           },
         );
@@ -105,14 +121,18 @@ export class NotificationScheduleService {
       message: e.message,
       time: new Date(),
     });
-    return await this.config.patchAndValidate('schedule', [
-      ...raw.filter((item) => item.name !== name),
-      config,
-    ]);
+    return await this.config
+      .patchAndValidate('schedule', [
+        ...raw.filter((item) => item.name !== name),
+        config,
+      ])
+      .catch((e) => {
+        throw new InternalServerErrorRpcExcption(e.message);
+      });
   }
 
   async getScheduleList() {
-    const jobs = this.schedulerRegistry.getCronJobs();
+    const jobs = this.scheduleList;
     const config = await this.config.get('schedule');
     const arrayJobs = Object.values(jobs).map((job) => {
       const configItem = config.find((item) => item.name === job.name);
@@ -180,8 +200,7 @@ export class NotificationScheduleService {
     const config = await this.config.get('schedule');
     const newConfig = config.filter((item) => item.name !== name);
     await this.config.patchAndValidate('schedule', newConfig);
-    const job = this.schedulerRegistry.getCronJob(name);
-    job.stop();
+    this.schedulerRegistry.deleteCronJob(name);
     return await this.getScheduleList();
   }
 
@@ -191,9 +210,11 @@ export class NotificationScheduleService {
     if (!configItem) {
       throw new NotFoundRpcExcption("Schedule doesn't exist");
     }
-    const data = await this.runCallback(configItem);
     nextTick(async () => {
+      const data = await this.runCallback(configItem);
       await this.runAfter(configItem, data).catch((e) => {
+        console.log(e);
+        
         this.recordError(name, e);
       });
     });

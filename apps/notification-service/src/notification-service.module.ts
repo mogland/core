@@ -7,6 +7,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { NotificationScheduleService } from './notification-schedule.service';
 import { ClientsModule } from '@nestjs/microservices';
 import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
+import { NotificationScheduleServiceController } from './notification-schedule.controller';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
       },
     ]),
   ],
-  controllers: [NotificationServiceController],
+  controllers: [NotificationServiceController, NotificationScheduleServiceController],
   providers: [NotificationService, NotificationScheduleService],
 })
 export class NotificationServiceModule {}

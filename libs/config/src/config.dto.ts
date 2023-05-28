@@ -20,6 +20,7 @@ import {
   ScheduleType,
   AfterSchedule,
 } from '~/apps/notification-service/src/schedule.enum';
+import { IsCron } from '~/shared/utils/validator/isCron';
 
 export class SeoDto {
   @IsString()
@@ -124,7 +125,7 @@ export class ScheduleDto {
   @IsNotEmpty()
   name: string;
 
-  @IsString()
+  @IsCron()
   @IsNotEmpty()
   cron: string;
 
