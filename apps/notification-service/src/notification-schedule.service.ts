@@ -221,6 +221,13 @@ export class NotificationScheduleService {
       job.stop();
       job.setTime(new CronTime(data.cron));
       job.start();
+      if (data.active !== config.find((item) => item.name === name)?.active) {
+        if (data.active) {
+          job.start();
+        } else {
+          job.stop();
+        }
+      }
     } catch {
       throw new NotFoundRpcExcption("Schedule doesn't exist");
     }

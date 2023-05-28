@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, Put } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { ApiOperation } from "@nestjs/swagger";
 import { ScheduleDto } from "~/libs/config/src/config.dto";
@@ -28,7 +28,7 @@ export class ScheduleController {
     return transportReqToMicroservice(this.notification, NotificationEvents.ScheduleDeleteByMaster, name)
   }
 
-  @Patch("/:name")
+  @Put("/:name")
   @ApiOperation({ summary: "更新定时任务" })
   // @Auth()
   async updateSchedule(@Param("name") name: string, @Body() body: ScheduleDto) {
