@@ -294,6 +294,12 @@ export class FriendsService {
       );
       return isAlive;
     }
+    
+    if (!friend.verifyLink) {
+      await this.friendsModel.findByIdAndUpdate(id, { autoCheck: false });
+      Logger.warn(`${friend.name} 无验证链接，跳过互链检测`, FriendsService.name);
+      return isAlive;
+    }
     const isAutoCheck = await this.autoCheck(friend.verifyLink);
     if (!isAutoCheck) {
       await this.friendsModel.findByIdAndUpdate(id, { autoCheck: false });
