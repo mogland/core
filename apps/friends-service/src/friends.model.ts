@@ -79,13 +79,14 @@ export class FriendsModel extends BaseModel {
   @ApiProperty({ required: false, description: '是否添加我方博客友链' })
   autoCheck?: boolean;
 
-  @prop({ required: true })
+  @prop()
   @IsString()
+  @IsOptional()
   @ApiProperty({
     required: true,
     description: '友链验证链接，用于验证对方是否添加我方友链',
   })
-  verifyLink: string;
+  verifyLink?: string;
 
   @prop()
   @IsUrl()
