@@ -220,6 +220,8 @@ export class MigrateService {
           {
             data: {
               ...comment,
+              parent: null, // reset parent, let mog auto bind
+              children: undefined, // reset children, let mog auto bind
               id: undefined, // 重置 id，让 mog 自动生成
             },
             importPattern: true,
@@ -275,6 +277,10 @@ export class MigrateService {
         return [];
       },
     );
+    const pagesData = await this.importPages(pages).catch((e) => {
+      Logger.error(`导入页面时出错 ${e}`, MigrateService.name);
+      return [];
+    })
     const commentsData = await this.importComments(comments).catch((e) => {
       Logger.error(`导入评论时出错 ${e}`, MigrateService.name);
       return [];
@@ -288,10 +294,7 @@ export class MigrateService {
         Logger.error(`导入好友时出错 ${e}`, MigrateService.name);
         return [];
       }),
-      pages: await this.importPages(pages).catch((e) => {
-        Logger.error(`导入页面时出错 ${e}`, MigrateService.name);
-        return [];
-      }),
+      pages: pagesData,
       categories: categoriesData,
       posts: postsData,
       comments: commentsData,
