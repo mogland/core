@@ -117,4 +117,18 @@ export class PageService {
     this.notification.emit(NotificationEvents.SystemPageUpdate, res);
     return res;
   }
+
+ /**
+   * 根据id删除页面
+   * @param id 页面id
+   * @returns void
+   **/
+    async deletePageById(id: string) {
+      return this.pageModel.findByIdAndDelete(id).then((res) => {
+        if (res) {
+          this.notification.emit(NotificationEvents.SystemPageDelete, res);
+        }
+        return true;
+      });
+    }
 }

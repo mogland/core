@@ -201,8 +201,14 @@ export class PageServiceController {
 
   @MessagePattern({ cmd: PageEvents.PagePatch })
   @ApiOperation({ summary: '更新页面' })
-  async patch(input: { params: MongoIdDto; body: PartialPageModel }) {
+  async patchPage(input: { params: MongoIdDto; body: PartialPageModel }) {
     return await this.pageService.updateById(input.params.id, input.body);
+  }
+
+  @MessagePattern({ cmd: PageEvents.PageDelete })
+  @ApiOperation({ summary: '删除页面' })
+  async deletePage(id: string) {
+    return await this.pageService.deletePageById(id);
   }
 
   // ==================== Post ====================
