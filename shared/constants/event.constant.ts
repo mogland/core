@@ -108,8 +108,10 @@ export enum NotificationEvents {
 
   SystemPostCreate = 'system.post.create',
   SystemPostUpdate = 'system.post.update',
+  SystemPostDelete = 'system.post.delete',
   SystemPageCreate = 'system.page.create',
   SystemPageUpdate = 'system.page.update',
+  SystemPageDelete = 'system.page.delete',
 
   Ping = 'notification.ping',
 
