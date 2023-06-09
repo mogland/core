@@ -116,6 +116,11 @@ export class NotificationServiceController {
     console.log('更新了一篇文章：', data.title);
   }
 
+  @EventPattern(NotificationEvents.SystemPostDelete)
+  async systemPostDelete(data: PostModel) {
+    console.log('删除了一篇文章：', data.title);
+  }
+
   @EventPattern(NotificationEvents.SystemPageCreate)
   async systemPageCreate(data: PageModel) {
     console.log('创建了一个页面：', data.title);

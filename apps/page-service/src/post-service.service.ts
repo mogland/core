@@ -311,10 +311,12 @@ export class PostService {
    * @returns void
    **/
   async deletePostById(id: string) {
-    await Promise.all([
-      this.model.deleteOne({ _id: id }),
-      // this.commentModel.deleteMany({ ref: id, refType: CommentType.Post }),
-    ]);
+    return this.postModel.findByIdAndDelete(id).then((res) => {
+      if (res) {
+        this.notification.emit(NotificationEvents.SystemPostDelete, res);
+      }
+      return true;
+    });
   }
 
   async CreateDefaultPost(cateId: string) {
