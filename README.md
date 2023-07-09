@@ -1,6 +1,6 @@
 # Mog 🐱 /mɑːɡ/
 
-<img align="right" src="https://avatars.githubusercontent.com/u/106414194" height="200">
+<img align="right" src="https://github.com/mogland/core/assets/62133302/ccb6235a-66c8-4f0a-8e86-46435dc3cb3c" height="200">
 
 <img src="https://img.shields.io/github/package-json/v/mogland/core\" referrerpolicy="no-referrer" alt="version">
 
