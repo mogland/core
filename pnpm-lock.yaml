@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   typescript: 5.0.4
 
@@ -33,7 +37,7 @@ dependencies:
     version: 2.2.1(@nestjs/common@9.4.0)(@nestjs/core@9.4.0)(reflect-metadata@0.1.13)
   '@typegoose/typegoose':
     specifier: 11.1.0
-    version: 11.1.0(mongoose@7.1.0)
+    version: 11.1.0(mongoose@7.1.2)
   '@vercel/ncc':
     specifier: 0.36.1
     version: 0.36.1
@@ -101,17 +105,17 @@ dependencies:
     specifier: ^2.29.4
     version: 2.29.4
   mongoose:
-    specifier: 7.1.0
-    version: 7.1.0
+    specifier: 7.1.2
+    version: 7.1.2
   mongoose-aggregate-paginate-v2:
     specifier: 1.0.6
     version: 1.0.6
   mongoose-lean-id:
     specifier: 0.5.0
-    version: 0.5.0(mongoose@7.1.0)
+    version: 0.5.0(mongoose@7.1.2)
   mongoose-lean-virtuals:
     specifier: 0.9.1
-    version: 0.9.1(mongoose@7.1.0)
+    version: 0.9.1(mongoose@7.1.2)
   mongoose-paginate-v2:
     specifier: 1.7.1
     version: 1.7.1
@@ -1221,7 +1225,7 @@ packages:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
 
-  /@typegoose/typegoose@11.1.0(mongoose@7.1.0):
+  /@typegoose/typegoose@11.1.0(mongoose@7.1.2):
     resolution: {integrity: sha512-lrqtPyhenjK2KsvAigKjaAs54JC7qqQh6p/mejhiZXd/+s+EoBvwkvMxB+3ZrvzBPl07H/SFJLmp21qLKNc+EA==}
     engines: {node: '>=14.17.0'}
     peerDependencies:
@@ -1229,7 +1233,7 @@ packages:
     dependencies:
       lodash: 4.17.21
       loglevel: 1.8.1
-      mongoose: 7.1.0
+      mongoose: 7.1.2
       reflect-metadata: 0.1.13
       semver: 7.5.0
       tslib: 2.5.0
@@ -1352,7 +1356,7 @@ packages:
   /@types/mongoose-aggregate-paginate-v2@1.0.8:
     resolution: {integrity: sha512-vIUWdinh9Z4+eFVC78k6/NRCzc0paouwN/KK7Z9gx9DSEN6DMFhbDJQiumdRx2ZqU9W+U3RY7C0onkmgM6/9Zw==}
     dependencies:
-      mongoose: 7.1.0
+      mongoose: 7.1.2
     transitivePeerDependencies:
       - '@aws-sdk/credential-providers'
       - mongodb-client-encryption
@@ -4487,21 +4491,21 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: false
 
-  /mongoose-lean-id@0.5.0(mongoose@7.1.0):
+  /mongoose-lean-id@0.5.0(mongoose@7.1.2):
     resolution: {integrity: sha512-8nlGndNnHr0r+++uMRAyQ0ULLuo+ERVHaVMludl/ZmahKsASjLuOxbHZi1clm4pdnI+RyYRkJ+kLYcEo9ez6WA==}
     peerDependencies:
       mongoose: 7.x
     dependencies:
-      mongoose: 7.1.0
+      mongoose: 7.1.2
     dev: false
 
-  /mongoose-lean-virtuals@0.9.1(mongoose@7.1.0):
+  /mongoose-lean-virtuals@0.9.1(mongoose@7.1.2):
     resolution: {integrity: sha512-jx4rhXuaQPam/lwef3z/FfYHlKdbFkDr9Qb7JEMeoa7y4pOuyJ83RkcNL25HRaoi4Bt71zKmV1cuJdv243t9aA==}
     peerDependencies:
       mongoose: '>=5.11.10'
     dependencies:
       array.prototype.flat: 1.2.3
-      mongoose: 7.1.0
+      mongoose: 7.1.2
       mpath: 0.8.4
     dev: false
 
@@ -4510,8 +4514,8 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: false
 
-  /mongoose@7.1.0:
-    resolution: {integrity: sha512-shoo9z/7o96Ojx69wpJn65+EC+Mt3q1SWTducW+F2Y4ieCXo0lZwpCZedgC841MIvJ7V8o6gmzoN1NfcnOTOuw==}
+  /mongoose@7.1.2:
+    resolution: {integrity: sha512-89+rFzYphsOCdIDam03ryECeOy4bFKvZqnu4NDdUduoOt2ip0/otIqVBBrjQ1Owz1xza6zy4VTifxBG/jNaJNQ==}
     engines: {node: '>=14.0.0'}
     dependencies:
       bson: 5.2.0
