@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   typescript: 5.0.4
 
@@ -244,8 +248,8 @@ devDependencies:
     specifier: ^0.31.0
     version: 0.31.0(jsdom@22.0.0)
   webpack:
-    specifier: 5.82.0
-    version: 5.82.0
+    specifier: 5.82.1
+    version: 5.82.1
   xml2js:
     specifier: 0.5.0
     version: 0.5.0
@@ -2726,6 +2730,14 @@ packages:
 
   /enhanced-resolve@5.13.0:
     resolution: {integrity: sha512-eyV8f0y1+bzyfh8xAwW/WTSZpLbjhqc4ne9eGSH4Zo2ejdyiNG9pU6mf9DG8a7+Auk6MFTlNOT4Y2y/9k8GKVg==}
+    engines: {node: '>=10.13.0'}
+    dependencies:
+      graceful-fs: 4.2.10
+      tapable: 2.2.1
+    dev: true
+
+  /enhanced-resolve@5.15.0:
+    resolution: {integrity: sha512-LXYT42KJ7lpIKECr2mAXIaMldcNCh/7E0KBKOu4KSfkHmP+mZmSs+8V5gBAqisWBy0OO4W5Oyys0GO1Y8KtdKg==}
     engines: {node: '>=10.13.0'}
     dependencies:
       graceful-fs: 4.2.10
@@ -5782,7 +5794,7 @@ packages:
       webpack: 5.80.0
     dev: true
 
-  /terser-webpack-plugin@5.3.7(webpack@5.82.0):
+  /terser-webpack-plugin@5.3.7(webpack@5.82.1):
     resolution: {integrity: sha512-AfKwIktyP7Cu50xNjXF/6Qb5lBNzYaWpU6YfoX3uZicTx0zTy0stDDCsvjDapKsSDvOeWo5MEq4TmdBy2cNoHw==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -5803,7 +5815,7 @@ packages:
       schema-utils: 3.1.2
       serialize-javascript: 6.0.1
       terser: 5.17.0
-      webpack: 5.82.0
+      webpack: 5.82.1
     dev: true
 
   /terser@5.17.0:
@@ -6309,8 +6321,8 @@ packages:
       - uglify-js
     dev: true
 
-  /webpack@5.82.0:
-    resolution: {integrity: sha512-iGNA2fHhnDcV1bONdUu554eZx+XeldsaeQ8T67H6KKHl2nUSwX8Zm7cmzOA46ox/X1ARxf7Bjv8wQ/HsB5fxBg==}
+  /webpack@5.82.1:
+    resolution: {integrity: sha512-C6uiGQJ+Gt4RyHXXYt+v9f+SN1v83x68URwgxNQ98cvH8kxiuywWGP4XeNZ1paOzZ63aY3cTciCEQJNFUljlLw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -6328,7 +6340,7 @@ packages:
       acorn-import-assertions: 1.8.0(acorn@8.8.2)
       browserslist: 4.21.3
       chrome-trace-event: 1.0.3
-      enhanced-resolve: 5.13.0
+      enhanced-resolve: 5.15.0
       es-module-lexer: 1.2.1
       eslint-scope: 5.1.1
       events: 3.3.0
@@ -6340,7 +6352,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.2
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.7(webpack@5.82.0)
+      terser-webpack-plugin: 5.3.7(webpack@5.82.1)
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:
