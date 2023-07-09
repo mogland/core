@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   typescript: 5.0.4
 
@@ -196,8 +200,8 @@ devDependencies:
     specifier: ^2.1.1
     version: 2.1.1
   '@types/mongoose-aggregate-paginate-v2':
-    specifier: 1.0.8
-    version: 1.0.8
+    specifier: 1.0.9
+    version: 1.0.9
   '@types/node':
     specifier: 18.16.4
     version: 18.16.4
@@ -1349,8 +1353,8 @@ packages:
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
     dev: true
 
-  /@types/mongoose-aggregate-paginate-v2@1.0.8:
-    resolution: {integrity: sha512-vIUWdinh9Z4+eFVC78k6/NRCzc0paouwN/KK7Z9gx9DSEN6DMFhbDJQiumdRx2ZqU9W+U3RY7C0onkmgM6/9Zw==}
+  /@types/mongoose-aggregate-paginate-v2@1.0.9:
+    resolution: {integrity: sha512-YKDKtSuE1vzMY/SAtlDTWJr52UhTYdrOypCqyx7T2xFYEWfybLnV98m4ZoVgYJH0XowVl7Y2Gnn6p1sF+3NbLA==}
     dependencies:
       mongoose: 7.1.0
     transitivePeerDependencies:
