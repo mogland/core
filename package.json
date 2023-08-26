@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@fastify/multipart": "7.6.0",
-    "@fastify/static": "6.10.1",
+    "@fastify/static": "6.10.2",
     "@nestjs/cache-manager": "^1.0.0",
     "@nestjs/common": "9.4.0",
     "@nestjs/core": "9.4.0",
