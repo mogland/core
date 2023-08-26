@@ -191,8 +191,8 @@ devDependencies:
     specifier: ^9.0.2
     version: 9.0.2
   '@types/lodash':
-    specifier: 4.14.194
-    version: 4.14.194
+    specifier: 4.14.197
+    version: 4.14.197
   '@types/mime':
     specifier: ^3.0.1
     version: 3.0.1
@@ -1337,8 +1337,8 @@ packages:
       '@types/node': 18.16.20
     dev: true
 
-  /@types/lodash@4.14.194:
-    resolution: {integrity: sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==}
+  /@types/lodash@4.14.197:
+    resolution: {integrity: sha512-BMVOiWs0uNxHVlHBgzTIqJYmj+PgCo4euloGF+5m4okL3rEYzM2EEv78mw8zWSMM57dM7kVIgJ2QDvwHSoCI5g==}
     dev: true
 
   /@types/luxon@3.3.0:
