@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   typescript: 5.1.6
 
@@ -131,8 +135,8 @@ dependencies:
     specifier: 1.6.6
     version: 1.6.6
   snakecase-keys:
-    specifier: 5.4.5
-    version: 5.4.5
+    specifier: 5.4.6
+    version: 5.4.6
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
@@ -741,7 +745,7 @@ packages:
   /@innei/eslint-config-ts@0.9.10(typescript@5.1.6):
     resolution: {integrity: sha512-mmYD02NL3k04Hkz5BqVD7Lg2Bh1fy3M2xLRYhOA6850sxVXt5Rvvqm3yGglZJmrltWPV3lt1vn9+30715BBJqg==}
     peerDependencies:
-      typescript: '>=4'
+      typescript: 5.1.6
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.59.2(@typescript-eslint/parser@5.59.11)(eslint@8.48.0)(typescript@5.1.6)
       '@typescript-eslint/parser': 5.59.11(eslint@8.48.0)(typescript@5.1.6)
@@ -1056,7 +1060,7 @@ packages:
   /@nestjs/schematics@10.0.2(chokidar@3.5.3)(typescript@5.1.6):
     resolution: {integrity: sha512-DaZZjymYoIfRqC5W62lnYXIIods1PDY6CGc8+IpRwyinzffjKxZ3DF3exu+mdyvllzkXo9DTXkoX4zOPSJHCkw==}
     peerDependencies:
-      typescript: '>=4.8.2'
+      typescript: 5.1.6
     dependencies:
       '@angular-devkit/core': 16.1.8(chokidar@3.5.3)
       '@angular-devkit/schematics': 16.1.8(chokidar@3.5.3)
@@ -3388,7 +3392,7 @@ packages:
     resolution: {integrity: sha512-mX3qW3idpueT2klaQXBzrIM/pHw+T0B/V9KHEvNrqijTq9NFnMZU6oreVxDYcf33P8a5cW+67PjodNHthGnNVg==}
     engines: {node: '>=12.13.0', yarn: '>=1.0.0'}
     peerDependencies:
-      typescript: '>3.6.0'
+      typescript: 5.1.6
       webpack: ^5.11.0
     dependencies:
       '@babel/code-frame': 7.18.6
@@ -5607,8 +5611,8 @@ packages:
       tslib: 2.6.1
     dev: false
 
-  /snakecase-keys@5.4.5:
-    resolution: {integrity: sha512-qSQVcgcWk8mQUN1miVGnRMAUye1dbj9+F9PVkR7wZUXNCidQwrl/kOKmoYf+WbH2ju6c9pXnlmbS2he7pb2/9A==}
+  /snakecase-keys@5.4.6:
+    resolution: {integrity: sha512-7ipeNts8YTLbx/6zIaT1mQGrHG2vK+0TjywPD79QzIDJDcvNXBLX7DXQOt6by4DFdncu8lDPc+QHKHemtDEoQg==}
     engines: {node: '>=12'}
     dependencies:
       map-obj: 4.3.0
@@ -6020,7 +6024,7 @@ packages:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
     peerDependencies:
-      typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
+      typescript: 5.1.6
     dependencies:
       tslib: 1.14.1
       typescript: 5.1.6
@@ -6638,7 +6642,3 @@ packages:
     resolution: {integrity: sha512-CDwRWriV229ZQN5/wIk92DYQ33Q/jU2DvL+CQXa96qIwMINpW6RQWaXWCRticVDPF0CRKZ4y6uB/8GRzBw1MxA==}
     engines: {node: '>= 16.0.0'}
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
