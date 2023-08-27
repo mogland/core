@@ -185,9 +185,8 @@ export class PostService {
     password?: any,
     isMaster?: boolean,
   ) {
-    const categoryDocument = await this.categoryService.getCategoryBySlug(
-      category,
-    );
+    const categoryDocument =
+      await this.categoryService.getCategoryBySlug(category);
     if (!categoryDocument) {
       throw new NotFoundRpcExcption(ExceptionMessage.CategoryIsNotExist);
     }

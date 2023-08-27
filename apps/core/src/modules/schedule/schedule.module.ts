@@ -1,8 +1,8 @@
-import { Module } from "@nestjs/common";
-import { ClientsModule } from "@nestjs/microservices";
-import { ServicesEnum } from "~/shared/constants/services.constant";
-import { REDIS_TRANSPORTER } from "~/shared/constants/transporter.constants";
-import { ScheduleController } from "./schedule.controller";
+import { Module } from '@nestjs/common';
+import { ClientsModule } from '@nestjs/microservices';
+import { ServicesEnum } from '~/shared/constants/services.constant';
+import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
+import { ScheduleController } from './schedule.controller';
 
 @Module({
   imports: [
@@ -10,9 +10,9 @@ import { ScheduleController } from "./schedule.controller";
       {
         name: ServicesEnum.notification,
         ...REDIS_TRANSPORTER,
-      }
-    ])
+      },
+    ]),
   ],
-  controllers: [ScheduleController]
+  controllers: [ScheduleController],
 })
-export class ScheduleModule{}
+export class ScheduleModule {}

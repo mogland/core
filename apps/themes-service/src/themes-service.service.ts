@@ -166,9 +166,8 @@ export class ThemesServiceService {
         }
         if (!config?.type) {
           throw new InternalServerErrorRpcExcption(
-            `主题配置文件格式错误, "${
-              (config as ThemeConfigItemAll)?.name
-            }" 字段中的 type 字段不存在`,
+            `主题配置文件格式错误, "${(config as ThemeConfigItemAll)
+              ?.name}" 字段中的 type 字段不存在`,
           );
         }
         if (!Object.values(ThemeConfigType).includes(config.type)) {

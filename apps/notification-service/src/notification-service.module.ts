@@ -21,7 +21,10 @@ import { NotificationScheduleServiceController } from './notification-schedule.c
       },
     ]),
   ],
-  controllers: [NotificationServiceController, NotificationScheduleServiceController],
+  controllers: [
+    NotificationServiceController,
+    NotificationScheduleServiceController,
+  ],
   providers: [NotificationService, NotificationScheduleService],
 })
 export class NotificationServiceModule {}

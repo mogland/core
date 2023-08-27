@@ -280,7 +280,7 @@ export class MigrateService {
     const pagesData = await this.importPages(pages).catch((e) => {
       Logger.error(`导入页面时出错 ${e}`, MigrateService.name);
       return [];
-    })
+    });
     const commentsData = await this.importComments(comments).catch((e) => {
       Logger.error(`导入评论时出错 ${e}`, MigrateService.name);
       return [];

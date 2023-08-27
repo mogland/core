@@ -3,13 +3,13 @@
  * @author: Wibus
  * Coding With IU
  */
-import FastifyMultipart from '@fastify/multipart'
-import { FastifyAdapter } from '@nestjs/platform-fastify'
+import FastifyMultipart from '@fastify/multipart';
+import { FastifyAdapter } from '@nestjs/platform-fastify';
 
 const app: FastifyAdapter = new FastifyAdapter({
   trustProxy: true,
-})
-export { app as fastifyApp }
+});
+export { app as fastifyApp };
 
 app.register(FastifyMultipart, {
   limits: {
@@ -17,7 +17,7 @@ app.register(FastifyMultipart, {
     fileSize: 1024 * 1024 * 6, // limit size 6M
     files: 5, // Max number of file fields
   },
-})
+});
 
 app.getInstance().addHook('onRequest', (request, reply, done) => {
   // set undefined origin

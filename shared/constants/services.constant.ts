@@ -1,11 +1,4 @@
-/*
- * @FilePath: /mog-core/shared/constants/services.constant.ts
- * @author: Wibus
- * @Date: 2022-09-03 22:28:40
- * @LastEditors: Wibus
- * @LastEditTime: 2022-11-18 11:37:58
- * Coding With IU
- */
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 
 export enum ServicesEnum {
   core = 'CORE',

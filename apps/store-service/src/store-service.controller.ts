@@ -55,7 +55,7 @@ export class StoreServiceController {
   }
 
   @MessagePattern({ cmd: StoreEvents.StoreFileCreateByMaster })
-  async storeFileCreate(data: { name: string, content: string | Buffer }) {
+  async storeFileCreate(data: { name: string; content: string | Buffer }) {
     return await this.storeServiceService.create(data.name, data.content);
   }
 }

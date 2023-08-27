@@ -49,8 +49,8 @@ export const MONGO_DB = {
       return `mongodb+srv://${this.userAndPassword}${this.host}/${this.dbName}?retryWrites=true&w=majority`;
     } else {
       return `mongodb://${this.userAndPassword}${this.host}:${this.port}${
-      CONFIG.railway ? '' : `/${this.dbName}`
-    }`;
+        CONFIG.railway ? '' : `/${this.dbName}`
+      }`;
     }
   },
 };

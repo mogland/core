@@ -94,8 +94,6 @@ export class AssetsService {
   }
 
   async getFileList(_path: string) {
-
-
     const files = fs.readdirSync(_path);
     const fileList = files.map((file) => {
       const filePath = path.join(_path, file);
