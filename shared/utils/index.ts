@@ -9,7 +9,6 @@
 
 export * from './redis.util';
 export * from './rss-parser.util';
-export * from './safe-eval.util';
 export * from './time.util';
 export * from './validator/isBooleanOrString';
 export * from './validator/isNilOrString';
