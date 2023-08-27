@@ -47,15 +47,15 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
-    "@fastify/multipart": "7.6.1",
+    "@fastify/multipart": "7.7.3",
     "@fastify/static": "6.10.2",
-    "@nestjs/cache-manager": "^1.0.0",
-    "@nestjs/common": "9.4.0",
-    "@nestjs/core": "9.4.0",
-    "@nestjs/event-emitter": "1.4.2",
-    "@nestjs/microservices": "9.4.0",
-    "@nestjs/platform-fastify": "9.4.0",
-    "@nestjs/schedule": "2.2.3",
+    "@nestjs/cache-manager": "2.1.0",
+    "@nestjs/common": "10.2.1",
+    "@nestjs/core": "10.2.1",
+    "@nestjs/event-emitter": "2.0.2",
+    "@nestjs/microservices": "10.2.1",
+    "@nestjs/platform-fastify": "10.2.1",
+    "@nestjs/schedule": "3.0.3",
     "@typegoose/typegoose": "11.1.0",
     "@vercel/ncc": "0.36.1",
     "adm-zip": "^0.5.10",
@@ -72,7 +72,6 @@
     "cron": "2.3.1",
     "dayjs": "1.11.7",
     "ejs": "^3.1.9",
-    "fastify": "^4.17.0",
     "jsdom": "^22.0.0",
     "jsonwebtoken": "9.0.1",
     "lodash": "4.17.21",
@@ -97,10 +96,10 @@
   },
   "devDependencies": {
     "@innei/eslint-config-ts": "0.9.10",
-    "@nestjs/cli": "9.4.2",
-    "@nestjs/schematics": "9.1.0",
-    "@nestjs/swagger": "6.3.0",
-    "@nestjs/testing": "9.4.0",
+    "@nestjs/cli": "10.1.16",
+    "@nestjs/schematics": "10.0.2",
+    "@nestjs/swagger": "7.1.8",
+    "@nestjs/testing": "10.2.1",
     "@types/adm-zip": "^0.5.0",
     "@types/bcrypt": "5.0.0",
     "@types/cache-manager-ioredis": "2.0.3",
@@ -126,13 +125,13 @@
     "ioredis": "5.3.2",
     "pm2": "^5.3.0",
     "prettier": "2.8.8",
-    "typescript": "5.0.4",
+    "typescript": "5.1.6",
     "vitest": "^0.31.0",
     "webpack": "5.82.1",
     "xml2js": "0.5.0"
   },
   "resolutions": {
-    "typescript": "5.0.4"
+    "typescript": "5.1.6"
   },
   "jest": {
     "moduleFileExtensions": [

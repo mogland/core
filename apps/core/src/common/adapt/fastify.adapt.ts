@@ -1,18 +1,15 @@
 /*
  * @FilePath: /mog-core/apps/core/src/common/adapt/fastify.adapt.ts
  * @author: Wibus
- * @Date: 2022-09-03 15:00:40
- * @LastEditors: Wibus
- * @LastEditTime: 2022-09-25 15:25:09
  * Coding With IU
  */
-import { FastifyAdapter } from '@nestjs/platform-fastify';
-import FastifyMultipart from '@fastify/multipart';
+import FastifyMultipart from '@fastify/multipart'
+import { FastifyAdapter } from '@nestjs/platform-fastify'
 
 const app: FastifyAdapter = new FastifyAdapter({
   trustProxy: true,
-});
-export { app as fastifyApp };
+})
+export { app as fastifyApp }
 
 app.register(FastifyMultipart, {
   limits: {
@@ -20,7 +17,7 @@ app.register(FastifyMultipart, {
     fileSize: 1024 * 1024 * 6, // limit size 6M
     files: 5, // Max number of file fields
   },
-});
+})
 
 app.getInstance().addHook('onRequest', (request, reply, done) => {
   // set undefined origin

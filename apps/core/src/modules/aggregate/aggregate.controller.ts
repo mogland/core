@@ -7,7 +7,8 @@
  * Coding With IU
  */
 
-import { CacheKey, CacheTTL, Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
+import { CacheKey, CacheTTL } from '@nestjs/cache-manager';
 import { ApiOperation } from '@nestjs/swagger';
 import { ConfigService } from '~/libs/config/src';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
