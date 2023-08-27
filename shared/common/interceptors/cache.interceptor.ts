@@ -33,7 +33,7 @@ export class HttpCacheInterceptor implements NestInterceptor {
   constructor(
     private readonly cacheManager: CacheService,
     @Inject(SYSTEM.REFLECTOR) private readonly reflector: Reflector,
-    @Inject(SYSTEM.HTTP_ADAPTER_HOST)
+    
     private readonly httpAdapterHost: HttpAdapterHost,
   ) {}
 
