@@ -49,8 +49,7 @@ jobs:
           nohup pnpm run dev > /dev/null 2>&1 &
           pid=$!
           sleep 60 # wait for server to start
-          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/scripts/workflow/test-request.sh -O test-request.sh
-          bash test-request.sh pid=$pid dev
+          bash ./scripts/workflow/test-request.sh pid=$pid dev
   build:
     name: Build & Upload [Bundle Mode]
     needs: start
