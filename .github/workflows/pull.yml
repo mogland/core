@@ -4,7 +4,16 @@ on:
   pull_request:
 
 jobs:
+  start:
+      strategy:
+        matrix:
+          node-version: [16.x, 18.x]
+          os: [ubuntu-latest, macos-latest]
+      runs-on: ${{ matrix.os }}
+
+      steps:
   build:
+    needs: start
     strategy:
       matrix:
         node-version: [16.x, 18.x]
@@ -12,8 +21,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -34,6 +42,22 @@ jobs:
       - name: Install Dependencies
         run: |
           pnpm i --no-optional
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@v1.10.0
+        with:
+          mongodb-version: 4.4
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.6.0
+        with:
+          redis-version: 6
+      - name: Start project & test
+        run: |
+          nohup pnpm run start:dev
+          pid=$!
+          sleep 3
+          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref }}/scripts/workflow/test-request.sh -O test.sh
+          bash test.sh pid=$pid dev
+    steps:
       - name: Build project
         run: |
           npm run build
@@ -75,108 +99,7 @@ jobs:
         # continue-on-error: true
         run: |
           unzip ./build/mog-core-bundle-Linux.zip -d ./
-          wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
+          # wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
+          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref }}/scripts/workflow/test-server.sh -O test-server.sh
+          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref }}/scripts/workflow/test-request.sh -O test-request.sh
           bash test-server.sh
-      # - name: Reply PR Failed (if not draft PR)
-      #   if: ${{ failure() && github.event.pull_request.draft == false }}
-      #   uses: peter-evans/create-or-update-comment@v2
-      #   with:
-      #     issue-number: ${{ github.event.pull_request.number }}
-      #     body: |
-      #       Hi, @${{ github.event.pull_request.user.login }}. Test **failed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
-
-      #       - OS: ${{ matrix.os }}
-      #       - Node.js: ${{ matrix.node-version }}
-      #       - MongoDB: 4.4
-      #       - Redis: 6
-      #       - Test Result: ${{ steps.test_bundle.outcome }}
-      #       - Commit: ${{ github.event.pull_request.head.sha }}
-
-      # - name: Reply PR Success
-      #   if: ${{ success() && github.event.pull_request.draft == false }}
-      #   uses: peter-evans/create-or-update-comment@v2
-      #   with:
-      #     issue-number: ${{ github.event.pull_request.number }}
-      #     body: |
-      #       Hi, ${{ github.event.pull_request.user.login }}. Test **passed** on ${{ matrix.os }} with Node.js ${{ matrix.node-version }}.
-
-      #       - OS: ${{ matrix.os }}
-      #       - Node.js: ${{ matrix.node-version }}
-      #       - MongoDB: 4.4
-      #       - Redis: 6
-      #       - Test Result: ${{ steps.test_bundle.outcome }}
-      #       - Commit: ${{ github.event.pull_request.head.sha }}
-
-      #       You can request a review from @mogland/developers. **Thanks for your contribution!**
-      - name: Add ci-passed label
-        if: ${{ success() && github.event.pull_request.draft == false }}
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: ['ci-passed']
-            })
-      - name: Remove ci-failed label
-        if: ${{ success() && github.event.pull_request.draft == false }}
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const labels = await github.rest.issues.listLabelsOnIssue({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            })
-            const label = labels.data.find(label => label.name === 'ci-failed')
-            if (label) {
-              github.rest.issues.removeLabel({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: label.name
-              })
-            }
-      - name: Add ci-failed label
-        if: ${{ failure() && github.event.pull_request.draft == false }}
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const labels = await github.rest.issues.listLabelsOnIssue({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            })
-            const label = labels.data.find(label => label.name === 'ci-failed')
-            if (!label) {
-              github.rest.issues.addLabels({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                labels: ['ci-failed']
-              })
-            }
-      - name: Remove ci-passed label
-        if: ${{ failure() && github.event.pull_request.draft == false }}
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const labels = await github.rest.issues.listLabelsOnIssue({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            })
-            const hasPassedLabel = labels.data.some(label => label.name === 'ci-passed')
-            if (hasPassedLabel) {
-              github.rest.issues.removeLabel({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: 'ci-passed'
-              })
-            }
