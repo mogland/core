@@ -13,17 +13,17 @@ export class ConfigServiceController {
     return 'pong';
   }
   
-  @MessagePattern({ cmd: ConfigEvents.ConfigGet })
+  @MessagePattern({ cmd: ConfigEvents.ConfigGetByMaster })
   async getConfig(key: keyof ConfigsInterface) {
     return await this.configService.get(key);
   }
 
-  @MessagePattern({ cmd: ConfigEvents.ConfigGetAll })
+  @MessagePattern({ cmd: ConfigEvents.ConfigGetAllByMaster })
   async getAllConfig() {
     return await this.configService.waitForConfigReady();
   }
 
-  @MessagePattern({ cmd: ConfigEvents.ConfigGetAllWithoutRedis })
+  @MessagePattern({ cmd: ConfigEvents.ConfigGetAllWithoutRedisByMaster })
   async getAllConfigWithoutRedis() {
     return await this.configService.getAllConfigs();
   }

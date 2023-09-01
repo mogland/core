@@ -169,9 +169,9 @@ export enum StoreEvents {
 
 export enum ConfigEvents {
   Ping = 'config.ping',
-  ConfigGet = 'config.get',
-  ConfigGetAll = 'config.get.all.redis',
-  ConfigGetAllWithoutRedis = 'config.get.all',
+  ConfigGetByMaster = 'config.get.auth',
+  ConfigGetAllByMaster = 'config.get.all.redis.auth',
+  ConfigGetAllWithoutRedisByMaster = 'config.get.all.auth',
   ConfigPatchByMaster = 'config.patch.auth',
   ConfigDeleteByMaster = 'config.delete.auth',
 }
