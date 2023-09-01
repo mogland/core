@@ -46,11 +46,10 @@ jobs:
           redis-version: 6
       - name: Start project & test
         run: |
-          branch=$(basename "${{ github.ref }}")
           nohup pnpm run dev > /dev/null 2>&1 &
           pid=$!
           sleep 3
-          wget https://raw.githubusercontent.com/${{ github.repository }}/$branch/scripts/workflow/test.sh -O test.sh
+          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/scripts/workflow/test.sh -O test.sh
           bash test.sh pid=$pid dev
   build:
     name: Build & Upload [Bundle Mode]
@@ -103,9 +102,8 @@ jobs:
         id: test_bundle
         # continue-on-error: true
         run: |
-          branch=$(basename "${{ github.ref }}")
           unzip ./build/mog-core-bundle-Linux.zip -d ./
           # wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
-          wget https://raw.githubusercontent.com/${{ github.repository }}/$branch/scripts/workflow/test-server.sh -O test-server.sh
-          wget https://raw.githubusercontent.com/${{ github.repository }}/$branch/scripts/workflow/test-request.sh -O test-request.sh
+          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/scripts/workflow/test-server.sh -O test-server.sh
+          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/scripts/workflow/test-request.sh -O test-request.sh
           bash test-server.sh
