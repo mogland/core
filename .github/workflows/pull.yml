@@ -50,7 +50,7 @@ jobs:
           pid=$!
           sleep 3
           wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/scripts/workflow/test-request.sh -O test-request.sh
-          bash test.sh pid=$pid dev
+          bash test-request.sh pid=$pid dev
   build:
     name: Build & Upload [Bundle Mode]
     needs: start
