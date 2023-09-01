@@ -1,6 +1,6 @@
 #!/bin/bash
 
-url_array=("friends" "page" "user" "store" "config" "themes" "comments")
+url_array=("friends" "page" "user" "store" "configs" "themes" "comments")
 special_url="http://127.0.0.1:2330/api/ping"
 error_items=()
 has_errors=false
@@ -59,7 +59,7 @@ for item in "${url_array[@]}"; do
 done
 
 if [[ -n "$PID_ARG" ]]; then
-  kill -s SIGTERM "$PID_ARG"
+  kill "$PID_ARG"
 else
   pm2 kill
 fi
@@ -69,6 +69,7 @@ if $has_errors; then
   for error_item in "${error_items[@]}"; do
     echo "$error_item"
   done
+  echo "--- Server logs: `cat nohup.out` ---"
   exit 1
 else
   echo "All pings successful."
