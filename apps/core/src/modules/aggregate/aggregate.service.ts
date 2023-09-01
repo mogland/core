@@ -16,9 +16,12 @@ import { CategoryModel } from '~/apps/page-service/src/model/category.model';
 import { PageService } from '~/apps/page-service/src/page-service.service';
 import { PostService } from '~/apps/page-service/src/post-service.service';
 import { CacheService } from '~/libs/cache/src';
-import { ConfigService } from '~/libs/config/src';
 import { CacheKeys } from '~/shared/constants/cache.constant';
 import { RSSProps } from './aggregate.interface';
+import { ServicesEnum } from '~/shared/constants/services.constant';
+import { ClientProxy } from '@nestjs/microservices';
+import { ConfigEvents } from '~/shared/constants/event.constant';
+import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 
 @Injectable()
 export class AggregateService {
@@ -29,8 +32,8 @@ export class AggregateService {
     private readonly pageService: PageService,
     @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
-
-    private readonly configService: ConfigService,
+    @Inject(ServicesEnum.config)
+    private readonly configService: ClientProxy,
     private readonly redis: CacheService,
   ) {}
 
@@ -181,7 +184,11 @@ export class AggregateService {
    */
   async buildRssStructure(): Promise<RSSProps> {
     const data = await this.getRSSFeedContent();
-    const title = (await this.configService.get('seo')).title || '';
+    const title = (await transportReqToMicroservice(
+      this.configService,
+      ConfigEvents.ConfigGetByMaster,
+      'seo',
+    )).title || '';
     return {
       title,
       data,

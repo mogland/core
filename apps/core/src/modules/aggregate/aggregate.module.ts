@@ -11,9 +11,20 @@ import { Module } from '@nestjs/common';
 import { PageServiceModule } from '~/apps/page-service/src/page-service.module';
 import { AggregateController } from './aggregate.controller';
 import { AggregateService } from './aggregate.service';
+import { ClientsModule } from '@nestjs/microservices';
+import { ServicesEnum } from '~/shared/constants/services.constant';
+import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
 
 @Module({
-  imports: [PageServiceModule],
+  imports: [
+    PageServiceModule, // FIX: https://github.com/mogland/core/issues/845
+    ClientsModule.register([
+      {
+        name: ServicesEnum.config,
+        ...REDIS_TRANSPORTER,
+      },
+    ]),
+  ],
   controllers: [AggregateController],
   providers: [AggregateService],
   exports: [AggregateService],
