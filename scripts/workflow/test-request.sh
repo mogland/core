@@ -32,7 +32,7 @@ done
 do_request() {
   local url="$1"
   local retries=$MAX_RETRIES
-  echo "--- Checking $url ---"
+  echo "\n--- Checking $url ---"
   
   while [[ $retries -gt 0 ]]; do
     curl -f -m 10 "$url" -H "user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36"
