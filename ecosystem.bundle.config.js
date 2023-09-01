@@ -20,6 +20,11 @@ module.exports = {
       ...args,
     },
     {
+      name: 'Mog Config',
+      script: './config-service/index.js',
+      ...args,
+    },
+    {
       name: 'Mog Friends',
       script: './friends-service/index.js',
       ...args,
