@@ -62,7 +62,7 @@
     "@vercel/ncc": "0.36.1",
     "adm-zip": "^0.5.10",
     "axios": "1.5.0",
-    "axios-retry": "3.6.1",
+    "axios-retry": "3.7.0",
     "bcrypt": "5.1.1",
     "cache-manager": "4.1.0",
     "cache-manager-ioredis": "2.1.0",

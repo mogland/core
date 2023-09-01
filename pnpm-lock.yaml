@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   array-includes: npm:@nolyfill/array-includes@latest
   array.prototype.findlastindex: npm:@nolyfill/array.prototype.findlastindex@latest
@@ -51,8 +55,8 @@ dependencies:
     specifier: 1.5.0
     version: 1.5.0
   axios-retry:
-    specifier: 3.6.1
-    version: 3.6.1
+    specifier: 3.7.0
+    version: 3.7.0
   bcrypt:
     specifier: 5.1.1
     version: 5.1.1
@@ -156,7 +160,7 @@ devDependencies:
     version: 10.1.16
   '@nestjs/schematics':
     specifier: 10.0.2
-    version: 10.0.2(chokidar@3.5.3)(typescript@5.1.6)
+    version: 10.0.2(typescript@5.2.2)
   '@nestjs/swagger':
     specifier: 7.1.8
     version: 7.1.8(@fastify/static@6.10.2)(@nestjs/common@10.2.1)(@nestjs/core@10.2.1)(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)
@@ -351,19 +355,11 @@ packages:
       js-tokens: 4.0.0
     dev: true
 
-  /@babel/runtime@7.18.9:
-    resolution: {integrity: sha512-lkqXDcvlFT5rvEjiu6+QYO+1GXrEHRo2LOtS7E4GtX5ESIZOgepqsZBVIj6Pv+a6zqsya9VCgiK1KAK4BvJDAw==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      regenerator-runtime: 0.13.9
-    dev: false
-
   /@babel/runtime@7.22.11:
     resolution: {integrity: sha512-ee7jVNlWN09+KftVOu9n7S8gQzD/Z6hN/I8VBRXW4P1+Xe7kJGXMwu8vds4aGIMHZnNbdpSWCfZZtinytpcAvA==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.0
-    dev: true
 
   /@colors/colors@1.5.0:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
@@ -1078,6 +1074,21 @@ packages:
       - chokidar
     dev: true
 
+  /@nestjs/schematics@10.0.2(typescript@5.2.2):
+    resolution: {integrity: sha512-DaZZjymYoIfRqC5W62lnYXIIods1PDY6CGc8+IpRwyinzffjKxZ3DF3exu+mdyvllzkXo9DTXkoX4zOPSJHCkw==}
+    peerDependencies:
+      typescript: '>=4.8.2'
+    dependencies:
+      '@angular-devkit/core': 16.1.8(chokidar@3.5.3)
+      '@angular-devkit/schematics': 16.1.8(chokidar@3.5.3)
+      comment-json: 4.2.3
+      jsonc-parser: 3.2.0
+      pluralize: 8.0.0
+      typescript: 5.2.2
+    transitivePeerDependencies:
+      - chokidar
+    dev: true
+
   /@nestjs/swagger@7.1.8(@fastify/static@6.10.2)(@nestjs/common@10.2.1)(@nestjs/core@10.2.1)(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13):
     resolution: {integrity: sha512-Jpl3laGAqvyWccc3auLU0mMjl5hJ2kqzzDb63ynJi5NMbFlgBwrR8FCGBVstSsqL9YSJWLR4L1BZzVmVExcY+g==}
     peerDependencies:
@@ -1148,63 +1159,63 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@nolyfill/array-includes@1.0.17:
-    resolution: {integrity: sha512-1uMdMkk3kI9REOAcJBjS0dfRfyEaCYis50/zJVaL2BfWciUXcX55/nu1voQiExVdgHJUzsJ6NzCqukXqShKyYw==}
+  /@nolyfill/array-includes@1.0.21:
+    resolution: {integrity: sha512-P+SLU5wuJmHnuo1Nhy/3l4yneHm6M+WmISz5tCVGLc0rytUBRfACmneLTryh4nlobAhUulDkBL+VoldU1g3zoA==}
     engines: {node: '>=12.4.0'}
     dependencies:
-      '@nolyfill/shared': 1.0.17
+      '@nolyfill/shared': 1.0.21
     dev: true
 
-  /@nolyfill/array.prototype.findlastindex@1.0.17:
-    resolution: {integrity: sha512-Vv7XuwbfAK5rPb1p772uOTh8/AkHW+y7QZOTKjyVOdzc3mDB/cse8t3J+ZMMmCJMX+9zbqiZofyQp1XZj6YScw==}
+  /@nolyfill/array.prototype.findlastindex@1.0.21:
+    resolution: {integrity: sha512-chPKEkDdglpJjaP8WhZSlittmV+XsHFv0CmhQVWnif3mJvpxK4/oFwrszkwP4+jXyR9njKeaUIrLKuuTsL7yjw==}
     engines: {node: '>=12.4.0'}
     dependencies:
-      '@nolyfill/shared': 1.0.17
+      '@nolyfill/shared': 1.0.21
     dev: true
 
-  /@nolyfill/array.prototype.flat@1.0.17:
-    resolution: {integrity: sha512-r4xxqQsip2tKWtbBcYRmK+gOtg2eKu1FZgFDGP+La6/3seGzmzcKXvEF0jni9zfSE39dcVX7ZItfWLYCNiOfMw==}
+  /@nolyfill/array.prototype.flat@1.0.21:
+    resolution: {integrity: sha512-RoyB6qmcOSuflZH+XcZAkE1aBrYIV/3qdIGk6EG1afCdZSkUUCz0PAT8h3lHdtgVh+ge82hMK2SdCur2YeNj8A==}
     engines: {node: '>=12.4.0'}
     dependencies:
-      '@nolyfill/shared': 1.0.17
+      '@nolyfill/shared': 1.0.21
 
-  /@nolyfill/array.prototype.flatmap@1.0.17:
-    resolution: {integrity: sha512-KfgZ+yGJVXUWmeO3ek1e5pvBcxLfC5ppwicZmZUNQv7TSUDp/SdYOH0qUDW1/0kwrj9S8xDiKN195vfMiYU8Sw==}
+  /@nolyfill/array.prototype.flatmap@1.0.21:
+    resolution: {integrity: sha512-VWUiJBWk4qDgktkeQRzrtYlQdBRnEU3vfjoQxcBmdn3vSnq7ujKCBox4cdpZe9LZK9FU9Y1L4UteyW5THat2CQ==}
     engines: {node: '>=12.4.0'}
     dependencies:
-      '@nolyfill/shared': 1.0.17
+      '@nolyfill/shared': 1.0.21
     dev: true
 
-  /@nolyfill/has@1.0.17:
-    resolution: {integrity: sha512-+YeHgcNs0kG0gl7YXWaYtfHaZG3Vmz4PMkSZ5pFBXCiS0l7zRShkng+es6I8T8gjuvBcNV21+Yt19ayTiC8YVA==}
+  /@nolyfill/has@1.0.21:
+    resolution: {integrity: sha512-Sf8iFaegjGp29hQVQjIc+nDR0uWqGkHsFC3jsUigFwGjpafgMaBtL++DpTU9jYAKDJEvslR1szl8qJjNGlhgcw==}
     engines: {node: '>=12.4.0'}
     dependencies:
-      '@nolyfill/shared': 1.0.17
+      '@nolyfill/shared': 1.0.21
     dev: true
 
-  /@nolyfill/object.fromentries@1.0.17:
-    resolution: {integrity: sha512-NpvB949tnerOczkAOJ+bWPUg1DiEeu5Y+X/IEPbWld0akFe3YPZDIz02zUElrErjy1idL4K2m4kgiQbJ8TQ1qA==}
+  /@nolyfill/object.fromentries@1.0.21:
+    resolution: {integrity: sha512-q/uTyFipMOdMjKtAdPq0ufDN1glOa1FWqFGWApJ3CIhTbOqLz+ZypcS3h4sLhM91npP5PoTYma9RPbA4f0TrnA==}
     engines: {node: '>=12.4.0'}
     dependencies:
-      '@nolyfill/shared': 1.0.17
+      '@nolyfill/shared': 1.0.21
     dev: true
 
-  /@nolyfill/object.groupby@1.0.17:
-    resolution: {integrity: sha512-LU96U/6ShdpSEfYfg3SVak8HHUySmuacUMqnZedMQMc4Tj07NIH0SFmeMn9pQxeVOxZEx1SIYamATAgz6vDncA==}
+  /@nolyfill/object.groupby@1.0.21:
+    resolution: {integrity: sha512-/2hyrFMtlNspFdhp4TaQDzPPvqKTmobYY26XAxYqB/1K0eTd3bzg1KwwgNyCtTnScrsByUhIsQ9DdS5goOCluQ==}
     engines: {node: '>=12.4.0'}
     dependencies:
-      '@nolyfill/shared': 1.0.17
+      '@nolyfill/shared': 1.0.21
     dev: true
 
-  /@nolyfill/object.values@1.0.17:
-    resolution: {integrity: sha512-8w75EL9VSKmd7lmE17JQFTnCHzihgmlGdaClAGENgdihHsMoXZ0Ovw6aeDiSC1bBcq2NL1LIZhuqPOqbjIgkvQ==}
+  /@nolyfill/object.values@1.0.21:
+    resolution: {integrity: sha512-5RPPiaknXoCnpwXZTy99Oo/sNega0wf5DsYQU6YOFa1kLhvwgc4x2/Np1F8zT7WwGE9C1POH3ZIuSMelpd79Ew==}
     engines: {node: '>=12.4.0'}
     dependencies:
-      '@nolyfill/shared': 1.0.17
+      '@nolyfill/shared': 1.0.21
     dev: true
 
-  /@nolyfill/shared@1.0.17:
-    resolution: {integrity: sha512-pJgA5MKCRFBguoxLui1cyd6MI/SjXkH3JRx8G5I3WfW0ZJQYRNdE7LuzCFYW5l5HrqHHk8Ye487X28qezfTxzA==}
+  /@nolyfill/shared@1.0.21:
+    resolution: {integrity: sha512-qDc/NoaFU23E0hhiDPeUrvWzTXIPE+RbvRQtRWSeHHNmCIgYI9HS1jKzNYNJxv4jvZ/1VmM3L6rNVxbj+LBMNA==}
 
   /@nuxtjs/opencollective@0.3.2:
     resolution: {integrity: sha512-um0xL3fO7Mf4fDxcqx9KryrB7zgRM5JSlvGN5AGkP6JLM5XEKyjeAiPbNxdXVXQ16isuAhYpvP88NgL2BGd6aA==}
@@ -2154,10 +2165,10 @@ packages:
       - supports-color
     dev: false
 
-  /axios-retry@3.6.1:
-    resolution: {integrity: sha512-PQw30ntfNKdY+iAxtjYA2BXNnVc9CZiA0Z0O3nx0I+xy5AuBmEX1hBLTm5YioWIyiAW7UwrX41oHzd+9YxSndQ==}
+  /axios-retry@3.7.0:
+    resolution: {integrity: sha512-ZTnCkJbRtfScvwiRnoVskFAfvU0UG3xNcsjwTR0mawSbIJoothxn67gKsMaNAFHRXJ1RmuLhmZBzvyXi3+9WyQ==}
     dependencies:
-      '@babel/runtime': 7.18.9
+      '@babel/runtime': 7.22.11
       is-retry-allowed: 2.2.0
     dev: false
 
@@ -3004,22 +3015,22 @@ packages:
         optional: true
     dependencies:
       '@typescript-eslint/parser': 6.4.1(eslint@8.48.0)(typescript@5.2.2)
-      array-includes: /@nolyfill/array-includes@1.0.17
-      array.prototype.findlastindex: /@nolyfill/array.prototype.findlastindex@1.0.17
-      array.prototype.flat: /@nolyfill/array.prototype.flat@1.0.17
-      array.prototype.flatmap: /@nolyfill/array.prototype.flatmap@1.0.17
+      array-includes: /@nolyfill/array-includes@1.0.21
+      array.prototype.findlastindex: /@nolyfill/array.prototype.findlastindex@1.0.21
+      array.prototype.flat: /@nolyfill/array.prototype.flat@1.0.21
+      array.prototype.flatmap: /@nolyfill/array.prototype.flatmap@1.0.21
       debug: 3.2.7
       doctrine: 2.1.0
       eslint: 8.48.0
       eslint-import-resolver-node: 0.3.9
       eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.4.1)(eslint-import-resolver-node@0.3.9)(eslint@8.48.0)
-      has: /@nolyfill/has@1.0.17
+      has: /@nolyfill/has@1.0.21
       is-core-module: 2.13.0
       is-glob: 4.0.3
       minimatch: 3.1.2
-      object.fromentries: /@nolyfill/object.fromentries@1.0.17
-      object.groupby: /@nolyfill/object.groupby@1.0.17
-      object.values: /@nolyfill/object.values@1.0.17
+      object.fromentries: /@nolyfill/object.fromentries@1.0.21
+      object.groupby: /@nolyfill/object.groupby@1.0.21
+      object.values: /@nolyfill/object.values@1.0.21
       semver: 6.3.1
       tsconfig-paths: 3.14.2
     transitivePeerDependencies:
@@ -3915,13 +3926,13 @@ packages:
   /is-core-module@2.10.0:
     resolution: {integrity: sha512-Erxj2n/LDAZ7H8WNJXd9tw38GYM3dv8rk8Zcs+jJuxYTW7sozH+SS8NtrSjVL1/vpLvWi1hxy96IzjJ3EHTJJg==}
     dependencies:
-      has: /@nolyfill/has@1.0.17
+      has: /@nolyfill/has@1.0.21
     dev: true
 
   /is-core-module@2.13.0:
     resolution: {integrity: sha512-Z7dk6Qo8pOCp3l4tsX2C5ZVas4V+UxwQodwZhLopL91TX8UyyHEXafPcyoeeWuLrwzHcr3igO78wNLwHJHsMCQ==}
     dependencies:
-      has: /@nolyfill/has@1.0.17
+      has: /@nolyfill/has@1.0.21
     dev: true
 
   /is-docker@2.2.1:
@@ -4545,7 +4556,7 @@ packages:
     peerDependencies:
       mongoose: '>=5.11.10'
     dependencies:
-      array.prototype.flat: /@nolyfill/array.prototype.flat@1.0.17
+      array.prototype.flat: /@nolyfill/array.prototype.flat@1.0.21
       mongoose: 7.4.5
       mpath: 0.8.4
     dev: false
@@ -5306,13 +5317,8 @@ packages:
   /reflect-metadata@0.1.13:
     resolution: {integrity: sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==}
 
-  /regenerator-runtime@0.13.9:
-    resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
-    dev: false
-
   /regenerator-runtime@0.14.0:
     resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
-    dev: true
 
   /repeat-string@1.6.1:
     resolution: {integrity: sha512-PV0dzCYDNfRi1jCDbJzpW7jNNDRuCOG/jI5ctQcGKt/clZD+YcPS3yIlWuTJMmESC8aevCFmWJy5wjAFgNqN6w==}
@@ -6582,7 +6588,3 @@ packages:
     resolution: {integrity: sha512-CDwRWriV229ZQN5/wIk92DYQ33Q/jU2DvL+CQXa96qIwMINpW6RQWaXWCRticVDPF0CRKZ4y6uB/8GRzBw1MxA==}
     engines: {node: '>= 16.0.0'}
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
