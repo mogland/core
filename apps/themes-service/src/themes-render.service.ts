@@ -4,10 +4,10 @@ import { ClientProxy } from '@nestjs/microservices';
 import { plainToInstance } from 'class-transformer';
 import { FastifyRequest } from 'fastify';
 import { CategoryType } from '~/apps/page-service/src/model/category.model';
-import { ConfigService } from '~/libs/config/src';
 import {
   CategoryEvents,
   CommentsEvents,
+  ConfigEvents,
   FriendsEvents,
   PageEvents,
   PostEvents,
@@ -41,7 +41,8 @@ export class ThemesRenderService {
     @Inject(ServicesEnum.friends) private readonly friendsService: ClientProxy,
     @Inject(ServicesEnum.comments)
     private readonly commentsService: ClientProxy,
-    private readonly configService: ConfigService,
+    @Inject(ServicesEnum.config)
+    private readonly configService: ClientProxy,
   ) {}
   /**
    * 网站变量，包含全部文章、页面、分类、标签
@@ -254,7 +255,11 @@ export class ThemesRenderService {
     }
   }
   async getConfigVariables() {
-    const config = await this.configService.getAllConfigs();
+    const config = await transportReqToMicroservice(
+      this.configService,
+      ConfigEvents.ConfigGetAllByMaster,
+      {},
+    );
     const user = await transportReqToMicroservice(
       this.userService,
       UserEvents.UserGetMaster,
@@ -272,7 +277,13 @@ export class ThemesRenderService {
       type: string;
       value: string;
     }[] = JSON.parse(
-      (await this.configService.get('themes')).filter(
+      (
+        await transportReqToMicroservice(
+          this.configService,
+          ConfigEvents.ConfigGetByMaster,
+          'themes',
+        )
+      ).filter(
         (item) =>
           item.id ===
           JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}')?.theme,
