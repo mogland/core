@@ -166,3 +166,12 @@ export enum StoreEvents {
   StoreFileMoveByMaster = 'store.file.move.auth',
   StoreFileCreateByMaster = 'store.file.create.auth',
 }
+
+export enum ConfigEvents {
+  Ping = 'config.ping',
+  ConfigGet = 'config.get',
+  ConfigGetAll = 'config.get.all.redis',
+  ConfigGetAllWithoutRedis = 'config.get.all',
+  ConfigPatchByMaster = 'config.patch.auth',
+  ConfigDeleteByMaster = 'config.delete.auth',
+}

@@ -1,11 +1,3 @@
-/*
- * @FilePath: /mog-core/libs/config/src/config.service.ts
- * @author: Wibus
- * @Date: 2022-09-08 21:11:49
- * @LastEditors: Wibus
- * @LastEditTime: 2022-10-01 20:47:13
- * Coding With IU
- */
 
 import camelcaseKeys from 'camelcase-keys';
 import {
@@ -22,7 +14,7 @@ import { CacheService } from '~/libs/cache/src';
 import { InjectModel } from '~/libs/database/src/model.transformer';
 import { RedisKeys } from '~/shared/constants/cache.constant';
 import { getRedisKey } from '~/shared/utils';
-import { DefaultConfigs } from '../../../apps/config-service/src/config.default';
+import { DefaultConfigs } from './config.default';
 import { ConfigsInterface, ConfigsInterfaceKeys } from './config.interface';
 import { ConfigModel } from './config.model';
 import * as configDto from './config.dto';
@@ -48,7 +40,9 @@ export class ConfigService {
     @InjectModel(ConfigModel)
     private readonly configModel: ReturnModelType<typeof ConfigModel>,
     private readonly redis: CacheService,
-  ) {}
+  ) {
+    this.initConfig();
+  }
   private configInit = false;
 
   public get defaultConfig() {
@@ -121,15 +115,19 @@ export class ConfigService {
   }
 
   /**
-   * getConfigs 获取配置
+   * getConfig 获取配置
+   * 
+   * 如果 redis 中没有配置，则从数据库中获取配置，并写入 redis
    */
   public async getConfig(): Promise<Readonly<ConfigsInterface>> {
     const redis = this.redis.getClient(); // 获取 redis 客户端
     const config = await redis.get(getRedisKey(RedisKeys.ConfigCache)); // 获取配置
     if (config) {
       return JSON.parse(config) as any;
+    } else {
+      console.log('无法从数据库中获取配置');
     }
-    await this.initConfig();
+    await this.initConfig(); // 尝试再次初始化配置
     return this.getConfig();
   }
 
@@ -196,9 +194,9 @@ export class ConfigService {
   }
 
   /**
-   * 注意⚠️： 这里只能够给 Gateway 初始化！否则数据库等着被炸！
+   * 初始化配置
    */
-  async initConfig() {
+  private async initConfig() {
     const configs = await this.configModel.find().lean();
     const defaultConfigs = this.defaultConfig();
 
@@ -224,6 +222,8 @@ export class ConfigService {
 
   /**
    * getAllConfigs 获取所有配置
+   * 
+   * 这会直接从数据库中获取所有配置，不会从 redis 中获取
    */
   async getAllConfigs() {
     const config = await this.configModel.find().lean();

@@ -9,7 +9,7 @@ import { ApiName } from '~/shared/common/decorator/openapi.decorator';
 @ApiName
 export class ConfigsController {
   constructor(private readonly configService: ConfigService) {
-    configService.initConfig();
+    
   }
 
   @Get('/')
