@@ -5,7 +5,6 @@
  */
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthService } from '~/libs/auth/src';
-import { ConfigService } from '~/libs/config/src';
 
 import { getNestExecutionContextRequest } from '~/shared/transformers/get-req.transformer';
 
@@ -19,9 +18,8 @@ import { AuthGuard } from './auth.guard';
 export class RolesGuard extends AuthGuard implements CanActivate {
   constructor(
     protected readonly authService: AuthService,
-    protected readonly configs: ConfigService,
   ) {
-    super(authService, configs);
+    super(authService);
   }
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = this.getRequest(context);
