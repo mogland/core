@@ -2,23 +2,24 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob, CronTime } from 'cron';
-import { ConfigService } from '~/libs/config/src';
 import { ScheduleDto } from '~/libs/config/src/config.dto';
 import { HttpService } from '~/libs/helper/src/helper.http.service';
 import { AfterSchedule, ScheduleType } from './schedule.enum';
 import { nextTick } from 'process';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
-import { StoreEvents } from '~/shared/constants/event.constant';
+import { ConfigEvents, StoreEvents } from '~/shared/constants/event.constant';
 import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
 import { InternalServerErrorRpcExcption } from '~/shared/exceptions/internal-server-error-rpc-exception';
 import { toBoolean } from '~/shared/utils/toboolean.util';
 import { v4 } from 'uuid';
+import { ServicesEnum } from '~/shared/constants/services.constant';
 
 @Injectable()
 export class NotificationScheduleService {
   private scheduleList: Map<string, CronJob>;
   constructor(
-    private readonly config: ConfigService,
+    @Inject(ServicesEnum.config)
+    private readonly config: ClientProxy,
     private readonly http: HttpService,
     @Inject('NOTIFICATION_SCHEDULE_SERVICE')
     private readonly client: ClientProxy,
@@ -28,7 +29,11 @@ export class NotificationScheduleService {
   }
 
   private async init() {
-    const config = await this.config.get('schedule');
+    const config = await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigGetByMaster,
+      'schedule',
+    );
     await Promise.all([
       config.forEach((item) => {
         let job: CronJob | undefined;
@@ -135,25 +140,38 @@ export class NotificationScheduleService {
       `Schedule ${name} error: ${e.message}`,
       NotificationScheduleService.name,
     );
-    const raw = await this.config.get('schedule');
+    const raw = await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigGetByMaster,
+      'schedule',
+    );
     const config = raw.find((item) => item.token === id);
     config?.error?.push({
       message: e.message,
       time: new Date(),
     });
-    return await this.config
-      .patchAndValidate('schedule', [
-        ...raw.filter((item) => item.token !== id),
-        config,
-      ])
-      .catch((e) => {
-        throw new InternalServerErrorRpcExcption(e.message);
-      });
+    return await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigPatchByMaster,
+      {
+        key: 'schedule',
+        data: [
+          ...raw.filter((item) => item.token !== id),
+          config,
+        ],
+      },
+    ).catch((e) => {
+      throw new InternalServerErrorRpcExcption(e.message);
+    });
   }
 
   async getScheduleList() {
     const jobs = this.scheduleList;
-    const config = await this.config.get('schedule');
+    const config = await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigGetByMaster,
+      'schedule',
+    );
     const arrayJobs = Array.from(jobs).map((job) => {
       const configItem = config.find((item) => item.token === job[0]);
       if (!configItem) {
@@ -182,7 +200,11 @@ export class NotificationScheduleService {
     } catch {
       throw new NotFoundRpcExcption("Schedule doesn't exist");
     }
-    const config = await this.config.get('schedule');
+    const config = await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigGetByMaster,
+      'schedule',
+    );
     const configItem = config.find((item) => item.token === id);
     return {
       ...configItem,
@@ -198,7 +220,11 @@ export class NotificationScheduleService {
     } else {
       data.active = toBoolean(data.active);
     }
-    const config = await this.config.get('schedule');
+    const config = await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigGetByMaster,
+      'schedule',
+    );
     const newConfig = [
       ...config,
       {
@@ -208,13 +234,24 @@ export class NotificationScheduleService {
         error: [],
       },
     ];
-    await this.config.patchAndValidate('schedule', newConfig);
+    await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigPatchByMaster,
+      {
+        key: 'schedule',
+        data: newConfig,
+      },
+    );
     await this.init();
     return await this.getScheduleDetail(data.token);
   }
 
   async updateSchedule(id: string, data: ScheduleDto) {
-    const config = await this.config.get('schedule');
+    const config = await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigGetByMaster,
+      'schedule',
+    );
     const newConfig = [
       ...config.filter((item) => item.token !== id),
       {
@@ -222,21 +259,43 @@ export class NotificationScheduleService {
         error: [],
       },
     ];
-    await this.config.patchAndValidate('schedule', newConfig);
+    await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigPatchByMaster,
+      {
+        key: 'schedule',
+        data: newConfig,
+      },
+    );
     await this.init();
     return await this.getScheduleDetail(data.token);
   }
 
   async deleteSchedule(id: string) {
-    const config = await this.config.get('schedule');
+    const config = await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigGetByMaster,
+      'schedule',
+    );
     const newConfig = config.filter((item) => item.token !== id);
-    await this.config.patchAndValidate('schedule', newConfig);
+    await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigPatchByMaster,
+      {
+        key: 'schedule',
+        data: newConfig,
+      },
+    );
     this.schedulerRegistry.deleteCronJob(id);
     return await this.getScheduleList();
   }
 
   async runSchedule(id: string) {
-    const config = await this.config.get('schedule');
+    const config = await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigGetByMaster,
+      'schedule',
+    );
     const configItem = config.find((item) => item.token === id);
     if (!configItem) {
       throw new NotFoundRpcExcption("Schedule doesn't exist");
@@ -257,16 +316,24 @@ export class NotificationScheduleService {
     } catch {
       throw new NotFoundRpcExcption("Schedule doesn't exist");
     }
-    const config = await this.config.get('schedule');
+    const config = await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigGetByMaster,
+      'schedule',
+    );
     const configItem = config.find((item) => item.token === id);
     if (!configItem) {
       throw new NotFoundRpcExcption("Schedule doesn't exist");
     }
     configItem.active = !configItem.active;
-    await this.config.patchAndValidate('schedule', [
-      ...config.filter((item) => item.token !== id),
-      configItem,
-    ]);
+    await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigPatchByMaster,
+      {
+        key: 'schedule',
+        data: [...config.filter((item) => item.token !== id), configItem],
+      },
+    );
     if (job.running) {
       job.stop();
     } else {

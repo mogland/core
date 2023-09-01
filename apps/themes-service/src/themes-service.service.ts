@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { join } from 'path';
-import { ConfigService } from '~/libs/config/src';
 import { ThemesDto } from '~/libs/config/src/config.dto';
 import { THEME_DIR } from '~/shared/constants/path.constant';
 import { consola } from '~/shared/global/consola.global';
@@ -13,10 +12,11 @@ import {
 import fs from 'fs';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { ClientProxy } from '@nestjs/microservices';
-import { ThemesEvents } from '~/shared/constants/event.constant';
+import { ConfigEvents, ThemesEvents } from '~/shared/constants/event.constant';
 import { AssetsService } from '~/libs/helper/src/helper.assets.service';
 import { YAML } from 'zx-cjs';
 import { InternalServerErrorRpcExcption } from '~/shared/exceptions/internal-server-error-rpc-exception';
+import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 
 @Injectable()
 export class ThemesServiceService {
@@ -27,7 +27,8 @@ export class ThemesServiceService {
   private themes: ThemesDto[];
   private dir: any[] = [];
   constructor(
-    private readonly configService: ConfigService,
+    @Inject(ServicesEnum.config)
+    private readonly configService: ClientProxy,
     @Inject(ServicesEnum.notification)
     private readonly notificationService: ClientProxy,
     private readonly assetsService: AssetsService,
@@ -35,8 +36,11 @@ export class ThemesServiceService {
     this.env =
       JSON.parse(process.env.MOG_PRIVATE_INNER_ENV || '{}') || undefined;
 
-    this.configService
-      .get('themes')
+    transportReqToMicroservice(
+      this.configService,
+      ConfigEvents.ConfigGetByMaster,
+      'themes',
+    )
       .then((themes) => {
         consola.info(`共加载了${themes?.length || 0}个主题配置`);
       })
@@ -237,8 +241,13 @@ export class ThemesServiceService {
       id: _yaml.id,
       name: _package.name,
       active:
-        (await this.configService.get('themes'))?.find((t) => t.id === _yaml.id)
-          ?.active || false,
+        (
+          await transportReqToMicroservice(
+            this.configService,
+            ConfigEvents.ConfigGetByMaster,
+            'themes',
+          )
+        )?.find((t) => t.id === _yaml.id)?.active || false,
       package: JSON.stringify(_package),
       version: _package.version,
       config: JSON.stringify(_yaml.configs),
@@ -304,10 +313,14 @@ export class ThemesServiceService {
       db_config = JSON.stringify(_yaml.configs);
     }
     theme.config = db_config;
-    await this.configService.patchAndValidate('themes', [
-      ...this.themes.filter((t) => t.id !== id),
-      theme,
-    ]);
+    await transportReqToMicroservice(
+      this.configService,
+      ConfigEvents.ConfigPatchByMaster,
+      {
+        key: 'themes',
+        data: [...this.themes.filter((t) => t.id !== id), theme],
+      },
+    );
     return theme;
   }
 
@@ -316,7 +329,11 @@ export class ThemesServiceService {
    */
   async activeTheme(id: string): Promise<boolean> {
     this.notificationService.emit(ThemesEvents.ThemeBeforeActivate, { id });
-    const themes = (await this.configService.get('themes')) || [];
+    const themes = (await transportReqToMicroservice(
+        this.configService,
+        ConfigEvents.ConfigGetByMaster,
+        'themes',
+      )) || [];
 
     const activeTheme = themes?.find((t) => t.active);
     activeTheme?.active && (activeTheme.active = false);
@@ -340,7 +357,14 @@ export class ThemesServiceService {
       ...(activeTheme ? [activeTheme] : []),
       _theme,
     ];
-    await this.configService.patchAndValidate('themes', config);
+    await transportReqToMicroservice(
+      this.configService,
+      ConfigEvents.ConfigPatchByMaster,
+      {
+        key: 'themes',
+        data: config,
+      },
+    );
 
     this.setENV(_theme.path);
     this.refreshThemes();
@@ -358,7 +382,12 @@ export class ThemesServiceService {
    */
   async deleteTheme(id: string, removeConfig?: boolean): Promise<boolean> {
     this.notificationService.emit(ThemesEvents.ThemeBeforeUninstall, { id });
-    const themes = (await this.configService.get('themes')) || [];
+    const themes =
+      (await transportReqToMicroservice(
+        this.configService,
+        ConfigEvents.ConfigGetByMaster,
+        'themes',
+      )) || [];
     const theme = themes?.find((t) => t.id === id);
     if (theme?.active) {
       throw new InternalServerErrorRpcExcption(`无法删除正在使用的主题`);
@@ -372,9 +401,14 @@ export class ThemesServiceService {
     this.themes = this.themes.filter((t) => t.id !== id);
     consola.info(`主题 ${chalk.green(id)} 已删除`);
     if (removeConfig) {
-      await this.configService.patchAndValidate('themes', [
-        ...themes.filter((t) => t.id !== id),
-      ]);
+      await transportReqToMicroservice(
+        this.configService,
+        ConfigEvents.ConfigPatchByMaster,
+        {
+          key: 'themes',
+          data: [...themes.filter((t) => t.id !== id)],
+        },
+      );
       consola.info(`主题 ${chalk.green(id)} 配置已删除`);
     }
     this.notificationService.emit(ThemesEvents.ThemeAfterUninstall, { id });
@@ -464,16 +498,25 @@ export class ThemesServiceService {
     } catch (e) {
       throw new InternalServerErrorRpcExcption(e);
     }
-    const themes = (await this.configService.get('themes')) || [];
+    const themes =
+      (await transportReqToMicroservice(
+        this.configService,
+        ConfigEvents.ConfigGetByMaster,
+        'themes',
+      )) || [];
     const theme = themes?.find((t) => t.id === id);
     if (!theme) {
       throw new InternalServerErrorRpcExcption(`主题不存在或不合法`);
     }
     theme.config = config;
-    await this.configService.patchAndValidate('themes', [
-      ...themes.filter((t) => t.id !== id),
-      theme,
-    ]);
+    await transportReqToMicroservice(
+      this.configService,
+      ConfigEvents.ConfigPatchByMaster,
+      {
+        key: 'themes',
+        data: [...themes.filter((t) => t.id !== id), theme],
+      },
+    );
     return true;
   }
 
@@ -483,8 +526,13 @@ export class ThemesServiceService {
   async getThemeConfig(id: string): Promise<string> {
     return (
       JSON.parse(
-        (await this.configService.get('themes'))?.find((t) => t.id === id)
-          ?.config || '[]',
+        (
+          await transportReqToMicroservice(
+            this.configService,
+            ConfigEvents.ConfigGetByMaster,
+            'themes',
+          )
+        )?.find((t) => t.id === id)?.config || '[]',
       ) || []
     );
   }
@@ -495,7 +543,12 @@ export class ThemesServiceService {
    * @param key 配置 key
    */
   async getThemeConfigItem(id: string, key: string): Promise<string> {
-    const themes = (await this.configService.get('themes')) || [];
+    const themes =
+      (await transportReqToMicroservice(
+        this.configService,
+        ConfigEvents.ConfigGetByMaster,
+        'themes',
+      )) || [];
     const theme = themes?.find((t) => t.id === id);
     if (!theme) {
       throw new InternalServerErrorRpcExcption(`主题配置不存在`);
@@ -520,7 +573,12 @@ export class ThemesServiceService {
     key: string,
     value: string,
   ): Promise<boolean> {
-    const themes = (await this.configService.get('themes')) || [];
+    const themes =
+      (await transportReqToMicroservice(
+        this.configService,
+        ConfigEvents.ConfigGetByMaster,
+        'themes',
+      )) || [];
     const theme = themes?.find((t) => t.id === id);
     if (!theme) {
       throw new InternalServerErrorRpcExcption(`主题配置不存在`);
@@ -533,10 +591,18 @@ export class ThemesServiceService {
     }
     c.value = value;
     theme.config = JSON.stringify(config);
-    await this.configService.patchAndValidate('themes', [
-      ...themes.filter((t) => t.id !== id),
-      theme,
-    ]);
+    // await this.configService.patchAndValidate('themes', [
+    //   ...themes.filter((t) => t.id !== id),
+    //   theme,
+    // ]);
+    await transportReqToMicroservice(
+      this.configService,
+      ConfigEvents.ConfigPatchByMaster,
+      {
+        key: 'themes',
+        data: [...themes.filter((t) => t.id !== id), theme],
+      },
+    );
     return true;
   }
 }

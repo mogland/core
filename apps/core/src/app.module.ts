@@ -1,8 +1,6 @@
-import { DatabaseModule } from '@libs/database';
 import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { CacheModule } from '~/libs/cache/src';
-import { ConfigModule } from '~/libs/config/src';
 import { AllExceptionsFilter } from '~/shared/common/filters/any-exception.filter';
 import { RolesGuard } from '~/shared/common/guard/roles.guard';
 import { HttpCacheInterceptor } from '~/shared/common/interceptors/cache.interceptor';
@@ -30,8 +28,6 @@ import { ScheduleModule } from './modules/schedule/schedule.module';
 @Module({
   imports: [
     CacheModule,
-    DatabaseModule,
-    ConfigModule,
     UserModule,
     PostModule,
     PageModule,

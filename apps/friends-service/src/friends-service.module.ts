@@ -16,6 +16,10 @@ import { FriendsService } from './friends-service.service';
         name: ServicesEnum.notification,
         ...REDIS_TRANSPORTER,
       },
+      {
+        name: ServicesEnum.config,
+        ...REDIS_TRANSPORTER,
+      }
     ]),
   ],
   controllers: [FriendsServiceController],

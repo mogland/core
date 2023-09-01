@@ -5,23 +5,24 @@ import { HttpService } from '~/libs/helper/src/helper.http.service';
 import { InjectModel } from '~/shared/transformers/model.transformer';
 import { FriendsModel, FriendStatus } from './friends.model';
 import { JSDOM } from 'jsdom';
-import { ConfigService } from '~/libs/config/src';
 import { ClientProxy } from '@nestjs/microservices';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
 import { nextTick } from 'process';
 import { FeedParser } from '~/shared/utils';
 import { isValidObjectId } from 'mongoose';
 import { ServicesEnum } from '~/shared/constants/services.constant';
-import { NotificationEvents } from '~/shared/constants/event.constant';
+import { ConfigEvents, NotificationEvents } from '~/shared/constants/event.constant';
 import { NotFoundRpcExcption } from '~/shared/exceptions/not-found-rpc-exception';
 import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
 import { UnauthorizedRpcExcption } from '~/shared/exceptions/unauthorized-rpc-exception';
+import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 @Injectable()
 export class FriendsService {
   constructor(
     @InjectModel(FriendsModel)
     private readonly friendsModel: ReturnModelType<typeof FriendsModel>,
-    private readonly configService: ConfigService,
+    @Inject(ServicesEnum.config)
+    private readonly configService: ClientProxy,
     private readonly https: HttpService,
 
     @Inject(ServicesEnum.notification)
@@ -74,7 +75,11 @@ export class FriendsService {
     }
     const dom = await this.parseDom(url);
     const document = dom.window.document;
-    const myUrl = (await this.configService.get('site'))?.frontUrl;
+    const myUrl = (await transportReqToMicroservice(
+      this.configService,
+      ConfigEvents.ConfigGetByMaster,
+      "site"
+    ))?.frontUrl;
     if (!myUrl) {
       return false;
     }

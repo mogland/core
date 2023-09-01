@@ -1,12 +1,17 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '~/libs/config/src';
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
+
 import { HttpService } from '~/libs/helper/src/helper.http.service';
+import { ConfigEvents } from '~/shared/constants/event.constant';
+import { ServicesEnum } from '~/shared/constants/services.constant';
+import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 
 @Injectable()
 export class NotificationService {
   private logger: Logger;
   constructor(
-    private readonly config: ConfigService,
+    @Inject(ServicesEnum.config)    
+    private readonly config: ClientProxy,
     private readonly http: HttpService,
   ) {
     this.logger = new Logger(NotificationService.name);
@@ -14,7 +19,11 @@ export class NotificationService {
 
   async getWebhookInEvent(event: string) {
     const res: string[] = [];
-    const webhooks = await this.config.get('webhooks');
+    const webhooks = await transportReqToMicroservice(
+      this.config,
+      ConfigEvents.ConfigGetByMaster,
+      'webhooks',
+    );
     if (!webhooks) return;
     for (const webhook of webhooks) {
       if (webhook.events.includes(event)) {

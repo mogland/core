@@ -10,7 +10,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { CacheKey, CacheTTL } from '@nestjs/cache-manager';
 import { ApiOperation } from '@nestjs/swagger';
-import { ConfigService } from '~/libs/config/src';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
 import { IsMaster } from '~/shared/common/decorator/role.decorator';
@@ -23,7 +22,6 @@ import { AggregateService } from './aggregate.service';
 export class AggregateController {
   constructor(
     private readonly aggregateService: AggregateService,
-    private readonly configService: ConfigService,
   ) {}
 
   @Get('/')
