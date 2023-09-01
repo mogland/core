@@ -12,16 +12,7 @@ jobs:
       runs-on: ${{ matrix.os }}
 
       steps:
-  build:
-    needs: start
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]
-        os: [ubuntu-latest, macos-latest]
-
-    runs-on: ${{ matrix.os }}
-
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -57,6 +48,14 @@ jobs:
           sleep 3
           wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref }}/scripts/workflow/test-request.sh -O test.sh
           bash test.sh pid=$pid dev
+  build:
+    needs: start
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+        os: [ubuntu-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Build project
         run: |
