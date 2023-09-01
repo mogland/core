@@ -3,10 +3,7 @@ name: Pull Request Checker
 on:
   pull_request:
 
-permissions:
-  contents: read
-  pull-requests: read
-  workflows: write
+permissions: write-all
 
 jobs:
   start:
