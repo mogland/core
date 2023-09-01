@@ -49,7 +49,7 @@ jobs:
           nohup pnpm run dev > /dev/null 2>&1 &
           pid=$!
           sleep 3
-          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/scripts/workflow/test.sh -O test.sh
+          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/scripts/workflow/test-request.sh -O test-request.sh
           bash test.sh pid=$pid dev
   build:
     name: Build & Upload [Bundle Mode]
@@ -104,6 +104,6 @@ jobs:
         run: |
           unzip ./build/mog-core-bundle-Linux.zip -d ./
           # wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
-          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/scripts/workflow/test-server.sh -O test-server.sh
-          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/scripts/workflow/test-request.sh -O test-request.sh
+          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/scripts/workflow/test-server.sh -O test-server.sh
+          wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/scripts/workflow/test-request.sh -O test-request.sh
           bash test-server.sh
