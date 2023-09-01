@@ -18,5 +18,7 @@ fi
 
 pm2 start ecosystem.bundle.config.js
 
+sleep 10
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 bash $DIR/test-request.sh

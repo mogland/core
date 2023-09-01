@@ -46,9 +46,9 @@ jobs:
           redis-version: 6
       - name: Start project & test
         run: |
-          nohup pnpm run dev &
+          nohup pnpm run dev > /dev/null 2>&1 &
           pid=$!
-          sleep 3
+          sleep 10
           wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/scripts/workflow/test-request.sh -O test-request.sh
           bash test-request.sh pid=$pid dev
   build:

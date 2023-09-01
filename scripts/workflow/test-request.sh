@@ -42,7 +42,7 @@ do_request() {
     fi
 
     ((retries--))
-    sleep 2
+    sleep 5
   done
 
   error_items+=("$url")
@@ -69,7 +69,7 @@ if $has_errors; then
   for error_item in "${error_items[@]}"; do
     echo "$error_item"
   done
-  echo "--- Server logs: `cat nohup.out` ---"
+
   exit 1
 else
   echo "All pings successful."
