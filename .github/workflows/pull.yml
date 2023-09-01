@@ -5,6 +5,7 @@ on:
 
 jobs:
   start:
+      name: Test [Dev Mode]
       strategy:
         matrix:
           node-version: [16.x, 18.x]
@@ -43,12 +44,13 @@ jobs:
           redis-version: 6
       - name: Start project & test
         run: |
-          nohup pnpm run start:dev
+          nohup pnpm run dev
           pid=$!
           sleep 3
           wget https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref }}/scripts/workflow/test-request.sh -O test.sh
           bash test.sh pid=$pid dev
   build:
+    name: Build & Upload [Bundle Mode]
     needs: start
     strategy:
       matrix:
@@ -71,6 +73,7 @@ jobs:
           name: PR-#${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
 
   test:
+    name: Test [Bundle Mode]
     needs: build
     strategy:
       matrix:
