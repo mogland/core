@@ -104,7 +104,7 @@ export class PageServiceController {
     }
 
     const children =
-      (await this.categoryService.findCategoryPost(data._id, {
+      (await this.categoryService.findCategoryPost(data._id.toString(), {
         $and: [tag ? { tags: tag } : {}], // 如果tag存在，则查询标签下的文章
       })) || [];
 

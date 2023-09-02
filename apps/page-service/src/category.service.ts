@@ -169,7 +169,7 @@ export class CategoryService {
    * @param condition 查询条件
    * @returns Promise<any[]>
    */
-  async findCategoryPost(categoryId: Types.ObjectId, condition: any = {}) {
+  async findCategoryPost(categoryId: string, condition: any = {}) {
     return await this.postService.model
       .find({
         categoryId,

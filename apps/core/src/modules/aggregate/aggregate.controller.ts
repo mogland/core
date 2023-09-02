@@ -34,7 +34,11 @@ export class AggregateController {
   @ApiOperation({ summary: '获取概要' })
   @CacheKey(CacheKeys.AggregateCatch)
   @CacheTTL(300)
-  async aggregate() {
+  async aggregate(): Promise<{
+    categories: any;
+    pageMeta: any;
+    site: any;
+  }> {
     const tasks = await Promise.allSettled([
       // this.configService.getMaster(),
       this.aggregateService.getAllCategory(),
@@ -70,7 +74,12 @@ export class AggregateController {
   @ApiOperation({ summary: '获取网站sitemap' })
   @CacheKey(CacheKeys.SiteMapCatch)
   @CacheTTL(3600)
-  async getSiteMapContent() {
+  async getSiteMapContent(): Promise<{
+    data: {
+      url: URL;
+      published_at: Date;
+    }[];
+  }> {
     return { data: await this.aggregateService.getSiteMapContent() };
   }
 
@@ -84,8 +93,12 @@ export class AggregateController {
 
   @Get('/stat')
   @ApiOperation({ summary: '获取网站统计信息' })
-  // @Auth()
-  async stat() {
+  @Auth()
+  async stat(): Promise<{
+    posts: number;
+    pages: number;
+    categories: number;
+  }> {
     const [count] = await Promise.all([this.aggregateService.getCounts()]);
     return {
       ...count,

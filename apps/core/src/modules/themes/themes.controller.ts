@@ -117,7 +117,8 @@ export class ThemesController {
   @Patch('/:id/config')
   @Auth()
   @ApiOperation({ summary: '更新主题配置' })
-  async setConfig(@Param('id') id: string, @Body('config') config: any) {
+  // async setConfig(@Param('id') id: string, @Body('config') config: any) {
+  async setConfig(@Param('id') id: string, @Body() { config }: any) {
     return transportReqToMicroservice(
       this.themes,
       ThemesEvents.ThemeUpdateConfig,
@@ -139,7 +140,8 @@ export class ThemesController {
   @Post('/manager/upload')
   @ApiOperation({ summary: '上传主题' })
   @Auth()
-  async upload(@Body('file') file: Buffer) {
+  // async upload(@Body('file') file: Buffer) {
+  async upload(@Body() { file }: { file: Buffer }) {
     return transportReqToMicroservice(
       this.themes,
       ThemesEvents.ThemeUploadByMaster,

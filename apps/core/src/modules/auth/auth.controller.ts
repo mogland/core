@@ -17,8 +17,6 @@ import {
   Query,
 } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-
-import { MongoIdDto } from '~/shared/dto/id.dto';
 import { AuthService } from '~/libs/auth/src';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
@@ -54,7 +52,11 @@ export class AuthController {
 
   @Post('token')
   @Auth()
-  async generateToken(@Body() body: TokenDto) {
+  async generateToken(@Body() body: TokenDto): Promise<{
+    expired: Date | undefined;
+    token: string;
+    name: string;
+  }> {
     const { expired, name } = body;
     const token = await this.authService.generateAccessToken();
     const model = {
@@ -67,8 +69,7 @@ export class AuthController {
   }
   @Delete('token')
   @Auth()
-  async deleteToken(@Query() query: MongoIdDto) {
-    const { id } = query;
+  async deleteToken(@Query('id') id: string) {
     const token = await this.authService
       .getAllAccessToken()
       .then((models) =>

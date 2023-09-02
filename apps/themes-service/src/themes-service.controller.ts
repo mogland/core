@@ -246,7 +246,7 @@ export class ThemesServiceController {
     await this._render(reply, req, query, params, ThemeEnum.friends);
   }
 
-  @Get(['/raw/*'])
+  // @Get(['/raw/*'])
   async assets(@Req() req: FastifyRequest, @Res() reply: FastifyReply) {
     // @ts-ignore
     const file = req.params['*'];
@@ -296,7 +296,7 @@ export class ThemesServiceController {
   //   await this._render(reply, req, query, params, ThemeEnum.page);
   // }
 
-  @Get(['/*'])
+  // @Get(['/*'])
   async renderCustomPage(
     @Res() reply: FastifyReply,
     @Req() req: FastifyRequest,

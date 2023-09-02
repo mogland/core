@@ -9,6 +9,7 @@ import { lookup } from 'mime-types';
 import { getFileInfo } from '~/shared/utils/files.util';
 import { STORE_DIR } from '~/shared/constants/path.constant';
 import { join } from 'path';
+import { path } from 'zx-cjs';
 
 @Injectable()
 export class AssetsService {

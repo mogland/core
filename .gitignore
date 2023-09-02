@@ -52,3 +52,7 @@ tmp
 
 #eslint
 .eslintcache
+
+#nestia
+lib
+api-client

@@ -19,6 +19,7 @@ import { DEBUG_MODE } from '@core/app.config';
 import { CacheService } from '~/libs/cache/src';
 import { RedisKeys } from '~/shared/constants/cache.constant';
 import { getRedisKey } from '~/shared/utils/redis.util';
+import { chalk } from 'zx-cjs';
 
 const AXIOS_CONFIG: AxiosRequestConfig = {
   timeout: 10000,
