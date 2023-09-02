@@ -1,14 +1,7 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
   Inject,
-  Param,
-  Patch,
-  Post,
-  Put,
-  Query,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import PKG from '../../../package.json';

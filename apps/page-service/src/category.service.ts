@@ -8,7 +8,7 @@
  */
 import { Inject, Injectable } from '@nestjs/common';
 import { ReturnModelType, DocumentType } from '@typegoose/typegoose';
-import { FilterQuery, Types } from 'mongoose';
+import { FilterQuery } from 'mongoose';
 import { nextTick } from 'process';
 import { InjectModel } from '~/libs/database/src/model.transformer';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
