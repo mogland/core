@@ -92,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           path: ./mog-core-bundle-${{ runner.os }}.zip
-          name: PR-#${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
+          name: PR-${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
 
   test:
     name: Test [Bundle Mode]
@@ -108,7 +108,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: PR-#${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
+          name: PR-${{ github.event.pull_request.number }}-mog-core-bundle-${{ runner.os }}-${{ matrix.node-version }}.zip
           path: ./build
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@v1.10.0

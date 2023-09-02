@@ -77,5 +77,7 @@ jobs:
       - name: Test Bundle Server
         run: |
           unzip ./build/mog-core-bundle-Linux.zip -d ./
+          cd ./out
           wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-server.sh -O test-server.sh
+          wget https://raw.githubusercontent.com/mogland/core/main/scripts/workflow/test-request.sh -O test-request.sh
           bash test-server.sh
