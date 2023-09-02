@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiOperation } from '@nestjs/swagger';
-import { ConfigsInterface } from '~/libs/config/src/config.interface';
+import { ConfigsInterface } from '~/apps/config-service/src/config.interface';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
 import { ConfigEvents } from '~/shared/constants/event.constant';

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { join } from 'path';
-import { ThemesDto } from '~/libs/config/src/config.dto';
+import { ThemesDto } from '~/apps/config-service/src/config.dto';
 import { THEME_DIR } from '~/shared/constants/path.constant';
 import { consola } from '~/shared/global/consola.global';
 import {

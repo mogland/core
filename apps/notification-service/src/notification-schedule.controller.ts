@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { NotificationScheduleService } from './notification-schedule.service';
 import { MessagePattern } from '@nestjs/microservices';
 import { NotificationEvents } from '~/shared/constants/event.constant';
-import { ScheduleDto } from '~/libs/config/src/config.dto';
+import { ScheduleDto } from '~/apps/config-service/src/config.dto';
 
 @Controller()
 export class NotificationScheduleServiceController {

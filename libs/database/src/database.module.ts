@@ -5,7 +5,7 @@ import { CategoryModel } from '~/apps/page-service/src/model/category.model';
 import { PageModel } from '~/apps/page-service/src/model/page.model';
 import { PostModel } from '~/apps/page-service/src/model/post.model';
 import { UserModel } from '~/apps/user-service/src/user.model';
-import { ConfigModel } from '~/libs/config/src/config.model';
+import { ConfigModel } from '~/apps/config-service/src/config.model';
 import { databaseProvider } from './database.provider';
 import { DatabaseService } from './database.service';
 import { getProviderByTypegooseClass } from './model.transformer';
