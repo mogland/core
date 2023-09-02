@@ -30,6 +30,7 @@ export enum PostEvents {
   PostPatch = 'post.patch',
   PostDelete = 'post.delete',
   PostThumbUp = 'post.thumbup',
+  PostGetTopActivity = 'post.get.top.activity',
   Ping = 'post.ping',
 }
 

@@ -5,6 +5,9 @@
 			"name": "core-gateway"
 		},
 		{
+			"path": "apps/config-service",
+		},
+		{
 			"path": "apps/page-service"
 		},
 		{

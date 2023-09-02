@@ -7,7 +7,7 @@
  * Coding With IU
  */
 
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Inject, Query } from '@nestjs/common';
 import { CacheKey, CacheTTL } from '@nestjs/cache-manager';
 import { ApiOperation } from '@nestjs/swagger';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
@@ -16,12 +16,18 @@ import { IsMaster } from '~/shared/common/decorator/role.decorator';
 import { CacheKeys } from '~/shared/constants/cache.constant';
 import { TopQueryDto } from './aggregate.dto';
 import { AggregateService } from './aggregate.service';
+import { ServicesEnum } from '~/shared/constants/services.constant';
+import { ClientProxy } from '@nestjs/microservices';
+import { transportReqToMicroservice } from '~/shared/microservice.transporter';
+import { ConfigEvents } from '~/shared/constants/event.constant';
 
 @Controller('aggregate')
 @ApiName
 export class AggregateController {
   constructor(
     private readonly aggregateService: AggregateService,
+    @Inject(ServicesEnum.config)
+    private readonly configService: ClientProxy,
   ) {}
 
   @Get('/')
@@ -33,10 +39,13 @@ export class AggregateController {
       // this.configService.getMaster(),
       this.aggregateService.getAllCategory(),
       this.aggregateService.getAllPages(),
-      // this.configService.get("urls"),
-      // this.configService.get("site"),
+      transportReqToMicroservice(
+        this.configService,
+        ConfigEvents.ConfigGetByMaster,
+        'site',
+      ),
     ]);
-    const [categories, pageMeta] = tasks.map((t) => {
+    const [categories, pageMeta, site] = tasks.map((t) => {
       if (t.status === 'fulfilled') {
         return t.value;
       } else {
@@ -46,6 +55,7 @@ export class AggregateController {
     return {
       categories,
       pageMeta,
+      site,
     };
   }
 
@@ -74,7 +84,7 @@ export class AggregateController {
 
   @Get('/stat')
   @ApiOperation({ summary: '获取网站统计信息' })
-  @Auth()
+  // @Auth()
   async stat() {
     const [count] = await Promise.all([this.aggregateService.getCounts()]);
     return {
