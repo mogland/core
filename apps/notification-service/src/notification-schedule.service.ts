@@ -2,7 +2,7 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob, CronTime } from 'cron';
-import { ScheduleDto } from '~/libs/config/src/config.dto';
+import { ScheduleDto } from '~/apps/config-service/src/config.dto';
 import { HttpService } from '~/libs/helper/src/helper.http.service';
 import { AfterSchedule, ScheduleType } from './schedule.enum';
 import { nextTick } from 'process';

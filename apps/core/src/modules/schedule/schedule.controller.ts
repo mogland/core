@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiOperation } from '@nestjs/swagger';
-import { ScheduleDto } from '~/libs/config/src/config.dto';
+import { ScheduleDto } from '~/apps/config-service/src/config.dto';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
 import { NotificationEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
