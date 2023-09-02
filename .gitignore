@@ -1,6 +1,6 @@
 # compiled output
-/dist
-/node_modules
+dist
+node_modules
 data
 # Logs
 logs
@@ -55,4 +55,4 @@ tmp
 
 #nestia
 lib
-api-client
+/api-client

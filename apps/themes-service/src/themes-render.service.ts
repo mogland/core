@@ -20,7 +20,7 @@ import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 import { getValueFromQuery } from '~/shared/utils/query-param';
 import { THEME_DIR } from '~/shared/constants/path.constant';
 import { isDev } from '~/shared/utils';
-import { YAML } from 'zx-cjs';
+import { YAML, path } from 'zx-cjs';
 
 export enum ThemeEnum {
   page = 'page',

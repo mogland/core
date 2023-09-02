@@ -18,6 +18,7 @@ import { THEME_DIR } from '~/shared/constants/path.constant';
 import { consola } from '~/shared/global/consola.global';
 import { ThemeEnum, ThemesRenderService } from './themes-render.service';
 import { ThemesServiceService } from './themes-service.service';
+import { path, fs } from 'zx-cjs';
 
 @Controller()
 export class ThemesServiceController {

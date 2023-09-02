@@ -1,0 +1,33 @@
+{
+  "name": "@mogland/api-client",
+  "version": "0.1.0",
+  "description": "Mog SDK library",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "build": "npm run build:sdk && npm run compile",
+    "build:sdk": "rimraf ../../api-client/functional && cd ../.. && npx nestia sdk && cd packages/api-client",
+    "compile": "rimraf lib && tsc",
+    "deploy": "npm run build && npm publish"
+  },
+  "author": "Wibus <https://iucky.cn>",
+  "license": "AGPLv3",
+  "repository": {
+    "directory": "mogland/core",
+    "url": "https://github.com/mogland/core"
+  },
+  "homepage": "https://github.com/mogland/core#readme",
+  "issues": "https://github.com/mogland/core/issues",
+  "files": [
+    "lib",
+    "package.json",
+    "README.md"
+  ],
+  "devDependencies": {
+    "rimraf": "^5.0.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@nestia/fetcher": "^1.6.7"
+  }
+}
