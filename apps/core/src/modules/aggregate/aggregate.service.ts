@@ -7,66 +7,47 @@
  * Coding With IU
  */
 
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
-import { ReturnModelType } from '@typegoose/typegoose';
-import { AnyParamConstructor } from '@typegoose/typegoose/lib/types';
-import { pick } from 'lodash';
-import { CategoryService } from '~/apps/page-service/src/category.service';
+import { Inject, Injectable } from '@nestjs/common';
 import { CategoryModel } from '~/apps/page-service/src/model/category.model';
-import { PageService } from '~/apps/page-service/src/page-service.service';
-import { PostService } from '~/apps/page-service/src/post-service.service';
 import { CacheService } from '~/libs/cache/src';
 import { CacheKeys } from '~/shared/constants/cache.constant';
 import { RSSProps } from './aggregate.interface';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { ClientProxy } from '@nestjs/microservices';
-import { ConfigEvents } from '~/shared/constants/event.constant';
+import {
+  CategoryEvents,
+  ConfigEvents,
+  PageEvents,
+  PostEvents,
+} from '~/shared/constants/event.constant';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
+import { PostModel } from '~/apps/page-service/src/model/post.model';
 
 @Injectable()
 export class AggregateService {
   constructor(
-    @Inject(forwardRef(() => PostService))
-    private readonly postService: PostService,
-    @Inject(forwardRef(() => PageService))
-    private readonly pageService: PageService,
-    @Inject(forwardRef(() => CategoryService))
-    private readonly categoryService: CategoryService,
+    @Inject(ServicesEnum.page)
+    private readonly pageService: ClientProxy,
     @Inject(ServicesEnum.config)
     private readonly configService: ClientProxy,
     private readonly redis: CacheService,
   ) {}
 
-  getAllCategory() {
-    return this.categoryService.getAllCategories();
+  async getAllCategory() {
+    // return this.categoryService.getAllCategories();
+    return await transportReqToMicroservice(
+      this.pageService,
+      CategoryEvents.CategoryGetAll,
+      {},
+    );
   }
 
-  getAllPages() {
-    return this.pageService.model
-      .find({}, 'title _id slug order')
-      .sort({
-        order: -1,
-        modified: -1,
-      })
-      .lean();
-  }
-
-  /**
-   * findTop 查询最新文章
-   * @param model 模型
-   * @param condition 查询条件
-   * @param size 获取数量
-   */
-  private findTop<
-    U extends AnyParamConstructor<any>,
-    T extends ReturnModelType<U>,
-  >(model: T, condition = {}, size = 6) {
-    // 获取置顶文章
-    return model
-      .find(condition)
-      .sort({ created: -1 })
-      .limit(size)
-      .select('_id title name slug created text');
+  async getAllPages() {
+    return await transportReqToMicroservice(
+      this.pageService,
+      PageEvents.PagesGetAll,
+      {},
+    );
   }
 
   /**
@@ -75,24 +56,15 @@ export class AggregateService {
    * @param isMaster 是否主人
    */
   async topActivity(size = 6, isMaster = false) {
-    const [posts] = await Promise.all([
-      this.findTop(
-        this.postService.model,
-        !isMaster ? { hide: false } : {},
+    const posts = await transportReqToMicroservice<PostModel[]>(
+      this.pageService,
+      PostEvents.PostGetTopActivity,
+      {
         size,
-      )
-        .populate('categoryId')
-        .lean()
-        .then((res) => {
-          return res.map((post) => {
-            post.category = pick(post.categoryId, ['name', 'slug']);
-            delete post.categoryId;
-            return post;
-          });
-        }),
-    ]);
-
-    return { posts };
+        isMaster,
+      },
+    );
+    return posts;
   }
 
   /**
@@ -102,14 +74,21 @@ export class AggregateService {
     // const {
     //   urls: { webUrl: baseURL },
     // } = await this.configService.waitForConfigReady();
+    const { frontUrl: baseURL } = await transportReqToMicroservice(
+      this.configService,
+      ConfigEvents.ConfigGetByMaster,
+      'site',
+    );
     const combineTasks = await Promise.all([
-      this.postService.model
-        .find({
-          hide: false, // 只获取发布的文章
-          password: { $nq: null }, // 只获取没有密码的文章
-          rss: true, // 只获取公开RSS的文章
-        })
-        .populate('category')
+      transportReqToMicroservice<PostModel[]>( // FIX: Maybe here will be crash.
+        this.pageService,
+        PostEvents.PostsListGetAll,
+        {
+          hide: false,
+          password: false,
+          rss: true,
+        },
+      )
         .then((list) => {
           // 如果文章存在密码，则不获取
           return list.filter((document) => {
@@ -123,7 +102,7 @@ export class AggregateService {
                 `/posts/${(document.category as CategoryModel).slug}/${
                   document.slug
                 }`,
-                // baseURL
+                baseURL,
               ),
               published_at: document.modified
                 ? new Date(document.modified)
@@ -141,41 +120,50 @@ export class AggregateService {
    * getRSSFeedContent 获取RSS内容
    */
   async getRSSFeedContent() {
-    // const {
-    //   urls: { webUrl },
-    // } = await this.configService.waitForConfigReady();
-
-    // const baseURL = webUrl.replace(/\/$/, "");
+    const { frontUrl: baseURL } = await transportReqToMicroservice(
+      this.configService,
+      ConfigEvents.ConfigGetByMaster,
+      'site',
+    );
 
     const [posts] = await Promise.all([
-      await this.postService.model
-        .find({
+      transportReqToMicroservice<PostModel[]>( // FIX: Maybe here will be crash.
+        this.pageService,
+        PostEvents.PostsListGetAll,
+        {
           hide: false,
+          password: false,
           rss: true,
-        })
-        .limit(10)
-        .sort({ created: -1 })
-        .populate('category')
-        .then((list) => {
-          // 如果文章存在密码，则不获取
-          return list.filter((document) => {
-            return document.password === null;
-          });
-        }),
+        },
+      ).then((list) => {
+        return list.filter((document) => {
+          return document.password === null;
+        });
+      }),
     ]);
     const postsRss: RSSProps['data'] = posts.map((post) => {
       return {
-        id: String(post._id),
+        id: String(post.id),
         title: post.title,
         text: post.text,
         created: post.created!,
         modified: post.modified || null,
-        // link: baseURL + this.urlService.build(post),
+        link: new URL(
+          `/posts/${(post.category as CategoryModel).slug}/${post.slug}`,
+          baseURL,
+        ),
       };
     });
-    return postsRss
-      .sort((a, b) => b.created!.getTime() - a.created!.getTime())
-      .slice(0, 10);
+    return (
+      postsRss
+        // created 传输过来会自动从 Date 转换为 String，所以需要重新转换
+        .sort(
+          (a, b) =>
+            new Date(b.created as any).getTime() -
+            new Date(a.created as any).getTime(),
+        )
+        .slice(0, 10)
+    );
   }
 
   /**
@@ -184,11 +172,14 @@ export class AggregateService {
    */
   async buildRssStructure(): Promise<RSSProps> {
     const data = await this.getRSSFeedContent();
-    const title = (await transportReqToMicroservice(
-      this.configService,
-      ConfigEvents.ConfigGetByMaster,
-      'seo',
-    )).title || '';
+    const title =
+      (
+        await transportReqToMicroservice(
+          this.configService,
+          ConfigEvents.ConfigGetByMaster,
+          'seo',
+        )
+      ).title || '';
     return {
       title,
       data,
@@ -196,14 +187,19 @@ export class AggregateService {
   }
 
   async getCounts() {
+    async function countDocuments(
+      client: ClientProxy,
+      event: string,
+      options?: any,
+    ): Promise<number> {
+      const list = await transportReqToMicroservice(client, event, options || {});
+      return list.length;
+    }
+
     const [posts, pages, categories] = await Promise.all([
-      this.postService.model.countDocuments({
-        hide: false,
-        password: { $nq: null },
-        rss: true,
-      }),
-      this.pageService.model.countDocuments(),
-      this.categoryService.model.countDocuments(),
+      countDocuments(this.pageService, PostEvents.PostsListGetAll),
+      countDocuments(this.pageService, PageEvents.PagesGetAll),
+      countDocuments(this.pageService, CategoryEvents.CategoryGetAll),
     ]);
 
     return {

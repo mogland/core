@@ -220,8 +220,15 @@ export class PageServiceController {
   }
 
   @MessagePattern({ cmd: PostEvents.PostsListGetAll })
-  async getPostsList() {
-    return this.postService.model.find().sort({ created: -1 });
+  async getPostsList(condition?: {
+    hide?: boolean;
+    password?: boolean;
+    rss?: boolean;
+  }) {
+    return this.postService.model.find({
+      ...condition,
+      password: condition?.password ? { $ne: null } : null, 
+    }).sort({ created: -1 });
   }
 
   @MessagePattern({ cmd: PostEvents.PostGetByMaster })
@@ -274,5 +281,11 @@ export class PageServiceController {
   @ApiOperation({ summary: '点赞文章' })
   async thumbUpPost(_id: string) {
     throw new NotImplementedRpcExcption('Not Implemented');
+  }
+
+  @MessagePattern({ cmd: PostEvents.PostGetTopActivity })
+  @ApiOperation({ summary: '获取热门文章' })
+  async getTopActivity(input: { size: number; isMaster: boolean }) {
+    return this.postService.topActivity(input.size, input.isMaster);
   }
 }

@@ -12,10 +12,12 @@ import { addYearCondition } from '~/shared/transformers/db-query.transformer';
 import { CategoryService } from './category.service';
 import { PostModel } from './model/post.model';
 import { isDefined } from 'class-validator';
-import { omit } from 'lodash';
+import { omit, pick } from 'lodash';
 import { ClientProxy } from '@nestjs/microservices';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
-import { ModelType } from '@typegoose/typegoose/lib/types';
+import {
+  ModelType,
+} from '@typegoose/typegoose/lib/types';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { NotificationEvents } from '~/shared/constants/event.constant';
 import { BadRequestRpcExcption } from '~/shared/exceptions/bad-request-rpc-exception';
@@ -316,6 +318,46 @@ export class PostService {
       }
       return true;
     });
+  }
+
+  /**
+   * findTop 查询最新文章
+   * @param model 模型
+   * @param condition 查询条件
+   * @param size 获取数量
+   */
+  private findTop(condition = {}, size = 6) {
+    // 获取置顶文章
+    return this.postModel
+      .find(condition)
+      .sort({ created: -1 })
+      .limit(size)
+      .select('_id title name slug created text');
+  }
+
+  /**
+   * topActivity 查询最新文章
+   * @param size 获取数量
+   * @param isMaster 是否主人
+   */
+  async topActivity(size = 6, isMaster = false) {
+    const [posts] = await Promise.all([
+      this.findTop(
+        !isMaster ? { hide: false } : {},
+        size,
+      )
+        .populate('categoryId')
+        .lean()
+        .then((res) => {
+          return res.map((post) => {
+            post.category = pick(post.categoryId, ['name', 'slug']) as any;
+            const { categoryId: _, ...rest } = post;
+            return rest;
+          });
+        }),
+    ]);
+
+    return { posts };
   }
 
   async CreateDefaultPost(cateId: string) {

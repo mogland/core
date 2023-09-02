@@ -23,6 +23,10 @@ import { REDIS_TRANSPORTER } from '~/shared/constants/transporter.constants';
         name: ServicesEnum.config,
         ...REDIS_TRANSPORTER,
       },
+      {
+        name: ServicesEnum.page,
+        ...REDIS_TRANSPORTER,
+      }
     ]),
   ],
   controllers: [AggregateController],
