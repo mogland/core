@@ -1,19 +1,8 @@
-{
-  "labels": ["dependencies"],
-  "extends": [
-    "config:base",
-    ":automergePatch",
-    ":automergeTypes",
-    ":automergeTesters",
-    ":automergeLinters",
-    ":rebaseStalePrs"
-  ],
-  "packageRules": [
-    {
-      "updateTypes": ["major"],
-      "labels": ["dependencies", "UPDATE-MAJOR"]
-    }
-  ],
+{ 
+   "$schema": "https://docs.renovatebot.com/renovate-schema.json", 
+   "extends": [ 
+     "local>Innei/renovate-config" 
+   ],
   "ignoreDeps": ["nanoid", "camelcase-keys", "cache-manager", "consola"],
   "enabled": true
 }
