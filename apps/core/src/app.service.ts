@@ -4,7 +4,7 @@ import { join } from 'path';
 import { cwd } from '@shared/global/env.global';
 import { ServicesEnum } from '~/shared/constants/services.constant';
 import { readFileSync } from 'fs';
-import { YAML } from 'zx-cjs';
+import { YAML, fs } from 'zx-cjs';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 
 interface IEventConfigItem {

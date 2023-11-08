@@ -1,14 +1,7 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
   Inject,
-  Param,
-  Patch,
-  Post,
-  Put,
-  Query,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import PKG from '../../../package.json';
@@ -55,45 +48,45 @@ export class AppController {
     );
   }
 
-  @Get('/*')
-  @ApiOperation({ summary: '自定义 Path (GET)' })
-  async customGetPath(@Query() query: any, @Param() param: any) {
-    return this.appService.transformCustomPath('GET', query, param);
-  }
+  // @Get('/*')
+  // @ApiOperation({ summary: '自定义 Path (GET)' })
+  // async customGetPath(@Query() query: any, @Param() param: any) {
+  //   return this.appService.transformCustomPath('GET', query, param);
+  // }
 
-  @Post('/*')
-  @ApiOperation({ summary: '自定义 Path (POST)' })
-  async customPostPath(
-    @Query() query: any,
-    @Param() param: any,
-    @Body() body: any,
-  ) {
-    return this.appService.transformCustomPath('POST', query, param, body);
-  }
+  // @Post('/*')
+  // @ApiOperation({ summary: '自定义 Path (POST)' })
+  // async customPostPath(
+  //   @Query() query: any,
+  //   @Param() param: any,
+  //   @Body() body: any,
+  // ) {
+  //   return this.appService.transformCustomPath('POST', query, param, body);
+  // }
 
-  @Put('/*')
-  @ApiOperation({ summary: '自定义 Path (PUT)' })
-  async customPutPath(
-    @Query() query: any,
-    @Param() param: any,
-    @Body() body: any,
-  ) {
-    return this.appService.transformCustomPath('PUT', query, param, body);
-  }
+  // @Put('/*')
+  // @ApiOperation({ summary: '自定义 Path (PUT)' })
+  // async customPutPath(
+  //   @Query() query: any,
+  //   @Param() param: any,
+  //   @Body() body: any,
+  // ) {
+  //   return this.appService.transformCustomPath('PUT', query, param, body);
+  // }
 
-  @Patch('/*')
-  @ApiOperation({ summary: '自定义 Path (PATCH)' })
-  async customPatchPath(
-    @Query() query: any,
-    @Param() param: any,
-    @Body() body: any,
-  ) {
-    return this.appService.transformCustomPath('PATCH', query, param, body);
-  }
+  // @Patch('/*')
+  // @ApiOperation({ summary: '自定义 Path (PATCH)' })
+  // async customPatchPath(
+  //   @Query() query: any,
+  //   @Param() param: any,
+  //   @Body() body: any,
+  // ) {
+  //   return this.appService.transformCustomPath('PATCH', query, param, body);
+  // }
 
-  @Delete('/*')
-  @ApiOperation({ summary: '自定义 Path (DELETE)' })
-  async customDeletePath(@Query() query: any, @Param() param: any) {
-    return this.appService.transformCustomPath('DELETE', query, param);
-  }
+  // @Delete('/*')
+  // @ApiOperation({ summary: '自定义 Path (DELETE)' })
+  // async customDeletePath(@Query() query: any, @Param() param: any) {
+  //   return this.appService.transformCustomPath('DELETE', query, param);
+  // }
 }

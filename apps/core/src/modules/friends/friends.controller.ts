@@ -101,12 +101,12 @@ export class FriendsController {
   @ApiOperation({ summary: '更新友链' })
   async updateFriendStatus(
     @Param('id') id: string,
-    @Body('status') status: FriendStatus,
+    @Body() body: { status: FriendStatus },
   ) {
     return transportReqToMicroservice(
       this.friends,
       FriendsEvents.FriendPatchStatusByMaster,
-      { id, status },
+      { id, status: body.status },
     );
   }
 
@@ -114,7 +114,7 @@ export class FriendsController {
   @ApiOperation({ summary: '删除友链' })
   async deleteFriend(
     @Param('id') id: string,
-    @Body('token') token: string,
+    @Body() { token }: { token?: string },
     @IsMaster() isMaster: boolean,
   ) {
     return transportReqToMicroservice(

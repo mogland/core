@@ -30,7 +30,6 @@ import { ApiName } from '~/shared/common/decorator/openapi.decorator';
 import { IsMaster } from '~/shared/common/decorator/role.decorator';
 import { PageEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
-import { MongoIdDto } from '~/shared/dto/id.dto';
 import { PagerDto } from '~/shared/dto/pager.dto';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 
@@ -86,9 +85,9 @@ export class PageController {
   @Patch('/:id')
   @ApiOperation({ summary: '更新页面' })
   @Auth()
-  async modify(@Body() body: PageModel, @Param() params: MongoIdDto) {
+  async modify(@Body() body: PageModel, @Param("id") id: string) {
     return transportReqToMicroservice(this.page, PageEvents.PagePatch, {
-      id: params.id,
+      id,
       body,
     });
   }
@@ -96,11 +95,11 @@ export class PageController {
   @Delete('/:id')
   @ApiOperation({ summary: '删除页面' })
   @Auth()
-  async deletePage(@Param() params: MongoIdDto) {
+  async deletePage(@Param("id") id: string) {
     return transportReqToMicroservice(
       this.page,
       PageEvents.PageDelete,
-      params.id,
+      id,
     );
   }
 }

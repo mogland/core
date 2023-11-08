@@ -6,5 +6,3 @@
  * @LastEditTime: 2022-11-11 13:45:42
  * Coding With IU
  */
-
-import 'zx-cjs/globals';

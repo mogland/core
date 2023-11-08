@@ -1,4 +1,5 @@
 import { lookup } from "mime-types";
+import { fs, path } from "zx-cjs";
 
 export function convertFileSize(size: number) {
   const units = ['B', 'KB', 'MB', 'GB', 'TB'];

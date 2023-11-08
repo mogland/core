@@ -18,6 +18,7 @@ import { DefaultConfigs } from './config.default';
 import { ConfigsInterface, ConfigsInterfaceKeys } from './config.interface';
 import { ConfigModel } from './config.model';
 import * as configDto from './config.dto';
+import { sleep } from 'zx-cjs';
 
 const allOptionKeys: Set<ConfigsInterfaceKeys> = new Set();
 const map: Record<string, any> = Object.entries(configDto).reduce(

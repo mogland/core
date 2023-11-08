@@ -1,6 +1,6 @@
 # compiled output
-/dist
-/node_modules
+dist
+node_modules
 data
 # Logs
 logs
@@ -52,3 +52,7 @@ tmp
 
 #eslint
 .eslintcache
+
+#nestia
+lib
+/api-client

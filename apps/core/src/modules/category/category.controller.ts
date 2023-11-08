@@ -26,7 +26,6 @@ import { ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
 import {
   MultiCategoriesQueryDto,
   MultiQueryTagAndCategoryDto,
-  SlugorIdDto,
 } from '~/apps/page-service/src/dto/category.dto';
 import {
   CategoryModel,
@@ -38,7 +37,6 @@ import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { ApiName } from '~/shared/common/decorator/openapi.decorator';
 import { CategoryEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
-import { MongoIdDto } from '~/shared/dto/id.dto';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 
 @Controller('category')
@@ -87,9 +85,10 @@ export class CategoryController {
     required: false, // 是否必填
   })
   async getCategoryByCategoryIdOrTag(
-    @Param() { query }: SlugorIdDto,
-    @Query() { tag }: MultiQueryTagAndCategoryDto, // 如果这个是标签，则tag为true，如果是分类，则tag为分类id
+    @Query() _query: MultiQueryTagAndCategoryDto, // 如果这个是标签，则tag为true，如果是分类，则tag为分类id
+    @Param("query") query: string,
   ) {
+    const { tag } = _query;
     return transportReqToMicroservice<
       | {
           isTag: boolean;
@@ -104,7 +103,7 @@ export class CategoryController {
           };
           isTag: boolean;
         }
-    >(this.category, CategoryEvents.CategoryGet, { _query: query, _tag: tag });
+    >(this.category, CategoryEvents.CategoryGet, { query, _tag: tag });
   }
 
   @Post('/')
@@ -134,7 +133,7 @@ export class CategoryController {
   @ApiParam({ name: 'id', description: '分类id' })
   @ApiBody({ description: '分类信息', type: CategoryModel })
   async update(
-    @Param() { id }: MongoIdDto,
+    @Param("id") id: string,
     @Body() { type, slug, name }: CategoryModel,
   ) {
     const send = {
@@ -152,11 +151,11 @@ export class CategoryController {
   @ApiOperation({ summary: '更新分类' })
   @Auth()
   @HttpCode(204)
-  async patch(@Param() params: MongoIdDto, @Body() body: PartialCategoryModel) {
+  async patch(@Param("id") id: string, @Body() body: PartialCategoryModel) {
     return transportReqToMicroservice<CategoryModel>(
       this.category,
       CategoryEvents.CategoryPatch,
-      { _id: params.id, _data: body },
+      { _id: id, _data: body },
     );
   }
 
@@ -164,7 +163,7 @@ export class CategoryController {
   @ApiOperation({ summary: '删除分类' })
   @Auth()
   @ApiParam({ name: 'id', description: '分类id' })
-  async deleteCategory(@Param() { id }: MongoIdDto) {
+  async deleteCategory(@Param("id") id: string) {
     return transportReqToMicroservice<DeleteResult>(
       this.category,
       CategoryEvents.CategoryDelete,

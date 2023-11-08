@@ -15,6 +15,7 @@ import { isDev } from '~/shared/utils';
 import { getEnv, readEnv } from '~/shared/utils/rag-env';
 import { fastifyApp } from './fastify.adapt';
 import { ThemesServiceModule } from './themes-service.module';
+import { chalk } from 'zx-cjs';
 
 declare const module: any;
 

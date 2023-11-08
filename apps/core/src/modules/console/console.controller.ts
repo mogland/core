@@ -15,7 +15,7 @@ export class ConsoleController {
     return true;
   }
 
-  @Get(['/*', '/'])
+  // @Get(['/*', '/'])
   async console(@Res() res: FastifyReply, @Req() req: FastifyRequest) {
     const path = req.url
       .replace('/console', '')

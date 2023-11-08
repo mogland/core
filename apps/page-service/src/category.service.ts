@@ -8,7 +8,7 @@
  */
 import { Inject, Injectable } from '@nestjs/common';
 import { ReturnModelType, DocumentType } from '@typegoose/typegoose';
-import { FilterQuery, Types } from 'mongoose';
+import { FilterQuery } from 'mongoose';
 import { nextTick } from 'process';
 import { InjectModel } from '~/libs/database/src/model.transformer';
 import { ExceptionMessage } from '~/shared/constants/echo.constant';
@@ -169,7 +169,7 @@ export class CategoryService {
    * @param condition 查询条件
    * @returns Promise<any[]>
    */
-  async findCategoryPost(categoryId: Types.ObjectId, condition: any = {}) {
+  async findCategoryPost(categoryId: string, condition: any = {}) {
     return await this.postService.model
       .find({
         categoryId,

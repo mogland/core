@@ -33,10 +33,15 @@ export class StoreController {
     return transportReqToMicroservice(this.store, StoreEvents.Ping, {});
   }
 
-  @Get(['/list/*', '/list'])
+  @Get([
+    // '/list/*',
+    '/list',
+  ])
   @Auth()
   @ApiOperation({ summary: '获取文件列表' })
-  list(@Param('*') path?: string) {
+  list() // @Param('*') path?: string
+  {
+    const path = '';
     return transportReqToMicroservice(
       this.store,
       StoreEvents.StoreFileGetList,
@@ -44,7 +49,7 @@ export class StoreController {
     );
   }
 
-  @Get('/raw/*')
+  // @Get('/raw/*')
   @ApiOperation({ summary: '获取文件' })
   async raw(@Param('*') path: string, @Res() res: FastifyReply) {
     const data = await transportReqToMicroservice<{
@@ -68,7 +73,8 @@ export class StoreController {
   @Post('/download')
   @ApiOperation({ summary: '从远端下载文件' })
   @Auth()
-  download(@Body('url') url: string, @Body('path') path?: string) {
+  // download(@Body('url') url: string, @Body('path') path?: string) {
+  download(@Body() { url, path }: { url: string; path?: string }) {
     return transportReqToMicroservice(
       this.store,
       StoreEvents.StoreFileDownloadFromRemote,
@@ -81,7 +87,7 @@ export class StoreController {
   @Auth()
   @HTTPDecorators.FileUpload({ description: 'upload file' })
   async upload(@Req() req: FastifyRequest) {
-    const data = await req.file();
+    const data = await (req as any).file();
 
     const _path = (req.query as any).path as string;
     if (!data) {
@@ -108,7 +114,8 @@ export class StoreController {
   @Post('/delete')
   @ApiOperation({ summary: '删除文件' })
   @Auth()
-  delete(@Body('path') path: string) {
+  // delete(@Body('path') path: string) {
+  delete(@Body() { path }: { path: string }) {
     return transportReqToMicroservice(
       this.store,
       StoreEvents.StoreFileDeleteByMaster,
@@ -119,7 +126,8 @@ export class StoreController {
   @Post('/mkdir')
   @ApiOperation({ summary: '创建文件夹' })
   @Auth()
-  mkdir(@Body('path') path: string) {
+  // mkdir(@Body('path') path: string) {
+  mkdir(@Body() { path }: { path: string }) {
     return transportReqToMicroservice(
       this.store,
       StoreEvents.StoreFileMkdirByMaster,
@@ -130,7 +138,8 @@ export class StoreController {
   @Patch(['/rename', '/move'])
   @ApiOperation({ summary: '重命名/移动文件' })
   @Auth()
-  rename(@Body('oldPath') oldPath: string, @Body('newPath') newPath: string) {
+  // rename(@Body('oldPath') oldPath: string, @Body('newPath') newPath: string) {
+  rename(@Body() { oldPath, newPath }: { oldPath: string; newPath: string }) {
     return transportReqToMicroservice(
       this.store,
       StoreEvents.StoreFileMoveByMaster,
@@ -141,7 +150,8 @@ export class StoreController {
   @Post('/create')
   @ApiOperation({ summary: '创建文件' })
   @Auth()
-  create(@Body('name') name: string, @Body('content') content: Buffer) {
+  // create(@Body('name') name: string, @Body('content') content: Buffer) {
+  create(@Body() { name, content }: { name: string; content: Buffer }) {
     return transportReqToMicroservice(
       this.store,
       StoreEvents.StoreFileCreateByMaster,

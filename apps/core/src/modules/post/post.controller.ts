@@ -6,7 +6,6 @@
  * @LastEditTime: 2022-09-24 16:10:52
  * Coding With IU
  */
-
 import {
   Body,
   Controller,
@@ -21,7 +20,6 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiOperation } from '@nestjs/swagger';
-import { CategoryAndSlugDto } from '~/apps/page-service/src/dto/post.dto';
 import { PostModel } from '~/apps/page-service/src/model/post.model';
 import { Auth } from '~/shared/common/decorator/auth.decorator';
 import { Paginator } from '~/shared/common/decorator/http.decorator';
@@ -29,7 +27,6 @@ import { ApiName } from '~/shared/common/decorator/openapi.decorator';
 import { IsMaster } from '~/shared/common/decorator/role.decorator';
 import { PostEvents } from '~/shared/constants/event.constant';
 import { ServicesEnum } from '~/shared/constants/services.constant';
-import { MongoIdDto } from '~/shared/dto/id.dto';
 import { PagerDto } from '~/shared/dto/pager.dto';
 import { transportReqToMicroservice } from '~/shared/microservice.transporter';
 
@@ -68,13 +65,14 @@ export class PostController {
   @Get('/:category/:slug')
   @ApiOperation({ summary: '根据分类名与自定义别名获取文章详情' })
   async getByCategoryAndSlug(
-    @Param() params: CategoryAndSlugDto,
+    @Param("category") category: string,
+    @Param("slug") slug: string,
     @IsMaster() isMaster: boolean,
     @Query('password') password: any,
   ) {
     return transportReqToMicroservice(this.post, PostEvents.PostGet, {
-      category: params.category,
-      slug: params.slug,
+      category,
+      slug,
       isMaster,
       password,
     });
@@ -101,11 +99,11 @@ export class PostController {
   @Delete('/:id')
   @Auth()
   @ApiOperation({ summary: '删除文章' })
-  async delete(@Param() params: MongoIdDto) {
+  async delete(@Param("id") id: string) {
     return transportReqToMicroservice(
       this.post,
       PostEvents.PostDelete,
-      params.id,
+      id,
     );
   }
 }

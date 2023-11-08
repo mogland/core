@@ -18,6 +18,7 @@ import { isDev } from '@shared/global/env.global';
 import { consola } from '~/shared/global/consola.global';
 import { getEnv } from '~/shared/utils/rag-env';
 import { ServicesEnum } from '~/shared/constants/services.constant';
+import { argv, chalk } from 'zx-cjs';
 
 const Origin = CROSS_DOMAIN.allowedOrigins;
 
