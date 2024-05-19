@@ -57,7 +57,7 @@
     "@nestjs/event-emitter": "2.0.3",
     "@nestjs/microservices": "10.2.10",
     "@nestjs/platform-fastify": "10.2.10",
-    "@nestjs/schedule": "3.0.4",
+    "@nestjs/schedule": "4.0.2",
     "@typegoose/typegoose": "11.7.1",
     "@vercel/ncc": "0.38.1",
     "adm-zip": "^0.5.10",
