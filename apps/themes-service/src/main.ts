@@ -66,7 +66,7 @@ async function bootstrap() {
 
     consola.success(`[${prefix + pid}] 微服务已连接 REDIS 并启动`);
     consola.success(
-      `[${prefix + pid}] 服务器正在监听: ${listening_ip}:${PORT}`,
+      `[${prefix + pid}] 主题服务器正在监听: ${listening_ip}:${PORT}`,
     );
     consola.success(
       `主题服务已启动. ${chalk.yellow(`+${performance.now() | 0}ms`)}`,
