@@ -15,10 +15,10 @@ jobs:
       release_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16.x
 
@@ -38,7 +38,7 @@ jobs:
         with:
           redis-version: 6
       - name: Cache pnpm modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: cache-pnpm-modules
         with:
@@ -46,9 +46,9 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-      - uses: pnpm/action-setup@v2.4.0
+      - uses: pnpm/action-setup@v4
         with:
-          version: 8.x
+          version: latest
           run_install: false
       - name: Install Dependencies
         run: |
@@ -97,9 +97,9 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Cache pnpm modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: cache-pnpm-modules
         with:
@@ -107,9 +107,9 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
-      - uses: pnpm/action-setup@v2.4.0
+      - uses: pnpm/action-setup@v4
         with:
-          version: 8.x
+          version: latest
           run_install: false
       - name: Install Dependencies
         run: |
