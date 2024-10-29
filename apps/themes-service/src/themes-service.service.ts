@@ -73,6 +73,9 @@ export class ThemesServiceService {
         consola.success(
           `合法主题检测完毕，共检测到 ${this.dir.length} 个合法主题`,
         );
+      })
+      .catch((e) => {
+        consola.error(`从配置中心获取主题失败: ${e.message}`);
       });
   }
 
