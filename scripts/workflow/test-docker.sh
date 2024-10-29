@@ -18,10 +18,10 @@ if [[ $? -ne 0 ]]; then
   exit 1
 fi
 
-docker-compose -v
+docker compose -v
 
 if [[ $? -ne 0 ]]; then
-  echo "failed to run docker-compose"
+  echo "failed to run docker compose"
   exit 1
 fi
 
@@ -30,7 +30,7 @@ curl https://raw.githubusercontent.com/mogland/core/main/docker-compose.yml > do
 touch env.yaml
 
 
-docker-compose up -d
+docker compose up -d
 
 if [[ $? -ne 0 ]]; then
   echo "failed to run docker-compose instance"
